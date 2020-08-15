@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Song15.ogg-efe6ba6d133b5c74625aa4509ffb07b3.oggstr"
+
+[deps]
+
+source_file="res://knytt/data/Music/Song15.ogg"
+dest_files=[ "res://.import/Song15.ogg-efe6ba6d133b5c74625aa4509ffb07b3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
