@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ambi4.ogg-35b42961808c93a7089befacc3cf82c1.oggstr"
+
+[deps]
+
+source_file="res://knytt/data/Ambiance/Ambi4.ogg"
+dest_files=[ "res://.import/Ambi4.ogg-35b42961808c93a7089befacc3cf82c1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

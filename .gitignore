@@ -1,0 +1,10 @@
+*~*
+*#*
+
+.import/
+export.cfg
+export_presets.cfg
+.mono/
+
+bin/
+worlds/
