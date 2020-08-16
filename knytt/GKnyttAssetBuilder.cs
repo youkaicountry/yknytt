@@ -24,8 +24,6 @@ public static class GKnyttAssetBuilder
             }
         }
 
-        GD.Print("Loaded a tileset");
-
         return ts;
     }
 }

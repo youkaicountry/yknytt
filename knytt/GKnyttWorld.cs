@@ -10,6 +10,7 @@ public class GKnyttWorld : Node2D
     Dictionary<string, string> directories;
     public string MapPath { get; private set; }
     public string WorldConfigPath { get; private set; }
+    public Dictionary<KnyttPoint, GKnyttArea> Areas { get; private set; }
 
     public KnyttWorld<string> world;
 
@@ -17,29 +18,24 @@ public class GKnyttWorld : Node2D
     {
         this.area_scene = ResourceLoader.Load("res://knytt/GKnyttArea.tscn") as PackedScene;
         this.directories = new Dictionary<string, string>();
-
-        this.loadDemo();
     }
 
-    private void loadDemo()
+    public GKnyttArea instantiateArea(KnyttPoint point)
     {
-        var wd = new Directory();
-        var e = wd.Open("./worlds/Nifflas - The Machine");
-        this.loadWorld(wd);
+        if (this.Areas.ContainsKey(point)) { return this.Areas[point]; }
 
-        this.instantiateArea(new KnyttPoint(1001, 1000));
-    }
-
-    public void instantiateArea(KnyttPoint point)
-    {
         var area = this.world.getArea(point);
         var area_node = this.area_scene.Instance() as GKnyttArea;
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
+        this.Areas.Add(area.Position, area_node);
+
+        return area_node;
     }
 
     public void loadWorld(Directory world_dir)
     {
+        this.Areas = new Dictionary<KnyttPoint, GKnyttArea>();
         this.world = new KnyttWorld<string>();
         this.discoverWorldStructure(world_dir);
 
