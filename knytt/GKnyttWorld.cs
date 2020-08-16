@@ -35,7 +35,7 @@ public class GKnyttWorld : Node2D
         var area = this.world.getArea(point);
         var area_node = this.area_scene.Instance() as GKnyttArea;
         area_node.loadArea(this, area);
-        this.AddChild(area_node);
+        this.GetNode("Areas").AddChild(area_node);
     }
 
     public void loadWorld(Directory world_dir)
@@ -65,7 +65,7 @@ public class GKnyttWorld : Node2D
         var image = new Image();
         image.Load(fname);
         var texture = new ImageTexture();
-        texture.CreateFromImage(image);
+        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
 
         return GKnyttAssetBuilder.makeTileset(texture, false);
     }
