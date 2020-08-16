@@ -65,6 +65,7 @@
     <Compile Include="knytt\AreaTiles.cs" />
     <Compile Include="knytt\GKnyttArea.cs" />
     <Compile Include="knytt\GKnyttAssetBuilder.cs" />
+    <Compile Include="knytt\GKnyttGame.cs" />
     <Compile Include="knytt\GKnyttWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

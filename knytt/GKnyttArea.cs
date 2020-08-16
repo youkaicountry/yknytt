@@ -4,6 +4,17 @@ using YKnyttLib;
 public class GKnyttArea : Node2D
 {
     public AreaTiles Tiles { get; private set; }
+    public GKnyttWorld World { get; private set; }
+
+    public Vector2 GlobalCenter
+    {
+        get 
+        { 
+            var gp = GlobalPosition;
+            return new Vector2(GlobalPosition.x + (KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH)/2f,
+                               GlobalPosition.y + (KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT)/2f);
+        }
+    }
 
     public override void _Ready()
     {
@@ -12,6 +23,8 @@ public class GKnyttArea : Node2D
 
     public void loadArea(GKnyttWorld world, KnyttArea<string> area)
     {
+        this.World = world;
+
         this.Tiles = this.GetNode("AreaTiles") as AreaTiles;
 
         TileSet ta = world.GetTileSet(area.TilesetA);
@@ -32,5 +45,8 @@ public class GKnyttArea : Node2D
                 }
             }
         }
+
+        this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH, 
+                                    area.Position.y * KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT);
     }
 }
