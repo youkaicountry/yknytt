@@ -44,7 +44,12 @@ public class GKnyttGame : Node2D
 
 	public override void _Process(float delta)
 	{
-		if (this.viewMode)
+		if (this.viewMode) { this.editorControls(); }
+	}
+
+	private void editorControls()
+	{
+		if (!this.Camera.Moving)
 		{
 			if (Input.IsActionJustPressed("up"))    { this.changeAreaDelta(new KnyttPoint( 0, -1)); }
 			if (Input.IsActionJustPressed("down"))  { this.changeAreaDelta(new KnyttPoint( 0,  1)); }
