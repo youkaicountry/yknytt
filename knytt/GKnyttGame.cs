@@ -49,7 +49,7 @@ public class GKnyttGame : Node2D
 
 	private void editorControls()
 	{
-		if (!this.Camera.Moving)
+		if (!this.Camera.Scrolling)
 		{
 			if (Input.IsActionJustPressed("up"))    { this.changeAreaDelta(new KnyttPoint( 0, -1)); }
 			if (Input.IsActionJustPressed("down"))  { this.changeAreaDelta(new KnyttPoint( 0,  1)); }

@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using YUtil.Math;
 
@@ -10,11 +9,6 @@ public class GKnyttCamera : Camera2D
 
     public bool Scrolling { get; private set; }
     float speed = 0f;
-
-    public override void _Ready()
-    {
-        
-    }
 
     public void initialize(GKnyttGame game)
     {
