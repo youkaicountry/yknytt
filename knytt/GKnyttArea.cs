@@ -5,6 +5,7 @@ public class GKnyttArea : Node2D
 {
     public AreaTiles Tiles { get; private set; }
     public GKnyttWorld World { get; private set; }
+    public KnyttArea<string> Area { get; private set; }
 
     public Vector2 GlobalCenter
     {
@@ -24,8 +25,15 @@ public class GKnyttArea : Node2D
     public void loadArea(GKnyttWorld world, KnyttArea<string> area)
     {
         this.World = world;
+        this.Area = area;
 
         this.Tiles = this.GetNode("AreaTiles") as AreaTiles;
+
+        this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH, 
+                                    area.Position.y * KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT);
+
+        // If it's an empty area, quit loading here
+        if (area.Empty) { return; }
 
         TileSet ta = world.GetTileSet(area.TilesetA);
         TileSet tb = world.GetTileSet(area.TilesetB);
@@ -45,8 +53,5 @@ public class GKnyttArea : Node2D
                 }
             }
         }
-
-        this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH, 
-                                    area.Position.y * KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT);
     }
 }

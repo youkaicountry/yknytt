@@ -59,12 +59,16 @@
     <Reference Include="YHomTools">
       <HintPath>knytt\YKnyttLib.dll</HintPath>
     </Reference>
+    <Reference Include="YUtil.Math">
+      <HintPath>knytt\YUtil.Math.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\AreaLayer.cs" />
     <Compile Include="knytt\AreaTiles.cs" />
     <Compile Include="knytt\GKnyttArea.cs" />
     <Compile Include="knytt\GKnyttAssetBuilder.cs" />
+    <Compile Include="knytt\GKnyttCamera.cs" />
     <Compile Include="knytt\GKnyttGame.cs" />
     <Compile Include="knytt\GKnyttWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
