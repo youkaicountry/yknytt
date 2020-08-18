@@ -8,7 +8,7 @@ public class GKnyttCamera : Camera2D
     
     public Godot.Vector2 Target { get; private set; }
 
-    public bool Moving { get; private set; }
+    public bool Scrolling { get; private set; }
     float speed = 0f;
 
     public override void _Ready()
@@ -30,17 +30,17 @@ public class GKnyttCamera : Camera2D
     public void scrollTo(Godot.Vector2 target, float speed)
     {
         this.speed = speed;
-        this.Moving = true;
+        this.Scrolling = true;
         this.Target = target;
     }
 
     public override void _Process(float delta)
     {
-        if (this.Moving)
+        if (this.Scrolling)
         {
             var gp = this.GlobalPosition;
             var s = speed * delta;
-            this.Moving = !(MathTools.MoveTowards(ref gp.x, Target.x, s)&MathTools.MoveTowards(ref gp.y, Target.y, s));
+            this.Scrolling = !(MathTools.MoveTowards(ref gp.x, Target.x, s)&MathTools.MoveTowards(ref gp.y, Target.y, s));
             
             this.GlobalPosition = gp;
         }
