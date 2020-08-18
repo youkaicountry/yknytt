@@ -25,6 +25,8 @@ public class GKnyttWorld : Node2D
         if (this.Areas.ContainsKey(point)) { return this.Areas[point]; }
 
         var area = this.world.getArea(point);
+        if (area == null) { return null; }
+
         var area_node = this.area_scene.Instance() as GKnyttArea;
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
