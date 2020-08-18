@@ -17,11 +17,6 @@ public class GKnyttArea : Node2D
         }
     }
 
-    public override void _Ready()
-    {
-        
-    }
-
     public void loadArea(GKnyttWorld world, KnyttArea<string> area)
     {
         this.World = world;

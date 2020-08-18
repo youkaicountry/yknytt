@@ -5,10 +5,6 @@ public class AreaLayer : Node2D
     public TileMap A { get; private set; }
     public TileMap B { get; private set; }
 
-    public override void _Ready()
-    {
-    }
-
     public void initLayer(TileSet A, TileSet B)
     {
         this.A = this.GetNode("A") as TileMap;

@@ -14,7 +14,7 @@ public class GKnyttWorld : Node2D
 
     public KnyttWorld<string> world;
 
-    public override void _Ready()
+    public GKnyttWorld()
     {
         this.area_scene = ResourceLoader.Load("res://knytt/GKnyttArea.tscn") as PackedScene;
         this.directories = new Dictionary<string, string>();

@@ -5,11 +5,6 @@ public class AreaTiles : Node2D
 {
     public AreaLayer[] Layers { get; private set; }
 
-    public override void _Ready()
-    {
-        
-    }
-
     public void initTiles(TileSet A, TileSet B)
     {
         var llayers = new List<AreaLayer>();
