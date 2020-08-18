@@ -49,6 +49,8 @@ public class GKnyttGame : Node2D
 
 	private void editorControls()
 	{
+		if (Input.IsActionJustPressed("show_info")) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).showLocation(); }
+
 		if (!this.Camera.Scrolling)
 		{
 			if (Input.IsActionJustPressed("up"))    { this.changeAreaDelta(new KnyttPoint( 0, -1)); }
@@ -76,6 +78,9 @@ public class GKnyttGame : Node2D
 	// Handles transition effects
 	private void beginTransitionEffects(bool force_jump = false)
 	{
+		// UI
+		if (this.viewMode) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).updateLocation(this.CurrentArea.Area.Position); }
+
 		if (force_jump || this.Transition == TransitionType.JUMP)
 		{
 			this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
