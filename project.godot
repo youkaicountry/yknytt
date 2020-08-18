@@ -17,7 +17,8 @@ _global_script_class_icons={
 
 config/name="YKnytt"
 run/main_scene="res://knytt/GKnyttGame.tscn"
-config/icon="res://icon.png"
+config/icon="res://knytt/icons/icon64.png"
+config/windows_native_icon="res://knytt/icons/winicon.ico"
 
 [display]
 
