@@ -71,6 +71,7 @@
     <Compile Include="knytt\GKnyttCamera.cs" />
     <Compile Include="knytt\GKnyttGame.cs" />
     <Compile Include="knytt\GKnyttWorld.cs" />
+    <Compile Include="knytt\ui\LocationLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
