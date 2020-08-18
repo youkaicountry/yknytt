@@ -53,10 +53,10 @@ public class GKnyttGame : Node2D
 
 		if (!this.Camera.Scrolling)
 		{
-			if (Input.IsActionJustPressed("up"))    { this.changeAreaDelta(new KnyttPoint( 0, -1)); }
-			if (Input.IsActionJustPressed("down"))  { this.changeAreaDelta(new KnyttPoint( 0,  1)); }
-			if (Input.IsActionJustPressed("left"))  { this.changeAreaDelta(new KnyttPoint(-1,  0)); }
-			if (Input.IsActionJustPressed("right")) { this.changeAreaDelta(new KnyttPoint( 1,  0)); }
+			if (Input.IsActionPressed("up"))    { this.changeAreaDelta(new KnyttPoint( 0, -1)); }
+			if (Input.IsActionPressed("down"))  { this.changeAreaDelta(new KnyttPoint( 0,  1)); }
+			if (Input.IsActionPressed("left"))  { this.changeAreaDelta(new KnyttPoint(-1,  0)); }
+			if (Input.IsActionPressed("right")) { this.changeAreaDelta(new KnyttPoint( 1,  0)); }
 		}
 	}
 
