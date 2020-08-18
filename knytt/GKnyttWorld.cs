@@ -81,6 +81,9 @@ public class GKnyttWorld : Node2D
                 var dname = world_dir.GetCurrentDir() + "/" + name;
                 this.directories.Add(lname, dname);
                 if (lname.Equals("tilesets")) { checkAssetOverrides(dname, this.world.TilesetsOverride); }
+                else if (lname.Equals("ambiance")) { checkAssetOverrides(dname, this.world.AmbianceOverride); }
+                else if (lname.Equals("gradients")) { checkAssetOverrides(dname, this.world.GradientsOverride); }
+                else if (lname.Equals("music")) { checkAssetOverrides(dname, this.world.MusicOverride); }
             }
             else if (name.ToLower().Equals("map.bin")) { this.MapPath = world_dir.GetCurrentDir() + "/" + name; }
             else if (name.ToLower().Equals("world.ini")) { this.WorldConfigPath = world_dir.GetCurrentDir() + "/" + name; }
