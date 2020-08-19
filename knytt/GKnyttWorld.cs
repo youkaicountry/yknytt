@@ -81,6 +81,24 @@ public class GKnyttWorld : Node2D
         return texture;
     }
 
+    public AudioStream getSong(int num)
+    {
+        if (num == 0) { return null; }
+        string fname = this.world.MusicOverride[num];
+        if (fname == null) { fname = string.Format("res://knytt/data/Music/Song{0}.ogg", num); }
+        var f = new File();
+        f.Open(fname, File.ModeFlags.Read);
+        var buffer = f.GetBuffer((int)f.GetLen());
+        f.Close();
+
+        //var stream = new AudioStreamSample(); // This is for wav
+        var stream = new AudioStreamOGGVorbis();
+        stream.Data = buffer;
+        stream.Loop = false;
+
+        return stream;
+    }
+
     private void discoverWorldStructure(Directory world_dir)
     {
         world_dir.ListDirBegin();
