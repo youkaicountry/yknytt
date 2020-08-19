@@ -68,6 +68,7 @@
     <Compile Include="knytt\AreaTiles.cs" />
     <Compile Include="knytt\GKnyttArea.cs" />
     <Compile Include="knytt\GKnyttAssetBuilder.cs" />
+    <Compile Include="knytt\GKnyttBackground.cs" />
     <Compile Include="knytt\GKnyttCamera.cs" />
     <Compile Include="knytt\GKnyttGame.cs" />
     <Compile Include="knytt\GKnyttWorld.cs" />

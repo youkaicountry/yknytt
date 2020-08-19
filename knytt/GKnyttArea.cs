@@ -33,6 +33,9 @@ public class GKnyttArea : Node2D
         TileSet ta = world.GetTileSet(area.TilesetA);
         TileSet tb = world.GetTileSet(area.TilesetB);
 
+        // Setup background gradient
+        ((GKnyttBackground)GetNode("Background")).initialize(world.getGradient(area.Background));
+
         // Initialize the Layers
         this.Tiles.initTiles(ta, tb);
 
