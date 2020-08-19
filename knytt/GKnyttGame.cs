@@ -8,6 +8,9 @@ public class GKnyttGame : Node2D
 	public GKnyttWorld World { get; private set; }
 	public GKnyttCamera Camera { get; private set; }
 
+	// Audio channels
+	public KnyttAudioChannel MusicChannel { get; private set; }
+
 	[Export]
 	public TransitionType Transition { get; private set; }
 
@@ -25,6 +28,9 @@ public class GKnyttGame : Node2D
 
 	public override void _Ready()
 	{
+		this.MusicChannel = GetNode("MusicChannel") as KnyttAudioChannel;
+		this.MusicChannel.StreamFetcher = (int num) => World.getSong(num);
+
 		this.Camera = GetNode("GKnyttCamera") as GKnyttCamera;
 		this.Camera.initialize(this);
 
@@ -78,9 +84,13 @@ public class GKnyttGame : Node2D
 	// Handles transition effects
 	private void beginTransitionEffects(bool force_jump = false)
 	{
+		// Audio
+		this.MusicChannel.setTrack(this.CurrentArea.Area.Song);
+
 		// UI
 		if (this.viewMode) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).updateLocation(this.CurrentArea.Area.Position); }
 
+		// Camera
 		if (force_jump || this.Transition == TransitionType.JUMP)
 		{
 			this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
