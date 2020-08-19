@@ -59,13 +59,26 @@ public class GKnyttWorld : Node2D
         // Check for override before loading internal
         string fname = this.world.TilesetsOverride[num];
         if (fname == null) { fname = string.Format("res://knytt/data/Tilesets/Tileset{0}.png", num); }
-        GD.Print(fname);
         var image = new Image();
         image.Load(fname);
         var texture = new ImageTexture();
         texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
 
         return GKnyttAssetBuilder.makeTileset(texture, false);
+    }
+
+    public Texture getGradient(int num)
+    {
+        // TODO: Check cache first
+
+        string fname = this.world.TilesetsOverride[num];
+        if (fname == null) { fname = string.Format("res://knytt/data/Gradients/Gradient{0}.png", num); }
+        var image = new Image();
+        image.Load(fname);
+        var texture = new ImageTexture();
+        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
+
+        return texture;
     }
 
     private void discoverWorldStructure(Directory world_dir)
