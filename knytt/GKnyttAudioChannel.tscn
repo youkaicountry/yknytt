@@ -36,3 +36,4 @@ script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
+[connection signal="finished" from="." to="." method="_on_finished"]
