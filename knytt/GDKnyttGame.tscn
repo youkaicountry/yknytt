@@ -74,14 +74,15 @@ anims/FadeOut = SubResource( 2 )
 
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
 bus = "Music"
-fadeInTime = 0.5
+fadeInTime = 0.1
+fadeOutTime = 4.5
 
 [node name="Ambi1Channel" parent="." instance=ExtResource( 3 )]
 bus = "Ambiance1"
-fadeInTime = 1.0
-fadeOutTime = 2.0
+fadeInTime = 0.8
+fadeOutTime = 1.5
 
 [node name="Ambi2Channel" parent="." instance=ExtResource( 3 )]
 bus = "Ambiance2"
-fadeInTime = 1.0
-fadeOutTime = 2.0
+fadeInTime = 0.8
+fadeOutTime = 1.5
