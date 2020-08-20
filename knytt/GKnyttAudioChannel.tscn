@@ -1,6 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://knytt/KnyttAudioChannel.cs" type="Script" id=2]
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -80.0, -30.881, -16.428, -6.667, 0.0 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeOut"
@@ -32,8 +47,10 @@ tracks/1/keys = {
 }
 
 [node name="GKnyttAudioChannel" type="AudioStreamPlayer"]
+volume_db = -80.0
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 2 )
 anims/FadeOut = SubResource( 1 )
 [connection signal="finished" from="." to="." method="_on_finished"]

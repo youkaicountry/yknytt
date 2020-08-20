@@ -8,7 +8,10 @@ public class KnyttAudioChannel : AudioStreamPlayer
     public int TrackNumber { get; private set; }
 
     [Export]
-    public float fadeTime = 5f;
+    public float fadeInTime = 2f;
+
+    [Export]
+    public float fadeOutTime = 5f;
 
     // Queued track
     bool track_queued = false;
@@ -20,9 +23,10 @@ public class KnyttAudioChannel : AudioStreamPlayer
         // If it's the same track already playing nothing happens
         if (num == this.TrackNumber)
         {
-            // If the song is fading out, reverse the fading
             this.clearQ();
-            ((AnimationPlayer)GetNode("AnimationPlayer")).PlaybackSpeed = -(1f / this.fadeTime);
+            // If the song is fading out, reverse the fading
+            var player = (AnimationPlayer)GetNode("AnimationPlayer");
+            if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut")) { player.PlaybackSpeed = -(1f / this.fadeOutTime); }
             return; 
         }
 
@@ -40,16 +44,16 @@ public class KnyttAudioChannel : AudioStreamPlayer
         var player = (AnimationPlayer)GetNode("AnimationPlayer");
         //GD.Print(player.IsPlaying(), " ", this.Playing);
         // If already fading out, simply change the queue
-        if (player.IsPlaying()) 
+        if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut"))
         {
             // Ensure that it's fading out, not back in
-            player.PlaybackSpeed = 1f / this.fadeTime; 
+            player.PlaybackSpeed = 1f / this.fadeOutTime; 
             return; 
         }
-        // Else if this is actively playing a track, start a fade
+        // Else if this is actively playing a track, start a fade out
         else if (this.Playing)
         {
-            player.PlaybackSpeed = 1f / this.fadeTime;
+            player.PlaybackSpeed = 1f / this.fadeOutTime;
             player.Play("FadeOut");
             return;
         }
@@ -82,7 +86,12 @@ public class KnyttAudioChannel : AudioStreamPlayer
         if (this.q_stream == null) { return; }
 
         this.Stream = this.q_stream;
+        this.VolumeDb = -80f;
         this.Play();
+
+        var player = (AnimationPlayer)GetNode("AnimationPlayer");
+        player.PlaybackSpeed = 1f / this.fadeInTime;
+        player.Play("FadeIn");
     }
 
     private void resetAnimation()
