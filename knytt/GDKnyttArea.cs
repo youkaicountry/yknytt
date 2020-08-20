@@ -22,6 +22,8 @@ public class GDKnyttArea : Node2D
         this.World = world;
         this.Area = area;
 
+        this.Name = area.Position.ToString();
+
         this.Tiles = this.GetNode("AreaTiles") as GDAreaTiles;
 
         this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GDKnyttAssetBuilder.TILE_WIDTH, 

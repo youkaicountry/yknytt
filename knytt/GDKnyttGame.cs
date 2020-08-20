@@ -83,8 +83,14 @@ public class GDKnyttGame : Node2D
 	public void changeArea(KnyttPoint new_area, bool force_jump = false)
 	{
 		// This should inform the world that it needs an area loaded
-		var area = this.World.instantiateArea(new_area);
+		//var area = this.World.instantiateArea(new_area);
+		//if (area == null) { return; }
+		// Update the paging
+		World.Areas.setLocation(new_area);
+		var area = World.getArea(new_area);
+
 		if (area == null) { return; }
+
 		this.CurrentArea = area;
 		this.beginTransitionEffects(force_jump);
 	}

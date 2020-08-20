@@ -28,7 +28,7 @@ public class GDKnyttCamera : Camera2D
         this.Target = target;
     }
 
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         if (delta <= 0) { GD.Print("Invalid delta: ", delta); return; }
 
