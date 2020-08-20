@@ -99,6 +99,23 @@ public class GKnyttWorld : Node2D
         return stream;
     }
 
+    public AudioStream getAmbiance(int num)
+    {
+        if (num == 0) { return null; }
+        string fname = this.world.AmbianceOverride[num];
+        if (fname == null) { fname = string.Format("res://knytt/data/Ambiance/Ambi{0}.ogg", num); }
+        var f = new File();
+        f.Open(fname, File.ModeFlags.Read);
+        var buffer = f.GetBuffer((int)f.GetLen());
+        f.Close();
+
+        var stream = new AudioStreamOGGVorbis();
+        stream.Data = buffer;
+        stream.Loop = true;
+
+        return stream;
+    }
+
     private void discoverWorldStructure(Directory world_dir)
     {
         world_dir.ListDirBegin();

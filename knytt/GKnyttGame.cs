@@ -10,6 +10,8 @@ public class GKnyttGame : Node2D
 
 	// Audio channels
 	public KnyttAudioChannel MusicChannel { get; private set; }
+	public KnyttAudioChannel AmbianceChannel1 { get; private set; }
+	public KnyttAudioChannel AmbianceChannel2 { get; private set; }
 
 	[Export]
 	public TransitionType Transition { get; private set; }
@@ -30,6 +32,12 @@ public class GKnyttGame : Node2D
 	{
 		this.MusicChannel = GetNode("MusicChannel") as KnyttAudioChannel;
 		this.MusicChannel.StreamFetcher = (int num) => World.getSong(num);
+
+		this.AmbianceChannel1 = GetNode("Ambi1Channel") as KnyttAudioChannel;
+		this.AmbianceChannel1.StreamFetcher = (int num) => World.getAmbiance(num);
+
+		this.AmbianceChannel2 = GetNode("Ambi2Channel") as KnyttAudioChannel;
+		this.AmbianceChannel2.StreamFetcher = (int num) => World.getAmbiance(num);
 
 		this.Camera = GetNode("GKnyttCamera") as GKnyttCamera;
 		this.Camera.initialize(this);
@@ -86,6 +94,8 @@ public class GKnyttGame : Node2D
 	{
 		// Audio
 		this.MusicChannel.setTrack(this.CurrentArea.Area.Song);
+		this.AmbianceChannel1.setTrack(this.CurrentArea.Area.AtmosphereA);
+		this.AmbianceChannel2.setTrack(this.CurrentArea.Area.AtmosphereB);
 
 		// UI
 		if (this.viewMode) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).updateLocation(this.CurrentArea.Area.Position); }
