@@ -26,6 +26,7 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
             this.clearQ();
             // If the song is fading out, reverse the fading
             var player = (AnimationPlayer)GetNode("AnimationPlayer");
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
             if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut")) { player.PlaybackSpeed = -(1f / this.fadeOutTime); }
             return; 
         }
@@ -54,6 +55,10 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         else if (this.Playing)
         {
             player.PlaybackSpeed = 1f / this.fadeOutTime;
+            // Set bus volume to current, as a hack for sounds fading in that suddenly pop to full volume
+            // TODO: Maybe find a better way to do this?
+            //AudioServer.SetBusVolumeDb()
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), this.VolumeDb);
             player.Play("FadeOut");
             return;
         }
@@ -87,6 +92,7 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
 
         this.Stream = this.q_stream;
         this.VolumeDb = -80f;
+        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
         this.Play();
 
         var player = (AnimationPlayer)GetNode("AnimationPlayer");
