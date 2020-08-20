@@ -30,6 +30,8 @@ public class GKnyttCamera : Camera2D
 
     public override void _Process(float delta)
     {
+        if (delta <= 0) { GD.Print("Invalid delta: ", delta); return; }
+
         if (this.Scrolling)
         {
             var gp = this.GlobalPosition;
