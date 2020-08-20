@@ -1,6 +1,6 @@
 using Godot;
 
-public static class GKnyttAssetBuilder
+public static class GDKnyttAssetBuilder
 {
     public const int TILESET_WIDTH = 16;
     public const int TILESET_HEIGHT = 8;

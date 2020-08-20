@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://knytt/GKnyttArea.cs" type="Script" id=1]
-[ext_resource path="res://knytt/data/Tilesets/Tileset9.png" type="Texture" id=2]
-[ext_resource path="res://knytt/AreaTiles.cs" type="Script" id=3]
-[ext_resource path="res://knytt/AreaLayer.cs" type="Script" id=4]
-[ext_resource path="res://knytt/GKnyttBackground.cs" type="Script" id=5]
+[ext_resource path="res://knytt/data/Tilesets/Tileset9.png" type="Texture" id=1]
+[ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
+[ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
+[ext_resource path="res://knytt/GDAreaTiles.cs" type="Script" id=4]
+[ext_resource path="res://knytt/GDAreaLayer.cs" type="Script" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tileset9.png 0"
-0/texture = ExtResource( 2 )
+0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 270, 5, 19, 20 )
@@ -23,19 +23,19 @@
 0/z_index = 0
 
 [node name="KnyttArea" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Background" type="Sprite" parent="."]
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 24, 240 )
-script = ExtResource( 5 )
+script = ExtResource( 2 )
 
 [node name="AreaTiles" type="Node2D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="Layer0" type="Node2D" parent="AreaTiles"]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="A" type="TileMap" parent="AreaTiles/Layer0"]
 tile_set = SubResource( 1 )
@@ -48,7 +48,7 @@ cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer1" type="Node2D" parent="AreaTiles"]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="A" type="TileMap" parent="AreaTiles/Layer1"]
 tile_set = SubResource( 1 )
@@ -61,7 +61,7 @@ cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer2" type="Node2D" parent="AreaTiles"]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="A" type="TileMap" parent="AreaTiles/Layer2"]
 tile_set = SubResource( 1 )
@@ -74,7 +74,7 @@ cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer3" type="Node2D" parent="AreaTiles"]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="A" type="TileMap" parent="AreaTiles/Layer3"]
 tile_set = SubResource( 1 )

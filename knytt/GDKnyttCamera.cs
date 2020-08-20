@@ -1,16 +1,16 @@
 using Godot;
 using YUtil.Math;
 
-public class GKnyttCamera : Camera2D
+public class GDKnyttCamera : Camera2D
 {
-    public GKnyttGame Game { get; private set; }
+    public GDKnyttGame Game { get; private set; }
     
     public Godot.Vector2 Target { get; private set; }
 
     public bool Scrolling { get; private set; }
     float speed = 0f;
 
-    public void initialize(GKnyttGame game)
+    public void initialize(GDKnyttGame game)
     {
         this.Game = game;
     }

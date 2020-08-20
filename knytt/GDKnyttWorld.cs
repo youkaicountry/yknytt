@@ -3,31 +3,31 @@ using System.Text.RegularExpressions;
 using Godot;
 using YKnyttLib;
 
-public class GKnyttWorld : Node2D
+public class GDKnyttWorld : Node2D
 {
     PackedScene area_scene;
 
     Dictionary<string, string> directories;
     public string MapPath { get; private set; }
     public string WorldConfigPath { get; private set; }
-    public Dictionary<KnyttPoint, GKnyttArea> Areas { get; private set; }
+    public Dictionary<KnyttPoint, GDKnyttArea> Areas { get; private set; }
 
     public KnyttWorld<string> world;
 
-    public GKnyttWorld()
+    public GDKnyttWorld()
     {
-        this.area_scene = ResourceLoader.Load("res://knytt/GKnyttArea.tscn") as PackedScene;
+        this.area_scene = ResourceLoader.Load("res://knytt/GDKnyttArea.tscn") as PackedScene;
         this.directories = new Dictionary<string, string>();
     }
 
-    public GKnyttArea instantiateArea(KnyttPoint point)
+    public GDKnyttArea instantiateArea(KnyttPoint point)
     {
         if (this.Areas.ContainsKey(point)) { return this.Areas[point]; }
 
         var area = this.world.getArea(point);
         if (area == null) { return null; }
 
-        var area_node = this.area_scene.Instance() as GKnyttArea;
+        var area_node = this.area_scene.Instance() as GDKnyttArea;
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
         this.Areas.Add(area.Position, area_node);
@@ -37,7 +37,7 @@ public class GKnyttWorld : Node2D
 
     public void loadWorld(Directory world_dir)
     {
-        this.Areas = new Dictionary<KnyttPoint, GKnyttArea>();
+        this.Areas = new Dictionary<KnyttPoint, GDKnyttArea>();
         this.world = new KnyttWorld<string>();
         this.discoverWorldStructure(world_dir);
 
@@ -64,7 +64,7 @@ public class GKnyttWorld : Node2D
         var texture = new ImageTexture();
         texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
 
-        return GKnyttAssetBuilder.makeTileset(texture, false);
+        return GDKnyttAssetBuilder.makeTileset(texture, false);
     }
 
     public Texture getGradient(int num)

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using Godot;
 
-public class AreaTiles : Node2D
+public class GDAreaTiles : Node2D
 {
-    public AreaLayer[] Layers { get; private set; }
+    public GDAreaLayer[] Layers { get; private set; }
 
     public void initTiles(TileSet A, TileSet B)
     {
-        var llayers = new List<AreaLayer>();
+        var llayers = new List<GDAreaLayer>();
 
-        foreach (AreaLayer c in this.GetChildren())
+        foreach (GDAreaLayer c in this.GetChildren())
         {
             llayers.Add(c);
             c.initLayer(A, B);
