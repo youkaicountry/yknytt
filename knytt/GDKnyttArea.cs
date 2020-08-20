@@ -1,10 +1,10 @@
 using Godot;
 using YKnyttLib;
 
-public class GKnyttArea : Node2D
+public class GDKnyttArea : Node2D
 {
-    public AreaTiles Tiles { get; private set; }
-    public GKnyttWorld World { get; private set; }
+    public GDAreaTiles Tiles { get; private set; }
+    public GDKnyttWorld World { get; private set; }
     public KnyttArea<string> Area { get; private set; }
 
     public Vector2 GlobalCenter
@@ -12,20 +12,20 @@ public class GKnyttArea : Node2D
         get 
         { 
             var gp = GlobalPosition;
-            return new Vector2(GlobalPosition.x + (KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH)/2f,
-                               GlobalPosition.y + (KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT)/2f);
+            return new Vector2(GlobalPosition.x + (KnyttArea<string>.AREA_WIDTH * GDKnyttAssetBuilder.TILE_WIDTH)/2f,
+                               GlobalPosition.y + (KnyttArea<string>.AREA_HEIGHT * GDKnyttAssetBuilder.TILE_HEIGHT)/2f);
         }
     }
 
-    public void loadArea(GKnyttWorld world, KnyttArea<string> area)
+    public void loadArea(GDKnyttWorld world, KnyttArea<string> area)
     {
         this.World = world;
         this.Area = area;
 
-        this.Tiles = this.GetNode("AreaTiles") as AreaTiles;
+        this.Tiles = this.GetNode("AreaTiles") as GDAreaTiles;
 
-        this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH, 
-                                    area.Position.y * KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT);
+        this.Position = new Vector2(area.Position.x * KnyttArea<string>.AREA_WIDTH * GDKnyttAssetBuilder.TILE_WIDTH, 
+                                    area.Position.y * KnyttArea<string>.AREA_HEIGHT * GDKnyttAssetBuilder.TILE_HEIGHT);
 
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
@@ -34,7 +34,7 @@ public class GKnyttArea : Node2D
         TileSet tb = world.GetTileSet(area.TilesetB);
 
         // Setup background gradient
-        ((GKnyttBackground)GetNode("Background")).initialize(world.getGradient(area.Background));
+        ((GDKnyttBackground)GetNode("Background")).initialize(world.getGradient(area.Background));
 
         // Initialize the Layers
         this.Tiles.initTiles(ta, tb);

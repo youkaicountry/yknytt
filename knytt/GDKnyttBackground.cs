@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class GKnyttBackground : Sprite
+public class GDKnyttBackground : Sprite
 {
     public void initialize(Texture t)
     {
@@ -9,8 +9,8 @@ public class GKnyttBackground : Sprite
 
         var size = t.GetSize();
 
-        var px = KnyttArea<string>.AREA_WIDTH * GKnyttAssetBuilder.TILE_WIDTH;
-        var py = KnyttArea<string>.AREA_HEIGHT * GKnyttAssetBuilder.TILE_HEIGHT;
+        var px = KnyttArea<string>.AREA_WIDTH * GDKnyttAssetBuilder.TILE_WIDTH;
+        var py = KnyttArea<string>.AREA_HEIGHT * GDKnyttAssetBuilder.TILE_HEIGHT;
 
         this.RegionRect = new Rect2(0f, 0f, px, py);
 

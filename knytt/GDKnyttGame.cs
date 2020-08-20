@@ -1,17 +1,17 @@
 using Godot;
 using YKnyttLib;
 
-public class GKnyttGame : Node2D
+public class GDKnyttGame : Node2D
 {
 	// TODO: This is per-player stuff, and should eventually be abstracted
-	public GKnyttArea CurrentArea { get; private set; }
-	public GKnyttWorld World { get; private set; }
-	public GKnyttCamera Camera { get; private set; }
+	public GDKnyttArea CurrentArea { get; private set; }
+	public GDKnyttWorld World { get; private set; }
+	public GDKnyttCamera Camera { get; private set; }
 
 	// Audio channels
-	public KnyttAudioChannel MusicChannel { get; private set; }
-	public KnyttAudioChannel AmbianceChannel1 { get; private set; }
-	public KnyttAudioChannel AmbianceChannel2 { get; private set; }
+	public GDKnyttAudioChannel MusicChannel { get; private set; }
+	public GDKnyttAudioChannel AmbianceChannel1 { get; private set; }
+	public GDKnyttAudioChannel AmbianceChannel2 { get; private set; }
 
 	[Export]
 	public TransitionType Transition { get; private set; }
@@ -30,19 +30,19 @@ public class GKnyttGame : Node2D
 
 	public override void _Ready()
 	{
-		this.MusicChannel = GetNode("MusicChannel") as KnyttAudioChannel;
+		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
 		this.MusicChannel.StreamFetcher = (int num) => World.getSong(num);
 
-		this.AmbianceChannel1 = GetNode("Ambi1Channel") as KnyttAudioChannel;
+		this.AmbianceChannel1 = GetNode("Ambi1Channel") as GDKnyttAudioChannel;
 		this.AmbianceChannel1.StreamFetcher = (int num) => World.getAmbiance(num);
 
-		this.AmbianceChannel2 = GetNode("Ambi2Channel") as KnyttAudioChannel;
+		this.AmbianceChannel2 = GetNode("Ambi2Channel") as GDKnyttAudioChannel;
 		this.AmbianceChannel2.StreamFetcher = (int num) => World.getAmbiance(num);
 
-		this.Camera = GetNode("GKnyttCamera") as GKnyttCamera;
+		this.Camera = GetNode("GKnyttCamera") as GDKnyttCamera;
 		this.Camera.initialize(this);
 
-		this.World = GetNode("GKnyttWorld") as GKnyttWorld;
+		this.World = GetNode("GKnyttWorld") as GDKnyttWorld;
 
 		this.loadDemo();
 	}
