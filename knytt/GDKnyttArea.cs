@@ -32,11 +32,11 @@ public class GDKnyttArea : Node2D
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
 
-        TileSet ta = world.GetTileSet(area.TilesetA);
-        TileSet tb = world.GetTileSet(area.TilesetB);
+        TileSet ta = world.AssetManager.getTileSet(area.TilesetA);
+        TileSet tb = world.AssetManager.getTileSet(area.TilesetB);
 
         // Setup background gradient
-        ((GDKnyttBackground)GetNode("Background")).initialize(world.getGradient(area.Background));
+        ((GDKnyttBackground)GetNode("Background")).initialize(world.AssetManager.getGradient(area.Background));
 
         // Initialize the Layers
         this.Tiles.initTiles(ta, tb);
@@ -53,5 +53,13 @@ public class GDKnyttArea : Node2D
                 }
             }
         }
+    }
+
+    public void destroyArea()
+    {
+        if (Area.Empty) { return; }
+        World.AssetManager.returnTileSet(Area.TilesetA);
+        World.AssetManager.returnTileSet(Area.TilesetB);
+        World.AssetManager.returnGradient(Area.Background);
     }
 }

@@ -2,9 +2,12 @@ using Godot;
 
 public class GDKnyttAudioChannel : AudioStreamPlayer
 {
-    public delegate AudioStream FetchStream(int num);
+    public delegate AudioStream FetchEvent(int num);
+    public delegate void CloseEvent(int num);
 
-    public FetchStream StreamFetcher { get; set; }
+    public FetchEvent OnFetch { get; set; }
+    public CloseEvent OnClose { get; set; }
+
     public int TrackNumber { get; private set; }
 
     [Export]
@@ -32,7 +35,7 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         }
 
         // Track is different
-        var next_stream = this.StreamFetcher?.Invoke(num);
+        var next_stream = this.OnFetch.Invoke(num);
 
         this.changeTrack(num, next_stream);
     }
@@ -85,6 +88,9 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         this.track_queued = false;
         this.resetAnimation();
         this.Stop();
+
+        this.Stream = null;
+        if (TrackNumber != 0) { OnClose?.Invoke(TrackNumber); }
         this.TrackNumber = this.q_track;
 
         // If null track, keep the player stopped
