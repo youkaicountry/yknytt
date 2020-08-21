@@ -31,13 +31,16 @@ public class GDKnyttGame : Node2D
 	public override void _Ready()
 	{
 		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
-		this.MusicChannel.StreamFetcher = (int num) => World.getSong(num);
+		this.MusicChannel.OnFetch = (int num) => World.AssetManager.getSong(num);
+		this.MusicChannel.OnClose = (int num) => World.AssetManager.returnSong(num);
 
 		this.AmbianceChannel1 = GetNode("Ambi1Channel") as GDKnyttAudioChannel;
-		this.AmbianceChannel1.StreamFetcher = (int num) => World.getAmbiance(num);
+		this.AmbianceChannel1.OnFetch = (int num) => World.AssetManager.getAmbiance(num);
+		this.AmbianceChannel1.OnClose = (int num) => World.AssetManager.returnAmbiance(num);
 
 		this.AmbianceChannel2 = GetNode("Ambi2Channel") as GDKnyttAudioChannel;
-		this.AmbianceChannel2.StreamFetcher = (int num) => World.getAmbiance(num);
+		this.AmbianceChannel2.OnFetch = (int num) => World.AssetManager.getAmbiance(num);
+		this.AmbianceChannel2.OnClose = (int num) => World.AssetManager.returnAmbiance(num);
 
 		this.Camera = GetNode("GKnyttCamera") as GDKnyttCamera;
 		this.Camera.initialize(this);

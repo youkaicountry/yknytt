@@ -62,12 +62,16 @@
     <Reference Include="YUtil.Math">
       <HintPath>knytt\YUtil.Math.dll</HintPath>
     </Reference>
+    <Reference Include="YUtil.Collections">
+      <HintPath>knytt\YUtil.Collections.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\GDAreaLayer.cs" />
     <Compile Include="knytt\GDAreaTiles.cs" />
     <Compile Include="knytt\GDKnyttArea.cs" />
     <Compile Include="knytt\GDKnyttAssetBuilder.cs" />
+    <Compile Include="knytt\GDKnyttAssetManager.cs" />
     <Compile Include="knytt\GDKnyttBackground.cs" />
     <Compile Include="knytt\GDKnyttCamera.cs" />
     <Compile Include="knytt\GDKnyttGame.cs" />
