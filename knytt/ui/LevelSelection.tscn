@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/ui/white.png" type="Texture" id=1]
+[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
+
+[node name="LevelSelection" type="Node2D"]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="BackgroundRect" type="TextureRect" parent="UILayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GDKnyttDropdown" parent="UILayer" instance=ExtResource( 2 )]
+items = [ "[All]", null, true, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
