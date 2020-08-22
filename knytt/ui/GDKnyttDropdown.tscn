@@ -1,0 +1,73 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=3]
+[ext_resource path="res://knytt/ui/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://knytt/ui/GDKnyttPopupStyle.tres" type="StyleBox" id=5]
+[ext_resource path="res://knytt/ui/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=6]
+[ext_resource path="res://knytt/ui/checked.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/unchecked.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.717647, 0.913725, 0.847059, 1 )
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="Theme" id=5]
+PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
+PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
+PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 1 )
+PopupMenu/constants/hseparation = 4
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = ExtResource( 1 )
+PopupMenu/icons/checked = ExtResource( 7 )
+PopupMenu/icons/radio_checked = ExtResource( 7 )
+PopupMenu/icons/radio_unchecked = ExtResource( 8 )
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = ExtResource( 8 )
+PopupMenu/styles/hover = SubResource( 1 )
+PopupMenu/styles/labeled_separator_left = SubResource( 2 )
+PopupMenu/styles/labeled_separator_right = SubResource( 3 )
+PopupMenu/styles/panel = ExtResource( 5 )
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = SubResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[node name="GDKnyttDropdown" type="OptionButton"]
+anchor_left = 0.000661418
+anchor_top = 0.00165354
+anchor_right = 0.000661418
+anchor_bottom = 0.00165354
+margin_right = 103.0
+margin_bottom = 20.0
+theme = SubResource( 5 )
+custom_icons/arrow = ExtResource( 2 )
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "----"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
