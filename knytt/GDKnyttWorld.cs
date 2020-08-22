@@ -1,5 +1,6 @@
 using Godot;
 using YKnyttLib;
+using YKnyttLib.Paging;
 
 public class GDKnyttWorld : Node2D
 {
@@ -10,7 +11,10 @@ public class GDKnyttWorld : Node2D
     public KnyttRectPaging<GDKnyttArea> Areas { get; }
     public GDKnyttAssetManager AssetManager { get; }
 
-    public KnyttWorld<string> World { get; }
+    public KnyttWorld<string> World { get; private set; }
+
+    [Export]
+    public int worldID = 0;
 
     public GDKnyttWorld()
     {
@@ -19,8 +23,41 @@ public class GDKnyttWorld : Node2D
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => destroyArea(loc, area);
 
-        this.World = new KnyttWorld<string>();
         this.area_scene = ResourceLoader.Load("res://knytt/GDKnyttArea.tscn") as PackedScene;
+    }
+
+    public override void _Ready()
+    {
+    }
+
+    public void loadWorld(KnyttWorld<string> world)
+    {
+        this.World = world;
+
+        var wd = new Directory();
+		wd.Open(world.WorldDirectory);
+
+        // If info is not initialized, load it
+        if (world.Info == null) 
+        {  
+            var f = new File();
+            f.Open(wd.GetCurrentDir() + "/" + "World.ini", File.ModeFlags.Read);
+            string ini_txt = f.GetAsText();
+            f.Close();
+            world.loadWorldConfig(ini_txt);
+        }
+
+        this.AssetManager.discoverWorldStructure(wd);
+
+        var map_file = new File();
+        map_file.Open(this.MapPath, File.ModeFlags.Read);
+        var data = map_file.GetBuffer((int)map_file.GetLen());
+        map_file.Close();
+
+        System.IO.MemoryStream map_stream = new System.IO.MemoryStream(data);
+        
+        this.World.loadWorldMap(map_stream);
+        GD.Print(this.World.getArea(new KnyttPoint(1000, 1000)));
     }
 
     public GDKnyttArea getArea(KnyttPoint area)
@@ -49,21 +86,4 @@ public class GDKnyttWorld : Node2D
         area.destroyArea();
         area.QueueFree();
     }
-
-    public void loadWorld(Directory world_dir)
-    {
-        this.AssetManager.discoverWorldStructure(world_dir);
-
-        var map_file = new File();
-        map_file.Open(this.MapPath, File.ModeFlags.Read);
-        var data = map_file.GetBuffer((int)map_file.GetLen());
-        map_file.Close();
-
-        System.IO.MemoryStream map_stream = new System.IO.MemoryStream(data);
-        
-        this.World.parseWorldFiles(map_stream, null);
-        GD.Print(this.World.getArea(new KnyttPoint(1000, 1000)));
-    }
-
-    
 }

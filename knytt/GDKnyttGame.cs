@@ -16,6 +16,9 @@ public class GDKnyttGame : Node2D
 	[Export]
 	public TransitionType Transition { get; private set; }
 
+	[Export]
+	public string demoWorld = "./worlds/Nifflas - The Machine";
+
 	public enum TransitionType
 	{
 		JUMP,
@@ -47,14 +50,20 @@ public class GDKnyttGame : Node2D
 
 		this.World = GetNode("GKnyttWorld") as GDKnyttWorld;
 
-		this.loadDemo();
+		this.setupWorld();
 	}
 
-	private void loadDemo()
+	private void setupWorld()
 	{
-		var wd = new Directory();
-		var e = wd.Open("./worlds/Nifflas - The Machine");
-		this.World.loadWorld(wd);
+		KnyttWorld<string> world;
+		if (GDKnyttDataStore.World != null) { world = GDKnyttDataStore.World; }
+		else
+		{
+			world = new KnyttWorld<string>();
+			world.WorldDirectory = this.demoWorld;
+		}
+
+		World.loadWorld(world);
 
 		this.changeArea(new KnyttPoint(1001, 1000), true);
 	}

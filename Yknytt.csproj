@@ -32,6 +32,7 @@
     <Compile Include="knytt\GDKnyttAssetManager.cs" />
     <Compile Include="knytt\GDKnyttBackground.cs" />
     <Compile Include="knytt\GDKnyttCamera.cs" />
+    <Compile Include="knytt\GDKnyttDataStore.cs" />
     <Compile Include="knytt\GDKnyttGame.cs" />
     <Compile Include="knytt\GDKnyttWorld.cs" />
     <Compile Include="knytt\GDKnyttAudioChannel.cs" />
