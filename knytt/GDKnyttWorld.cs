@@ -40,11 +40,8 @@ public class GDKnyttWorld : Node2D
         // If info is not initialized, load it
         if (world.Info == null) 
         {  
-            var f = new File();
-            f.Open(wd.GetCurrentDir() + "/" + "World.ini", File.ModeFlags.Read);
-            string ini_txt = f.GetAsText();
-            f.Close();
-            world.loadWorldConfig(ini_txt);
+            var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + "World.ini");
+            world.loadWorldConfig(txt);
         }
 
         this.AssetManager.discoverWorldStructure(wd);
@@ -67,15 +64,12 @@ public class GDKnyttWorld : Node2D
 
     public GDKnyttArea instantiateArea(KnyttPoint point)
     {
-        //if (this.Areas.ContainsKey(point)) { return this.Areas[point]; }
-
         var area = this.World.getArea(point);
         if (area == null) { return null; }
 
         var area_node = this.area_scene.Instance() as GDKnyttArea;
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
-        //this.Areas.Add(area.Position, area_node);
 
         return area_node;
     }

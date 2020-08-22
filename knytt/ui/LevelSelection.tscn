@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/ui/white.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
+[ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
 
 [node name="LevelSelection" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -16,5 +21,116 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GDKnyttDropdown" parent="UILayer" instance=ExtResource( 2 )]
-items = [ "[All]", null, true, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+[node name="MainContainer" type="HBoxContainer" parent="UILayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FilterContainer" type="VBoxContainer" parent="UILayer/MainContainer"]
+margin_right = 100.0
+margin_bottom = 240.0
+alignment = 1
+
+[node name="CategoryLabel" type="Label" parent="UILayer/MainContainer/FilterContainer"]
+margin_top = 38.0
+margin_right = 100.0
+margin_bottom = 51.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Category:"
+
+[node name="CategoryDropdown" parent="UILayer/MainContainer/FilterContainer" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 55.0
+margin_right = 100.0
+margin_bottom = 74.2149
+rect_min_size = Vector2( 100, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+selected = 0
+
+[node name="Spacer2" type="Control" parent="UILayer/MainContainer/FilterContainer"]
+margin_top = 78.0
+margin_right = 100.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="DifficultyLabel" type="Label" parent="UILayer/MainContainer/FilterContainer"]
+margin_top = 102.0
+margin_right = 100.0
+margin_bottom = 115.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Difficulty:"
+
+[node name="DifficultyDropdown" parent="UILayer/MainContainer/FilterContainer" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 119.0
+margin_right = 100.0
+margin_bottom = 138.215
+rect_min_size = Vector2( 80, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+selected = 0
+
+[node name="Spacer3" type="Control" parent="UILayer/MainContainer/FilterContainer"]
+margin_top = 142.0
+margin_right = 100.0
+margin_bottom = 162.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="SizeLabel" type="Label" parent="UILayer/MainContainer/FilterContainer"]
+margin_top = 166.0
+margin_right = 100.0
+margin_bottom = 179.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Size:"
+
+[node name="SizeDropdown" parent="UILayer/MainContainer/FilterContainer" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 183.0
+margin_right = 100.0
+margin_bottom = 202.215
+rect_min_size = Vector2( 80, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
+selected = 0
+
+[node name="Control" type="Control" parent="UILayer/MainContainer"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MainContainer"]
+margin_left = 208.0
+margin_right = 208.0
+margin_bottom = 240.0
+scroll_horizontal_enabled = false
+
+[node name="GameContainer" type="VBoxContainer" parent="UILayer/MainContainer/ScrollContainer"]
+script = ExtResource( 6 )
+
+[node name="BackButton" parent="UILayer" instance=ExtResource( 4 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -85.3687
+margin_top = -25.4749
+margin_right = -5.36865
+margin_bottom = -6.26004
+text = "Back"

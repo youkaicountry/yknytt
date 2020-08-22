@@ -76,10 +76,7 @@ public class GDKnyttAssetManager
         //GD.Print("Building TileSet: " + num);
         string fname = this.GDWorld.World.TilesetsOverride[num];
         if (fname == null) { fname = string.Format("res://knytt/data/Tilesets/Tileset{0}.png", num); }
-        var image = new Image();
-        image.Load(fname);
-        var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
+        var texture = loadTexture(fname);
 
         return GDKnyttAssetBuilder.makeTileset(texture, false);
     }
@@ -88,12 +85,8 @@ public class GDKnyttAssetManager
     {
         string fname = this.GDWorld.World.TilesetsOverride[num];
         if (fname == null) { fname = string.Format("res://knytt/data/Gradients/Gradient{0}.png", num); }
-        var image = new Image();
-        image.Load(fname);
-        var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
 
-        return texture;
+        return loadTexture(fname);
     }
 
     public AudioStream buildSong(int num)
@@ -172,4 +165,23 @@ public class GDKnyttAssetManager
 
         asset_dir.ListDirEnd();
     }
+
+    public static Texture loadTexture(string path)
+    {
+        var image = new Image();
+        image.Load(path);
+        var texture = new ImageTexture();
+        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
+        return texture;
+    }
+
+    public static string loadTextFile(string path)
+    {
+        var f = new File();
+        f.Open(path, File.ModeFlags.Read);
+        string txt = f.GetAsText();
+        f.Close();
+        return txt;
+    }
+
 }
