@@ -85,7 +85,6 @@ anchor_bottom = 0.0
 margin_left = 470.0
 margin_right = 550.0
 margin_bottom = 19.2149
-disabled = true
 text = "Quit"
 
 [node name="MenuClickPlayer" type="AudioStreamPlayer" parent="."]
@@ -97,3 +96,4 @@ stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
 [connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
