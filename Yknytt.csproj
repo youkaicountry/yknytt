@@ -40,6 +40,8 @@
     <Compile Include="knytt\ui\GameContainer.cs" />
     <Compile Include="knytt\ui\LevelSelection.cs" />
     <Compile Include="knytt\ui\LocationLabel.cs" />
+    <Compile Include="knytt\ui\MainMenu.cs" />
+    <Compile Include="knytt\ui\MenuClickPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 </Project>

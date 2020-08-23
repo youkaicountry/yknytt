@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class LevelSelection : Node2D
+public class LevelSelection : CanvasLayer
 {
     KnyttWorldManager<string, Texture> Manager { get; }
 
@@ -50,12 +50,18 @@ public class LevelSelection : Node2D
     {
         // Should take filter settings into account
         var worlds = Manager.filter(null, null, null);
-        var game_container = GetNode("UILayer").GetNode("MainContainer").GetNode("ScrollContainer").GetNode("GameContainer") as GameContainer;
+        var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         game_container.clearWorlds();
 
         foreach(var world_entry in worlds)
         {
             game_container.addWorld(world_entry.world, world_entry.extra_data);
         }
+    }
+
+    public void _on_BackButton_pressed()
+    {
+        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        this.QueueFree();
     }
 }
