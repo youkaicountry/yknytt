@@ -184,4 +184,18 @@ public class GDKnyttAssetManager
         return txt;
     }
 
+    public static AudioStream loadRaw(string path)
+    {
+        var f = new File();
+        f.Open(path, File.ModeFlags.Read);
+        var buffer = f.GetBuffer((int)f.GetLen());
+        var sample = new AudioStreamSample();
+        sample.Format = AudioStreamSample.FormatEnum.Format8Bits;
+        sample.MixRate = 11025;
+        sample.Stereo = false;
+        sample.Data = buffer;
+	    f.Close();
+        //sample.LoopMode = AudioStreamSample.LoopModeEnum.Forward;
+        return sample;
+    }
 }
