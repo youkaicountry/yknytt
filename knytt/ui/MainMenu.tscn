@@ -106,7 +106,7 @@ bus = "Music"
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="MenuCloud" type="Node2D" parent="CanvasLayer2"]
-position = Vector2( 291.84, 116.175 )
+position = Vector2( 300, 120 )
 script = ExtResource( 8 )
 
 [node name="InnerYellowCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
