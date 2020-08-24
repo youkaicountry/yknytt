@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/white.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/MainMenu.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/MenuClickPlayer.cs" type="Script" id=4]
 [ext_resource path="res://knytt/data/Music/Song20.ogg" type="AudioStream" id=5]
+[ext_resource path="res://knytt/ui/particles/yellow_hi.png" type="Texture" id=6]
+[ext_resource path="res://knytt/ui/particles/ParticleCircle.cs" type="Script" id=7]
+[ext_resource path="res://knytt/ui/particles/MenuCloud.cs" type="Script" id=8]
+[ext_resource path="res://knytt/ui/particles/red_hi.png" type="Texture" id=9]
+[ext_resource path="res://knytt/ui/particles/gray_hi.png" type="Texture" id=10]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 3 )
@@ -97,5 +102,48 @@ script = ExtResource( 4 )
 stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="MenuCloud" type="Node2D" parent="CanvasLayer2"]
+position = Vector2( 291.84, 116.175 )
+script = ExtResource( 8 )
+
+[node name="InnerYellowCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+script = ExtResource( 7 )
+particleTexture = ExtResource( 6 )
+rotationSpeedRange = Vector2( 0.28, 0.28 )
+radiusRange = Vector2( 30, 30 )
+particleNumber = 9
+spriteScale = 0.16
+angleDifference = Vector2( 0.698, 0.698 )
+
+[node name="RedCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+script = ExtResource( 7 )
+particleTexture = ExtResource( 9 )
+rotationSpeedRange = Vector2( -0.28, -0.28 )
+radiusRange = Vector2( 40, 40 )
+startAngle = Vector2( -0.7, -0.7 )
+particleNumber = 8
+spriteScale = 0.16
+angleDifference = Vector2( 0.258, 0.258 )
+
+[node name="OuterYellowCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+script = ExtResource( 7 )
+particleTexture = ExtResource( 6 )
+rotationSpeedRange = Vector2( -0.35, -0.35 )
+radiusRange = Vector2( 50, 50 )
+particleNumber = 15
+spriteScale = 0.16
+angleDifference = Vector2( 0.419, 0.419 )
+
+[node name="GrayCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+script = ExtResource( 7 )
+particleTexture = ExtResource( 10 )
+rotationSpeedRange = Vector2( 0.25, 0.25 )
+radiusRange = Vector2( 60, 60 )
+particleNumber = 15
+spriteScale = 0.16
+angleDifference = Vector2( 0.209, 0.209 )
 [connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
