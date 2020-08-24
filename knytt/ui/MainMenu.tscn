@@ -145,5 +145,15 @@ radiusRange = Vector2( 60, 60 )
 particleNumber = 15
 spriteScale = 0.16
 angleDifference = Vector2( 0.209, 0.209 )
+
+[node name="RedCloud" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+script = ExtResource( 7 )
+particleTexture = ExtResource( 9 )
+cloud = true
+rotationSpeedRange = Vector2( -0.1, -0.4 )
+radiusRange = Vector2( 70, 90 )
+particleNumber = 90
+spriteScale = 0.094
+angleDifference = Vector2( 0, 6.28 )
 [connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
