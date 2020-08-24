@@ -54,7 +54,6 @@ public class GDKnyttWorld : Node2D
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(data);
         
         this.World.loadWorldMap(map_stream);
-        GD.Print(this.World.getArea(new KnyttPoint(1000, 1000)));
     }
 
     public GDKnyttArea getArea(KnyttPoint area)

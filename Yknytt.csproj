@@ -45,6 +45,7 @@
     <Compile Include="knytt\ui\MenuClickPlayer.cs" />
     <Compile Include="knytt\ui\particles\MenuCloud.cs" />
     <Compile Include="knytt\ui\particles\ParticleCircle.cs" />
+    <Compile Include="knytt\ui\SlotButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 </Project>
