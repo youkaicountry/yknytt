@@ -7,7 +7,7 @@ public class GameContainer : VBoxContainer
 
     public GameContainer()
     {
-        this.game_scene = ResourceLoader.Load("res://knytt/ui/GameButton.tscn") as PackedScene;
+        this.game_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/GameButton.tscn");
     }
 
     public void clearWorlds()
@@ -22,6 +22,7 @@ public class GameContainer : VBoxContainer
     {
         var game_node = this.game_scene.Instance() as GameButton;
         game_node.initialize(icon, world);
+        game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
         AddChild(game_node);
     }
 }

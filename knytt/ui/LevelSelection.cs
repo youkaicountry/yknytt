@@ -4,6 +4,7 @@ using YKnyttLib;
 public class LevelSelection : CanvasLayer
 {
     KnyttWorldManager<string, Texture> Manager { get; }
+    PackedScene info_scene;
 
     public LevelSelection()
     {
@@ -12,6 +13,7 @@ public class LevelSelection : CanvasLayer
 
     public override void _Ready()
     {
+        this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
         this.discoverWorlds("./worlds");
         this.listWorlds();
     }
@@ -32,6 +34,7 @@ public class LevelSelection : CanvasLayer
             var icon = GDKnyttAssetManager.loadTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
             var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + name + "/World.ini");
             KnyttWorld<string> world = new KnyttWorld<string>();
+            world.WorldDirectory = wd.GetCurrentDir() + "/" + name;
             world.loadWorldConfig(txt);
             Manager.addWorld(world, icon);
         }
@@ -63,5 +66,13 @@ public class LevelSelection : CanvasLayer
     {
         GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
         this.QueueFree();
+    }
+
+    public void _on_GamePressed(GameButton button)
+    {
+        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        var info = info_scene.Instance() as InfoScreen;
+        info.initialize(button.World);
+        this.GetParent().AddChild(info);
     }
 }

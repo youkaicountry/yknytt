@@ -5,7 +5,7 @@ public class MainMenu : Node2D
     PackedScene level_select_scene;
     public override void _Ready()
     {
-        this.level_select_scene = ResourceLoader.Load("res://knytt/ui/LevelSelection.tscn") as PackedScene;
+        this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
     }
 
     public void _on_PlayButton_pressed()
