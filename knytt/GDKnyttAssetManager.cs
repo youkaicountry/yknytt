@@ -184,14 +184,14 @@ public class GDKnyttAssetManager
         return txt;
     }
 
-    public static AudioStream loadRaw(string path)
+    public static AudioStream loadRaw(string path, int sample_rate=11025)
     {
         var f = new File();
         f.Open(path, File.ModeFlags.Read);
         var buffer = f.GetBuffer((int)f.GetLen());
         var sample = new AudioStreamSample();
         sample.Format = AudioStreamSample.FormatEnum.Format8Bits;
-        sample.MixRate = 11025;
+        sample.MixRate = sample_rate;
         sample.Stereo = false;
         sample.Data = buffer;
 	    f.Close();
