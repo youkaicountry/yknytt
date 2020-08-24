@@ -34,7 +34,7 @@ public class LevelSelection : CanvasLayer
             var icon = GDKnyttAssetManager.loadTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
             var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + name + "/World.ini");
             KnyttWorld<string> world = new KnyttWorld<string>();
-            world.WorldDirectory = wd.GetCurrentDir() + "/" + name;
+            world.setDirectory(wd.GetCurrentDir() + "/" + name, name);
             world.loadWorldConfig(txt);
             Manager.addWorld(world, icon);
         }

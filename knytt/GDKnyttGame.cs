@@ -60,12 +60,18 @@ public class GDKnyttGame : Node2D
 		else
 		{
 			world = new KnyttWorld<string>();
-			world.WorldDirectory = this.demoWorld;
+			world.setDirectory(this.demoWorld, "");
+			var save_data = GDKnyttAssetManager.loadTextFile(this.demoWorld + "/DefaultSavegame.ini");
+			world.CurrentSave = new KnyttSave<string>(world, save_data, 1);
 		}
 
 		World.loadWorld(world);
+		spawnJuni();
+	}
 
-		this.changeArea(new KnyttPoint(1001, 1000), true);
+	public void spawnJuni()
+	{
+		this.changeArea(World.World.CurrentSave.getArea(), true);
 	}
 
 	public override void _Process(float delta)

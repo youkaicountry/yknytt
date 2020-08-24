@@ -103,13 +103,13 @@ stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="ParticleLayer" type="CanvasLayer" parent="."]
 
-[node name="MenuCloud" type="Node2D" parent="CanvasLayer2"]
+[node name="MenuCloud" type="Node2D" parent="ParticleLayer"]
 position = Vector2( 300, 120 )
 script = ExtResource( 8 )
 
-[node name="InnerYellowCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+[node name="InnerYellowCircle" type="Node2D" parent="ParticleLayer/MenuCloud"]
 script = ExtResource( 7 )
 particleTexture = ExtResource( 6 )
 rotationSpeedRange = Vector2( 0.28, 0.28 )
@@ -118,7 +118,7 @@ particleNumber = 9
 spriteScale = 0.16
 angleDifference = Vector2( 0.698, 0.698 )
 
-[node name="RedCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+[node name="RedCircle" type="Node2D" parent="ParticleLayer/MenuCloud"]
 script = ExtResource( 7 )
 particleTexture = ExtResource( 9 )
 rotationSpeedRange = Vector2( -0.28, -0.28 )
@@ -128,7 +128,7 @@ particleNumber = 8
 spriteScale = 0.16
 angleDifference = Vector2( 0.258, 0.258 )
 
-[node name="OuterYellowCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+[node name="OuterYellowCircle" type="Node2D" parent="ParticleLayer/MenuCloud"]
 script = ExtResource( 7 )
 particleTexture = ExtResource( 6 )
 rotationSpeedRange = Vector2( -0.35, -0.35 )
@@ -137,7 +137,7 @@ particleNumber = 15
 spriteScale = 0.16
 angleDifference = Vector2( 0.419, 0.419 )
 
-[node name="GrayCircle" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+[node name="GrayCircle" type="Node2D" parent="ParticleLayer/MenuCloud"]
 script = ExtResource( 7 )
 particleTexture = ExtResource( 10 )
 rotationSpeedRange = Vector2( 0.25, 0.25 )
@@ -146,7 +146,7 @@ particleNumber = 15
 spriteScale = 0.16
 angleDifference = Vector2( 0.209, 0.209 )
 
-[node name="RedCloud" type="Node2D" parent="CanvasLayer2/MenuCloud"]
+[node name="RedCloud" type="Node2D" parent="ParticleLayer/MenuCloud"]
 script = ExtResource( 7 )
 particleTexture = ExtResource( 9 )
 cloud = true

@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/big_arrow.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/SlotButton.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/hooked_arrow.png" type="Texture" id=4]
+
+[node name="SlotButton" instance=ExtResource( 1 )]
+margin_right = 45.0
+margin_bottom = 5.29488
+rect_min_size = Vector2( 60, 0 )
+text = "Slot"
+script = ExtResource( 3 )
+
+[node name="StartLoadArrow" type="TextureRect" parent="." index="0"]
+visible = false
+margin_left = 57.9917
+margin_top = 6.26014
+margin_right = 101.992
+margin_bottom = 14.2601
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartLoadButton" parent="StartLoadArrow" index="0" instance=ExtResource( 1 )]
+margin_left = 41.75
+margin_top = -6.25
+margin_right = 132.65
+margin_bottom = 12.501
+rect_min_size = Vector2( 92, 0 )
+text = "Start New Game"
+
+[node name="EraseArrow" type="TextureRect" parent="." index="1"]
+visible = false
+margin_left = 79.0673
+margin_top = 10.9135
+margin_right = 102.067
+margin_bottom = 37.9135
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EraseButton" parent="EraseArrow" index="0" instance=ExtResource( 1 )]
+margin_left = 20.961
+margin_top = 13.4695
+margin_right = 80.386
+margin_bottom = 31.1185
+rect_min_size = Vector2( 60, 0 )
+text = "Erase"
+
+[node name="ConfirmArrow" type="TextureRect" parent="." index="2"]
+visible = false
+margin_left = 158.286
+margin_top = 30.3425
+margin_right = 202.286
+margin_bottom = 38.3425
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfirmButton" parent="ConfirmArrow" index="0" instance=ExtResource( 1 )]
+margin_left = 41.6883
+margin_top = -6.12535
+margin_right = 100.588
+margin_bottom = 12.6257
+rect_min_size = Vector2( 60, 0 )
+text = "Confirm"
+[connection signal="pressed" from="." to="." method="_on_SlotButton_pressed"]
+[connection signal="pressed" from="StartLoadArrow/StartLoadButton" to="." method="_on_StartLoadButton_pressed"]
+[connection signal="pressed" from="EraseArrow/EraseButton" to="." method="_on_EraseButton_pressed"]
+[connection signal="pressed" from="ConfirmArrow/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]

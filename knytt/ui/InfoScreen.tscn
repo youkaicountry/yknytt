@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/ui/white.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
 
 [node name="InfoScreen" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -34,4 +35,27 @@ margin_top = -25.0
 margin_right = -5.0
 margin_bottom = -6.0
 text = "Back"
+
+[node name="Slot1Button" parent="." instance=ExtResource( 4 )]
+margin_left = 2.93241
+margin_top = 123.18
+margin_right = 47.9324
+margin_bottom = 128.475
+
+[node name="Slot2Button" parent="." instance=ExtResource( 4 )]
+margin_left = 2.5166
+margin_top = 147.404
+margin_right = 47.5166
+margin_bottom = 152.699
+slot = 2
+
+[node name="Slot3Button" parent="." instance=ExtResource( 4 )]
+margin_left = 2.75257
+margin_top = 172.213
+margin_right = 47.7526
+margin_bottom = 177.508
+slot = 3
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="StartGame" from="Slot1Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="StartGame" from="Slot2Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="StartGame" from="Slot3Button" to="." method="_on_SlotButton_StartGame"]
