@@ -4,7 +4,7 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ### Building
 
-Requires Godot 3.2 Mono
+Requires Godot 3.2.4.rc4.mono
 
 Load project.godot in the editor and run
 
@@ -14,6 +14,3 @@ There must be a worlds directory in the project root (or next to the binary if y
 
 Place unpacked worlds in that directory.
 
-### Known Issues
-
-This is in early stages of development, and right now it is hardcoded to load only `Nifflas - The Machine`
