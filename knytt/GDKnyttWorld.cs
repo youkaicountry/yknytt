@@ -11,7 +11,7 @@ public class GDKnyttWorld : Node2D
     public KnyttRectPaging<GDKnyttArea> Areas { get; }
     public GDKnyttAssetManager AssetManager { get; }
 
-    public KnyttWorld<string> World { get; private set; }
+    public GDKnyttWorldImpl World { get; private set; }
 
     [Export]
     public int worldID = 0;
@@ -30,7 +30,7 @@ public class GDKnyttWorld : Node2D
     {
     }
 
-    public void loadWorld(KnyttWorld<string> world)
+    public void loadWorld(GDKnyttWorldImpl world)
     {
         this.World = world;
 
@@ -40,18 +40,12 @@ public class GDKnyttWorld : Node2D
         // If info is not initialized, load it
         if (world.Info == null) 
         {  
-            var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + "World.ini");
+            var txt = GDKnyttAssetManager.loadTextFile(world.getWorldFile("World.ini"));
             world.loadWorldConfig(txt);
         }
 
-        this.AssetManager.discoverWorldStructure(wd);
-
-        var map_file = new File();
-        map_file.Open(this.MapPath, File.ModeFlags.Read);
-        var data = map_file.GetBuffer((int)map_file.GetLen());
-        map_file.Close();
-
-        System.IO.MemoryStream map_stream = new System.IO.MemoryStream(data);
+        var map_data = world.getWorldFile("Map.bin");
+        System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
         
         this.World.loadWorldMap(map_stream);
     }

@@ -3,12 +3,12 @@ using YKnyttLib;
 
 public class LevelSelection : CanvasLayer
 {
-    KnyttWorldManager<string, Texture> Manager { get; }
+    KnyttWorldManager<Texture> Manager { get; }
     PackedScene info_scene;
 
     public LevelSelection()
     {
-        Manager = new KnyttWorldManager<string, Texture>();
+        Manager = new KnyttWorldManager<Texture>();
     }
 
     public override void _Ready()
@@ -19,6 +19,7 @@ public class LevelSelection : CanvasLayer
     }
 
     // Search the given directory for worlds
+    // TODO: This should do a very different process for bin files
     private void discoverWorlds(string path)
     {
         var wd = new Directory();
@@ -33,7 +34,7 @@ public class LevelSelection : CanvasLayer
             if (!verifyWorld(wd, name)) { continue; }
             var icon = GDKnyttAssetManager.loadTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
             var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + name + "/World.ini");
-            KnyttWorld<string> world = new KnyttWorld<string>();
+            GDKnyttWorldImpl world = new GDKnyttWorldImpl();
             world.setDirectory(wd.GetCurrentDir() + "/" + name, name);
             world.loadWorldConfig(txt);
             Manager.addWorld(world, icon);
@@ -58,7 +59,7 @@ public class LevelSelection : CanvasLayer
 
         foreach(var world_entry in worlds)
         {
-            game_container.addWorld(world_entry.world, world_entry.extra_data);
+            game_container.addWorld((GDKnyttWorldImpl)world_entry.world, world_entry.extra_data);
         }
     }
 

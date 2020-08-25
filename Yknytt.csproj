@@ -28,7 +28,6 @@
     <Compile Include="knytt\GDAreaLayer.cs" />
     <Compile Include="knytt\GDAreaTiles.cs" />
     <Compile Include="knytt\GDKnyttArea.cs" />
-    <Compile Include="knytt\GDKnyttAssetBuilder.cs" />
     <Compile Include="knytt\GDKnyttAssetManager.cs" />
     <Compile Include="knytt\GDKnyttBackground.cs" />
     <Compile Include="knytt\GDKnyttCamera.cs" />
@@ -36,6 +35,7 @@
     <Compile Include="knytt\GDKnyttGame.cs" />
     <Compile Include="knytt\GDKnyttWorld.cs" />
     <Compile Include="knytt\GDKnyttAudioChannel.cs" />
+    <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\ui\GameButton.cs" />
     <Compile Include="knytt\ui\GameContainer.cs" />
     <Compile Include="knytt\ui\InfoScreen.cs" />

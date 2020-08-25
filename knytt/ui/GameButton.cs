@@ -1,14 +1,13 @@
 using Godot;
-using YKnyttLib;
 
 public class GameButton : Button
 {
-    public KnyttWorld<string> World { get; private set; }
+    public GDKnyttWorldImpl World { get; private set; }
 
     [Signal]
     public delegate void GamePressed();
 
-    public void initialize(Texture icon, KnyttWorld<string> world)
+    public void initialize(Texture icon, GDKnyttWorldImpl world)
     {
         this.World = world;
         GetNode<TextureRect>("MainContainer/IconTexture").Texture = icon;
