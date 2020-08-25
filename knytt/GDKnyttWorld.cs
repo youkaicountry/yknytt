@@ -11,7 +11,7 @@ public class GDKnyttWorld : Node2D
     public KnyttRectPaging<GDKnyttArea> Areas { get; }
     public GDKnyttAssetManager AssetManager { get; }
 
-    public GDKnyttWorldImpl World { get; private set; }
+    public GDKnyttWorldImpl KWorld { get; private set; }
 
     [Export]
     public int worldID = 0;
@@ -32,7 +32,7 @@ public class GDKnyttWorld : Node2D
 
     public void loadWorld(GDKnyttWorldImpl world)
     {
-        this.World = world;
+        this.KWorld = world;
 
         var wd = new Directory();
 		wd.Open(world.WorldDirectory);
@@ -47,7 +47,7 @@ public class GDKnyttWorld : Node2D
         var map_data = world.getWorldFile("Map.bin");
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
         
-        this.World.loadWorldMap(map_stream);
+        this.KWorld.loadWorldMap(map_stream);
     }
 
     public GDKnyttArea getArea(KnyttPoint area)
@@ -57,7 +57,7 @@ public class GDKnyttWorld : Node2D
 
     public GDKnyttArea instantiateArea(KnyttPoint point)
     {
-        var area = this.World.getArea(point);
+        var area = this.KWorld.getArea(point);
         if (area == null) { return null; }
 
         var area_node = this.area_scene.Instance() as GDKnyttArea;

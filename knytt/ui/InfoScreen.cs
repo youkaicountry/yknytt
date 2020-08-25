@@ -3,11 +3,11 @@ using YKnyttLib;
 
 public class InfoScreen : CanvasLayer
 {
-    public GDKnyttWorldImpl World { get; private set; }
+    public GDKnyttWorldImpl KWorld { get; private set; }
 
     public void initialize(GDKnyttWorldImpl world)
     {
-        this.World = world;
+        this.KWorld = world;
         var info = GDKnyttAssetManager.loadTexture(world.getWorldFile("Info.png"));
         GetNode<TextureRect>("InfoRect").Texture = info;
         GetNode<SlotButton>("Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
@@ -35,16 +35,16 @@ public class InfoScreen : CanvasLayer
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        string fname = new_save ? World.WorldDirectory + "/DefaultSavegame.ini" : filename;
+        string fname = new_save ? KWorld.WorldDirectory + "/DefaultSavegame.ini" : filename;
         //KnyttSave save;// = new KnyttSave(World, GDKnyttAssetManager.loadTextFile(fname), slot);
         
-        KnyttSave save = new KnyttSave(World, 
-                         new_save ? GDKnyttAssetManager.loadTextFile(World.getWorldFile("DefaultSavegame.ini")) :
+        KnyttSave save = new KnyttSave(KWorld, 
+                         new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldFile("DefaultSavegame.ini")) :
                                     GDKnyttAssetManager.loadTextFile(filename), 
                                     slot);
         
-        World.CurrentSave = save;
-        GDKnyttDataStore.World = World;
+        KWorld.CurrentSave = save;
+        GDKnyttDataStore.KWorld = KWorld;
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
         this.QueueFree();
     }
