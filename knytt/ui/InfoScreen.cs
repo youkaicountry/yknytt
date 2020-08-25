@@ -8,6 +8,7 @@ public class InfoScreen : CanvasLayer
     public void initialize(GDKnyttWorldImpl world)
     {
         this.KWorld = world;
+        if (world.BinMode) { world.setBinMode(new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world.WorldDirectory))); }
         var info = GDKnyttAssetManager.loadTexture(world.getWorldFile("Info.png"));
         GetNode<TextureRect>("InfoRect").Texture = info;
         GetNode<SlotButton>("Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
@@ -18,6 +19,7 @@ public class InfoScreen : CanvasLayer
     public void _on_BackButton_pressed()
     {
         GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        KWorld.purgeBinFile();
         this.QueueFree();
     }
 
