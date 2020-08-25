@@ -1,0 +1,2 @@
+Codeusa - C# .knytt.bin file reader
+https://github.com/Codeusa/KnyttSharp
