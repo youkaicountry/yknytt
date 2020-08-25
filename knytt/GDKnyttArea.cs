@@ -4,7 +4,7 @@ using YKnyttLib;
 public class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
-    public GDKnyttWorld World { get; private set; }
+    public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
     public Vector2 GlobalCenter
@@ -19,7 +19,7 @@ public class GDKnyttArea : Node2D
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
     {
-        this.World = world;
+        this.GDWorld = world;
         this.Area = area;
 
         this.Name = area.Position.ToString();
@@ -58,8 +58,8 @@ public class GDKnyttArea : Node2D
     public void destroyArea()
     {
         if (Area.Empty) { return; }
-        World.AssetManager.returnTileSet(Area.TilesetA);
-        World.AssetManager.returnTileSet(Area.TilesetB);
-        World.AssetManager.returnGradient(Area.Background);
+        GDWorld.AssetManager.returnTileSet(Area.TilesetA);
+        GDWorld.AssetManager.returnTileSet(Area.TilesetB);
+        GDWorld.AssetManager.returnGradient(Area.Background);
     }
 }

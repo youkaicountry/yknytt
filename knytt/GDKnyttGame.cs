@@ -5,7 +5,7 @@ public class GDKnyttGame : Node2D
 {
 	// TODO: This is per-player stuff, and should eventually be abstracted
 	public GDKnyttArea CurrentArea { get; private set; }
-	public GDKnyttWorld World { get; private set; }
+	public GDKnyttWorld GDWorld { get; private set; }
 	public GDKnyttCamera Camera { get; private set; }
 
 	// Audio channels
@@ -34,21 +34,21 @@ public class GDKnyttGame : Node2D
 	public override void _Ready()
 	{
 		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
-		this.MusicChannel.OnFetch = (int num) => World.AssetManager.getSong(num);
-		this.MusicChannel.OnClose = (int num) => World.AssetManager.returnSong(num);
+		this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
+		this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
 
 		this.AmbianceChannel1 = GetNode("Ambi1Channel") as GDKnyttAudioChannel;
-		this.AmbianceChannel1.OnFetch = (int num) => World.AssetManager.getAmbiance(num);
-		this.AmbianceChannel1.OnClose = (int num) => World.AssetManager.returnAmbiance(num);
+		this.AmbianceChannel1.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
+		this.AmbianceChannel1.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
 		this.AmbianceChannel2 = GetNode("Ambi2Channel") as GDKnyttAudioChannel;
-		this.AmbianceChannel2.OnFetch = (int num) => World.AssetManager.getAmbiance(num);
-		this.AmbianceChannel2.OnClose = (int num) => World.AssetManager.returnAmbiance(num);
+		this.AmbianceChannel2.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
+		this.AmbianceChannel2.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
 		this.Camera = GetNode("GKnyttCamera") as GDKnyttCamera;
 		this.Camera.initialize(this);
 
-		this.World = GetNode("GKnyttWorld") as GDKnyttWorld;
+		this.GDWorld = GetNode("GKnyttWorld") as GDKnyttWorld;
 
 		this.setupWorld();
 	}
@@ -56,7 +56,7 @@ public class GDKnyttGame : Node2D
 	private void setupWorld()
 	{
 		GDKnyttWorldImpl world;
-		if (GDKnyttDataStore.World != null) { world = GDKnyttDataStore.World; }
+		if (GDKnyttDataStore.KWorld != null) { world = GDKnyttDataStore.KWorld; }
 		else
 		{
 			world = new GDKnyttWorldImpl();
@@ -65,13 +65,13 @@ public class GDKnyttGame : Node2D
 			world.CurrentSave = new KnyttSave(world, save_data, 1);
 		}
 
-		World.loadWorld(world);
+		GDWorld.loadWorld(world);
 		spawnJuni();
 	}
 
 	public void spawnJuni()
 	{
-		this.changeArea(World.World.CurrentSave.getArea(), true);
+		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 	}
 
 	public override void _Process(float delta)
@@ -104,8 +104,8 @@ public class GDKnyttGame : Node2D
 		//var area = this.World.instantiateArea(new_area);
 		//if (area == null) { return; }
 		// Update the paging
-		World.Areas.setLocation(new_area);
-		var area = World.getArea(new_area);
+		GDWorld.Areas.setLocation(new_area);
+		var area = GDWorld.getArea(new_area);
 
 		if (area == null) { return; }
 

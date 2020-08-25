@@ -73,7 +73,7 @@ public class LevelSelection : CanvasLayer
     {
         GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
         var info = info_scene.Instance() as InfoScreen;
-        info.initialize(button.World);
+        info.initialize(button.KWorld);
         this.GetParent().AddChild(info);
     }
 }
