@@ -132,4 +132,7 @@ margin_top = -25.4749
 margin_right = -5.36865
 margin_bottom = -6.26004
 text = "Back"
+[connection signal="item_selected" from="MainContainer/FilterContainer/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

@@ -6,6 +6,10 @@ public class LevelSelection : CanvasLayer
     KnyttWorldManager<Texture> Manager { get; }
     PackedScene info_scene;
 
+    string filter_category;
+    string filter_difficulty;
+    string filter_size;
+
     public LevelSelection()
     {
         Manager = new KnyttWorldManager<Texture>();
@@ -68,7 +72,7 @@ public class LevelSelection : CanvasLayer
     private void listWorlds()
     {
         // Should take filter settings into account
-        var worlds = Manager.filter(null, null, null);
+        var worlds = Manager.filter(filter_category, filter_difficulty, filter_size);
         var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         game_container.clearWorlds();
 
@@ -90,5 +94,26 @@ public class LevelSelection : CanvasLayer
         var info = info_scene.Instance() as InfoScreen;
         info.initialize(button.KWorld);
         this.GetParent().AddChild(info);
+    }
+
+    public void _on_CategoryDropdown_item_selected(int index)
+    {
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/CategoryDropdown");
+        filter_category = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        this.listWorlds();
+    }
+
+    public void _on_DifficultyDropdown_item_selected(int index)
+    {
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/DifficultyDropdown");
+        filter_difficulty = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        this.listWorlds();
+    }
+
+    public void _on_SizeDropdown_item_selected(int index)
+    {
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/SizeDropdown");
+        filter_size = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        this.listWorlds();
     }
 }

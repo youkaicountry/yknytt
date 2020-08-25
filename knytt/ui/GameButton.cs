@@ -11,7 +11,7 @@ public class GameButton : Button
     {
         this.KWorld = world;
         GetNode<TextureRect>("MainContainer/IconTexture").Texture = icon;
-        GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = string.Format("{0} {1}", world.Info.Name, world.Info.Author);
+        GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = string.Format("{0} ({1})", world.Info.Name, world.Info.Author);
         GetNode<Label>("MainContainer/TextContainer/DescriptionLabel").Text = world.Info.Description;
     }
 
