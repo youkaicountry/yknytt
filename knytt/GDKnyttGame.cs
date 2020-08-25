@@ -55,14 +55,14 @@ public class GDKnyttGame : Node2D
 
 	private void setupWorld()
 	{
-		KnyttWorld<string> world;
+		GDKnyttWorldImpl world;
 		if (GDKnyttDataStore.World != null) { world = GDKnyttDataStore.World; }
 		else
 		{
-			world = new KnyttWorld<string>();
+			world = new GDKnyttWorldImpl();
 			world.setDirectory(this.demoWorld, "");
 			var save_data = GDKnyttAssetManager.loadTextFile(this.demoWorld + "/DefaultSavegame.ini");
-			world.CurrentSave = new KnyttSave<string>(world, save_data, 1);
+			world.CurrentSave = new KnyttSave(world, save_data, 1);
 		}
 
 		World.loadWorld(world);

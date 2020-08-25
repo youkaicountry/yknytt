@@ -1,5 +1,4 @@
 using Godot;
-using YKnyttLib;
 
 public class GameContainer : VBoxContainer
 {
@@ -18,7 +17,7 @@ public class GameContainer : VBoxContainer
         }
     }
 
-    public void addWorld(KnyttWorld<string> world, Texture icon)
+    public void addWorld(GDKnyttWorldImpl world, Texture icon)
     {
         var game_node = this.game_scene.Instance() as GameButton;
         game_node.initialize(icon, world);
