@@ -26,10 +26,6 @@ public class GDKnyttWorld : Node2D
         this.area_scene = ResourceLoader.Load("res://knytt/GDKnyttArea.tscn") as PackedScene;
     }
 
-    public override void _Ready()
-    {
-    }
-
     public void loadWorld(GDKnyttWorldImpl world)
     {
         this.KWorld = world;
@@ -53,6 +49,12 @@ public class GDKnyttWorld : Node2D
     public GDKnyttArea getArea(KnyttPoint area)
     {
         return this.Areas.Areas[area];
+    }
+
+    public static KnyttPoint getAreaCoords(Vector2 global_pos)
+    {
+        return new KnyttPoint((int)(global_pos.x/(GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH)),
+                              (int)(global_pos.y/(GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT)));
     }
 
     public GDKnyttArea instantiateArea(KnyttPoint point)

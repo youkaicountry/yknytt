@@ -23,6 +23,12 @@ public class GDKnyttArea : Node2D
                        GlobalPosition.y + GDKnyttAssetManager.TILE_HEIGHT*point.y + GDKnyttAssetManager.TILE_HEIGHT/2f);
     }
 
+    public bool isIn(Vector2 global_pos)
+    {
+        return (global_pos.x > GlobalPosition.x && global_pos.x < GlobalPosition.x + GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH &&
+                global_pos.y > GlobalPosition.y && global_pos.y < GlobalPosition.y + GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT);
+    }
+
     public void loadArea(GDKnyttWorld world, KnyttArea area)
     {
         this.GDWorld = world;

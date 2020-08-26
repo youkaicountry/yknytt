@@ -8,6 +8,8 @@ public class Juni : KinematicBody2D
 
     public Vector2 velocity = Vector2.Zero;
 
+    public GDKnyttGame Game { get; private set; }
+
     // States
     public JuniState CurrentState { get; private set; }
     private JuniState next_state = null;
@@ -42,6 +44,11 @@ public class Juni : KinematicBody2D
         transitionState(new IdleState(this));
     }
 
+    public void initialize(GDKnyttGame game)
+    {
+        this.Game = game;
+    }
+
     public void transitionState(JuniState state)
     {
         this.next_state = state;
@@ -56,6 +63,12 @@ public class Juni : KinematicBody2D
         velocity.y += gravity * delta;
         velocity = MoveAndSlide(velocity, Vector2.Up);
         this.CurrentState.PostProcess(delta);
+
+        // TODO: Do this only if the local player
+        if (!this.Game.CurrentArea.isIn(this.GlobalPosition)) 
+        {
+            this.Game.changeArea(GDKnyttWorld.getAreaCoords(this.GlobalPosition));
+        }
     }
 
     private void executeStateTransition()
