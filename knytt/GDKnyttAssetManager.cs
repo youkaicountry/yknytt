@@ -118,7 +118,7 @@ public class GDKnyttAssetManager
         sample.MixRate = sample_rate;
         sample.Stereo = false;
         sample.Data = buffer;
-        //sample.LoopMode = AudioStreamSample.LoopModeEnum.Forward;
+        //sample.LoopMode = loop ? AudioStreamSample.LoopModeEnum.PingPong : AudioStreamSample.LoopModeEnum.Disabled;
         return sample;
     }
 

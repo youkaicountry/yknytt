@@ -37,13 +37,15 @@
     <Compile Include="knytt\GDKnyttAudioChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
+    <Compile Include="knytt\juni\JuniState.cs" />
+    <Compile Include="knytt\RawAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\GameButton.cs" />
     <Compile Include="knytt\ui\GameContainer.cs" />
     <Compile Include="knytt\ui\InfoScreen.cs" />
     <Compile Include="knytt\ui\LevelSelection.cs" />
     <Compile Include="knytt\ui\LocationLabel.cs" />
     <Compile Include="knytt\ui\MainMenu.cs" />
-    <Compile Include="knytt\ui\MenuClickPlayer.cs" />
+    <Compile Include="knytt\RawAudioPlayer.cs" />
     <Compile Include="knytt\ui\particles\MenuCloud.cs" />
     <Compile Include="knytt\ui\particles\ParticleCircle.cs" />
     <Compile Include="knytt\ui\SlotButton.cs" />
