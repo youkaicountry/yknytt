@@ -9,7 +9,9 @@ public class IdleState : JuniState
 
     public override void PreProcess(float delta)
     {
-        if (juni.MoveDirection != 0) { juni.transitionState(new WalkRunState(juni)); } 
+        var dir = juni.MoveDirection;
+        juni.velocity.x = juni.speed * dir;
+        if (dir != 0) { juni.transitionState(new WalkRunState(juni)); } 
     }
 
     public override void PostProcess(float delta) 
