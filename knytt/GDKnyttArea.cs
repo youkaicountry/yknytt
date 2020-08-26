@@ -49,6 +49,8 @@ public class GDKnyttArea : Node2D
             {
                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
                 {
+                    var tile = data.getTile(x, y);
+                    if (tile == 0 || tile == 128) { continue; }
                     this.Tiles.setTile(layer, x, y, data.getTile(x, y));
                 }
             }
