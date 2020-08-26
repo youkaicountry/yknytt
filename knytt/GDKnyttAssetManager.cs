@@ -52,7 +52,7 @@ public class GDKnyttAssetManager
     {
         var buffer = GDWorld.KWorld.getWorldFile(string.Format("Tilesets/Tileset{0}.png", num));
         var texture = loadTexture(buffer);
-        return makeTileset(texture, false);
+        return makeTileset(texture, true);
     }
 
     private Texture buildGradient(int num)
@@ -159,10 +159,37 @@ public class GDKnyttAssetManager
                 ts.TileSetTexture(i, texture);
                 var region = new Rect2(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
+
+                if (collisions)
+                {
+                    var image = texture.GetData();
+                    var bitmap = new BitMap();
+                    bitmap.CreateFromImageAlpha(image, .01f);
+
+                    var polygons = bitmap.OpaqueToPolygons(region, 2);
+                    List<Vector2> plist = new List<Vector2>();
+                    for (int j = 0; j < polygons.Count; j++)
+                    {
+                        Vector2[] v = (Vector2[])polygons[j];
+                        for (int k = 0; k < v.Length; k++)
+                        {
+                            // I have no idea why it's adding y*48 to y coordinates...
+                            Vector2 mv = new Vector2(v[k].x, v[k].y-(y*TILE_HEIGHT*2));
+                            plist.Add(mv);
+                        }
+                    }
+
+                    // Point cloud must be at least 3
+                    if (plist.Count >= 3)
+                    {
+                        var collision = new ConvexPolygonShape2D();
+                        collision.SetPointCloud(plist.ToArray());
+                        ts.TileSetShape(i, 0, collision);
+                    }
+                }
                 i++;
             }
         }
-
         return ts;
     }
 }

@@ -40,11 +40,15 @@ script = ExtResource( 5 )
 [node name="A" type="TileMap" parent="AreaTiles/Layer0"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="B" type="TileMap" parent="AreaTiles/Layer0"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="Layer1" type="Node2D" parent="AreaTiles"]
@@ -53,11 +57,15 @@ script = ExtResource( 5 )
 [node name="A" type="TileMap" parent="AreaTiles/Layer1"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="B" type="TileMap" parent="AreaTiles/Layer1"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="Layer2" type="Node2D" parent="AreaTiles"]
@@ -66,11 +74,15 @@ script = ExtResource( 5 )
 [node name="A" type="TileMap" parent="AreaTiles/Layer2"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="B" type="TileMap" parent="AreaTiles/Layer2"]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 
 [node name="Layer3" type="Node2D" parent="AreaTiles"]
