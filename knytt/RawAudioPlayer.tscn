@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/RawAudioPlayer.cs" type="Script" id=1]
+
+[node name="RawAudioPlayer" type="AudioStreamPlayer"]
+bus = "SFX"
+script = ExtResource( 1 )
+rawPath = "res://knytt/data/Sfx/Menu Click.raw"
+sampleRate = 44100
+[connection signal="finished" from="." to="." method="_on_RawAudioPlayer_finished"]
