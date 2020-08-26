@@ -4,9 +4,8 @@
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
 [ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 4.99785
-height = 7.69647
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 3.43719, 8.60157 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Falling"
@@ -111,14 +110,14 @@ script = ExtResource( 3 )
 gravity = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.22467, -3.70236 )
+position = Vector2( -0.305659, -2.99525 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 39
+frame = 47
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Falling = SubResource( 2 )
