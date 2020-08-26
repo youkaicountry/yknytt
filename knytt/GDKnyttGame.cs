@@ -81,6 +81,7 @@ public class GDKnyttGame : Node2D
 		if (Juni == null)
 		{
 			Juni = juni_scene.Instance() as Juni;
+			Juni.initialize(this);
 			this.AddChild(Juni);
 		}
 		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
