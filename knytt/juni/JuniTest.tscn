@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=1]
+[ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 231.303, 10 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 4.99785
+height = 7.69647
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 47 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Walk"
+
+[node name="JuniTest" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2( 295.257, 202.394 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource( 1 )
+
+[node name="Juni" type="KinematicBody2D" parent="."]
+position = Vector2( 203.187, 93.6566 )
+script = ExtResource( 3 )
+gravity = 800.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Juni"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Juni"]
+position = Vector2( -0.4375, -3.4375 )
+texture = ExtResource( 1 )
+vframes = 5
+hframes = 10
+frame = 47
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Juni/Sprite"]
+anims/Idle = SubResource( 3 )
+anims/Walk = SubResource( 4 )
