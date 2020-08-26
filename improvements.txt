@@ -1,0 +1,18 @@
+Improvements over original Knytt Stories:
+- Dynamic window resizing
+- Positional audio
+- Bin file loading (No need to install)
+- Scrolling screen transitions
+
+Planned improvements:
+- High res tileset / sprite support
+- World viewer
+- Minimap
+- Multiplayer
+- Full smooth scrolling
+
+Settings Screen:
+- Scroll type
+- Fullscreen
+- Controls
+- Audio levels
