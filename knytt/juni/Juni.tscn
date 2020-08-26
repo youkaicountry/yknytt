@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 3.43719, 8.60157 )
+extents = Vector2( 5.5778, 8.60157 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Falling"
@@ -107,7 +107,6 @@ tracks/0/keys = {
 
 [node name="Juni" type="KinematicBody2D"]
 script = ExtResource( 3 )
-gravity = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 7 )
