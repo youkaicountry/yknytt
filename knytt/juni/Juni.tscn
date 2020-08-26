@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
+[ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.99785
+height = 7.69647
+
+[sub_resource type="Animation" id=2]
+resource_name = "Falling"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 40, 41 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 47 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Jump"
+length = 0.35
+step = 0.075
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 42, 43, 44, 45, 46 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "StartFall"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "continueFall"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.5
+loop = true
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+}
+
+[node name="Juni" type="KinematicBody2D"]
+script = ExtResource( 3 )
+gravity = 800.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.22467, -3.70236 )
+texture = ExtResource( 2 )
+vframes = 5
+hframes = 10
+frame = 39
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Falling = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Jump = SubResource( 4 )
+anims/StartFall = SubResource( 5 )
+anims/Walk = SubResource( 6 )
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="WalkPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Walk.raw"
+loop = true
+
+[node name="JumpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Jump.raw"
+
+[node name="LandPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Land.raw"

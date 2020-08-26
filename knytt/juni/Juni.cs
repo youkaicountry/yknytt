@@ -17,6 +17,10 @@ public class Juni : KinematicBody2D
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
     public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
 
+    public bool Grounded { get { return IsOnFloor(); } }
+
+    public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
+
     public int MoveDirection 
     { 
         get
@@ -43,25 +47,15 @@ public class Juni : KinematicBody2D
         this.next_state = state;
     }
 
-    public void getInput()
-    {
-        //velocity.x = 0f;
-        //if (Input.IsActionPressed("right")) { velocity.x += speed; }
-        //if (Input.IsActionPressed("left")) { velocity.x -= speed; }
-
-    }
-
     public override void _PhysicsProcess(float delta)
     {
         // Handle state transitions
         if (next_state != null) { executeStateTransition(); }
 
-        getInput();
         this.CurrentState?.PreProcess(delta);
         velocity.y += gravity * delta;
         velocity = MoveAndSlide(velocity, Vector2.Up);
-        this.CurrentState.PreProcess(delta);
-        //if (Input.IsActionJustPressed("jump") && IsOnFloor()) { velocity.y = jump_speed; }
+        this.CurrentState.PostProcess(delta);
     }
 
     private void executeStateTransition()
@@ -70,5 +64,10 @@ public class Juni : KinematicBody2D
         this.CurrentState = next_state;
         this.CurrentState.onEnter();
         this.next_state = null;
+    }
+
+    public void continueFall()
+    {
+        Anim.Play("Falling");
     }
 }
