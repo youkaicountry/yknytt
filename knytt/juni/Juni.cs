@@ -3,8 +3,8 @@ using Godot;
 public class Juni : KinematicBody2D
 {
     [Export] public float speed = 90f;
-    [Export] public float jump_speed = -220f;
-    [Export] public float gravity = 1000f;
+    [Export] public float jump_speed = -230f;
+    [Export] public float gravity = 950f;
 
     public Vector2 velocity = Vector2.Zero;
 
