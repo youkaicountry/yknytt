@@ -17,6 +17,12 @@ public class GDKnyttArea : Node2D
         }
     }
 
+    public Vector2 getTileLocation(KnyttPoint point)
+    {
+        return new Vector2(GlobalPosition.x + GDKnyttAssetManager.TILE_WIDTH*point.x + GDKnyttAssetManager.TILE_WIDTH/2f, 
+                       GlobalPosition.y + GDKnyttAssetManager.TILE_HEIGHT*point.y + GDKnyttAssetManager.TILE_HEIGHT/2f);
+    }
+
     public void loadArea(GDKnyttWorld world, KnyttArea area)
     {
         this.GDWorld = world;

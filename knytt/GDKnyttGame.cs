@@ -3,6 +3,9 @@ using YKnyttLib;
 
 public class GDKnyttGame : Node2D
 {
+	PackedScene juni_scene;
+	public Juni Juni { get; private set; }
+
 	// TODO: This is per-player stuff, and should eventually be abstracted
 	public GDKnyttArea CurrentArea { get; private set; }
 	public GDKnyttWorld GDWorld { get; private set; }
@@ -33,6 +36,8 @@ public class GDKnyttGame : Node2D
 
 	public override void _Ready()
 	{
+		juni_scene = ResourceLoader.Load("res://knytt/juni/Juni.tscn") as PackedScene;
+
 		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
 		this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
 		this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
@@ -69,9 +74,16 @@ public class GDKnyttGame : Node2D
 		spawnJuni();
 	}
 
+	// On load a save file (or die)
 	public void spawnJuni()
 	{
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
+		if (Juni == null)
+		{
+			Juni = juni_scene.Instance() as Juni;
+			this.AddChild(Juni);
+		}
+		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
 	}
 
 	public override void _Process(float delta)
