@@ -55,6 +55,8 @@ public class GDKnyttGame : Node2D
 
 		this.GDWorld = GetNode("GKnyttWorld") as GDKnyttWorld;
 
+		if (!this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").Visible = false; }
+
 		this.setupWorld();
 	}
 
@@ -135,7 +137,7 @@ public class GDKnyttGame : Node2D
 		this.AmbianceChannel2.setTrack(this.CurrentArea.Area.AtmosphereB);
 
 		// UI
-		if (this.viewMode) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).updateLocation(this.CurrentArea.Area.Position); }
+		if (this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").updateLocation(this.CurrentArea.Area.Position); }
 
 		// Camera
 		if (force_jump || this.Transition == TransitionType.JUMP)
