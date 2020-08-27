@@ -48,7 +48,6 @@ margin_right = 130.0
 margin_bottom = 19.2149
 size_flags_horizontal = 0
 size_flags_vertical = 0
-disabled = true
 text = "Tutorial"
 
 [node name="PlayButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
@@ -153,5 +152,6 @@ radiusRange = Vector2( 70, 90 )
 particleNumber = 90
 spriteScale = 0.094
 angleDifference = Vector2( 0, 6.28 )
+[connection signal="pressed" from="MenuLayer/ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
