@@ -31,10 +31,10 @@ public class GDKnyttObjectBundle
             this.icon = icon;
         }
         
-        public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer)
+        public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer, KnyttPoint coords)
         {
             var node = scene.Instance() as GDKnyttBaseObject;
-            node.initialize(object_id, layer);
+            node.initialize(object_id, layer, coords);
             return node;
         }
     }
