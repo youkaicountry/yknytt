@@ -38,7 +38,7 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                var icon = GDKnyttAssetManager.loadTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
+                var icon = GDKnyttAssetManager.loadExternalTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
                 var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + name + "/World.ini");
                 GDKnyttWorldImpl world = new GDKnyttWorldImpl();
                 world.setDirectory(wd.GetCurrentDir() + "/" + name, name);

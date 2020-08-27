@@ -50,36 +50,37 @@ public class GDKnyttAssetManager
 
     private TileSet buildTileSet(int num)
     {
-        var buffer = GDWorld.KWorld.getWorldFile(string.Format("Tilesets/Tileset{0}.png", num));
-        var texture = loadTexture(buffer);
-        return makeTileset(texture, true);
+        var texture = GDWorld.KWorld.getWorldTexture(string.Format("Tilesets/Tileset{0}.png", num));
+        return makeTileset((Texture)texture, true);
     }
 
     private Texture buildGradient(int num)
     {
-        var buffer = GDWorld.KWorld.getWorldFile(string.Format("Gradients/Gradient{0}.png", num));
-        return loadTexture(buffer);
+        return (Texture)GDWorld.KWorld.getWorldTexture(string.Format("Gradients/Gradient{0}.png", num));
     }
 
     public AudioStream buildSong(int num)
     {
         if (num == 0) { return null; }
-        var buffer = GDWorld.KWorld.getWorldFile(string.Format("Music/Song{0}.ogg", num));
-        return loadOGG(buffer, false);
+        return (AudioStream)GDWorld.KWorld.getWorldSound(string.Format("Music/Song{0}.ogg", num));
     }
 
     public AudioStream buildAmbiance(int num)
     {
         if (num == 0) { return null; }
-        var buffer = GDWorld.KWorld.getWorldFile(string.Format("Ambiance/Ambi{0}.ogg", num));
-        return loadOGG(buffer, true);
+        return (AudioStream)GDWorld.KWorld.getWorldSound(string.Format("Ambiance/Ambi{0}.ogg", num));
     }
 
-    public static Texture loadTexture(string path)
+    public static Texture loadExternalTexture(string path)
     {
         var image = new Image();
         image.Load(path);
         return image2Texture(image);
+    }
+
+    public static Texture loadInternalTexture(string path)
+    {
+        return ResourceLoader.Load<Texture>(path);
     }
 
     public static Texture loadTexture(byte[] buffer)
@@ -87,6 +88,11 @@ public class GDKnyttAssetManager
         var image = new Image();
         image.LoadPngFromBuffer(buffer);
         return image2Texture(image);
+    }
+
+    public static AudioStream loadSound(string path)
+    {
+        return ResourceLoader.Load<AudioStream>(path);
     }
 
     private static Texture image2Texture(Image image)
@@ -137,7 +143,7 @@ public class GDKnyttAssetManager
         return buffer;
     }
 
-    public static AudioStream loadOGG(byte[] buffer, bool loop)
+    public static AudioStream loadOGG(byte[] buffer, bool loop=false)
     {
         var stream = new AudioStreamOGGVorbis();
         stream.Data = buffer;

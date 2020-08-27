@@ -36,11 +36,11 @@ public class GDKnyttWorld : Node2D
         // If info is not initialized, load it
         if (world.Info == null) 
         {  
-            var txt = GDKnyttAssetManager.loadTextFile(world.getWorldFile("World.ini"));
+            var txt = GDKnyttAssetManager.loadTextFile(world.getWorldData("World.ini"));
             world.loadWorldConfig(txt);
         }
 
-        var map_data = world.getWorldFile("Map.bin");
+        var map_data = world.getWorldData("Map.bin");
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
         
         this.KWorld.loadWorldMap(map_stream);
