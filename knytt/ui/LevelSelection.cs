@@ -18,8 +18,15 @@ public class LevelSelection : CanvasLayer
     public override void _Ready()
     {
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
+        this.loadDefaultWorlds();
         this.discoverWorlds("./worlds");
         this.listWorlds();
+    }
+
+    private void loadDefaultWorlds()
+    {
+        Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - The Machine.knytt.bin"));
+        Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - Tutorial.knytt.bin"));
     }
 
     // Search the given directory for worlds
@@ -38,27 +45,39 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                var icon = GDKnyttAssetManager.loadExternalTexture(wd.GetCurrentDir() + "/" + name + "/Icon.png");
-                var txt = GDKnyttAssetManager.loadTextFile(wd.GetCurrentDir() + "/" + name + "/World.ini");
-                GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-                world.setDirectory(wd.GetCurrentDir() + "/" + name, name);
-                world.loadWorldConfig(txt);
-                Manager.addWorld(world, icon);
+                var world = generateDirectoryWorld(wd.GetCurrentDir() + "/" + name, name);
+                Manager.addWorld(world);
             }
             else
             {
                 if (!name.EndsWith(".knytt.bin")) { continue; }
-                var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(wd.GetCurrentDir() + "/" + name));
-                var icon = GDKnyttAssetManager.loadTexture(binloader.GetFile("Icon.png"));
-                var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
-                GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-                world.setDirectory(wd.GetCurrentDir() + "/" + name, binloader.RootDirectory);
-                world.loadWorldConfig(txt);
-                world.setBinMode(null);
-                Manager.addWorld(world, icon);
+                var world = generateBinWorld(wd.GetCurrentDir() + "/" + name);
+                Manager.addWorld(world);
             }
         }
         wd.ListDirEnd();
+    }
+
+    private KnyttWorldManager<Texture>.WorldEntry generateDirectoryWorld(string world_dir, string name)
+    {
+        var icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/Icon.png");
+        var txt = GDKnyttAssetManager.loadTextFile(world_dir + "/World.ini");
+        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
+        world.setDirectory(world_dir, name);
+        world.loadWorldConfig(txt);
+        return new KnyttWorldManager<Texture>.WorldEntry(world, icon);
+    }
+
+    private KnyttWorldManager<Texture>.WorldEntry generateBinWorld(string world_dir)
+    {
+        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir));
+        var icon = GDKnyttAssetManager.loadTexture(binloader.GetFile("Icon.png"));
+        var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
+        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
+        world.setDirectory(world_dir, binloader.RootDirectory);
+        world.loadWorldConfig(txt);
+        world.setBinMode(null);
+        return new KnyttWorldManager<Texture>.WorldEntry(world, icon);
     }
 
     private bool verifyDirWorld(Directory dir, string name)
@@ -72,7 +91,8 @@ public class LevelSelection : CanvasLayer
     private void listWorlds()
     {
         // Should take filter settings into account
-        var worlds = Manager.filter(filter_category, filter_difficulty, filter_size);
+        Manager.setFilter(filter_category, filter_difficulty, filter_size);
+        var worlds = Manager.Filtered;
         var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         game_container.clearWorlds();
 

@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
 [ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5778, 8.60157 )
 
 [sub_resource type="Animation" id=2]
@@ -109,7 +109,7 @@ tracks/0/keys = {
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.305659, -2.99525 )
