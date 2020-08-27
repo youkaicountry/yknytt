@@ -9,8 +9,8 @@ public class InfoScreen : CanvasLayer
     {
         this.KWorld = world;
         if (world.BinMode) { world.setBinMode(new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world.WorldDirectory))); }
-        var info = GDKnyttAssetManager.loadTexture(world.getWorldFile("Info.png"));
-        GetNode<TextureRect>("InfoRect").Texture = info;
+        var info = world.getWorldTexture("Info.png");
+        GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
         GetNode<SlotButton>("Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
         GetNode<SlotButton>("Slot2Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
         GetNode<SlotButton>("Slot3Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
@@ -41,7 +41,7 @@ public class InfoScreen : CanvasLayer
         //KnyttSave save;// = new KnyttSave(World, GDKnyttAssetManager.loadTextFile(fname), slot);
         
         KnyttSave save = new KnyttSave(KWorld, 
-                         new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldFile("DefaultSavegame.ini")) :
+                         new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
                                     GDKnyttAssetManager.loadTextFile(filename), 
                                     slot);
         
