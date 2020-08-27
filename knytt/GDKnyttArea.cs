@@ -4,6 +4,7 @@ using YKnyttLib;
 public class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
+    public GDObjectLayers Objects { get; private set; }
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
@@ -36,7 +37,8 @@ public class GDKnyttArea : Node2D
 
         this.Name = area.Position.ToString();
 
-        this.Tiles = this.GetNode("AreaTiles") as GDAreaTiles;
+        this.Tiles = this.GetNode<GDAreaTiles>("AreaTiles");
+        this.Objects = this.GetNode<GDObjectLayers>("ObjectLayers");
 
         this.Position = new Vector2(area.Position.x * KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH, 
                                     area.Position.y * KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT);
@@ -64,6 +66,25 @@ public class GDKnyttArea : Node2D
                     var tile = data.getTile(x, y);
                     if (tile == 0 || tile == 128) { continue; }
                     this.Tiles.setTile(layer, x, y, data.getTile(x, y));
+                }
+            }
+        }
+
+        this.Objects.initLayers(this);
+
+        //Load objects
+        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
+        {
+            var data = area.ObjectLayers[layer];
+            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
+            {
+                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
+                {
+                    var oid = data.getObjectID(x, y);
+                    if (oid.isZero()) { continue; }
+                    var bundle = GDKnyttObjectFactory.buildKnyttObject(oid);
+                    if (bundle == null) { continue; }
+                    this.Objects.addObject(layer, x, y, bundle);
                 }
             }
         }
