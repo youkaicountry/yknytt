@@ -15,6 +15,7 @@ public class MainMenu : Node2D
 
     public async void _on_TutorialButton_pressed()
     {
+        GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
         var task = Task.Run(() => loadTutorial());
         fade_anim.Play("FadeOut");
         await ToSignal(fade_anim, "animation_finished");
