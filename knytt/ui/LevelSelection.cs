@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using YKnyttLib;
 
@@ -6,27 +10,92 @@ public class LevelSelection : CanvasLayer
     KnyttWorldManager<Texture> Manager { get; }
     PackedScene info_scene;
 
+    [Export] public int loadThreads = 4;
+
     string filter_category;
     string filter_difficulty;
     string filter_size;
 
+    bool halt_consumers = false;
+    List<Task> consumers;
+
+    ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry> finished_entries;
+    ConcurrentQueue<Action> load_hopper;
+
     public LevelSelection()
     {
         Manager = new KnyttWorldManager<Texture>();
+        finished_entries = new ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry>();
+        load_hopper = new ConcurrentQueue<Action>();
+        consumers = new List<Task>();
     }
 
     public override void _Ready()
     {
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
-        this.loadDefaultWorlds();
-        this.discoverWorlds("./worlds");
-        this.listWorlds();
+        startHopperConsumers();
+
+        Task.Run(() => this.loadDefaultWorlds());
+        Task.Run(() => this.discoverWorlds("./worlds"));
+        
+        //this.listWorlds();
+    }
+
+    private void startHopperConsumers()
+    {
+        Action consumer = () => 
+        {
+            while (true)
+            {
+                Action action;
+                if (load_hopper.Count > 0 && load_hopper.TryDequeue(out action))
+                {
+                    var t = Task.Run(action);
+                    t.Wait();
+                }
+                else
+                {
+                    var t = Task.Delay(5);
+                    t.Wait();
+                }
+
+                if (halt_consumers) { break; }
+            }
+        };
+
+        for (int i = 0; i < loadThreads; i++)
+        {
+            consumers.Add(Task.Run(consumer));
+        }
+    }
+
+    public void killConsumers()
+    {
+        halt_consumers = true;
+        
+        Task.WaitAll(consumers.ToArray());
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        // Process the queue
+        //GD.Print(finished_entries.Count);
+        if (finished_entries.Count == 0) { return; }
+        KnyttWorldManager<Texture>.WorldEntry entry;
+        if (!finished_entries.TryDequeue(out entry)) { return; }
+        if (Manager.addWorld(entry))
+        {
+            var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
+            game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data);
+        }
     }
 
     private void loadDefaultWorlds()
     {
-        Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - The Machine.knytt.bin"));
-        Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - Tutorial.knytt.bin"));
+        startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin");
+        startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
+        //Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - The Machine.knytt.bin"));
+        //Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - Tutorial.knytt.bin"));
     }
 
     // Search the given directory for worlds
@@ -45,17 +114,36 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                var world = generateDirectoryWorld(wd.GetCurrentDir() + "/" + name, name);
-                Manager.addWorld(world);
+                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, name);
+                //Manager.addWorld(world);
             }
             else
             {
                 if (!name.EndsWith(".knytt.bin")) { continue; }
-                var world = generateBinWorld(wd.GetCurrentDir() + "/" + name);
-                Manager.addWorld(world);
+                startBinLoad(wd.GetCurrentDir() + "/" + name);
             }
         }
         wd.ListDirEnd();
+    }
+
+    private void startDirectoryLoad(string world_dir, string name)
+    {
+        Action action = () =>
+        {
+            var entry = generateDirectoryWorld(world_dir, name);
+            finished_entries.Enqueue(entry);
+        };
+        load_hopper.Enqueue(action);
+    }
+
+    private void startBinLoad(string world_dir)
+    {
+        Action action = () =>
+        {
+            var entry = generateBinWorld(world_dir);
+            finished_entries.Enqueue(entry);
+        };
+        load_hopper.Enqueue(action);
     }
 
     private KnyttWorldManager<Texture>.WorldEntry generateDirectoryWorld(string world_dir, string name)
@@ -104,6 +192,7 @@ public class LevelSelection : CanvasLayer
 
     public void _on_BackButton_pressed()
     {
+        killConsumers();
         GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
         this.QueueFree();
     }

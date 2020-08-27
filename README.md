@@ -8,7 +8,7 @@ Requires Godot 3.2.2.stable.mono
 
 #### Export settings
 
-To properly export, *.raw must be included in the export filters
+To properly export, "*.raw, knytt/worlds/*" must be included in the export filters
 
 ### Playing
 

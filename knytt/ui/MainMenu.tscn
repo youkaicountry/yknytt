@@ -47,8 +47,8 @@ script = ExtResource( 3 )
 [node name="BackgroundRect" type="TextureRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.749207
-margin_right = 0.749207
+margin_left = 0.351914
+margin_right = 0.351929
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
