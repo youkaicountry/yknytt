@@ -4,9 +4,11 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ### Building
 
-Requires Godot 3.2.4.rc4.mono
+Requires Godot 3.2.2.stable.mono
 
-Load project.godot in the editor and run
+#### Export settings
+
+To properly export, *.raw must be included in the export filters
 
 ### Playing
 
