@@ -1,0 +1,3 @@
+Bank 7:
+[x] - 8 Rain
+[x] - 9 Raindrop
