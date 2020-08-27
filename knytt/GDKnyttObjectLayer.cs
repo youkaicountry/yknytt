@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using YKnyttLib;
 
 public class GDKnyttObjectLayer : Node2D
 {
@@ -11,10 +11,10 @@ public class GDKnyttObjectLayer : Node2D
     }
 
     // TODO: Add icons to a layer
-    public void addObject(int x, int y, GDKnyttObjectBundle bundle)
+    public void addObject(KnyttPoint coords, GDKnyttObjectBundle bundle)
     {
-        var node = bundle.getNode(this);
-        node.Position = new Vector2(x*GDKnyttAssetManager.TILE_WIDTH, y*GDKnyttAssetManager.TILE_HEIGHT);
+        var node = bundle.getNode(this, coords);
+        node.Position = new Vector2(coords.x*GDKnyttAssetManager.TILE_WIDTH, coords.y*GDKnyttAssetManager.TILE_HEIGHT);
         this.AddChild(node);
     }
 }

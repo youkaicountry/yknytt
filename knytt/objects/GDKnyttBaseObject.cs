@@ -6,19 +6,16 @@ public abstract class GDKnyttBaseObject : Node2D
     [Export] public string objectName;
 
     public KnyttPoint ObjectID { get; private set; }
+    public KnyttPoint Coords { get; private set; }
 
     public GDKnyttObjectLayer Layer { get; private set; }
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
-
-    public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer)
+    public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
         this.Layer = layer;
         this.ObjectID = object_id;
+        this.Coords = coords;
+        this._impl_initialize();
     }
 
     protected abstract void _impl_initialize();

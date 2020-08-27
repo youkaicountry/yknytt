@@ -84,7 +84,7 @@ public class GDKnyttArea : Node2D
                     if (oid.isZero()) { continue; }
                     var bundle = GDKnyttObjectFactory.buildKnyttObject(oid);
                     if (bundle == null) { continue; }
-                    this.Objects.addObject(layer, x, y, bundle);
+                    this.Objects.addObject(layer, new KnyttPoint(x, y), bundle);
                 }
             }
         }

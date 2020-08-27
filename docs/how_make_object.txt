@@ -1,0 +1,15 @@
+To implement a new object:
+
+Create a scene: res://knytt/objects/banks/bankX/ObjectY.tscn
+
+Where X and Y are the bank number and object number.
+
+Attach a C# script to the root object which inherits from `GDKnyttBaseObject` (which itself inherits from `Node2D`)
+
+0, 0 in an object scene is the top left of the tile. 24, 24 is the bottom right.0
+
+The Object Factory will automagically detect and spawn this object if created properly, no need to add it to a registry.
+
+`_impl_initialize` is called when the object is first placed in the area. It's analagous to `_Ready`.
+
+`_impl_process` is analagous to `_PhysicsProcess`, and is called every physics frame when the object is not paused.

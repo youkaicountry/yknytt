@@ -155,7 +155,7 @@ public class GDKnyttAssetManager
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
         var ts = new TileSet();
-
+        
         int i = 0;
         for (int y = 0; y < TILESET_HEIGHT; y++)
         {

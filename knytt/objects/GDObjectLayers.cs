@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using YKnyttLib;
 
 public class GDObjectLayers : Node2D
 {
@@ -22,8 +23,8 @@ public class GDObjectLayers : Node2D
         // TODO: Enable collisions only on layer 3
     }
 
-    public void addObject(int layer, int x, int y, GDKnyttObjectBundle bundle)
+    public void addObject(int layer, KnyttPoint coords, GDKnyttObjectBundle bundle)
     {
-        this.Layers[layer].addObject(x, y, bundle);
+        this.Layers[layer].addObject(coords, bundle);
     }
 }
