@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
 [ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
+[ext_resource path="res://knytt/juni/ClimbCheckers.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5778, 8.60157 )
@@ -122,8 +123,11 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 0.754066, 5.09802 )
+
 [node name="Juni" type="KinematicBody2D"]
-collision_mask = 2147483649
+collision_mask = 2147483650
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -163,3 +167,22 @@ rawPath = "res://knytt/data/Sfx/Jump.raw"
 [node name="LandPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Land.raw"
+
+[node name="ClimbCheckers" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="RightCheck" type="Area2D" parent="ClimbCheckers"]
+position = Vector2( 6.33, 0.285 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightCheck"]
+shape = SubResource( 8 )
+
+[node name="LeftCheck" type="Area2D" parent="ClimbCheckers"]
+position = Vector2( -6.328, 0.285 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftCheck"]
+shape = SubResource( 8 )
