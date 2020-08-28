@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class Object8 : GDKnyttBaseObject
+public class Rain : GDKnyttBaseObject
 {   
     PackedScene drop_scene;
 

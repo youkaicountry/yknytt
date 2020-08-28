@@ -67,7 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="knytt\objects\banks\bank7\Object9.cs" />
+    <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
     <Compile Include="knytt\objects\banks\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />
     <Compile Include="knytt\GDAreaLayer.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
-    <Compile Include="knytt\objects\banks\bank7\Object8.cs" />
+    <Compile Include="knytt\objects\banks\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
     <Compile Include="knytt\RawAudioPlayer2D.cs" />
