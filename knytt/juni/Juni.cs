@@ -50,6 +50,8 @@ public class Juni : KinematicBody2D
         } 
     }
 
+    public bool FacingRight { get { return !Sprite.FlipH; } }
+
     public Sprite Sprite { get; private set; }
     public AnimationPlayer Anim { get; private set; }
 
