@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -55,6 +55,24 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 42, 43, 44, 45, 46 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Run"
+length = 0.39
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -116,12 +134,13 @@ position = Vector2( -0.305659, -2.99525 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 47
+frame = 21
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Falling = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Jump = SubResource( 4 )
+anims/Run = SubResource( 7 )
 anims/StartFall = SubResource( 5 )
 anims/Walk = SubResource( 6 )
 
@@ -130,6 +149,11 @@ anims/Walk = SubResource( 6 )
 [node name="WalkPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Walk.raw"
+loop = true
+
+[node name="RunPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Run.raw"
 loop = true
 
 [node name="JumpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
