@@ -10,6 +10,7 @@ public class GDKnyttWorld : Node2D
     public string WorldConfigPath { get; internal set; }
     public KnyttRectPaging<GDKnyttArea> Areas { get; }
     public GDKnyttAssetManager AssetManager { get; }
+    public GDKnyttGame Game { get; protected set; }
 
     public GDKnyttWorldImpl KWorld { get; private set; }
 
@@ -26,21 +27,25 @@ public class GDKnyttWorld : Node2D
         this.area_scene = ResourceLoader.Load("res://knytt/GDKnyttArea.tscn") as PackedScene;
     }
 
-    public void loadWorld(GDKnyttWorldImpl world)
+    public void setWorld(GDKnyttGame game, GDKnyttWorldImpl world)
     {
         this.KWorld = world;
+        this.Game = game;
+    }
 
+    public void loadWorld()
+    {
         var wd = new Directory();
-		wd.Open(world.WorldDirectory);
+		wd.Open(KWorld.WorldDirectory);
 
         // If info is not initialized, load it
-        if (world.Info == null) 
+        if (KWorld.Info == null) 
         {  
-            var txt = GDKnyttAssetManager.loadTextFile(world.getWorldData("World.ini"));
-            world.loadWorldConfig(txt);
+            var txt = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
+            KWorld.loadWorldConfig(txt);
         }
 
-        var map_data = world.getWorldData("Map.bin");
+        var map_data = KWorld.getWorldData("Map.bin");
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
         
         this.KWorld.loadWorldMap(map_stream);
