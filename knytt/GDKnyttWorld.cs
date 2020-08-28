@@ -18,7 +18,7 @@ public class GDKnyttWorld : Node2D
 
     public GDKnyttWorld()
     {
-        this.AssetManager = new GDKnyttAssetManager(this, 16, 16, 4, 8);
+        this.AssetManager = new GDKnyttAssetManager(this, tile_cache:32, gradient_cache:16, song_cache:4, ambiance_cache:8, object_cache:64);
         this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(1, 1));
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => destroyArea(loc, area);

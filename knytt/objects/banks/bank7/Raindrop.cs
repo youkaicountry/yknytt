@@ -28,7 +28,7 @@ public class Raindrop : Node2D
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (sprite.Frame == 0 && (GDKnyttDataStore.random.NextDouble() < .3)) { splash(); }
+        if (sprite.Frame == 0 && (GDKnyttDataStore.random.NextDouble() < .4)) { splash(); }
         else { QueueFree(); }
     }
 

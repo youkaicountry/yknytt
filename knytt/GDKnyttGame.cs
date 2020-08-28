@@ -34,10 +34,13 @@ public class GDKnyttGame : Node2D
 	[Export]
     public bool viewMode = true;
 
-	public override void _Ready()
+	public GDKnyttGame()
 	{
 		juni_scene = ResourceLoader.Load("res://knytt/juni/Juni.tscn") as PackedScene;
+	}
 
+	public override void _Ready()
+	{
 		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
 		this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
 		this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
@@ -115,9 +118,9 @@ public class GDKnyttGame : Node2D
 	// Changes the current area
 	public void changeArea(KnyttPoint new_area, bool force_jump = false)
 	{
-		// This should inform the world that it needs an area loaded
-		//var area = this.World.instantiateArea(new_area);
-		//if (area == null) { return; }
+		// Deactivate old area
+		if (this.CurrentArea != null) { CurrentArea.deactivateArea(); }
+		
 		// Update the paging
 		GDWorld.Areas.setLocation(new_area);
 		var area = GDWorld.getArea(new_area);
@@ -125,6 +128,7 @@ public class GDKnyttGame : Node2D
 		if (area == null) { return; }
 
 		this.CurrentArea = area;
+		this.CurrentArea.activateArea();
 		this.beginTransitionEffects(force_jump);
 	}
 

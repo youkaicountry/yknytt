@@ -36,8 +36,11 @@ __meta__ = {
 
 [node name="IconTexture" type="TextureRect" parent="MainContainer"]
 margin_right = 30.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+stretch_mode = 3
 
 [node name="TextContainer" type="VBoxContainer" parent="MainContainer"]
 margin_left = 34.0

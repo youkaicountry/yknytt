@@ -12,7 +12,6 @@ public static class GDKnyttObjectFactory
             GD.Print(string.Format("Object {0}:{1} unimplemented.", object_id.x, object_id.y));
             return null;
         }
-
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }
@@ -20,9 +19,9 @@ public static class GDKnyttObjectFactory
 
 public class GDKnyttObjectBundle
     {
-        KnyttPoint object_id;
+        public KnyttPoint object_id;
         PackedScene scene;
-        Texture icon;
+        public Texture icon;
 
         public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture icon=null)
         {

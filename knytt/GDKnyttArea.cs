@@ -8,6 +8,16 @@ public class GDKnyttArea : Node2D
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
+    bool active = false;
+    PackedScene objects_scene;
+    PackedScene tiles_scene;
+
+    public GDKnyttArea()
+    {
+        objects_scene = ResourceLoader.Load("res://knytt/ObjectLayers.tscn") as PackedScene;
+        tiles_scene = ResourceLoader.Load("res://knytt/AreaTiles.tscn") as PackedScene;
+    }
+
     public Vector2 GlobalCenter
     {
         get 
@@ -37,62 +47,51 @@ public class GDKnyttArea : Node2D
 
         this.Name = area.Position.ToString();
 
-        this.Tiles = this.GetNode<GDAreaTiles>("AreaTiles");
-        this.Objects = this.GetNode<GDObjectLayers>("ObjectLayers");
-
         this.Position = new Vector2(area.Position.x * KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH, 
                                     area.Position.y * KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT);
 
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
 
-        TileSet ta = world.AssetManager.getTileSet(area.TilesetA);
-        TileSet tb = world.AssetManager.getTileSet(area.TilesetB);
-
-        // Setup background gradient
-        ((GDKnyttBackground)GetNode("Background")).initialize(world.AssetManager.getGradient(area.Background));
+        // Setup gradient
+        GetNode<GDKnyttBackground>("Background").initialize(world.AssetManager.getGradient(area.Background));
 
         // Initialize the Layers
-        this.Tiles.initTiles(ta, tb);
+        Tiles = tiles_scene.Instance() as GDAreaTiles;
+        this.Tiles.initTiles(this);
+        AddChild(Tiles);
+    }
 
-        // Draw the map
-        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++ )
-        {
-            var data = area.TileLayers[layer];
-            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
-            {
-                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
-                {
-                    var tile = data.getTile(x, y);
-                    if (tile == 0 || tile == 128) { continue; }
-                    this.Tiles.setTile(layer, x, y, data.getTile(x, y));
-                }
-            }
-        }
+    public void activateArea()
+    {
+        GetNode<Timer>("DeactivateTimer").Stop();
+        if (this.active || this.Area.Empty) { return; }
+        Objects = objects_scene.Instance() as GDObjectLayers;
+        Objects.initLayers(this);
+        AddChild(Objects);
+        this.active = true;
+    }
 
-        this.Objects.initLayers(this);
+    // We don't want this to be async, because it can be cancelled
+    // A whooole bunch of threads could queue up waiting for an event that never occurs if async
+    public void deactivateArea(float delay = .5f)
+    {
+        var timer = GetNode<Timer>("DeactivateTimer");
+        timer.WaitTime = delay;
+        timer.Start();
+    }
 
-        //Load objects
-        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
-        {
-            var data = area.ObjectLayers[layer];
-            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
-            {
-                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
-                {
-                    var oid = data.getObjectID(x, y);
-                    if (oid.isZero()) { continue; }
-                    var bundle = GDKnyttObjectFactory.buildKnyttObject(oid);
-                    if (bundle == null) { continue; }
-                    this.Objects.addObject(layer, new KnyttPoint(x, y), bundle);
-                }
-            }
-        }
+    public void _on_DeactivateTimer_timeout()
+    {
+        this.Objects.returnObjects();
+        this.Objects.QueueFree();
+        this.active = false;
     }
 
     public void destroyArea()
     {
         if (Area.Empty) { return; }
+        if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
         GDWorld.AssetManager.returnGradient(Area.Background);

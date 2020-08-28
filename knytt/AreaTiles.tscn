@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/GDAreaLayer.cs" type="Script" id=1]
+[ext_resource path="res://knytt/GDAreaTiles.cs" type="Script" id=2]
+
+[node name="AreaTiles" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Layer0" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="A" type="TileMap" parent="Layer0"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="B" type="TileMap" parent="Layer0"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Layer1" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="A" type="TileMap" parent="Layer1"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="B" type="TileMap" parent="Layer1"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Layer2" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="A" type="TileMap" parent="Layer2"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="B" type="TileMap" parent="Layer2"]
+cell_size = Vector2( 24, 24 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Layer3" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="A" type="TileMap" parent="Layer3"]
+cell_size = Vector2( 24, 24 )
+format = 1
+
+[node name="B" type="TileMap" parent="Layer3"]
+cell_size = Vector2( 24, 24 )
+format = 1

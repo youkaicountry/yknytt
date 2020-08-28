@@ -9,9 +9,8 @@ public class IdleState : JuniState
 
     public override void PreProcess(float delta)
     {
-        var dir = juni.MoveDirection;
-        juni.velocity.x = juni.speed * dir;
-        if (dir != 0) { juni.transitionState(new WalkRunState(juni)); } 
+        juni.dir = juni.MoveDirection;
+        if (juni.dir != 0) { juni.transitionState(new WalkRunState(juni, juni.WalkRun)); }
     }
 
     public override void PostProcess(float delta) 
@@ -24,19 +23,25 @@ public class IdleState : JuniState
 // TODO: Have a juni function that checks if walk or run
 public class WalkRunState : JuniState
 {
-    public WalkRunState(Juni juni) : base(juni) { }
+    bool walk_run;
+
+    public WalkRunState(Juni juni, bool walk_run) : base(juni)
+    { 
+        this.walk_run = walk_run;
+    }
 
     public override void onEnter()
     {
-        juni.GetNode<RawAudioPlayer2D>("Audio/WalkPlayer2D").Play();
-        juni.Anim.Play("Walk");
+        juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Play();
+        juni.Anim.Play(walk_run ? "Run" : "Walk");
+        juni.max_speed = walk_run ? 175f : 90f;
     }
 
     public override void PreProcess(float delta)
     {
-        var dir = juni.MoveDirection;
-        juni.velocity.x = juni.speed * dir; // TODO: Get speed from a property
-        if (dir == 0) { juni.transitionState(new IdleState(juni)); }
+        juni.dir = juni.MoveDirection;
+        if (juni.dir == 0) { juni.transitionState(new IdleState(juni)); }
+        if (juni.WalkRun != walk_run) { juni.transitionState(new WalkRunState(juni, !walk_run)); }
     }
 
     public override void PostProcess(float delta) 
@@ -47,7 +52,7 @@ public class WalkRunState : JuniState
 
     public override void onExit()
     {
-        juni.GetNode<RawAudioPlayer2D>("Audio/WalkPlayer2D").Stop();
+        juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Stop();
     }
 }
 
@@ -64,8 +69,7 @@ public class JumpState : JuniState
 
     public override void PreProcess(float delta)
     {
-        var dir = juni.MoveDirection;
-        juni.velocity.x = juni.speed * dir; // TODO: Get speed from a property
+        juni.dir = juni.MoveDirection;
     }
 
     public override void PostProcess(float delta)
@@ -92,8 +96,7 @@ public class FallState : JuniState
 
     public override void PreProcess(float delta)
     {
-        var dir = juni.MoveDirection;
-        juni.velocity.x = juni.speed * dir; // TODO: Get speed from a property
+        juni.dir = juni.MoveDirection;
     }
 
     public override void PostProcess(float delta)
