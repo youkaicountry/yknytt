@@ -1,14 +1,14 @@
 using Godot;
 using YKnyttLib;
+using YUtil.Math;
 using static YKnyttLib.JuniPowers;
 
 public class Juni : KinematicBody2D
 {
-    //[Export] public float speed = 90f;
-    [Export] public float jump_speed = -230f;
-    [Export] public float gravity = 950f;
+    [Export] public float jump_speed = -250f;
+    [Export] public float gravity = 1125f;
 
-    public Vector2 velocity = Vector2.Zero;
+    public Godot.Vector2 velocity = Godot.Vector2.Zero;
     public int dir = 0;
     public float max_speed;
 
@@ -16,15 +16,24 @@ public class Juni : KinematicBody2D
 
     public JuniPowers Powers { get; }
 
+    public ClimbCheckers ClimbCheckers { get; private set; }
+
     // States
     public JuniState CurrentState { get; private set; }
     private JuniState next_state = null;
 
+    public float just_climbed = 0f;
+
     // Keys
     public bool LeftHeld { get { return Input.IsActionPressed("left");  } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
+    public bool UpHeld { get { return Input.IsActionPressed("up"); } }
+    public bool DownHeld { get { return Input.IsActionPressed("down"); } }
     public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
+    public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
+
+    public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
 
     public bool Grounded { get { return IsOnFloor(); } }
 
@@ -62,6 +71,7 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
+        this.ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         this.Sprite = GetNode<Sprite>("Sprite");
         this.Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
@@ -87,9 +97,22 @@ public class Juni : KinematicBody2D
 
         handleXMovement(delta);
 
+        // This particular value needs to be multiplied byt delta to ensure
+        // framerate independence
         velocity.y += gravity * delta;
-        velocity = MoveAndSlide(velocity, Vector2.Up);
+        if (JumpHeld) {velocity.y -= 125 * delta;} // jump hold
+        
         this.CurrentState.PostProcess(delta);
+
+        // Pull-over-edge
+        if (just_climbed > 0f)
+        {
+            velocity.x += (FacingRight ? 1f:-1f) * 30f;
+            just_climbed -= delta;
+        }
+
+        velocity.y = Mathf.Min(350f, velocity.y);
+        velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
 
         // TODO: Do this only if the local player
         if (!this.Game.CurrentArea.isIn(this.GlobalPosition)) 
@@ -103,13 +126,13 @@ public class Juni : KinematicBody2D
         // Move, then clamp
         if (dir != 0)
         {
-            velocity.x += dir * 2500f * delta;
+            velocity.x += dir * 2500f*delta; // acceleration
             velocity.x = Mathf.Min(velocity.x, max_speed);
             velocity.x = Mathf.Max(velocity.x, -max_speed);
         }
         else
         {
-            YUtil.Math.MathTools.MoveTowards(ref velocity.x, 0f, 2500f * delta );
+            YUtil.Math.MathTools.MoveTowards(ref velocity.x, 0f, 1500f*delta ); // deceleration
         }
     }
 

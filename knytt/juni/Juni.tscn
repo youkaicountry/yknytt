@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -7,6 +7,24 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5778, 8.60157 )
+
+[sub_resource type="Animation" id=9]
+resource_name = "Climbing"
+length = 0.28
+loop = true
+step = 0.04
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 22, 23, 24, 25, 26, 27, 28 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Falling"
@@ -76,6 +94,21 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
 }
 
+[sub_resource type="Animation" id=10]
+resource_name = "Sliding"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 29 ]
+}
+
 [sub_resource type="Animation" id=6]
 length = 0.5
 step = 0.05
@@ -124,7 +157,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 0.754066, 5.09802 )
+extents = Vector2( 0.56369, 5.09802 )
 
 [node name="Juni" type="KinematicBody2D"]
 collision_mask = 2147483650
@@ -138,13 +171,15 @@ position = Vector2( -0.305659, -2.99525 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 21
+frame = 28
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Climbing = SubResource( 9 )
 anims/Falling = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Jump = SubResource( 4 )
 anims/Run = SubResource( 5 )
+anims/Sliding = SubResource( 10 )
 anims/StartFall = SubResource( 6 )
 anims/Walk = SubResource( 7 )
 
@@ -153,6 +188,16 @@ anims/Walk = SubResource( 7 )
 [node name="WalkPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Walk.raw"
+loop = true
+
+[node name="ClimbPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Climb.raw"
+loop = true
+
+[node name="SlidePlayer2D" parent="Audio" instance=ExtResource( 1 )]
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Slide.raw"
 loop = true
 
 [node name="RunPlayer2D" parent="Audio" instance=ExtResource( 1 )]
@@ -171,18 +216,20 @@ rawPath = "res://knytt/data/Sfx/Land.raw"
 [node name="ClimbCheckers" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="RightCheck" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( 6.33, 0.285 )
+[node name="RightChecker" type="Area2D" parent="ClimbCheckers"]
+position = Vector2( 6.148, 0.285 )
+priority = 1.0
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightCheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
 shape = SubResource( 8 )
 
-[node name="LeftCheck" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( -6.328, 0.285 )
+[node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
+position = Vector2( -6.141, 0.285 )
+priority = 1.0
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftCheck"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
 shape = SubResource( 8 )

@@ -10,7 +10,7 @@ public class LevelSelection : CanvasLayer
     KnyttWorldManager<Texture> Manager { get; }
     PackedScene info_scene;
 
-    [Export] public int loadThreads = 4;
+    [Export] public int loadThreads = 1;
 
     string filter_category;
     string filter_difficulty;
