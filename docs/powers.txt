@@ -1,34 +1,34 @@
 ## Knytt Stories Powers
 
-#### 0 - Run (Red Ball)
+#### 0 - Run (Red Ball) 0/3
 
 Move faster
 
-#### 1 - Climb (Orange Ball)
+#### 1 - Climb (Orange Ball) 0/4
 
 Allows Juni to climb walls
 
-#### 2 - Double Jump (Blue Ball)
+#### 2 - Double Jump (Blue Ball) 0/5
 
 Allows Juni to double jump
 
-#### 3 - High Jump (Green Ball)
+#### 3 - High Jump (Green Ball) 0/6
 
 Juni jumps higher
 
-#### 4 Eye (Eye)
+#### 4 Eye (Eye) 0/7
 
 Allows Juni to see invisible objects
 
-#### 5 Enemy Detector (Scale)
+#### 5 Enemy Detector (Radar) 0/8
 
 Makes Juni glow red when in proximity to organic enemies
 
-#### 6 Umbrella (Umbrella)
+#### 6 Umbrella (Umbrella) 0/9
 
 Allows Juni to glide
 
-#### 7 Hologram (Holographic Juni)
+#### 7 Hologram (Holographic Juni) 0/10
 
 Makes enemies ignore Juni when deployed
 

@@ -1,3 +1,22 @@
+Back 0:
+[x] - 3  Run
+[x] - 4  Climb
+[x] - 5  Double Jump
+[x] - 6  High Jump
+[x] - 7  Eye
+[x] - 8  Enemy Detector
+[x] - 9  Umbrella
+[x] - 10 Hologram
+
+[ ] - 17 Sign A
+[ ] - 18 Sign B
+[ ] - 19 Sign C
+
+[x] - 21 Red Key
+[x] - 22 Yellow Key
+[x] - 23 Blue Key
+[x] - 24 Purple Key
+
 Bank 7:
-[x] - 8 Rain
-[x] - 9 Raindrop
+[x] - 8  Rain
+[x] - 9  Raindrop

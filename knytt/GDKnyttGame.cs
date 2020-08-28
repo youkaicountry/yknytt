@@ -75,21 +75,23 @@ public class GDKnyttGame : Node2D
 			world.CurrentSave = new KnyttSave(world, save_data, 1);
 		}
 
-		GDWorld.loadWorld(world);
+		GDWorld.setWorld(this, world);
 		spawnJuni();
+		GDWorld.loadWorld();
+
+		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
+		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
 	}
 
 	// On load a save file (or die)
 	public void spawnJuni()
 	{
-		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 		if (Juni == null)
 		{
 			Juni = juni_scene.Instance() as Juni;
 			Juni.initialize(this);
 			this.AddChild(Juni);
 		}
-		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
 	}
 
 	public override void _Process(float delta)
