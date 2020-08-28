@@ -1,17 +1,28 @@
+using System.Collections.Generic;
 using Godot;
 using YKnyttLib;
 
 public static class GDKnyttObjectFactory
 {
+    private static Dictionary<KnyttPoint, string> ObjectLookup;
+
+    static GDKnyttObjectFactory()
+    {
+        ObjectLookup = new Dictionary<KnyttPoint, string>();
+        ObjectLookup[new KnyttPoint(7, 8)] = "Rain";
+        ObjectLookup[new KnyttPoint(7, 9)] = "RaindropObject";
+    }
+
+
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)
     {
-        string fname = string.Format("res://knytt/objects/banks/bank{0}/Object{1}.tscn", object_id.x, object_id.y);
-        var f = new File();
-        if (!f.FileExists(fname)) 
-        { 
+        if (!ObjectLookup.ContainsKey(object_id))
+        {
             GD.Print(string.Format("Object {0}:{1} unimplemented.", object_id.x, object_id.y));
             return null;
         }
+        string fname = string.Format("res://knytt/objects/banks/bank{0}/{1}.tscn", object_id.x, ObjectLookup[object_id]);
+        
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }
