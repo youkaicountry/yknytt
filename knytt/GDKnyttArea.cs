@@ -83,8 +83,11 @@ public class GDKnyttArea : Node2D
 
     public void _on_DeactivateTimer_timeout()
     {
-        this.Objects.returnObjects();
-        this.Objects.QueueFree();
+        if (Objects != null)
+        {
+            this.Objects.returnObjects();
+            this.Objects.QueueFree();
+        }
         this.active = false;
     }
 
