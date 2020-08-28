@@ -1,21 +1,16 @@
 using Godot;
-using System;
 
 public class ClimbCheckers : Node2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    Area2D right_checker;
+    Area2D left_checker;
 
-    // Called when the node enters the scene tree for the first time.
+    public bool RightColliding { get { return right_checker.GetOverlappingBodies().Count > 0; } }
+    public bool LeftColliding { get { return left_checker.GetOverlappingBodies().Count > 0; } }
+
     public override void _Ready()
     {
-        
+        right_checker = GetNode<Area2D>("RightChecker");
+        left_checker = GetNode<Area2D>("LeftChecker");
     }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }

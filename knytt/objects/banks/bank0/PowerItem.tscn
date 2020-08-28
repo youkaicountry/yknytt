@@ -381,7 +381,7 @@ anims/Pickup = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 64 )
 animation = "Power0"
-frame = 1
+frame = 8
 playing = true
 centered = false
 

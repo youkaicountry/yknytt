@@ -1,0 +1,4 @@
+X cpx/f -> px / s = X / 2.0
+
+These values must be multipled by delta before being used:
+X cpx/f^2 -> X/100 * 50^2
