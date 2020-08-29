@@ -14,7 +14,7 @@ public class Sign : GDKnyttBaseObject
             case 19: letter = "C"; break;
         }
 
-        string text = Layer.ObjectLayers.GDArea.Area.getExtraData(string.Format("Sign({0})", letter));
+        string text = GDArea.Area.getExtraData(string.Format("Sign({0})", letter));
         if (text == null) { text = "<SIGN TEXT MISSING>"; }
         GetNode<Label>("SignRect/Label").Text = text;
     }

@@ -10,6 +10,9 @@ public abstract class GDKnyttBaseObject : Node2D
 
     public GDKnyttObjectLayer Layer { get; private set; }
 
+    public GDKnyttArea GDArea { get { return Layer.ObjectLayers.GDArea; } }
+    public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
+
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
         this.Layer = layer;
