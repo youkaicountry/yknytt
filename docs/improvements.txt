@@ -3,6 +3,7 @@ Improvements over original Knytt Stories:
 - Positional audio
 - Bin file loading (No need to install)
 - Scrolling screen transitions
+- Smooth fading fialogue boxes
 
 Planned improvements:
 - High res tileset / sprite support
