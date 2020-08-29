@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="knytt\juni\ClimbCheckers.cs" />
     <Compile Include="knytt\objects\banks\bank0\PowerItem.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
     <Compile Include="knytt\objects\banks\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />

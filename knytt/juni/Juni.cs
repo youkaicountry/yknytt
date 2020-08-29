@@ -126,9 +126,7 @@ public class Juni : KinematicBody2D
         // Move, then clamp
         if (dir != 0)
         {
-            velocity.x += dir * 2500f*delta; // acceleration
-            velocity.x = Mathf.Min(velocity.x, max_speed);
-            velocity.x = Mathf.Max(velocity.x, -max_speed);
+            YUtil.Math.MathTools.MoveTowards(ref velocity.x, dir*max_speed, 2500f*delta);
         }
         else
         {

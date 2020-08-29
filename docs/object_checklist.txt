@@ -8,9 +8,9 @@ Back 0:
 [x] - 9  Umbrella
 [x] - 10 Hologram
 
-[ ] - 17 Sign A
-[ ] - 18 Sign B
-[ ] - 19 Sign C
+[x] - 17 Sign A
+[x] - 18 Sign B
+[x] - 19 Sign C
 
 [x] - 21 Red Key
 [x] - 22 Yellow Key
