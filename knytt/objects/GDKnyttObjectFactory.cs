@@ -9,6 +9,7 @@ public static class GDKnyttObjectFactory
     static GDKnyttObjectFactory()
     {
         ObjectLookup = new Dictionary<KnyttPoint, string>();
+        ObjectLookup[new KnyttPoint(0, 1)]  = "SavePoint";
         ObjectLookup[new KnyttPoint(0, 3)]  = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 4)]  = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 5)]  = "PowerItem";
@@ -20,7 +21,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 17)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 18)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 19)] = "Sign";
-        //ObjectLookup[new KnyttPoint(1, 1)] =  "LiquidPool";
+        ObjectLookup[new KnyttPoint(1, 1)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 3)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 7)] =  "WaterBlock";
         ObjectLookup[new KnyttPoint(1, 8)] =  "WaterBlock";
