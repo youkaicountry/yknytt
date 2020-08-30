@@ -63,8 +63,6 @@ public class Juni : KinematicBody2D
         } 
     }
 
-    
-
     public Sprite Sprite { get; private set; }
     public AnimationPlayer Anim { get; private set; }
 
@@ -117,10 +115,13 @@ public class Juni : KinematicBody2D
 
         handleXMovement(delta);
 
-        // This particular value needs to be multiplied byt delta to ensure
+        // This particular value needs to be multiplied by delta to ensure
         // framerate independence
         velocity.y += gravity * delta;
-        if (JumpHeld) {velocity.y -= 125 * delta;} // jump hold
+        if (JumpHeld) 
+        {
+            velocity.y -= ( Powers.getPower(PowerNames.HighJump) ? 550 : 125) * delta;
+        } 
         
         this.CurrentState.PostProcess(delta);
 
