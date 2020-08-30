@@ -1,4 +1,5 @@
 using Godot;
+using YUtil.Random;
 
 public class LiquidPool : GDKnyttBaseObject
 {
@@ -21,7 +22,8 @@ public class LiquidPool : GDKnyttBaseObject
     protected override void _impl_initialize()
     {
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
-        player.SpeedScale = ((float)GDKnyttDataStore.random.NextDouble()) * .4f + .8f;
+        //player.SpeedScale = ((float)GDKnyttDataStore.random.NextDouble()) * .4f + .8f;
+        player.SpeedScale = (float)GDKnyttDataStore.random.NextDouble(.4, .8);
         //player.frame (set the frame)
         player.Play("Pool1");
         
