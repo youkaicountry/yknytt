@@ -1,4 +1,4 @@
-Back 0:
+Bank 0:
 [x] - 3  Run
 [x] - 4  Climb
 [x] - 5  Double Jump
@@ -16,6 +16,20 @@ Back 0:
 [x] - 22 Yellow Key
 [x] - 23 Blue Key
 [x] - 24 Purple Key
+
+Bank 1:
+
+[x] - 1  Liquid Pool
+
+[x] - 3  Waterfall
+
+[x] - 7  Water Block
+[x] - 8  Water Block
+[x] - 9  Water Block
+[x] - 11 Water Block
+[x] - 17 Water Block
+[x] - 21 Water Block
+[x] - 24 Water Block
 
 Bank 7:
 [x] - 8  Rain

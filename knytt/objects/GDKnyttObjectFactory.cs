@@ -20,9 +20,17 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 17)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 18)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 19)] = "Sign";
-        ObjectLookup[new KnyttPoint(1, 1)] = "LiquidPool";
-        ObjectLookup[new KnyttPoint(7, 8)] = "Rain";
-        ObjectLookup[new KnyttPoint(7, 9)] = "RaindropObject";
+        //ObjectLookup[new KnyttPoint(1, 1)] =  "LiquidPool";
+        ObjectLookup[new KnyttPoint(1, 3)] =  "Waterfall";
+        ObjectLookup[new KnyttPoint(1, 7)] =  "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 8)] =  "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 9)] =  "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 11)] = "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 17)] = "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 21)] = "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 24)] = "WaterBlock";
+        ObjectLookup[new KnyttPoint(7, 8)] =  "Rain";
+        ObjectLookup[new KnyttPoint(7, 9)] =  "RaindropObject";
     }
 
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)
