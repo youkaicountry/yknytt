@@ -1,0 +1,46 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public class SavePoint : GDKnyttBaseObject
+{
+    HashSet<Juni> junis;
+    AnimationPlayer animation;
+
+    protected override void _impl_initialize()
+    {
+        junis = new HashSet<Juni>();
+        animation = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
+        animation.Play("Idle");
+    }
+
+    protected override void _impl_process(float delta)
+    {
+        if (junis.Count == 0 || animation.CurrentAnimation.Equals("Save")) { return; }
+        foreach (var juni in junis)
+        {
+            if (juni.DownPressed) { save(juni); }
+        }
+    }
+
+    private async void save(Juni juni)
+    {
+        GDArea.GDWorld.Game.saveGame(juni.GDArea.Area.Position, Coords, true);
+        GetNode<AudioStreamPlayer2D>("SavePlayer2D").Play();
+        animation.Play("Save");
+        await ToSignal(animation, "animation_finished");
+        animation.Play("Idle");
+    }
+
+    public void _on_Area2D_body_entered(Node body)
+    {
+        if (!(body is Juni)) { return; }
+        junis.Add((Juni)body);
+    }
+
+    public void _on_Area2D_body_exited(Node body)
+    {
+        if (!(body is Juni)) { return; }
+        junis.Remove((Juni)body);
+    }
+}

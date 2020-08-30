@@ -100,6 +100,11 @@ public class GDKnyttGame : Node2D
 		Juni.reset();
 	}
 
+	public void saveGame(Juni juni, bool write)
+	{
+		saveGame(juni.GDArea.Area.Position, juni.AreaPosition, write);
+	}
+
 	public void saveGame(KnyttPoint area, KnyttPoint position, bool write)
 	{
 	    var save = GDWorld.KWorld.CurrentSave;

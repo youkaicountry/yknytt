@@ -33,6 +33,7 @@ public class Juni : KinematicBody2D
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
     public bool UpHeld { get { return Input.IsActionPressed("up"); } }
     public bool DownHeld { get { return Input.IsActionPressed("down"); } }
+    public bool DownPressed { get { return Input.IsActionJustPressed("down"); } }
     public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
     public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
@@ -94,7 +95,7 @@ public class Juni : KinematicBody2D
     private void checkDebugInput()
     {
         if (Input.IsActionJustPressed("debug_die")) { die(); }
-        if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(GDArea.Area.Position, AreaPosition, true); }
+        if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(this, true); }
     }
 
     public override void _PhysicsProcess(float delta)
