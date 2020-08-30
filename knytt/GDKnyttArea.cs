@@ -23,21 +23,30 @@ public class GDKnyttArea : Node2D
         get 
         { 
             var gp = GlobalPosition;
-            return new Vector2(GlobalPosition.x + (KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH)/2f,
-                               GlobalPosition.y + (KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT)/2f);
+            return new Vector2(gp.x + (KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH)/2f,
+                               gp.y + (KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT)/2f);
         }
     }
 
     public Vector2 getTileLocation(KnyttPoint point)
     {
-        return new Vector2(GlobalPosition.x + GDKnyttAssetManager.TILE_WIDTH*point.x + GDKnyttAssetManager.TILE_WIDTH/2f, 
-                       GlobalPosition.y + GDKnyttAssetManager.TILE_HEIGHT*point.y + GDKnyttAssetManager.TILE_HEIGHT/2f);
+        var gp = GlobalPosition;
+        return new Vector2(gp.x + GDKnyttAssetManager.TILE_WIDTH*point.x + GDKnyttAssetManager.TILE_WIDTH/2f, 
+                       gp.y + GDKnyttAssetManager.TILE_HEIGHT*point.y + GDKnyttAssetManager.TILE_HEIGHT/2f);
+    }
+
+    public KnyttPoint getPosition(Vector2 p)
+    {
+        var gp = GlobalPosition;
+        return new KnyttPoint((int)((p.x - GlobalPosition.x) / ((float)GDKnyttAssetManager.TILE_WIDTH)),
+                              (int)((p.y - GlobalPosition.y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
     }
 
     public bool isIn(Vector2 global_pos)
     {
-        return (global_pos.x > GlobalPosition.x && global_pos.x < GlobalPosition.x + GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH &&
-                global_pos.y > GlobalPosition.y && global_pos.y < GlobalPosition.y + GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT);
+        var gp = GlobalPosition;
+        return (global_pos.x > gp.x && global_pos.x < gp.x + GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH &&
+                global_pos.y > gp.y && global_pos.y < gp.y + GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
@@ -66,10 +75,24 @@ public class GDKnyttArea : Node2D
     {
         GetNode<Timer>("DeactivateTimer").Stop();
         if (this.active || this.Area.Empty) { return; }
+        this.createObjectLayers();
+        this.active = true;
+    }
+
+    private void createObjectLayers()
+    {
         Objects = objects_scene.Instance() as GDObjectLayers;
         Objects.initLayers(this);
         AddChild(Objects);
-        this.active = true;
+    }
+
+    private void removeObjectLayers()
+    {
+        if (Objects != null)
+        {
+            this.Objects.returnObjects();
+            this.Objects.QueueFree();
+        }
     }
 
     // We don't want this to be async, because it can be cancelled
@@ -81,13 +104,16 @@ public class GDKnyttArea : Node2D
         timer.Start();
     }
 
+    public void regenerateArea()
+    {
+        if (this.Area.Empty) { return; }
+        this.removeObjectLayers();
+        this.createObjectLayers();
+    }
+
     public void _on_DeactivateTimer_timeout()
     {
-        if (Objects != null)
-        {
-            this.Objects.returnObjects();
-            this.Objects.QueueFree();
-        }
+        
         this.active = false;
     }
 

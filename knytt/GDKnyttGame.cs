@@ -76,7 +76,7 @@ public class GDKnyttGame : Node2D
 		}
 
 		GDWorld.setWorld(this, world);
-		spawnJuni();
+		createJuni();
 		GDWorld.loadWorld();
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
@@ -84,14 +84,33 @@ public class GDKnyttGame : Node2D
 	}
 
 	// On load a save file (or die)
-	public void spawnJuni()
+	public void createJuni()
 	{
-		if (Juni == null)
-		{
-			Juni = juni_scene.Instance() as Juni;
-			Juni.initialize(this);
-			this.AddChild(Juni);
-		}
+		Juni = juni_scene.Instance() as Juni;
+		Juni.initialize(this);
+		this.AddChild(Juni);
+	}
+
+	public void respawnJuni()
+	{
+		var save = GDWorld.KWorld.CurrentSave;
+		this.changeArea(save.getArea(), true);
+		Juni.Powers.readFromSave(save);
+		Juni.GlobalPosition = CurrentArea.getTileLocation(save.getAreaPosition());
+		Juni.reset();
+	}
+
+	public void saveGame(KnyttPoint area, KnyttPoint position, bool write)
+	{
+	    var save = GDWorld.KWorld.CurrentSave;
+		save.setArea(area);
+		save.setAreaPosition(position);
+		Juni.Powers.writeToSave(save);
+		if (!write) { return; }
+		var f = new File();
+		f.Open(string.Format("user://Saves/{0}", save.SaveFileName), File.ModeFlags.Write);
+		f.StoreString(save.ToString());
+		f.Close();
 	}
 
 	public override void _Process(float delta)
@@ -120,8 +139,17 @@ public class GDKnyttGame : Node2D
 	// Changes the current area
 	public void changeArea(KnyttPoint new_area, bool force_jump = false)
 	{
-		// Deactivate old area
-		if (this.CurrentArea != null) { CurrentArea.deactivateArea(); }
+		// Regenerate current area if no change, else deactivate old area
+		if (this.CurrentArea != null) 
+		{ 
+			if (CurrentArea.Area.Position.Equals(new_area)) 
+			{ 
+				CurrentArea.regenerateArea();
+				return;
+			}
+
+			CurrentArea.deactivateArea();
+		}
 		
 		// Update the paging
 		GDWorld.Areas.setLocation(new_area);

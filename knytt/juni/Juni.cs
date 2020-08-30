@@ -13,6 +13,8 @@ public class Juni : KinematicBody2D
     public float max_speed;
 
     public GDKnyttGame Game { get; private set; }
+    public GDKnyttArea GDArea { get { return Game.CurrentArea; } }
+    public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
 
     public JuniPowers Powers { get; }
 
@@ -23,6 +25,8 @@ public class Juni : KinematicBody2D
     private JuniState next_state = null;
 
     public float just_climbed = 0f;
+    public bool dead = false;
+    public int just_reset = 0;
 
     // Keys
     public bool LeftHeld { get { return Input.IsActionPressed("left");  } }
@@ -34,10 +38,9 @@ public class Juni : KinematicBody2D
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
 
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
-
     public bool Grounded { get { return IsOnFloor(); } }
-
     public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
+    public bool FacingRight { get { return !Sprite.FlipH; } }
 
     public bool WalkRun 
     { 
@@ -59,7 +62,7 @@ public class Juni : KinematicBody2D
         } 
     }
 
-    public bool FacingRight { get { return !Sprite.FlipH; } }
+    
 
     public Sprite Sprite { get; private set; }
     public AnimationPlayer Anim { get; private set; }
@@ -88,8 +91,24 @@ public class Juni : KinematicBody2D
         this.next_state = state;
     }
 
+    private void checkDebugInput()
+    {
+        if (Input.IsActionJustPressed("debug_die")) { die(); }
+        if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(GDArea.Area.Position, AreaPosition, true); }
+    }
+
     public override void _PhysicsProcess(float delta)
     {
+        if (dead) { return; }
+
+        if (just_reset > 0) 
+        {
+            just_reset--; 
+            if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false; }
+        }
+
+        this.checkDebugInput(); // TODO: Check the mode for debug
+
         // Handle state transitions
         if (next_state != null) { executeStateTransition(); }
 
@@ -121,29 +140,67 @@ public class Juni : KinematicBody2D
         }
     }
 
+    // This kills the Juni
+    public async void die()
+    {
+        if (dead) { return; }
+        GetNode<DeathParticles>("DeathParticles").Play();
+        GetNode<AudioStreamPlayer2D>("Audio/DiePlayer2D").Play();
+        this.next_state = null;
+        this.clearState();
+        GetNode<Sprite>("Sprite").Visible = false;
+        this.dead = true;
+        var timer = GetNode<Timer>("RespawnTimer");
+        timer.Start();
+        await ToSignal(timer, "timeout");
+        Game.respawnJuni();
+    }
+
+    public void reset()
+    {
+        Sprite.FlipH = false;
+        GetNode<Sprite>("Sprite").Visible = true;
+        this.dead = false;
+        this.velocity = Godot.Vector2.Zero;
+        this.transitionState(new IdleState(this));
+
+        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
+        this.just_reset = 2;
+    }
+
     private void handleXMovement(float delta)
     {
         // Move, then clamp
         if (dir != 0)
         {
-            YUtil.Math.MathTools.MoveTowards(ref velocity.x, dir*max_speed, 2500f*delta);
+            MathTools.MoveTowards(ref velocity.x, dir*max_speed, 2500f*delta);
         }
         else
         {
-            YUtil.Math.MathTools.MoveTowards(ref velocity.x, 0f, 1500f*delta ); // deceleration
+            MathTools.MoveTowards(ref velocity.x, 0f, 1500f*delta ); // deceleration
         }
     }
 
     private void executeStateTransition()
     {
-        if (this.CurrentState != null) { this.CurrentState.onExit(); }
+        this.clearState();
         this.CurrentState = next_state;
         this.CurrentState.onEnter();
         this.next_state = null;
     }
 
+    private void clearState()
+    {
+        if (this.CurrentState != null) { this.CurrentState.onExit(); }
+    }
+
     public void continueFall()
     {
         Anim.Play("Falling");
+    }
+
+    public void _on_RespawnTimer_timeout()
+    {
+        Game.respawnJuni();
     }
 }

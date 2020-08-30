@@ -31,7 +31,7 @@ public class MainMenu : Node2D
         world.setDirectory("res://knytt/worlds", binloader.RootDirectory);
         world.loadWorldConfig(txt);
         var save_txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini"));
-        world.CurrentSave = new KnyttSave(world, save_txt, 0);
+        world.CurrentSave = new KnyttSave(world, save_txt, 1);
         world.setBinMode(binloader);
         GDKnyttDataStore.KWorld = world;
     }
