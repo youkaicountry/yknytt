@@ -5,28 +5,22 @@ public class LiquidPool : GDKnyttBaseObject
 {
     bool ping = true;
 
-    public override void _Ready()
-    {
-        this._impl_initialize();
-    }
-
     public void _on_AnimatedSprite_animation_finished()
     {
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
         player.Stop();
-        if (ping) { player.Play("Pool1", true); }
-        else { player.Play("Pool1"); }
+        player.Play("Pool1", ping);
         ping = !ping;
     }
 
     protected override void _impl_initialize()
     {
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
-        //player.SpeedScale = ((float)GDKnyttDataStore.random.NextDouble()) * .4f + .8f;
-        player.SpeedScale = (float)GDKnyttDataStore.random.NextDouble(.4, .8);
-        //player.frame (set the frame)
-        player.Play("Pool1");
+        player.SpeedScale = (float)GDKnyttDataStore.random.NextDouble(.6f, 1f);
         
+        string anim = "Pool1";
+        player.Play(anim);
+        player.Frame = GDKnyttDataStore.random.Next(player.Frames.GetFrameCount(anim));
     }
 
     protected override void _impl_process(float delta)

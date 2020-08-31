@@ -200,9 +200,4 @@ public class Juni : KinematicBody2D
     {
         Anim.Play("Falling");
     }
-
-    public void _on_RespawnTimer_timeout()
-    {
-        Game.respawnJuni();
-    }
 }
