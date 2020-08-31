@@ -317,4 +317,3 @@ gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
 color_ramp = SubResource( 11 )
-[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
