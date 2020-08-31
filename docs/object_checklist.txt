@@ -20,15 +20,28 @@ Bank 0:
 Bank 1:
 
 [x] - 1  Liquid Pool
-
+[x] - 2  Liquid Pool
 [x] - 3  Waterfall
 
+[x] - 5  Liquid Pool
+[x] - 6  Liquid Pool
 [x] - 7  Water Block
 [x] - 8  Water Block
 [x] - 9  Water Block
+[x] - 10 Liquid Pool
 [x] - 11 Water Block
+[x] - 12 Liquid Pool
+
+[x] - 14 Liquid Pool
+
+[x] - 16 Liquid Pool
 [x] - 17 Water Block
+
+[x] - 19 Liquid Pool
+
 [x] - 21 Water Block
+[x] - 22 Liquid Pool
+
 [x] - 24 Water Block
 
 Bank 7:
