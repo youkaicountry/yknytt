@@ -24,6 +24,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(1, 1)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 2)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 3)] =  "Waterfall";
+        ObjectLookup[new KnyttPoint(1, 4)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 5)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 6)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 7)] =  "WaterBlock";
@@ -34,11 +35,14 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(1, 12)] = "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 13)] = "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 14)] = "LiquidPool";
+        ObjectLookup[new KnyttPoint(1, 15)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 16)] = "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 17)] = "WaterBlock";
         ObjectLookup[new KnyttPoint(1, 19)] = "LiquidPool";
+        ObjectLookup[new KnyttPoint(1, 20)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 21)] = "WaterBlock";
         ObjectLookup[new KnyttPoint(1, 22)] = "LiquidPool";
+        ObjectLookup[new KnyttPoint(1, 23)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 24)] = "WaterBlock";
         ObjectLookup[new KnyttPoint(7, 8)] =  "Rain";
         ObjectLookup[new KnyttPoint(7, 9)] =  "RaindropObject";

@@ -1,4 +1,5 @@
 Bank 0:
+
 [x] - 3  Run
 [x] - 4  Climb
 [x] - 5  Double Jump
@@ -18,11 +19,10 @@ Bank 0:
 [x] - 24 Purple Key
 
 Bank 1:
-
 [x] - 1  Liquid Pool
 [x] - 2  Liquid Pool
 [x] - 3  Waterfall
-
+[x] - 4  Waterfall
 [x] - 5  Liquid Pool
 [x] - 6  Liquid Pool
 [x] - 7  Water Block
@@ -31,19 +31,20 @@ Bank 1:
 [x] - 10 Liquid Pool
 [x] - 11 Water Block
 [x] - 12 Liquid Pool
-
+[x] - 13 Liquid Pool
 [x] - 14 Liquid Pool
-
+[x] - 15 Waterfall
 [x] - 16 Liquid Pool
 [x] - 17 Water Block
 
 [x] - 19 Liquid Pool
-
+[x] - 20 Waterfall
 [x] - 21 Water Block
 [x] - 22 Liquid Pool
-
+[x] - 23 Waterfall
 [x] - 24 Water Block
 
 Bank 7:
+
 [x] - 8  Rain
 [x] - 9  Raindrop
