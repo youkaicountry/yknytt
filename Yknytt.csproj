@@ -89,7 +89,7 @@
     <Compile Include="knytt\GDKnyttCamera.cs" />
     <Compile Include="knytt\GDKnyttDataStore.cs" />
     <Compile Include="knytt\GDKnyttGame.cs" />
-    <Compile Include="knytt\GDKnyttObjectLayer.cs" />
+    <Compile Include="knytt\objects\GDKnyttObjectLayer.cs" />
     <Compile Include="knytt\GDKnyttWorld.cs" />
     <Compile Include="knytt\GDKnyttAudioChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />

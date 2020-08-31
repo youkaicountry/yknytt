@@ -423,7 +423,7 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 1, 1, 0.627451 )
+modulate = Color( 1, 1, 1, 0.501961 )
 frames = SubResource( 19 )
 animation = "Waterfall23"
 centered = false

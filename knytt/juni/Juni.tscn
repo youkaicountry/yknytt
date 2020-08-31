@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5778, 8.60157 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "Climbing"
 length = 0.28
 loop = true
@@ -31,8 +31,7 @@ tracks/0/keys = {
 "values": [ 22, 23, 24, 25, 26, 27, 28 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Falling"
+[sub_resource type="Animation" id=3]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -48,8 +47,7 @@ tracks/0/keys = {
 "values": [ 40, 41 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
+[sub_resource type="Animation" id=4]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -64,8 +62,7 @@ tracks/0/keys = {
 "values": [ 47 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Jump"
+[sub_resource type="Animation" id=5]
 length = 0.35
 step = 0.075
 tracks/0/type = "value"
@@ -81,8 +78,7 @@ tracks/0/keys = {
 "values": [ 42, 43, 44, 45, 46 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Run"
+[sub_resource type="Animation" id=6]
 length = 0.39
 loop = true
 step = 0.03
@@ -99,7 +95,7 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "Sliding"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -114,7 +110,7 @@ tracks/0/keys = {
 "values": [ 29 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -144,7 +140,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 0.5
 loop = true
 step = 0.025
@@ -161,13 +157,14 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 0.56369, 5.09802 )
 
 [sub_resource type="Gradient" id=11]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Juni" type="KinematicBody2D"]
+z_index = 6
 collision_mask = 2147483650
 script = ExtResource( 3 )
 
@@ -182,14 +179,14 @@ hframes = 10
 frame = 22
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Climbing = SubResource( 9 )
-anims/Falling = SubResource( 2 )
-anims/Idle = SubResource( 3 )
-anims/Jump = SubResource( 4 )
-anims/Run = SubResource( 5 )
-anims/Sliding = SubResource( 10 )
-anims/StartFall = SubResource( 6 )
-anims/Walk = SubResource( 7 )
+anims/Climbing = SubResource( 2 )
+anims/Falling = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Jump = SubResource( 5 )
+anims/Run = SubResource( 6 )
+anims/Sliding = SubResource( 7 )
+anims/StartFall = SubResource( 8 )
+anims/Walk = SubResource( 9 )
 
 [node name="Audio" type="Node2D" parent="."]
 
@@ -236,7 +233,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 
 [node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
 position = Vector2( -6.141, 0.285 )
@@ -245,7 +242,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 2.0

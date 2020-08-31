@@ -14,7 +14,7 @@ public class GDKnyttArea : Node2D
 
     public GDKnyttArea()
     {
-        objects_scene = ResourceLoader.Load("res://knytt/ObjectLayers.tscn") as PackedScene;
+        objects_scene = ResourceLoader.Load("res://knytt/objects/ObjectLayers.tscn") as PackedScene;
         tiles_scene = ResourceLoader.Load("res://knytt/AreaTiles.tscn") as PackedScene;
     }
 
