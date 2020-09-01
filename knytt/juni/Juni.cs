@@ -12,6 +12,8 @@ public class Juni : KinematicBody2D
     public int dir = 0;
     public float max_speed;
 
+    PackedScene double_jump_scene;
+
     public GDKnyttGame Game { get; private set; }
     public GDKnyttArea GDArea { get { return Game.CurrentArea; } }
     public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
@@ -28,6 +30,8 @@ public class Juni : KinematicBody2D
     public bool dead = false;
     public int just_reset = 0;
 
+    public int jumps = 0;
+
     // Keys
     public bool LeftHeld { get { return Input.IsActionPressed("left");  } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
@@ -38,10 +42,12 @@ public class Juni : KinematicBody2D
     public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
 
+    public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool Grounded { get { return IsOnFloor(); } }
     public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
     public bool FacingRight { get { return !Sprite.FlipH; } }
+    public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
 
     public bool WalkRun 
     { 
@@ -69,6 +75,7 @@ public class Juni : KinematicBody2D
     public Juni()
     {
         this.Powers = new JuniPowers();
+        this.double_jump_scene = ResourceLoader.Load("res://knytt/juni/DoubleJump.tscn") as PackedScene;
     }
 
     public override void _Ready()
@@ -130,6 +137,7 @@ public class Juni : KinematicBody2D
         {
             velocity.x += (FacingRight ? 1f:-1f) * 30f;
             just_climbed -= delta;
+            if (just_climbed < 0f) { jumps++; }
         }
 
         velocity.y = Mathf.Min(350f, velocity.y);
@@ -140,6 +148,13 @@ public class Juni : KinematicBody2D
         {
             this.Game.changeArea(GDKnyttWorld.getAreaCoords(this.GlobalPosition));
         }
+    }
+
+    public void doubleJumpEffect()
+    {
+        var dj_node = double_jump_scene.Instance() as Node2D;
+        dj_node.GlobalPosition = GlobalPosition;
+        GetParent().AddChild(dj_node);
     }
 
     // This kills the Juni
