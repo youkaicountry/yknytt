@@ -165,6 +165,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Juni" type="KinematicBody2D"]
 z_index = 6
+z_as_relative = false
 collision_mask = 2147483650
 script = ExtResource( 3 )
 

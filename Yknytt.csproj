@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="knytt\juni\ClimbCheckers.cs" />
     <Compile Include="knytt\juni\DeathParticles.cs" />
+    <Compile Include="knytt\juni\DoubleJump.cs" />
     <Compile Include="knytt\objects\banks\bank0\PowerItem.cs" />
     <Compile Include="knytt\objects\banks\bank0\SavePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />

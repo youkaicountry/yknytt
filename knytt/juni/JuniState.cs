@@ -7,6 +7,7 @@ public class IdleState : JuniState
     public override void onEnter()
     {
         juni.Anim.Play("Idle");
+        juni.jumps = 0; 
     }
 
     public override void PreProcess(float delta)
@@ -18,14 +19,14 @@ public class IdleState : JuniState
     public override void PostProcess(float delta) 
     {
         // Do climb check first so jump will override it.
-        if (juni.UpHeld && juni.CanClimb) 
+        if (juni.UpHeld && juni.CanClimb)
         {
             juni.velocity.y = -125f;
             juni.transitionState(new ClimbState(juni));
         }
 
         if (juni.DidJump) { juni.transitionState(new JumpState(juni)); }
-        else if ( !juni.Grounded ) { juni.transitionState(new FallState(juni)); } // Ground falls out from under Juni
+        else if ( !juni.Grounded ) { juni.jumps++; juni.transitionState(new FallState(juni)); } // Ground falls out from under Juni
     }
 }
 
@@ -44,6 +45,7 @@ public class WalkRunState : JuniState
         juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Play();
         juni.Anim.Play(walk_run ? "Run" : "Walk");
         juni.max_speed = walk_run ? 175f : 90f;
+        juni.jumps = 0;
     }
 
     public override void PreProcess(float delta)
@@ -63,8 +65,7 @@ public class WalkRunState : JuniState
         }
 
         if (juni.DidJump) { juni.transitionState(new JumpState(juni)); }
-        else if ( !juni.Grounded ) { juni.transitionState(new FallState(juni)); } // Juni Walks off Ledge / ground falls out from under
-        
+        else if ( !juni.Grounded ) { juni.jumps++; juni.transitionState(new FallState(juni)); } // Juni Walks off Ledge / ground falls out from under
     }
 
     public override void onExit()
@@ -81,6 +82,7 @@ public class ClimbState : JuniState
     {
         juni.Anim.Play("Climbing");
         juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Play();
+        juni.jumps = 0;
     }
 
     public override void PreProcess(float delta)
@@ -121,6 +123,7 @@ public class SlideState : JuniState
     {
         juni.Anim.Play("Sliding");
         slide_sound = juni.GetNode<RawAudioPlayer2D>("Audio/SlidePlayer2D");
+        juni.jumps = 0;
     }
 
     public override void PreProcess(float delta)
@@ -174,24 +177,26 @@ public class JumpState : JuniState
         juni.Anim.Play("Jump");
         juni.GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play();
         juni.velocity.y = juni.jump_speed;
+        
+        if (juni.jumps > 0)
+        {
+            juni.doubleJumpEffect();
+        }
+        
+        juni.jumps++;
+        juni.just_climbed = 0f;
     }
 
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.just_climbed > 0f && juni.JumpEdge) { juni.transitionState(new JumpState(juni)); }
+        if (juni.DidAirJump) { juni.transitionState(new JumpState(juni)); }
     }
 
     public override void PostProcess(float delta)
     { 
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
-        if (juni.Grounded) 
-        { 
-            juni.transitionState(new IdleState(juni)); 
-            juni.GetNode<RawAudioPlayer2D>("Audio/LandPlayer2D").Play();
-        }
         else if (juni.velocity.y >= 0) { juni.transitionState(new FallState(juni)); }
-
     }
 }
 
@@ -207,7 +212,7 @@ public class FallState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.just_climbed > 0f && juni.JumpEdge) { juni.transitionState(new JumpState(juni)); }
+        if (juni.DidAirJump) { juni.transitionState(new JumpState(juni)); }
     }
 
     public override void PostProcess(float delta)
