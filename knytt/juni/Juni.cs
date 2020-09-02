@@ -182,7 +182,8 @@ public class Juni : KinematicBody2D
         GetNode<AudioStreamPlayer2D>("Audio/DiePlayer2D").Play();
         this.next_state = null;
         this.clearState();
-        GetNode<Sprite>("Sprite").Visible = false;
+        Sprite.Visible = false;
+        Umbrella.Visible = false;
         this.dead = true;
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();

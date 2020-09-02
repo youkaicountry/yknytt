@@ -13,6 +13,7 @@ public class PowerItem : GDKnyttBaseObject
         this.power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
         //GD.Print(Layer.ObjectLayers.GDArea.GDWorld.Game.Juni);
+        GD.Print(Juni.Powers.getPower(power));
         if (Juni.Powers.getPower(power)) { this.Visible = false; }
         GetNode<AnimatedSprite>("AnimatedSprite").Animation = string.Format("Power{0}", power);
     }
@@ -28,6 +29,7 @@ public class PowerItem : GDKnyttBaseObject
         if (juni.Powers.getPower(power)) { return; }
         juni.Powers.setPower(power, true);
 
+        GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
         GetNode<AnimationPlayer>("PickupAnimation").Play("Pickup");
     }
 }
