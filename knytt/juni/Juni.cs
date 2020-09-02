@@ -38,15 +38,21 @@ public class Juni : KinematicBody2D
     public bool UpHeld { get { return Input.IsActionPressed("up"); } }
     public bool DownHeld { get { return Input.IsActionPressed("down"); } }
     public bool DownPressed { get { return Input.IsActionJustPressed("down"); } }
+    public bool UmbrellaPressed { get { return Input.IsActionJustPressed("umbrella"); } }
     public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
     public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
+    public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     public bool Grounded { get { return IsOnFloor(); } }
     public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
-    public bool FacingRight { get { return !Sprite.FlipH; } }
+    public bool FacingRight 
+    {
+        set { Sprite.FlipH = !value; Umbrella.FacingRight = value; } 
+        get { return !Sprite.FlipH; } 
+    }
     public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
 
     public bool WalkRun 
@@ -63,13 +69,14 @@ public class Juni : KinematicBody2D
         get
         {  
             var d = 0;
-            if (RightHeld) { d = 1; Sprite.FlipH = false; }
-            else if (LeftHeld) { d = -1; Sprite.FlipH = true; }
+            if (RightHeld) { d = 1; FacingRight = true; }
+            else if (LeftHeld) { d = -1; FacingRight = false; }
             return d;
         } 
     }
 
     public Sprite Sprite { get; private set; }
+    public Umbrella Umbrella { get; private set; }
     public AnimationPlayer Anim { get; private set; }
 
     public Juni()
@@ -82,6 +89,8 @@ public class Juni : KinematicBody2D
     {
         this.ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         this.Sprite = GetNode<Sprite>("Sprite");
+        this.Umbrella = GetNode<Umbrella>("Umbrella");
+        Umbrella.reset();
         this.Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
     }
@@ -109,7 +118,7 @@ public class Juni : KinematicBody2D
 
         if (just_reset > 0) 
         {
-            just_reset--; 
+            just_reset--;
             if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false; }
         }
 
@@ -120,6 +129,12 @@ public class Juni : KinematicBody2D
 
         this.CurrentState?.PreProcess(delta);
 
+        // Handle umbrella
+        if (CanUmbrella && UmbrellaPressed)
+        {
+            Umbrella.Deployed = !Umbrella.Deployed;
+        }
+
         handleXMovement(delta);
 
         // This particular value needs to be multiplied by delta to ensure
@@ -127,7 +142,9 @@ public class Juni : KinematicBody2D
         velocity.y += gravity * delta;
         if (JumpHeld) 
         {
-            velocity.y -= ( Powers.getPower(PowerNames.HighJump) ? 550 : 125) * delta;
+            var jump_hold = Powers.getPower(PowerNames.HighJump) ? 550f : 125f;
+            if (Umbrella.Deployed) { jump_hold *= .75f; }
+            velocity.y -= jump_hold * delta;
         } 
         
         this.CurrentState.PostProcess(delta);
@@ -140,7 +157,7 @@ public class Juni : KinematicBody2D
             if (just_climbed < 0f) { jumps++; }
         }
 
-        velocity.y = Mathf.Min(350f, velocity.y);
+        velocity.y = Mathf.Min(Umbrella.Deployed ? 60f : 350f, velocity.y);
         velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
 
         // TODO: Do this only if the local player
@@ -183,6 +200,8 @@ public class Juni : KinematicBody2D
 
         GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
         this.just_reset = 2;
+
+        Umbrella.reset();
     }
 
     private void handleXMovement(float delta)
@@ -190,7 +209,8 @@ public class Juni : KinematicBody2D
         // Move, then clamp
         if (dir != 0)
         {
-            MathTools.MoveTowards(ref velocity.x, dir*max_speed, 2500f*delta);
+            var uspeed = Umbrella.Deployed ? (Mathf.Min(max_speed, 120f)) : max_speed;
+            MathTools.MoveTowards(ref velocity.x, dir*uspeed, 2500f*delta);
         }
         else
         {
