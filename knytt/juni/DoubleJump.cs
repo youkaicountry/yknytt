@@ -4,7 +4,6 @@ public class DoubleJump : AnimatedSprite
 {
     public override void _Ready()
     {
-        GD.Print("DJ EFFECT");
         doEffects();
     }
 
@@ -12,7 +11,6 @@ public class DoubleJump : AnimatedSprite
     {
         this.Play("DoubleJump");
         await ToSignal(this, "animation_finished");
-        GD.Print("DJ EFFECT OVER");
         QueueFree();
     }
 }
