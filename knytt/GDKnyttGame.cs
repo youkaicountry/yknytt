@@ -94,8 +94,8 @@ public class GDKnyttGame : Node2D
 	public void respawnJuni()
 	{
 		var save = GDWorld.KWorld.CurrentSave;
-		this.changeArea(save.getArea(), true);
 		Juni.Powers.readFromSave(save);
+		this.changeArea(save.getArea(), true);
 		Juni.GlobalPosition = CurrentArea.getTileLocation(save.getAreaPosition());
 		Juni.reset();
 	}

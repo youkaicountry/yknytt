@@ -113,7 +113,7 @@ public class GDKnyttArea : Node2D
 
     public void _on_DeactivateTimer_timeout()
     {
-        
+        this.removeObjectLayers();
         this.active = false;
     }
 
