@@ -10,7 +10,7 @@ public class LevelSelection : CanvasLayer
     KnyttWorldManager<Texture> Manager { get; }
     PackedScene info_scene;
 
-    [Export] public int loadThreads = 1;
+    [Export] public int loadThreads = 4;
 
     string filter_category;
     string filter_difficulty;
@@ -94,8 +94,6 @@ public class LevelSelection : CanvasLayer
     {
         startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin");
         startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
-        //Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - The Machine.knytt.bin"));
-        //Manager.addWorld(generateBinWorld("res://knytt/worlds/Nifflas - Tutorial.knytt.bin"));
     }
 
     // Search the given directory for worlds
@@ -146,10 +144,14 @@ public class LevelSelection : CanvasLayer
         load_hopper.Enqueue(action);
     }
 
+    object file_lock = new object();
+
     private KnyttWorldManager<Texture>.WorldEntry generateDirectoryWorld(string world_dir, string name)
     {
-        var icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/Icon.png");
-        var txt = GDKnyttAssetManager.loadTextFile(world_dir + "/World.ini");
+        Texture icon;
+        string txt;
+        lock(file_lock) {icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/Icon.png");}
+        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(world_dir + "/World.ini");}
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         world.setDirectory(world_dir, name);
         world.loadWorldConfig(txt);
@@ -158,9 +160,12 @@ public class LevelSelection : CanvasLayer
 
     private KnyttWorldManager<Texture>.WorldEntry generateBinWorld(string world_dir)
     {
-        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir));
-        var icon = GDKnyttAssetManager.loadTexture(binloader.GetFile("Icon.png"));
-        var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
+        Texture icon;
+        string txt;
+        KnyttBinWorldLoader binloader;
+        lock(file_lock) {binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir));}
+        lock(file_lock) {icon = GDKnyttAssetManager.loadTexture(binloader.GetFile("Icon.png"));}
+        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));}
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         world.setDirectory(world_dir, binloader.RootDirectory);
         world.loadWorldConfig(txt);
