@@ -17,6 +17,7 @@ public class LevelSelection : CanvasLayer
     string filter_size;
 
     bool halt_consumers = false;
+    bool discovery_over = false;
     List<Task> consumers;
 
     ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry> finished_entries;
@@ -45,6 +46,7 @@ public class LevelSelection : CanvasLayer
     {
         Action consumer = () => 
         {
+            GD.Print("Start THREAD");
             while (true)
             {
                 Action action;
@@ -57,10 +59,12 @@ public class LevelSelection : CanvasLayer
                 {
                     var t = Task.Delay(5);
                     t.Wait();
+                    if (discovery_over) { break; }
                 }
 
                 if (halt_consumers) { break; }
             }
+            GD.Print("EXIT THREAD");
         };
 
         for (int i = 0; i < loadThreads; i++)
@@ -101,7 +105,9 @@ public class LevelSelection : CanvasLayer
     private void discoverWorlds(string path)
     {
         var wd = new Directory();
-        wd.Open(path);
+        //if (!wd.DirExists(path)) { discovery_over = true; return; }
+        var error = wd.Open(path);
+        if (error != Error.Ok) { discovery_over = true; return; }
 
         wd.ListDirBegin();
         while(true)
@@ -122,6 +128,7 @@ public class LevelSelection : CanvasLayer
             }
         }
         wd.ListDirEnd();
+        discovery_over = true;
     }
 
     private void startDirectoryLoad(string world_dir, string name)
