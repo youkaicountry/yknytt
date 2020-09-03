@@ -48,3 +48,10 @@ Bank 7:
 
 [x] - 8  Rain
 [x] - 9  Raindrop
+
+Bank 14:
+
+[x] - 5 Walker
+[x] - 6 Walker
+[x] - 7 Walker
+[x] - 8 Walker
