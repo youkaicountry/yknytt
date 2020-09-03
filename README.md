@@ -4,7 +4,7 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ### Building
 
-Requires Godot 3.2.2.stable.mono
+Requires Godot 3.2.3.rc5.mono
 
 #### Export settings
 
