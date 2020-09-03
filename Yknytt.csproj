@@ -77,6 +77,7 @@
     <Compile Include="knytt\objects\banks\bank0\PowerItem.cs" />
     <Compile Include="knytt\objects\banks\bank0\SavePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
+    <Compile Include="knytt\objects\banks\bank14\PassiveWalker.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\Waterfall.cs" />

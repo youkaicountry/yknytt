@@ -46,6 +46,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(1, 24)] = "WaterBlock";
         ObjectLookup[new KnyttPoint(7, 8)] =  "Rain";
         ObjectLookup[new KnyttPoint(7, 9)] =  "RaindropObject";
+        ObjectLookup[new KnyttPoint(14, 5)] =  "PassiveWalker";
+        ObjectLookup[new KnyttPoint(14, 6)] =  "PassiveWalker";
+        ObjectLookup[new KnyttPoint(14, 7)] =  "PassiveWalker";
+        ObjectLookup[new KnyttPoint(14, 8)] =  "PassiveWalker";
     }
 
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)
