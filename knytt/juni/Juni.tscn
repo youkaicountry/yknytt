@@ -15,48 +15,47 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5778, 8.60157 )
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 48, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 72, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 96, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 120, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 144, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 168, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": false,
 "name": "Open",
 "speed": 40.0
 } ]
 
-[sub_resource type="Animation" id=2]
-resource_name = "Climbing"
+[sub_resource type="Animation" id=11]
 length = 0.28
 loop = true
 step = 0.04
@@ -73,7 +72,7 @@ tracks/0/keys = {
 "values": [ 22, 23, 24, 25, 26, 27, 28 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=12]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -89,7 +88,7 @@ tracks/0/keys = {
 "values": [ 40, 41 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=13]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -104,7 +103,7 @@ tracks/0/keys = {
 "values": [ 47 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=14]
 length = 0.35
 step = 0.075
 tracks/0/type = "value"
@@ -120,7 +119,7 @@ tracks/0/keys = {
 "values": [ 42, 43, 44, 45, 46 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=15]
 length = 0.39
 loop = true
 step = 0.03
@@ -137,8 +136,7 @@ tracks/0/keys = {
 "values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "Sliding"
+[sub_resource type="Animation" id=16]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -152,7 +150,7 @@ tracks/0/keys = {
 "values": [ 29 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=17]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -182,7 +180,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=18]
 length = 0.5
 loop = true
 step = 0.025
@@ -199,16 +197,16 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 0.56369, 5.09802 )
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Juni" type="KinematicBody2D"]
 z_index = 6
 z_as_relative = false
-collision_mask = 2147483650
+collision_mask = 2147483654
 collision/safe_margin = 0.2
 script = ExtResource( 3 )
 
@@ -217,7 +215,7 @@ shape = SubResource( 1 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
-frames = SubResource( 20 )
+frames = SubResource( 10 )
 animation = "Open"
 frame = 7
 script = ExtResource( 11 )
@@ -234,14 +232,14 @@ hframes = 10
 frame = 47
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Climbing = SubResource( 2 )
-anims/Falling = SubResource( 3 )
-anims/Idle = SubResource( 4 )
-anims/Jump = SubResource( 5 )
-anims/Run = SubResource( 6 )
-anims/Sliding = SubResource( 7 )
-anims/StartFall = SubResource( 8 )
-anims/Walk = SubResource( 9 )
+anims/Climbing = SubResource( 11 )
+anims/Falling = SubResource( 12 )
+anims/Idle = SubResource( 13 )
+anims/Jump = SubResource( 14 )
+anims/Run = SubResource( 15 )
+anims/Sliding = SubResource( 16 )
+anims/StartFall = SubResource( 17 )
+anims/Walk = SubResource( 18 )
 
 [node name="Audio" type="Node2D" parent="."]
 
@@ -300,7 +298,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
-shape = SubResource( 10 )
+shape = SubResource( 19 )
 
 [node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
 position = Vector2( -6.141, 0.285 )
@@ -309,7 +307,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
-shape = SubResource( 10 )
+shape = SubResource( 19 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -332,7 +330,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 11 )
+color_ramp = SubResource( 20 )
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -348,7 +346,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 11 )
+color_ramp = SubResource( 20 )
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -364,7 +362,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 11 )
+color_ramp = SubResource( 20 )
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -380,4 +378,4 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 11 )
+color_ramp = SubResource( 20 )

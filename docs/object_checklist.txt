@@ -49,6 +49,9 @@ Bank 7:
 [x] - 8  Rain
 [x] - 9  Raindrop
 
+Bank 12:
+[x] - 5  Invisible Block
+
 Bank 14:
 
 [x] - 5 Walker
