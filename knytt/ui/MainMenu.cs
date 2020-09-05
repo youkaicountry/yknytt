@@ -11,6 +11,8 @@ public class MainMenu : Node2D
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         fade_anim = GetNode<AnimationPlayer>("FadeLayer/FadeMask/AnimationPlayer");
+        //GetNode<Button>("MenuLayer/ButtonRow/PlayButton").GrabFocus();
+        GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
     }
 
     public async void _on_TutorialButton_pressed()
@@ -50,5 +52,15 @@ public class MainMenu : Node2D
         fade_anim.Play("FadeOut");
         await ToSignal(fade_anim, "animation_finished");
         GetTree().Quit();
+    }
+
+    public void _on_ButtonRow_focus_entered()
+    {
+
+    }
+
+    public void _on_ButtonRow_focus_exited()
+    {
+        
     }
 }

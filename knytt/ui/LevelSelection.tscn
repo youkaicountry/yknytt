@@ -117,6 +117,7 @@ rect_min_size = Vector2( 100, 0 )
 margin_left = 208.0
 margin_right = 208.0
 margin_bottom = 240.0
+follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="GameContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
