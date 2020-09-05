@@ -20,6 +20,8 @@ public class LevelSelection : CanvasLayer
     bool discovery_over = false;
     List<Task> consumers;
 
+    GameButton top_button;
+
     ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry> finished_entries;
     ConcurrentQueue<Action> load_hopper;
 
@@ -38,8 +40,6 @@ public class LevelSelection : CanvasLayer
 
         Task.Run(() => this.loadDefaultWorlds());
         Task.Run(() => this.discoverWorlds("./worlds"));
-        
-        //this.listWorlds();
     }
 
     private void startHopperConsumers()
@@ -90,7 +90,7 @@ public class LevelSelection : CanvasLayer
         if (Manager.addWorld(entry))
         {
             var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
-            game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data);
+            game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data, game_container.Count == 0);
         }
     }
 
@@ -198,7 +198,7 @@ public class LevelSelection : CanvasLayer
 
         foreach(var world_entry in worlds)
         {
-            game_container.addWorld((GDKnyttWorldImpl)world_entry.world, world_entry.extra_data);
+            game_container.addWorld((GDKnyttWorldImpl)world_entry.world, world_entry.extra_data, false);
         }
     }
 

@@ -8,6 +8,7 @@
 [ext_resource path="res://knytt/ui/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=6]
 [ext_resource path="res://knytt/ui/checked.png" type="Texture" id=7]
 [ext_resource path="res://knytt/ui/unchecked.png" type="Texture" id=8]
+[ext_resource path="res://knytt/ui/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.717647, 0.913725, 0.847059, 1 )
@@ -46,8 +47,6 @@ PopupMenu/styles/separator = SubResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=7]
-
 [node name="GDKnyttDropdown" type="OptionButton"]
 anchor_left = 0.000661418
 anchor_top = 0.00165354
@@ -59,8 +58,8 @@ theme = SubResource( 5 )
 custom_icons/arrow = ExtResource( 2 )
 custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 7 )
+custom_styles/focus = ExtResource( 9 )
+custom_styles/disabled = SubResource( 6 )
 custom_styles/normal = ExtResource( 3 )
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
