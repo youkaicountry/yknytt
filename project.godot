@@ -19,6 +19,10 @@ config/name="YKnytt"
 run/main_scene="res://knytt/ui/MainMenu.tscn"
 config/windows_native_icon="res://knytt/icons/winicon.ico"
 
+[autoload]
+
+GdKnyttSettings="*res://knytt/GDKnyttSettings.tscn"
+
 [display]
 
 window/size/width=600

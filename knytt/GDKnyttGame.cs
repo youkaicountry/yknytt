@@ -17,16 +17,7 @@ public class GDKnyttGame : Node2D
 	public GDKnyttAudioChannel AmbianceChannel2 { get; private set; }
 
 	[Export]
-	public TransitionType Transition { get; private set; }
-
-	[Export]
 	public string demoWorld = "./worlds/Nifflas - The Machine";
-
-	public enum TransitionType
-	{
-		JUMP,
-		EDGE_SCROLL
-	}
 
 	[Export]
 	public float edgeScrollSpeed = 1500f;
@@ -179,15 +170,16 @@ public class GDKnyttGame : Node2D
 		if (this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").updateLocation(this.CurrentArea.Area.Position); }
 
 		// Camera
-		if (force_jump || this.Transition == TransitionType.JUMP)
+		var scroll = GDKnyttSettings.ScrollType;
+		if (force_jump || scroll == GDKnyttSettings.ScrollTypes.Original)
 		{
 			this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
 			return;
 		}
 
-		switch(this.Transition)
+		switch(scroll)
 		{
-			case TransitionType.EDGE_SCROLL:
+			case GDKnyttSettings.ScrollTypes.Smooth:
 				this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
 				break;
 		}

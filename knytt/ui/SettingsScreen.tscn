@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/white.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/SettingsScreen.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=5]
+
+[node name="SettingsScreen" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" parent="." instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -85.0
+margin_top = -25.0
+margin_right = -5.0
+margin_bottom = -6.0
+text = "Back"
+
+[node name="SettingsContainer" type="VBoxContainer" parent="."]
+margin_left = 33.3879
+margin_top = 20.1587
+margin_right = 113.388
+margin_bottom = 60.1587
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullScreen" type="CheckBox" parent="SettingsContainer"]
+margin_right = 121.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Fullscreen"
+
+[node name="SmoothScaling" type="CheckBox" parent="SettingsContainer"]
+margin_top = 28.0
+margin_right = 121.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Smooth Scaling"
+
+[node name="ScrollContainer" type="HBoxContainer" parent="SettingsContainer"]
+margin_top = 56.0
+margin_right = 121.0
+margin_bottom = 75.0
+hint_tooltip = "Test test test!!!!"
+
+[node name="ScrollDropdown" parent="SettingsContainer/ScrollContainer" instance=ExtResource( 5 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 62.0641
+margin_bottom = 19.2149
+hint_tooltip = "Test test test!!!!"
+text = "Smooth"
+items = [ "Smooth", null, false, 0, null, "Original", null, false, 1, null ]
+selected = 0
+
+[node name="ScrollLabel" type="Label" parent="SettingsContainer/ScrollContainer"]
+margin_left = 66.0
+margin_top = 3.0
+margin_right = 121.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Scroll Type"
+
+[node name="KeyRemapButton" parent="." instance=ExtResource( 1 )]
+margin_left = 198.0
+margin_top = 21.0
+margin_right = 277.0
+margin_bottom = 26.2949
+disabled = true
+text = "Key Configure"
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
+[connection signal="pressed" from="SettingsContainer/SmoothScaling" to="." method="_on_SmoothScaling_pressed"]
+[connection signal="item_selected" from="SettingsContainer/ScrollContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]

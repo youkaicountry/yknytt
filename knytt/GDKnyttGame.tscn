@@ -45,7 +45,6 @@ tracks/1/keys = {
 
 [node name="GKnyttGame" type="Node2D"]
 script = ExtResource( 4 )
-Transition = 1
 viewMode = false
 
 [node name="GKnyttWorld" parent="." instance=ExtResource( 2 )]
