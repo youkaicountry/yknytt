@@ -5,11 +5,13 @@ using YKnyttLib;
 public class MainMenu : Node2D
 {
     PackedScene level_select_scene;
+    PackedScene settings_scene;
     AnimationPlayer fade_anim;
 
     public override void _Ready()
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
+        this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
         fade_anim = GetNode<AnimationPlayer>("FadeLayer/FadeMask/AnimationPlayer");
         //GetNode<Button>("MenuLayer/ButtonRow/PlayButton").GrabFocus();
         GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
@@ -43,6 +45,13 @@ public class MainMenu : Node2D
         GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
         var level_node = this.level_select_scene.Instance() as LevelSelection;
         this.AddChild(level_node);
+    }
+
+    public void _on_SettingsButton_pressed()
+    {
+        GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
+        var settings_node = this.settings_scene.Instance() as SettingsScreen;
+        this.AddChild(settings_node);
     }
 
     public async void _on_QuitButton_pressed()

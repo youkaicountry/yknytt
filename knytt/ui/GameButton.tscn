@@ -1,11 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://knytt/ui/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
-[ext_resource path="res://knytt/ui/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
-[ext_resource path="res://knytt/ui/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
+[ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
+[ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
+[ext_resource path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/GameButton.cs" type="Script" id=5]
-[ext_resource path="res://knytt/ui/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
+[ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
+
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
