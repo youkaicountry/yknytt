@@ -174,17 +174,7 @@ public class JumpState : JuniState
 
     public override void onEnter()
     {
-        juni.Anim.Play("Jump");
-        juni.GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play();
-        juni.velocity.y = juni.jump_speed;
-        
-        if (juni.jumps > 0)
-        {
-            juni.doubleJumpEffect();
-        }
-        
-        juni.jumps++;
-        juni.just_climbed = 0f;
+        juni.executeJump();
     }
 
     public override void PreProcess(float delta)
