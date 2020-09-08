@@ -46,7 +46,6 @@ public class LevelSelection : CanvasLayer
     {
         Action consumer = () => 
         {
-            GD.Print("Start THREAD");
             while (true)
             {
                 Action action;
@@ -64,7 +63,6 @@ public class LevelSelection : CanvasLayer
 
                 if (halt_consumers) { break; }
             }
-            GD.Print("EXIT THREAD");
         };
 
         for (int i = 0; i < loadThreads; i++)

@@ -8,6 +8,8 @@ public class Juni : KinematicBody2D
     [Export] public float jump_speed = -250f;
     [Export] public float gravity = 1125f;
 
+    [Signal] public delegate void Jumped();
+
     public Godot.Vector2 velocity = Godot.Vector2.Zero;
     public int dir = 0;
     public float max_speed;
@@ -54,6 +56,7 @@ public class Juni : KinematicBody2D
         get { return !Sprite.FlipH; } 
     }
     public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
+    public bool Hologram { get { return false; } }
 
     public bool WalkRun 
     { 
@@ -230,6 +233,23 @@ public class Juni : KinematicBody2D
     private void clearState()
     {
         if (this.CurrentState != null) { this.CurrentState.onExit(); }
+    }
+
+    public void executeJump()
+    {
+        Anim.Play("Jump");
+        GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play();
+        velocity.y = jump_speed;
+        
+        if (jumps > 0)
+        {
+            doubleJumpEffect();
+        }
+        
+        jumps++;
+        just_climbed = 0f;
+
+        if (!Hologram) { EmitSignal(nameof(Jumped)); }
     }
 
     public void continueFall()
