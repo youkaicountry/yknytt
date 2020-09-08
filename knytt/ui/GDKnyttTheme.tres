@@ -1,0 +1,61 @@
+[gd_resource type="Theme" load_steps=10 format=2]
+
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://knytt/ui/checked.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/unchecked.png" type="Texture" id=3]
+[ext_resource path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" type="StyleBox" id=4]
+
+[sub_resource type="StyleBoxTexture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.717647, 0.913725, 0.847059, 1 )
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[resource]
+CheckBox/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 4
+CheckBox/fonts/font = null
+CheckBox/icons/checked = ExtResource( 2 )
+CheckBox/icons/radio_checked = ExtResource( 2 )
+CheckBox/icons/radio_unchecked = ExtResource( 3 )
+CheckBox/icons/unchecked = ExtResource( 3 )
+CheckBox/styles/disabled = null
+CheckBox/styles/focus = null
+CheckBox/styles/hover = null
+CheckBox/styles/hover_pressed = null
+CheckBox/styles/normal = SubResource( 5 )
+CheckBox/styles/pressed = null
+PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
+PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
+PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 1 )
+PopupMenu/constants/hseparation = 4
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = ExtResource( 1 )
+PopupMenu/icons/checked = ExtResource( 2 )
+PopupMenu/icons/radio_checked = ExtResource( 2 )
+PopupMenu/icons/radio_unchecked = ExtResource( 3 )
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = ExtResource( 3 )
+PopupMenu/styles/hover = SubResource( 1 )
+PopupMenu/styles/labeled_separator_left = SubResource( 2 )
+PopupMenu/styles/labeled_separator_right = SubResource( 3 )
+PopupMenu/styles/panel = ExtResource( 4 )
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = SubResource( 4 )

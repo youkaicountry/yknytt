@@ -11,7 +11,7 @@ public class SettingsScreen : CanvasLayer
     public void fillControls()
     {
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
-        GetNode<CheckBox>("SettingsContainer/SmoothScaling").Pressed = GDKnyttSettings.SmoothScaling;
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         //GD.Print(GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown"));
     }
@@ -28,9 +28,9 @@ public class SettingsScreen : CanvasLayer
         GDKnyttSettings.Fullscreen = GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed;
     }
 
-    public void _on_SmoothScaling_pressed()
+    public void _on_SmoothScale_pressed()
     {
-        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("SettingsContainer/SmoothScaling").Pressed;
+        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed;
     }
 
     public void _on_ScollDropdown_item_selected(int index)

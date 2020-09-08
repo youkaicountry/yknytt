@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://knytt/ui/checked.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/unchecked.png" type="Texture" id=3]
+
+[node name="FullScreen" type="CheckBox"]
+margin_right = 121.0
+margin_bottom = 21.0
+custom_icons/radio_checked = ExtResource( 2 )
+custom_icons/checked = ExtResource( 2 )
+custom_icons/radio_unchecked = ExtResource( 3 )
+custom_icons/unchecked = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Fullscreen"
