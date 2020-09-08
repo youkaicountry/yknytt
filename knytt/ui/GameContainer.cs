@@ -11,11 +11,6 @@ public class GameContainer : VBoxContainer
 
     public int Count { get { return GetChildCount(); } }
 
-    public override void _Ready()
-    {
-        
-    }
-
     public void clearWorlds()
     {
         foreach (var c in this.GetChildren())
