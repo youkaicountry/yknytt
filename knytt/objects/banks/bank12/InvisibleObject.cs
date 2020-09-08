@@ -1,4 +1,3 @@
-using Godot;
 using YUtil.Random;
 
 public abstract class InvisibleObject : GDKnyttBaseObject
