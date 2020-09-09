@@ -31,7 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvisibleBlock.cs" />
+    <Compile Include="knytt\objects\banks\bank12\GhostBlock.cs" />
     <Compile Include="knytt\GDKnyttSettings.cs" />
     <Compile Include="knytt\juni\ClimbCheckers.cs" />
     <Compile Include="knytt\juni\DeathParticles.cs" />
@@ -41,7 +41,7 @@
     <Compile Include="knytt\objects\banks\bank0\SavePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank10\BouncerEnemy.cs" />
-    <Compile Include="knytt\objects\banks\bank12\InvisibleObject.cs" />
+    <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
     <Compile Include="knytt\objects\banks\bank14\PassiveWalker.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />

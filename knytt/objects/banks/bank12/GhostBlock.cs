@@ -2,7 +2,10 @@ using Godot;
 
 public class InvisibleBlock : InvisibleObject
 {
-    protected override void _impl_initialize() { }
+    protected override void _impl_initialize()
+    {
+        
+    }
 
     protected override void _InvDisable()
     {
