@@ -48,6 +48,7 @@ public class BouncerEnemy : GDKnyttBaseObject
     protected override void _impl_process(float delta)
     {
         if (!in_air) { return; }
+
         vel += bouncer_data.gravity * delta;
         Translate(new Vector2(0f, vel * delta));
     }
@@ -74,6 +75,7 @@ public class BouncerEnemy : GDKnyttBaseObject
         }
 
         if (!in_air) { return;}
+        if (!GDArea.isIn(GlobalPosition)) { return; } // ignore all collisions if out of the area
         if (vel < 0f) { vel = -vel; return; }
 
         in_air = false;
