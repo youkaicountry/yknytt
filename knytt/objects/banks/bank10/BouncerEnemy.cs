@@ -67,14 +67,13 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        //if (!in_air) { return;}
-
         if (body is Juni)
         {
             Juni.die();
             return;
         }
 
+        if (!in_air) { return;}
         if (vel < 0f) { vel = -vel; return; }
 
         in_air = false;
