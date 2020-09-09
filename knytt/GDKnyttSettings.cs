@@ -55,7 +55,7 @@ public class GDKnyttSettings : Node
 
     private static string ScrollTypes2String(ScrollTypes t)
     {
-        switch (t)
+        switch(t)
         {
             case ScrollTypes.Smooth: return "Smooth";
             case ScrollTypes.Original: return "Original";
