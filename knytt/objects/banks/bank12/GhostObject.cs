@@ -1,9 +1,9 @@
-using YUtil.Random;
+using Godot;
 
 public abstract class InvisibleObject : GDKnyttBaseObject
 {
     public float flickerMin = .1f;
-    public float flickerMax = .6f;
+    public float flickerMax = .8f;
     float flip_time = .065f;
     float flip_counter = 0f;
     float flip_target = 0f;
@@ -16,14 +16,7 @@ public abstract class InvisibleObject : GDKnyttBaseObject
         set 
         { 
             _seen = value;
-            if (value) 
-            { 
-                Visible = true;
-                var m = Modulate;
-                m.a = GDKnyttDataStore.random.NextFloat(flickerMin, flickerMax);
-                Modulate = m;
-                _InvEnable(); 
-            }
+            if (value) { Visible = true; _InvEnable(); }
             else { Visible = false; _InvDisable(); }
         }
     }
