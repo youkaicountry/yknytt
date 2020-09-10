@@ -1,6 +1,6 @@
 using Godot;
 
-public class InvisibleBlock : InvisibleObject
+public class GhostBlock : InvisibleObject
 {
     protected override void _impl_initialize()
     {
