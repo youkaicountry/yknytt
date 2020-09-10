@@ -37,6 +37,7 @@ public class BouncerEnemy : GDKnyttBaseObject
     protected override void _impl_initialize()
     {
         bouncer_data = bouncers[ObjectID.y];
+        if (bouncer_data.deadly) { OrganicEnemy = true; }
         
         if (bouncer_data.jump_trigger)
         {
@@ -68,7 +69,7 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (body is Juni)
+        if (bouncer_data.deadly && body is Juni)
         {
             Juni.die();
             return;

@@ -100,6 +100,7 @@ margin_left = 218.0
 margin_right = 298.0
 margin_bottom = 19.2149
 disabled = true
+enabled_focus_mode = 0
 text = "Install Level"
 
 [node name="CreditsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
@@ -109,6 +110,7 @@ margin_left = 302.0
 margin_right = 382.0
 margin_bottom = 19.2149
 disabled = true
+enabled_focus_mode = 0
 text = "Credits"
 
 [node name="SettingsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
