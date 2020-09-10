@@ -1,6 +1,8 @@
+using System;
 using Godot;
 using YKnyttLib;
 using YUtil.Math;
+using YUtil.Random;
 using static YKnyttLib.JuniPowers;
 
 public class Juni : KinematicBody2D
@@ -18,6 +20,7 @@ public class Juni : KinematicBody2D
 
     public GDKnyttGame Game { get; private set; }
     public GDKnyttArea GDArea { get { return Game.CurrentArea; } }
+    public Sprite Detector { get; private set; }
     public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
 
     public JuniPowers Powers { get; }
@@ -58,6 +61,8 @@ public class Juni : KinematicBody2D
     public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
     public bool Hologram { get { return false; } }
 
+    public float organic_enemy_distance = float.MaxValue;
+
     public bool WalkRun 
     { 
         get 
@@ -90,6 +95,7 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
+        this.Detector = GetNode<Sprite>("Detector");
         this.ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         this.Sprite = GetNode<Sprite>("Sprite");
         this.Umbrella = GetNode<Umbrella>("Umbrella");
@@ -124,6 +130,19 @@ public class Juni : KinematicBody2D
             just_reset--;
             if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false; }
         }
+
+        // Organic Enemy Distance
+        if (Powers.getPower(PowerNames.EnemyDetecor) && organic_enemy_distance <= 170f)
+        {
+            Detector.Visible = true;
+            var m = Detector.Modulate;
+            float max = 1f - (organic_enemy_distance / 170f);
+            m.a = GDKnyttDataStore.random.NextFloat(.25f, max * .65f);
+            Detector.Modulate = m;
+        }
+        else { Detector.Visible = false; }
+        
+        organic_enemy_distance = float.MaxValue;
 
         this.checkDebugInput(); // TODO: Check the mode for debug
 
@@ -255,5 +274,16 @@ public class Juni : KinematicBody2D
     public void continueFall()
     {
         Anim.Play("Falling");
+    }
+
+    public void updateOrganicEnemy(Godot.Vector2 p)
+    {
+        if (!Powers.getPower(PowerNames.EnemyDetecor)) { return; }
+
+        var jp = GlobalPosition;
+        // Manhattan distance
+        float md = Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
+
+        if (md < organic_enemy_distance) { organic_enemy_distance = md; }
     }
 }

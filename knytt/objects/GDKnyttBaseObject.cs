@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using YKnyttLib;
 
@@ -12,6 +13,8 @@ public abstract class GDKnyttBaseObject : Node2D
 
     public GDKnyttArea GDArea { get { return Layer.ObjectLayers.GDArea; } }
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
+
+    public bool OrganicEnemy { get; protected set; }
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
@@ -28,6 +31,14 @@ public abstract class GDKnyttBaseObject : Node2D
     {
         // TODO: Check mode ( edit should be paused )
         // TODO: Ensure area active
+        if (OrganicEnemy) { updateOrganicEnemy(); }
+
         this._impl_process(delta);
+    }
+
+    private void updateOrganicEnemy()
+    {
+        // TODO: Iterate through all Junis
+        Juni.updateOrganicEnemy(GlobalPosition);
     }
 }
