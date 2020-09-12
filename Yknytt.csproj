@@ -42,6 +42,7 @@
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank10\BouncerEnemy.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
+    <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank14\PassiveWalker.cs" />
     <Compile Include="knytt\objects\banks\bank16\InvisibleBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
