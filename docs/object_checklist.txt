@@ -1,4 +1,5 @@
 Bank 0:
+[x] - 1 Save Point
 
 [x] - 3  Run
 [x] - 4  Climb
@@ -50,7 +51,12 @@ Bank 7:
 [x] - 9  Raindrop
 
 Bank 12:
-[x] - 5  Invisible Block
+
+[x] - 5  Ghost Block
+
+Bank 13:
+
+[x] - 13 Fly Bot
 
 Bank 14:
 
@@ -58,3 +64,7 @@ Bank 14:
 [x] - 6 Walker
 [x] - 7 Walker
 [x] - 8 Walker
+
+Bank 16:
+
+[x] - 14 Invisible Block
