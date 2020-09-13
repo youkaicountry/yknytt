@@ -12,6 +12,8 @@ public class Juni : KinematicBody2D
 
     [Signal] public delegate void Jumped();
 
+    PackedScene hologram_scene;
+
     public Godot.Vector2 velocity = Godot.Vector2.Zero;
     public int dir = 0;
     public float max_speed;
@@ -38,12 +40,13 @@ public class Juni : KinematicBody2D
     public int jumps = 0;
 
     // Keys
-    public bool LeftHeld { get { return Input.IsActionPressed("left");  } }
+    public bool LeftHeld { get { return Input.IsActionPressed("left"); } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
     public bool UpHeld { get { return Input.IsActionPressed("up"); } }
     public bool DownHeld { get { return Input.IsActionPressed("down"); } }
     public bool DownPressed { get { return Input.IsActionJustPressed("down"); } }
     public bool UmbrellaPressed { get { return Input.IsActionJustPressed("umbrella"); } }
+    public bool HologramPressed { get { return Input.IsActionJustPressed("hologram"); } }
     public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
     public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
     public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
@@ -59,7 +62,10 @@ public class Juni : KinematicBody2D
         get { return !Sprite.FlipH; } 
     }
     public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
-    public bool Hologram { get { return false; } }
+
+    public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
+    public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
+    public Node2D Hologram { get; private set; }
 
     public float organic_enemy_distance = float.MaxValue;
 
@@ -95,6 +101,7 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
+        hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
         this.Detector = GetNode<Sprite>("Detector");
         this.ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         this.Sprite = GetNode<Sprite>("Sprite");
@@ -157,6 +164,8 @@ public class Juni : KinematicBody2D
             Umbrella.Deployed = !Umbrella.Deployed;
         }
 
+        handleHologram();
+
         handleXMovement(delta);
 
         // This particular value needs to be multiplied by delta to ensure
@@ -187,6 +196,45 @@ public class Juni : KinematicBody2D
         {
             this.Game.changeArea(GDKnyttWorld.getAreaCoords(this.GlobalPosition));
         }
+    }
+
+    private void handleHologram()
+    {
+        if (!Powers.getPower(PowerNames.Hologram)) { return; }
+        if (HologramPressed)
+        {
+            if (Hologram == null) { if (CanDeployHologram) { deployHologram(); } }
+            else { stopHologram(); }
+        }
+    }
+
+    private void deployHologram()
+    {
+        var timer = GetNode<Timer>("HologramTimer");
+        if (timer.TimeLeft > 0f) { return; }
+        timer.Start();
+        GetNode<AudioStreamPlayer2D>("Audio/HoloDeployPlayer2D").Play();
+        var node = hologram_scene.Instance() as Node2D;
+        GDArea.GDWorld.Game.AddChild(node);
+        node.GlobalPosition = GlobalPosition;
+        node.GetNode<AnimatedSprite>("AnimatedSprite").FlipH = !FacingRight;
+        Hologram = node;
+        var m = Modulate; m.a = .45f; Modulate = m;
+    }
+
+    private void stopHologram(bool cleanup=false)
+    {
+        var timer = GetNode<Timer>("HologramTimer");
+        if (!cleanup)
+        {
+            if (timer.TimeLeft > 0f) { return; }
+            timer.Start();
+            GetNode<AudioStreamPlayer2D>("Audio/HoloStopPlayer2D").Play();
+        }
+        
+        Hologram.QueueFree();
+        Hologram = null;
+        var m = Modulate; m.a = 1f; Modulate = m;
     }
 
     public void doubleJumpEffect()
@@ -225,6 +273,8 @@ public class Juni : KinematicBody2D
         this.just_reset = 2;
 
         Umbrella.reset();
+
+        if (Hologram != null) { stopHologram(cleanup:true); }
     }
 
     private void handleXMovement(float delta)
@@ -268,7 +318,8 @@ public class Juni : KinematicBody2D
         jumps++;
         just_climbed = 0f;
 
-        if (!Hologram) { EmitSignal(nameof(Jumped)); }
+        // Do not emit this event if the hologram is out, as it cannot jump
+        if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
     }
 
     public void continueFall()
@@ -278,7 +329,7 @@ public class Juni : KinematicBody2D
 
     public float manhattanDistance(Godot.Vector2 p)
     {
-        var jp = GlobalPosition;
+        var jp = ApparentPosition;
         return Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
     }
 
