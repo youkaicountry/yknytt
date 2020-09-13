@@ -276,14 +276,16 @@ public class Juni : KinematicBody2D
         Anim.Play("Falling");
     }
 
+    public float manhattanDistance(Godot.Vector2 p)
+    {
+        var jp = GlobalPosition;
+        return Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
+    }
+
     public void updateOrganicEnemy(Godot.Vector2 p)
     {
         if (!Powers.getPower(PowerNames.EnemyDetecor)) { return; }
-
-        var jp = GlobalPosition;
-        // Manhattan distance
-        float md = Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
-
+        var md = manhattanDistance(p);
         if (md < organic_enemy_distance) { organic_enemy_distance = md; }
     }
 }
