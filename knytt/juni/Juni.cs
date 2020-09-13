@@ -201,7 +201,16 @@ public class Juni : KinematicBody2D
     private void handleHologram()
     {
         if (!Powers.getPower(PowerNames.Hologram)) { return; }
-        if (HologramPressed)
+
+        bool double_down = false;
+        if (DownPressed)
+        {
+            var dtimer = GetNode<Timer>("DoubleDownTimer");
+            if (dtimer.TimeLeft > 0f) { double_down = true; dtimer.Stop(); }
+            else { dtimer.Start(); }
+        }
+
+        if (double_down || HologramPressed)
         {
             if (Hologram == null) { if (CanDeployHologram) { deployHologram(); } }
             else { stopHologram(); }
