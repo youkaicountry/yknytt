@@ -254,6 +254,7 @@ public class Juni : KinematicBody2D
         this.clearState();
         Sprite.Visible = false;
         Umbrella.Visible = false;
+        Detector.Visible = false;
         this.dead = true;
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();
@@ -273,7 +274,6 @@ public class Juni : KinematicBody2D
         this.just_reset = 2;
 
         Umbrella.reset();
-
         if (Hologram != null) { stopHologram(cleanup:true); }
     }
 
