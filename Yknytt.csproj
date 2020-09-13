@@ -48,6 +48,7 @@
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\Waterfall.cs" />
+    <Compile Include="knytt\objects\banks\bank4\ToastMonster.cs" />
     <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
     <Compile Include="knytt\objects\banks\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />
