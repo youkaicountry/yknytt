@@ -18,7 +18,7 @@ public class GDKnyttDataStore : Node
         Tree.ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
 
-    public static void winGame()
+    public static void winGame(string ending="Ending")
     {
         Tree.ChangeScene("res://knytt/ui/MainMenu.tscn");
     }

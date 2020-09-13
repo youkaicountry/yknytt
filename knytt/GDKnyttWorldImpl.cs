@@ -16,6 +16,13 @@ public class GDKnyttWorldImpl : KnyttWorld
         return GDKnyttAssetManager.loadTexture(data);
     }
 
+    protected override bool externalFileExists(string filepath)
+    {
+        var full_path = this.WorldDirectory + "/" + filepath;
+        var f = new File();
+        return f.FileExists(full_path);
+    }
+
     protected override object getExternalSound(string filepath)
     {
         var full_path = this.WorldDirectory + "/" + filepath;
