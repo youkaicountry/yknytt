@@ -22,6 +22,7 @@ config/windows_native_icon="res://knytt/icons/winicon.ico"
 [autoload]
 
 GdKnyttSettings="*res://knytt/GDKnyttSettings.tscn"
+GdKnyttDataStore="*res://knytt/GDKnyttDataStore.cs"
 
 [display]
 

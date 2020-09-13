@@ -1,5 +1,6 @@
 Bank 0:
 [x] - 1 Save Point
+[x] - 2 Win
 
 [x] - 3  Run
 [x] - 4  Climb
@@ -45,10 +46,18 @@ Bank 1:
 [x] - 23 Waterfall
 [x] - 24 Water Block
 
+Bank 4:
+
+[x] - 18 Toast Monster
+
 Bank 7:
 
 [x] - 8  Rain
 [x] - 9  Raindrop
+
+Bank 10:
+
+[x] - 5 Bouncer
 
 Bank 12:
 

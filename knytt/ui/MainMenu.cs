@@ -6,13 +6,13 @@ public class MainMenu : Node2D
 {
     PackedScene level_select_scene;
     PackedScene settings_scene;
-    AnimationPlayer fade_anim;
+    FadeLayer fade;
 
     public override void _Ready()
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
-        fade_anim = GetNode<AnimationPlayer>("FadeLayer/FadeMask/AnimationPlayer");
+        fade = GetNode<FadeLayer>("FadeLayer");
         //GetNode<Button>("MenuLayer/ButtonRow/PlayButton").GrabFocus();
         GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
     }
@@ -21,8 +21,8 @@ public class MainMenu : Node2D
     {
         GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
         var task = Task.Run(() => loadTutorial());
-        fade_anim.Play("FadeOut");
-        await ToSignal(fade_anim, "animation_finished");
+        fade.startFade();
+        await ToSignal(fade, "FadeDone");
         task.Wait();
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
@@ -58,8 +58,8 @@ public class MainMenu : Node2D
     {
         var player = GetNode<AudioStreamPlayer>("MenuClickPlayer");
         player.Play();
-        fade_anim.Play("FadeOut");
-        await ToSignal(fade_anim, "animation_finished");
+        fade.startFade();
+        await ToSignal(fade, "FadeDone");
         GetTree().Quit();
     }
 

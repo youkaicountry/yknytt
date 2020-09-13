@@ -273,6 +273,14 @@ public class Juni : KinematicBody2D
         Game.respawnJuni();
     }
 
+    public void win()
+    {
+        GetNode<JuniAudio>("Audio").stopAll();
+        Anim.Stop();
+        dead = true;
+        Game.win();
+    }
+
     public void reset()
     {
         Sprite.FlipH = false;

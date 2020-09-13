@@ -48,7 +48,7 @@ public class InfoScreen : CanvasLayer
         
         KWorld.CurrentSave = save;
         GDKnyttDataStore.KWorld = KWorld;
-        GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
+        GDKnyttDataStore.startGame();
         this.QueueFree();
     }
 
