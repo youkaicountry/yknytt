@@ -136,9 +136,9 @@ public class GDKnyttGame : Node2D
 	public void changeArea(KnyttPoint new_area, bool force_jump = false)
 	{
 		// Regenerate current area if no change, else deactivate old area
-		if (this.CurrentArea != null) 
+		if (this.CurrentArea != null)
 		{ 
-			if (CurrentArea.Area.Position.Equals(new_area)) 
+			if (CurrentArea.Area.Position.Equals(new_area))
 			{ 
 				CurrentArea.regenerateArea();
 				return;
@@ -156,6 +156,8 @@ public class GDKnyttGame : Node2D
 		this.CurrentArea = area;
 		this.CurrentArea.activateArea();
 		this.beginTransitionEffects(force_jump);
+
+		Juni.stopHologram(cleanup:true);
 	}
 
 	// Handles transition effects
