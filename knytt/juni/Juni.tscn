@@ -227,7 +227,7 @@ wait_time = 0.175
 one_shot = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -0.305659, -2.99525 )
+position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
@@ -289,6 +289,18 @@ volume_db = 1.292
 max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Umbrella B.raw"
 sampleRate = 8000
+
+[node name="HoloDeployPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+volume_db = 1.292
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Hologram A.raw"
+sampleRate = 16000
+
+[node name="HoloStopPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+volume_db = 1.292
+max_distance = 1000.0
+rawPath = "res://knytt/data/Sfx/Hologram B.raw"
+sampleRate = 16000
 
 [node name="ClimbCheckers" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -384,3 +396,7 @@ color_ramp = SubResource( 20 )
 
 [node name="Detector" type="Sprite" parent="."]
 texture = ExtResource( 12 )
+
+[node name="HologramTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

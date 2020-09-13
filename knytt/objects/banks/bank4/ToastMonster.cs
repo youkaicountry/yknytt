@@ -32,6 +32,7 @@ public class ToastMonster : GDKnyttBaseObject
     public void startSpikes()
     {
         spiked = true;
+        
         GetNode<AudioStreamPlayer2D>("SpikeUpPlayer2D").Play();
         anim.Play("Spike");
     }
@@ -59,5 +60,11 @@ public class ToastMonster : GDKnyttBaseObject
     {
         if (!spiked || !(body is Juni)) { return; }
         Juni.die();
+    }
+
+    public void _on_AnimationPlayer_animation_finished(string anim)
+    {
+        if (anim.Equals("Blink")) { return; }
+        GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = !spiked;
     }
 }

@@ -62,7 +62,7 @@ public class BouncerEnemy : GDKnyttBaseObject
         GetNode<AnimatedSprite>("AnimatedSprite").Play(Anim);
     }
 
-    public void juniJumped()
+    public void juniJumped(Juni juni)
     {
         if (bouncer_data.jump_trigger && !in_air) { launch(); }
     }
