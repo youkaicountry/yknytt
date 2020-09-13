@@ -222,8 +222,10 @@ public class Juni : KinematicBody2D
         var m = Modulate; m.a = .45f; Modulate = m;
     }
 
-    private void stopHologram(bool cleanup=false)
+    public void stopHologram(bool cleanup=false)
     {
+        if (Hologram == null) { return; }
+
         var timer = GetNode<Timer>("HologramTimer");
         if (!cleanup)
         {
@@ -274,7 +276,7 @@ public class Juni : KinematicBody2D
         this.just_reset = 2;
 
         Umbrella.reset();
-        if (Hologram != null) { stopHologram(cleanup:true); }
+        stopHologram(cleanup:true);
     }
 
     private void handleXMovement(float delta)
