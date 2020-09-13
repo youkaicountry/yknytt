@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://knytt/GDKnyttGame.cs" type="Script" id=4]
 [ext_resource path="res://knytt/GDKnyttCamera.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
+[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 22
@@ -87,3 +88,5 @@ fadeOutTime = 1.5
 bus = "Ambiance2"
 fadeInTime = 0.8
 fadeOutTime = 1.5
+
+[node name="FadeLayer" parent="." instance=ExtResource( 7 )]

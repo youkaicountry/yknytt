@@ -10,6 +10,7 @@ public static class GDKnyttObjectFactory
     {
         ObjectLookup = new Dictionary<KnyttPoint, string>();
         ObjectLookup[new KnyttPoint(0, 1)]  = "SavePoint";
+        ObjectLookup[new KnyttPoint(0, 2)]  = "Win";
         ObjectLookup[new KnyttPoint(0, 3)]  = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 4)]  = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 5)]  = "PowerItem";
