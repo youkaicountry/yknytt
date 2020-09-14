@@ -39,7 +39,6 @@ public class InfoScreen : CanvasLayer
     {
         GetNode<LevelSelection>("../LevelSelection").killConsumers();
         string fname = new_save ? KWorld.WorldDirectory + "/DefaultSavegame.ini" : filename;
-        //KnyttSave save;// = new KnyttSave(World, GDKnyttAssetManager.loadTextFile(fname), slot);
         
         KnyttSave save = new KnyttSave(KWorld, 
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
@@ -48,7 +47,7 @@ public class InfoScreen : CanvasLayer
         
         KWorld.CurrentSave = save;
         GDKnyttDataStore.KWorld = KWorld;
-        GDKnyttDataStore.startGame();
+        GDKnyttDataStore.startGame(new_save);
         this.QueueFree();
     }
 

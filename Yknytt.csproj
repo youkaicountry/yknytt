@@ -72,6 +72,7 @@
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
     <Compile Include="knytt\RawAudioPlayer2D.cs" />
+    <Compile Include="knytt\ui\Cutscene.cs" />
     <Compile Include="knytt\ui\FadeLayer.cs" />
     <Compile Include="knytt\ui\GameButton.cs" />
     <Compile Include="knytt\ui\GameContainer.cs" />
