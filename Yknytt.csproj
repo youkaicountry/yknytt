@@ -31,6 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\GroundChecker.cs" />
     <Compile Include="knytt\juni\JuniAudio.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
