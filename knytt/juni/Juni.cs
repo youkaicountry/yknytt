@@ -28,6 +28,7 @@ public class Juni : KinematicBody2D
     public JuniPowers Powers { get; }
 
     public ClimbCheckers ClimbCheckers { get; private set; }
+    public GroundChecker GroundChecker { get; private set; }
 
     // States
     public JuniState CurrentState { get; private set; }
@@ -54,7 +55,8 @@ public class Juni : KinematicBody2D
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
-    public bool Grounded { get { return IsOnFloor(); } }
+    //public bool Grounded { get { return IsOnFloor(); } }
+    public bool Grounded { get { return GroundChecker.IsOnGround; } }
     public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
     public bool FacingRight 
     {
@@ -102,12 +104,13 @@ public class Juni : KinematicBody2D
     public override void _Ready()
     {
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
-        this.Detector = GetNode<Sprite>("Detector");
-        this.ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
-        this.Sprite = GetNode<Sprite>("Sprite");
-        this.Umbrella = GetNode<Umbrella>("Umbrella");
+        Detector = GetNode<Sprite>("Detector");
+        ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
+        GroundChecker = GetNode<GroundChecker>("GroundChecker");
+        Sprite = GetNode<Sprite>("Sprite");
+        Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
-        this.Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
+        Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
     }
 
