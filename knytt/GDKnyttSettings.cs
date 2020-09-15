@@ -1,7 +1,6 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
-//using IniParser.;
 
 public class GDKnyttSettings : Node
 {
@@ -13,6 +12,11 @@ public class GDKnyttSettings : Node
     {
         Smooth = 0,
         Original = 1
+    }
+
+    static GDKnyttSettings()
+    {
+        ini = new IniData();
     }
 
     public static bool Fullscreen
@@ -67,8 +71,6 @@ public class GDKnyttSettings : Node
     public override void _Ready()
     {
         tree = GetTree();
-        GD.Print("Setup");
-        ini = new IniData();
         initialize();
     }
 
