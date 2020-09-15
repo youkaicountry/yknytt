@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -13,9 +13,10 @@
 [ext_resource path="res://knytt/juni/Umbrella.cs" type="Script" id=11]
 [ext_resource path="res://knytt/juni/detector.png" type="Texture" id=12]
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
+[ext_resource path="res://knytt/juni/GroundChecker.cs" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.5778, 8.60157 )
+extents = Vector2( 5.58, 8.6 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 10 )
@@ -202,7 +203,10 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 0.56369, 5.09802 )
 
-[sub_resource type="Gradient" id=20]
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 5.58, 0.5 )
+
+[sub_resource type="Gradient" id=21]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Juni" type="KinematicBody2D"]
@@ -311,7 +315,7 @@ script = ExtResource( 4 )
 position = Vector2( 6.148, 0.285 )
 priority = 1.0
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
 shape = SubResource( 19 )
@@ -320,10 +324,19 @@ shape = SubResource( 19 )
 position = Vector2( -6.141, 0.285 )
 priority = 1.0
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
 shape = SubResource( 19 )
+
+[node name="GroundChecker" type="Area2D" parent="."]
+position = Vector2( 0, 9.1 )
+collision_layer = 0
+collision_mask = 6
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundChecker"]
+shape = SubResource( 20 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -346,7 +359,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 21 )
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -362,7 +375,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 21 )
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -378,7 +391,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 21 )
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -394,7 +407,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 21 )
 
 [node name="Detector" type="Sprite" parent="."]
 texture = ExtResource( 12 )
