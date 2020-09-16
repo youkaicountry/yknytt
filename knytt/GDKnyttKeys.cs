@@ -1,7 +1,11 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+
+// TODO: Make a general version of this
+// It should have structs for each setting value that can produce / take events & strings
 
 public class GDKnyttKeys : Node
 {
@@ -62,7 +66,42 @@ public class GDKnyttKeys : Node
         f.Close();
     }
 
-    private static void applyAllSettings()
+    public static string getValueString(string ini_name)
+    {
+        if (!ini["Input"].ContainsKey(ini_name)) { return ""; }
+        Match match = key_rx.Match(ini["Input"][ini_name]);
+        var groups = match.Groups;
+
+        switch(groups["type"].Value)
+        {
+            case "Key": return groups["value"].Value;
+            case "Joy": return string.Format("Joy {0}", groups["value"]);
+        }
+
+        return "";
+    }
+
+    public static bool setAction(string ini_name, InputEvent ev)
+    {
+        switch(ev)
+        {
+            case InputEventKey key:
+                var keyname = OS.GetScancodeString(key.Scancode);
+                if (keyname.Equals("Escape")) { return false; }
+                ini["Input"][ini_name] = string.Format("Key({0})", keyname);
+                break;
+            
+            case InputEventJoypadButton jb: 
+                ini["Input"][ini_name] = string.Format("Joy({0})", jb.ButtonIndex);
+                break;
+
+            default: return false;
+        }
+
+        return true;
+    }
+
+    public static void applyAllSettings()
     {
         applyAction("up");
         applyAction("down");
@@ -88,13 +127,12 @@ public class GDKnyttKeys : Node
         if (!ini["Input"].ContainsKey(ini_name)) { return; }
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
-        //GD.Print("HERE");
+
         switch(groups["type"].Value)
         {
             case "Key": applyKey(action_name, groups["value"].Value); break;
+            case "Joy": applyJoy(action_name, groups["value"].Value); break;
         }
-        //GD.Print("Type: ", groups["type"].Name);
-        //GD.Print(groups["value"]);
     }
 
     private static void applyKey(string action_name, string key)
@@ -102,6 +140,14 @@ public class GDKnyttKeys : Node
         int scancode = OS.FindScancodeFromString(key);
         var e = new InputEventKey();
         e.Scancode = (uint)scancode;
+        InputMap.ActionAddEvent(action_name, e);
+    }
+
+    private static void applyJoy(string action_name, string key)
+    {
+        var e = new InputEventJoypadButton();
+        //e.Device
+        e.ButtonIndex = int.Parse(key);
         InputMap.ActionAddEvent(action_name, e);
     }
 

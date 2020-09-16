@@ -2,9 +2,12 @@ using Godot;
 
 public class SettingsScreen : CanvasLayer
 {
+    PackedScene input_scene;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
         fillControls();
     }
 
@@ -13,7 +16,6 @@ public class SettingsScreen : CanvasLayer
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
-        //GD.Print(GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown"));
     }
 
     public void _on_BackButton_pressed()
@@ -36,5 +38,12 @@ public class SettingsScreen : CanvasLayer
     public void _on_ScollDropdown_item_selected(int index)
     {
         GDKnyttSettings.ScrollType = (GDKnyttSettings.ScrollTypes)index;
+    }
+
+    public void _on_KeyRemapButton_pressed()
+    {
+        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        var inp = input_scene.Instance();
+        AddChild(inp);
     }
 }

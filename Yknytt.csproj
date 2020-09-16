@@ -79,6 +79,8 @@
     <Compile Include="knytt\ui\GameButton.cs" />
     <Compile Include="knytt\ui\GameContainer.cs" />
     <Compile Include="knytt\ui\InfoScreen.cs" />
+    <Compile Include="knytt\ui\InputOption.cs" />
+    <Compile Include="knytt\ui\InputScreen.cs" />
     <Compile Include="knytt\ui\LevelSelection.cs" />
     <Compile Include="knytt\ui\LocationLabel.cs" />
     <Compile Include="knytt\ui\MainMenu.cs" />
