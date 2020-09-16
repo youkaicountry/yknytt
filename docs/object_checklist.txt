@@ -74,6 +74,13 @@ Bank 14:
 [x] - 7 Walker
 [x] - 8 Walker
 
+Bank 15:
+
+[x] - 27 Red Door
+[x] - 28 Yellow Door
+[x] - 29 Blue Door
+[x] - 30 Purple Door
+
 Bank 16:
 
 [x] - 14 Invisible Block
