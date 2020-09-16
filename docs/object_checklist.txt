@@ -63,6 +63,8 @@ Bank 12:
 
 [x] - 5  Ghost Block
 
+[x] - 11 Ghost
+
 Bank 13:
 
 [x] - 13 Fly Bot

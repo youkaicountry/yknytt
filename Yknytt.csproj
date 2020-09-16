@@ -35,6 +35,7 @@
     <Compile Include="knytt\juni\GroundChecker.cs" />
     <Compile Include="knytt\juni\JuniAudio.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
+    <Compile Include="knytt\objects\banks\bank12\Ghost.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostBlock.cs" />
     <Compile Include="knytt\GDKnyttSettings.cs" />
     <Compile Include="knytt\juni\ClimbCheckers.cs" />

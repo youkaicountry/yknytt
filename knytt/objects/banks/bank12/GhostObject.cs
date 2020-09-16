@@ -1,13 +1,13 @@
 using Godot;
 
-public abstract class InvisibleObject : GDKnyttBaseObject
+public abstract class GhostObject : GDKnyttBaseObject
 {
     public float flickerMin = .1f;
     public float flickerMax = .8f;
-    float flip_time = .065f;
+    public float flip_time = .065f;
     float flip_counter = 0f;
     float flip_target = 0f;
-    float change_fraction = 8f;
+    public float change_fraction = 8f;
 
     private bool _seen;
     protected bool Seen 

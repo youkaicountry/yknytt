@@ -1,11 +1,15 @@
 using Godot;
 
-public class GhostBlock : InvisibleObject
+public class GhostBlock : GhostObject
 {
-    protected override void _impl_initialize()
+    public override void _Ready()
     {
-        
+        base._Ready();
+        flickerMax = .1f;
+        flickerMin = .6f;
     }
+
+    protected override void _impl_initialize() { }
 
     protected override void _InvDisable()
     {

@@ -65,7 +65,6 @@ public class GDKnyttSettings : Node
             case ScrollTypes.Original: return "Original";
             default: return "Smooth";
         }
-
     }
 
     public override void _Ready()
