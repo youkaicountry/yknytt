@@ -36,15 +36,28 @@ public class LevelSelection : CanvasLayer
     public override void _Ready()
     {
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
+        var sys = OS.GetName();
+        if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
+        else { multiThreadedLoad(); }
+    }
+
+    private void singleThreadedLoad()
+    {
+        loadDefaultWorlds(true);
+        discoverWorlds("./worlds", true);
+    }
+
+    private void multiThreadedLoad()
+    {
         startHopperConsumers();
 
-        Task.Run(() => this.loadDefaultWorlds());
-        Task.Run(() => this.discoverWorlds("./worlds"));
+        Task.Run(() => this.loadDefaultWorlds(false));
+        Task.Run(() => this.discoverWorlds("./worlds", false));
     }
 
     private void startHopperConsumers()
     {
-        Action consumer = () => 
+        Action consumer = () =>
         {
             while (true)
             {
@@ -74,14 +87,12 @@ public class LevelSelection : CanvasLayer
     public void killConsumers()
     {
         halt_consumers = true;
-        
         Task.WaitAll(consumers.ToArray());
     }
 
     public override void _PhysicsProcess(float delta)
     {
         // Process the queue
-        //GD.Print(finished_entries.Count);
         if (finished_entries.Count == 0) { return; }
         KnyttWorldManager<Texture>.WorldEntry entry;
         if (!finished_entries.TryDequeue(out entry)) { return; }
@@ -92,15 +103,15 @@ public class LevelSelection : CanvasLayer
         }
     }
 
-    private void loadDefaultWorlds()
+    private void loadDefaultWorlds(bool single_threaded)
     {
-        startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin");
-        startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
+        startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin", single_threaded);
+        startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin", single_threaded);
     }
 
     // Search the given directory for worlds
     // TODO: This should do a very different process for bin files
-    private void discoverWorlds(string path)
+    private void discoverWorlds(string path, bool single_threaded)
     {
         var wd = new Directory();
         //if (!wd.DirExists(path)) { discovery_over = true; return; }
@@ -116,37 +127,44 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, name);
-                //Manager.addWorld(world);
+                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, name, single_threaded);
             }
             else
             {
                 if (!name.EndsWith(".knytt.bin")) { continue; }
-                startBinLoad(wd.GetCurrentDir() + "/" + name);
+                startBinLoad(wd.GetCurrentDir() + "/" + name, single_threaded);
             }
         }
         wd.ListDirEnd();
         discovery_over = true;
     }
 
-    private void startDirectoryLoad(string world_dir, string name)
+    private void startDirectoryLoad(string world_dir, string name, bool single_threaded)
     {
-        Action action = () =>
-        {
-            var entry = generateDirectoryWorld(world_dir, name);
-            finished_entries.Enqueue(entry);
-        };
+        if (single_threaded) { directoryLoad(world_dir, name); return; }
+
+        Action action = () => { directoryLoad(world_dir, name); };
         load_hopper.Enqueue(action);
     }
 
-    private void startBinLoad(string world_dir)
+    private void directoryLoad(string world_dir, string name)
     {
-        Action action = () =>
-        {
-            var entry = generateBinWorld(world_dir);
-            finished_entries.Enqueue(entry);
-        };
+        var entry = generateDirectoryWorld(world_dir, name);
+        finished_entries.Enqueue(entry);
+    }
+
+    private void startBinLoad(string world_dir, bool single_threaded)
+    {
+        if (single_threaded) { binLoad(world_dir); return; }
+
+        Action action = () => { binLoad(world_dir); };
         load_hopper.Enqueue(action);
+    }
+
+    private void binLoad(string world_dir)
+    {
+        var entry = generateBinWorld(world_dir);
+        finished_entries.Enqueue(entry);
     }
 
     object file_lock = new object();
