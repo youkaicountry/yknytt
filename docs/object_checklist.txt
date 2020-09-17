@@ -10,6 +10,7 @@ Bank 0:
 [x] - 8  Enemy Detector
 [x] - 9  Umbrella
 [x] - 10 Hologram
+[x] - 11 No Climb
 
 [x] - 17 Sign A
 [x] - 18 Sign B
@@ -19,6 +20,7 @@ Bank 0:
 [x] - 22 Yellow Key
 [x] - 23 Blue Key
 [x] - 24 Purple Key
+[x] - 25 No Jump
 
 Bank 1:
 [x] - 1  Liquid Pool

@@ -315,7 +315,7 @@ script = ExtResource( 4 )
 position = Vector2( 6.148, 0.285 )
 priority = 1.0
 collision_layer = 0
-collision_mask = 6
+collision_mask = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
 shape = SubResource( 19 )
@@ -324,7 +324,7 @@ shape = SubResource( 19 )
 position = Vector2( -6.141, 0.285 )
 priority = 1.0
 collision_layer = 0
-collision_mask = 6
+collision_mask = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
 shape = SubResource( 19 )
@@ -332,7 +332,7 @@ shape = SubResource( 19 )
 [node name="GroundChecker" type="Area2D" parent="."]
 position = Vector2( 0, 9.1 )
 collision_layer = 0
-collision_mask = 6
+collision_mask = 14
 script = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundChecker"]

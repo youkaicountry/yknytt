@@ -57,7 +57,7 @@ public class Juni : KinematicBody2D
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     //public bool Grounded { get { return IsOnFloor(); } }
     public bool Grounded { get { return GroundChecker.IsOnGround; } }
-    public bool DidJump { get { return JumpEdge && Grounded; } } // TODO: This would check jumps since ground for double jump
+    public bool DidJump { get { return JumpEdge && Grounded && GroundChecker.CanJump; } }
     public bool FacingRight 
     {
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; } 
