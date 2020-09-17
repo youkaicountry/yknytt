@@ -81,6 +81,7 @@ margin_right = 277.0
 margin_bottom = 26.2949
 text = "Key Configure"
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
 [connection signal="item_selected" from="SettingsContainer/ScrollContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
 [connection signal="pressed" from="KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]

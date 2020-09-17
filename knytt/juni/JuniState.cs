@@ -88,7 +88,7 @@ public class ClimbState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (!juni.CanClimb) 
+        if (!juni.CanClimb)
         { 
             juni.transitionState(new FallState(juni));
             juni.just_climbed = .08f;
