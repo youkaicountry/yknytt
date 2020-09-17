@@ -87,7 +87,7 @@ public class GDKnyttKeys : Node
         {
             case InputEventKey key:
                 var keyname = OS.GetScancodeString(key.Scancode);
-                if (keyname.Equals("Escape")) { return false; }
+                if (keyname.Equals("Escape")) { return true; }
                 ini["Input"][ini_name] = string.Format("Key({0})", keyname);
                 break;
             
