@@ -34,6 +34,8 @@
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\GroundChecker.cs" />
     <Compile Include="knytt\juni\JuniAudio.cs" />
+    <Compile Include="knytt\objects\banks\bank0\NoClimb.cs" />
+    <Compile Include="knytt\objects\banks\bank0\NoJump.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
     <Compile Include="knytt\objects\banks\bank12\Ghost.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostBlock.cs" />
