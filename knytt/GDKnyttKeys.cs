@@ -39,6 +39,7 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "walk0", "Key(A)");
         modified |= ensureSetting("Input", "umbrella0", "Key(D)");
         modified |= ensureSetting("Input", "hologram0", "Key(W)");
+        modified |= ensureSetting("Input", "pause0", "Key(Escape)");
 
         if (modified) { saveSettings(); }
         applyAllSettings();
@@ -87,7 +88,6 @@ public class GDKnyttKeys : Node
         {
             case InputEventKey key:
                 var keyname = OS.GetScancodeString(key.Scancode);
-                if (keyname.Equals("Escape")) { return true; }
                 ini["Input"][ini_name] = string.Format("Key({0})", keyname);
                 break;
             
@@ -112,6 +112,7 @@ public class GDKnyttKeys : Node
         applyAction("walk");
         applyAction("umbrella");
         applyAction("hologram");
+        applyAction("pause");
     }
 
     private static void applyAction(string name)

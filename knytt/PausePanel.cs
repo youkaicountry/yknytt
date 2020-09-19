@@ -17,6 +17,7 @@ public class PausePanel : Panel
 
     public override void _Notification(int what)
     {
+        if (GetNode<Timer>("BounceTimer")?.TimeLeft > 0) { return; }
 		if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
     }
 
