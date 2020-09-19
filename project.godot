@@ -26,6 +26,7 @@ config/quit_on_go_back=false
 GdKnyttSettings="*res://knytt/GDKnyttSettings.tscn"
 GdKnyttDataStore="*res://knytt/GDKnyttDataStore.cs"
 GdKnyttKeys="*res://knytt/GDKnyttKeys.cs"
+ClickPlayer="*res://knytt/ui/ClickPlayer.tscn"
 
 [display]
 

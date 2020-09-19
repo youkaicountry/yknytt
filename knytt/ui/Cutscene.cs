@@ -60,13 +60,13 @@ public class Cutscene : Control
 
     public void _on_PreviousButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("ClickPlayer").Play();
+        ClickPlayer.Play();
         changeScene(-1);
     }
 
     public void _on_NextButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("ClickPlayer").Play();
+        ClickPlayer.Play();
         if (!last_page) { changeScene(1); return; }
         endCutscene();
     }

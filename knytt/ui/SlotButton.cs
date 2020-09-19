@@ -62,7 +62,6 @@ public class SlotButton : Button
     public void checkSlot()
     {
         close();
-
         var f = SlotFile;
         if (f.IsOpen()) { setupLoadMode(); }
         else { setupNewMode(); }
@@ -91,7 +90,7 @@ public class SlotButton : Button
 
     public void _on_SlotButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         GetParentOrNull<InfoScreen>()?.closeOtherSlots(this.slot);
         StartLoadActive = true;
         if (!NewMode) { EraseActive = true; }
@@ -99,13 +98,13 @@ public class SlotButton : Button
 
     public void _on_EraseButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         ConfirmActive = true;
     }
 
     public void _on_ConfirmButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         var dir = new Directory();
         dir.Remove(FullFilename);
         checkSlot();
@@ -113,7 +112,7 @@ public class SlotButton : Button
 
     public void _on_StartLoadButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         // Message up to the level selection with a new? flag, the filename, and the slot number
         EmitSignal(nameof(StartGame), NewMode, FullFilename, slot);
     }
