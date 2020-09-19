@@ -32,10 +32,10 @@ margin_bottom = -6.0
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
-margin_left = 69.7022
-margin_top = 20.7568
-margin_right = 317.702
-margin_bottom = 223.757
+margin_left = 57.6814
+margin_top = 8.02888
+margin_right = 305.681
+margin_bottom = 234.029
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -119,6 +119,15 @@ margin_right = 248.0
 margin_bottom = 203.0
 Action = "show_info"
 ActionLabel = "Info"
+
+[node name="PauseSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 207.0
+margin_right = 248.0
+margin_bottom = 226.0
+Action = "pause"
+ActionLabel = "Pause / Cancel"
 
 [node name="KeyPrompt" type="Control" parent="."]
 visible = false

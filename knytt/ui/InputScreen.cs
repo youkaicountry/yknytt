@@ -34,6 +34,7 @@ public class InputScreen : Control
     public override void _Input(InputEvent @event)
     {
         if (collecting == null) { return; }
+        
         if (GDKnyttKeys.setAction(collecting.Action + cnum, @event))
         {
             finishCollecting();
