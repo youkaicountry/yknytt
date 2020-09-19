@@ -191,12 +191,12 @@ public class GDKnyttGame : Node2D
 		Juni.stopHologram(cleanup:true);
 	}
 
-	public async void win()
+	public async void win(string ending)
 	{
 		var fade = GetNode<FadeLayer>("FadeLayer");
 		fade.startFade();
 		await ToSignal(fade, "FadeDone");
-		GDKnyttDataStore.winGame();
+		GDKnyttDataStore.winGame(ending);
 	}
 
 	// Handles transition effects
