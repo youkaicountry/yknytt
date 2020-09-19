@@ -32,6 +32,7 @@ tracks/1/keys = {
 }
 
 [node name="FadeLayer" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="FadeMask" type="TextureRect" parent="."]

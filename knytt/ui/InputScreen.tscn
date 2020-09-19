@@ -121,6 +121,7 @@ Action = "show_info"
 ActionLabel = "Info"
 
 [node name="KeyPrompt" type="Control" parent="."]
+visible = false
 margin_left = 404.187
 margin_top = 101.813
 margin_right = 511.187

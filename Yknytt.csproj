@@ -77,6 +77,7 @@
     <Compile Include="knytt\objects\banks\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
+    <Compile Include="knytt\PausePanel.cs" />
     <Compile Include="knytt\RawAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\Cutscene.cs" />
     <Compile Include="knytt\ui\FadeLayer.cs" />

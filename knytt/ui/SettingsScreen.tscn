@@ -8,6 +8,7 @@
 [ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=6]
 
 [node name="SettingsScreen" type="CanvasLayer"]
+layer = 3
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]

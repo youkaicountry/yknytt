@@ -4,6 +4,7 @@ using YKnyttLib;
 public class GDKnyttGame : Node2D
 {
 	PackedScene juni_scene;
+	PackedScene pause_scene;
 	public Juni Juni { get; private set; }
 
 	// TODO: This is per-player stuff, and should eventually be abstracted
@@ -28,6 +29,7 @@ public class GDKnyttGame : Node2D
 	public GDKnyttGame()
 	{
 		juni_scene = ResourceLoader.Load("res://knytt/juni/Juni.tscn") as PackedScene;
+		pause_scene = ResourceLoader.Load("res://knytt/ui/PauseLayer.tscn") as PackedScene;
 	}
 
 	public override void _Ready()
@@ -112,7 +114,36 @@ public class GDKnyttGame : Node2D
 	public override void _Process(float delta)
 	{
 		if (this.viewMode) { this.editorControls(); }
+
+		if (Input.IsActionJustPressed("pause")) { pause(); }
 	}
+
+    public override void _Notification(int what)
+    {
+        if (what == MainLoop.NotificationWmQuitRequest) { pause(); }
+		if (what == MainLoop.NotificationWmGoBackRequest) { pause(); }
+    }
+
+	private void pause()
+	{
+		if (GetTree().Paused) { return; }
+		var node = pause_scene.Instance();
+		CallDeferred("add_child", node);
+	}
+
+    /*func _notification(what):
+    if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_pressed()
+    if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_pressed()*/
+
+    
+
+	/*func _notification(what):
+    if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_pressed()
+    if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_pressed()*/
 
 	private void editorControls()
 	{
