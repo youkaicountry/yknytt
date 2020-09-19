@@ -276,12 +276,12 @@ public class Juni : KinematicBody2D
         Game.respawnJuni();
     }
 
-    public void win()
+    public void win(string ending)
     {
         GetNode<JuniAudio>("Audio").stopAll();
         Anim.Stop();
         dead = true;
-        Game.win();
+        Game.win(ending);
     }
 
     public void reset()
