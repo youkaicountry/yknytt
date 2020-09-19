@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://knytt/PausePanel.cs" type="Script" id=2]
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://knytt/ui/button_up.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 12, 12 )
+margin_left = 3.46983
+margin_right = 3.46983
+margin_top = 3.46983
+margin_bottom = 3.08429
+
+[sub_resource type="StyleBoxFlat" id=2]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0 )
+
+[node name="PauseLayer" type="CanvasLayer"]
+pause_mode = 2
+layer = 2
+
+[node name="PausePanel" type="Panel" parent="."]
+margin_left = 180.318
+margin_top = 63.1748
+margin_right = 420.318
+margin_bottom = 173.175
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuCloud" parent="PausePanel" instance=ExtResource( 5 )]
+position = Vector2( 119.575, 54.8762 )
+scale = Vector2( 0.55, 0.55 )
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PausePanel"]
+margin_left = 27.0
+margin_top = 82.0
+margin_right = 215.0
+margin_bottom = 101.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 60.0
+margin_bottom = 19.2149
+rect_min_size = Vector2( 60, 0 )
+custom_styles/disabled = SubResource( 2 )
+text = "Resume"
+
+[node name="SettingsButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 64.0
+margin_right = 124.0
+margin_bottom = 19.2149
+rect_min_size = Vector2( 60, 0 )
+custom_styles/disabled = SubResource( 2 )
+text = "Settings"
+
+[node name="QuitButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 128.0
+margin_right = 188.0
+margin_bottom = 19.2149
+rect_min_size = Vector2( 60, 0 )
+custom_styles/disabled = SubResource( 2 )
+text = "Quit"
+[connection signal="pressed" from="PausePanel/ButtonContainer/ResumeButton" to="PausePanel" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PausePanel/ButtonContainer/SettingsButton" to="PausePanel" method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="PausePanel/ButtonContainer/QuitButton" to="PausePanel" method="_on_QuitButton_pressed"]

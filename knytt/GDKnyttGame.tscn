@@ -90,3 +90,4 @@ fadeInTime = 0.8
 fadeOutTime = 1.5
 
 [node name="FadeLayer" parent="." instance=ExtResource( 7 )]
+layer = 3

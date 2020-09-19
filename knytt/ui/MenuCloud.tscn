@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://knytt/ui/particles/MenuCloud.cs" type="Script" id=1]
+[ext_resource path="res://knytt/ui/particles/ParticleCircle.cs" type="Script" id=2]
+[ext_resource path="res://knytt/ui/particles/gray_hi.png" type="Texture" id=3]
+[ext_resource path="res://knytt/ui/particles/red_hi.png" type="Texture" id=4]
+[ext_resource path="res://knytt/ui/particles/yellow_hi.png" type="Texture" id=5]
+
+[node name="MenuCloud" type="Node2D"]
+position = Vector2( 300, 120 )
+script = ExtResource( 1 )
+
+[node name="InnerYellowCircle" type="Node2D" parent="."]
+script = ExtResource( 2 )
+particleTexture = ExtResource( 5 )
+rotationSpeedRange = Vector2( 0.28, 0.28 )
+radiusRange = Vector2( 30, 30 )
+particleNumber = 9
+spriteScale = 0.16
+angleDifference = Vector2( 0.698, 0.698 )
+
+[node name="RedCircle" type="Node2D" parent="."]
+script = ExtResource( 2 )
+particleTexture = ExtResource( 4 )
+rotationSpeedRange = Vector2( -0.28, -0.28 )
+radiusRange = Vector2( 40, 40 )
+startAngle = Vector2( -0.7, -0.7 )
+particleNumber = 8
+spriteScale = 0.16
+angleDifference = Vector2( 0.258, 0.258 )
+
+[node name="OuterYellowCircle" type="Node2D" parent="."]
+script = ExtResource( 2 )
+particleTexture = ExtResource( 5 )
+rotationSpeedRange = Vector2( -0.35, -0.35 )
+radiusRange = Vector2( 50, 50 )
+particleNumber = 15
+spriteScale = 0.16
+angleDifference = Vector2( 0.419, 0.419 )
+
+[node name="GrayCircle" type="Node2D" parent="."]
+script = ExtResource( 2 )
+particleTexture = ExtResource( 3 )
+rotationSpeedRange = Vector2( 0.25, 0.25 )
+radiusRange = Vector2( 60, 60 )
+particleNumber = 15
+spriteScale = 0.16
+angleDifference = Vector2( 0.209, 0.209 )
+
+[node name="RedCloud" type="Node2D" parent="."]
+script = ExtResource( 2 )
+particleTexture = ExtResource( 4 )
+cloud = true
+rotationSpeedRange = Vector2( -0.1, -0.4 )
+radiusRange = Vector2( 70, 90 )
+particleNumber = 90
+spriteScale = 0.094
+angleDifference = Vector2( 0, 6.28 )
