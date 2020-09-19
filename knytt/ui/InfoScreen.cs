@@ -18,7 +18,7 @@ public class InfoScreen : CanvasLayer
 
     public void _on_BackButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         KWorld.purgeBinFile();
         this.QueueFree();
     }

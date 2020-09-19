@@ -21,7 +21,7 @@ public class SettingsScreen : CanvasLayer
     public void _on_BackButton_pressed()
     {
         GDKnyttSettings.saveSettings();
-        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         this.QueueFree();
     }
 
@@ -42,7 +42,7 @@ public class SettingsScreen : CanvasLayer
 
     public void _on_KeyRemapButton_pressed()
     {
-        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         var inp = input_scene.Instance();
         AddChild(inp);
     }

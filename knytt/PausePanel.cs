@@ -33,17 +33,20 @@ public class PausePanel : Panel
 
     public void _on_ResumeButton_pressed()
     {
+        ClickPlayer.Play();
         unpause();
     }
 
     public void _on_SettingsButton_pressed()
     {
+        ClickPlayer.Play();
         var settings_node = this.settings_scene.Instance() as SettingsScreen;
         GetParent().AddChild(settings_node);
     }
 
     public void _on_QuitButton_pressed()
     {
+        ClickPlayer.Play();
         quit();
     }
 

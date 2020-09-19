@@ -20,14 +20,14 @@ public class InputScreen : Control
     {
         GDKnyttKeys.applyAllSettings();
         GDKnyttKeys.saveSettings();
-        GetNode<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         QueueFree();
     }
 
     public void _onPress(InputOption io, int num)
     {
         if (collecting != null || GetNode<Timer>("BounceTimer").TimeLeft > 0) { return; }
-        GetNode<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         startCollecting(io, num);
     }
 
@@ -62,7 +62,7 @@ public class InputScreen : Control
 
     public void _on_CancelButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("../../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         finishCollecting();
     }
 }

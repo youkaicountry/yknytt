@@ -221,13 +221,13 @@ public class LevelSelection : CanvasLayer
     public void _on_BackButton_pressed()
     {
         killConsumers();
-        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         this.QueueFree();
     }
 
     public void _on_GamePressed(GameButton button)
     {
-        GetNodeOrNull<AudioStreamPlayer>("../MenuClickPlayer")?.Play();
+        ClickPlayer.Play();
         var info = info_scene.Instance() as InfoScreen;
         info.initialize(button.KWorld);
         this.GetParent().AddChild(info);

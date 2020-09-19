@@ -19,7 +19,7 @@ public class MainMenu : Node2D
 
     public async void _on_TutorialButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
+        ClickPlayer.Play();
         var task = Task.Run(() => loadTutorial());
         fade.startFade();
         await ToSignal(fade, "FadeDone");
@@ -42,22 +42,21 @@ public class MainMenu : Node2D
 
     public void _on_PlayButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
+        ClickPlayer.Play();
         var level_node = this.level_select_scene.Instance() as LevelSelection;
         this.AddChild(level_node);
     }
 
     public void _on_SettingsButton_pressed()
     {
-        GetNode<AudioStreamPlayer>("MenuClickPlayer").Play();
+        ClickPlayer.Play();
         var settings_node = this.settings_scene.Instance() as SettingsScreen;
         this.AddChild(settings_node);
     }
 
     public async void _on_QuitButton_pressed()
     {
-        var player = GetNode<AudioStreamPlayer>("MenuClickPlayer");
-        player.Play();
+        ClickPlayer.Play();
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
