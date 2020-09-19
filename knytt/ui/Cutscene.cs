@@ -17,8 +17,20 @@ public class Cutscene : Control
         var data = GDKnyttDataStore.KWorld.INIData;
         if (!data.Sections.ContainsSection("Cutscene Music")) { return; }
         if (!data["Cutscene Music"].ContainsKey(GDKnyttDataStore.CutsceneName)) { return; }
+
         string song = data["Cutscene Music"][GDKnyttDataStore.CutsceneName];
-        var stream = GDKnyttDataStore.KWorld.getWorldSound(string.Format("Music/Song{0}.ogg", song)) as AudioStream;
+        
+        // Detect ambiance
+        bool ambiance = false;
+        if (song.EndsWith("a"))
+        {
+            ambiance = true;
+            song = song.Substring(0, song.Length-1);
+        }
+
+        string loc = ambiance ? "Ambiance/Ambi{0}.ogg" : "Music/Song{0}.ogg";
+        var stream = GDKnyttDataStore.KWorld.getWorldSound(string.Format(loc, song)) as AudioStream;
+        
         var player = GetNode<AudioStreamPlayer>("MusicPlayer");
         player.Stream = stream;
         player.Play();
