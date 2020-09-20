@@ -37,8 +37,9 @@ public class LevelSelection : CanvasLayer
     {
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
         var sys = OS.GetName();
-        if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
-        else { multiThreadedLoad(); }
+        //if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
+        //else { multiThreadedLoad(); }
+        singleThreadedLoad();
     }
 
     private void singleThreadedLoad()
