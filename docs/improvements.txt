@@ -6,6 +6,8 @@ Improvements over original Knytt Stories:
 - Smooth fading fialogue boxes
 - Settings
 - Key configuration
+- Pause Menu
+- Toggle or hold item info panel
 
 Planned improvements:
 - High res tileset / sprite support
