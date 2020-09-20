@@ -1,11 +1,14 @@
 using Godot;
 using YKnyttLib;
+using static YKnyttLib.JuniPowers;
 
 public class GDKnyttGame : Node2D
 {
 	PackedScene juni_scene;
 	PackedScene pause_scene;
 	public Juni Juni { get; private set; }
+
+	public UICanvasLayer UI { get; private set; }
 
 	// TODO: This is per-player stuff, and should eventually be abstracted
 	public GDKnyttArea CurrentArea { get; private set; }
@@ -34,22 +37,24 @@ public class GDKnyttGame : Node2D
 
 	public override void _Ready()
 	{
-		this.MusicChannel = GetNode("MusicChannel") as GDKnyttAudioChannel;
+		this.MusicChannel = GetNode<GDKnyttAudioChannel>("MusicChannel");
 		this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
 		this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
 
-		this.AmbianceChannel1 = GetNode("Ambi1Channel") as GDKnyttAudioChannel;
+		this.AmbianceChannel1 = GetNode<GDKnyttAudioChannel>("Ambi1Channel");
 		this.AmbianceChannel1.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
 		this.AmbianceChannel1.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-		this.AmbianceChannel2 = GetNode("Ambi2Channel") as GDKnyttAudioChannel;
+		this.AmbianceChannel2 = GetNode<GDKnyttAudioChannel>("Ambi2Channel");
 		this.AmbianceChannel2.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
 		this.AmbianceChannel2.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-		this.Camera = GetNode("GKnyttCamera") as GDKnyttCamera;
+		this.Camera = GetNode<GDKnyttCamera>("GKnyttCamera");
 		this.Camera.initialize(this);
 
-		this.GDWorld = GetNode("GKnyttWorld") as GDKnyttWorld;
+		UI = GetNode<UICanvasLayer>("UICanvasLayer");
+
+		this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
 		if (!this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").Visible = false; }
 
@@ -74,14 +79,18 @@ public class GDKnyttGame : Node2D
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
+
+		UI.initialize(this);
+		UI.updatePowers();
 	}
 
-	// On load a save file (or die)
+	// On load a save file
 	public void createJuni()
 	{
 		Juni = juni_scene.Instance() as Juni;
 		Juni.initialize(this);
 		this.AddChild(Juni);
+		Juni.Connect("PowerChanged", UI, "powerUpdate");
 	}
 
 	public void respawnJuni()
@@ -91,6 +100,7 @@ public class GDKnyttGame : Node2D
 		this.changeArea(save.getArea(), true);
 		Juni.GlobalPosition = CurrentArea.getTileLocation(save.getAreaPosition());
 		Juni.reset();
+		UI.updatePowers();
 	}
 
 	public void saveGame(Juni juni, bool write)

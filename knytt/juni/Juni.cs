@@ -11,6 +11,7 @@ public class Juni : KinematicBody2D
     [Export] public float gravity = 1125f;
 
     [Signal] public delegate void Jumped();
+    [Signal] public delegate void PowerChanged();
 
     PackedScene hologram_scene;
 
@@ -118,6 +119,18 @@ public class Juni : KinematicBody2D
     {
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
+    }
+
+    public void setPower(PowerNames name, bool value)
+    {
+        Powers.setPower(name, value);
+        EmitSignal(nameof(PowerChanged), name, value);
+    }
+
+    public void setPower(int power, bool value)
+    {
+        Powers.setPower(power, value);
+        EmitSignal(nameof(PowerChanged), power, value);
     }
 
     public void transitionState(JuniState state)

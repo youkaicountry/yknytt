@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/ui/info_panel/ItemInfo.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank0/PowerItemFrames.tres" type="SpriteFrames" id=2]
+
+[node name="ItemInfo0" type="Control"]
+margin_right = 24.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 24, 24 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemInfo" type="AnimatedSprite" parent="."]
+frames = ExtResource( 2 )
+animation = "Power0"
+centered = false

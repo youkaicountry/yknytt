@@ -3,11 +3,21 @@ using Godot;
 public class PausePanel : Panel
 {
     PackedScene settings_scene;
+    bool bounce = true;
 
     public override void _Ready()
     {
         settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
         pause();
+        bounceWait();
+    }
+
+    public async void bounceWait()
+    {
+        var timer = GetNode<Timer>("BounceTimer");
+        timer.Start();
+        await ToSignal(timer, "timeout");
+        bounce = false;
     }
 
     public override void _Process(float delta)
@@ -17,7 +27,7 @@ public class PausePanel : Panel
 
     public override void _Notification(int what)
     {
-        if (GetNode<Timer>("BounceTimer")?.TimeLeft > 0) { return; }
+        if (bounce) { return; }
 		if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
     }
 

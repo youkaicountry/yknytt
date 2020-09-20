@@ -26,7 +26,7 @@ public class PowerItem : GDKnyttBaseObject
         if (!(body is Juni)) { return; }
         Juni juni = (Juni)body;
         if (juni.Powers.getPower(power)) { return; }
-        juni.Powers.setPower(power, true);
+        juni.setPower(power, true);
 
         GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
         GetNode<AnimationPlayer>("PickupAnimation").Play("Pickup");
