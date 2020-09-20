@@ -1,6 +1,20 @@
 ## YKnytt
 
+![image](screenshots/cover.png)
+
 An open source implementation of Knytt Stories in C# using Godot Engine
+
+### Screenshots
+
+![image](screenshots/screen6.png)
+
+![image](screenshots/screen5.png)
+
+![image](screenshots/screen3.png)
+
+![image](screenshots/screen4.png)
+
+![image](screenshots/screen1.png)
 
 ### Building
 
