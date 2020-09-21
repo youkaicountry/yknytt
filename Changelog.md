@@ -1,5 +1,10 @@
 All notable changes to YKnytt will be documented here.
 
+## [Unreleased]
+
+## Added
+- Invisible barrier
+
 ## [0.1.0] - 2020-09-20
 
 ## Added

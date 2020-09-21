@@ -66,6 +66,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 28)] =  "Door";
         ObjectLookup[new KnyttPoint(15, 29)] =  "Door";
         ObjectLookup[new KnyttPoint(15, 30)] =  "Door";
+        ObjectLookup[new KnyttPoint(16, 13)] =  "InvisibleBarrier";
         ObjectLookup[new KnyttPoint(16, 14)] =  "InvisibleBlock";
     }
 

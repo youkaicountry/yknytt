@@ -87,4 +87,5 @@ Bank 15:
 
 Bank 16:
 
+[x] - 13 Invisible Barrier
 [x] - 14 Invisible Block

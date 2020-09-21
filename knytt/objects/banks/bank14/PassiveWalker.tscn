@@ -159,7 +159,7 @@ centered = false
 [node name="LeftArea" type="Area2D" parent="."]
 position = Vector2( 4, 15.136 )
 collision_layer = 0
-collision_mask = 6
+collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
 shape = SubResource( 31 )
@@ -167,7 +167,7 @@ shape = SubResource( 31 )
 [node name="RightArea" type="Area2D" parent="."]
 position = Vector2( 20, 15.136 )
 collision_layer = 0
-collision_mask = 6
+collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
 shape = SubResource( 31 )

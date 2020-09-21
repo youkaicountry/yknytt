@@ -136,10 +136,11 @@ pause={
 [layer_names]
 
 2d_physics/layer_1="Juni"
-2d_physics/layer_2="Terrain"
+2d_physics/layer_2="JuniCollides"
 2d_physics/layer_3="Object"
 2d_physics/layer_4="NoJump"
 2d_physics/layer_5="NoClimb"
+2d_physics/layer_12="ObjectsCollide"
 
 [rendering]
 
