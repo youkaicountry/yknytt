@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\GDKnyttKeys.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Shift.cs" />
     <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
     <Compile Include="knytt\ui\info_panel\InfoPanel.cs" />
     <Compile Include="knytt\ui\info_panel\ItemInfo.cs" />
