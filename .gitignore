@@ -9,3 +9,4 @@ export_presets.cfg
 bin/
 worlds/
 problem_worlds/
+backup_worlds
