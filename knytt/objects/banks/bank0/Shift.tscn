@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank0/shift_gfx/spot.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank0/shift_gfx/floor.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank0/shift_gfx/square.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/banks/bank0/shift_gfx/circle.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/banks/bank0/Shift.cs" type="Script" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -49,68 +50,122 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 6.00916, 3.3343 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 12, 2 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 24, 24, 24 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 48, 24, 24 )
+region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 72, 24, 24 )
+region = Rect2( 0, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 96, 24, 24 )
+region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 120, 24, 24 )
+region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
+region = Rect2( 0, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 4 )
 region = Rect2( 0, 144, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "Circle",
 "speed": 12.0
 } ]
 
+[sub_resource type="CircleShape2D" id=21]
+radius = 5.66427
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 12, 12 )
+
 [node name="Shift" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Shapes" type="Node2D" parent="."]
 
 [node name="Spot" type="Node2D" parent="Shapes"]
+visible = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Spot"]
 frames = SubResource( 10 )
 animation = "Spot"
 centered = false
 
+[node name="Area2D" type="Area2D" parent="Shapes/Spot"]
+position = Vector2( 11.9953, 20.6657 )
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Spot/Area2D"]
+shape = SubResource( 11 )
+
 [node name="Floor" type="Node2D" parent="Shapes"]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="Shapes/Floor"]
 texture = ExtResource( 2 )
 centered = false
 
+[node name="Area2D" type="Area2D" parent="Shapes/Floor"]
+position = Vector2( 9.99868, 13.8392 )
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Floor/Area2D"]
+position = Vector2( 2, 8.15 )
+shape = SubResource( 12 )
+
 [node name="Circle" type="Node2D" parent="Shapes"]
+visible = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Circle"]
-frames = SubResource( 11 )
+frames = SubResource( 20 )
 animation = "Circle"
 centered = false
 
+[node name="Area2D" type="Area2D" parent="Shapes/Circle"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Circle/Area2D"]
+position = Vector2( 12.5, 12.5 )
+shape = SubResource( 21 )
+
 [node name="Square" type="Node2D" parent="Shapes"]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="Shapes/Square"]
 texture = ExtResource( 3 )
 centered = false
+
+[node name="Area2D" type="Area2D" parent="Shapes/Square"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Square/Area2D"]
+position = Vector2( 12, 12 )
+shape = SubResource( 22 )
+[connection signal="body_entered" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Shapes/Floor/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Shapes/Floor/Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Shapes/Circle/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Shapes/Circle/Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Shapes/Square/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Shapes/Square/Area2D" to="." method="_on_Area2D_body_exited"]

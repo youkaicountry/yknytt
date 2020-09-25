@@ -20,6 +20,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 9)]  = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 10)] = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 11)] = "NoClimb";
+        ObjectLookup[new KnyttPoint(0, 14)] = "Shift";
+        ObjectLookup[new KnyttPoint(0, 15)] = "Shift";
+        ObjectLookup[new KnyttPoint(0, 16)] = "Shift";
         ObjectLookup[new KnyttPoint(0, 17)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 18)] = "Sign";
         ObjectLookup[new KnyttPoint(0, 19)] = "Sign";
@@ -85,22 +88,22 @@ public static class GDKnyttObjectFactory
 }
 
 public class GDKnyttObjectBundle
-    {
-        public KnyttPoint object_id;
-        PackedScene scene;
-        public Texture icon;
+{
+    public KnyttPoint object_id;
+    PackedScene scene;
+    public Texture icon;
 
-        public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture icon=null)
-        {
-            this.object_id = object_id;
-            this.scene = scene;
-            this.icon = icon;
-        }
-        
-        public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer, KnyttPoint coords)
-        {
-            var node = scene.Instance() as GDKnyttBaseObject;
-            node.initialize(object_id, layer, coords);
-            return node;
-        }
+    public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture icon=null)
+    {
+        this.object_id = object_id;
+        this.scene = scene;
+        this.icon = icon;
     }
+    
+    public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer, KnyttPoint coords)
+    {
+        var node = scene.Instance() as GDKnyttBaseObject;
+        node.initialize(object_id, layer, coords);
+        return node;
+    }
+}

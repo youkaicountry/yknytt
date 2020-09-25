@@ -8,6 +8,10 @@ public class GDKnyttArea : Node2D
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
+    public static float Width { get { return KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; } }
+    public static float Height { get { return KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; } }
+    public static Vector2 Size { get { return new Vector2(Width, Height); } }
+
     bool active = false;
     PackedScene objects_scene;
     PackedScene tiles_scene;
@@ -23,8 +27,8 @@ public class GDKnyttArea : Node2D
         get 
         { 
             var gp = GlobalPosition;
-            return new Vector2(gp.x + (KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH)/2f,
-                               gp.y + (KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT)/2f);
+            return new Vector2(gp.x + Width/2f,
+                               gp.y + Height/2f);
         }
     }
 
@@ -45,8 +49,8 @@ public class GDKnyttArea : Node2D
     public bool isIn(Vector2 global_pos)
     {
         var gp = GlobalPosition;
-        return (global_pos.x > gp.x && global_pos.x < gp.x + GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH &&
-                global_pos.y > gp.y && global_pos.y < gp.y + GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT);
+        return (global_pos.x > gp.x && global_pos.x < gp.x + Width &&
+                global_pos.y > gp.y && global_pos.y < gp.y + Height);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
@@ -56,8 +60,7 @@ public class GDKnyttArea : Node2D
 
         this.Name = area.Position.ToString();
 
-        this.Position = new Vector2(area.Position.x * KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH, 
-                                    area.Position.y * KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT);
+        this.Position = new Vector2(area.Position.x * Width, area.Position.y * Height);
 
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
