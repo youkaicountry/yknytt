@@ -12,6 +12,9 @@ Bank 0:
 [x] - 10 Hologram
 [x] - 11 No Climb
 
+[x] - 14 Shift A
+[x] - 15 Shift B
+[x] - 16 Shift C
 [x] - 17 Sign A
 [x] - 18 Sign B
 [x] - 19 Sign C
@@ -47,6 +50,11 @@ Bank 1:
 [x] - 22 Liquid Pool
 [x] - 23 Waterfall
 [x] - 24 Water Block
+
+Bank 2:
+
+[x] - 20 Fly Spike
+[x] - 21 Fly Spike
 
 Bank 4:
 

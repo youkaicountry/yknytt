@@ -4,6 +4,8 @@ All notable changes to YKnytt will be documented here.
 
 ## Added
 - Invisible barrier
+- Fly Spike enemies
+- Shift objects
 
 ## [0.1.0] - 2020-09-20
 
