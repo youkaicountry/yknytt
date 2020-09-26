@@ -8,6 +8,9 @@ All notable changes to YKnytt will be documented here.
 - Shift object
 - Warp object
 
+## Fixed
+- Rain drops now swawn better
+
 ## [0.1.0] - 2020-09-20
 
 ## Added

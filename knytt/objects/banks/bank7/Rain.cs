@@ -12,10 +12,10 @@ public class Rain : GDKnyttBaseObject
 
     protected override void _impl_process(float delta)
     {
-        if (((float)GDKnyttDataStore.random.NextDouble())*.6f < delta)
+        if (((float)GDKnyttDataStore.random.NextDouble())*.4f < delta)
         {
             var raindrop = drop_scene.Instance() as Raindrop;
-            raindrop.Position = new Vector2((float)GDKnyttDataStore.random.NextDouble()*GDKnyttAssetManager.TILE_WIDTH, 0);
+            raindrop.Position = new Vector2((float)GDKnyttDataStore.random.NextDouble()*GDKnyttAssetManager.TILE_WIDTH, 12f);
             raindrop.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
             AddChild(raindrop);
         }
