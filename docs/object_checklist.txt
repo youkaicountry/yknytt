@@ -18,7 +18,7 @@ Bank 0:
 [x] - 17 Sign A
 [x] - 18 Sign B
 [x] - 19 Sign C
-
+[x] - 20 Warp
 [x] - 21 Red Key
 [x] - 22 Yellow Key
 [x] - 23 Blue Key

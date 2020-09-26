@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class CosineMod : Node2D
 {
@@ -26,7 +25,6 @@ public class CosineMod : Node2D
         if (!running) { return; }
         var p = parent.Position;
         parent.Position = new Vector2(p.x, original_y + Mathf.Sin(time*frequency*delta) * magnitude);
-        GD.Print(parent.Position);
     }
 
     public void start()

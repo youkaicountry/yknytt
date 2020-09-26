@@ -121,12 +121,39 @@ public class GDKnyttGame : Node2D
 		f.Close();
 	}
 
+    public void warpJuni(Juni juni)
+    {
+		// Calculate the warp
+		var area = CurrentArea.Area;
+		var jgp = juni.GlobalPosition;
+		var new_coords = GDKnyttWorld.getAreaCoords(jgp);
+		var wc = area.Warp.getWarpCoords(new_coords, area.Position);
+		
+		// Apply the warp
+		jgp += new Vector2(GDKnyttArea.Width*wc.x, GDKnyttArea.Height*wc.y);
+		juni.GlobalPosition = jgp;
+		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
+
+		changeArea(after_warp_coords, regenerate_same:false);
+    }
+
 	public override void _Process(float delta)
 	{
 		if (this.viewMode) { this.editorControls(); }
 
 		if (Input.IsActionJustPressed("pause")) { pause(); }
 	}
+
+    // TODO: Difference between Paged areas, active areas, and current area.
+	// Current area is per-Juni
+    public override void _PhysicsProcess(float delta)
+    {
+        // TODO: Do this only if the local player
+        if (!CurrentArea.isIn(Juni.GlobalPosition)) 
+        {
+            warpJuni(Juni);
+        }
+    }
 
     public override void _Notification(int what)
     {
@@ -168,20 +195,20 @@ public class GDKnyttGame : Node2D
 		}
 	}
 
-    public void changeAreaDelta(KnyttPoint delta, bool force_jump = false)
+    public void changeAreaDelta(KnyttPoint delta, bool force_jump = false, bool regenerate_same = true)
     {
         this.changeArea(this.CurrentArea.Area.Position + delta, force_jump);
     }
 
 	// Changes the current area
-	public void changeArea(KnyttPoint new_area, bool force_jump = false)
+	public void changeArea(KnyttPoint new_area, bool force_jump = false, bool regenerate_same = true)
 	{
 		// Regenerate current area if no change, else deactivate old area
 		if (this.CurrentArea != null)
 		{ 
 			if (CurrentArea.Area.Position.Equals(new_area))
 			{ 
-				CurrentArea.regenerateArea();
+				if (regenerate_same) { CurrentArea.regenerateArea(); }
 				return;
 			}
 

@@ -206,12 +206,6 @@ public class Juni : KinematicBody2D
 
         velocity.y = Mathf.Min(Umbrella.Deployed ? 60f : 350f, velocity.y);
         velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
-
-        // TODO: Do this only if the local player
-        if (!this.Game.CurrentArea.isIn(this.GlobalPosition)) 
-        {
-            this.Game.changeArea(GDKnyttWorld.getAreaCoords(this.GlobalPosition));
-        }
     }
 
     private void handleHologram()
