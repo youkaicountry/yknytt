@@ -64,6 +64,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(12, 5)] =  "GhostBlock";
         ObjectLookup[new KnyttPoint(12, 11)] =  "Ghost";
         ObjectLookup[new KnyttPoint(12, 17)] =  "NoWall";
+        ObjectLookup[new KnyttPoint(12, 18)] =  "GhostMarker";
+        ObjectLookup[new KnyttPoint(12, 19)] =  "GhostMarker";
+        ObjectLookup[new KnyttPoint(12, 20)] =  "GhostMarker";
+        ObjectLookup[new KnyttPoint(12, 21)] =  "GhostMarker";
         ObjectLookup[new KnyttPoint(13, 13)] =  "FlyBot";
         ObjectLookup[new KnyttPoint(14, 5)] =  "PassiveWalker";
         ObjectLookup[new KnyttPoint(14, 6)] =  "PassiveWalker";

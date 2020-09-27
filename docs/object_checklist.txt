@@ -76,6 +76,10 @@ Bank 12:
 [x] - 11 Ghost
 
 [x] - 17 No Wall
+[x] - 18 Ghost Marker
+[x] - 19 Ghost Marker
+[x] - 20 Ghost Marker
+[x] - 21 Ghost Marker
 
 Bank 13:
 

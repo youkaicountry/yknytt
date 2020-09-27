@@ -8,6 +8,7 @@ All notable changes to YKnytt will be documented here.
 - Shift object
 - Warp object
 - No Wall object
+- Ghost Marker
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)

@@ -2,9 +2,8 @@ using Godot;
 
 public class GhostBlock : GhostObject
 {
-    public override void _Ready()
+    protected override void _InvReady()
     {
-        base._Ready();
         flickerMax = .1f;
         flickerMin = .6f;
     }

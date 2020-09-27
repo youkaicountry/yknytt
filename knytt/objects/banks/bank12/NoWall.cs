@@ -1,9 +1,11 @@
 public class NoWall : GhostObject
 {
-    protected override void _impl_initialize()
+    protected override void _InvReady()
     {
-        Flickering = false; 
+        Flickering = false;
     }
+
+    protected override void _impl_initialize() { }
 
     protected override void _InvEnable()
     {
