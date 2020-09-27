@@ -12,6 +12,7 @@ All notable changes to YKnytt will be documented here.
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)
+- Enemy detector now works properly when the hologram is deployed
 
 ## [0.1.0] - 2020-09-20
 
