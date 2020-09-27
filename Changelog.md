@@ -7,9 +7,10 @@ All notable changes to YKnytt will be documented here.
 - Fly Spike enemy
 - Shift object
 - Warp object
+- No Wall object
 
 ## Fixed
-- Rain drops now swawn better
+- Rain drops now spawn down a bit (They were colliding with the tile above)
 
 ## [0.1.0] - 2020-09-20
 

@@ -9,6 +9,8 @@ public abstract class GhostObject : GDKnyttBaseObject
     float flip_target = 0f;
     public float change_fraction = 8f;
 
+    protected bool Flickering { get; set; }
+
     private bool _seen;
     protected bool Seen 
     { 
@@ -35,7 +37,7 @@ public abstract class GhostObject : GDKnyttBaseObject
     protected override void _impl_process(float delta)
     {
         if (!_seen) { return; }
-        handleFlicker(delta);
+        if (Flickering) { handleFlicker(delta); }
         _InvProcess(delta);
     }
 

@@ -75,6 +75,8 @@ Bank 12:
 
 [x] - 11 Ghost
 
+[x] - 17 No Wall
+
 Bank 13:
 
 [x] - 13 Fly Bot
