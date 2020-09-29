@@ -1,0 +1,55 @@
+using System.Collections.Generic;
+using Godot;
+
+public class ProximityBlock : GDKnyttBaseObject
+{
+    HashSet<Juni> junis;
+    Vector2 _center;
+    bool real;
+
+    private float Proximity
+    {
+        set
+        {
+            var m = Modulate;
+            m.a = real ? value : (1f - value);
+            Modulate = m;
+        }
+    }
+
+    public override void _Ready()
+    {
+        junis = new HashSet<Juni>();
+        _center = Center;
+        real = ObjectID.y == 6;
+        if (!real) { GetNode<Node>("StaticBody2D").QueueFree(); }
+        Proximity = 0f;
+    }
+
+    protected override void _impl_initialize() { }
+
+    protected override void _impl_process(float delta)
+    {
+        if (junis.Count == 0) { return; }
+
+        float closest = 120f;
+        foreach (Juni juni in junis)
+        {
+            var distance = juni.distance(_center, false);
+            if (distance < closest) { closest = distance; }
+        }
+
+        Proximity = Mathf.InverseLerp(120f, 0f, closest);
+    }
+
+    public void _on_Area2D_body_entered(Node body)
+    {
+        if (body is Juni) { junis.Add((Juni)body); }
+    }
+
+    public void _on_Area2D_body_exited(Node body)
+    {
+        if (body is Juni) { junis.Remove((Juni)body); }
+        if (junis.Count == 0) { Proximity = 0f; }
+    }
+}

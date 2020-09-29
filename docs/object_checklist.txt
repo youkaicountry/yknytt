@@ -94,6 +94,9 @@ Bank 14:
 
 Bank 15:
 
+[x] - 6 Proximity Block Real
+[x] - 7 Proximity Block Fake
+
 [x] - 27 Red Door
 [x] - 28 Yellow Door
 [x] - 29 Blue Door

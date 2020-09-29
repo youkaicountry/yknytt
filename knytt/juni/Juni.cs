@@ -362,6 +362,12 @@ public class Juni : KinematicBody2D
         return Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
     }
 
+    public float distance(Godot.Vector2 p, bool apparent=true)
+    {
+        var jp = apparent ? ApparentPosition : GlobalPosition;
+        return jp.DistanceTo(p);
+    }
+
     public void updateOrganicEnemy(Godot.Vector2 p)
     {
         if (!Powers.getPower(PowerNames.EnemyDetecor)) { return; }

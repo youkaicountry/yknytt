@@ -36,6 +36,7 @@
     <Compile Include="knytt\objects\banks\bank0\Warp.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMarker.cs" />
     <Compile Include="knytt\objects\banks\bank12\NoWall.cs" />
+    <Compile Include="knytt\objects\banks\bank15\ProximityBlock.cs" />
     <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
     <Compile Include="knytt\objects\CosineMod.cs" />

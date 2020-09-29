@@ -8,6 +8,15 @@ public abstract class GDKnyttBaseObject : Node2D
     public KnyttPoint ObjectID { get; private set; }
     public KnyttPoint Coords { get; private set; }
 
+    public Vector2 Center 
+    { 
+        get 
+        { 
+            var gp = GlobalPosition;
+            return gp + new Vector2(12f, 12f);
+        }  
+    }
+
     public GDKnyttObjectLayer Layer { get; private set; }
 
     public GDKnyttArea GDArea { get { return Layer.ObjectLayers.GDArea; } }

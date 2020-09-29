@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="YKnytt"
 run/main_scene="res://knytt/ui/MainMenu.tscn"
+config/icon="res://knytt/icons/icon64.png"
 config/windows_native_icon="res://knytt/icons/winicon.ico"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
