@@ -49,8 +49,8 @@ public class GDKnyttArea : Node2D
     public bool isIn(Vector2 global_pos)
     {
         var gp = GlobalPosition;
-        return (global_pos.x > gp.x && global_pos.x < gp.x + Width &&
-                global_pos.y > gp.y && global_pos.y < gp.y + Height);
+        return (global_pos.x >= gp.x && global_pos.x <= gp.x + Width &&
+                global_pos.y >= gp.y && global_pos.y <= gp.y + Height);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
