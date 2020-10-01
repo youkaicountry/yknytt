@@ -67,7 +67,16 @@ public class Juni : KinematicBody2D
             var gp = GlobalPosition;
             return new Godot.Vector2(gp.x, gp.y + 8.6f);
         }
-    } 
+    }
+
+    int _updrafts = 0;
+    public bool InUpdraft
+    {
+        get { return _updrafts > 0; }
+        set { _updrafts += (value ? 1 : -1); }
+    }
+
+    public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? 20f : 60f) : 350f; } }
 
     public bool LeftHeld { get { return Input.IsActionPressed("left"); } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
@@ -208,18 +217,8 @@ public class Juni : KinematicBody2D
         }
 
         handleHologram();
-
         handleXMovement(delta);
-
-        // This particular value needs to be multiplied by delta to ensure
-        // framerate independence
-        velocity.y += gravity * delta;
-        if (JumpHeld) 
-        {
-            var jump_hold = Powers.getPower(PowerNames.HighJump) ? 550f : 125f;
-            if (Umbrella.Deployed) { jump_hold *= .75f; }
-            velocity.y -= jump_hold * delta;
-        } 
+        handleGravity(delta);
         
         this.CurrentState.PostProcess(delta);
 
@@ -238,8 +237,29 @@ public class Juni : KinematicBody2D
             if (_can_free_jump <= 0f) { jumps++; CanFreeJump = false; }
         }
 
-        velocity.y = Mathf.Min(Umbrella.Deployed ? 60f : 350f, velocity.y);
+        velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
+    }
+
+    private void handleGravity(float delta)
+    {
+        // This particular value needs to be multiplied by delta to ensure
+        // framerate independence
+        if (InUpdraft && Umbrella.Deployed)
+        {
+            velocity.y -= gravity * delta * (JumpHeld ? .3f : .1f);
+            velocity.y = Mathf.Max(JumpHeld ? -220f : -120f, velocity.y);
+        }
+        else
+        {
+            velocity.y += gravity * delta;
+            if (JumpHeld) 
+            {
+                var jump_hold = Powers.getPower(PowerNames.HighJump) ? 550f : 125f;
+                if (Umbrella.Deployed) { jump_hold *= .75f; }
+                velocity.y -= jump_hold * delta;
+            }
+        } 
     }
 
     private void handleHologram()

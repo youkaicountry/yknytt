@@ -73,6 +73,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(14, 6)] =  "PassiveWalker";
         ObjectLookup[new KnyttPoint(14, 7)] =  "PassiveWalker";
         ObjectLookup[new KnyttPoint(14, 8)] =  "PassiveWalker";
+        ObjectLookup[new KnyttPoint(15, 5)] =  "Updraft";
         ObjectLookup[new KnyttPoint(15, 6)] =  "ProximityBlock";
         ObjectLookup[new KnyttPoint(15, 7)] =  "ProximityBlock";
         ObjectLookup[new KnyttPoint(15, 27)] =  "Door";

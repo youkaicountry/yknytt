@@ -94,6 +94,7 @@ Bank 14:
 
 Bank 15:
 
+[x] - 5 Updraft
 [x] - 6 Proximity Block Real
 [x] - 7 Proximity Block Fake
 

@@ -11,6 +11,7 @@ All notable changes to YKnytt will be documented here.
 - Ghost Marker
 - Proximity Blocks
 - Spring
+- Updraft
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)
