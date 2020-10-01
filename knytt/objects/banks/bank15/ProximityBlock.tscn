@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank15/ProximityBlock.cs" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 120.0
+radius = 132.0
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 12 )

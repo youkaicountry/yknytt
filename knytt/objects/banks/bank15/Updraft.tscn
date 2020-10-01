@@ -68,7 +68,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 14 )
 animation = "Updraft"
-frame = 9
+frame = 2
 playing = true
 centered = false
 

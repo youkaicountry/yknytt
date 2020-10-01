@@ -3,6 +3,8 @@ using Godot;
 
 public class ProximityBlock : GDKnyttBaseObject
 {
+    private const float RADIUS = 132f;
+
     HashSet<Juni> junis;
     Vector2 _center;
     bool real;
@@ -32,14 +34,14 @@ public class ProximityBlock : GDKnyttBaseObject
     {
         if (junis.Count == 0) { return; }
 
-        float closest = 120f;
+        float closest = RADIUS;
         foreach (Juni juni in junis)
         {
             var distance = juni.distance(_center, false);
             if (distance < closest) { closest = distance; }
         }
 
-        Proximity = Mathf.InverseLerp(120f, 0f, closest);
+        Proximity = Mathf.InverseLerp(RADIUS, 0f, closest);
     }
 
     public void _on_Area2D_body_entered(Node body)
