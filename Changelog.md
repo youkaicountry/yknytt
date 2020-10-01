@@ -10,6 +10,7 @@ All notable changes to YKnytt will be documented here.
 - No Wall object
 - Ghost Marker
 - Proximity Blocks
+- Spring
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)

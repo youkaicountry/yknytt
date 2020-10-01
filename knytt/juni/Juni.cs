@@ -60,6 +60,14 @@ public class Juni : KinematicBody2D
         set { _can_free_jump = value ? FREE_JUMP_TIME : 0f; }
     }
     
+    public Godot.Vector2 Bottom
+    {
+        get 
+        {
+            var gp = GlobalPosition;
+            return new Godot.Vector2(gp.x, gp.y + 8.6f);
+        }
+    } 
 
     public bool LeftHeld { get { return Input.IsActionPressed("left"); } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }

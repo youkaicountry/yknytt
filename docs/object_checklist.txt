@@ -103,6 +103,7 @@ Bank 15:
 [x] - 30 Purple Door
 
 Bank 16:
+[x] - 1 Spring
 
 [x] - 13 Invisible Barrier
 [x] - 14 Invisible Block
