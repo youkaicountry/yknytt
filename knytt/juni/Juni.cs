@@ -13,6 +13,9 @@ public class Juni : KinematicBody2D
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
 
+    private const float JUST_CLIMBED_TIME = .085f;
+    private const float FREE_JUMP_TIME = .085f;
+
     PackedScene hologram_scene;
 
     public Godot.Vector2 velocity = Godot.Vector2.Zero;
@@ -35,13 +38,29 @@ public class Juni : KinematicBody2D
     public JuniState CurrentState { get; private set; }
     private JuniState next_state = null;
 
-    public float just_climbed = 0f;
+    public float air_time = 0f;
+
     public bool dead = false;
     public int just_reset = 0;
 
     public int jumps = 0;
 
     // Keys
+    float _just_climbed = 0f;
+    public bool JustClimbed 
+    {
+        get { return _just_climbed > 0f; }
+        set { _just_climbed = value ? JUST_CLIMBED_TIME : 0f; }
+    }
+
+    float _can_free_jump = 0f;
+    public bool CanFreeJump
+    {
+        get { return _can_free_jump > 0f; }
+        set { _can_free_jump = value ? FREE_JUMP_TIME : 0f; }
+    }
+    
+
     public bool LeftHeld { get { return Input.IsActionPressed("left"); } }
     public bool RightHeld { get { return Input.IsActionPressed("right"); } }
     public bool UpHeld { get { return Input.IsActionPressed("up"); } }
@@ -64,7 +83,7 @@ public class Juni : KinematicBody2D
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; } 
         get { return !Sprite.FlipH; } 
     }
-    public bool DidAirJump { get { return JumpEdge && ((just_climbed > 0f) || (jumps < JumpLimit)); } }
+    public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
     public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
@@ -197,11 +216,18 @@ public class Juni : KinematicBody2D
         this.CurrentState.PostProcess(delta);
 
         // Pull-over-edge
-        if (just_climbed > 0f)
+        if (JustClimbed) 
         {
-            velocity.x += (FacingRight ? 1f:-1f) * 30f;
-            just_climbed -= delta;
-            if (just_climbed < 0f) { jumps++; }
+             velocity.x += (FacingRight ? 1f:-1f) * 30f;
+            _just_climbed -= delta;
+            if (_can_free_jump <= 0f) { JustClimbed = false; }
+        }
+
+        // Can-free-jump
+        if (CanFreeJump)
+        {
+            _can_free_jump -= delta;
+            if (_can_free_jump <= 0f) { jumps++; CanFreeJump = false; }
         }
 
         velocity.y = Mathf.Min(Umbrella.Deployed ? 60f : 350f, velocity.y);
@@ -333,22 +359,26 @@ public class Juni : KinematicBody2D
         if (this.CurrentState != null) { this.CurrentState.onExit(); }
     }
 
-    public void executeJump()
+    public void executeJump(float jump_speed, bool air_jump = false, bool sound = true)
     {
+        transitionState(new JumpState(this));
         Anim.Play("Jump");
-        GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play();
+        if (sound) { GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play(); }
         velocity.y = jump_speed;
         
-        if (jumps > 0)
-        {
-            doubleJumpEffect();
-        }
+        if (air_jump && jumps > 0) { doubleJumpEffect(); }
         
         jumps++;
-        just_climbed = 0f;
+        JustClimbed = false;
+        CanFreeJump = false;
 
         // Do not emit this event if the hologram is out, as it cannot jump
         if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
+    }
+
+    public void executeJump(bool air_jump = false, bool sound = true)
+    {
+        executeJump(this.jump_speed, air_jump, sound);
     }
 
     public void continueFall()

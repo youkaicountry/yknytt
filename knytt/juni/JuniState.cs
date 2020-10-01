@@ -25,8 +25,11 @@ public class IdleState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.transitionState(new JumpState(juni)); }
-        else if ( !juni.Grounded ) { juni.jumps++; juni.transitionState(new FallState(juni)); } // Ground falls out from under Juni
+        if (juni.DidJump) { juni.executeJump(); }
+        else if ( !juni.Grounded ) // Ground falls out from under Juni
+        { 
+            juni.CanFreeJump = true;
+            juni.transitionState(new FallState(juni)); } 
     }
 }
 
@@ -64,8 +67,12 @@ public class WalkRunState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.transitionState(new JumpState(juni)); }
-        else if ( !juni.Grounded ) { juni.jumps++; juni.transitionState(new FallState(juni)); } // Juni Walks off Ledge / ground falls out from under
+        if (juni.DidJump) { juni.executeJump(); }
+        else if ( !juni.Grounded ) // Juni Walks off Ledge / ground falls out from under
+        { 
+            juni.CanFreeJump = true;
+            juni.transitionState(new FallState(juni)); 
+        }
     }
 
     public override void onExit()
@@ -91,7 +98,8 @@ public class ClimbState : JuniState
         if (!juni.CanClimb)
         { 
             juni.transitionState(new FallState(juni));
-            juni.just_climbed = .08f;
+            juni.JustClimbed = true;
+            juni.CanFreeJump = true;
         }
     }
 
@@ -103,7 +111,7 @@ public class ClimbState : JuniState
         if (juni.JumpEdge) 
         {
             juni.velocity.x = juni.FacingRight ? -130f : 130f;
-            juni.transitionState(new JumpState(juni));
+            juni.executeJump();
         }
     }
 
@@ -132,7 +140,8 @@ public class SlideState : JuniState
         if (!juni.CanClimb) 
         { 
             juni.transitionState(new FallState(juni));
-            juni.just_climbed = .08f;
+            juni.JustClimbed = true;
+            juni.CanFreeJump = true;
         }
         if (juni.Grounded) { juni.transitionState(new IdleState(juni)); }
     }
@@ -158,7 +167,7 @@ public class SlideState : JuniState
         if (juni.JumpEdge) 
         {
             juni.velocity.x = juni.FacingRight ? -130f : 130f;
-            juni.transitionState(new JumpState(juni));
+            juni.executeJump();
         }
     }
 
@@ -172,15 +181,10 @@ public class JumpState : JuniState
 {
     public JumpState(Juni juni) : base(juni) { }
 
-    public override void onEnter()
-    {
-        juni.executeJump();
-    }
-
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.DidAirJump) { juni.transitionState(new JumpState(juni)); }
+        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true); }
     }
 
     public override void PostProcess(float delta)
@@ -202,7 +206,7 @@ public class FallState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.DidAirJump) { juni.transitionState(new JumpState(juni)); }
+        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true); }
     }
 
     public override void PostProcess(float delta)
@@ -222,7 +226,7 @@ public class JuniState
 
     public JuniState(Juni juni)
     {
-        this.juni = juni;       
+        this.juni = juni;
     }
 
     public virtual void onEnter() { }
