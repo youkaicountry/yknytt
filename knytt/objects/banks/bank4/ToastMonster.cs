@@ -7,8 +7,8 @@ public class ToastMonster : GDKnyttBaseObject
 
     AnimationPlayer anim;
 
-    const float SPIKE_START_DIST = 84f;
-    const float SPIKE_STOP_DIST = 114f;
+    const float SPIKE_START_DIST = 84f * 84f;
+    const float SPIKE_STOP_DIST = 114f * 114f;
 
     public override void _Ready()
     {
@@ -24,7 +24,7 @@ public class ToastMonster : GDKnyttBaseObject
     protected override void _impl_process(float delta)
     {
         if (anim.IsPlaying() && anim.CurrentAnimation.Equals("Spike")) { return; }
-        float dist = Juni.manhattanDistance(GlobalPosition);
+        float dist = Juni.distanceSquared(GlobalPosition);
         if (!spiked && dist < SPIKE_START_DIST) { startSpikes(); }
         else if (spiked && dist >= SPIKE_STOP_DIST) { stopSpikes(); }
     }

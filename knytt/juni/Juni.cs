@@ -426,10 +426,16 @@ public class Juni : KinematicBody2D
         return jp.DistanceTo(p);
     }
 
+    public float distanceSquared(Godot.Vector2 p, bool apparent=true)
+    {
+        var jp = apparent ? ApparentPosition : GlobalPosition;
+        return jp.DistanceSquaredTo(p);
+    }
+
     public void updateOrganicEnemy(Godot.Vector2 p)
     {
         if (!Powers.getPower(PowerNames.EnemyDetecor)) { return; }
-        var md = manhattanDistance(p, false);
+        var md = distance(p, false);
         if (md < organic_enemy_distance) { organic_enemy_distance = md; }
     }
 }

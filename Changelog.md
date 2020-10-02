@@ -19,6 +19,9 @@ All notable changes to YKnytt will be documented here.
 - Enemy detector now works properly when the hologram is deployed
 - Minor jumping issues fixed
 
+## Changed
+- More accurate distance checks
+
 ## [0.1.0] - 2020-09-20
 
 ## Added

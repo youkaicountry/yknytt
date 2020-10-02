@@ -22,7 +22,7 @@ public abstract class GDKnyttBaseObject : Node2D
     public GDKnyttArea GDArea { get { return Layer.ObjectLayers.GDArea; } }
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
-    public bool OrganicEnemy { get; protected set; }
+    public bool OrganicEnemy { get; protected set; } = false;
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
