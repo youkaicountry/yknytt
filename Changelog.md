@@ -12,6 +12,7 @@ All notable changes to YKnytt will be documented here.
 - Proximity Blocks
 - Spring
 - Updraft
+- Cat
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)
