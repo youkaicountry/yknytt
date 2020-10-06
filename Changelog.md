@@ -21,6 +21,7 @@ All notable changes to YKnytt will be documented here.
 
 ## Changed
 - More accurate distance checks
+- Clean up UI scenes
 
 ## [0.1.0] - 2020-09-20
 

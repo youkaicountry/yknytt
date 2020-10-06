@@ -96,7 +96,6 @@ text = "Quit"
 [node name="Fade" parent="MenuLayer" instance=ExtResource( 11 )]
 margin_left = 2.0
 margin_right = 2.0
-mouse_filter = 2
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
