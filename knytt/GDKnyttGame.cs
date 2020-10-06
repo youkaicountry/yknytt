@@ -164,7 +164,7 @@ public class GDKnyttGame : Node2D
 	{
 		if (GetTree().Paused) { return; }
 		var node = pause_scene.Instance();
-		CallDeferred("add_child", node);
+		GetNode<Node>("UICanvasLayer").CallDeferred("add_child", node);
 	}
 
     /*func _notification(what):

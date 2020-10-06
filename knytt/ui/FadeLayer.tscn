@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://knytt/ui/white.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/FadeLayer.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -31,21 +30,16 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[node name="FadeLayer" type="CanvasLayer"]
-pause_mode = 2
-script = ExtResource( 2 )
-
-[node name="FadeMask" type="TextureRect" parent="."]
+[node name="Fade" type="ColorRect"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 1 )
-expand = true
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeMask"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeOut = SubResource( 1 )
-[connection signal="animation_finished" from="FadeMask/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -1,6 +1,6 @@
 using Godot;
 
-public class PausePanel : Panel
+public class PausePanel : Control
 {
     PackedScene settings_scene;
     bool bounce = true;
@@ -63,7 +63,7 @@ public class PausePanel : Panel
 
     private async void quit()
     {
-        var fade = GetNode<FadeLayer>("../../FadeLayer");
+        var fade = GetNode<FadeLayer>("../../../FadeCanvasLayer/Fade");
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         GetTree().Paused = false;

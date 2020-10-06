@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/white.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/MainMenu.cs" type="Script" id=3]
 [ext_resource path="res://knytt/data/Music/Song20.ogg" type="AudioStream" id=5]
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=6]
@@ -11,20 +10,14 @@
 position = Vector2( 2, 0 )
 script = ExtResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="MenuLayer" type="CanvasLayer" parent="."]
 
-[node name="BackgroundRect" type="TextureRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="MenuLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.351914
-margin_right = 0.351929
-texture = ExtResource( 2 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="MenuLayer" type="CanvasLayer" parent="."]
 
 [node name="ButtonRow" type="HBoxContainer" parent="MenuLayer"]
 anchor_top = 1.0
@@ -98,16 +91,17 @@ margin_right = 550.0
 margin_bottom = 19.2149
 text = "Quit"
 
+[node name="MenuCloud" parent="MenuLayer" instance=ExtResource( 6 )]
+
+[node name="Fade" parent="MenuLayer" instance=ExtResource( 11 )]
+margin_left = 2.0
+margin_right = 2.0
+mouse_filter = 2
+
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
-
-[node name="ParticleLayer" type="CanvasLayer" parent="."]
-
-[node name="MenuCloud" parent="ParticleLayer" instance=ExtResource( 6 )]
-
-[node name="FadeLayer" parent="." instance=ExtResource( 11 )]
 [connection signal="focus_entered" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_entered"]
 [connection signal="focus_exited" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_exited"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
