@@ -10,3 +10,5 @@ bin/
 worlds/
 problem_worlds/
 backup_worlds
+
+!/knytt/worlds
