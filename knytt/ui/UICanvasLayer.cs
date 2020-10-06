@@ -1,5 +1,5 @@
 using Godot;
-using static YKnyttLib.JuniPowers;
+using static YKnyttLib.JuniValues;
 
 public class UICanvasLayer : CanvasLayer
 {

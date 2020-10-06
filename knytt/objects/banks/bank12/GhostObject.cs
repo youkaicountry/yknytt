@@ -27,7 +27,7 @@ public abstract class GhostObject : GDKnyttBaseObject
     {
         Flickering = true;
         _InvReady();
-        Seen = Juni.Powers.getPower(YKnyttLib.JuniPowers.PowerNames.Eye);
+        Seen = Juni.Powers.getPower(YKnyttLib.JuniValues.PowerNames.Eye);
     }
 
     protected virtual void _InvReady() { }

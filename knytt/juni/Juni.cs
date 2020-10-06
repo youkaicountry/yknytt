@@ -3,7 +3,7 @@ using Godot;
 using YKnyttLib;
 using YUtil.Math;
 using YUtil.Random;
-using static YKnyttLib.JuniPowers;
+using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
@@ -29,7 +29,7 @@ public class Juni : KinematicBody2D
     public Sprite Detector { get; private set; }
     public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
 
-    public JuniPowers Powers { get; }
+    public JuniValues Powers { get; }
 
     public ClimbCheckers ClimbCheckers { get; private set; }
     public GroundChecker GroundChecker { get; private set; }
@@ -134,7 +134,7 @@ public class Juni : KinematicBody2D
 
     public Juni()
     {
-        this.Powers = new JuniPowers();
+        this.Powers = new JuniValues();
         this.double_jump_scene = ResourceLoader.Load("res://knytt/juni/DoubleJump.tscn") as PackedScene;
     }
 
@@ -191,7 +191,7 @@ public class Juni : KinematicBody2D
         }
 
         // Organic Enemy Distance
-        if (Powers.getPower(PowerNames.EnemyDetecor) && organic_enemy_distance <= 170f)
+        if (Powers.getPower(PowerNames.EnemyDetector) && organic_enemy_distance <= 170f)
         {
             Detector.Visible = true;
             var m = Detector.Modulate;
@@ -434,7 +434,7 @@ public class Juni : KinematicBody2D
 
     public void updateOrganicEnemy(Godot.Vector2 p)
     {
-        if (!Powers.getPower(PowerNames.EnemyDetecor)) { return; }
+        if (!Powers.getPower(PowerNames.EnemyDetector)) { return; }
         var md = distance(p, false);
         if (md < organic_enemy_distance) { organic_enemy_distance = md; }
     }

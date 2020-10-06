@@ -6,9 +6,9 @@ public class Door : GDKnyttBaseObject
     struct DoorInfo
     {
         public string Anim;
-        public YKnyttLib.JuniPowers.PowerNames Power;
+        public YKnyttLib.JuniValues.PowerNames Power;
 
-        public DoorInfo(string anim, YKnyttLib.JuniPowers.PowerNames power)
+        public DoorInfo(string anim, YKnyttLib.JuniValues.PowerNames power)
         {
             Anim = anim;
             Power = power;
@@ -20,10 +20,10 @@ public class Door : GDKnyttBaseObject
     static Door()
     {
         id2info = new Dictionary<int, DoorInfo>();
-        id2info[27] = new DoorInfo("RedDoor", YKnyttLib.JuniPowers.PowerNames.RedKey);
-        id2info[28] = new DoorInfo("YellowDoor", YKnyttLib.JuniPowers.PowerNames.YellowKey);
-        id2info[29] = new DoorInfo("BlueDoor", YKnyttLib.JuniPowers.PowerNames.BlueKey);
-        id2info[30] = new DoorInfo("PurpleDoor", YKnyttLib.JuniPowers.PowerNames.PurpleKey);
+        id2info[27] = new DoorInfo("RedDoor", YKnyttLib.JuniValues.PowerNames.RedKey);
+        id2info[28] = new DoorInfo("YellowDoor", YKnyttLib.JuniValues.PowerNames.YellowKey);
+        id2info[29] = new DoorInfo("BlueDoor", YKnyttLib.JuniValues.PowerNames.BlueKey);
+        id2info[30] = new DoorInfo("PurpleDoor", YKnyttLib.JuniValues.PowerNames.PurpleKey);
     }
 
     DoorInfo door_info;

@@ -12,10 +12,10 @@ public class ItemInfo : Control
         anim.Play();
     }
 
-    public void updateItem(JuniPowers powers)
+    public void updateItem(JuniValues values)
     {
         var m = Modulate;
-        m.a = powers.getPower(ItemID) ? 1f : .18f;
+        m.a = values.getPower(ItemID) ? 1f : .18f;
         Modulate = m;
     }
 }

@@ -1,6 +1,5 @@
 using Godot;
 using YKnyttLib;
-using static YKnyttLib.JuniPowers;
 
 public class GDKnyttGame : Node2D
 {
