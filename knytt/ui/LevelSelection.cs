@@ -107,6 +107,8 @@ public class LevelSelection : CanvasLayer
     private void loadDefaultWorlds(bool single_threaded)
     {
         startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin", single_threaded);
+        startBinLoad("res://knytt/worlds/Nifflas - Gustav's Daughter.knytt.bin", single_threaded);
+        startBinLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin", single_threaded);
     }
 
