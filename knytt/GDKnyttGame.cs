@@ -211,7 +211,7 @@ public class GDKnyttGame : Node2D
 				return;
 			}
 
-			CurrentArea.deactivateArea();
+			CurrentArea.scheduleDeactivation();
 		}
 		
 		// Update the paging
@@ -229,7 +229,7 @@ public class GDKnyttGame : Node2D
 
 	public async void win(string ending)
 	{
-		var fade = GetNode<FadeLayer>("FadeLayer");
+		var fade = GetNode<FadeLayer>("FadeCanvasLayer/Fade");
 		fade.startFade();
 		await ToSignal(fade, "FadeDone");
 		GDKnyttDataStore.winGame(ending);

@@ -72,6 +72,9 @@ public class GDKnyttArea : Node2D
         Tiles = tiles_scene.Instance() as GDAreaTiles;
         this.Tiles.initTiles(this);
         AddChild(Tiles);
+
+        // Area should start deactivated
+        this.deactivateArea();
     }
 
     public void activateArea()
@@ -80,6 +83,14 @@ public class GDKnyttArea : Node2D
         if (this.active || this.Area.Empty) { return; }
         this.createObjectLayers();
         this.active = true;
+        Tiles.activate();
+    }
+
+    public void deactivateArea()
+    {
+        this.removeObjectLayers();
+        this.active = false;
+        Tiles.deactivate();
     }
 
     private void createObjectLayers()
@@ -100,7 +111,7 @@ public class GDKnyttArea : Node2D
 
     // We don't want this to be async, because it can be cancelled
     // A whooole bunch of threads could queue up waiting for an event that never occurs if async
-    public void deactivateArea(float delay = .5f)
+    public void scheduleDeactivation(float delay = .5f)
     {
         var timer = GetNode<Timer>("DeactivateTimer");
         timer.WaitTime = delay;
@@ -111,13 +122,12 @@ public class GDKnyttArea : Node2D
     {
         if (this.Area.Empty) { return; }
         this.removeObjectLayers();
-        this.createObjectLayers();
+        this.activateArea();
     }
 
     public void _on_DeactivateTimer_timeout()
     {
-        this.removeObjectLayers();
-        this.active = false;
+        deactivateArea();
     }
 
     public void destroyArea()

@@ -41,4 +41,20 @@ public class GDAreaTiles : Node2D
     {
         this.Layers[layer].setTile(x, y, tilenum);
     }
+
+    public void deactivate()
+    {
+        foreach (var layer in Layers)
+        {
+            layer.deactivate();
+        }
+    }
+
+    public void activate()
+    {
+        foreach (var layer in Layers)
+        {
+            layer.activate();
+        }
+    }
 }
