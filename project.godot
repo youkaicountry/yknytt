@@ -142,6 +142,7 @@ pause={
 2d_physics/layer_4="NoJump"
 2d_physics/layer_5="NoClimb"
 2d_physics/layer_12="ObjectsCollide"
+2d_physics/layer_15="ParticleMapping"
 
 [physics]
 

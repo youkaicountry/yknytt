@@ -34,6 +34,8 @@ public class Juni : KinematicBody2D
     public ClimbCheckers ClimbCheckers { get; private set; }
     public GroundChecker GroundChecker { get; private set; }
 
+    public JuniMotionParticles MotionParticles { get; private set; }
+
     // States
     public JuniState CurrentState { get; private set; }
     private JuniState next_state = null;
@@ -97,8 +99,8 @@ public class Juni : KinematicBody2D
     public bool DidJump { get { return JumpEdge && Grounded && GroundChecker.CanJump; } }
     public bool FacingRight 
     {
-        set { Sprite.FlipH = !value; Umbrella.FacingRight = value; } 
-        get { return !Sprite.FlipH; } 
+        set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
+        get { return !Sprite.FlipH; }
     }
     public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
@@ -109,23 +111,23 @@ public class Juni : KinematicBody2D
     public float organic_enemy_distance = float.MaxValue;
 
     public bool WalkRun 
-    { 
+    {
         get 
-        { 
+        {
             if (!Powers.getPower(PowerNames.Run)) { return false; }
             return !WalkHeld;
-        } 
+        }
     }
 
     public int MoveDirection 
-    { 
+    {
         get
-        {  
+        {
             var d = 0;
             if (RightHeld) { d = 1; FacingRight = true; }
             else if (LeftHeld) { d = -1; FacingRight = false; }
             return d;
-        } 
+        }
     }
 
     public Sprite Sprite { get; private set; }
@@ -141,7 +143,9 @@ public class Juni : KinematicBody2D
     public override void _Ready()
     {
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
+        MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite>("Detector");
+        Detector.Visible = true;
         ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         GroundChecker = GetNode<GroundChecker>("GroundChecker");
         Sprite = GetNode<Sprite>("Sprite");

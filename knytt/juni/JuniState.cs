@@ -41,6 +41,7 @@ public class WalkRunState : JuniState
     public WalkRunState(Juni juni, bool walk_run) : base(juni)
     { 
         this.walk_run = walk_run;
+        juni.MotionParticles.CurrentMotion = walk_run ? JuniMotionParticles.JuniMotion.RUN : JuniMotionParticles.JuniMotion.WALK;
     }
 
     public override void onEnter()
@@ -78,6 +79,7 @@ public class WalkRunState : JuniState
     public override void onExit()
     {
         juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Stop();
+        juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }
 
@@ -90,6 +92,7 @@ public class ClimbState : JuniState
         juni.Anim.Play("Climbing");
         juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Play();
         juni.jumps = 0;
+        juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
     }
 
     public override void PreProcess(float delta)
@@ -118,6 +121,7 @@ public class ClimbState : JuniState
     public override void onExit()
     {
         juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Stop();
+        juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }
 
@@ -157,14 +161,16 @@ public class SlideState : JuniState
         {
             juni.velocity.y = 25f;
             if (slide_sound.Playing) { slide_sound.Stop(); }
+            juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
         }
         else
         {
             // Holding down, do slide sound. Gravity controls motion
             if (!slide_sound.Playing) { slide_sound.Play(); }
+            juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
         }
 
-        if (juni.JumpEdge) 
+        if (juni.JumpEdge)
         {
             juni.velocity.x = juni.FacingRight ? -130f : 130f;
             juni.executeJump();
@@ -174,6 +180,7 @@ public class SlideState : JuniState
     public override void onExit()
     {
         if (slide_sound.Playing) { slide_sound.Stop(); }
+        juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }
 

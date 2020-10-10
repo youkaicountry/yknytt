@@ -70,6 +70,8 @@ Bank 7:
 [x] - 8  Rain
 [x] - 9  Raindrop
 
+[x] - 16 Cloud
+
 Bank 10:
 
 [x] - 5 Bouncer
