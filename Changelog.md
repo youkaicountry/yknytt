@@ -16,6 +16,7 @@ All notable changes to YKnytt will be documented here.
 - "Sky Flower" and "Gustav's Daughter" worlds now built-in
 - Walk / Climb particle spawning
 - Cloud object
+- Yellow Dog
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)

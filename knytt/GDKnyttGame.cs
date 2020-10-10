@@ -167,20 +167,6 @@ public class GDKnyttGame : Node2D
 		GetNode<Node>("UICanvasLayer").CallDeferred("add_child", node);
 	}
 
-    /*func _notification(what):
-    if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_pressed()
-    if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_pressed()*/
-
-    
-
-	/*func _notification(what):
-    if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_pressed()
-    if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_pressed()*/
-
 	private void editorControls()
 	{
 		if (Input.IsActionJustPressed("show_info")) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).showLocation(); }

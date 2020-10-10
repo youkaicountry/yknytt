@@ -21,7 +21,7 @@ public class Raindrop : Node2D
     public override void _PhysicsProcess(float delta)
     {
         var mv = speed*delta;
-        this.Translate(new Vector2(0, this.speed*delta));
+        this.Translate(new Vector2(0, mv));
         distance += mv;
         if (distance >= max_distance) { QueueFree(); }
     }

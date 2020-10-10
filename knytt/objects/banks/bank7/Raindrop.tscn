@@ -12,6 +12,7 @@ script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( -0.551839, -0.0788336 )
+input_pickable = false
 collision_layer = 0
 collision_mask = 2049
 

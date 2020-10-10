@@ -58,6 +58,8 @@ Bank 2:
 
 Bank 3:
 
+[x] - 5 Yellow Dog
+
 [x] - 42 Cat
 [x] - 43 Cat
 
