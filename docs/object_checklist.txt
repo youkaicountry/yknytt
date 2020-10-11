@@ -53,6 +53,10 @@ Bank 1:
 
 Bank 2:
 
+[x] - 15 Buzz Flyer
+[x] - 16 Buzz Flyer
+[x] - 17 Buzz Flyer
+
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
 

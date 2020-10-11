@@ -18,6 +18,7 @@ All notable changes to YKnytt will be documented here.
 - Cloud object
 - Yellow Dog
 - Red Follow Ball Enemy
+- Buzzing Flying Monsters
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)

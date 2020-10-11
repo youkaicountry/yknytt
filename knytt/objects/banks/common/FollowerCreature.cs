@@ -51,6 +51,7 @@ public class FollowerCreature : GDKnyttBaseObject
         GetNode<Area2D>("FollowCreature/Area2D").Connect("body_exited", this, "_on_Area2D_body_exited");
 
         _sprite.Animation = _params.name;
+        OrganicEnemy = _params.organic_enemy;
     }
 
     public override void _PhysicsProcess(float delta)
