@@ -34,8 +34,9 @@ public class BouncerEnemy : GDKnyttBaseObject
         bouncers.Add(5, new BouncerData(true, 600f, 100f, true));
     }
 
-    protected override void _impl_initialize()
+    public override void _Ready()
     {
+        base._Ready();
         bouncer_data = bouncers[ObjectID.y];
         if (bouncer_data.deadly) { OrganicEnemy = true; }
         
@@ -46,8 +47,9 @@ public class BouncerEnemy : GDKnyttBaseObject
         }
     }
 
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
+        base._PhysicsProcess(delta);
         if (!in_air) { return; }
 
         vel += bouncer_data.gravity * delta;

@@ -14,9 +14,7 @@ public class Spring : GDKnyttBaseObject
         sprite.Modulate = m;
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta) 
+    public override void _PhysicsProcess(float delta)
     { 
         foreach (Juni juni in junis)
         {

@@ -18,12 +18,9 @@ public class YellowDog : GDKnyttBaseObject
         _left_checker = GetNode<Area2D>("LeftChecker");
     }
 
-    protected override void _impl_initialize()
+    public override void _PhysicsProcess(float delta)
     {
-    }
-
-    protected override void _impl_process(float delta)
-    {
+        base._PhysicsProcess(delta);
         if (_at_juni) { return; }
         var gp = GlobalPosition;
         var jgp = Juni.GlobalPosition;

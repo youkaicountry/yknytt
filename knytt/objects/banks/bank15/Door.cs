@@ -33,16 +33,12 @@ public class Door : GDKnyttBaseObject
     public override void _Ready()
     {
         open_area = GetNode<Area2D>("OpenArea");
-    }
-
-    protected override void _impl_initialize()
-    {
         door_info = id2info[ObjectID.y];
         GetNode<AnimatedSprite>("AnimatedSprite").Animation = door_info.Anim;
         if (Juni.Powers.getPower(door_info.Power)) { GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = true; }
     }
 
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         foreach(var body in open_area.GetOverlappingBodies())
         {

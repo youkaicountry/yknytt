@@ -5,7 +5,7 @@ public class Rain : GDKnyttBaseObject
 {   
     PackedScene drop_scene;
 
-    protected override void _impl_initialize()
+    public override void _Ready()
     {
         drop_scene = ResourceLoader.Load("res://knytt/objects/banks/bank7/Raindrop.tscn") as PackedScene;
     }
@@ -19,10 +19,5 @@ public class Rain : GDKnyttBaseObject
             raindrop.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
             AddChild(raindrop);
         }
-    }
-
-    protected override void _impl_process(float delta)
-    {
-        
     }
 }

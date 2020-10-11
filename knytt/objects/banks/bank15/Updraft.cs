@@ -18,8 +18,4 @@ public class Updraft : GDKnyttBaseObject
         if (!(body is Juni)) { return; }
         ((Juni)body).InUpdraft = false;
     }
-
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta) { }
 }

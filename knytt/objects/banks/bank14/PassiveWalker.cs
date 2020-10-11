@@ -56,9 +56,7 @@ public class PassiveWalker : GDKnyttBaseObject
         else { startMoving(); }
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         if (!Moving) { return; }
         if (IsBlocked) { FacingRight = !FacingRight; }

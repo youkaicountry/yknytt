@@ -6,14 +6,14 @@ public class SavePoint : GDKnyttBaseObject
     HashSet<Juni> junis;
     AnimationPlayer animation;
 
-    protected override void _impl_initialize()
+    public override void _Ready()
     {
         junis = new HashSet<Juni>();
         animation = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
         animation.Play("Idle");
     }
 
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         if (junis.Count == 0 || animation.CurrentAnimation.Equals("Save")) { return; }
         foreach (var juni in junis)

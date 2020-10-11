@@ -28,9 +28,7 @@ public class ProximityBlock : GDKnyttBaseObject
         Proximity = 0f;
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         if (junis.Count == 0) { return; }
 

@@ -13,10 +13,6 @@ public class Cat : GDKnyttBaseObject
         nextAnimation();
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta) { }
-
     private async void nextAnimation()
     {
         string anim_name = "";

@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public abstract class GDKnyttBaseObject : Node2D
+public class GDKnyttBaseObject : Node2D
 {
     [Export] public string objectName;
 
@@ -26,22 +26,20 @@ public abstract class GDKnyttBaseObject : Node2D
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
+        SetPhysicsProcess(false);
         this.Layer = layer;
         this.ObjectID = object_id;
         this.Coords = coords;
-        this._impl_initialize();
+        this._Initialize();
     }
 
-    protected abstract void _impl_initialize();
-    protected abstract void _impl_process(float delta);
+    protected virtual void _Initialize() { }
 
     public override void _PhysicsProcess(float delta)
     {
         // TODO: Check mode ( edit should be paused )
         // TODO: Ensure area active
         if (OrganicEnemy) { updateOrganicEnemy(); }
-
-        this._impl_process(delta);
     }
 
     private void updateOrganicEnemy()

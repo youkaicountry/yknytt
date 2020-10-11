@@ -39,16 +39,9 @@ public class LiquidPool : GDKnyttBaseObject
 
     bool reset = false;
 
-    public void _on_AnimatedSprite_animation_finished()
+    public override void _Ready()
     {
-        var player = GetNode<AnimatedSprite>("AnimatedSprite");
-        player.Stop();
-        player.Play(animation, ping);
-        ping = !ping;
-    }
-
-    protected override void _impl_initialize()
-    {
+        base._Ready();
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
         
         animation = string.Format("Pool{0}", ObjectID.y);
@@ -66,7 +59,13 @@ public class LiquidPool : GDKnyttBaseObject
         player.Frame = GDKnyttDataStore.random.Next(player.Frames.GetFrameCount(animation));
     }
 
-    protected override void _impl_process(float delta) { }
+    public void _on_AnimatedSprite_animation_finished()
+    {
+        var player = GetNode<AnimatedSprite>("AnimatedSprite");
+        player.Stop();
+        player.Play(animation, ping);
+        ping = !ping;
+    }
 
     public void _on_Area2D_body_entered(Node body)
     {

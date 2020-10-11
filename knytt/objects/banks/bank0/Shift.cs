@@ -34,9 +34,7 @@ public class Shift : GDKnyttBaseObject
         junis.Remove((Juni)body);
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         if (junis.Count == 0) { return; }
         foreach (var juni in junis)

@@ -96,7 +96,7 @@ public class GDKnyttGame : Node2D
 	{
 		var save = GDWorld.KWorld.CurrentSave;
 		Juni.Powers.readFromSave(save);
-		this.changeArea(save.getArea(), true);
+		this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
 		Juni.GlobalPosition = CurrentArea.getTileLocation(save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
@@ -192,8 +192,8 @@ public class GDKnyttGame : Node2D
 		if (this.CurrentArea != null)
 		{ 
 			if (CurrentArea.Area.Position.Equals(new_area))
-			{ 
-				if (regenerate_same) { CurrentArea.regenerateArea(); }
+			{
+				if (regenerate_same) { CurrentArea.regenerateArea(regenerate_same: regenerate_same); }
 				return;
 			}
 

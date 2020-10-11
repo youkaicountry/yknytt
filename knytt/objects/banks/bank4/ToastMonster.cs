@@ -12,17 +12,14 @@ public class ToastMonster : GDKnyttBaseObject
 
     public override void _Ready()
     {
+        OrganicEnemy = true;
         anim = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
         blink();
     }
 
-    protected override void _impl_initialize()
+    public override void _PhysicsProcess(float delta)
     {
-        OrganicEnemy = true;
-    }
-
-    protected override void _impl_process(float delta)
-    {
+        base._PhysicsProcess(delta);
         if (anim.IsPlaying() && anim.CurrentAnimation.Equals("Spike")) { return; }
         float dist = Juni.distanceSquared(GlobalPosition);
         if (!spiked && dist < SPIKE_START_DIST) { startSpikes(); }

@@ -4,7 +4,7 @@ public class Sign : GDKnyttBaseObject
 {
     public int junis = 0;
 
-    protected override void _impl_initialize()
+    public override void _Ready()
     {
         string letter = "";
         switch (ObjectID.y)
@@ -17,10 +17,6 @@ public class Sign : GDKnyttBaseObject
         string text = GDArea.Area.getExtraData(string.Format("Sign({0})", letter));
         if (text == null) { text = "<SIGN TEXT MISSING>"; }
         GetNode<Label>("SignRect/Label").Text = text;
-    }
-
-    protected override void _impl_process(float delta)
-    {
     }
 
     public void _on_Area2D_body_entered(Node body)

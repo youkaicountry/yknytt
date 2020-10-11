@@ -5,8 +5,6 @@ public class NoWall : GhostObject
         Flickering = false;
     }
 
-    protected override void _impl_initialize() { }
-
     protected override void _InvEnable()
     {
         // Copy values of the cells

@@ -6,8 +6,4 @@ public class Warp : GDKnyttBaseObject
     {
         GDArea.Area.Warp.loadWarpData();
     }
-
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta) { }
 }

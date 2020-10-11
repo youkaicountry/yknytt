@@ -11,6 +11,4 @@ public class GhostMarker : GhostObject
 
         GetNode<AnimatedSprite>("AnimatedSprite").Frame = ObjectID.y - 18;
     }
-
-    protected override void _impl_initialize() { }
 }

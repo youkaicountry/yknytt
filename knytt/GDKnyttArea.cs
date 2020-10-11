@@ -77,10 +77,10 @@ public class GDKnyttArea : Node2D
         this.deactivateArea();
     }
 
-    public void activateArea()
+    public void activateArea(bool regenerate_same = false)
     {
         GetNode<Timer>("DeactivateTimer").Stop();
-        if (this.active || this.Area.Empty) { return; }
+        if ((!regenerate_same && this.active) || this.Area.Empty) { return; }
         this.createObjectLayers();
         this.active = true;
         Tiles.activate();
@@ -118,11 +118,11 @@ public class GDKnyttArea : Node2D
         timer.Start();
     }
 
-    public void regenerateArea()
+    public void regenerateArea(bool regenerate_same = false)
     {
         if (this.Area.Empty) { return; }
         this.removeObjectLayers();
-        this.activateArea();
+        this.activateArea(regenerate_same: regenerate_same);
     }
 
     public void _on_DeactivateTimer_timeout()

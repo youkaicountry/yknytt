@@ -56,8 +56,6 @@ public class Ghost : GhostObject
         move();
     }
 
-    protected override void _impl_initialize() { }
-
     protected override void _InvProcess(float delta)
     {
         time += delta;

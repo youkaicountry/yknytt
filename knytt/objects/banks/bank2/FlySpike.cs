@@ -43,10 +43,9 @@ public class FlySpike : GDKnyttBaseObject
         mod.start();
     }
 
-    protected override void _impl_initialize() { }
-
-    protected override void _impl_process(float delta) 
+    public override void _PhysicsProcess(float delta)
     { 
+        base._PhysicsProcess(delta);
         if (wait_timer.TimeLeft > 0f) { return; }
         Translate(new Vector2(SPEED * delta * (FacingRight ? 1f : -1f), 0f));
     }
