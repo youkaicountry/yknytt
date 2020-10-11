@@ -391,7 +391,7 @@ public class Juni : KinematicBody2D
         if (this.CurrentState != null) { this.CurrentState.onExit(); }
     }
 
-    public void executeJump(float jump_speed, bool air_jump = false, bool sound = true)
+    public void executeJump(float jump_speed, bool air_jump = false, bool sound = true, bool reset_jumps = false)
     {
         transitionState(new JumpState(this));
         Anim.Play("Jump");
@@ -400,7 +400,7 @@ public class Juni : KinematicBody2D
         
         if (air_jump && jumps > 0) { doubleJumpEffect(); }
         
-        jumps++;
+        jumps = reset_jumps ? 1 : jumps + 1;
         JustClimbed = false;
         CanFreeJump = false;
 

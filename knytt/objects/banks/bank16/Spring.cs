@@ -29,7 +29,7 @@ public class Spring : GDKnyttBaseObject
             juni.GlobalPosition = jgp;
 
             // Spring
-            juni.executeJump(-340f, sound: false);
+            juni.executeJump(-340f, sound: false, reset_jumps: true);
             GetNode<AudioStreamPlayer2D>("BouncePlayer2D").Play();
             
             var anim = GetNode<AnimationPlayer>("AnimationPlayer");
