@@ -30,6 +30,7 @@ All notable changes to YKnytt will be documented here.
 - Clean up UI scenes
 - Fix some issues with area paging
 - Major object framework refactor
+- Refactor raindrop spawning to use object pools
 
 ## [0.1.0] - 2020-09-20
 
