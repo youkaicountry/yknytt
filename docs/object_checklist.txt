@@ -1,17 +1,17 @@
-Bank 0:
-[x] - 1 Save Point
-[x] - 2 Win
-
-[x] - 3  Run
-[x] - 4  Climb
-[x] - 5  Double Jump
-[x] - 6  High Jump
-[x] - 7  Eye
-[x] - 8  Enemy Detector
-[x] - 9  Umbrella
+Bank 0 (System):
+[x] -  1 Save Point
+[x] -  2 Win
+[x] -  3  Run
+[x] -  4  Climb
+[x] -  5  Double Jump
+[x] -  6  High Jump
+[x] -  7  Eye
+[x] -  8  Enemy Detector
+[x] -  9  Umbrella
 [x] - 10 Hologram
 [x] - 11 No Climb
-
+[ ] - 12 Music
+[ ] - 13 Sticky
 [x] - 14 Shift A
 [x] - 15 Shift B
 [x] - 16 Shift C
@@ -24,17 +24,23 @@ Bank 0:
 [x] - 23 Blue Key
 [x] - 24 Purple Key
 [x] - 25 No Jump
+[ ] - 26 Detect Target
+[ ] - 27 Detect Target
+[ ] - 28 Detect Target
+[ ] - 29 Sign Area A
+[ ] - 30 Sign Area B
+[ ] - 31 Sign Area C
 
-Bank 1:
-[x] - 1  Liquid Pool
-[x] - 2  Liquid Pool
-[x] - 3  Waterfall
-[x] - 4  Waterfall
-[x] - 5  Liquid Pool
-[x] - 6  Liquid Pool
-[x] - 7  Water Block
-[x] - 8  Water Block
-[x] - 9  Water Block
+Bank 1 (Liquids):
+[x] -  1  Liquid Pool
+[x] -  2  Liquid Pool
+[x] -  3  Waterfall
+[x] -  4  Waterfall
+[x] -  5  Liquid Pool
+[x] -  6  Liquid Pool
+[x] -  7  Water Block
+[x] -  8  Water Block
+[x] -  9  Water Block
 [x] - 10 Liquid Pool
 [x] - 11 Water Block
 [x] - 12 Liquid Pool
@@ -43,7 +49,7 @@ Bank 1:
 [x] - 15 Waterfall
 [x] - 16 Liquid Pool
 [x] - 17 Water Block
-
+[ ] - 18 Bubbles
 [x] - 19 Liquid Pool
 [x] - 20 Waterfall
 [x] - 21 Water Block
@@ -51,74 +57,338 @@ Bank 1:
 [x] - 23 Waterfall
 [x] - 24 Water Block
 
-Bank 2:
-
+Bank 2 (Flyers):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
 [x] - 15 Buzz Flyer
 [x] - 16 Buzz Flyer
 [x] - 17 Buzz Flyer
-
+[ ] - 18
+[ ] - 19
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
+[ ] - 22
+[ ] - 23
+[ ] - 24
+[ ] - 25
+[ ] - 26
+[ ] - 27
+[ ] - 28
+[ ] - 29
+[ ] - 30
+[ ] - 31
+[ ] - 32
 
-Bank 3:
-
-[x] - 5 Yellow Dog
-
+Bank 3 (Knytt & Fluff):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[x] -  5 Yellow Dog
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
+[ ] - 17
+[ ] - 18
+[ ] - 19
+[ ] - 20
+[ ] - 21
+[ ] - 22
+[ ] - 23
+[ ] - 24
+[ ] - 25
+[ ] - 26
+[ ] - 27
+[ ] - 28
+[ ] - 29
+[ ] - 30
+[ ] - 31
+[ ] - 32
+[ ] - 33
+[ ] - 34
+[ ] - 35
+[ ] - 36
+[ ] - 37
+[ ] - 38
+[ ] - 39
+[ ] - 40
+[ ] - 41
 [x] - 42 Cat
 [x] - 43 Cat
+[ ] - 44
 
-Bank 4:
-[x] - 1 Red Follow Ball
-
+Bank 4 (Meanies):
+[x] -  1 Red Follow Ball
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
+[ ] - 17
 [x] - 18 Toast Monster
+[ ] - 19
+[ ] - 20
+[ ] - 21
+[ ] - 22
 
-Bank 7:
+Bank 5 (Shadow People):
+[ ] -  1
+[ ] -  2
+[ ] -  3
 
-[x] - 8  Rain
-[x] - 9  Raindrop
+Bank 6 (Traps):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
 
+Bank 7 (Nature FX):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[x] -  8  Rain
+[x] -  9  Raindrop
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
 [x] - 16 Cloud
 
-Bank 10:
+Bank 8 (Decoration):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
+[ ] - 17
 
-[x] - 5 Bouncer
+Bank 9 (Flowers):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
 
-Bank 12:
+Bank 10 (Bouncers):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[x] -  5 Bouncer
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
 
-[x] - 5  Ghost Block
+Bank 11 (Disks):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
 
+Bank 12 (Ghosts):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[x] -  5 Ghost Block
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
 [x] - 11 Ghost
-
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
 [x] - 17 No Wall
 [x] - 18 Ghost Marker
 [x] - 19 Ghost Marker
 [x] - 20 Ghost Marker
 [x] - 21 Ghost Marker
 
-Bank 13:
-
+Bank 13 (Robots):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
 [x] - 13 Fly Bot
+[ ] - 14
 
-Bank 14:
+Bank 14 (Earth Beings):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[x] -  5 Walker
+[x] -  6 Walker
+[x] -  7 Walker
+[x] -  8 Walker
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
+[ ] - 17
+[ ] - 18
+[ ] - 19
+[ ] - 20
+[ ] - 21
+[ ] - 22
+[ ] - 23
+[ ] - 24
 
-[x] - 5 Walker
-[x] - 6 Walker
-[x] - 7 Walker
-[x] - 8 Walker
-
-Bank 15:
-
-[x] - 5 Updraft
-[x] - 6 Proximity Block Real
-[x] - 7 Proximity Block Fake
-
+Bank 15 (Objects & Areas):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[x] -  5 Updraft
+[x] -  6 Proximity Block Real
+[x] -  7 Proximity Block Fake
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+[ ] - 13
+[ ] - 14
+[ ] - 15
+[ ] - 16
+[ ] - 17
+[ ] - 18
+[ ] - 19
+[ ] - 20
+[ ] - 21
+[ ] - 22
+[ ] - 23
+[ ] - 24
+[ ] - 25
+[ ] - 26
 [x] - 27 Red Door
 [x] - 28 Yellow Door
 [x] - 29 Blue Door
 [x] - 30 Purple Door
 
-Bank 16:
-[x] - 1 Spring
-
+Bank 16 (Invisible):
+[x] -  1 Spring
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
 [x] - 13 Invisible Barrier
 [x] - 14 Invisible Block
+[ ] - 15
+[ ] - 16
+
+Bank 17 (Creepy):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
+[ ] -  7
+[ ] -  8
+[ ] -  9
+[ ] - 10
+[ ] - 11
+[ ] - 12
+
+Bank 18 (Water Creatures):
+[ ] -  1
+[ ] -  2
+[ ] -  3
+[ ] -  4
+[ ] -  5
+[ ] -  6
