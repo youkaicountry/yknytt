@@ -17,6 +17,7 @@ All notable changes to YKnytt will be documented here.
 - Walk / Climb particle spawning
 - Cloud object
 - Yellow Dog
+- Red Follow Ball Enemy
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)

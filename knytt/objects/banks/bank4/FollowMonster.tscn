@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/FollowCreature.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/common/FollowerCreature.cs" type="Script" id=2]
+
+[node name="FollowMonster" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="FollowCreature" parent="." instance=ExtResource( 1 )]

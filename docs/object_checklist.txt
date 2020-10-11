@@ -64,6 +64,7 @@ Bank 3:
 [x] - 43 Cat
 
 Bank 4:
+[x] - 1 Red Follow Ball
 
 [x] - 18 Toast Monster
 
