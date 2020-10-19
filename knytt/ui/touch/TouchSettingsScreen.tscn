@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://knytt/ui/touch/TouchSettingsScreen.cs" type="Script" id=14]
+
+[sub_resource type="StyleBoxFlat" id=1]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0 )
+
+[node name="TouchSettingsScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BackButton" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -85.0
+margin_top = -25.0
+margin_right = -5.0
+margin_bottom = -6.0
+custom_styles/disabled = SubResource( 1 )
+text = "Back"
+
+[node name="SettingsContainer" type="VBoxContainer" parent="."]
+margin_left = 33.0
+margin_top = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnableButton" parent="SettingsContainer" instance=ExtResource( 3 )]
+margin_right = 145.0
+text = "Enable touch panel"
+
+[node name="SwapButton" parent="SettingsContainer" instance=ExtResource( 3 )]
+margin_top = 25.0
+margin_right = 145.0
+margin_bottom = 46.0
+text = "Arrows on the right side"
+
+[node name="AnchorContainer" type="HBoxContainer" parent="SettingsContainer"]
+margin_top = 50.0
+margin_right = 145.0
+margin_bottom = 69.0
+hint_tooltip = "Test test test!!!!"
+
+[node name="AnchorLabel" type="Label" parent="SettingsContainer/AnchorContainer"]
+margin_top = 3.0
+margin_right = 68.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Locate panel:"
+
+[node name="AnchorDropdown" parent="SettingsContainer/AnchorContainer" instance=ExtResource( 4 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 72.0
+margin_right = 125.064
+margin_bottom = 19.2149
+hint_tooltip = "Test test test!!!!"
+text = "At top"
+items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "At Center", null, false, 2, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
+selected = 0
+
+[node name="ScaleContainer" type="HBoxContainer" parent="SettingsContainer"]
+margin_top = 73.0
+margin_right = 145.0
+margin_bottom = 92.0
+hint_tooltip = "Test test test!!!!"
+
+[node name="ScaleLabel" type="Label" parent="SettingsContainer/ScaleContainer"]
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Scale buttons:"
+
+[node name="ScaleDropdown" parent="SettingsContainer/ScaleContainer" instance=ExtResource( 4 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 77.0
+margin_right = 110.064
+margin_bottom = 19.2149
+hint_tooltip = "Test test test!!!!"
+text = "1x"
+items = [ "0.5x", null, false, 0, null, "0.75x", null, false, 1, null, "1x", null, false, 2, null, "1.25x", null, false, 3, null, "1.5x", null, false, 4, null ]
+selected = 2
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="SettingsContainer/EnableButton" to="." method="_on_EnableButton_pressed"]
+[connection signal="pressed" from="SettingsContainer/SwapButton" to="." method="_on_SwapButton_pressed"]
+[connection signal="item_selected" from="SettingsContainer/AnchorContainer/AnchorDropdown" to="." method="_on_AnchorDropdown_item_selected"]
+[connection signal="item_selected" from="SettingsContainer/ScaleContainer/ScaleDropdown" to="." method="_on_ScaleDropdown_item_selected"]

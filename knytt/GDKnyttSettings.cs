@@ -5,7 +5,7 @@ using IniParser.Parser;
 public class GDKnyttSettings : Node
 {
     //OS.set_window_maximized(true), and then OS.set_borderless_window(true)
-    static IniData ini;
+    public static IniData ini { get; private set; }
     static SceneTree tree;
 
     public enum ScrollTypes
@@ -35,11 +35,19 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false; }
         set 
         {
-            // The value checking font oversampling shenanigans are to prevent warnings
-            //if (!value) { tree.UseFontOversampling = value; }
-            tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
-                                  SceneTree.StretchAspect.Keep, new Vector2(600, 240));
-            //if (value) { tree.UseFontOversampling = value; }
+            if (!TouchSettings.EnablePanel)
+            {
+              tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
+                          SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+            }
+            else
+            {
+              // Touch panel needs some screen space, so "Viewport" mode is not suitable here
+              tree.SetScreenStretch(SceneTree.StretchMode.Mode2d, 
+                          SceneTree.StretchAspect.KeepWidth, new Vector2(600, 240));
+            }
+            (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
+
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
         }
     }
@@ -87,6 +95,8 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Smooth Scaling", "0");
         modified |= ensureSetting("Graphics", "Scroll Type", "Smooth");
   
+        modified |= TouchSettings.ensureSettings();
+
         if (modified) { saveSettings(); }
         applyAllSettings();
     }

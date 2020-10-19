@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://knytt/ui/info_panel/ItemInfo.tscn" type="PackedScene" id=9]
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=10]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
+[ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 22
@@ -81,7 +83,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -210.0, -239.214 ]
+"values": [ 30, 0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("InfoPanel:modulate")
@@ -120,7 +122,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -239.214, -210.0 ]
+"values": [ 0, 30 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("InfoPanel:modulate")
@@ -168,12 +170,10 @@ anims/FadeOut = SubResource( 2 )
 
 [node name="InfoPanel" type="Panel" parent="UICanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = -3.61994
 margin_top = -32.2144
-margin_right = -313.62
-margin_bottom = -239.214
+margin_right = 287.0
+
 custom_styles/panel = SubResource( 3 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -266,6 +266,13 @@ anims/SlideOut = SubResource( 5 )
 [node name="StayTimer" type="Timer" parent="UICanvasLayer"]
 wait_time = 0.25
 one_shot = true
+
+[node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource( 12 )]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -140.0
+margin_bottom = 0.0
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
 pause_mode = 2
