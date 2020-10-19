@@ -1,0 +1,254 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://knytt/ui/touch/NormalStyleBox.tres" type="StyleBox" id=1]
+[ext_resource path="res://knytt/ui/touch/up-right-arrow.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/touch/left-arrow.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank0/power_gfx/power6.png" type="Texture" id=4]
+[ext_resource path="res://knytt/ui/touch/die.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture" id=6]
+[ext_resource path="res://knytt/ui/touch/right-arrow.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/touch/up-left-arrow.png" type="Texture" id=9]
+[ext_resource path="res://knytt/ui/touch/TouchPanel.cs" type="Script" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="TouchPanel" type="Panel"]
+margin_right = 600.0
+margin_bottom = 140.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ArrowsPanel" type="Panel" parent="."]
+margin_right = 120.0
+margin_bottom = 140.0
+rect_pivot_offset = Vector2( 0, 140 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftUpPanel" type="Panel" parent="ArrowsPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="ArrowsPanel/LeftUpPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+texture = ExtResource( 9 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightUpPanel" type="Panel" parent="ArrowsPanel"]
+margin_left = 60.0
+margin_right = 120.0
+margin_bottom = 50.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="ArrowsPanel/RightUpPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="LeftPanel" type="Panel" parent="ArrowsPanel"]
+margin_top = 50.0
+margin_right = 60.0
+margin_bottom = 100.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="ArrowsPanel/LeftPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="RightPanel" type="Panel" parent="ArrowsPanel"]
+margin_left = 60.0
+margin_top = 50.0
+margin_right = 120.0
+margin_bottom = 100.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="ArrowsPanel/RightPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+texture = ExtResource( 7 )
+stretch_mode = 4
+
+[node name="DownPanel" type="Panel" parent="ArrowsPanel"]
+margin_top = 100.0
+margin_right = 120.0
+margin_bottom = 140.0
+custom_styles/panel = ExtResource( 1 )
+
+[node name="Label" type="TextureRect" parent="ArrowsPanel/DownPanel"]
+margin_right = 120.0
+margin_bottom = 40.0
+texture = ExtResource( 6 )
+stretch_mode = 4
+
+[node name="JumpPanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -240.0
+margin_bottom = 140.0
+rect_pivot_offset = Vector2( 240, 140 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoPanel" type="Panel" parent="JumpPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="JumpPanel/InfoPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 30, 0 )
+text = "Info"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetPanel" type="Panel" parent="JumpPanel"]
+margin_top = 50.0
+margin_right = 60.0
+margin_bottom = 100.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="JumpPanel/ResetPanel"]
+margin_right = 60.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 30, 0 )
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausePanel" type="Panel" parent="JumpPanel"]
+margin_top = 100.0
+margin_right = 60.0
+margin_bottom = 140.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="JumpPanel/PausePanel"]
+margin_right = 60.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 30, 0 )
+text = "Pause"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UmbrellaPanel" type="Panel" parent="JumpPanel"]
+margin_left = 60.0
+margin_right = 120.0
+margin_bottom = 100.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="TextureRect" parent="JumpPanel/UmbrellaPanel"]
+margin_right = 60.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 30, 0 )
+texture = ExtResource( 4 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WalkPanel" type="Panel" parent="JumpPanel"]
+margin_left = 60.0
+margin_top = 100.0
+margin_right = 120.0
+margin_bottom = 140.0
+custom_styles/panel = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="JumpPanel/WalkPanel"]
+margin_top = -7.62939e-06
+margin_right = 60.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 30, 0 )
+text = "Walk"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JumpPanel" type="Panel" parent="JumpPanel"]
+margin_left = 120.0
+margin_right = 240.0
+margin_bottom = 100.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="JumpPanel/JumpPanel"]
+margin_right = 120.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 60, 0 )
+text = "Jump"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DownPanel" type="Panel" parent="JumpPanel"]
+margin_left = 120.0
+margin_top = 100.0
+margin_right = 240.0
+margin_bottom = 140.0
+custom_styles/panel = ExtResource( 1 )
+
+[node name="Label" type="TextureRect" parent="JumpPanel/DownPanel"]
+margin_right = 120.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 60, 0 )
+texture = ExtResource( 6 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}

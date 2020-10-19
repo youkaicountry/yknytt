@@ -57,6 +57,7 @@ public class GDKnyttGame : Node2D
 
 		if (!this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").Visible = false; }
 
+		this.setupCamera();
 		this.setupWorld();
 	}
 
@@ -245,6 +246,21 @@ public class GDKnyttGame : Node2D
 			case GDKnyttSettings.ScrollTypes.Smooth:
 				this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
 				break;
+		}
+	}
+
+	public void setupCamera()
+	{
+		if (!TouchSettings.EnablePanel)
+		{
+			Camera.AnchorMode = (Camera2D.AnchorModeEnum)1;
+			Camera.Offset = new Vector2(0, 0);
+		}
+		else
+		{
+			// Set AnchorMode to "Fixed TopLeft"
+			// Later panel will set camera offset to stick it to the top or to the bottom
+			Camera.AnchorMode = (Camera2D.AnchorModeEnum)0;
 		}
 	}
 }

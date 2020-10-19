@@ -15,6 +15,8 @@ public class MainMenu : Node2D
         fade = GetNode<FadeLayer>("MenuLayer/Fade");
         //GetNode<Button>("MenuLayer/ButtonRow/PlayButton").GrabFocus();
         GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
+        VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
+
     }
 
     public async void _on_TutorialButton_pressed()

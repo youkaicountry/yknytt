@@ -3,11 +3,14 @@ using Godot;
 public class SettingsScreen : CanvasLayer
 {
     PackedScene input_scene;
+    PackedScene touch_scene;
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
+        this.touch_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/touch/TouchSettingsScreen.tscn");
         fillControls();
     }
 
@@ -21,6 +24,7 @@ public class SettingsScreen : CanvasLayer
     public void _on_BackButton_pressed()
     {
         GDKnyttSettings.saveSettings();
+        TouchSettings.applyAllSettings(GetTree());
         ClickPlayer.Play();
         this.QueueFree();
     }
@@ -44,6 +48,13 @@ public class SettingsScreen : CanvasLayer
     {
         ClickPlayer.Play();
         var inp = input_scene.Instance();
+        AddChild(inp);
+    }
+
+    private void _on_TouchPanelButton_pressed()
+    {
+        ClickPlayer.Play();
+        var inp = touch_scene.Instance();
         AddChild(inp);
     }
 }
