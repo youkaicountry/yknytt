@@ -167,7 +167,7 @@ Bank 5 (Shadow People):
 [ ] -  3
 
 Bank 6 (Traps):
-[ ] -  1
+[x] -  1 Trap Ceiling
 [ ] -  2
 [ ] -  3
 [ ] -  4

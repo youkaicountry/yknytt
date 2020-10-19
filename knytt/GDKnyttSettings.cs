@@ -35,8 +35,11 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false; }
         set 
         {
+            // The value checking font oversampling shenanigans are to prevent warnings
+            //if (!value) { tree.UseFontOversampling = value; }
             tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
                                   SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+            //if (value) { tree.UseFontOversampling = value; }
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
         }
     }
