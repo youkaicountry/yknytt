@@ -19,6 +19,7 @@ All notable changes to YKnytt will be documented here.
 - Yellow Dog
 - Red Follow Ball Enemy
 - Buzzing Flying Monsters
+- Touchscreen controls [Contribution by: up-left]
 - Trap Ceiling
 
 ## Fixed
