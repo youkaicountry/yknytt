@@ -205,13 +205,13 @@ Bank 8 (Decoration):
 [ ] -  3
 [ ] -  4
 [ ] -  5
-[ ] -  6
-[ ] -  7
+[x] -  6 Torch Fire
+[x] -  7 Candle Fire
 [ ] -  8
-[ ] -  9
+[x] -  9 Light
 [ ] - 10
 [ ] - 11
-[ ] - 12
+[x] - 12 Fire Star
 [ ] - 13
 [ ] - 14
 [ ] - 15
