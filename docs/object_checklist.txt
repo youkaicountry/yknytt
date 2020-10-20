@@ -209,7 +209,7 @@ Bank 8 (Decoration):
 [x] -  7 Candle Fire
 [ ] -  8
 [x] -  9 Light
-[ ] - 10
+[x] - 10 Star
 [ ] - 11
 [x] - 12 Fire Star
 [ ] - 13

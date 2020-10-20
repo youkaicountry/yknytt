@@ -72,6 +72,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(8, 6)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 7)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 9)] =  "SimpleDecoration";
+        ObjectLookup[new KnyttPoint(8, 10)] =  "Star";
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(10, 5)] =  "BouncerEnemy";
         ObjectLookup[new KnyttPoint(12, 5)] =  "GhostBlock";
