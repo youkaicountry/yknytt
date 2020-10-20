@@ -22,6 +22,7 @@ All notable changes to YKnytt will be documented here.
 - Touchscreen controls [Contribution by: up-left]
 - Trap Ceiling
 - Various decorations
+- Star
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)
