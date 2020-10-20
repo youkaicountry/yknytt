@@ -75,8 +75,8 @@ Bank 2 (Flyers):
 [x] - 15 Buzz Flyer
 [x] - 16 Buzz Flyer
 [x] - 17 Buzz Flyer
-[ ] - 18
-[ ] - 19
+[x] - 18 Yellow Elemental
+[x] - 19 Red Elemental
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
 [ ] - 22
@@ -87,7 +87,7 @@ Bank 2 (Flyers):
 [ ] - 27
 [ ] - 28
 [ ] - 29
-[ ] - 30
+[x] - 30 Circle Bird
 [ ] - 31
 [ ] - 32
 
@@ -209,7 +209,7 @@ Bank 8 (Decoration):
 [x] -  7 Candle Fire
 [ ] -  8
 [x] -  9 Light
-[ ] - 10
+[x] - 10 Star
 [ ] - 11
 [x] - 12 Fire Star
 [ ] - 13
