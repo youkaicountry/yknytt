@@ -1,6 +1,9 @@
 All notable changes to YKnytt will be documented here.
 
-## [Unreleased]
+## [0.2.0] - 2020-10-20
+
+This release features many new object implementations, touchscreen support, and various fixes and optimizations.
+It also adds built-in versions of the official worlds Sky Flower and Gustav's Daughter
 
 ## Added
 - Invisible barrier
