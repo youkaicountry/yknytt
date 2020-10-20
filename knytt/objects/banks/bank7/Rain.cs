@@ -38,9 +38,8 @@ public class Rain : GDKnyttBaseObject
     {
         if (_drop_q.Count > 0) { return _drop_q.Dequeue(); }
         if (GetChildCount() >= MAX_DROPS) { return null; }
-        GD.Print("NEW" + drop_count);
         var raindrop = drop_scene.Instance() as Raindrop;
-        raindrop.Name = string.Format("Raindrop{0}", drop_count++);
+        raindrop.Name = $"Raindrop{drop_count++}";
         return raindrop;
     }
 

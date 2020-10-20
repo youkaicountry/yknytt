@@ -37,6 +37,7 @@ public class IdleState : JuniState
 public class WalkRunState : JuniState
 {
     bool walk_run;
+    string WalkRunString { get { return walk_run ? "Run" : "Walk"; } }
 
     public WalkRunState(Juni juni, bool walk_run) : base(juni)
     { 
@@ -46,8 +47,8 @@ public class WalkRunState : JuniState
 
     public override void onEnter()
     {
-        juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Play();
-        juni.Anim.Play(walk_run ? "Run" : "Walk");
+        juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
+        juni.Anim.Play(WalkRunString);
         juni.max_speed = walk_run ? 175f : 90f;
         juni.jumps = 0;
     }
@@ -78,7 +79,7 @@ public class WalkRunState : JuniState
 
     public override void onExit()
     {
-        juni.GetNode<RawAudioPlayer2D>(string.Format("Audio/{0}Player2D", walk_run ? "Run":"Walk")).Stop();
+        juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Stop();
         juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }

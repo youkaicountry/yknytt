@@ -42,7 +42,7 @@ public class PassiveWalker : GDKnyttBaseObject
     {
         FacingRight = GDKnyttDataStore.random.Next(2) == 0;
         this.Moving = true;
-        Sprite.Play(string.Format("Passive{0}", ObjectID.y));
+        Sprite.Play($"Passive{ObjectID.y}");
         var mul = GDKnyttDataStore.random.NextFloat(1.2f, 2.5f);
         speed = base_speed * mul;
         Sprite.SpeedScale = mul;

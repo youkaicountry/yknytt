@@ -116,7 +116,7 @@ public class GDKnyttGame : Node2D
 		Juni.Powers.writeToSave(save);
 		if (!write) { return; }
 		var f = new File();
-		f.Open(string.Format("user://Saves/{0}", save.SaveFileName), File.ModeFlags.Write);
+		f.Open($"user://Saves/{save.SaveFileName}", File.ModeFlags.Write);
 		f.StoreString(save.ToString());
 		f.Close();
 	}
