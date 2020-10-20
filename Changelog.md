@@ -24,6 +24,7 @@ All notable changes to YKnytt will be documented here.
 - Various decorations
 - Elementals [Contribution by: up-left]
 - Circle Bird [Contribution by: up-left]
+- Add star
 
 ## Fixed
 - Rain drops now spawn down a bit (They were colliding with the tile above)
