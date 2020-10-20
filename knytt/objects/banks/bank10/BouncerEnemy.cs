@@ -21,7 +21,7 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     static Dictionary<int, BouncerData> bouncers;
 
-    private string Anim { get { return string.Format("Bouncer{0}", ObjectID.y); } }
+    private string Anim { get { return $"Bouncer{ObjectID.y}"; } }
 
     BouncerData bouncer_data;
     float vel;

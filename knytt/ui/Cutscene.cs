@@ -28,8 +28,8 @@ public class Cutscene : Control
             song = song.Substring(0, song.Length-1);
         }
 
-        string loc = ambiance ? "Ambiance/Ambi{0}.ogg" : "Music/Song{0}.ogg";
-        var stream = GDKnyttDataStore.KWorld.getWorldSound(string.Format(loc, song)) as AudioStream;
+        string loc = ambiance ? $"Ambiance/Ambi{song}.ogg" : $"Music/Song{song}.ogg";
+        var stream = GDKnyttDataStore.KWorld.getWorldSound(loc) as AudioStream;
         
         var player = GetNode<AudioStreamPlayer>("MusicPlayer");
         player.Stream = stream;
@@ -67,7 +67,7 @@ public class Cutscene : Control
 
     public static string makeScenePath(int scene)
     {
-        return string.Format("{0}/Scene{1}.png", GDKnyttDataStore.CutsceneName, scene);
+        return $"{GDKnyttDataStore.CutsceneName}/Scene{scene}.png";
     }
 
     public void _on_PreviousButton_pressed()

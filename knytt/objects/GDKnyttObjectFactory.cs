@@ -106,11 +106,11 @@ public static class GDKnyttObjectFactory
     {
         if (!ObjectLookup.ContainsKey(object_id))
         {
-            GD.Print(string.Format("Object {0}:{1} unimplemented.", object_id.x, object_id.y));
+            GD.Print($"Object {object_id.x}:{object_id.y} unimplemented.");
             return null;
         }
         
-        string fname = string.Format("res://knytt/objects/banks/bank{0}/{1}.tscn", object_id.x, ObjectLookup[object_id]);
+        string fname = $"res://knytt/objects/banks/bank{object_id.x}/{ObjectLookup[object_id]}.tscn";
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }

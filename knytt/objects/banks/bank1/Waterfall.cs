@@ -7,6 +7,6 @@ public class Waterfall : GDKnyttBaseObject
     {
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
         player.SpeedScale = GDKnyttDataStore.random.NextFloat(.8f, 1.2f);
-        player.Play(string.Format("Waterfall{0}", ObjectID.y));
+        player.Play($"Waterfall{ObjectID.y}");
     }
 }

@@ -26,7 +26,7 @@ public class Cat : GDKnyttBaseObject
         // Play animation
         var anim = GetNode<AnimatedSprite>("AnimatedSprite");
         anim.Stop();
-        anim.Play(string.Format("{0}{1}", cat_type, anim_name));
+        anim.Play($"{cat_type}{anim_name}");
         await ToSignal(anim, "animation_finished");
 
         // Idle
