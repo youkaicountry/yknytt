@@ -5,6 +5,9 @@ All notable changes to YKnytt will be documented here.
 ## Added
 - Shift quantization
 
+## Fixed
+- Invisible barrier was not blocking movement properly
+
 ## Changed
 - X Button on window and back button on mobile now close the main menu
 
