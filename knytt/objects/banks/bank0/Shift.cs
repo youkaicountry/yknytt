@@ -59,7 +59,7 @@ public class Shift : GDKnyttBaseObject
         // Move Juni to the correct location in the area
         if (shift.Quantize)
         {
-            Juni.GlobalPosition = game.CurrentArea.getTileLocation(shift.AbsolutePosition);
+            Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
         }
         else
         {

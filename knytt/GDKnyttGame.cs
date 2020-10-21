@@ -78,7 +78,7 @@ public class GDKnyttGame : Node2D
 		GDWorld.loadWorld();
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
-		Juni.GlobalPosition = CurrentArea.getTileLocation(GDWorld.KWorld.CurrentSave.getAreaPosition());
+		Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
 
 		UI.initialize(this);
 		UI.updatePowers();
@@ -98,7 +98,7 @@ public class GDKnyttGame : Node2D
 		var save = GDWorld.KWorld.CurrentSave;
 		Juni.Powers.readFromSave(save);
 		this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
-		Juni.GlobalPosition = CurrentArea.getTileLocation(save.getAreaPosition());
+		Juni.moveToPosition(CurrentArea, save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
 	}
