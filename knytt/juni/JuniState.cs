@@ -25,7 +25,7 @@ public class IdleState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(); }
+        if (juni.DidJump) { juni.executeJump(reset_jumps:true); }
         else if ( !juni.Grounded ) // Ground falls out from under Juni
         { 
             juni.CanFreeJump = true;
@@ -69,7 +69,7 @@ public class WalkRunState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(); }
+        if (juni.DidJump) { juni.executeJump(reset_jumps:true); }
         else if ( !juni.Grounded ) // Juni Walks off Ledge / ground falls out from under
         { 
             juni.CanFreeJump = true;

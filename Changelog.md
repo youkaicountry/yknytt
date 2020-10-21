@@ -8,6 +8,7 @@ All notable changes to YKnytt will be documented here.
 ## Fixed
 - Invisible barrier was not blocking movement properly
 - Juni now spawns perfectly at ground level
+- Juni's double jump counter was not resetting occasionally
 
 ## Changed
 - X Button on window and back button on mobile now close the main menu
