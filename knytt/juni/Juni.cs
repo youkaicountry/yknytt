@@ -22,6 +22,16 @@ public class Juni : KinematicBody2D
     public int dir = 0;
     public float max_speed;
 
+    //const float BaseHeightCorrection = 3.4f;
+    public Godot.Vector2 BaseCorrection 
+    {
+        get 
+        {
+            var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
+            return new Godot.Vector2(0f, 12f - rect.Extents.y);
+        }
+    }
+
     PackedScene double_jump_scene;
 
     public GDKnyttGame Game { get; private set; }
@@ -339,6 +349,11 @@ public class Juni : KinematicBody2D
         timer.Start();
         await ToSignal(timer, "timeout");
         Game.respawnJuni();
+    }
+
+    public void moveToPosition(GDKnyttArea area, KnyttPoint position)
+    {
+        GlobalPosition = (area.getTileLocation(position) + BaseCorrection);
     }
 
     public void win(string ending)
