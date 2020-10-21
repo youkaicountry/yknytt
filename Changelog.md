@@ -2,6 +2,9 @@ All notable changes to YKnytt will be documented here.
 
 ## [Unreleased]
 
+## Added
+- Shift quantization
+
 ## Changed
 - X Button on window and back button on mobile now close the main menu
 
