@@ -8,6 +8,8 @@ public class MainMenu : Node2D
     PackedScene settings_scene;
     FadeLayer fade;
 
+    bool quitting = false;
+
     public override void _Ready()
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
@@ -17,6 +19,12 @@ public class MainMenu : Node2D
         GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
 
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
+		if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
     }
 
     public async void _on_TutorialButton_pressed()
@@ -56,9 +64,16 @@ public class MainMenu : Node2D
         this.AddChild(settings_node);
     }
 
-    public async void _on_QuitButton_pressed()
+    public void _on_QuitButton_pressed()
     {
         ClickPlayer.Play();
+        quit();
+    }
+
+    private async void quit()
+    {
+        if (quitting) { return; }
+        quitting = true;
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
