@@ -1,5 +1,10 @@
 All notable changes to YKnytt will be documented here.
 
+## [Unreleased]
+
+## Changed
+- X Button on window and back button on mobile now close the main menu
+
 ## [0.2.0] - 2020-10-20
 
 This release features many new object implementations, touchscreen support, and various fixes and optimizations.
