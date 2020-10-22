@@ -105,7 +105,6 @@ animations = [ {
 minTime = 2.0
 maxTime = 3.0
 bidirectional = true
-flipScarcity = 2
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 23 )
