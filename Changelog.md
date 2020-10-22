@@ -4,6 +4,7 @@ All notable changes to YKnytt will be documented here.
 
 ## Added
 - Shift quantization
+- Sun ray
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
