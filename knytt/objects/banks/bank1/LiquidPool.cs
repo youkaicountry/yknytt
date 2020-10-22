@@ -44,7 +44,7 @@ public class LiquidPool : GDKnyttBaseObject
         base._Ready();
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
         
-        animation = string.Format("Pool{0}", ObjectID.y);
+        animation = $"Pool{ObjectID.y}";
         var pool_info = Info[ObjectID.y];
         if (pool_info.halo != null)
         {

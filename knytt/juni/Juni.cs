@@ -22,6 +22,16 @@ public class Juni : KinematicBody2D
     public int dir = 0;
     public float max_speed;
 
+    //const float BaseHeightCorrection = 3.4f;
+    public Godot.Vector2 BaseCorrection 
+    {
+        get 
+        {
+            var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
+            return new Godot.Vector2(0f, 12f - rect.Extents.y);
+        }
+    }
+
     PackedScene double_jump_scene;
 
     public GDKnyttGame Game { get; private set; }
@@ -102,6 +112,7 @@ public class Juni : KinematicBody2D
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
         get { return !Sprite.FlipH; }
     }
+    //public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
     public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
@@ -341,6 +352,11 @@ public class Juni : KinematicBody2D
         Game.respawnJuni();
     }
 
+    public void moveToPosition(GDKnyttArea area, KnyttPoint position)
+    {
+        GlobalPosition = (area.getTileLocation(position) + BaseCorrection);
+    }
+
     public void win(string ending)
     {
         GetNode<JuniAudio>("Audio").stopAll();
@@ -359,6 +375,11 @@ public class Juni : KinematicBody2D
 
         GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
         this.just_reset = 2;
+
+        dir = 0;
+        jumps = 0;
+        JustClimbed = false;
+        CanFreeJump = false;
 
         Umbrella.reset();
         stopHologram(cleanup:true);
@@ -408,9 +429,9 @@ public class Juni : KinematicBody2D
         if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
     }
 
-    public void executeJump(bool air_jump = false, bool sound = true)
+    public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false)
     {
-        executeJump(this.jump_speed, air_jump, sound);
+        executeJump(this.jump_speed, air_jump, sound, reset_jumps);
     }
 
     public void continueFall()

@@ -1,13 +1,13 @@
 Bank 0 (System):
 [x] -  1 Save Point
 [x] -  2 Win
-[x] -  3  Run
-[x] -  4  Climb
-[x] -  5  Double Jump
-[x] -  6  High Jump
-[x] -  7  Eye
-[x] -  8  Enemy Detector
-[x] -  9  Umbrella
+[x] -  3 Run
+[x] -  4 Climb
+[x] -  5 Double Jump
+[x] -  6 High Jump
+[x] -  7 Eye
+[x] -  8 Enemy Detector
+[x] -  9 Umbrella
 [x] - 10 Hologram
 [x] - 11 No Climb
 [ ] - 12 Music
@@ -32,15 +32,15 @@ Bank 0 (System):
 [ ] - 31 Sign Area C
 
 Bank 1 (Liquids):
-[x] -  1  Liquid Pool
-[x] -  2  Liquid Pool
-[x] -  3  Waterfall
-[x] -  4  Waterfall
-[x] -  5  Liquid Pool
-[x] -  6  Liquid Pool
-[x] -  7  Water Block
-[x] -  8  Water Block
-[x] -  9  Water Block
+[x] -  1 Liquid Pool
+[x] -  2 Liquid Pool
+[x] -  3 Waterfall
+[x] -  4 Waterfall
+[x] -  5 Liquid Pool
+[x] -  6 Liquid Pool
+[x] -  7 Water Block
+[x] -  8 Water Block
+[x] -  9 Water Block
 [x] - 10 Liquid Pool
 [x] - 11 Water Block
 [x] - 12 Liquid Pool
@@ -75,8 +75,8 @@ Bank 2 (Flyers):
 [x] - 15 Buzz Flyer
 [x] - 16 Buzz Flyer
 [x] - 17 Buzz Flyer
-[ ] - 18
-[ ] - 19
+[x] - 18 Yellow Elemental
+[x] - 19 Red Elemental
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
 [ ] - 22
@@ -87,7 +87,7 @@ Bank 2 (Flyers):
 [ ] - 27
 [ ] - 28
 [ ] - 29
-[ ] - 30
+[x] - 30 Circle Bird
 [ ] - 31
 [ ] - 32
 
@@ -186,11 +186,11 @@ Bank 7 (Nature FX):
 [ ] -  2
 [ ] -  3
 [ ] -  4
-[ ] -  5
+[x] -  5 Sun Ray
 [ ] -  6
 [ ] -  7
-[x] -  8  Rain
-[x] -  9  Raindrop
+[x] -  8 Rain
+[x] -  9 Raindrop
 [ ] - 10
 [ ] - 11
 [ ] - 12
@@ -209,7 +209,7 @@ Bank 8 (Decoration):
 [x] -  7 Candle Fire
 [ ] -  8
 [x] -  9 Light
-[ ] - 10
+[x] - 10 Star
 [ ] - 11
 [x] - 12 Fire Star
 [ ] - 13

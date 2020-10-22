@@ -14,7 +14,7 @@ public class PowerItem : GDKnyttBaseObject
         // Check if Juni has the powerup, hide if it is so.
         //GD.Print(Layer.ObjectLayers.GDArea.GDWorld.Game.Juni);
         if (Juni.Powers.getPower(power)) { this.Visible = false; }
-        GetNode<AnimatedSprite>("AnimatedSprite").Animation = string.Format("Power{0}", power);
+        GetNode<AnimatedSprite>("AnimatedSprite").Animation = $"Power{power}";
     }
 
     public void _on_Area2D_body_entered(Node body)

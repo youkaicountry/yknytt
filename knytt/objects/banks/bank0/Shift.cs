@@ -47,17 +47,27 @@ public class Shift : GDKnyttBaseObject
     private void executeShift(Juni juni)
     {
         var relative_area = shift.RelativeArea;
-        GDArea.GDWorld.Game.changeAreaDelta(relative_area, true);
+        var game = GDArea.GDWorld.Game;
+        game.changeAreaDelta(relative_area, true);
         var jgp = Juni.GlobalPosition;
 
         // Move Juni to the same spot in the new area
         jgp.x += relative_area.x * GDKnyttArea.Width;
         jgp.y += relative_area.y * GDKnyttArea.Height;
 
+
         // Move Juni to the correct location in the area
-        var relative_pos = shift.RelativePosition;
-        jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
-        jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
-        Juni.GlobalPosition = jgp;
+        if (shift.Quantize)
+        {
+            Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+        }
+        else
+        {
+            var relative_pos = shift.RelativePosition;
+            GD.Print(relative_pos);
+            jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
+            jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
+            Juni.GlobalPosition = jgp;
+        }
     }
 }

@@ -8,7 +8,7 @@ public class ItemInfo : Control
     public override void _Ready()
     {
         var anim = GetNode<AnimatedSprite>("ItemInfo");
-        anim.Animation = string.Format("Power{0}", ItemID);
+        anim.Animation = $"Power{ItemID}";
         anim.Play();
     }
 
