@@ -64,8 +64,15 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(2, 21)] = "FlySpike";
         ObjectLookup[new KnyttPoint(2, 30)] = "CircleBird";
         ObjectLookup[new KnyttPoint(3, 5)] = "FollowPeaceful";
-        ObjectLookup[new KnyttPoint(3, 42)] = "Cat";
-        ObjectLookup[new KnyttPoint(3, 43)] = "Cat";
+        ObjectLookup[new KnyttPoint(3, 12)] = "Eskimo1";
+        ObjectLookup[new KnyttPoint(3, 13)] = "Eskimo2";
+        ObjectLookup[new KnyttPoint(3, 21)] = "BeardGuy";
+        ObjectLookup[new KnyttPoint(3, 27)] = "ForestDude";
+        ObjectLookup[new KnyttPoint(3, 29)] = "SkyGirl";
+        ObjectLookup[new KnyttPoint(3, 32)] = "FlyGirl";
+        ObjectLookup[new KnyttPoint(3, 39)] = "CaveDude";
+        ObjectLookup[new KnyttPoint(3, 42)] = "BigCat";
+        ObjectLookup[new KnyttPoint(3, 43)] = "SmallCat";
         ObjectLookup[new KnyttPoint(4, 1)] = "FollowMonster";
         ObjectLookup[new KnyttPoint(4, 18)] = "ToastMonster";
         ObjectLookup[new KnyttPoint(6, 1)] = "TrapCeiling";
@@ -77,6 +84,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(8, 9)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(10, 5)] =  "BouncerEnemy";
+        ObjectLookup[new KnyttPoint(10, 11)] =  "OldFluff";
+        ObjectLookup[new KnyttPoint(10, 12)] =  "RegularFluff";
+        ObjectLookup[new KnyttPoint(10, 13)] =  "TeenageFluff";
         ObjectLookup[new KnyttPoint(12, 5)] =  "GhostBlock";
         ObjectLookup[new KnyttPoint(12, 11)] =  "Ghost";
         ObjectLookup[new KnyttPoint(12, 17)] =  "NoWall";
@@ -89,6 +99,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(14, 6)] =  "PassiveWalker";
         ObjectLookup[new KnyttPoint(14, 7)] =  "PassiveWalker";
         ObjectLookup[new KnyttPoint(14, 8)] =  "PassiveWalker";
+        ObjectLookup[new KnyttPoint(14, 10)] =  "StationaryRock";
         ObjectLookup[new KnyttPoint(15, 5)] =  "Updraft";
         ObjectLookup[new KnyttPoint(15, 6)] =  "ProximityBlock";
         ObjectLookup[new KnyttPoint(15, 7)] =  "ProximityBlock";

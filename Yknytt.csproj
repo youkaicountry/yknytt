@@ -43,15 +43,14 @@
     <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
     <Compile Include="knytt\objects\banks\bank16\Spring.cs" />
     <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
-    <Compile Include="knytt\objects\banks\bank2\CircleBird.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
     <Compile Include="knytt\objects\banks\bank2\Elemental.cs" />
-    <Compile Include="knytt\objects\banks\bank3\Cat.cs" />
     <Compile Include="knytt\objects\banks\bank6\TrapCeiling.cs" />
     <Compile Include="knytt\objects\banks\bank8\SimpleDecoration.cs" />
     <Compile Include="knytt\objects\banks\common\FollowerCreature.cs" />
     <Compile Include="knytt\objects\banks\bank7\Cloud.cs" />
     <Compile Include="knytt\objects\CosineMod.cs" />
+    <Compile Include="knytt\objects\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />
     <Compile Include="knytt\ui\info_panel\InfoPanel.cs" />
     <Compile Include="knytt\ui\info_panel\ItemInfo.cs" />
