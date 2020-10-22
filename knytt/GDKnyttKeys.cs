@@ -76,7 +76,7 @@ public class GDKnyttKeys : Node
         switch(groups["type"].Value)
         {
             case "Key": return groups["value"].Value;
-            case "Joy": return string.Format("Joy {0}", groups["value"]);
+            case "Joy": return $"Joy {groups["value"]}";
         }
 
         return "";
@@ -88,11 +88,11 @@ public class GDKnyttKeys : Node
         {
             case InputEventKey key:
                 var keyname = OS.GetScancodeString(key.Scancode);
-                ini["Input"][ini_name] = string.Format("Key({0})", keyname);
+                ini["Input"][ini_name] = $"Key({keyname})";
                 break;
             
             case InputEventJoypadButton jb: 
-                ini["Input"][ini_name] = string.Format("Joy({0})", jb.ButtonIndex);
+                ini["Input"][ini_name] = $"Joy({jb.ButtonIndex})";
                 break;
 
             default: return false;

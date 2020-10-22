@@ -58,25 +58,25 @@ public class GDKnyttAssetManager
 
     private TileSet buildTileSet(int num)
     {
-        var texture = GDWorld.KWorld.getWorldTexture(string.Format("Tilesets/Tileset{0}.png", num));
+        var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         return makeTileset((Texture)texture, true);
     }
 
     private Texture buildGradient(int num)
     {
-        return (Texture)GDWorld.KWorld.getWorldTexture(string.Format("Gradients/Gradient{0}.png", num));
+        return (Texture)GDWorld.KWorld.getWorldTexture($"Gradients/Gradient{num}.png");
     }
 
     public AudioStream buildSong(int num)
     {
         if (num == 0) { return null; }
-        return (AudioStream)GDWorld.KWorld.getWorldSound(string.Format("Music/Song{0}.ogg", num));
+        return (AudioStream)GDWorld.KWorld.getWorldSound($"Music/Song{num}.ogg");
     }
 
     public AudioStream buildAmbiance(int num)
     {
         if (num == 0) { return null; }
-        return (AudioStream)GDWorld.KWorld.getWorldSound(string.Format("Ambiance/Ambi{0}.ogg", num));
+        return (AudioStream)GDWorld.KWorld.getWorldSound($"Ambiance/Ambi{num}.ogg");
     }
 
     public static Texture loadExternalTexture(string path)

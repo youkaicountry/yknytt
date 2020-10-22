@@ -46,7 +46,9 @@
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
     <Compile Include="knytt\objects\banks\bank2\Elemental.cs" />
     <Compile Include="knytt\objects\banks\bank6\TrapCeiling.cs" />
+    <Compile Include="knytt\objects\banks\bank7\SunRay.cs" />
     <Compile Include="knytt\objects\banks\bank8\SimpleDecoration.cs" />
+    <Compile Include="knytt\objects\banks\bank8\Star.cs" />
     <Compile Include="knytt\objects\banks\common\FollowerCreature.cs" />
     <Compile Include="knytt\objects\banks\bank7\Cloud.cs" />
     <Compile Include="knytt\objects\CosineMod.cs" />

@@ -76,12 +76,14 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 1)] = "FollowMonster";
         ObjectLookup[new KnyttPoint(4, 18)] = "ToastMonster";
         ObjectLookup[new KnyttPoint(6, 1)] = "TrapCeiling";
+        ObjectLookup[new KnyttPoint(7, 5)] =  "SunRay";
         ObjectLookup[new KnyttPoint(7, 8)] =  "Rain";
         ObjectLookup[new KnyttPoint(7, 9)] =  "RaindropObject";
         ObjectLookup[new KnyttPoint(7, 16)] =  "Cloud";
         ObjectLookup[new KnyttPoint(8, 6)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 7)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 9)] =  "SimpleDecoration";
+        ObjectLookup[new KnyttPoint(8, 10)] =  "Star";
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(10, 5)] =  "BouncerEnemy";
         ObjectLookup[new KnyttPoint(10, 11)] =  "OldFluff";
@@ -116,11 +118,11 @@ public static class GDKnyttObjectFactory
     {
         if (!ObjectLookup.ContainsKey(object_id))
         {
-            GD.Print(string.Format("Object {0}:{1} unimplemented.", object_id.x, object_id.y));
+            GD.Print($"Object {object_id.x}:{object_id.y} unimplemented.");
             return null;
         }
         
-        string fname = string.Format("res://knytt/objects/banks/bank{0}/{1}.tscn", object_id.x, ObjectLookup[object_id]);
+        string fname = $"res://knytt/objects/banks/bank{object_id.x}/{ObjectLookup[object_id]}.tscn";
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }
