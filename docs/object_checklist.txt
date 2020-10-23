@@ -103,8 +103,8 @@ Bank 3 (Knytt & Fluff):
 [ ] -  9
 [ ] - 10
 [ ] - 11
-[ ] - 12
-[ ] - 13
+[x] - 12 Eskimo 1
+[x] - 13 Eskimo 2
 [ ] - 14
 [ ] - 15
 [ ] - 16
@@ -112,29 +112,29 @@ Bank 3 (Knytt & Fluff):
 [ ] - 18
 [ ] - 19
 [ ] - 20
-[ ] - 21
+[x] - 21 Beard Guy
 [ ] - 22
 [ ] - 23
 [ ] - 24
 [ ] - 25
 [ ] - 26
-[ ] - 27
+[x] - 27 Forest Dude
 [ ] - 28
-[ ] - 29
+[x] - 29 Sky Girl
 [ ] - 30
 [ ] - 31
-[ ] - 32
+[x] - 32 Fly Girl
 [ ] - 33
 [ ] - 34
 [ ] - 35
 [ ] - 36
 [ ] - 37
 [ ] - 38
-[ ] - 39
+[x] - 39 Cave Dude
 [ ] - 40
 [ ] - 41
-[x] - 42 Cat
-[x] - 43 Cat
+[x] - 42 Big Cat
+[x] - 43 Small Cat
 [ ] - 44
 
 Bank 4 (Meanies):
@@ -236,9 +236,9 @@ Bank 10 (Bouncers):
 [ ] -  8
 [ ] -  9
 [ ] - 10
-[ ] - 11
-[ ] - 12
-[ ] - 10
+[x] - 11 Old Fluff
+[x] - 12 Regular Fluff
+[x] - 10 Teenage Fluff
 [ ] - 11
 [ ] - 12
 [ ] - 13
@@ -305,7 +305,7 @@ Bank 14 (Earth Beings):
 [x] -  7 Walker
 [x] -  8 Walker
 [ ] -  9
-[ ] - 10
+[x] - 10 Stationary Rock
 [ ] - 11
 [ ] - 12
 [ ] - 13

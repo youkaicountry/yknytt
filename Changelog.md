@@ -5,6 +5,9 @@ All notable changes to YKnytt will be documented here.
 ## Added
 - Shift quantization
 - Sun ray
+- Stationary Knytts [Contribution by: up-left]
+- Fluff [Contribution by: up-left]
+- Rock [Contribution by: up-left]
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
@@ -14,6 +17,7 @@ All notable changes to YKnytt will be documented here.
 
 ## Changed
 - X Button on window and back button on mobile now close the main menu
+- Stationary animated objects now dervice from a base class [Contribution by: up-left]
 
 ## [0.2.0] - 2020-10-20
 
