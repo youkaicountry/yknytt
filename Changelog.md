@@ -8,6 +8,7 @@ All notable changes to YKnytt will be documented here.
 - Stationary Knytts [Contribution by: up-left]
 - Fluff [Contribution by: up-left]
 - Rock [Contribution by: up-left]
+- Bubbles
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
