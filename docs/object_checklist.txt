@@ -49,7 +49,7 @@ Bank 1 (Liquids):
 [x] - 15 Waterfall
 [x] - 16 Liquid Pool
 [x] - 17 Water Block
-[ ] - 18 Bubbles
+[x] - 18 Bubbles
 [x] - 19 Liquid Pool
 [x] - 20 Waterfall
 [x] - 21 Water Block

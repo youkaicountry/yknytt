@@ -42,6 +42,7 @@
     <Compile Include="knytt\objects\banks\bank15\Updraft.cs" />
     <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
     <Compile Include="knytt\objects\banks\bank16\Spring.cs" />
+    <Compile Include="knytt\objects\banks\bank1\Bubble.cs" />
     <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\CircleBird.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
