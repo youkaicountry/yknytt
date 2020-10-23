@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex"
+path="res://.import/beard_guy.png-3dc5a4e4a12780b1d22fb0ca09ef43db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/lightning_walking.png"
-dest_files=[ "res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex" ]
+source_file="res://knytt/objects/banks/bank3/beard_guy.png"
+dest_files=[ "res://.import/beard_guy.png-3dc5a4e4a12780b1d22fb0ca09ef43db.stex" ]
 
 [params]
 
