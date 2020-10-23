@@ -49,6 +49,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(1, 15)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 16)] = "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 17)] = "WaterBlock";
+        ObjectLookup[new KnyttPoint(1, 18)] = "Bubble";
         ObjectLookup[new KnyttPoint(1, 19)] = "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 20)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 21)] = "WaterBlock";
