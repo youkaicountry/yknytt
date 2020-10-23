@@ -28,5 +28,4 @@ To properly export, "*.raw, knytt/worlds/*" must be included in the export filte
 
 There must be a worlds directory in the project root (or next to the binary if you have exported).
 
-Place unpacked worlds in that directory.
-
+Place packed (.knytt.bin) or unpacked worlds in that directory.
