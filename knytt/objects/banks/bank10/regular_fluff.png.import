@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex"
+path="res://.import/regular_fluff.png-d2843ba81c5cfd99e568431b34ffd0bb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/lightning_walking.png"
-dest_files=[ "res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex" ]
+source_file="res://knytt/objects/banks/bank10/regular_fluff.png"
+dest_files=[ "res://.import/regular_fluff.png-d2843ba81c5cfd99e568431b34ffd0bb.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex"
+path="res://.import/sky_girl.png-5f8f3c4fa3938ad48d9b72e3759a364b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/lightning_walking.png"
-dest_files=[ "res://.import/lightning_walking.png-40643bd8b7031987305005d4576be7c2.stex" ]
+source_file="res://knytt/objects/banks/bank3/sky_girl.png"
+dest_files=[ "res://.import/sky_girl.png-5f8f3c4fa3938ad48d9b72e3759a364b.stex" ]
 
 [params]
 
