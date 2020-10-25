@@ -386,9 +386,9 @@ Bank 17 (Creepy):
 [ ] - 12
 
 Bank 18 (Water Creatures):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
+[x] -  1 Fish
+[x] -  2 Fish
+[x] -  3 Fish
+[x] -  4 Fish
+[x] -  5 Fish
 [ ] -  6

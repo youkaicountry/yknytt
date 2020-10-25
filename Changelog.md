@@ -9,6 +9,7 @@ All notable changes to YKnytt will be documented here.
 - Fluff [Contribution by: up-left]
 - Rock [Contribution by: up-left]
 - Bubbles
+- Fish
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
