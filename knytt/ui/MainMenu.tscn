@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/MainMenu.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/MainMenu.cs" type="Script" id=2]
 [ext_resource path="res://knytt/data/Music/Song20.ogg" type="AudioStream" id=5]
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=11]
 
 [node name="MainMenu" type="Node2D"]
 position = Vector2( 2, 0 )
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 
