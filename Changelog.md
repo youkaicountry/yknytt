@@ -16,6 +16,7 @@ All notable changes to YKnytt will be documented here.
 - Juni now spawns perfectly at ground level
 - Juni's double jump counter was not resetting occasionally
 - C# project and solution names had incorrect case [Contribution by: akien-mga]
+- Fix info panel showing 2 blue keys, and not the purple key
 
 ## Changed
 - X Button on window and back button on mobile now close the main menu

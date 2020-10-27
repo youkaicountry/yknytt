@@ -13,7 +13,6 @@
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 22
 outline_size = 1
@@ -173,7 +172,6 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = -3.61994
 margin_top = -32.2144
 margin_right = 287.0
-
 custom_styles/panel = SubResource( 3 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -257,7 +255,7 @@ ItemID = 10
 margin_left = 264.0
 margin_right = 288.0
 margin_bottom = 24.0
-ItemID = 10
+ItemID = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer"]
 anims/SlideIn = SubResource( 4 )
