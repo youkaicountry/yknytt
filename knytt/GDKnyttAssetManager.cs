@@ -59,6 +59,11 @@ public class GDKnyttAssetManager
     private TileSet buildTileSet(int num)
     {
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
+        // TODO: this breaks some abstractions, needs refactoring
+        if (texture == null)
+        {
+            return ResourceLoader.Load<TileSet>($"res://knytt/data/Tilesets/Compiled/{num}.res");
+        }
         return makeTileset((Texture)texture, true);
     }
 
@@ -205,5 +210,17 @@ public class GDKnyttAssetManager
             }
         }
         return ts;
+    }
+
+    // Create "user://tilesets" directory and call this function at start to compile default tilesets
+    public static void compileTileset()
+    {
+        for (int i = 0; i < 256; i++)
+        {
+            GD.Print($"Compiling tileset #{i}");
+            var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
+            var tileset = makeTileset(texture, true);
+            GD.PrintErr(ResourceSaver.Save($"user://tilesets/{i}.res", tileset, ResourceSaver.SaverFlags.Compress));
+        }
     }
 }
