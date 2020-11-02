@@ -7,16 +7,74 @@
 [node name="Leaf" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="SceneCPUParticles" parent="." instance=ExtResource( 1 )]
+[node name="SceneCPUParticles1" parent="." instance=ExtResource( 1 )]
 position = Vector2( 12, 12 )
 Lifetime = 25.0
 ParticleScene = ExtResource( 3 )
 Direction = 2.94
-DirectionVariation = 0.2
+DirectionVariation = 0.15
+VelocityVariation = 10.0
+Gravity = 4.5
+GravityVariation = 0.5
+Drag = 0.08
+BrownianMotion = true
+BrownianX = 7.0
+BrownianXSpeed = 800.0
+BrownianY = 6.0
+BrownianYSpeed = 600.0
+BrownianExponent = 2.8
+
+[node name="SceneCPUParticles6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 12, 12 )
+Lifetime = 25.0
+ParticleScene = ExtResource( 3 )
+Direction = 2.94
+DirectionVariation = 0.15
+Velocity = 20.0
+VelocityVariation = 10.0
+Gravity = 2.0
+GravityVariation = 0.5
+BrownianMotion = true
+BrownianX = 6.0
+BrownianXSpeed = 600.0
+BrownianY = 8.0
+BrownianYSpeed = 800.0
+BrownianExponent = 3.0
+
+[node name="SceneCPUParticles10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 12, 12 )
+Lifetime = 25.0
+ParticleScene = ExtResource( 3 )
+Direction = 2.94
+DirectionVariation = 0.15
 Velocity = 30.0
 VelocityVariation = 10.0
-Gravity = 1.5
-GravityVariation = 0.25
+Gravity = 2.0
+GravityVariation = 0.5
+BrownianMotion = true
+BrownianX = 6.0
+BrownianXSpeed = 600.0
+BrownianY = 8.0
+BrownianYSpeed = 800.0
+BrownianExponent = 3.0
+
+[node name="SceneCPUParticles12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 12, 12 )
+Lifetime = 25.0
+ParticleScene = ExtResource( 3 )
+Direction = 2.94
+DirectionVariation = 0.15
+Velocity = 8.0
+VelocityVariation = 2.0
+Gravity = 4.5
+GravityVariation = 0.5
+Drag = 0.08
+BrownianMotion = true
+BrownianX = 7.0
+BrownianXSpeed = 800.0
+BrownianY = 6.0
+BrownianYSpeed = 600.0
+BrownianExponent = 2.8
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true

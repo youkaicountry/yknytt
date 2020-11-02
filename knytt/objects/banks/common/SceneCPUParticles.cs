@@ -25,7 +25,25 @@ public class SceneCPUParticles : Node2D
     [Export]public float Gravity = 1f;
     [Export]public float GravityVariation = 0f;
 
+    [Export]public float Drag = 0f;
+    [Export]public float DragVariation = 0f;
+
     [Export]public string ParticleParams = "";
+
+    // Brownian motion
+    [Export]public bool BrownianMotion = false;
+
+    [Export]public float BrownianX = 0f;
+    [Export]public float BrownianXVariation = 0f;
+    [Export]public float BrownianXSpeed = 1f;
+    [Export]public float BrownianXSpeedVariation = 0f;
+
+    [Export]public float BrownianY = 0f;
+    [Export]public float BrownianYVariation = 0f;
+    [Export]public float BrownianYSpeed = 1f;
+    [Export]public float BrownianYSpeedVariation = 0f;
+
+    [Export]public float BrownianExponent = 1.5f;
     
     PackedScene pinstance_scene;
 
@@ -50,6 +68,12 @@ public class SceneCPUParticles : Node2D
         p.Gravity = MagnitudeVector(GravityDirection, GravityDirectionVariation, Gravity, GravityVariation);
         p.Mass = CalcVariation(Mass, MassVariation);
         p.Params = this.ParticleParams;
+        p.Drag = CalcVariation(Drag, DragVariation);
+
+        p.BrownianMotion = BrownianMotion;
+        p.BrownianForce = new Vector2(CalcVariation(BrownianX, BrownianXVariation), CalcVariation(BrownianY, BrownianYVariation));
+        p.BrownianSpeed = new Vector2(CalcVariation(BrownianXSpeed, BrownianXSpeedVariation), CalcVariation(BrownianYSpeed, BrownianYSpeedVariation));
+        p.BrownianExponent = BrownianExponent;
         
         var ps = ParticleScene.Instance() as Node2D;
         p.AddChild(ps);
