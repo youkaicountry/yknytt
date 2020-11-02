@@ -182,7 +182,7 @@ Bank 6 (Traps):
 [ ] - 13
 
 Bank 7 (Nature FX):
-[ ] -  1
+[x] -  1 Black Leaf
 [ ] -  2
 [ ] -  3
 [ ] -  4
@@ -193,7 +193,7 @@ Bank 7 (Nature FX):
 [x] -  9 Raindrop
 [x] - 10 Green Leaf
 [ ] - 11
-[ ] - 12
+[x] - 12 White Leaf
 [ ] - 13
 [ ] - 14
 [ ] - 15

@@ -16,7 +16,9 @@ public class LeafParticle : Node2D
     
     public override void _Ready()
     {
-        Modulate = colors[GetParent<SceneCPUParticleInstance>().Params];
+        string p = GetParent<SceneCPUParticleInstance>().Params;
+        Modulate = colors[p];
+        GetNode<AnimatedSprite>("AnimatedSprite").Animation = p;
     }
 
     public void _on_Area2D_body_entered(Node body)
