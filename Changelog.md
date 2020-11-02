@@ -10,6 +10,8 @@ All notable changes to YKnytt will be documented here.
 - Rock [Contribution by: up-left]
 - Bubbles
 - Fish
+- Scene particle system
+- Leaves
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
