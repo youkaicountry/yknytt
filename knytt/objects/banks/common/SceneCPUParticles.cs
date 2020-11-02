@@ -4,7 +4,10 @@ using YUtil.Random;
 public class SceneCPUParticles : Node2D
 {
     [Export]public int Particles = 1;
+    
     [Export]public float Lifetime = 1f;
+    [Export]public float LifetimeVariation = 0f;
+
     [Export]PackedScene ParticleScene;
 
     [Export]public float Direction = 0f;
@@ -42,6 +45,7 @@ public class SceneCPUParticles : Node2D
     private void spawnParticle()
     {
         var p = pinstance_scene.Instance() as SceneCPUParticleInstance;
+        p.Lifetime = CalcVariation(Lifetime, LifetimeVariation);
         p.Velocity = MagnitudeVector(Direction, DirectionVariation, Velocity, VelocityVariation);
         p.Gravity = MagnitudeVector(GravityDirection, GravityDirectionVariation, Gravity, GravityVariation);
         p.Mass = CalcVariation(Mass, MassVariation);

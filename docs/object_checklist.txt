@@ -187,11 +187,11 @@ Bank 7 (Nature FX):
 [ ] -  3
 [ ] -  4
 [x] -  5 Sun Ray
-[ ] -  6
+[x] -  6 Purple Leaf
 [ ] -  7
 [x] -  8 Rain
 [x] -  9 Raindrop
-[ ] - 10
+[x] - 10 Green Leaf
 [ ] - 11
 [ ] - 12
 [ ] - 13
