@@ -10,6 +10,8 @@ public class SceneCPUParticleInstance : Node2D
 
     public OpenSimplexNoise _noise;
 
+    bool stopped = false;
+
     bool _brownian;
     public bool BrownianMotion 
     { 
@@ -47,6 +49,8 @@ public class SceneCPUParticleInstance : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
+        if (stopped) { return; }
+
         base._PhysicsProcess(delta);
         _time += delta;
         if (_time >= Lifetime) { QueueFree(); }
@@ -59,7 +63,7 @@ public class SceneCPUParticleInstance : Node2D
         Velocity += (_acceleration - (Drag * Velocity)) * delta;
         Translate(Velocity * delta);
 
-        Force = new Vector2(0, 0);
+        Force = Vector2.Zero;
     }
 
     private void calcBrownianForces(float delta)
@@ -71,6 +75,10 @@ public class SceneCPUParticleInstance : Node2D
         bm.x = Mathf.Pow(Mathf.Abs(bm.x), BrownianExponent) * Mathf.Sign(bm.x);
         bm.y = Mathf.Pow(Mathf.Abs(bm.y), BrownianExponent) * Mathf.Sign(bm.y);
         Force += bm;
+    }
 
+    public void stop()
+    {
+        stopped = true;
     }
 }

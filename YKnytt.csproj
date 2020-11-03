@@ -53,10 +53,12 @@
     <Compile Include="knytt\objects\banks\bank7\SunRay.cs" />
     <Compile Include="knytt\objects\banks\bank8\SimpleDecoration.cs" />
     <Compile Include="knytt\objects\banks\bank8\Star.cs" />
+    <Compile Include="knytt\objects\banks\common\BaseWaterMonster.cs" />
     <Compile Include="knytt\objects\banks\common\FollowerCreature.cs" />
     <Compile Include="knytt\objects\banks\bank7\Cloud.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticleInstance.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticles.cs" />
+    <Compile Include="knytt\objects\banks\common\SparkParticle.cs" />
     <Compile Include="knytt\objects\CosineMod.cs" />
     <Compile Include="knytt\objects\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />

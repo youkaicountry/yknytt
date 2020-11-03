@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/BaseWaterMonster.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank18/water_monster.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/common/SceneCPUParticles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/banks/common/SparkParticle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Shoot"
+length = 3.0
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 1.55 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
+[node name="BaseWaterMonster" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="RawAudioPlayer2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 12.0822, 12.4101 )
+rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
+
+[node name="Attack0" parent="." instance=ExtResource( 3 )]
+position = Vector2( 12.0822, 12.4101 )
+Particles = 8
+Lifetime = 20.0
+ParticleScene = ExtResource( 4 )
+Direction = 4.712
+DirectionVariation = 0.6
+Velocity = 280.0
+VelocityVariation = 20.0
+Gravity = 280.0
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+vframes = 28
+frame = 18
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Shoot = SubResource( 1 )
