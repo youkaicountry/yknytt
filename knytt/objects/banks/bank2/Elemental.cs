@@ -6,6 +6,7 @@ public class Elemental : GDKnyttBaseObject
     
     public override void _Ready()
     {
+        OrganicEnemy = true;
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         sprite.Play($"{ObjectID.y}_stopped");
     }
@@ -15,10 +16,10 @@ public class Elemental : GDKnyttBaseObject
         base._PhysicsProcess(delta);
         // TODO: don't know what "Flag 0" is, ignoring it
         if (!Juni.dead && Juni.manhattanDistance(Center) < 67 && !(
-            Juni.ApparentPosition.x - GDArea.GlobalPosition.x < 18 + 16 ||
-            Juni.ApparentPosition.y - GDArea.GlobalPosition.y < 18 + 16 ||
-            GDArea.GlobalPosition.x + GDKnyttArea.Width - Juni.ApparentPosition.x < 18 + 16 ||
-            GDArea.GlobalPosition.y + GDKnyttArea.Height - Juni.ApparentPosition.y < 18 + 16))
+            Juni.GlobalPosition.x - GDArea.GlobalPosition.x < 18 + 16 ||
+            Juni.GlobalPosition.y - GDArea.GlobalPosition.y < 18 + 16 ||
+            GDArea.GlobalPosition.x + GDKnyttArea.Width - Juni.GlobalPosition.x < 18 + 16 ||
+            GDArea.GlobalPosition.y + GDKnyttArea.Height - Juni.GlobalPosition.y < 18 + 16))
         {
             sprite.Play($"{ObjectID.y}_launching");
             GetNode<AudioStreamPlayer2D>($"{ObjectID.y}_ExplodePlayer").Play();

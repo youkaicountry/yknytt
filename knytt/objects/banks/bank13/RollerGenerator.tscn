@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank13/RollerGenerator.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank13/roller_generator.png" type="Texture" id=2]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 12, 12 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 10 )
+frame = 2
+playing = true
+centered = false
+
+[node name="TotalTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.4
+
+[node name="Sound1Timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.44
+one_shot = true
+
+[node name="Sound2Timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.86
+one_shot = true
+
+[node name="FirstShotTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="FirstDelayTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 12, 12 )
+shape = SubResource( 11 )
+
+[node name="PreparePlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Roller A.raw"
+
+[node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Roller B.raw"
+[connection signal="timeout" from="TotalTimer" to="." method="_on_TotalTimer_timeout"]
+[connection signal="timeout" from="Sound1Timer" to="." method="_on_Sound1Timer_timeout"]
+[connection signal="timeout" from="Sound2Timer" to="." method="_on_Sound2Timer_timeout"]
+[connection signal="timeout" from="FirstShotTimer" to="." method="_on_FirstShotTimer_timeout"]
+[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]

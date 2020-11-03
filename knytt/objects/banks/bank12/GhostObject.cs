@@ -38,6 +38,7 @@ public abstract class GhostObject : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         if (!_seen) { return; }
+        base._PhysicsProcess(delta);
         if (Flickering) { handleFlicker(delta); }
         _InvProcess(delta);
     }
