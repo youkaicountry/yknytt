@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BulletLayer : Node2D
 {
@@ -120,7 +121,8 @@ public class BulletLayer : Node2D
             shots_for_timer[type] = 0;
             counters_for_timer[type] = 0;
         }
-        init_events.Clear();
-        enemies.Clear();
+        // Only GDKnyttBaseObjects resets with an area
+        init_events = init_events.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
+        enemies = enemies.Where(kv => kv.Key.IsSubclassOf(typeof(GDKnyttBaseObject))).ToDictionary(kv => kv.Key, kv => kv.Value);
     }
 }
