@@ -123,6 +123,6 @@ public class BulletLayer : Node2D
         }
         // Only GDKnyttBaseObjects resets with an area
         init_events = init_events.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
-        enemies = enemies.Where(kv => kv.Key.IsSubclassOf(typeof(GDKnyttBaseObject))).ToDictionary(kv => kv.Key, kv => kv.Value);
+        enemies = enemies.Where(kv => !kv.Key.IsSubclassOf(typeof(GDKnyttBaseObject))).ToDictionary(kv => kv.Key, kv => kv.Value);
     }
 }
