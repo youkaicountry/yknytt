@@ -117,11 +117,13 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(16, 1)] =  "Spring";
         ObjectLookup[new KnyttPoint(16, 13)] = "InvisibleBarrier";
         ObjectLookup[new KnyttPoint(16, 14)] = "InvisibleBlock";
+        ObjectLookup[new KnyttPoint(17, 3)] =  "CreepyWaterMonster";
         ObjectLookup[new KnyttPoint(18, 1)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 2)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 3)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 4)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 5)] =  "Fish";
+        ObjectLookup[new KnyttPoint(18, 6)] = "WaterMonster";
     }
 
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)

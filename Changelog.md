@@ -12,6 +12,7 @@ All notable changes to YKnytt will be documented here.
 - Fish
 - Scene particle system
 - Leaves
+- Water Monster
 
 ## Fixed
 - Invisible barrier was not blocking movement properly

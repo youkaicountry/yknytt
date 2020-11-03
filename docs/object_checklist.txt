@@ -374,7 +374,7 @@ Bank 16 (Invisible):
 Bank 17 (Creepy):
 [ ] -  1
 [ ] -  2
-[ ] -  3
+[x] -  3 Creepy Water Monster
 [ ] -  4
 [ ] -  5
 [ ] -  6
@@ -391,4 +391,4 @@ Bank 18 (Water Creatures):
 [x] -  3 Fish
 [x] -  4 Fish
 [x] -  5 Fish
-[ ] -  6
+[x] -  6 Water Monster
