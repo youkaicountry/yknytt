@@ -10,11 +10,11 @@ public class GhostBlock : GhostObject
 
     protected override void _InvDisable()
     {
-        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = true;
+        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true);
     }
 
     protected override void _InvEnable()
     {
-        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = false;
+        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", false);
     }
 }
