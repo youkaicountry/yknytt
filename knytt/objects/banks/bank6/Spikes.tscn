@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank6/Spikes.cs" type="Script" id=1]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="UpPlayer" parent="." instance=ExtResource( 2 )]
+rawPath = "res://knytt/data/Sfx/Spike Up.raw"
+
+[node name="DownPlayer" parent="." instance=ExtResource( 2 )]
+rawPath = "res://knytt/data/Sfx/Spike Down.raw"
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

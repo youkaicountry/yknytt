@@ -35,7 +35,7 @@ public class Door : GDKnyttBaseObject
         open_area = GetNode<Area2D>("OpenArea");
         door_info = id2info[ObjectID.y];
         GetNode<AnimatedSprite>("AnimatedSprite").Animation = door_info.Anim;
-        if (Juni.Powers.getPower(door_info.Power)) { GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = true; }
+        if (Juni.Powers.getPower(door_info.Power)) { GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true); }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -50,7 +50,7 @@ public class Door : GDKnyttBaseObject
     private async void open()
     {
         opening = true;
-        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = true;
+        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true);
         GetNode<AudioStreamPlayer2D>("DoorPlayer2D").Play();
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
         player.Play();

@@ -346,7 +346,7 @@ script = ExtResource( 14 )
 shape = SubResource( 20 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="DeathParticles" type="Node2D" parent="."]

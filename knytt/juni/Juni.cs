@@ -12,6 +12,7 @@ public class Juni : KinematicBody2D
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
+    [Signal] public delegate void HologramChanged(Juni juni, bool deployed);
 
     private const float JUST_CLIMBED_TIME = .085f;
     private const float FREE_JUMP_TIME = .085f;
@@ -202,7 +203,7 @@ public class Juni : KinematicBody2D
         if (just_reset > 0) 
         {
             just_reset--;
-            if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false; }
+            if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", false); }
         }
 
         // Organic Enemy Distance
@@ -293,6 +294,7 @@ public class Juni : KinematicBody2D
         {
             if (Hologram == null) { if (CanDeployHologram) { deployHologram(); } }
             else { stopHologram(); }
+            EmitSignal(nameof(HologramChanged), this, Hologram != null);
         }
     }
 
@@ -373,7 +375,7 @@ public class Juni : KinematicBody2D
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));
 
-        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
         this.just_reset = 2;
 
         dir = 0;
