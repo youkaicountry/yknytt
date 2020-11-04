@@ -77,9 +77,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 1)] =   "FollowMonster";
         ObjectLookup[new KnyttPoint(4, 18)] =  "ToastMonster";
         ObjectLookup[new KnyttPoint(6, 1)] =   "TrapCeiling";
-        //ObjectLookup[new KnyttPoint(6, 2)] = "SimpleLabyrinthSpike";
-        //ObjectLookup[new KnyttPoint(6, 3)] = "RandomLabyrinthSpike";
-        //ObjectLookup[new KnyttPoint(6, 4)] = "FastLabyrinthSpike";
+        ObjectLookup[new KnyttPoint(6, 2)] =   "LabyrinthSpike";
+        ObjectLookup[new KnyttPoint(6, 3)] =   "RandomLabyrinthSpike";
+        ObjectLookup[new KnyttPoint(6, 4)] =   "FastLabyrinthSpike";
         ObjectLookup[new KnyttPoint(6, 5)] =   "Eater";
         ObjectLookup[new KnyttPoint(6, 7)] =   "DownStuffShooter";
         ObjectLookup[new KnyttPoint(6, 8)] =   "SelfDropper";
