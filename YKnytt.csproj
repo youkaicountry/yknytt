@@ -54,9 +54,9 @@
     <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
     <Compile Include="knytt\objects\banks\bank2\Elemental.cs" />
-    <!--Compile Include="knytt\objects\banks\bank6\LabyrinthSpike.cs" />
-    <Compile Include="knytt\objects\banks\bank6\RandomLabyrinthSpike.cs" /-->
+    <Compile Include="knytt\objects\banks\bank6\RandomLabyrinthSpike.cs" />
     <Compile Include="knytt\objects\banks\bank6\SelfDropper.cs" />
+    <Compile Include="knytt\objects\banks\bank6\LabyrinthSpike.cs" />
     <Compile Include="knytt\objects\banks\bank6\Spikes.cs" />
     <Compile Include="knytt\objects\banks\bank6\StuffShooter.cs" />
     <Compile Include="knytt\objects\banks\bank6\TrapCeiling.cs" />
