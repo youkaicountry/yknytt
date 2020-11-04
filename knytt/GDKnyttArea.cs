@@ -5,6 +5,7 @@ public class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
+    public BulletLayer Bullets { get { return GetNode<BulletLayer>("Bullets"); } }
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
@@ -88,6 +89,7 @@ public class GDKnyttArea : Node2D
 
     public void deactivateArea()
     {
+        Bullets.Reset();
         this.removeObjectLayers();
         this.active = false;
         Tiles.deactivate();
@@ -118,10 +120,15 @@ public class GDKnyttArea : Node2D
         timer.Start();
     }
 
-    public void regenerateArea(bool regenerate_same = false)
+    public async void regenerateArea(bool regenerate_same = false)
     {
         if (this.Area.Empty) { return; }
+        Bullets.Reset();
         this.removeObjectLayers();
+        GetNode<ColorRect>("WSODNode/WSODRect").Visible = true;
+        GetNode<Timer>("WSODNode/Timer").Start();
+        await ToSignal(GetNode<Timer>("WSODNode/Timer"), "timeout");
+        GetNode<ColorRect>("WSODNode/WSODRect").Visible = false;
         this.activateArea(regenerate_same: regenerate_same);
     }
 

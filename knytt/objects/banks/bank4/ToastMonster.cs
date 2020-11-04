@@ -62,6 +62,6 @@ public class ToastMonster : GDKnyttBaseObject
     public void _on_AnimationPlayer_animation_finished(string anim)
     {
         if (anim.Equals("Blink")) { return; }
-        GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = !spiked;
+        GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", !spiked);
     }
 }
