@@ -16,6 +16,8 @@ public class StuffShooter : GDKnyttBaseObject
 
     public override void _Ready()
     {
+        OrganicEnemy = true;
+        
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         player = GetNode<AudioStreamPlayer2D>("ShotPlayer");
         shot_delay_timer = GetNode<Timer>("ShotDelayTimer");
