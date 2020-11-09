@@ -31,7 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <!--Compile Include="knytt\AreaTimer.cs" /-->
+    <Compile Include="knytt\objects\ObjectSelector.cs" />
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\CloudParticles.cs" />
     <Compile Include="knytt\juni\JuniMotionParticles.cs" />

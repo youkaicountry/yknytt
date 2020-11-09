@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/objects/BulletLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/ObjectSelector.tscn" type="PackedScene" id=4]
 
 [node name="KnyttArea" type="Node2D"]
 script = ExtResource( 3 )
@@ -32,4 +33,6 @@ margin_bottom = 240.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Selector" parent="." instance=ExtResource( 4 )]
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]
