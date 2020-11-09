@@ -6,6 +6,7 @@ public class GDKnyttArea : Node2D
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
     public BulletLayer Bullets { get { return GetNode<BulletLayer>("Bullets"); } }
+    public ObjectSelector Selector { get { return GetNode<ObjectSelector>("Selector"); } }
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
@@ -90,6 +91,7 @@ public class GDKnyttArea : Node2D
     public void deactivateArea()
     {
         Bullets.Reset();
+        Selector.Reset();
         this.removeObjectLayers();
         this.active = false;
         Tiles.deactivate();
@@ -124,6 +126,7 @@ public class GDKnyttArea : Node2D
     {
         if (this.Area.Empty) { return; }
         Bullets.Reset();
+        Selector.Reset();
         this.removeObjectLayers();
         GetNode<ColorRect>("WSODNode/WSODRect").Visible = true;
         GetNode<Timer>("WSODNode/Timer").Start();
