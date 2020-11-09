@@ -46,10 +46,9 @@ public class Password : GDKnyttBaseObject
         {
             foreach (var node in layer.GetChildren())
             {
-                if (node is GDKnyttBaseObject knytt_object && knytt_object.ObjectID.x == 15 && 
-                    (knytt_object.ObjectID.y == 12 || knytt_object.ObjectID.y == 23 || knytt_object.ObjectID.y == 24))
+                if (node is LockBlock block)
                 {
-                    knytt_object.QueueFree();
+                    block.QueueFree();
                     objects_destroyed = true;
                 }
             }
