@@ -13,6 +13,13 @@ All notable changes to YKnytt will be documented here.
 - Scene particle system
 - Leaves
 - Water Monster
+- Spike Traps [Contribution by: up-left]
+- Drop Traps [Contribution by: up-left]
+- Lasers [Contribution by: up-left]
+- Cannons [Contribution by: up-left]
+- Bullet System [Contribution by: up-left]
+- Password / Locks [Contribution by: up-left]
+- Object Selector [Contribution by: up-left]
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
