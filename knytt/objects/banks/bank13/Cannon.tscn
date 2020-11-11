@@ -16,6 +16,11 @@ one_shot = true
 [node name="TotalTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="BulletTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.02
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 [connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]
 [connection signal="timeout" from="TotalTimer" to="." method="_on_TotalTimer_timeout"]
+[connection signal="timeout" from="BulletTimer" to="." method="_on_BulletTimer_timeout"]

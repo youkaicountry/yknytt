@@ -168,18 +168,18 @@ Bank 5 (Shadow People):
 
 Bank 6 (Traps):
 [x] -  1 Trap Ceiling
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
+[x] -  2 Labyrinth Spike
+[x] -  3 Random Labyrinth Spike
+[x] -  4 Fast Labyrinth Spike
+[x] -  5 Eater
 [ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
-[ ] - 13
+[x] -  7 Stuff Dropper
+[x] -  8 Self Dropper
+[x] -  9 Stuff Shooter
+[x] - 10 Up Spikes
+[x] - 11 Down Spikes
+[x] - 12 Left Spikes
+[x] - 13 Right Spikes
 
 Bank 7 (Nature FX):
 [x] -  1 Black Leaf
@@ -266,7 +266,7 @@ Bank 12 (Ghosts):
 [ ] -  7
 [ ] -  8
 [ ] -  9
-[ ] - 10
+[x] - 10 Ghost Eater
 [x] - 11 Ghost
 [ ] - 12
 [ ] - 13
@@ -280,20 +280,20 @@ Bank 12 (Ghosts):
 [x] - 21 Ghost Marker
 
 Bank 13 (Robots):
-[ ] -  1
-[ ] -  2
+[x] -  1 Robot Cannon
+[x] -  2 Homing Cannon
 [ ] -  3
 [ ] -  4
 [ ] -  5
-[ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
+[x] -  6 Roller Generator
+[x] -  7 Laser
+[x] -  8 Laser
+[x] -  9 Laser
+[x] - 10 Laser
+[x] - 11 Laser
+[x] - 12 Laser
 [x] - 13 Fly Bot
-[ ] - 14
+[x] - 14 Dark Homing Cannon
 
 Bank 14 (Earth Beings):
 [ ] -  1
@@ -333,19 +333,19 @@ Bank 15 (Objects & Areas):
 [ ] -  9
 [ ] - 10
 [ ] - 11
-[ ] - 12
-[ ] - 13
-[ ] - 14
-[ ] - 15
-[ ] - 16
-[ ] - 17
-[ ] - 18
-[ ] - 19
-[ ] - 20
-[ ] - 21
-[ ] - 22
-[ ] - 23
-[ ] - 24
+[x] - 12 Lock Block
+[x] - 13 Password
+[x] - 14 Password
+[x] - 15 Password
+[x] - 16 Password
+[x] - 17 Password
+[x] - 18 Password
+[x] - 19 Password
+[x] - 20 Password
+[x] - 21 Password
+[x] - 22 Clear Block
+[x] - 23 Horizontal Lock Block
+[x] - 24 Vertical Lock Block
 [ ] - 25
 [ ] - 26
 [x] - 27 Red Door

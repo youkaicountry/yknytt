@@ -31,6 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\ObjectSelector.cs" />
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\CloudParticles.cs" />
     <Compile Include="knytt\juni\JuniMotionParticles.cs" />
@@ -45,6 +46,9 @@
     <Compile Include="knytt\objects\banks\bank13\Laser.cs" />
     <Compile Include="knytt\objects\banks\bank13\RobotCannon.cs" />
     <Compile Include="knytt\objects\banks\bank13\RollerGenerator.cs" />
+    <Compile Include="knytt\objects\banks\bank15\ClearBlock.cs" />
+    <Compile Include="knytt\objects\banks\bank15\LockBlock.cs" />
+    <Compile Include="knytt\objects\banks\bank15\Password.cs" />
     <Compile Include="knytt\objects\banks\bank15\ProximityBlock.cs" />
     <Compile Include="knytt\objects\banks\bank15\Updraft.cs" />
     <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
