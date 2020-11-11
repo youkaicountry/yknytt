@@ -3,12 +3,6 @@ using YUtil.Random;
 
 public class DarkHomingCannon : Cannon
 {
-    public override void _Ready()
-    {
-        base._Ready();
-        delayTimer.WaitTime = GDKnyttDataStore.random.NextFloat(0.68f);
-    }
-
     protected override void reinitializeBullet(BaseBullet p, int i)
     {
         p.Translate(new Vector2(8f, 8f));

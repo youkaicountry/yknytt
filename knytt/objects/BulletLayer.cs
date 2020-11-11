@@ -75,7 +75,7 @@ public class BulletLayer : Node2D
             Emit(enemy_object, i);
         }
     }
-
+/*
     public void EmitPickOne(Type enemy_type, int n = 0)
     {
         var object_list = enemies[enemy_type];
@@ -102,7 +102,7 @@ public class BulletLayer : Node2D
             //counters_for_timer[type]++;
         }
     }
-
+*/
     public void Reset()
     {
         foreach (var entry in bullets)

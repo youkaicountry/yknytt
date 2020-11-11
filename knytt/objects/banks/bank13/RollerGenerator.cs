@@ -14,6 +14,7 @@ public class RollerGenerator : GDKnyttBaseObject
             });
         GetNode<Timer>("FirstShotTimer").Start();
         GetNode<Timer>("FirstDelayTimer").Start();
+        GDArea.Selector.Register(this);
     }
 
     private void _on_FirstShotTimer_timeout()
@@ -29,8 +30,11 @@ public class RollerGenerator : GDKnyttBaseObject
 
     private void _on_TotalTimer_timeout()
     {
-        GDArea.Bullets.EmitPickOne(GetType());
-        GetNode<Timer>("Sound1Timer").Start();
+        if (GDArea.Selector.IsObjectSelected(this))
+        {
+            GDArea.Bullets.Emit(this);
+            GetNode<Timer>("Sound1Timer").Start();
+        }
     }
 
     private void _on_Sound1Timer_timeout()

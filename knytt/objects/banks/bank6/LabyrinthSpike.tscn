@@ -4,26 +4,17 @@
 [ext_resource path="res://knytt/objects/banks/bank6/labyrinth_spike.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank6/LabyrinthSpike.cs" type="Script" id=3]
 
-[node name="Spike" type="Node2D"]
+[node name="Spike" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2049
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2049
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 8, 0.1, 0.1, 8, 0.1, 16, 8, 23.9, 16, 23.9, 23.9, 16, 23.9, 8, 16, 0.1 )
 
 [node name="HitSound2D" parent="." instance=ExtResource( 1 )]
 rawPath = "res://knytt/data/Sfx/Machine Turn A.raw"
-
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.04
-one_shot = true
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
