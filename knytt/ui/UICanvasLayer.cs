@@ -7,9 +7,16 @@ public class UICanvasLayer : CanvasLayer
     bool showing = false;
     bool sliding_out = false;
 
+    public WSOD WSOD { get; private set; }
+
     public void initialize(GDKnyttGame game)
     {
         Game = game;
+    }
+
+    public override void _Ready()
+    {
+        WSOD = GetNode<WSOD>("WSOD");
     }
 
     public override void _PhysicsProcess(float delta)

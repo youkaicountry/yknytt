@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -12,44 +12,9 @@
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=10]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
+[ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
 
-[sub_resource type="DynamicFont" id=1]
-size = 22
-outline_size = 1
-outline_color = Color( 0.121569, 0.121569, 0.121569, 1 )
-font_data = ExtResource( 1 )
-
-[sub_resource type="Animation" id=2]
-resource_name = "FadeOut"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "startFadeOut"
-} ]
-}
-
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 12, 12 )
 margin_left = 3.34132
@@ -57,7 +22,7 @@ margin_right = 3.2128
 margin_top = 3.34132
 margin_bottom = 3.46983
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "SlideIn"
 step = 0.05
 tracks/0/type = "value"
@@ -97,7 +62,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("InfoPanel:margin_top")
@@ -136,6 +101,41 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="DynamicFont" id=4]
+size = 22
+outline_size = 1
+outline_color = Color( 0.121569, 0.121569, 0.121569, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=5]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "startFadeOut"
+} ]
+}
+
 [node name="GKnyttGame" type="Node2D"]
 script = ExtResource( 4 )
 edgeScrollSpeed = 1400.0
@@ -151,28 +151,12 @@ script = ExtResource( 5 )
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 11 )
 
-[node name="LocationLabel" type="Label" parent="UICanvasLayer"]
-margin_left = 4.69768
-margin_top = 213.347
-margin_right = 115.698
-margin_bottom = 237.347
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
-text = "(1234, 5678)"
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer/LocationLabel"]
-anims/FadeOut = SubResource( 2 )
-
 [node name="InfoPanel" type="Panel" parent="UICanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = -3.61994
 margin_top = -32.2144
 margin_right = 287.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -258,12 +242,41 @@ margin_bottom = 24.0
 ItemID = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer"]
-anims/SlideIn = SubResource( 4 )
-anims/SlideOut = SubResource( 5 )
+anims/SlideIn = SubResource( 2 )
+anims/SlideOut = SubResource( 3 )
 
 [node name="StayTimer" type="Timer" parent="UICanvasLayer"]
 wait_time = 0.25
 one_shot = true
+
+[node name="WSOD" type="ColorRect" parent="UICanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="UICanvasLayer/WSOD"]
+wait_time = 0.5
+one_shot = true
+
+[node name="LocationLabel" type="Label" parent="UICanvasLayer"]
+margin_left = 4.69768
+margin_top = 213.347
+margin_right = 115.698
+margin_bottom = 237.347
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
+text = "(1234, 5678)"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer/LocationLabel"]
+anims/FadeOut = SubResource( 5 )
 
 [node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource( 12 )]
 visible = false
@@ -292,3 +305,4 @@ bus = "Ambiance2"
 fadeInTime = 0.8
 fadeOutTime = 1.5
 [connection signal="animation_finished" from="UICanvasLayer/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
