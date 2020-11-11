@@ -64,7 +64,6 @@ public class Shift : GDKnyttBaseObject
         else
         {
             var relative_pos = shift.RelativePosition;
-            GD.Print(relative_pos);
             jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
             jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
             Juni.GlobalPosition = jgp;
