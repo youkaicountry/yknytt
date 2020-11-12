@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank10/Bouncer.cs" type="Script" id=2]
+
+[node name="Bouncer" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="BouncePlayer" parent="." instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Bounce.raw"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2049
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
