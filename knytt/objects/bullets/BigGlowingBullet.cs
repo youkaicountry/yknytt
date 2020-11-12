@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class BigGlowingBullet : BaseBullet
 {
@@ -13,8 +12,8 @@ public class BigGlowingBullet : BaseBullet
             {
                 var sign = Direction < Mathf.Pi ? -1 : 1;
                 p.Translate(new Vector2(0, -sign * 2));
-                p.Direction = sign * Mathf.Pi * i / 16;
-                p.VelocityMMF2 = 10;
+                p.DirectionMMF2 = sign * i;
+                p.VelocityMMF2 = 5;
             });
     }
 

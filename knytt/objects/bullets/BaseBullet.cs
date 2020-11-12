@@ -13,9 +13,8 @@ public class BaseBullet : KinematicBody2D
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     
-    // TODO: more accurate values to make the same behavior as in the orginal game
-    private const float VELOCITY_SCALE = 70f / 11; // 4.5f;
-    private const float GRAVITY_SCALE = 40f; //20f;
+    private const float VELOCITY_SCALE = 50f / 8;
+    private const float GRAVITY_SCALE = VELOCITY_SCALE * VELOCITY_SCALE;
     private const float DIRECTION_SCALE = Mathf.Pi / 16f;
 
     public float VelocityMMF2 { get { return Velocity / VELOCITY_SCALE; } set { Velocity = value * VELOCITY_SCALE; } }
@@ -33,13 +32,13 @@ public class BaseBullet : KinematicBody2D
     
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
-    protected bool has_disappear;
+    protected bool hasDisappear;
 
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
-        has_disappear = sprite.Frames.HasAnimation("disappear");
+        hasDisappear = sprite.Frames.HasAnimation("disappear");
     }
     
     public override void _PhysicsProcess(float delta)
@@ -61,7 +60,7 @@ public class BaseBullet : KinematicBody2D
     protected virtual async void disappear(bool collide)
     {
         _velocity_x = _velocity_y = _gravity = 0;
-        if (collide && has_disappear)
+        if (collide && hasDisappear)
         {
             sprite.Play("disappear");
             await ToSignal(sprite, "animation_finished");
@@ -74,10 +73,9 @@ public class BaseBullet : KinematicBody2D
         get { return Visible; }
         set
         {
-            if (value && has_disappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
+            if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
             collisionShape.SetDeferred("disabled", !value);
             SetDeferred("visible", value);
         }
     }
 }
-
