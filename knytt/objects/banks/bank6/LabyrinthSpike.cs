@@ -16,6 +16,7 @@ public class LabyrinthSpike : GDKnyttBaseObject
         {
             if (collision.Collider is Juni juni)
             {
+                // TODO: Could get stuck in textures if collides both Juni and a wall
                 juni.die();
             }
             else
