@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -15,9 +15,6 @@
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
 [ext_resource path="res://knytt/juni/GroundChecker.cs" type="Script" id=14]
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.58, 8.6 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 10 )
@@ -224,8 +221,8 @@ collision_mask = 2147483654
 collision/safe_margin = 0.2
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 6.75, 3.75, 8.6, -3.75, 8.6, -5.58, 6.75 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
@@ -243,7 +240,7 @@ position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 22
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Climbing = SubResource( 11 )

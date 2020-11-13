@@ -34,6 +34,7 @@ All notable changes to YKnytt will be documented here.
 - Stationary animated objects now dervice from a base class [Contribution by: up-left]
 - Optimized initial tileset loading [Contribution by: up-left]
 - World selection screen layout
+- Better slope traversal
 
 ## [0.2.0] - 2020-10-20
 
