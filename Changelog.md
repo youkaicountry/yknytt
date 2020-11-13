@@ -21,6 +21,7 @@ All notable changes to YKnytt will be documented here.
 - Password / Locks [Contribution by: up-left]
 - Object Selector [Contribution by: up-left]
 - Invisible Death Zones
+- Invisible Slopes
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
