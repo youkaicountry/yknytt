@@ -355,17 +355,17 @@ Bank 15 (Objects & Areas):
 
 Bank 16 (Invisible):
 [x] -  1 Spring
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
-[ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
+[x] -  2 Death Zone
+[x] -  3 Death Zone
+[x] -  4 Death Zone
+[x] -  5 Death Zone
+[x] -  6 Death Zone
+[x] -  7 Death Zone
+[x] -  8 Death Zone
+[x] -  9 Death Zone
+[x] - 10 Death Zone
+[x] - 11 Death Zone
+[x] - 12 Death Zone
 [x] - 13 Invisible Barrier
 [x] - 14 Invisible Block
 [ ] - 15

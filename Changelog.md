@@ -20,6 +20,7 @@ All notable changes to YKnytt will be documented here.
 - Bullet System [Contribution by: up-left]
 - Password / Locks [Contribution by: up-left]
 - Object Selector [Contribution by: up-left]
+- Invisible Death Zones
 
 ## Fixed
 - Invisible barrier was not blocking movement properly

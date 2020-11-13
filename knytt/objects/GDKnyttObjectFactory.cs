@@ -150,6 +150,17 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 29)] = "Door";
         ObjectLookup[new KnyttPoint(15, 30)] = "Door";
         ObjectLookup[new KnyttPoint(16, 1)] =  "Spring";
+        ObjectLookup[new KnyttPoint(16, 2)] =  "DeathZoneTop";
+        ObjectLookup[new KnyttPoint(16, 3)] =  "DeathZoneBottom";
+        ObjectLookup[new KnyttPoint(16, 4)] =  "DeathZoneRight";
+        ObjectLookup[new KnyttPoint(16, 5)] =  "DeathZoneLeft";
+        ObjectLookup[new KnyttPoint(16, 6)] =  "DeathZone";
+        ObjectLookup[new KnyttPoint(16, 7)] =  "DeathZoneMiddleH";
+        ObjectLookup[new KnyttPoint(16, 8)] =  "DeathZoneMiddleV";
+        ObjectLookup[new KnyttPoint(16, 9)] =  "DeathZoneHalfRight";
+        ObjectLookup[new KnyttPoint(16, 10)] =  "DeathZoneHalfUp";
+        ObjectLookup[new KnyttPoint(16, 11)] =  "DeathZoneHalfLeft";
+        ObjectLookup[new KnyttPoint(16, 12)] =  "DeathZoneHalfDown";
         ObjectLookup[new KnyttPoint(16, 13)] = "InvisibleBarrier";
         ObjectLookup[new KnyttPoint(16, 14)] = "InvisibleBlock";
         ObjectLookup[new KnyttPoint(17, 3)] =  "CreepyWaterMonster";

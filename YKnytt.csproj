@@ -31,6 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank16\DeathZone.cs" />
     <Compile Include="knytt\objects\ObjectSelector.cs" />
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\CloudParticles.cs" />
