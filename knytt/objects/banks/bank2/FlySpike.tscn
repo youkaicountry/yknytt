@@ -6,69 +6,69 @@
 [ext_resource path="res://knytt/objects/CosineMod.cs" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 120, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 120, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
-"name": "0",
+"name": "1",
 "speed": 15.0
 }, {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "1",
+"name": "0",
 "speed": 15.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=14]
 radius = 6.0
-height = 12.0
+height = 4.0
 
 [node name="FlySpike" type="Node2D"]
 script = ExtResource( 3 )
@@ -92,6 +92,5 @@ one_shot = true
 
 [node name="CosineMod" type="Node2D" parent="."]
 script = ExtResource( 4 )
-magnitude = 1.0
 frequency = 2500.0
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

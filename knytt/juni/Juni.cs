@@ -28,8 +28,9 @@ public class Juni : KinematicBody2D
     {
         get 
         {
-            var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
-            return new Godot.Vector2(0f, 12f - rect.Extents.y);
+            //var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
+            //return new Godot.Vector2(0f, 12f - rect.Extents.y);
+            return new Godot.Vector2(0f, 3.4f);
         }
     }
 
@@ -203,7 +204,7 @@ public class Juni : KinematicBody2D
         if (just_reset > 0) 
         {
             just_reset--;
-            if (just_reset == 0) { GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", false); }
+            if (just_reset == 0) { GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", false); }
         }
 
         // Organic Enemy Distance
@@ -375,7 +376,7 @@ public class Juni : KinematicBody2D
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));
 
-        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
+        GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", true);
         this.just_reset = 2;
 
         dir = 0;

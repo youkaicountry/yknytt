@@ -19,20 +19,5 @@ one_shot = true
 
 [node name="Bullets" parent="." instance=ExtResource( 1 )]
 
-[node name="WSODNode" type="Node2D" parent="."]
-z_index = 10
-
-[node name="Timer" type="Timer" parent="WSODNode"]
-wait_time = 0.5
-one_shot = true
-
-[node name="WSODRect" type="ColorRect" parent="WSODNode"]
-visible = false
-margin_right = 600.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Selector" parent="." instance=ExtResource( 4 )]
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]
