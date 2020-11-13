@@ -52,7 +52,6 @@ public class GDKnyttGame : Node2D
 		this.Camera.initialize(this);
 
 		UI = GetNode<UICanvasLayer>("UICanvasLayer");
-
 		this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
 		if (!this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").Visible = false; }
@@ -93,14 +92,18 @@ public class GDKnyttGame : Node2D
 		Juni.Connect("PowerChanged", UI, "powerUpdate");
 	}
 
-	public void respawnJuni()
+	public async void respawnJuni()
 	{
+		UI.WSOD.startWSOD();
+        await ToSignal(UI.WSOD, "WSODFinished");
+
 		var save = GDWorld.KWorld.CurrentSave;
 		Juni.Powers.readFromSave(save);
 		this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
 		Juni.moveToPosition(CurrentArea, save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
+		
 	}
 
 	public void saveGame(Juni juni, bool write)

@@ -13,6 +13,15 @@ All notable changes to YKnytt will be documented here.
 - Scene particle system
 - Leaves
 - Water Monster
+- Spike Traps [Contribution by: up-left]
+- Drop Traps [Contribution by: up-left]
+- Lasers [Contribution by: up-left]
+- Cannons [Contribution by: up-left]
+- Bullet System [Contribution by: up-left]
+- Password / Locks [Contribution by: up-left]
+- Object Selector [Contribution by: up-left]
+- Invisible Death Zones
+- Invisible Slopes
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
@@ -25,6 +34,8 @@ All notable changes to YKnytt will be documented here.
 - X Button on window and back button on mobile now close the main menu
 - Stationary animated objects now dervice from a base class [Contribution by: up-left]
 - Optimized initial tileset loading [Contribution by: up-left]
+- World selection screen layout
+- Better slope traversal
 
 ## [0.2.0] - 2020-10-20
 

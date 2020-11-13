@@ -37,6 +37,7 @@
     <Compile Include="knytt\objects\banks\bank15\HoldButton.cs" />
     <Compile Include="knytt\objects\banks\bank15\LockBlock.cs" />
     <Compile Include="knytt\objects\banks\Common\Empty.cs" />
+    <Compile Include="knytt\objects\banks\bank16\DeathZone.cs" />
     <Compile Include="knytt\objects\ObjectSelector.cs" />
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\CloudParticles.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="knytt\ui\touch\TouchSettings.cs" />
     <Compile Include="knytt\ui\touch\TouchSettingsScreen.cs" />
     <Compile Include="knytt\ui\UICanvasLayer.cs" />
+    <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 </Project>

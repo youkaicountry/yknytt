@@ -122,16 +122,12 @@ public class GDKnyttArea : Node2D
         timer.Start();
     }
 
-    public async void regenerateArea(bool regenerate_same = false)
+    public void regenerateArea(bool regenerate_same = false)
     {
         if (this.Area.Empty) { return; }
         Bullets.Reset();
         Selector.Reset();
         this.removeObjectLayers();
-        GetNode<ColorRect>("WSODNode/WSODRect").Visible = true;
-        GetNode<Timer>("WSODNode/Timer").Start();
-        await ToSignal(GetNode<Timer>("WSODNode/Timer"), "timeout");
-        GetNode<ColorRect>("WSODNode/WSODRect").Visible = false;
         this.activateArea(regenerate_same: regenerate_same);
     }
 
