@@ -158,6 +158,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 22)] =  "ClearBlock";
         ObjectLookup[new KnyttPoint(15, 23)] =  "LockBlockHorizontal";
         ObjectLookup[new KnyttPoint(15, 24)] =  "LockBlockVertical";
+        ObjectLookup[new KnyttPoint(15, 26)] = "HoldButton";
         ObjectLookup[new KnyttPoint(15, 27)] = "Door";
         ObjectLookup[new KnyttPoint(15, 28)] = "Door";
         ObjectLookup[new KnyttPoint(15, 29)] = "Door";
