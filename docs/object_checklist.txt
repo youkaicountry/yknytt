@@ -27,9 +27,9 @@ Bank 0 (System):
 [ ] - 26 Detect Target
 [ ] - 27 Detect Target
 [ ] - 28 Detect Target
-[ ] - 29 Sign Area A
-[ ] - 30 Sign Area B
-[ ] - 31 Sign Area C
+[x] - 29 Sign Area A
+[x] - 30 Sign Area B
+[x] - 31 Sign Area C
 
 Bank 1 (Liquids):
 [x] -  1 Liquid Pool
@@ -226,22 +226,19 @@ Bank 9 (Flowers):
 [ ] -  5
 
 Bank 10 (Bouncers):
-[ ] -  1
-[ ] -  2
+[x] -  1 Bouncer 1
+[x] -  2 Bouncer 2
 [ ] -  3
 [ ] -  4
 [x] -  5 Bouncer
 [ ] -  6
 [ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
+[x] -  8 Green Bouncer
+[x] -  9 Big Fluff
+[x] - 10 Happy Fluff
 [x] - 11 Old Fluff
 [x] - 12 Regular Fluff
-[x] - 10 Teenage Fluff
-[ ] - 11
-[ ] - 12
-[ ] - 13
+[x] - 13 Teenage Fluff
 
 Bank 11 (Disks):
 [ ] -  1
@@ -322,17 +319,17 @@ Bank 14 (Earth Beings):
 [ ] - 24
 
 Bank 15 (Objects & Areas):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
+[x] -  1 Solid Block 1
+[x] -  2 Solid Block 2
+[x] -  3 Solid Block 3
+[x] -  4 Solid Block 4
 [x] -  5 Updraft
 [x] -  6 Proximity Block Real
 [x] -  7 Proximity Block Fake
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
+[x] -  8 False Block 1
+[x] -  9 False Block 2
+[x] - 10 False Block 3
+[x] - 11 False Block 4
 [x] - 12 Lock Block
 [x] - 13 Password
 [x] - 14 Password
@@ -346,8 +343,8 @@ Bank 15 (Objects & Areas):
 [x] - 22 Clear Block
 [x] - 23 Horizontal Lock Block
 [x] - 24 Vertical Lock Block
-[ ] - 25
-[ ] - 26
+[x] - 25 Fade Block
+[x] - 26 Hold To Open Button
 [x] - 27 Red Door
 [x] - 28 Yellow Door
 [x] - 29 Blue Door
