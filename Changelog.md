@@ -33,6 +33,7 @@ All notable changes to YKnytt will be documented here.
 - X Button on window and back button on mobile now close the main menu
 - Stationary animated objects now dervice from a base class [Contribution by: up-left]
 - Optimized initial tileset loading [Contribution by: up-left]
+- World selection screen layout
 
 ## [0.2.0] - 2020-10-20
 

@@ -8,114 +8,120 @@
 
 [node name="LevelSelection" type="CanvasLayer"]
 script = ExtResource( 5 )
+loadThreads = 1
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="MainContainer" type="HBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="MainContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -296.0
+margin_top = -120.0
+margin_right = 294.0
+margin_bottom = 120.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FilterContainer" type="VBoxContainer" parent="MainContainer"]
-margin_right = 100.0
-margin_bottom = 240.0
-alignment = 1
-
-[node name="CategoryLabel" type="Label" parent="MainContainer/FilterContainer"]
-margin_top = 38.0
-margin_right = 100.0
-margin_bottom = 51.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Category:"
-
-[node name="CategoryDropdown" parent="MainContainer/FilterContainer" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 55.0
-margin_right = 100.0
-margin_bottom = 74.2149
-rect_min_size = Vector2( 100, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
-selected = 0
-
-[node name="Spacer2" type="Control" parent="MainContainer/FilterContainer"]
-margin_top = 78.0
-margin_right = 100.0
-margin_bottom = 98.0
-rect_min_size = Vector2( 0, 20 )
-
-[node name="DifficultyLabel" type="Label" parent="MainContainer/FilterContainer"]
-margin_top = 102.0
-margin_right = 100.0
-margin_bottom = 115.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Difficulty:"
-
-[node name="DifficultyDropdown" parent="MainContainer/FilterContainer" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 119.0
-margin_right = 100.0
-margin_bottom = 138.215
-rect_min_size = Vector2( 80, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
-selected = 0
-
-[node name="Spacer3" type="Control" parent="MainContainer/FilterContainer"]
-margin_top = 142.0
-margin_right = 100.0
-margin_bottom = 162.0
-rect_min_size = Vector2( 0, 20 )
-
-[node name="SizeLabel" type="Label" parent="MainContainer/FilterContainer"]
-margin_top = 166.0
-margin_right = 100.0
-margin_bottom = 179.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Size:"
-
-[node name="SizeDropdown" parent="MainContainer/FilterContainer" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 183.0
-margin_right = 100.0
-margin_bottom = 202.215
-rect_min_size = Vector2( 80, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
-selected = 0
-
-[node name="Control" type="Control" parent="MainContainer"]
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 100, 0 )
-
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer"]
-margin_left = 208.0
-margin_right = 208.0
-margin_bottom = 240.0
+margin_right = 590.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 0, 190 )
 follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="GameContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
 script = ExtResource( 6 )
+
+[node name="FilterContainer" type="HBoxContainer" parent="MainContainer"]
+margin_top = 194.0
+margin_right = 590.0
+margin_bottom = 230.0
+
+[node name="Category" type="VBoxContainer" parent="MainContainer/FilterContainer"]
+margin_right = 100.0
+margin_bottom = 36.0
+
+[node name="CategoryLabel" type="Label" parent="MainContainer/FilterContainer/Category"]
+margin_right = 100.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Category:"
+align = 1
+
+[node name="CategoryDropdown" parent="MainContainer/FilterContainer/Category" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 17.0
+margin_right = 100.0
+margin_bottom = 36.2149
+rect_min_size = Vector2( 100, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+selected = 0
+
+[node name="Difficulty" type="VBoxContainer" parent="MainContainer/FilterContainer"]
+margin_left = 104.0
+margin_right = 184.0
+margin_bottom = 36.0
+
+[node name="DifficultyLabel" type="Label" parent="MainContainer/FilterContainer/Difficulty"]
+margin_right = 80.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Difficulty:"
+align = 1
+
+[node name="DifficultyDropdown" parent="MainContainer/FilterContainer/Difficulty" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 17.0
+margin_right = 80.0
+margin_bottom = 36.2149
+rect_min_size = Vector2( 80, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+selected = 0
+
+[node name="Size" type="VBoxContainer" parent="MainContainer/FilterContainer"]
+margin_left = 188.0
+margin_right = 268.0
+margin_bottom = 36.0
+
+[node name="SizeLabel" type="Label" parent="MainContainer/FilterContainer/Size"]
+margin_right = 80.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Size:"
+align = 1
+
+[node name="SizeDropdown" parent="MainContainer/FilterContainer/Size" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 17.0
+margin_right = 80.0
+margin_bottom = 36.2149
+rect_min_size = Vector2( 80, 0 )
+text = "[All]"
+items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
+selected = 0
 
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
 anchor_left = 1.0
@@ -127,7 +133,7 @@ margin_top = -25.4749
 margin_right = -5.36865
 margin_bottom = -6.26004
 text = "Back"
-[connection signal="item_selected" from="MainContainer/FilterContainer/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
-[connection signal="item_selected" from="MainContainer/FilterContainer/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
-[connection signal="item_selected" from="MainContainer/FilterContainer/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
