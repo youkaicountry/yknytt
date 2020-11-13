@@ -32,6 +32,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 23)] =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 24)] =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 25)] =  "NoJump";
+        ObjectLookup[new KnyttPoint(0, 29)] =  "SignArea";
+        ObjectLookup[new KnyttPoint(0, 30)] =  "SignArea";
+        ObjectLookup[new KnyttPoint(0, 31)] =  "SignArea";
         ObjectLookup[new KnyttPoint(1, 1)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 2)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 3)] =   "Waterfall";

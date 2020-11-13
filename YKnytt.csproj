@@ -31,6 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
     <Compile Include="knytt\objects\banks\bank15\FadeBlock.cs" />
     <Compile Include="knytt\objects\banks\bank15\FalseBlock.cs" />
     <Compile Include="knytt\objects\banks\bank15\HoldButton.cs" />
