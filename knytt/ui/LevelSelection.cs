@@ -238,21 +238,21 @@ public class LevelSelection : CanvasLayer
 
     public void _on_CategoryDropdown_item_selected(int index)
     {
-        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/CategoryDropdown");
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
         filter_category = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
         this.listWorlds();
     }
 
     public void _on_DifficultyDropdown_item_selected(int index)
     {
-        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/DifficultyDropdown");
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown");
         filter_difficulty = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
         this.listWorlds();
     }
 
     public void _on_SizeDropdown_item_selected(int index)
     {
-        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/SizeDropdown");
+        var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown");
         filter_size = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
         this.listWorlds();
     }
