@@ -368,8 +368,8 @@ Bank 16 (Invisible):
 [x] - 12 Death Zone
 [x] - 13 Invisible Barrier
 [x] - 14 Invisible Block
-[ ] - 15
-[ ] - 16
+[x] - 15 Invisible Slope
+[x] - 16 Invisible Slope
 
 Bank 17 (Creepy):
 [ ] -  1

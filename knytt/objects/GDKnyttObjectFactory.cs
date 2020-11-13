@@ -163,6 +163,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(16, 12)] =  "DeathZoneHalfDown";
         ObjectLookup[new KnyttPoint(16, 13)] = "InvisibleBarrier";
         ObjectLookup[new KnyttPoint(16, 14)] = "InvisibleBlock";
+        ObjectLookup[new KnyttPoint(16, 15)] = "InvisibleSlopeLeft";
+        ObjectLookup[new KnyttPoint(16, 16)] = "InvisibleSlopeRight";
         ObjectLookup[new KnyttPoint(17, 3)] =  "CreepyWaterMonster";
         ObjectLookup[new KnyttPoint(18, 1)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 2)] =  "Fish";
