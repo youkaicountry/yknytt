@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank15\FalseBlock.cs" />
+    <Compile Include="knytt\objects\banks\bank15\HoldButton.cs" />
     <Compile Include="knytt\objects\banks\bank15\LockBlock.cs" />
     <Compile Include="knytt\objects\banks\Common\Empty.cs" />
     <Compile Include="knytt\objects\ObjectSelector.cs" />
