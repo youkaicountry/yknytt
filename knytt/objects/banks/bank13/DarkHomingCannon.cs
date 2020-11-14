@@ -3,11 +3,13 @@ using YUtil.Random;
 
 public class DarkHomingCannon : Cannon
 {
+    // TODO: first delay
+
     protected override void reinitializeBullet(BaseBullet p, int i)
     {
         p.Translate(new Vector2(8f, 8f));
-        p.Direction = Mathf.Pi / 4;
-        p.VelocityMMF2 = -((Juni.ApparentPosition.x - GlobalPosition.x) / 8f - 13f - GDKnyttDataStore.random.NextFloat(6));
+        p.DirectionMMF2 = 4;
+        p.VelocityMMF2 = Mathf.Max(0, GlobalPosition.x - Juni.ApparentPosition.x) / 10f + 36f + GDKnyttDataStore.random.NextFloat(3);
         p.GravityMMF2 = 20 + GDKnyttDataStore.random.NextFloat(3);
     }
 

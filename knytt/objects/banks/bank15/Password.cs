@@ -39,7 +39,7 @@ public class Password : GDKnyttBaseObject
         return true;
     }
 
-    private void destroyWalls()
+    protected void destroyWalls()
     {
         bool objects_destroyed = false;
         foreach (var layer in GDArea.Objects.Layers)
