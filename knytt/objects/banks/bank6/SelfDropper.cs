@@ -1,9 +1,9 @@
 using Godot;
-using System;
 
 public class SelfDropper : GDKnyttBaseObject
 {
     private const int DISTANCE_TO_DROP = 12;
+    // TODO: acceleration
     private const int DROP_SPEED = 200;
 
     private enum State { Ready, Dropping, Dropped };
