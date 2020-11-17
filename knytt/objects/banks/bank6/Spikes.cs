@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class Spikes : GDKnyttBaseObject
 {
@@ -37,26 +36,23 @@ public class Spikes : GDKnyttBaseObject
         }
         else
         {
-            juni.Connect(nameof(Juni.HologramChanged), this, nameof(hologramChanged));
+            juni.Connect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
         }
     }
 
     private void _on_Area2D_body_exited(object body)
     {
         if (!(body is Juni juni)) { return; }
-        if (juni.IsConnected(nameof(Juni.HologramChanged), this, nameof(hologramChanged)))
+        if (juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(hologramStopped)))
         {
-            juni.Disconnect(nameof(Juni.HologramChanged), this, nameof(hologramChanged));
+            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
         }
     }
     
-    public void hologramChanged(Juni juni, bool deployed)
+    public void hologramStopped(Juni juni)
     {
-        if (!deployed)
-        {
-            updateSpikes(show: true);
-            juni.die();
-        }
+        updateSpikes(show: true);
+        juni.die();
     }
     
     protected void updateSpikes(bool show)

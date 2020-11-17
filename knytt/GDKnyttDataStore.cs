@@ -10,6 +10,7 @@ public class GDKnyttDataStore : Node
 
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }
+    public static Node CutsceneReturn { get; private set; }
 
     public override void _Ready()
     {
@@ -27,11 +28,22 @@ public class GDKnyttDataStore : Node
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
     }
 
+    public static void playCutscene(string cutscene)
+    {
+        CutsceneName = cutscene;
+        CutsceneAfter = null;
+        CutsceneReturn = Tree.CurrentScene;
+        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { return; }
+        Tree.Paused = true;
+        Tree.Root.RemoveChild(Tree.CurrentScene);
+        Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
+    }
+
     private static void startCutscene(string cutscene, string after)
     {
         CutsceneName = cutscene;
         CutsceneAfter = after;
-        GD.Print(Cutscene.makeScenePath(1));
+        CutsceneReturn = null;
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }

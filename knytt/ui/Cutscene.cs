@@ -88,6 +88,16 @@ public class Cutscene : Control
         var fade = GetNode<FadeLayer>("FadeLayer");
         fade.startFade();
         await ToSignal(fade, "FadeDone");
-        GetTree().ChangeScene(GDKnyttDataStore.CutsceneAfter);
+        if (GDKnyttDataStore.CutsceneAfter != null)
+        {
+            GetTree().ChangeScene(GDKnyttDataStore.CutsceneAfter);
+        }
+        else
+        {
+            GetTree().CurrentScene.QueueFree();
+            GetTree().Root.AddChild(GDKnyttDataStore.CutsceneReturn);
+            GetTree().CurrentScene = GDKnyttDataStore.CutsceneReturn;
+            GetTree().Paused = false;
+        }
     }
 }

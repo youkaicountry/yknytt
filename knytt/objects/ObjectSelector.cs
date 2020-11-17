@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class ObjectSelector : Node2D
+public class ObjectSelector
 {
     private Dictionary<Type, List<object>> allObjects = new Dictionary<Type, List<object>>();
     private Dictionary<Type, int> counters = new Dictionary<Type, int>();
@@ -18,6 +18,16 @@ public class ObjectSelector : Node2D
             selections[type] = -1;
         }
         allObjects[type].Add(obj);
+    }
+
+    public void Unregister(object obj)
+    {
+        var type = obj.GetType();
+        if (!allObjects.ContainsKey(type)) { return; }
+        allObjects[type].Remove(obj);
+        // TODO: looks not reliable
+        counters[type] = 0;
+        selections[type] = -1;
     }
 
     public bool IsObjectSelected(object obj)
