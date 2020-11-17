@@ -6,7 +6,7 @@ public class GDKnyttArea : Node2D
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
     public BulletLayer Bullets { get { return GetNode<BulletLayer>("Bullets"); } }
-    public ObjectSelector Selector { get { return GetNode<ObjectSelector>("Selector"); } }
+    public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
@@ -136,12 +136,19 @@ public class GDKnyttArea : Node2D
         deactivateArea();
     }
 
-    public void destroyArea()
+    public async void destroyArea()
     {
         if (Area.Empty) { return; }
+        
+        // Destroy an area with a delay to let it do exit things (for example, play sounds)
+        var destroy_timer = GetNode<Timer>("DestroyTimer");
+        destroy_timer.Start();
+        await ToSignal(destroy_timer, "timeout");
+
         if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
         GDWorld.AssetManager.returnGradient(Area.Background);
+        QueueFree();
     }
 }
