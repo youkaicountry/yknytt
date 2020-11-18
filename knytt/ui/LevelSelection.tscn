@@ -8,7 +8,6 @@
 
 [node name="LevelSelection" type="CanvasLayer"]
 script = ExtResource( 5 )
-loadThreads = 1
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 anchor_right = 1.0
