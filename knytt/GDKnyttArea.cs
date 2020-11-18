@@ -18,6 +18,8 @@ public class GDKnyttArea : Node2D
     PackedScene objects_scene;
     PackedScene tiles_scene;
 
+    private const int EMPTY_AREA_GRADIENT = 500;
+
     public GDKnyttArea()
     {
         objects_scene = ResourceLoader.Load("res://knytt/objects/ObjectLayers.tscn") as PackedScene;
@@ -64,11 +66,12 @@ public class GDKnyttArea : Node2D
 
         this.Position = new Vector2(area.Position.x * Width, area.Position.y * Height);
 
+        // Setup gradient
+        GetNode<GDKnyttBackground>("Background").initialize(
+            world.AssetManager.getGradient(area.Empty ? EMPTY_AREA_GRADIENT : area.Background));
+
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
-
-        // Setup gradient
-        GetNode<GDKnyttBackground>("Background").initialize(world.AssetManager.getGradient(area.Background));
 
         // Initialize the Layers
         Tiles = tiles_scene.Instance() as GDAreaTiles;
@@ -94,7 +97,7 @@ public class GDKnyttArea : Node2D
         Selector.Reset();
         this.removeObjectLayers();
         this.active = false;
-        Tiles.deactivate();
+        Tiles?.deactivate();
     }
 
     private void createObjectLayers()
