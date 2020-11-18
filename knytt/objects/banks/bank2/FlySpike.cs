@@ -50,10 +50,14 @@ public class FlySpike : GDKnyttBaseObject
         Translate(new Vector2(SPEED * delta * (FacingRight ? 1f : -1f), 0f));
     }
 
-    public void _on_Area2D_body_entered(Node body)
+    public void _on_WallHitArea_body_entered(Node body)
     {
-        if (body is Juni) { Juni.die(); return; }
         if (wait_timer.TimeLeft > 0f) { return; }
         stop();
+    }
+
+    public void _on_JuniHitArea_body_entered(Node body)
+    {
+        if (body is Juni) { Juni.die(); return; }
     }
 }
