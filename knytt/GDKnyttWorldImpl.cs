@@ -54,9 +54,8 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture(string filepath)
     {
-        // Hack: no need to load default tileset textures, but gradients is ok
-        if (filepath.IndexOf("Tilesets") != -1) { return null; }
-        return GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
+        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
+            GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
     }
 
     protected sealed override byte[] getSystemWorldData(string filepath)
