@@ -12,7 +12,8 @@ public class Juni : KinematicBody2D
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
-    [Signal] public delegate void HologramChanged(Juni juni, bool deployed);
+    [Signal] public delegate void HologramStopped(Juni juni);
+    [Signal] public delegate void DownEvent(Juni juni);
 
     private const float JUST_CLIMBED_TIME = .085f;
     private const float FREE_JUMP_TIME = .085f;
@@ -207,6 +208,8 @@ public class Juni : KinematicBody2D
             if (just_reset == 0) { GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", false); }
         }
 
+        if (DownPressed) { EmitSignal(nameof(DownEvent), this); }
+
         // Organic Enemy Distance
         if (Powers.getPower(PowerNames.EnemyDetector) && organic_enemy_distance <= 170f)
         {
@@ -293,9 +296,15 @@ public class Juni : KinematicBody2D
 
         if (double_down || HologramPressed)
         {
-            if (Hologram == null) { if (CanDeployHologram) { deployHologram(); } }
-            else { stopHologram(); }
-            EmitSignal(nameof(HologramChanged), this, Hologram != null);
+            if (Hologram == null)
+            { 
+                if (CanDeployHologram) { deployHologram(); }
+            }
+            else
+            { 
+                stopHologram();
+                EmitSignal(nameof(HologramStopped), this);
+            }
         }
     }
 
@@ -335,6 +344,11 @@ public class Juni : KinematicBody2D
         var dj_node = double_jump_scene.Instance() as Node2D;
         dj_node.GlobalPosition = GlobalPosition;
         GetParent().AddChild(dj_node);
+    }
+
+    public void shiftEffect()
+    {
+        // TODO: implement shift flash effect
     }
 
     // This kills the Juni

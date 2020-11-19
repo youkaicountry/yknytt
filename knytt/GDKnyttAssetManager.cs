@@ -59,12 +59,12 @@ public class GDKnyttAssetManager
     private TileSet buildTileSet(int num)
     {
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
-        // TODO: this breaks some abstractions, needs refactoring
-        if (texture == null)
+        switch (texture)
         {
-            return ResourceLoader.Load<TileSet>($"res://knytt/data/Tilesets/Compiled/{num}.res");
+            case Texture t: return makeTileset(t, true);
+            case TileSet ts: return ts;
+            default: return null;
         }
-        return makeTileset((Texture)texture, true);
     }
 
     private Texture buildGradient(int num)
@@ -101,6 +101,11 @@ public class GDKnyttAssetManager
         var image = new Image();
         image.LoadPngFromBuffer(buffer);
         return image2Texture(image);
+    }
+
+    public static TileSet loadInternalTileset(string path)
+    {
+        return ResourceLoader.Exists(path) ? ResourceLoader.Load<TileSet>(path) : null;
     }
 
     public static AudioStream loadSound(string path)

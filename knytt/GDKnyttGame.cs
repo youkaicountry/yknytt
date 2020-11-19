@@ -134,10 +134,21 @@ public class GDKnyttGame : Node2D
 		
 		// Apply the warp
 		jgp += new Vector2(GDKnyttArea.Width*wc.x, GDKnyttArea.Height*wc.y);
-		juni.GlobalPosition = jgp;
 		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
-		changeArea(after_warp_coords, regenerate_same:false);
+		// Apply flag warps
+		foreach (var flag_warp in new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps)
+		{
+			if (flag_warp != null && juni.Powers.check(flag_warp.flag))
+			{
+				jgp += new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
+				break;
+			}
+		}
+		var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
+		
+		juni.GlobalPosition = jgp;
+		changeArea(after_flag_warp_coords, regenerate_same:false);
     }
 
 	public override void _Process(float delta)
@@ -256,14 +267,13 @@ public class GDKnyttGame : Node2D
 	{
 		if (!TouchSettings.EnablePanel)
 		{
-			Camera.AnchorMode = (Camera2D.AnchorModeEnum)1;
+			Camera.AnchorMode = Camera2D.AnchorModeEnum.DragCenter;
 			Camera.Offset = new Vector2(0, 0);
 		}
 		else
 		{
-			// Set AnchorMode to "Fixed TopLeft"
+			Camera.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
 			// Later panel will set camera offset to stick it to the top or to the bottom
-			Camera.AnchorMode = (Camera2D.AnchorModeEnum)0;
 		}
 	}
 }

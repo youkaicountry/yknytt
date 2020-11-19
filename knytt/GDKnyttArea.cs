@@ -6,7 +6,7 @@ public class GDKnyttArea : Node2D
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
     public BulletLayer Bullets { get { return GetNode<BulletLayer>("Bullets"); } }
-    public ObjectSelector Selector { get { return GetNode<ObjectSelector>("Selector"); } }
+    public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
@@ -17,6 +17,8 @@ public class GDKnyttArea : Node2D
     bool active = false;
     PackedScene objects_scene;
     PackedScene tiles_scene;
+
+    private const int EMPTY_AREA_GRADIENT = 500;
 
     public GDKnyttArea()
     {
@@ -64,11 +66,12 @@ public class GDKnyttArea : Node2D
 
         this.Position = new Vector2(area.Position.x * Width, area.Position.y * Height);
 
+        // Setup gradient
+        GetNode<GDKnyttBackground>("Background").initialize(
+            world.AssetManager.getGradient(area.Empty ? EMPTY_AREA_GRADIENT : area.Background));
+
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
-
-        // Setup gradient
-        GetNode<GDKnyttBackground>("Background").initialize(world.AssetManager.getGradient(area.Background));
 
         // Initialize the Layers
         Tiles = tiles_scene.Instance() as GDAreaTiles;
@@ -94,7 +97,7 @@ public class GDKnyttArea : Node2D
         Selector.Reset();
         this.removeObjectLayers();
         this.active = false;
-        Tiles.deactivate();
+        Tiles?.deactivate();
     }
 
     private void createObjectLayers()
@@ -136,12 +139,19 @@ public class GDKnyttArea : Node2D
         deactivateArea();
     }
 
-    public void destroyArea()
+    public async void destroyArea()
     {
         if (Area.Empty) { return; }
+        
+        // Destroy an area with a delay to let it do exit things (for example, play sounds)
+        var destroy_timer = GetNode<Timer>("DestroyTimer");
+        destroy_timer.Start();
+        await ToSignal(destroy_timer, "timeout");
+
         if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
         GDWorld.AssetManager.returnGradient(Area.Background);
+        QueueFree();
     }
 }

@@ -22,7 +22,7 @@ public class GDKnyttWorld : Node2D
         this.AssetManager = new GDKnyttAssetManager(this, tile_cache:32, gradient_cache:16, song_cache:4, ambiance_cache:8, object_cache:64);
         this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(1, 1));
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
-        this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => destroyArea(loc, area);
+        this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => area?.destroyArea();
 
         this.area_scene = ResourceLoader.Load("res://knytt/GDKnyttArea.tscn") as PackedScene;
     }
@@ -72,12 +72,5 @@ public class GDKnyttWorld : Node2D
         this.GetNode("Areas").AddChild(area_node);
 
         return area_node;
-    }
-
-    public void destroyArea(KnyttPoint point, GDKnyttArea area)
-    {
-        if (area == null) { return; }
-        area.destroyArea();
-        area.QueueFree();
     }
 }
