@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/Muff.cs" type="Script" id=1]
+
+[node name="Muff" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2048
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="DirectionTimer" type="Timer" parent="."]
+
+[node name="SpeedTimer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_DirectionTimer_timeout"]
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_SpeedTimer_timeout"]
