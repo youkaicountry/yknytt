@@ -33,6 +33,8 @@ public class ObjectSelector
     public bool IsObjectSelected(object obj)
     {
         var type = obj.GetType();
+        if (!allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
+
         if (counters[type] >= allObjects[type].Count || selections[type] == -1)
         {
             counters[type] = 0;
