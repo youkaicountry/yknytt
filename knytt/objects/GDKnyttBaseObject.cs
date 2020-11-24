@@ -22,7 +22,7 @@ public class GDKnyttBaseObject : Node2D
     public GDKnyttArea GDArea { get { return Layer.ObjectLayers.GDArea; } }
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
-    public bool OrganicEnemy { get; protected set; } = false;
+    [Export] public bool OrganicEnemy { get; protected set; } = false;
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
@@ -46,5 +46,11 @@ public class GDKnyttBaseObject : Node2D
     {
         // TODO: Iterate through all Junis
         Juni.updateOrganicEnemy(GlobalPosition);
+    }
+
+    // Connect signal to this function if you have simple deadly area in an object
+    protected void onDeadlyAreaEntered(Node body)
+    {
+        if (body is Juni juni) { juni.die(); }
     }
 }

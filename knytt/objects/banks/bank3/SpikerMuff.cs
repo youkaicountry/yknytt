@@ -4,7 +4,6 @@ public class SpikerMuff : Muff
 
     public override void _Ready()
     {
-        OrganicEnemy = true;
         spikerMod = GetNode<SpikerMod>("SpikerMod");
         spikerMod.globalJuni = Juni;
         base._Ready();
@@ -12,15 +11,15 @@ public class SpikerMuff : Muff
 
     protected override void _on_SpeedTimer_timeout()
     {
-        if (!spikerMod.IsOpen) { base._on_SpeedTimer_timeout(); }
+        if (!spikerMod.IsEntered) { base._on_SpeedTimer_timeout(); }
     }
 
     protected override void _on_DirectionTimer_timeout()
     {
-        if (!spikerMod.IsOpen) { base._on_DirectionTimer_timeout(); }
+        if (!spikerMod.IsEntered) { base._on_DirectionTimer_timeout(); }
     }
 
-    private void _on_SpikerMod_OpenEvent()
+    private void _on_SpikerMod_EnterEvent()
     {
         speed = 0;
     }

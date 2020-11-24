@@ -57,4 +57,4 @@ shape = SubResource( 6 )
 [node name="SwitchPlayer" parent="." instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Laser Machine B.raw"
 [connection signal="timeout" from="SwitchTimer" to="." method="_on_SwitchTimer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

@@ -41,10 +41,4 @@ public class Laser : GDKnyttBaseObject
         player.Play();
         timer.Start(1.6f);
     }
-    
-    private void _on_Area2D_body_entered(object body)
-    {
-        if (body is Juni juni) { juni.die(); }
-    }
 }
-

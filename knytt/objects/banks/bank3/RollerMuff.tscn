@@ -11,6 +11,7 @@ radius = 7.0
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+OrganicEnemy = true
 speedChangeTime = 1.1
 initialSpeed = 8
 speedValues = PoolIntArray( 5, 10 )
@@ -32,4 +33,4 @@ position = Vector2( 12, 17 )
 shape = SubResource( 2 )
 [connection signal="timeout" from="RollTimer" to="." method="_on_RollTimer_timeout"]
 [connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
