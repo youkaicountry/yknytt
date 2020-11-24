@@ -10,10 +10,8 @@ public class RollerMuff : Muff
     public override void _Ready()
     {
         base._Ready();
-        OrganicEnemy = true;
         GDArea.Selector.Register(this);
         GetNode<Timer>("FirstDelayTimer").Start(GDKnyttDataStore.random.NextFloat(rollInterval));
-        GetNode<Timer>("DirectionTimer").Stop();
     }
 
     private void _on_FirstDelayTimer_timeout()
@@ -50,10 +48,5 @@ public class RollerMuff : Muff
             sprite.Play("default");
         }
         base.collide();
-    }
-    
-    private void _on_Area2D_body_entered(object body)
-    {
-        if (body is Juni juni) { juni.die(); }
     }
 }

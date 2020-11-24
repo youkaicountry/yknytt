@@ -1,0 +1,92 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank14/red_jelly_start.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank14/red_jelly_stop.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank14/Jelly.cs" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": false,
+"name": "default",
+"speed": 12.5
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": false,
+"name": "walk",
+"speed": 37.5
+} ]
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 10, 6 )
+
+[node name="Muff" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.690196 )
+script = ExtResource( 4 )
+OrganicEnemy = true
+initialSpeed = 15
+deceleration = 9.0
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 13 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( 12, 18 )
+shape = SubResource( 14 )
+
+[node name="Area2D" type="Area2D" parent="." index="4"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 1.75, 24, 22.125, 24, 22.125, 17.75, 15.5, 13, 8.5, 13, 1.75, 17.625 )
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

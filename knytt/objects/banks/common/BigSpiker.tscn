@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/SpikerMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/common/GesturesObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/common/BigSpiker.cs" type="Script" id=5]
+
+[node name="Node2D" instance=ExtResource( 2 )]
+script = ExtResource( 5 )
+OrganicEnemy = true
+minTime = 0.2
+maxTime = 3.8
+
+[node name="SpikerMod" parent="." index="2" instance=ExtResource( 1 )]
+spritePath = NodePath("../AnimatedSprite")
+openAnimation = "_open"
+areaPath = NodePath("../BigArea2D")
+
+[node name="BigArea2D" type="Area2D" parent="." index="3"]
+collision_layer = 0
+
+[node name="SmallArea2D" type="Area2D" parent="." index="4"]
+collision_layer = 0
+[connection signal="EnterEvent" from="SpikerMod" to="." method="_on_SpikerMod_EnterEvent"]
+[connection signal="ExitEvent" from="SpikerMod" to="." method="_on_SpikerMod_ExitEvent"]
+[connection signal="body_entered" from="SmallArea2D" to="." method="onDeadlyAreaEntered"]

@@ -92,50 +92,50 @@ Bank 2 (Flyers):
 [ ] - 32
 
 Bank 3 (Knytt & Fluff):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
+[x] -  1 Friendly Mufs
+[x] -  2 Roller Mufs
+[x] -  3 Blue Mufs
+[x] -  4 Afraid Muff
 [x] -  5 Yellow Dog
-[ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
+[x] -  6 Angry Muff
+[x] -  7 Flat Mufs
+[x] -  8 Another Roller Mufs
+[x] -  9 Round Rabbit
+[x] - 10 Regular Rabbit
+[x] - 11 Fast Rabbit
 [x] - 12 Eskimo 1
 [x] - 13 Eskimo 2
-[ ] - 14
-[ ] - 15
-[ ] - 16
-[ ] - 17
-[ ] - 18
-[ ] - 19
-[ ] - 20
+[x] - 14 Forest Girl 2
+[x] - 15 Forest Girl
+[x] - 16 Hamster
+[x] - 17 Hamster 2
+[x] - 18 Hamster 3
+[x] - 19 Purple Lizard
+[x] - 20 Cute
 [x] - 21 Beard Guy
-[ ] - 22
-[ ] - 23
-[ ] - 24
-[ ] - 25
-[ ] - 26
+[x] - 22 Spiker
+[x] - 23 Walker
+[x] - 24 Hider
+[x] - 25 Ratlike
+[x] - 26 Forest Dude
 [x] - 27 Forest Dude
-[ ] - 28
+[x] - 28 Forest Boy
 [x] - 29 Sky Girl
-[ ] - 30
-[ ] - 31
+[x] - 30 Flying Person
+[x] - 31 Fly Boy
 [x] - 32 Fly Girl
-[ ] - 33
-[ ] - 34
-[ ] - 35
-[ ] - 36
-[ ] - 37
-[ ] - 38
+[x] - 33 Another Afraid Muff
+[x] - 34 Mini Camel
+[x] - 35 Mini Camel Rider
+[x] - 36 Green Lizard
+[x] - 37 Baby
+[x] - 38 Cave Girl
 [x] - 39 Cave Dude
-[ ] - 40
-[ ] - 41
+[x] - 40 Cave Boy
+[x] - 41 Sister
 [x] - 42 Big Cat
 [x] - 43 Small Cat
-[ ] - 44
+[x] - 44 Grey Lizard
 
 Bank 4 (Meanies):
 [x] -  1 Red Follow Ball
@@ -154,7 +154,7 @@ Bank 4 (Meanies):
 [ ] - 14
 [ ] - 15
 [ ] - 16
-[ ] - 17
+[x] - 17 Hedgehog
 [x] - 18 Toast Monster
 [ ] - 19
 [ ] - 20
@@ -163,8 +163,8 @@ Bank 4 (Meanies):
 
 Bank 5 (Shadow People):
 [ ] -  1
-[ ] -  2
-[ ] -  3
+[x] -  2 Shadow Boy
+[x] -  3 Shadow Girl
 
 Bank 6 (Traps):
 [x] -  1 Trap Ceiling
@@ -293,26 +293,26 @@ Bank 13 (Robots):
 [x] - 14 Dark Homing Cannon
 
 Bank 14 (Earth Beings):
-[ ] -  1
-[ ] -  2
+[x] -  1 Red Jelly
+[x] -  2 Green Worm
 [ ] -  3
 [ ] -  4
-[x] -  5 Walker
-[x] -  6 Walker
-[x] -  7 Walker
-[x] -  8 Walker
-[ ] -  9
+[x] -  5 Bouncing Rock
+[x] -  6 Simple Worm
+[x] -  7 Large Bouncing Rock
+[x] -  8 Harmless Insect
+[x] -  9 Dangerous Insect
 [x] - 10 Stationary Rock
-[ ] - 11
+[x] - 11 Insect Without Shell
 [ ] - 12
-[ ] - 13
-[ ] - 14
+[x] - 13 Small Spike Run Thing
+[x] - 14 Big Spike Run Thing
 [ ] - 15
-[ ] - 16
-[ ] - 17
-[ ] - 18
-[ ] - 19
-[ ] - 20
+[x] - 16 Floor Spiker
+[x] - 17 Super Mario AI
+[x] - 18 Ceiling Spiker
+[x] - 19 Hidden Spiker
+[x] - 20 Spikeless Spiker
 [ ] - 21
 [ ] - 22
 [ ] - 23
@@ -370,7 +370,7 @@ Bank 16 (Invisible):
 
 Bank 17 (Creepy):
 [ ] -  1
-[ ] -  2
+[x] -  2 Small Spider
 [x] -  3 Creepy Water Monster
 [ ] -  4
 [ ] -  5
@@ -378,9 +378,9 @@ Bank 17 (Creepy):
 [ ] -  7
 [ ] -  8
 [ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
+[x] - 10 Floor Spiker
+[x] - 11 Left Spiker
+[x] - 12 Right Spiker
 
 Bank 18 (Water Creatures):
 [x] -  1 Fish
