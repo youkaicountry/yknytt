@@ -112,7 +112,7 @@ initialSpeed = 3
 speedValues = PoolIntArray( 0, 3 )
 
 [node name="AnimatedSprite" parent="." index="0"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.219608 )
 frames = SubResource( 14 )
 animation = "walk"
 
