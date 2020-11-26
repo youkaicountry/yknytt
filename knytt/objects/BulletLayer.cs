@@ -1,34 +1,35 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 public class BulletLayer : Node2D
 {
-    public delegate BaseBullet CreateBulletEvent();
     public delegate void InitBulletEvent(BaseBullet bullet, int i);
 
-    private Dictionary<Type, Queue<BaseBullet>> bullets = new Dictionary<Type, Queue<BaseBullet>>();
-    private Dictionary<Type, int> bullets_limit = new Dictionary<Type, int>();
-    private Dictionary<Type, CreateBulletEvent> create_events = new Dictionary<Type, CreateBulletEvent>();
-    private Dictionary<Node2D, InitBulletEvent> init_events = new Dictionary<Node2D, InitBulletEvent>();
+    private Dictionary<string, PackedScene> bulletScenes = new Dictionary<string, PackedScene>();
+    private Dictionary<string, Queue<BaseBullet>> bullets = new Dictionary<string, Queue<BaseBullet>>();
+    private Dictionary<string, int> bulletsLimit = new Dictionary<string, int>();
+    private Dictionary<Node2D, string> enemyScenes = new Dictionary<Node2D, string>();
+    private Dictionary<Node2D, InitBulletEvent> initEvents = new Dictionary<Node2D, InitBulletEvent>();
 
-    public void RegisterEmitter(Node2D enemy_object, int max_bullets,
-                                CreateBulletEvent on_create, InitBulletEvent on_init)
+    public void RegisterEmitter(Node2D enemy_object, string bullet_scene, int max_bullets, InitBulletEvent on_init)
     {
-        if (!bullets.ContainsKey(enemy_object.GetType()))
+        if (!bulletScenes.ContainsKey(bullet_scene))
         {
-            bullets.Add(enemy_object.GetType(), new Queue<BaseBullet>());
-            bullets_limit.Add(enemy_object.GetType(), max_bullets);
-            create_events.Add(enemy_object.GetType(), on_create);
+            bulletScenes.Add(bullet_scene, ResourceLoader.Load<PackedScene>($"res://knytt/objects/bullets/{bullet_scene}.tscn"));
+            bullets.Add(bullet_scene, new Queue<BaseBullet>());
+            bulletsLimit.Add(bullet_scene, max_bullets);
         }
-        init_events.Add(enemy_object, on_init);
+        enemyScenes.Add(enemy_object, bullet_scene);
+        initEvents.Add(enemy_object, on_init);
     }
 
     private void _emit(Node2D enemy_object, int n = 0)
     {
-        var queue = bullets[enemy_object.GetType()];
-        int limit = bullets_limit[enemy_object.GetType()];
+        if (!enemyScenes.ContainsKey(enemy_object)) { return; }
+        var bullet_scene = enemyScenes[enemy_object];
+        var queue = bullets[bullet_scene];
+        int limit = bulletsLimit[bullet_scene];
         //GD.Print($"emit {enemy_object.Position} {n} {queue.Count} {OS.GetTicksMsec()}");
 
         BaseBullet bullet;
@@ -36,9 +37,9 @@ public class BulletLayer : Node2D
         {
             bullet = queue.Dequeue();
         }
-        else if (queue.Count == 0 || queue.Peek().Enabled)
+        else if (queue.Count == 0 || queue.Peek().Visible)
         {
-            bullet = create_events[enemy_object.GetType()]();
+            bullet = bulletScenes[bullet_scene].Instance() as BaseBullet;
             bullet.GDArea = GetParent<GDKnyttArea>();
             AddChild(bullet);
         }
@@ -47,9 +48,11 @@ public class BulletLayer : Node2D
             bullet = queue.Dequeue();
         }
 
+        // TODO: set ZIndex of bullet
         bullet.GlobalPosition = enemy_object.GlobalPosition;
         bullet.Enabled = true;
-        init_events[enemy_object](bullet, n);
+        bullet.Visible = true;
+        initEvents[enemy_object](bullet, n);
         queue.Enqueue(bullet);
     }
 
@@ -75,10 +78,12 @@ public class BulletLayer : Node2D
                 if (bullet.Enabled)
                 {
                     bullet.Enabled = false;
+                    bullet.Visible = false;
                 }
             }
         }
-        // Only GDKnyttBaseObjects resets with an area
-        init_events = init_events.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
+        // Only GDKnyttBaseObjects reset with an area
+        enemyScenes = enemyScenes.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
+        initEvents = initEvents.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
     }
 }

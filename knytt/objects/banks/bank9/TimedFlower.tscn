@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank9/timed_flower.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank9/TimedFlower.cs" type="Script" id=2]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 24, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 72, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": false,
+"name": "open",
+"speed": 15.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 6 )
+centered = false
+
+[node name="FirstDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ToggleTimer" type="Timer" parent="."]
+wait_time = 2.65
+
+[node name="ShotTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.15
+
+[node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Tiny Shot.raw"
+
+[node name="HitPlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Tiny Hit.raw"
+[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
+[connection signal="timeout" from="ToggleTimer" to="." method="_on_ToggleTimer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
