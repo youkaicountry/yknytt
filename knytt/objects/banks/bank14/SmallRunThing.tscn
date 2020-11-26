@@ -1,0 +1,73 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank14/RunThing.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank14/small_run_thing.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 33.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 8, 6 )
+
+[node name="Muff" instance=ExtResource( 1 )]
+speedValues = PoolIntArray( 17, 18, 19, 20, 21, 22 )
+deceleration = 48.0
+firstDelay = 1.2
+timer = 0.8
+safeDistance = 80.0
+attackSpeed = 40
+normalDeceleration = 48.0
+attackDeceleration = 24.0
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 9 )
+animation = "walk"
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( 12, 18 )
+shape = SubResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 8.37872, 24.0375, 4.01337, 19.7714, 9.37085, 12.2312, 15.522, 12.3304, 19.9866, 19.6722, 17.0102, 24.0375 )

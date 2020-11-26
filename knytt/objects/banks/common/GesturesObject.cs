@@ -10,8 +10,8 @@ public class GesturesObject : GDKnyttBaseObject
     [Export] float maxTime = 2;
     [Export] bool bidirectional = false;
 
-    private AnimatedSprite gesturesSprite;
-    private Timer timer;
+    protected AnimatedSprite gesturesSprite;
+    protected Timer timer;
     private List<string> animations;
     private bool leftDirection = true;
     
@@ -19,7 +19,7 @@ public class GesturesObject : GDKnyttBaseObject
     {
         gesturesSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         timer = GetNode<Timer>("IdleTimer");
-        animations = gesturesSprite.Frames.GetAnimationNames().ToList();
+        animations = gesturesSprite.Frames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
 
         nextAnimation();        
     }
@@ -29,7 +29,7 @@ public class GesturesObject : GDKnyttBaseObject
         nextAnimation();
     }
 
-    private void nextAnimation()
+    protected virtual void nextAnimation()
     {
         if (bidirectional)
         {

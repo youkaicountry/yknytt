@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/muff36w.png-27638d83b6fa1c2820579dad584e4070.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://knytt/objects/banks/bank3/muffs/muff36w.png"
+dest_files=[ "res://.import/muff36w.png-27638d83b6fa1c2820579dad584e4070.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
