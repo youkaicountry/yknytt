@@ -31,6 +31,7 @@ public class FollowerCreature : GDKnyttBaseObject
     {
         ID2Params = new Dictionary<string, FollowerParams>();
         ID2Params["(3, 5)"] = new FollowerParams(name:"YellowDog", speed:45f, horizontal:true, organic_enemy:false, deadly:false);
+        ID2Params["(3, 25)"] = new FollowerParams(name:"Ratlike", speed:50f, horizontal:true, organic_enemy:false, deadly:false);
         ID2Params["(4, 1)"] = new FollowerParams(name:"RedFollowBall", speed:60f, horizontal:false, organic_enemy:true, deadly:true);
     }
 

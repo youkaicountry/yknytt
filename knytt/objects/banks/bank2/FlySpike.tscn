@@ -106,4 +106,4 @@ one_shot = true
 script = ExtResource( 4 )
 frequency = 2500.0
 [connection signal="body_entered" from="WallHitArea" to="." method="_on_WallHitArea_body_entered"]
-[connection signal="body_entered" from="JuniHitArea" to="." method="_on_JuniHitArea_body_entered"]
+[connection signal="body_entered" from="JuniHitArea" to="." method="onDeadlyAreaEntered"]

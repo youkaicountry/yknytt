@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank14/Insect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank14/dangerous_insect.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 33.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 11, 6 )
+
+[node name="Muff" instance=ExtResource( 1 )]
+OrganicEnemy = true
+directionChangeTime = 1.12
+speedValues = PoolIntArray( 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 )
+deceleration = 12.0
+firstDelay = 0.6
+timer = 4.0
+runTo = 1
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 9 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( 12, 18 )
+shape = SubResource( 10 )
+
+[node name="Area2D" type="Area2D" parent="." index="5"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 1, 24, 1, 15.995, 6.12428, 10.83, 16.8513, 10.9624, 23, 15.862, 23, 24 )
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

@@ -55,9 +55,4 @@ public class FlySpike : GDKnyttBaseObject
         if (wait_timer.TimeLeft > 0f) { return; }
         stop();
     }
-
-    public void _on_JuniHitArea_body_entered(Node body)
-    {
-        if (body is Juni) { Juni.die(); return; }
-    }
 }

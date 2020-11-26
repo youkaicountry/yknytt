@@ -14,10 +14,4 @@ public class FlyBot : GDKnyttBaseObject
     {
         path.Offset += 80f * delta;
     }
-
-    public void _on_Area2D_body_entered(Node body)
-    {
-        if (!(body is Juni)) { return; }
-        Juni.die();
-    }
 }

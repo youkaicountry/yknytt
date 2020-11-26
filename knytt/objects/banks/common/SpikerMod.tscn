@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/common/SpikerMod.cs" type="Script" id=3]
+
+[node name="SpikerMod" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="ClosePlayer" parent="." index="0" instance=ExtResource( 2 )]
+rawPath = "res://knytt/data/Sfx/Spike Down.raw"
+
+[node name="OpenPlayer" parent="." index="1" instance=ExtResource( 2 )]
+rawPath = "res://knytt/data/Sfx/Spike Up.raw"
