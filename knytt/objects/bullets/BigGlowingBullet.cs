@@ -5,11 +5,10 @@ public class BigGlowingBullet : BaseBullet
     public override void _Ready()
     {
         base._Ready();
-        var bulletScene = ResourceLoader.Load<PackedScene>("res://knytt/objects/bullets/SmallGlowingBullet.tscn");
-        GDArea.Bullets.RegisterEmitter(this, 50,
-            () => bulletScene.Instance() as BaseBullet,
+        GDArea.Bullets.RegisterEmitter(this, "SmallGlowingBullet", 100,
             (p, i) => 
             {
+                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
                 var sign = Direction < Mathf.Pi ? -1 : 1;
                 p.Translate(new Vector2(0, -sign * 2));
                 p.DirectionMMF2 = sign * i;

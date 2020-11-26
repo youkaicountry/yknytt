@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bullets/big_glowing_bullet.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bullets/BigGlowingBullet.cs" type="Script" id=3]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -35,3 +36,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 5 )
+
+[node name="HitPlayer" parent="." index="2" instance=ExtResource( 4 )]
+rawPath = "res://knytt/data/Sfx/Tri Bullet Hit.raw"

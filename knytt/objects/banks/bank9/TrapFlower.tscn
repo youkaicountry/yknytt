@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/bank9/TrapFlower.cs" type="Script" id=3]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="DistanceMod" parent="." instance=ExtResource( 2 )]
+method = 1
+spritePath = NodePath("../AnimatedSprite")
+
+[node name="ShotTimer" type="Timer" parent="."]
+process_mode = 0
+
+[node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
+
+[node name="HitPlayer" parent="." instance=ExtResource( 4 )]
+[connection signal="EnterEvent" from="DistanceMod" to="." method="_on_DistanceMod_EnterEvent"]
+[connection signal="ExitEvent" from="DistanceMod" to="." method="_on_DistanceMod_ExitEvent"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]

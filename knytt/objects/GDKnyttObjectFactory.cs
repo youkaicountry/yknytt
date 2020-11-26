@@ -141,6 +141,11 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(8, 9)] =   "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 10)] =  "Star";
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
+        ObjectLookup[new KnyttPoint(9, 1)] =   "RedTrapFlower";
+        ObjectLookup[new KnyttPoint(9, 2)] =   "TimedFlower";
+        ObjectLookup[new KnyttPoint(9, 3)] =   "HomingFlower";
+        ObjectLookup[new KnyttPoint(9, 4)] =   "AgressiveTrapFlower";
+        ObjectLookup[new KnyttPoint(9, 5)] =   "SmallTimedFlower";
         ObjectLookup[new KnyttPoint(10, 1)] =  "Bouncer1";
         ObjectLookup[new KnyttPoint(10, 2)] =  "Bouncer2";
         ObjectLookup[new KnyttPoint(10, 5)] =  "BouncerEnemy";

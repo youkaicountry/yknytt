@@ -56,7 +56,7 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 10 )
-frame = 2
+frame = 3
 playing = true
 centered = false
 
@@ -96,6 +96,9 @@ rawPath = "res://knytt/data/Sfx/Roller A.raw"
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Roller B.raw"
+
+[node name="HitPlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Roller Hit.raw"
 [connection signal="timeout" from="TotalTimer" to="." method="_on_TotalTimer_timeout"]
 [connection signal="timeout" from="Sound1Timer" to="." method="_on_Sound1Timer_timeout"]
 [connection signal="timeout" from="Sound2Timer" to="." method="_on_Sound2Timer_timeout"]

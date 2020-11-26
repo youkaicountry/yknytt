@@ -4,10 +4,11 @@ using System;
 public class BaseBullet : KinematicBody2D
 {
     private float _velocity;
-    private float _velocity_x;
-    private float _velocity_y;
+    protected float _velocity_x;
+    protected float _velocity_y;
     private float _direction;
     private float _gravity;
+    private bool _enabled;
 
     public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
@@ -20,6 +21,7 @@ public class BaseBullet : KinematicBody2D
     public float VelocityMMF2 { get { return Velocity / VELOCITY_SCALE; } set { Velocity = value * VELOCITY_SCALE; } }
     public float GravityMMF2 { get { return Gravity / GRAVITY_SCALE; } set { Gravity = value * GRAVITY_SCALE; } }
     public float DirectionMMF2 { get { return Direction / DIRECTION_SCALE; } set { Direction = value * DIRECTION_SCALE; } }
+    public float DecelerationMMF2 { get; set; }
 
     protected void updateAxisVelocity()
     {
@@ -28,7 +30,8 @@ public class BaseBullet : KinematicBody2D
     }
 
     
-    public GDKnyttArea GDArea { get; set; }
+    public GDKnyttArea GDArea { protected get; set; }
+    public AudioStreamPlayer2D DisapperarPlayer { protected get; set; }
     
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
@@ -59,23 +62,32 @@ public class BaseBullet : KinematicBody2D
 
     protected virtual async void disappear(bool collide)
     {
-        _velocity_x = _velocity_y = _gravity = 0;
-        if (collide && hasDisappear)
-        {
-            sprite.Play("disappear");
-            await ToSignal(sprite, "animation_finished");
-        }
         Enabled = false;
+        _velocity_x = _velocity_y = _gravity = 0;
+        if (collide)
+        {
+            if (DisapperarPlayer != null)
+            {
+                DisapperarPlayer.GlobalPosition = GlobalPosition;
+                DisapperarPlayer.Play();
+            }
+            if (hasDisappear)
+            {
+                sprite.Play("disappear");
+                await ToSignal(sprite, "animation_finished");
+            }
+        }
+        Visible = false;
     }
 
     public bool Enabled
     {
-        get { return Visible; }
+        get { return _enabled; }
         set
         {
+            _enabled = value;
             if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
             collisionShape.SetDeferred("disabled", !value);
-            SetDeferred("visible", value);
         }
     }
 }
