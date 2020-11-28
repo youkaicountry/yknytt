@@ -11,7 +11,7 @@ public class RollerMuff : Muff
     {
         base._Ready();
         GDArea.Selector.Register(this);
-        GetNode<Timer>("FirstDelayTimer").Start(GDKnyttDataStore.random.NextFloat(rollInterval));
+        GetNode<Timer>("FirstDelayTimer").Start(GDArea.Selector.GetRandomValue(this, rollInterval));
     }
 
     private void _on_FirstDelayTimer_timeout()
