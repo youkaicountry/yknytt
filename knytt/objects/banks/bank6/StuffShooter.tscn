@@ -15,4 +15,7 @@ one_shot = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 2 )]
 rawPath = "res://knytt/data/Sfx/Mega Split.raw"
+
+[node name="HitPlayer" parent="." instance=ExtResource( 2 )]
+rawPath = "res://knytt/data/Sfx/Tri Bullet Shot.raw"
 [connection signal="timeout" from="ShotDelayTimer" to="." method="_on_ShotDelayTimer_timeout"]

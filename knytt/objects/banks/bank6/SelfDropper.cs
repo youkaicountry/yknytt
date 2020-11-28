@@ -3,8 +3,7 @@ using Godot;
 public class SelfDropper : GDKnyttBaseObject
 {
     private const int DISTANCE_TO_DROP = 12;
-    // TODO: acceleration
-    private const int DROP_SPEED = 200;
+    private float dropSpeed;
 
     private enum State { Ready, Dropping, Dropped };
     private State state = State.Ready;
@@ -14,7 +13,7 @@ public class SelfDropper : GDKnyttBaseObject
     public override void _Ready()
     {
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        OrganicEnemy = true;
+        dropSpeed = 50;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -28,7 +27,8 @@ public class SelfDropper : GDKnyttBaseObject
         }
         if (state == State.Dropping)
         {
-            Translate(new Vector2(0, delta * DROP_SPEED));
+            Translate(new Vector2(0, delta * dropSpeed));
+            if (dropSpeed < 450) { dropSpeed += 14 * 50 * delta; }
         }
     }
 

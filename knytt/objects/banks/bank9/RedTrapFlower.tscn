@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank9/TrapFlower.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank9/trap_flower.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank9/RedTrapFlower.cs" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 24, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 72, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [  ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": false,
+"name": "open",
+"speed": 15.0
+} ]
+
+[node name="Node2D" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 5 )
+animation = "open"
+
+[node name="DistanceMod" parent="." index="1"]
+openDistance = 200.0
+closeDistance = 200.0
+
+[node name="ShotTimer" parent="." index="2"]
+wait_time = 0.58
+
+[node name="ShotPlayer" parent="." index="3"]
+rawPath = "res://knytt/data/Sfx/Tiny Shot.raw"
+
+[node name="HitPlayer" parent="." index="4"]
+rawPath = "res://knytt/data/Sfx/Tiny Hit.raw"

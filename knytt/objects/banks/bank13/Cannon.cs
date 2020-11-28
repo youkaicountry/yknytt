@@ -12,14 +12,11 @@ public abstract class Cannon : GDKnyttBaseObject
     
     public override void _Ready()
     {
-        var bulletScene = ResourceLoader.Load<PackedScene>("res://knytt/objects/bullets/DropStuff.tscn");
         delayTimer = GetNode<Timer>("DelayTimer");
         bulletTimer = GetNode<Timer>("BulletTimer");
         player = GetNode<AudioStreamPlayer2D>("Player");
         
-        GDArea.Bullets.RegisterEmitter(this, 500,
-            () => bulletScene.Instance() as BaseBullet,
-            (p, i) => reinitializeBullet(p, i));
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500, (p, i) => reinitializeBullet(p, i));
 
         GDArea.Selector.Register(this);
         

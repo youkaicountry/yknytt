@@ -4,11 +4,10 @@ public class RollerGenerator : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        var bulletScene = ResourceLoader.Load<PackedScene>("res://knytt/objects/bullets/RollBullet.tscn");
-        GDArea.Bullets.RegisterEmitter(this, 15,
-            () => bulletScene.Instance() as BaseBullet,
+        GDArea.Bullets.RegisterEmitter(this, "RollBullet", 15,
             (p, i) => 
             {
+                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
                 p.VelocityMMF2 = 12;
                 p.DirectionMMF2 = 16;
             });
