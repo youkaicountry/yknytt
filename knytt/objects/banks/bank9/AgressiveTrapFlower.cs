@@ -14,6 +14,7 @@ public class AgressiveTrapFlower : TrapFlower
                 p.DirectionMMF2 = 8 + GDKnyttDataStore.random.Next(1, 5) * (GDKnyttDataStore.random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
+                p.ApllyPinballCorrections();
             });
     }    
 }

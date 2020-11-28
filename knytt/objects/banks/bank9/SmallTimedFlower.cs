@@ -18,6 +18,7 @@ public class SmallTimedFlower : GDKnyttBaseObject
                 p.DirectionMMF2 = 8 + GDKnyttDataStore.random.Next(1, 3) * (GDKnyttDataStore.random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
+                p.ApllyPinballCorrections();
             });
     }
 
