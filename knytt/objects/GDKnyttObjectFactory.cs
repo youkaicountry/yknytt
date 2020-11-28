@@ -114,6 +114,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 1)] =   "FollowMonster";
         ObjectLookup[new KnyttPoint(4, 17)] =  "Hedgehog";
         ObjectLookup[new KnyttPoint(4, 18)] =  "ToastMonsterNew";
+        ObjectLookup[new KnyttPoint(5, 1)] =   "ShadowWitch";
         ObjectLookup[new KnyttPoint(5, 2)] =   "ShadowBoy";
         ObjectLookup[new KnyttPoint(5, 3)] =   "ShadowGirl";
         ObjectLookup[new KnyttPoint(6, 1)] =   "TrapCeiling";
@@ -121,6 +122,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(6, 3)] =   "RandomLabyrinthSpike";
         ObjectLookup[new KnyttPoint(6, 4)] =   "FastLabyrinthSpike";
         ObjectLookup[new KnyttPoint(6, 5)] =   "Eater";
+        ObjectLookup[new KnyttPoint(6, 6)] =   "TrapFire";
         ObjectLookup[new KnyttPoint(6, 7)] =   "DownStuffShooter";
         ObjectLookup[new KnyttPoint(6, 8)] =   "SelfDropper";
         ObjectLookup[new KnyttPoint(6, 9)] =   "UpStuffShooter";
@@ -175,6 +177,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(12, 21)] = "GhostMarker";
         ObjectLookup[new KnyttPoint(13, 1)] =  "RobotCannon";
         ObjectLookup[new KnyttPoint(13, 2)] =  "HomingCannon";
+        ObjectLookup[new KnyttPoint(13, 4)] =  "UpCannon";
         ObjectLookup[new KnyttPoint(13, 6)] =  "RollerGenerator";
         ObjectLookup[new KnyttPoint(13, 7)] =  "Laser7";
         ObjectLookup[new KnyttPoint(13, 8)] =  "Laser8";

@@ -16,6 +16,7 @@ public class TimedFlower : GDKnyttBaseObject
                 p.DirectionMMF2 = 7 + GDKnyttDataStore.random.Next(2) * 2;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 20;
+                p.ApllyPinballCorrections();
             });
         var first_delay = GDArea.Selector.GetRandomValue(this, GetNode<Timer>("ToggleTimer").WaitTime);
         GetNode<Timer>("FirstDelayTimer").Start(first_delay);

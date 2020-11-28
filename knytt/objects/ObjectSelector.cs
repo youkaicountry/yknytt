@@ -56,6 +56,13 @@ public class ObjectSelector
         return randomValues[type];
     }
 
+    public int GetIndex(object obj)
+    {
+        var type = obj.GetType();
+        if (!allObjects.ContainsKey(type)) { return 0; }
+        return allObjects[type].IndexOf(obj);
+    }
+
     public void Reset()
     {
         allObjects.Clear();
