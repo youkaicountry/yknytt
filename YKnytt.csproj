@@ -32,6 +32,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk2.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk3.cs" />
     <Compile Include="knytt\objects\banks\bank9\AgressiveTrapFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\HomingFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\RedTrapFlower.cs" />

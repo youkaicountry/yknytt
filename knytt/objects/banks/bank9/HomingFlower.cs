@@ -15,7 +15,7 @@ public class HomingFlower : GDKnyttBaseObject
                 p.Direction = Mathf.Pi / 2;
             });
 
-        var first_delay = GDKnyttDataStore.random.NextFloat(GetNode<Timer>("LoopTimer").WaitTime);
+        var first_delay = GDArea.Selector.GetRandomValue(this, GetNode<Timer>("LoopTimer").WaitTime);
         GetNode<Timer>("FirstDelayTimer").Start(first_delay);
     }
 
