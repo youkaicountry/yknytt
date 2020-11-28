@@ -162,7 +162,7 @@ Bank 4 (Meanies):
 [ ] - 22
 
 Bank 5 (Shadow People):
-[ ] -  1
+[x] -  1 Shadow Witch
 [x] -  2 Shadow Boy
 [x] -  3 Shadow Girl
 
@@ -172,7 +172,7 @@ Bank 6 (Traps):
 [x] -  3 Random Labyrinth Spike
 [x] -  4 Fast Labyrinth Spike
 [x] -  5 Eater
-[ ] -  6
+[x] -  6 Trap Fire
 [x] -  7 Stuff Dropper
 [x] -  8 Self Dropper
 [x] -  9 Stuff Shooter
@@ -219,11 +219,11 @@ Bank 8 (Decoration):
 [ ] - 17
 
 Bank 9 (Flowers):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
+[x] -  1 Red Trap Flower
+[x] -  2 Timed Flower
+[x] -  3 Homing Flower
+[x] -  4 Agressive Trap Flower
+[x] -  5 Small Timed Flower
 
 Bank 10 (Bouncers):
 [x] -  1 Bouncer 1
@@ -241,17 +241,16 @@ Bank 10 (Bouncers):
 [x] - 13 Teenage Fluff
 
 Bank 11 (Disks):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
-[ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
+[x] -  1 Red Disk
+[x] -  2 Shock Disk
+[x] -  3 Purple Disk
+[x] -  4 Purple Spiked Disk
+[x] -  5 Red Spiked Disk
+[x] -  6 Shock Disk 2
+[x] -  7 Another Disk
+[x] -  8 Green Disk
+[x] -  9 Shock Disk 3
+[x] - 10 Yellow Disk
 
 Bank 12 (Ghosts):
 [ ] -  1
@@ -280,7 +279,7 @@ Bank 13 (Robots):
 [x] -  1 Robot Cannon
 [x] -  2 Homing Cannon
 [ ] -  3
-[ ] -  4
+[x] -  4 Up Cannon
 [ ] -  5
 [x] -  6 Roller Generator
 [x] -  7 Laser
