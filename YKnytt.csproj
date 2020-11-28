@@ -32,6 +32,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk2.cs" />
+    <Compile Include="knytt\objects\banks\bank11\ShockDisk3.cs" />
+    <Compile Include="knytt\objects\banks\bank13\UpCannon.cs" />
+    <Compile Include="knytt\objects\banks\bank5\ShadowWitch.cs" />
+    <Compile Include="knytt\objects\banks\bank6\TrapFire.cs" />
+    <Compile Include="knytt\objects\banks\bank9\AgressiveTrapFlower.cs" />
+    <Compile Include="knytt\objects\banks\bank9\HomingFlower.cs" />
+    <Compile Include="knytt\objects\banks\bank9\RedTrapFlower.cs" />
+    <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
+    <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
+    <Compile Include="knytt\objects\banks\bank9\TrapFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BigSpiker.cs" />
     <Compile Include="knytt\objects\banks\bank14\Insect.cs" />
     <Compile Include="knytt\objects\banks\bank14\Jelly.cs" />
@@ -50,6 +63,9 @@
     <Compile Include="knytt\objects\banks\common\Muff.cs" />
     <Compile Include="knytt\objects\banks\common\DistanceMod.cs" />
     <Compile Include="knytt\objects\banks\common\SpikerMod.cs" />
+    <Compile Include="knytt\objects\bullets\BlueBullet.cs" />
+    <Compile Include="knytt\objects\bullets\FireBullet2.cs" />
+    <Compile Include="knytt\objects\bullets\HomingBullet.cs" />
     <Compile Include="knytt\objects\ObjectSelector.cs" />
     <Compile Include="knytt\GDKnyttKeys.cs" />
     <Compile Include="knytt\juni\CloudParticles.cs" />

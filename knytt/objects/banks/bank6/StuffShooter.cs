@@ -22,11 +22,10 @@ public abstract class StuffShooter : GDKnyttBaseObject
         player = GetNode<AudioStreamPlayer2D>("ShotPlayer");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
-        var bulletScene = ResourceLoader.Load<PackedScene>("res://knytt/objects/bullets/BigGlowingBullet.tscn");
-        GDArea.Bullets.RegisterEmitter(this, 10,
-            () => bulletScene.Instance() as BaseBullet,
+        GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet", 10,
             (p, i) => 
-            { 
+            {
+                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
                 p.Translate(shotPosition);
                 p.Velocity = bulletSpeed * 50;
                 p.Direction = (up ? 1 : 3) * (Mathf.Pi / 2);

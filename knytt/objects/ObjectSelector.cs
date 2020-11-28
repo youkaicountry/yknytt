@@ -1,6 +1,6 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using YUtil.Random;
 
 public class ObjectSelector
 {
@@ -44,10 +44,30 @@ public class ObjectSelector
         return allObjects[type][selections[type]] == obj;
     }
 
+    private Dictionary<Type, float> randomValues = new Dictionary<Type, float>();
+
+    public float GetRandomValue(object obj, float maxValue)
+    {
+        var type = obj.GetType();
+        if (!randomValues.ContainsKey(type))
+        {
+            randomValues.Add(type, GDKnyttDataStore.random.NextFloat(maxValue));
+        }
+        return randomValues[type];
+    }
+
+    public int GetIndex(object obj)
+    {
+        var type = obj.GetType();
+        if (!allObjects.ContainsKey(type)) { return 0; }
+        return allObjects[type].IndexOf(obj);
+    }
+
     public void Reset()
     {
         allObjects.Clear();
         counters.Clear();
         selections.Clear();
+        randomValues.Clear();
     }
 }
