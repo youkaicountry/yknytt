@@ -1,10 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/slider_pip.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/SettingsScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
+[ext_resource path="res://knytt/ui/slider_pip_hover.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
 
 [node name="SettingsScreen" type="CanvasLayer"]
 layer = 3
@@ -104,59 +123,74 @@ text = "Master Volume"
 [node name="MasterVolumeSlider" type="HSlider" parent="VolumeContainer"]
 margin_top = 17.0
 margin_right = 150.0
-margin_bottom = 33.0
+margin_bottom = 29.0
 rect_min_size = Vector2( 150, 0 )
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = ExtResource( 7 )
+custom_styles/grabber_area_highlight = SubResource( 2 )
+custom_styles/grabber_area = SubResource( 3 )
 
 [node name="Spacer1" type="Control" parent="VolumeContainer"]
-margin_top = 37.0
+margin_top = 33.0
 margin_right = 150.0
-margin_bottom = 40.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 0, 3 )
 
 [node name="MusicVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 44.0
+margin_top = 40.0
 margin_right = 150.0
-margin_bottom = 57.0
+margin_bottom = 53.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Music Volume"
 
 [node name="MusicVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 61.0
+margin_top = 57.0
 margin_right = 150.0
-margin_bottom = 77.0
+margin_bottom = 69.0
 rect_min_size = Vector2( 150, 0 )
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = ExtResource( 7 )
+custom_styles/grabber_area_highlight = SubResource( 4 )
+custom_styles/grabber_area = SubResource( 5 )
 
 [node name="Spacer2" type="Control" parent="VolumeContainer"]
-margin_top = 81.0
+margin_top = 73.0
 margin_right = 150.0
-margin_bottom = 84.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 0, 3 )
 
 [node name="EffectsVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 88.0
+margin_top = 80.0
 margin_right = 150.0
-margin_bottom = 101.0
+margin_bottom = 93.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Effects Volume"
 
 [node name="EffectsVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 105.0
+margin_top = 97.0
 margin_right = 150.0
-margin_bottom = 121.0
+margin_bottom = 109.0
 rect_min_size = Vector2( 150, 0 )
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = ExtResource( 7 )
+custom_styles/grabber_area_highlight = SubResource( 6 )
+custom_styles/grabber_area = SubResource( 7 )
 
 [node name="Spacer3" type="Control" parent="VolumeContainer"]
-margin_top = 125.0
+margin_top = 113.0
 margin_right = 150.0
-margin_bottom = 128.0
+margin_bottom = 116.0
 rect_min_size = Vector2( 0, 3 )
 
 [node name="EnvironmentVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 132.0
+margin_top = 120.0
 margin_right = 150.0
-margin_bottom = 145.0
+margin_bottom = 133.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Environment Volume"
@@ -165,10 +199,15 @@ __meta__ = {
 }
 
 [node name="EnvironmentVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 149.0
+margin_top = 137.0
 margin_right = 150.0
-margin_bottom = 165.0
+margin_bottom = 149.0
 rect_min_size = Vector2( 150, 0 )
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = ExtResource( 7 )
+custom_styles/grabber_area_highlight = SubResource( 8 )
+custom_styles/grabber_area = SubResource( 9 )
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
