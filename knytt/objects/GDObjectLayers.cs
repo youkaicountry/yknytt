@@ -55,4 +55,19 @@ public class GDObjectLayers : Node2D
             GDArea.GDWorld.AssetManager.returnObject(id);
         }
     }
+
+    public GDKnyttBaseObject findObject(KnyttPoint obj_id)
+    {
+        foreach (var layer in GDArea.Objects.Layers)
+        {
+            foreach (GDKnyttBaseObject knytt_object in layer.GetChildren())
+            {
+                if (obj_id.x == knytt_object.ObjectID.x && obj_id.y == knytt_object.ObjectID.y)
+                {
+                    return knytt_object;
+                }
+            }
+        }
+        return null;
+    }
 }

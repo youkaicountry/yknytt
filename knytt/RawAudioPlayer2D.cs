@@ -16,4 +16,13 @@ public class RawAudioPlayer2D : AudioStreamPlayer2D
     {
         if (loop) { this.Play(); }
     }
+
+    // TODO: Workaround for late played sounds. Maybe implement cache and get rid of this and DisappearPlayer?
+    public bool IsDisposed { get; set; }
+
+    protected override void Dispose(bool disposing)
+    {
+        IsDisposed = true;
+        base.Dispose(disposing);
+    }
 }

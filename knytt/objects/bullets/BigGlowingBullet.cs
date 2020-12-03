@@ -8,7 +8,7 @@ public class BigGlowingBullet : BaseBullet
         GDArea.Bullets.RegisterEmitter(this, "SmallGlowingBullet", 100,
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
+                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 var sign = Direction < Mathf.Pi ? -1 : 1;
                 p.Translate(new Vector2(0, -sign * 2));
                 p.DirectionMMF2 = sign * i;

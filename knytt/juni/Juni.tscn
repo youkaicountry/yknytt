@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
 [ext_resource path="res://knytt/juni/GroundChecker.cs" type="Script" id=14]
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
+[ext_resource path="res://knytt/objects/banks/bank0/power_gfx/pickup.png" type="Texture" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 10 )
@@ -213,6 +214,22 @@ extents = Vector2( 6.71, 5.05 )
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 4.6728, 2.11682 )
 
+[sub_resource type="Animation" id=23]
+resource_name = "collect"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="Juni" type="KinematicBody2D"]
 process_priority = -1
 z_index = 6
@@ -311,6 +328,21 @@ volume_db = 1.292
 max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Hologram B.raw"
 sampleRate = 16000
+
+[node name="PowerUpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Powerup.raw"
+
+[node name="DoorPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Door.raw"
+
+[node name="ElectronicPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Electronic.raw"
+
+[node name="SwitchPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Switch.raw"
+
+[node name="TeleportPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Teleport.raw"
 
 [node name="ClimbCheckers" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -467,6 +499,13 @@ position = Vector2( 2.7, 0 )
 
 [node name="Ground" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
 position = Vector2( 0, 8 )
+
+[node name="EffectSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]
+anims/collect = SubResource( 23 )
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

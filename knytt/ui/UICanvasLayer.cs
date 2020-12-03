@@ -12,6 +12,12 @@ public class UICanvasLayer : CanvasLayer
     public void initialize(GDKnyttGame game)
     {
         Game = game;
+        
+        if (Game.GDWorld.KWorld.INIData["World"].ContainsKey("Format") && 
+            Game.GDWorld.KWorld.INIData["World"]["Format"] == "4")
+        {
+            GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
+        }
     }
 
     public override void _Ready()
