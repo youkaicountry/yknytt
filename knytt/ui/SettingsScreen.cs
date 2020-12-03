@@ -19,6 +19,10 @@ public class SettingsScreen : CanvasLayer
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
+        GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
+        GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
+        GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
+        GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
     }
 
     public void _on_BackButton_pressed()
@@ -56,5 +60,25 @@ public class SettingsScreen : CanvasLayer
         ClickPlayer.Play();
         var inp = touch_scene.Instance();
         AddChild(inp);
+    }
+
+    private void _on_MasterVolumeSlider_value_changed(float value)
+    {
+        GDKnyttSettings.MasterVolume = (int)value;
+    }
+
+    private void _on_MusicVolumeSlider_value_changed(float value)
+    {
+        GDKnyttSettings.MusicVolume = (int)value;
+    }
+
+    private void _on_EffectsVolumeSlider_value_changed(float value)
+    {
+        GDKnyttSettings.EffectsVolume = (int)value;
+    }
+
+    private void _on_EnvironmentVolumeSlider_value_changed(float value)
+    {
+        GDKnyttSettings.EnvironmentVolume = (int)value;
     }
 }

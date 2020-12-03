@@ -22,6 +22,7 @@ All notable changes to YKnytt will be documented here.
 - Object Selector [Contribution by: up-left]
 - Invisible Death Zones
 - Invisible Slopes
+- Volume settings
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
