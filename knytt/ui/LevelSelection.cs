@@ -109,6 +109,8 @@ public class LevelSelection : CanvasLayer
         startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - Gustav's Daughter.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin", single_threaded);
+        startBinLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin", single_threaded);
+        startBinLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin", single_threaded);
     }
 
