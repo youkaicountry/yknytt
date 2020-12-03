@@ -10,7 +10,7 @@ public class TimedFlower : GDKnyttBaseObject
         GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet", 150,
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
+                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(11, 13));
                 p.VelocityMMF2 = 30 + GDKnyttDataStore.random.Next(30);
                 p.DirectionMMF2 = 7 + GDKnyttDataStore.random.Next(2) * 2;

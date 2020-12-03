@@ -163,9 +163,9 @@ __meta__ = {
 }
 
 [node name="ItemContainer" type="HBoxContainer" parent="UICanvasLayer/InfoPanel"]
+anchor_right = 1.0
 margin_left = 0.186974
 margin_top = 2.91589
-margin_right = 288.187
 margin_bottom = 26.9159
 custom_constants/separation = 0
 __meta__ = {

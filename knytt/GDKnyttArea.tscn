@@ -16,9 +16,6 @@ script = ExtResource( 2 )
 [node name="DeactivateTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="DestroyTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Bullets" parent="." instance=ExtResource( 1 )]
 z_index = 8
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]

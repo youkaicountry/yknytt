@@ -108,9 +108,14 @@ public class GDKnyttAssetManager
         return ResourceLoader.Exists(path) ? ResourceLoader.Load<TileSet>(path) : null;
     }
 
-    public static AudioStream loadSound(string path)
+    public static AudioStream loadInternalSound(string path)
     {
         return ResourceLoader.Load<AudioStream>(path);
+    }
+
+    public static AudioStream loadExternalSound(string path)
+    {
+        return loadOGG(loadFile(path));
     }
 
     private static Texture image2Texture(Image image)

@@ -187,6 +187,11 @@ public class Juni : KinematicBody2D
         EmitSignal(nameof(PowerChanged), power, value);
     }
 
+    public void updateCollectables()
+    {
+        EmitSignal(nameof(PowerChanged), -1, true);
+    }
+
     public void transitionState(JuniState state)
     {
         this.next_state = state;
@@ -346,9 +351,10 @@ public class Juni : KinematicBody2D
         GetParent().AddChild(dj_node);
     }
 
-    public void shiftEffect()
+    public void showEffect(bool effect, string sound = null)
     {
-        // TODO: implement shift flash effect
+        if (sound != null) { GetNode<AudioStreamPlayer2D>($"Audio/{sound}Player2D").Play(); }
+        if (effect) { GetNode<AnimationPlayer>("EffectSprite/AnimationPlayer").Play("collect"); }
     }
 
     // This kills the Juni

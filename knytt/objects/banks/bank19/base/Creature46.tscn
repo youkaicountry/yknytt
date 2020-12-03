@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/spikeless_spiker.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/common/Spikes.cs" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ null ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": false,
+"name": "open",
+"speed": 25.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="SpikerMod" parent="." instance=ExtResource( 1 )]
+openDistance = 100.0
+closeDistance = 130.0
+method = 1
+spritePath = NodePath("../AnimatedSprite")
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 6 )
+centered = false

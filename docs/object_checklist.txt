@@ -251,6 +251,7 @@ Bank 11 (Disks):
 [x] -  8 Green Disk
 [x] -  9 Shock Disk 3
 [x] - 10 Yellow Disk
+[ ] - 11
 
 Bank 12 (Ghosts):
 [ ] -  1
@@ -388,3 +389,5 @@ Bank 18 (Water Creatures):
 [x] -  4 Fish
 [x] -  5 Fish
 [x] -  6 Water Monster
+
+[x] Bank 255 (Custom Objects)

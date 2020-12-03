@@ -32,11 +32,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Title.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk2.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk3.cs" />
     <Compile Include="knytt\objects\banks\bank13\UpCannon.cs" />
+    <Compile Include="knytt\objects\banks\bank15\CollectionDoor.cs" />
+    <Compile Include="knytt\objects\banks\bank15\KeyDoor.cs" />
+    <Compile Include="knytt\objects\banks\bank16\OneWayPlatform.cs" />
+    <Compile Include="knytt\objects\banks\bank16\TwoWayPlatform.cs" />
+    <Compile Include="knytt\objects\banks\bank19\Artifact.cs" />
+    <Compile Include="knytt\objects\banks\bank19\Coin.cs" />
+    <Compile Include="knytt\objects\banks\bank19\CollectMod.cs" />
+    <Compile Include="knytt\objects\banks\bank19\EaterCollectMod.cs" />
+    <Compile Include="knytt\objects\banks\bank255\CustomObject.cs" />
     <Compile Include="knytt\objects\banks\bank5\ShadowWitch.cs" />
     <Compile Include="knytt\objects\banks\bank6\TrapFire.cs" />
     <Compile Include="knytt\objects\banks\bank9\AgressiveTrapFlower.cs" />
@@ -117,6 +127,9 @@
     <Compile Include="knytt\objects\CosineMod.cs" />
     <Compile Include="knytt\objects\banks\common\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />
+    <Compile Include="knytt\ui\info_panel\ArtifactsInfo.cs" />
+    <Compile Include="knytt\ui\info_panel\CoinsInfo.cs" />
+    <Compile Include="knytt\ui\info_panel\CreaturesInfo.cs" />
     <Compile Include="knytt\ui\info_panel\InfoPanel.cs" />
     <Compile Include="knytt\ui\info_panel\ItemInfo.cs" />
     <Compile Include="knytt\juni\GroundChecker.cs" />
