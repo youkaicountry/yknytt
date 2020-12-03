@@ -9,7 +9,7 @@ public class HomingFlower : GDKnyttBaseObject
             (p, i) => 
             {
                 (p as HomingBullet).globalJuni = Juni;
-                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
+                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(11, 16));
                 p.Velocity = 50;
                 p.Direction = Mathf.Pi / 2;

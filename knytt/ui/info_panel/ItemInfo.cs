@@ -12,7 +12,7 @@ public class ItemInfo : Control
         anim.Play();
     }
 
-    public void updateItem(JuniValues values)
+    public virtual void updateItem(JuniValues values)
     {
         var m = Modulate;
         m.a = values.getPower(ItemID) ? 1f : .18f;

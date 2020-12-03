@@ -3,7 +3,8 @@ using Godot;
 public class PowerItem : GDKnyttBaseObject
 {
     public static int[] Object2Power = new int[] { -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 
-                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 9, 10, 11 };
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 9, 10, 11,
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12 };
 
 
     int power;

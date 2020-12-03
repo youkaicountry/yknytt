@@ -6,8 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
-collision_layer = 2052
+[node name="StaticBody2D" type="StaticBody2D"]
+collision_layer = 2050
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

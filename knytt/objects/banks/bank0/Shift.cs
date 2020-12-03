@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Godot;
 using YKnyttLib;
 using static YKnyttLib.KnyttShift;
@@ -7,7 +7,7 @@ public class Shift : GDKnyttBaseObject
 {
     KnyttShift shift;
 
-    private AudioStreamPlayer2D enterPlayer;
+    private string sound;
 
     public override void _Ready()
     {
@@ -21,15 +21,9 @@ public class Shift : GDKnyttBaseObject
         shape.Visible = shift.Visible;
         shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", true);
 
-        var sounds_dict = new Dictionary<string, string>
-        {
-            {"Door", "DoorPlayer"},
-            {"Electronic", "ElectronicPlayer"},
-            {"Switch", "SwitchPlayer"},
-        };
-        var player_name = shift.Sound == null ? "TeleportPlayer" : 
-                          sounds_dict.TryGetValue(shift.Sound, out var p) ? p : null;
-        if (player_name != null) { enterPlayer = GetNode<AudioStreamPlayer2D>(player_name); }
+        string[] available_sounds = {"Door", "Electronic", "Switch"};
+        sound = shift.Sound == null ? "Teleport" : 
+                Array.IndexOf(available_sounds, shift.Sound) != -1 ? shift.Sound : null;
     }
 
     public void _on_Area2D_body_entered(Node body)
@@ -80,9 +74,27 @@ public class Shift : GDKnyttBaseObject
         }
     }
 
+    public void executeShiftAnyway(Juni juni)
+    {
+        CallDeferred("_execute_shift", juni);
+    }
+
     private async void _execute_shift(Juni juni)
     {
         var game = GDArea.GDWorld.Game;
+
+        if (shift.Coin != 0)
+        {
+            if (juni.Powers.getCoinCount() - shift.Coin >= 0)
+            {
+                juni.Powers.CoinsSpent += shift.Coin;
+                juni.updateCollectables();
+            }
+            else
+            {
+                return;
+            }
+        }
 
         var relative_area = shift.RelativeArea;
         if (!relative_area.isZero())
@@ -132,9 +144,9 @@ public class Shift : GDKnyttBaseObject
             }
         }
 
-        if (enterPlayer != null)
+        if (shift.Effect || sound != null)
         {
-            enterPlayer.Play();
+            juni.showEffect(effect: shift.Effect, sound: sound);
         }
 
         if (shift.StopMusic)
@@ -157,11 +169,6 @@ public class Shift : GDKnyttBaseObject
             game.saveGame(shift.AbsoluteArea, shift.AbsolutePosition, true);
         }
 
-        if (shift.Effect)
-        {
-            juni.shiftEffect();
-        }
-        
         if (shift.Cutscene != null)
         {
             // Cutscene can't be paused right now, because it re-emits signals after unpausing

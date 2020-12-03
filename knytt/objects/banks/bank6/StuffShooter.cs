@@ -25,7 +25,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
         GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet", 10,
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<AudioStreamPlayer2D>("HitPlayer");
+                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(shotPosition);
                 p.Velocity = bulletSpeed * 50;
                 p.Direction = (up ? 1 : 3) * (Mathf.Pi / 2);
