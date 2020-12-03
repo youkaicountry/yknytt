@@ -58,6 +58,53 @@ public class GDKnyttSettings : Node
         set { ini["Graphics"]["Scroll Type"] = ScrollTypes2String(value); }
     }
 
+    // Calculate the volume in dB from the config value
+    private static float calcVolume(int v)
+    {
+        if (v == 0) { return -80f; }
+        return (((float)v) / 100f) * 26f - 20f;
+    }
+
+    public static int MasterVolume
+    {
+        get { return int.Parse(ini["Audio"]["Master Volume"]); }
+        set 
+        {
+            ini["Audio"]["Master Volume"] = $"{value}";
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), calcVolume(value));
+        }
+    }
+
+    public static int MusicVolume
+    {
+        get { return int.Parse(ini["Audio"]["Music Volume"]); }
+        set 
+        { 
+            ini["Audio"]["Music Volume"] = $"{value}";
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("MusicVol"), calcVolume(value));
+        }
+    }
+
+    public static int EffectsVolume
+    {
+        get { return int.Parse(ini["Audio"]["Effects Volume"]); }
+        set 
+        { 
+            ini["Audio"]["Effects Volume"] = $"{value}";
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("SFX"), calcVolume(value));
+        }
+    }
+
+    public static int EnvironmentVolume
+    {
+        get { return int.Parse(ini["Audio"]["Environment Volume"]); }
+        set 
+        { 
+            ini["Audio"]["Environment Volume"] = $"{value}";
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Environment"), calcVolume(value));
+        }
+    }
+
     private static ScrollTypes String2ScrollTypes(string s)
     {
         switch(s)
@@ -94,6 +141,11 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "0");
         modified |= ensureSetting("Graphics", "Scroll Type", "Smooth");
+
+        modified |= ensureSetting("Audio", "Master Volume", "100");
+        modified |= ensureSetting("Audio", "Music Volume", "80");
+        modified |= ensureSetting("Audio", "Effects Volume", "70");
+        modified |= ensureSetting("Audio", "Environment Volume", "80");
   
         modified |= TouchSettings.ensureSettings();
 
@@ -106,6 +158,10 @@ public class GDKnyttSettings : Node
         Fullscreen = ini["Graphics"]["Fullscreen"].Equals("1") ? true : false;
         SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
         ScrollType = String2ScrollTypes(ini["Graphics"]["Scroll Type"]);
+        MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
+        MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
+        EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
+        EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
     }
 
     public static void saveSettings()
