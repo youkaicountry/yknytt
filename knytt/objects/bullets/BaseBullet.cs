@@ -51,7 +51,7 @@ public class BaseBullet : KinematicBody2D
 
     
     public GDKnyttArea GDArea { protected get; set; }
-    public AudioStreamPlayer2D DisapperarPlayer { protected get; set; }
+    public RawAudioPlayer2D DisapperarPlayer { protected get; set; }
     
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
@@ -108,7 +108,7 @@ public class BaseBullet : KinematicBody2D
         _velocity_x = _velocity_y = _gravity = 0;
         if (collide)
         {
-            if (DisapperarPlayer != null)
+            if (DisapperarPlayer != null && !DisapperarPlayer.IsDisposed)
             {
                 DisapperarPlayer.GlobalPosition = GlobalPosition;
                 DisapperarPlayer.Play();

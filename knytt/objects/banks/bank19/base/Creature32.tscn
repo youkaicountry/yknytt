@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank6/SelfDropper.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/self_dropper.png" type="Texture" id=2]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 24, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 72, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 120, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": false,
+"name": "launch",
+"speed": 20.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 11, 1 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+OrganicEnemy = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+centered = false
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2049
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 12, 23 )
+shape = SubResource( 8 )
+disabled = true
+
+[node name="DropPlayer" parent="." instance=ExtResource( 3 )]
+rawPath = "res://knytt/data/Sfx/Selfdrop.raw"
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

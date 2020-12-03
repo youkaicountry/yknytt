@@ -1,0 +1,112 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank19/img/small_spider.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/bank17/SmallSpider.cs" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 168, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 192, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 216, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 240, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 264, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 288, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 312, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 336, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 24, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 72, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 144, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": false,
+"name": "open",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "walk",
+"speed": 50.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 4, 3 )
+
+[node name="Muff" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+OrganicEnemy = true
+directionChangeTime = 4.26
+speedChangeTime = 1.0
+initialSpeed = 8
+speedValues = PoolIntArray( 0, 0, 7, 12 )
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 16 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( 12, 20 )
+shape = SubResource( 17 )
+
+[node name="Area2D" type="Area2D" parent="." index="4"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 12, 21 )
+shape = SubResource( 18 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

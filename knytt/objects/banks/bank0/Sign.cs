@@ -1,22 +1,32 @@
 using Godot;
+using System.Collections.Generic;
+using YKnyttLib;
 
 public class Sign : GDKnyttBaseObject
 {
-    public int junis = 0;
+    private List<string> texts = new List<string>();
+    private int messageIndex;
+    private bool messageVisible;
+    private int shiftMessageIndex;
+
+    private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>();
 
     public override void _Ready()
     {
-        string letter = "";
-        switch (ObjectID.y)
-        {
-            case 17: letter = "A"; break;
-            case 18: letter = "B"; break;
-            case 19: letter = "C"; break;
-        }
+        string letter = "ABC"[ObjectID.y - 17].ToString();
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
-        if (text == null) { text = "<SIGN TEXT MISSING>"; }
-        GetNode<Label>("SignRect/Label").Text = text;
+        texts.Add(text);
+        for (int i = 2; ; i++)
+        {
+            text = GDArea.Area.getExtraData($"Sign{i}({letter})");
+            if (text == null) { break; }
+            texts.Add(text);
+        }
+        if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
+
+        shiftMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignShift({letter})"), out var j) ? j : 0;
+
         adjustSign();
     }
 
@@ -36,20 +46,54 @@ public class Sign : GDKnyttBaseObject
         sign_rect.RectPosition = new Vector2(x_pos, y_pos);
     }
 
+    public void nextMessage(Juni juni)
+    {
+        messageIndex++;
+        if (messageIndex >= texts.Count) { messageIndex = -1; }
+
+        if (messageIndex != -1 && texts[messageIndex] != null)
+        {
+            GetNode<Label>("SignRect/Label").Text = texts[messageIndex];
+            GetNode<Control>("SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
+            if (!messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); messageVisible = true;}
+
+            if (shiftMessageIndex > 0 && messageIndex == shiftMessageIndex)
+            {
+                Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 3)) as Shift;
+                shift.executeShiftAnyway(juni);
+            }
+        }
+        else
+        {
+            if (messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").PlayBackwards("FadeIn"); messageVisible = false; }
+        }
+    }
+
     public void OnArea2DBodyEntered(Node body)
     {
-        if (!(body is Juni)) { return; }
-        if (junis == 0) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); }
-        junis++;
+        if (!(body is Juni juni)) { return; }
+        if (refCounter.ContainsKey(juni))
+        {
+            refCounter[juni]++;
+        }
+        else
+        {
+            if (refCounter.Count == 0) { messageIndex = -1; nextMessage(juni); }
+            if (texts.Count > 1) { juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
+            refCounter[juni] = 1;
+        }
     }
 
     public void OnArea2DBodyExited(Node body)
     {
-        if (!(body is Juni)) { return; }
-        junis--;
-        if (junis > 0) { return; }
-        GetNode<AnimationPlayer>("AnimationPlayer").PlayBackwards("FadeIn");
-        junis = 0;
+        if (!(body is Juni juni)) { return; }
+        refCounter[juni]--;
+        if (refCounter[juni] == 0)
+        {
+            if (texts.Count > 1) { juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
+            refCounter.Remove(juni);
+            if (refCounter.Count == 0) { messageIndex = -2; nextMessage(juni); }
+        }
     }
 
     public void _on_Area2D_body_entered(Node body)

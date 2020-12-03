@@ -28,7 +28,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         var full_path = this.WorldDirectory + "/" + filepath;
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
-        return GDKnyttAssetManager.loadSound(full_path);
+        return GDKnyttAssetManager.loadExternalSound(full_path);
     }
 
     protected override object getExternalTexture(string filepath)
@@ -49,7 +49,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemSound(string filepath)
     {
-        return GDKnyttAssetManager.loadSound("res://knytt/data/" + filepath);
+        return GDKnyttAssetManager.loadInternalSound("res://knytt/data/" + filepath);
     }
 
     protected override object getSystemTexture(string filepath)

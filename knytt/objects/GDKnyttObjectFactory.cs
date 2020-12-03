@@ -35,6 +35,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 29)] =  "SignArea";
         ObjectLookup[new KnyttPoint(0, 30)] =  "SignArea";
         ObjectLookup[new KnyttPoint(0, 31)] =  "SignArea";
+        ObjectLookup[new KnyttPoint(0, 35)] =  "PowerItem";
+        ObjectLookup[new KnyttPoint(0, 36)] =  "Title";
         ObjectLookup[new KnyttPoint(1, 1)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 2)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 3)] =   "Waterfall";
@@ -71,7 +73,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(3, 2)] =   "RollerMuff2";
         ObjectLookup[new KnyttPoint(3, 3)] =   "Muff3";
         ObjectLookup[new KnyttPoint(3, 4)] =   "SpikerMuff4";
-        ObjectLookup[new KnyttPoint(3, 5)] =   "FollowPeaceful";
+        ObjectLookup[new KnyttPoint(3, 5)] =   "YellowDog";
         ObjectLookup[new KnyttPoint(3, 6)] =   "SpikerMuff6";
         ObjectLookup[new KnyttPoint(3, 7)] =   "Muff7";
         ObjectLookup[new KnyttPoint(3, 8)] =   "RollerMuff8";
@@ -91,7 +93,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(3, 22)] =  "SpikerMuff22";
         ObjectLookup[new KnyttPoint(3, 23)] =  "Muff23";
         ObjectLookup[new KnyttPoint(3, 24)] =  "Muff24";
-        ObjectLookup[new KnyttPoint(3, 25)] =  "FollowPeaceful";
+        ObjectLookup[new KnyttPoint(3, 25)] =  "Ratlike";
         ObjectLookup[new KnyttPoint(3, 26)] =  "LookMuff26";
         ObjectLookup[new KnyttPoint(3, 27)] =  "ForestDude";
         ObjectLookup[new KnyttPoint(3, 28)] =  "Muff28";
@@ -111,7 +113,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(3, 42)] =  "BigCat";
         ObjectLookup[new KnyttPoint(3, 43)] =  "SmallCat";
         ObjectLookup[new KnyttPoint(3, 44)] =  "Muff44";
-        ObjectLookup[new KnyttPoint(4, 1)] =   "FollowMonster";
+        ObjectLookup[new KnyttPoint(4, 1)] =   "RedFollowBall";
         ObjectLookup[new KnyttPoint(4, 17)] =  "Hedgehog";
         ObjectLookup[new KnyttPoint(4, 18)] =  "ToastMonsterNew";
         ObjectLookup[new KnyttPoint(5, 1)] =   "ShadowWitch";
@@ -130,6 +132,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(6, 11)] =  "DownSpikes";
         ObjectLookup[new KnyttPoint(6, 12)] =  "LeftSpikes";
         ObjectLookup[new KnyttPoint(6, 13)] =  "RightSpikes";
+        ObjectLookup[new KnyttPoint(6, 14)] =  "UpPermanentSpikes";
+        ObjectLookup[new KnyttPoint(6, 15)] =  "DownPermanentSpikes";
+        ObjectLookup[new KnyttPoint(6, 16)] =  "LeftPermanentSpikes";
+        ObjectLookup[new KnyttPoint(6, 17)] =  "RightPermanentSpikes";
         ObjectLookup[new KnyttPoint(7, 1)] =   "Leaf";
         ObjectLookup[new KnyttPoint(7, 5)] =   "SunRay";
         ObjectLookup[new KnyttPoint(7, 6)] =   "Leaf";
@@ -198,6 +204,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(14, 11)] = "InsectWithoutShell";
         ObjectLookup[new KnyttPoint(14, 13)] = "BigRunThing";
         ObjectLookup[new KnyttPoint(14, 14)] = "SmallRunThing";
+        ObjectLookup[new KnyttPoint(14, 15)] = "AnotherSnail";
         ObjectLookup[new KnyttPoint(14, 16)] = "FloorSpiker";
         ObjectLookup[new KnyttPoint(14, 17)] = "SuperMarioAI";
         ObjectLookup[new KnyttPoint(14, 18)] = "CeilingSpiker";
@@ -229,10 +236,16 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 24)] =  "LockBlockVertical";
         ObjectLookup[new KnyttPoint(15, 25)] = "FadeBlock";
         ObjectLookup[new KnyttPoint(15, 26)] = "HoldButton";
-        ObjectLookup[new KnyttPoint(15, 27)] = "Door";
-        ObjectLookup[new KnyttPoint(15, 28)] = "Door";
-        ObjectLookup[new KnyttPoint(15, 29)] = "Door";
-        ObjectLookup[new KnyttPoint(15, 30)] = "Door";
+        ObjectLookup[new KnyttPoint(15, 27)] = "RedDoor";
+        ObjectLookup[new KnyttPoint(15, 28)] = "YellowDoor";
+        ObjectLookup[new KnyttPoint(15, 29)] = "BlueDoor";
+        ObjectLookup[new KnyttPoint(15, 30)] = "PurpleDoor";
+        ObjectLookup[new KnyttPoint(15, 31)] = "CollectionDoor1";
+        ObjectLookup[new KnyttPoint(15, 32)] = "CollectionDoor5";
+        ObjectLookup[new KnyttPoint(15, 33)] = "CollectionDoor10";
+        ObjectLookup[new KnyttPoint(15, 34)] = "CollectionDoor20";
+        ObjectLookup[new KnyttPoint(15, 35)] = "CollectionDoor40";
+        ObjectLookup[new KnyttPoint(15, 36)] = "CollectionDoor50";
         ObjectLookup[new KnyttPoint(16, 1)] =  "Spring";
         ObjectLookup[new KnyttPoint(16, 2)] =  "DeathZoneTop";
         ObjectLookup[new KnyttPoint(16, 3)] =  "DeathZoneBottom";
@@ -249,6 +262,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(16, 14)] = "InvisibleBlock";
         ObjectLookup[new KnyttPoint(16, 15)] = "InvisibleSlopeLeft";
         ObjectLookup[new KnyttPoint(16, 16)] = "InvisibleSlopeRight";
+        ObjectLookup[new KnyttPoint(16, 17)] = "Barrier";
+        ObjectLookup[new KnyttPoint(16, 29)] = "OneWayPlatform";
+        ObjectLookup[new KnyttPoint(16, 30)] = "TwoWayPlatform";
         ObjectLookup[new KnyttPoint(17, 2)] =  "SmallSpider";
         ObjectLookup[new KnyttPoint(17, 3)] =  "CreepyWaterMonster";
         ObjectLookup[new KnyttPoint(17, 10)] = "FloorSpiker";
@@ -260,6 +276,32 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(18, 4)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 5)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 6)] = "WaterMonster";
+
+        for (int i = 11; i <= 22; i++)
+        {
+            ObjectLookup[new KnyttPoint(19, i)] = $"Collectable{i}";
+        }
+        ObjectLookup[new KnyttPoint(19, 28)] = "Collectable28";
+        for (int i = 31; i <= 43; i++)
+        {
+            ObjectLookup[new KnyttPoint(19, i)] = $"Collectable{i}";
+        }
+        ObjectLookup[new KnyttPoint(19, 45)] = "Collectable45";
+        ObjectLookup[new KnyttPoint(19, 46)] = "Collectable46";
+        ObjectLookup[new KnyttPoint(19, 49)] = "Collectable49";
+
+        for (int i = 51; i <= 150; i++)
+        {
+            ObjectLookup[new KnyttPoint(19, i)] = "Coin";
+        }
+        for (int i = 151; i <= 199; i++)
+        {
+            ObjectLookup[new KnyttPoint(19, i)] = "Artifact";
+        }
+        for (int i = 1; i <= 255; i++)
+        {
+            ObjectLookup[new KnyttPoint(255, i)] = "CustomObject";
+        }
     }
 
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank19/CollectMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/base/Creature31.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/bank19/EaterCollectMod.cs" type="Script" id=4]
+
+[node name="Node2D" instance=ExtResource( 2 )]
+
+[node name="Area2D" parent="." index="1"]
+monitoring = false
+monitorable = false
+
+[node name="CollectMod" parent="." index="3" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+collisionPath = NodePath("../Area2D/CollisionShape2D")

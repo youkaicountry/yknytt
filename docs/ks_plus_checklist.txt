@@ -1,0 +1,164 @@
+Bank 0 (System):
+[ ] - 32
+[ ] - 33
+[ ] - 34
+[x] - 35 Map PowerItem
+[x] - 36 Title
+[ ] - 37
+[ ] - 38
+[ ] - 39
+[ ] - 40
+[ ] - 41
+[ ] - 42
+[ ] - 43
+[ ] - 44
+[ ] - 45
+[ ] - 46
+[ ] - 47
+[ ] - 48
+[ ] - 49
+[ ] - 247
+[ ] - 248
+[ ] - 249
+[ ] - 250
+[ ] - 251
+[ ] - 252
+[ ] - 253
+[ ] - 254
+[ ] - 255
+
+Bank 1 (Liquids):
+[ ] - 25
+[ ] - 26
+[ ] - 27
+
+Bank 6 (Traps):
+[x] - 14 Up Permanent Spikes
+[x] - 15 Down Permanent Spikes
+[x] - 16 Left Permanent Spikes
+[x] - 17 Right Permanent Spikes
+
+Bank 7 (Nature FX):
+[ ] - 17
+
+Bank 15 (Objects & Areas):
+[x] - 31 Collection Door
+[x] - 32 Collection Door
+[x] - 33 Collection Door
+[x] - 34 Collection Door
+[x] - 35 Collection Door
+[x] - 36 Collection Door
+[ ] - 37
+[ ] - 38
+
+Bank 16 (Invisible):
+[x] - 17 Object Barrier
+[ ] - 18 Fish and Birds Barrier
+[ ] - 19
+[ ] - 20
+[ ] - 21
+[ ] - 22
+[ ] - 23
+[ ] - 24
+[ ] - 25
+[ ] - 26
+[ ] - 27
+[ ] - 28
+[x] - 29 One Way Platform
+[x] - 30 Two Ways Platform
+
+Bank 19 (Collectables):
+[/] - 0-50 Golden Creatures
+[x] - 51-150 Coins
+[x] - 151-199 Artifacts
+
+[ ] Info Panel with golden creatures and artifacts
+
+[ ] Override Custom Objects
+[ ] 	Image=YourSpriteSheet.png
+[ ] 	TileWidth=
+[x] 	Bank=
+[x] 	Object=
+[ ] 	Hurts=False
+
+[ ] Custom Characters
+
+[ ] Custom Umbrella
+
+[ ] Custom Powers
+
+[x] Custom Coins
+
+[x] Custom Artifacts
+
+[ ] Golden Creatures Icon
+
+[ ] Trigger: Spawns an object on the screen
+[ ] 	TrigBank(A)
+[ ] 	TrigObject(A)
+[ ] 	TrigSpawnX(A)
+[ ] 	TrigSpawnY(A)
+[ ] 	TrigAbsoluteTarget(A)
+[ ] 	TrigEffect(A)
+[ ] 	TrigEffectX(A)
+[ ] 	TrigEffectY(A)
+[ ] 	TrigTouch(A)
+[ ] 	TrigType(A)
+[ ] 	TrigVisible(A)
+[ ] 	TrigDenyHologram(A)
+[ ] 	TrigSound(A)
+[ ] 	TrigAsOne(A)
+[ ] 	TrigRepeat(A)
+
+[ ] Shift
+[ ] 	ShiftSound(A) custom sounds
+[ ] 	ShiftCharacter(A)
+[ ] 	ShiftTime(A)
+[ ] 	ShiftHide(A)
+[x] 	ShiftCoin(A)
+[ ] 	ShiftSave(A)
+
+[x]     Sign2(A)
+[x] 	SignShift(A)
+[ ] 	SignTrig(A)
+
+[ ] Cutscene Fade Color
+
+[ ] Map
+
+[ ] Map Spoofing
+[ ] 	MapX=1000
+[ ] 	MapY=1000
+[ ] 	MapVisible=True
+[ ] 	MapVisible=False
+[ ] 	MapColor=#
+[ ] 	[World] Map=False
+
+[ ] Flag Warp
+[ ] 	Flag(All)=True
+[ ] 	FlagWarpX(All)=#
+[ ] 	FlagWarpY(All)=#
+[ ] 	Flag(A)=True
+[ ] 	FlagWarpY(A)=Artifact1
+[x] 	Flag(A)=Power12
+
+[ ] Overlay
+
+[ ] Tint
+[ ] 	Tint=#
+[ ] 	TintTrans=46
+[ ] 	TintInk=Add
+
+[x] Title
+[x] 	Title=YourMessageHere
+[x] 	Subtitle=YourMessageHere
+
+[ ] Custom Fonts
+
+[ ] Attachment
+
+[ ] Loop Music
+
+[ ] Intro Music
+
+[ ] Info Images
