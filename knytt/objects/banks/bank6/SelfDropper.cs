@@ -19,7 +19,7 @@ public class SelfDropper : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - (GlobalPosition.x + 12)) < DISTANCE_TO_DROP)
+        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - Center.x) < DISTANCE_TO_DROP)
         {
             state = State.Dropping;
             GetNode<AnimatedSprite>("AnimatedSprite").Play("launch");

@@ -17,6 +17,7 @@ public class BaseBullet : KinematicBody2D
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
+    public bool EnableRotation { get; set; } = false;
 
     public float DecelerationCorrectionX { get; set; } = 1;
     public float DecelerationCorrectionUp { get; set; } = 1;
@@ -67,6 +68,9 @@ public class BaseBullet : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         if (!Enabled) { return; }
+        // Workaround to make sure that Translate was made before actual enabling
+        // Without this, player can move with a particle!
+        if (collisionShape.Disabled) { collisionShape.SetDeferred("disabled", false); }
         
         _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
         if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
@@ -89,6 +93,8 @@ public class BaseBullet : KinematicBody2D
         }
 
         _velocity_y += _gravity * delta;
+
+        if (EnableRotation) { Rotation = Mathf.Atan2(_velocity_y, _velocity_x); }
 
         var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
         if (collision != null)
@@ -129,7 +135,7 @@ public class BaseBullet : KinematicBody2D
         {
             _enabled = value;
             if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
-            collisionShape.SetDeferred("disabled", !value);
+            if (!value) { collisionShape.SetDeferred("disabled", true); }
         }
     }
 }

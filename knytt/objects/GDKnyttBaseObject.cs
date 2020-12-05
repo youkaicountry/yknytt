@@ -53,4 +53,10 @@ public class GDKnyttBaseObject : Node2D
     {
         if (body is Juni juni) { juni.die(); }
     }
+
+    protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool infiniteInertia = true,
+        bool excludeRaycastShapes = true, bool testOnly = false)
+    {
+        return Call("move_and_collide", relVec, infiniteInertia, excludeRaycastShapes, testOnly) as KinematicCollision2D;
+    }
 }

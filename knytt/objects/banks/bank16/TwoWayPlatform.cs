@@ -11,6 +11,7 @@ public class TwoWayPlatform : OneWayPlatform
 
     public override void _PhysicsProcess(float delta)
     {
+        // TODO: use local Juni instead of global Juni
         if (Juni.DownHeld)
         { 
             if (noJumpShape.Disabled) { noJumpShape.SetDeferred("disabled", false); }

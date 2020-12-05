@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank10/bouncer2.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank10/cauldron.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank10/Bouncer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/bank10/Cauldron.cs" type="Script" id=3]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -28,7 +30,7 @@ animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": false,
 "name": "bounce",
-"speed": 25.0
+"speed": 40.0
 }, {
 "frames": [ SubResource( 5 ) ],
 "loop": false,
@@ -37,16 +39,22 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 9.5
+radius = 11.0
 
 [node name="Bouncer" instance=ExtResource( 2 )]
-initialSpeed = 3.0
+script = ExtResource( 3 )
 speedValues = PoolIntArray( 2, 3, 4, 5, 6 )
-random = true
+counter = 1
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2( 11.5, 14 )
+position = Vector2( 12, 13 )
 shape = SubResource( 7 )
+
+[node name="ShotPlayer" parent="." index="3" instance=ExtResource( 4 )]
+rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
+
+[node name="HitPlayer" parent="." index="4" instance=ExtResource( 4 )]
+rawPath = "res://knytt/data/Sfx/Fire Hit.raw"

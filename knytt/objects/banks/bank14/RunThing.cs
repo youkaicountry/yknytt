@@ -23,7 +23,7 @@ public class RunThing : Muff
 
     protected override void _on_SpeedTimer_timeout()
     {
-        var juni_distance = Juni.ApparentPosition.x - (GlobalPosition.x + 12);
+        var juni_distance = Juni.ApparentPosition.x - Center.x;
 
         var direction = 
             juni_distance >= safeDistance ? 1 :
