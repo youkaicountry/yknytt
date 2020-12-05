@@ -228,7 +228,7 @@ Bank 9 (Flowers):
 Bank 10 (Bouncers):
 [x] -  1 Bouncer 1
 [x] -  2 Bouncer 2
-[ ] -  3
+[x] -  3 Cauldron
 [ ] -  4
 [x] -  5 Bouncer
 [ ] -  6
@@ -281,7 +281,7 @@ Bank 13 (Robots):
 [x] -  2 Homing Cannon
 [ ] -  3
 [x] -  4 Up Cannon
-[ ] -  5
+[x] -  5 Dropstuff Robot
 [x] -  6 Roller Generator
 [x] -  7 Laser
 [x] -  8 Laser
@@ -307,7 +307,7 @@ Bank 14 (Earth Beings):
 [ ] - 12
 [x] - 13 Small Spike Run Thing
 [x] - 14 Big Spike Run Thing
-[ ] - 15
+[x] - 15 Another Snail
 [x] - 16 Floor Spiker
 [x] - 17 Super Mario AI
 [x] - 18 Ceiling Spiker
@@ -369,15 +369,15 @@ Bank 16 (Invisible):
 [x] - 16 Invisible Slope
 
 Bank 17 (Creepy):
-[ ] -  1
+[x] -  1 Dark Randomizer
 [x] -  2 Small Spider
 [x] -  3 Creepy Water Monster
-[ ] -  4
-[ ] -  5
+[x] -  4 Mad Spider
+[x] -  5 Ceiling Mad Spider
 [ ] -  6
 [ ] -  7
-[ ] -  8
-[ ] -  9
+[x] -  8 Right Ninja
+[x] -  9 Left Ninja
 [x] - 10 Floor Spiker
 [x] - 11 Left Spiker
 [x] - 12 Right Spiker

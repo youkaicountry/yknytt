@@ -11,6 +11,7 @@ public class Muff : GDKnyttBaseObject
     [Export] protected int initialSpeed = 0;
     [Export] protected int[] speedValues = null;
     [Export] protected float deceleration = 0;
+    [Export] protected bool vertical = false;
 
     protected const float SPEED_SCALE = 50f / 8;
 
@@ -39,12 +40,16 @@ public class Muff : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        var x_diff = speed * direction * SPEED_SCALE * delta;
-        var new_x = Position.x + 12 + x_diff;
-        if (Call("move_and_collide", new Vector2(x_diff, 0)) != null || new_x < 0 || new_x > 600)
+
+        // Check for collisions with ObjectsCollide and area bounds
+        var diff = speed * direction * SPEED_SCALE * delta;
+        var diff_vec = vertical ? new Vector2(0, diff) : new Vector2(diff, 0);
+        // Sometimes collision can be detected with zero movement! Muff got stuck after this.
+        if (diff != 0 && (moveAndCollide(diff_vec) != null || !GDArea.isIn(Center + diff_vec)))
         {
             collide();
         }
+
         var new_speed = speed - _deceleration * delta;
         if (speed > 0 && new_speed <= 0) { changeSpeed(0); } else { speed = new_speed; }
     }
@@ -62,9 +67,8 @@ public class Muff : GDKnyttBaseObject
     protected int getDirection(DirectionChange dir_change)
     {
         return dir_change == DirectionChange.Random ? (GDKnyttDataStore.random.NextBoolean() ? -1 : 1) :
-               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.x > GlobalPosition.x + 12 ? 1 : -1) :
-                    (Juni.ApparentPosition.x > GlobalPosition.x + 12 ? -1 : 1);
-
+               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.x > Center.x ? 1 : -1) :
+                    (Juni.ApparentPosition.x > Center.x ? -1 : 1);
     }
 
     protected virtual void collide()
@@ -75,7 +79,7 @@ public class Muff : GDKnyttBaseObject
     protected virtual void changeDirection(int dir)
     {
         direction = dir;
-        sprite.FlipH = direction < 0;
+        if (!vertical) { sprite.FlipH = direction < 0; }
     }
 
     protected virtual void changeSpeed(float s)

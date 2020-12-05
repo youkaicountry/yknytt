@@ -33,15 +33,21 @@
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
     <Compile Include="knytt\objects\banks\bank0\Title.cs" />
+    <Compile Include="knytt\objects\banks\bank10\Cauldron.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk2.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk3.cs" />
+    <Compile Include="knytt\objects\banks\bank13\DropstuffRobot.cs" />
     <Compile Include="knytt\objects\banks\bank13\UpCannon.cs" />
     <Compile Include="knytt\objects\banks\bank15\CollectionDoor.cs" />
     <Compile Include="knytt\objects\banks\bank15\KeyDoor.cs" />
     <Compile Include="knytt\objects\banks\bank16\OneWayPlatform.cs" />
     <Compile Include="knytt\objects\banks\bank16\TwoWayPlatform.cs" />
+    <Compile Include="knytt\objects\banks\bank17\CeilingMadSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank17\DarkRandomizer.cs" />
+    <Compile Include="knytt\objects\banks\bank17\MadSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank17\WallNinja.cs" />
     <Compile Include="knytt\objects\banks\bank19\Artifact.cs" />
     <Compile Include="knytt\objects\banks\bank19\Coin.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectMod.cs" />
@@ -54,7 +60,7 @@
     <Compile Include="knytt\objects\banks\bank9\RedTrapFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
-    <Compile Include="knytt\objects\banks\bank9\TrapFlower.cs" />
+    <Compile Include="knytt\objects\banks\common\TrapFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BigSpiker.cs" />
     <Compile Include="knytt\objects\banks\bank14\Insect.cs" />
     <Compile Include="knytt\objects\banks\bank14\Jelly.cs" />
@@ -149,9 +155,6 @@
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank10\BouncerEnemy.cs" />
     <Compile Include="knytt\objects\banks\bank10\Bouncer.cs" />
-    <Compile Include="knytt\objects\banks\bank10\Bouncer1.cs" />
-    <Compile Include="knytt\objects\banks\bank10\Bouncer2.cs" />
-    <Compile Include="knytt\objects\banks\bank10\BouncerGreen.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
     <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />

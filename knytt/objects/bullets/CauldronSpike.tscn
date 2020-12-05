@@ -1,0 +1,59 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://knytt/objects/bullets/cauldron_spike_disappear.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bullets/cauldron_spike.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 9, 5 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 9, 0, 9, 5 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 9, 9 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 9, 0, 9, 9 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 18, 0, 9, 9 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 27, 0, 9, 9 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 36, 0, 9, 9 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": false,
+"name": "disappear",
+"speed": 17.0
+} ]
+
+[node name="Particle" instance=ExtResource( 3 )]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 1, 0.5 )
+shape = SubResource( 9 )
+
+[node name="AnimatedSprite" parent="." index="1"]
+frames = SubResource( 8 )
+offset = Vector2( 0.5, 0.5 )

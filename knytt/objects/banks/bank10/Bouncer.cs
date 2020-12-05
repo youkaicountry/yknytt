@@ -1,10 +1,12 @@
 using Godot;
-using System;
 
-public abstract class Bouncer : GDKnyttBaseObject
+public class Bouncer : GDKnyttBaseObject
 {
     [Export] float initialSpeed = 0;
     [Export] float gravity = 0.2f;
+    [Export] int[] speedValues = null;
+    [Export] bool random = false;
+    [Export] int counter = 0;
 
     protected float speed;
     protected AnimatedSprite animatedSprite;
@@ -12,8 +14,6 @@ public abstract class Bouncer : GDKnyttBaseObject
     public override void _Ready()
     {
         base._Ready();
-        OrganicEnemy = true;
-        
         speed = -initialSpeed;
         animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
@@ -25,7 +25,7 @@ public abstract class Bouncer : GDKnyttBaseObject
         Translate(new Vector2(0, speed));
     }
 
-    private void _on_Area2D_body_entered(object body)
+    protected virtual void _on_Area2D_body_entered(object body)
     {
         if (body is Juni juni) { juni.die(); return; }
 
@@ -35,6 +35,15 @@ public abstract class Bouncer : GDKnyttBaseObject
         speed = -nextSpeed();
     }
 
-    protected abstract float nextSpeed();
-}
+    protected float nextSpeed()
+    {
+        if (random)
+        {
+            return speedValues[GDKnyttDataStore.random.Next(speedValues.Length)];
+        }
 
+        var result = speedValues[counter];
+        counter = (counter + 1) % speedValues.Length;
+        return result;
+    }
+}
