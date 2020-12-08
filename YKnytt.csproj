@@ -48,6 +48,8 @@
     <Compile Include="knytt\objects\banks\bank17\DarkRandomizer.cs" />
     <Compile Include="knytt\objects\banks\bank17\MadSpider.cs" />
     <Compile Include="knytt\objects\banks\bank17\WallNinja.cs" />
+    <Compile Include="knytt\objects\banks\bank17\WaterEye.cs" />
+    <Compile Include="knytt\objects\banks\bank18\WaterMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\bank19\Artifact.cs" />
     <Compile Include="knytt\objects\banks\bank19\Coin.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectMod.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="knytt\objects\banks\bank9\RedTrapFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
+    <Compile Include="knytt\objects\banks\common\BaseWaterMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\common\TrapFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BigSpiker.cs" />
     <Compile Include="knytt\objects\banks\bank14\Insect.cs" />

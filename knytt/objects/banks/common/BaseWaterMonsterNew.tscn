@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/common/BaseWaterMonsterNew.cs" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+OrganicEnemy = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="FirstDelayTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="ShotPlayer" parent="." instance=ExtResource( 1 )]
+rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
+[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]

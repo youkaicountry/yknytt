@@ -16,10 +16,8 @@ public class UpCannon : GDKnyttBaseObject
                 p.Modulate = new Color(2, 2, 2, 0.75f);
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(24, 0));
-                var y_speed = GDKnyttDataStore.random.NextBoolean() ? 3 : 4;
-                var x_speed = GDKnyttDataStore.random.NextBoolean() ? 1 : -1;
-                p.Velocity = Mathf.Sqrt(y_speed * y_speed + 1) * 50;
-                p.Direction = Mathf.Atan2(y_speed, x_speed);
+                p.VelocityX = GDKnyttDataStore.random.NextBoolean() ? 50 : -50;
+                p.VelocityY = GDKnyttDataStore.random.NextBoolean() ? -150 : -200;
                 p.Gravity = 250;
             });
     }

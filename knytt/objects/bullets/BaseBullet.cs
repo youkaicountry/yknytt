@@ -4,8 +4,8 @@ using System;
 public class BaseBullet : KinematicBody2D
 {
     private float _velocity;
-    protected float _velocity_x;
-    protected float _velocity_y;
+    private float _velocity_x;
+    private float _velocity_y;
     private float _deceleration;
     private float _deceleration_x;
     private float _deceleration_y;
@@ -33,6 +33,10 @@ public class BaseBullet : KinematicBody2D
     public float GravityMMF2 { get { return Gravity / GRAVITY_SCALE; } set { Gravity = value * GRAVITY_SCALE; } }
     public float DirectionMMF2 { get { return Direction / DIRECTION_SCALE; } set { Direction = value * DIRECTION_SCALE; } }
     public float DecelerationMMF2 { get { return Deceleration / DECELERATION_SCALE; } set { Deceleration = value * DECELERATION_SCALE; } }
+
+    // Be careful! Doesn't support deceleration, total velocity and direction change
+    public float VelocityX { get { return _velocity_x; } set { _velocity_x = value; } }
+    public float VelocityY { get { return _velocity_y; } set { _velocity_y = value; } }
 
     protected void updateAxisVelocity()
     {
