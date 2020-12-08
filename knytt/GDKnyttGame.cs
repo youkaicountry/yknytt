@@ -8,6 +8,7 @@ public class GDKnyttGame : Node2D
 	public Juni Juni { get; private set; }
 
 	public UICanvasLayer UI { get; private set; }
+	private MapPanel mapPanel;
 
 	// TODO: This is per-player stuff, and should eventually be abstracted
 	public GDKnyttArea CurrentArea { get; private set; }
@@ -73,14 +74,17 @@ public class GDKnyttGame : Node2D
 		}
 
 		GDWorld.setWorld(this, world);
-		createJuni();
 		GDWorld.loadWorld();
+		createJuni();
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 		Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
 
 		UI.initialize(this);
 		UI.updatePowers();
+
+		mapPanel = GetNode<MapPanel>("UICanvasLayer/MapBackgroundPanel/MapPanel");
+		if (hasMap()) { mapPanel.init(GDWorld.KWorld, Juni); } else { mapPanel.init(null, null); }
 	}
 
 	// On load a save file
@@ -151,11 +155,19 @@ public class GDKnyttGame : Node2D
 		changeArea(after_flag_warp_coords, regenerate_same:false);
     }
 
+	public bool hasMap()
+	{
+		var world_section = GDWorld.KWorld.INIData["World"];
+		return world_section["Format"] == "4" && world_section["Map"] != "False";
+	}
+
 	public override void _Process(float delta)
 	{
 		if (this.viewMode) { this.editorControls(); }
 
 		if (Input.IsActionJustPressed("pause")) { pause(); }
+
+		if (Input.IsActionJustPressed("map") && hasMap()) {	mapPanel.ShowMap(true); }
 	}
 
     // TODO: Difference between Paged areas, active areas, and current area.
@@ -226,6 +238,7 @@ public class GDKnyttGame : Node2D
 		this.beginTransitionEffects(force_jump);
 
 		Juni.stopHologram(cleanup:true);
+		if (hasMap()) { Juni.Powers.VisitedAreas.Add(CurrentArea.Area.Position); }
 	}
 
 	public async void win(string ending)

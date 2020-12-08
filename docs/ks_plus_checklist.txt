@@ -124,15 +124,15 @@ Bank 19 (Collectables):
 
 [ ] Cutscene Fade Color
 
-[ ] Map
+[x] Map
 
-[ ] Map Spoofing
-[ ] 	MapX=1000
-[ ] 	MapY=1000
-[ ] 	MapVisible=True
-[ ] 	MapVisible=False
-[ ] 	MapColor=#
-[ ] 	[World] Map=False
+[x] Map Spoofing
+[x] 	MapX=1000
+[x] 	MapY=1000
+[x] 	MapVisible=True
+[x] 	MapVisible=False
+[x] 	MapColor=#
+[x] 	[World] Map=False
 
 [ ] Flag Warp
 [ ] 	Flag(All)=True

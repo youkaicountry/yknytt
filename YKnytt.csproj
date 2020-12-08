@@ -182,6 +182,7 @@
     <Compile Include="knytt\objects\banks\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
+    <Compile Include="knytt\ui\MapPanel.cs" />
     <Compile Include="knytt\ui\PausePanel.cs" />
     <Compile Include="knytt\RawAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\ClickPlayer.cs" />
