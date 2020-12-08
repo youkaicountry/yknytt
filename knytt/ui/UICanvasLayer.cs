@@ -13,11 +13,7 @@ public class UICanvasLayer : CanvasLayer
     {
         Game = game;
         
-        if (Game.GDWorld.KWorld.INIData["World"].ContainsKey("Format") && 
-            Game.GDWorld.KWorld.INIData["World"]["Format"] == "4")
-        {
-            GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
-        }
+        if (game.hasMap()) { GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map); }
     }
 
     public override void _Ready()
