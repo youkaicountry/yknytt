@@ -25,4 +25,9 @@ public class RawAudioPlayer2D : AudioStreamPlayer2D
         IsDisposed = true;
         base.Dispose(disposing);
     }
+
+    public void Play()
+    {
+        base.Play();
+    }
 }

@@ -17,31 +17,19 @@ public class DropstuffRobot : Muff
             });
     }
 
-    private void _on_FirstShotDelayTimer_timeout()
-    {
-        _on_ShotDelayTimer_timeout();
-    }
-
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("LoopTimer").Start();
-        _on_LoopTimer_timeout();
-    }
-
-    private void _on_LoopTimer_timeout()
-    {
-        GetNode<Timer>("ShotTimer").Stop();
-        GetNode<Timer>("ShotDelayTimer").Start();
-    }
-
-    private void _on_ShotDelayTimer_timeout()
+    private void _on_LoopTimer_timeout_ext()
     {
         GetNode<AudioStreamPlayer2D>("Player").Play(0.4f);
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotTimer_timeout();
+        GetNode<TimerExt>("ShotTimer").RunTimer();
+        GetNode<Timer>("StopAttackTimer").Start();
     }
 
-    private void _on_ShotTimer_timeout()
+    private void _on_StopAttackTimer_timeout()
+    {
+        GetNode<Timer>("ShotTimer").Stop();
+    }
+
+    private void _on_ShotTimer_timeout_ext()
     {
         if (GDArea.Selector.IsObjectSelected(this))
         {

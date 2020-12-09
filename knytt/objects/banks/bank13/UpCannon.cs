@@ -9,7 +9,6 @@ public class UpCannon : GDKnyttBaseObject
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
-        GDArea.Selector.Register(this);
         GDArea.Bullets.RegisterEmitter(this, "BlueBullet", 2,
             (p, i) => 
             {
@@ -22,15 +21,8 @@ public class UpCannon : GDKnyttBaseObject
             });
     }
 
-    private void _on_FirstDelayTimer_timeout()
+    private async void _on_ShotTimer_timeout_ext()
     {
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotTimer_timeout();
-    }
-
-    private async void _on_ShotTimer_timeout()
-    {
-        if (!GDArea.Selector.IsObjectSelected(this)) { return; }
         sprite.Play("shoot");
         await ToSignal(sprite, "animation_finished");
         sprite.Play("default");

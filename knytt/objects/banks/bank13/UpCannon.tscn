@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/UpCannon.cs" type="Script" id=1]
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/banks/bank13/up_cannon.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -60,17 +61,15 @@ script = ExtResource( 1 )
 frames = SubResource( 10 )
 centered = false
 
-[node name="FirstDelayTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
-[node name="ShotTimer" type="Timer" parent="."]
+[node name="ShotTimer" parent="." instance=ExtResource( 4 )]
 wait_time = 3.0
+autostart = true
+firstDelay = 1.0
+pickOne = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 2 )]
 rawPath = "res://knytt/data/Sfx/Cannon Shot.raw"
 
 [node name="HitPlayer" parent="." instance=ExtResource( 2 )]
 rawPath = "res://knytt/data/Sfx/Bullet Split.raw"
-[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
-[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
+[connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

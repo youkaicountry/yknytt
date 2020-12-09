@@ -1,5 +1,4 @@
 using Godot;
-using YUtil.Random;
 
 public class TimedFlower : GDKnyttBaseObject
 {
@@ -18,17 +17,9 @@ public class TimedFlower : GDKnyttBaseObject
                 p.DecelerationMMF2 = 20;
                 p.ApllyPinballCorrections();
             });
-        var first_delay = GDArea.Selector.GetRandomValue(this, GetNode<Timer>("ToggleTimer").WaitTime);
-        GetNode<Timer>("FirstDelayTimer").Start(first_delay);
     }
 
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("ToggleTimer").Start();
-        _on_ToggleTimer_timeout();
-    }
-
-    private void _on_ToggleTimer_timeout()
+    private void _on_ToggleTimer_timeout_ext()
     {
         isShooting = !isShooting;
         if (isShooting)

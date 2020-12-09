@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/bank13/dropstuff_robot_walk.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank13/dropstuff_robot_stop.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/banks/bank13/DropstuffRobot.cs" type="Script" id=4]
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=5]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -62,30 +63,21 @@ frames = SubResource( 7 )
 position = Vector2( 12, 12 )
 shape = SubResource( 8 )
 
-[node name="LoopTimer" type="Timer" parent="." index="4"]
+[node name="LoopTimer" parent="." index="4" instance=ExtResource( 6 )]
 wait_time = 2.24
+autostart = true
+firstDelay = 0.6
 
-[node name="ShotDelayTimer" type="Timer" parent="." index="5"]
-wait_time = 1.1
-one_shot = true
-
-[node name="ShotTimer" type="Timer" parent="." index="6"]
+[node name="ShotTimer" parent="." index="5" instance=ExtResource( 6 )]
+process_mode = 0
 wait_time = 0.04
 
-[node name="FirstShotDelayTimer" type="Timer" parent="." index="7"]
-wait_time = 0.64
+[node name="StopAttackTimer" type="Timer" parent="." index="6"]
+wait_time = 1.18
 one_shot = true
-autostart = true
 
-[node name="FirstDelayTimer" type="Timer" parent="." index="8"]
-wait_time = 1.8
-one_shot = true
-autostart = true
-
-[node name="Player" parent="." index="9" instance=ExtResource( 5 )]
+[node name="Player" parent="." index="7" instance=ExtResource( 5 )]
 rawPath = "res://knytt/data/Sfx/Liquid.raw"
-[connection signal="timeout" from="LoopTimer" to="." method="_on_LoopTimer_timeout"]
-[connection signal="timeout" from="ShotDelayTimer" to="." method="_on_ShotDelayTimer_timeout"]
-[connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
-[connection signal="timeout" from="FirstShotDelayTimer" to="." method="_on_FirstShotDelayTimer_timeout"]
-[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
+[connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]
+[connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]
+[connection signal="timeout" from="StopAttackTimer" to="." method="_on_StopAttackTimer_timeout"]

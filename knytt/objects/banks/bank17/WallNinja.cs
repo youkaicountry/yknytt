@@ -8,7 +8,6 @@ public class WallNinja : Muff
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Selector.Register(this);
         GDArea.Bullets.RegisterEmitter(this, "NinjaStar", 15,
             (p, i) => 
             {
@@ -17,21 +16,10 @@ public class WallNinja : Muff
                 p.DirectionMMF2 = random.NextElement(shotDirections);
                 p.GravityMMF2 = 18;
             });
-
-        var first_delay = GDArea.Selector.GetRandomValue(this, GetNode<Timer>("ShotTimer").WaitTime);
-        GetNode<Timer>("FirstDelayTimer").Start(first_delay);
     }
 
-    private void _on_FirstDelayTimer_timeout()
+    private async void _on_ShotTimer_timeout_ext()
     {
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotTimer_timeout();
-    }
-    
-    private async void _on_ShotTimer_timeout()
-    {
-        if (!GDArea.Selector.IsObjectSelected(this)) { return; }
-        
         var old_speed = speed;
         speed = 0;
 

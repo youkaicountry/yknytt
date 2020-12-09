@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank9/homing_flower_close.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank9/homing_flower_prepare.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank9/HomingFlower.cs" type="Script" id=3]
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -59,11 +60,9 @@ OrganicEnemy = true
 frames = SubResource( 8 )
 centered = false
 
-[node name="FirstDelayTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="LoopTimer" type="Timer" parent="."]
+[node name="LoopTimer" parent="." instance=ExtResource( 5 )]
 wait_time = 2.15
+autostart = true
 
 [node name="ShotTimer" type="Timer" parent="."]
 wait_time = 0.9
@@ -74,6 +73,5 @@ rawPath = "res://knytt/data/Sfx/Homing Hit.raw"
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
-[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
-[connection signal="timeout" from="LoopTimer" to="." method="_on_LoopTimer_timeout"]
+[connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
