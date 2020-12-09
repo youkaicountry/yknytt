@@ -5,7 +5,7 @@ public class ShockDisk1 : ShockDisk
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "ShockWave", 40,
+        GDArea.Bullets.RegisterEmitter(this, "ShockWave",
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 12));

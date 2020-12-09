@@ -16,7 +16,7 @@ public abstract class Cannon : GDKnyttBaseObject
         bulletTimer = GetNode<Timer>("BulletTimer");
         player = GetNode<AudioStreamPlayer2D>("Player");
         
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500, (p, i) => reinitializeBullet(p, i));
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff", (p, i) => reinitializeBullet(p, i));
 
         GDArea.Selector.Register(this);
         

@@ -5,7 +5,7 @@ public class CeilingMadSpider : TrapFlower
 {
     protected override void registerEmitter()
     {
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500,
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 14));

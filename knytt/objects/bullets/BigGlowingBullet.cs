@@ -5,7 +5,7 @@ public class BigGlowingBullet : BaseBullet
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "SmallGlowingBullet", 100,
+        GDArea.Bullets.RegisterEmitter(this, "SmallGlowingBullet",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

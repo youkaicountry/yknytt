@@ -9,7 +9,7 @@ public class SmallTimedFlower : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet", 150,
+        GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

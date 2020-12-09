@@ -5,7 +5,7 @@ public class Cauldron : Bouncer
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "CauldronSpike", 20,
+        GDArea.Bullets.RegisterEmitter(this, "CauldronSpike",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

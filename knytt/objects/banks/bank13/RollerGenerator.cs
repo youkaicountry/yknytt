@@ -4,7 +4,7 @@ public class RollerGenerator : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        GDArea.Bullets.RegisterEmitter(this, "RollBullet", 15,
+        GDArea.Bullets.RegisterEmitter(this, "RollBullet",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

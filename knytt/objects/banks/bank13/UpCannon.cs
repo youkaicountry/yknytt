@@ -9,7 +9,7 @@ public class UpCannon : GDKnyttBaseObject
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
-        GDArea.Bullets.RegisterEmitter(this, "BlueBullet", 2,
+        GDArea.Bullets.RegisterEmitter(this, "BlueBullet",
             (p, i) => 
             {
                 p.Modulate = new Color(2, 2, 2, 0.75f);
