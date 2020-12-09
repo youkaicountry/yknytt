@@ -9,7 +9,7 @@ public class DarkRandomizer : Muff
     public override void _Ready()
     {
         GDArea.Selector.Register(this);
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 20,
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 14));

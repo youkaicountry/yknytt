@@ -5,7 +5,7 @@ public class AgressiveTrapFlower : TrapFlower
 {
     protected override void registerEmitter()
     {
-        GDArea.Bullets.RegisterEmitter(this, "FireBullet", 150,
+        GDArea.Bullets.RegisterEmitter(this, "FireBullet",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

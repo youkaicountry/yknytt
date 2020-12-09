@@ -8,17 +8,22 @@ public class BulletLayer : Node2D
 
     private Dictionary<string, PackedScene> bulletScenes = new Dictionary<string, PackedScene>();
     private Dictionary<string, Queue<BaseBullet>> bullets = new Dictionary<string, Queue<BaseBullet>>();
-    private Dictionary<string, int> bulletsLimit = new Dictionary<string, int>();
     private Dictionary<Node2D, string> enemyScenes = new Dictionary<Node2D, string>();
     private Dictionary<Node2D, InitBulletEvent> initEvents = new Dictionary<Node2D, InitBulletEvent>();
 
-    public void RegisterEmitter(Node2D enemy_object, string bullet_scene, int max_bullets, InitBulletEvent on_init)
+    private readonly Dictionary<string, int> bulletsLimit = new Dictionary<string, int>()
+    {
+        ["CauldronSpike"] = 20, ["ShockWave"] = 40, ["DropStuff"] = 500, ["RollBullet"] = 15, ["BlueBullet"] = 2,
+        ["NinjaStar"] = 15, ["HomingBullet"] = 15, ["BigGlowingBullet"] = 10, ["FireBullet2"] = 15, ["FireBullet"] = 150,
+        ["EvilFlowerBullet"] = 150, ["SmallGlowingBullet"] = 200, ["BlueBulletExplosion"] = 100
+    };
+
+    public void RegisterEmitter(Node2D enemy_object, string bullet_scene, InitBulletEvent on_init)
     {
         if (!bulletScenes.ContainsKey(bullet_scene))
         {
             bulletScenes.Add(bullet_scene, ResourceLoader.Load<PackedScene>($"res://knytt/objects/bullets/{bullet_scene}.tscn"));
             bullets.Add(bullet_scene, new Queue<BaseBullet>());
-            bulletsLimit.Add(bullet_scene, max_bullets);
         }
         enemyScenes.Add(enemy_object, bullet_scene);
         initEvents.Add(enemy_object, on_init);

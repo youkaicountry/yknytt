@@ -8,7 +8,7 @@ public class WallNinja : Muff
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "NinjaStar", 15,
+        GDArea.Bullets.RegisterEmitter(this, "NinjaStar",
             (p, i) => 
             {
                 p.Translate(shotPosition);

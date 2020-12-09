@@ -63,6 +63,7 @@
     <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BaseWaterMonsterNew.cs" />
+    <Compile Include="knytt\objects\TimerExt.cs" />
     <Compile Include="knytt\objects\banks\common\TrapFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BigSpiker.cs" />
     <Compile Include="knytt\objects\banks\bank14\Insect.cs" />

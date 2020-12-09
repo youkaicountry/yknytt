@@ -5,7 +5,7 @@ public class BlueBullet : BaseBullet
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "BlueBulletExplosion", 100,
+        GDArea.Bullets.RegisterEmitter(this, "BlueBulletExplosion",
             (p, i) => 
             {
                 p.Modulate = new Color(2, 2, 2, 0.75f);

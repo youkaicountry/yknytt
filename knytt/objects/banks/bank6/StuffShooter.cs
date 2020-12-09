@@ -22,7 +22,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
         player = GetNode<AudioStreamPlayer2D>("ShotPlayer");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
-        GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet", 10,
+        GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

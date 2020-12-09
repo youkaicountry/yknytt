@@ -4,7 +4,7 @@ public class HomingFlower : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        GDArea.Bullets.RegisterEmitter(this, "HomingBullet", 15,
+        GDArea.Bullets.RegisterEmitter(this, "HomingBullet",
             (p, i) => 
             {
                 (p as HomingBullet).globalJuni = Juni;

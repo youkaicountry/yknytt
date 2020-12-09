@@ -11,7 +11,7 @@ public class TrapFire : GDKnyttBaseObject
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
         GDArea.Selector.Register(this);
-        GDArea.Bullets.RegisterEmitter(this, "FireBullet2", 150,
+        GDArea.Bullets.RegisterEmitter(this, "FireBullet2",
             (p, i) => 
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");

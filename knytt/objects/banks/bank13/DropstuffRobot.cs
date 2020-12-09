@@ -7,7 +7,7 @@ public class DropstuffRobot : Muff
     {
         base._Ready();
         GDArea.Selector.Register(this);
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500,
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 
             {
                 p.Translate(new Vector2(12 + random.Next(9) - 4, 18));

@@ -6,7 +6,7 @@ public class WaterEye : BaseWaterMonsterNew
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500,
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 8));
