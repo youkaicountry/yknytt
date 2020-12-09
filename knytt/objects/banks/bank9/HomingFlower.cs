@@ -1,5 +1,4 @@
 using Godot;
-using YUtil.Random;
 
 public class HomingFlower : GDKnyttBaseObject
 {
@@ -14,18 +13,9 @@ public class HomingFlower : GDKnyttBaseObject
                 p.Velocity = 50;
                 p.Direction = Mathf.Pi / 2;
             });
-
-        var first_delay = GDArea.Selector.GetRandomValue(this, GetNode<Timer>("LoopTimer").WaitTime);
-        GetNode<Timer>("FirstDelayTimer").Start(first_delay);
     }
 
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("LoopTimer").Start();
-        _on_LoopTimer_timeout();
-    }
-
-    private void _on_LoopTimer_timeout()
+    private void _on_LoopTimer_timeout_ext()
     {
         GetNode<AnimatedSprite>("AnimatedSprite").Play("prepare");
         GetNode<Timer>("ShotTimer").Start();

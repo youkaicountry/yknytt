@@ -27,13 +27,7 @@ public class TrapFire : GDKnyttBaseObject
         return Mathf.Atan2(GlobalPosition.y - Juni.ApparentPosition.y + 10, GlobalPosition.x - Juni.ApparentPosition.x);
     }
 
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotTimer_timeout();
-    }
-
-    private async void _on_ShotTimer_timeout()
+    private async void _on_ShotTimer_timeout_ext()
     {
         sprite.Play("shoot");
         await ToSignal(sprite, "animation_finished");

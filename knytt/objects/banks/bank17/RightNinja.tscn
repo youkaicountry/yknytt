@@ -113,3 +113,6 @@ animation = "slide"
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 20, 16 )
 shape = SubResource( 19 )
+
+[node name="ShotTimer" parent="." index="4"]
+wait_time = 1.5

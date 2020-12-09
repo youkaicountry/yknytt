@@ -3,8 +3,9 @@ using YUtil.Random;
 
 public class WaterEye : BaseWaterMonsterNew
 {
-    protected override void registerEmitter()
+    public override void _Ready()
     {
+        base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500,
             (p, i) => 
             {

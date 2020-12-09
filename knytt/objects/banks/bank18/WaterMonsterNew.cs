@@ -2,8 +2,9 @@ using Godot;
 
 public class WaterMonsterNew : BaseWaterMonsterNew
 {
-    protected override void registerEmitter()
+    public override void _Ready()
     {
+        base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "HomingBullet", 15,
             (p, i) => 
             {

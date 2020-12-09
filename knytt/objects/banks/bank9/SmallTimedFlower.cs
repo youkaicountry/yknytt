@@ -22,23 +22,15 @@ public class SmallTimedFlower : GDKnyttBaseObject
             });
     }
 
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("AttackTimer").Start();
-        _on_AttackTimer_timeout();
-    }
-
-    private void _on_AttackTimer_timeout()
+    private void _on_AttackTimer_timeout_ext()
     {
         GetNode<AnimatedSprite>("AnimatedSprite").Play("open");
         shotsLeft = SHOTS;
-        GetNode<Timer>("ShotPlayerTimer").Start();
-        _on_ShotTimer_timeout();
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotPlayerTimer_timeout();
+        GetNode<TimerExt>("ShotPlayerTimer").RunTimer();
+        GetNode<TimerExt>("ShotTimer").RunTimer();
     }
 
-    private void _on_ShotTimer_timeout()
+    private void _on_ShotTimer_timeout_ext()
     {
         GDArea.Bullets.Emit(this);
         shotsLeft--;
@@ -48,10 +40,5 @@ public class SmallTimedFlower : GDKnyttBaseObject
             GetNode<Timer>("ShotTimer").Stop();
             GetNode<Timer>("ShotPlayerTimer").Stop();
         }
-    }
-
-    private void _on_ShotPlayerTimer_timeout()
-    {
-        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
     }
 }
