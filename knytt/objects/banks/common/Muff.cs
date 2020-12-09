@@ -56,7 +56,7 @@ public class Muff : GDKnyttBaseObject
 
     protected virtual void _on_SpeedTimer_timeout()
     {
-        changeSpeed(speedValues[GDKnyttDataStore.random.Next(speedValues.Length)]);
+        changeSpeed(random.NextElement(speedValues));
     }
 
     protected virtual void _on_DirectionTimer_timeout()
@@ -66,7 +66,7 @@ public class Muff : GDKnyttBaseObject
 
     protected int getDirection(DirectionChange dir_change)
     {
-        return dir_change == DirectionChange.Random ? (GDKnyttDataStore.random.NextBoolean() ? -1 : 1) :
+        return dir_change == DirectionChange.Random ? (random.NextBoolean() ? -1 : 1) :
                dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.x > Center.x ? 1 : -1) :
                     (Juni.ApparentPosition.x > Center.x ? -1 : 1);
     }

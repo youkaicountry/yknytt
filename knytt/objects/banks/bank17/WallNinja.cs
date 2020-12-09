@@ -14,7 +14,7 @@ public class WallNinja : Muff
             {
                 p.Translate(shotPosition);
                 p.VelocityMMF2 = 80;
-                p.DirectionMMF2 = shotDirections[GDKnyttDataStore.random.Next(shotDirections.Length)];
+                p.DirectionMMF2 = random.NextElement(shotDirections);
                 p.GravityMMF2 = 18;
             });
 

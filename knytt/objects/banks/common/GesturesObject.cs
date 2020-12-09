@@ -33,9 +33,9 @@ public class GesturesObject : GDKnyttBaseObject
     {
         if (bidirectional)
         {
-            leftDirection = GDKnyttDataStore.random.Next(2) == 0;
+            leftDirection = random.NextBoolean();
         }
-        string anim_name = animations[GDKnyttDataStore.random.Next(animations.Count)];
+        string anim_name = random.NextElement(animations);
 
         // Play animation
         if (bidirectional) { gesturesSprite.FlipH = !leftDirection; }
@@ -43,7 +43,7 @@ public class GesturesObject : GDKnyttBaseObject
         gesturesSprite.Play(anim_name);
 
         // Idle
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(minTime, maxTime);
+        timer.WaitTime = random.NextFloat(minTime, maxTime);
         timer.Start();
     }
 }

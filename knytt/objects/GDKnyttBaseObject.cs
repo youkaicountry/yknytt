@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using YKnyttLib;
 
@@ -23,6 +24,8 @@ public class GDKnyttBaseObject : Node2D
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
     [Export] public bool OrganicEnemy { get; protected set; } = false;
+
+    protected Random random = GDKnyttDataStore.random; // Shortcut
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {

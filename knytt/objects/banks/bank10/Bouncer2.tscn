@@ -42,7 +42,7 @@ radius = 9.5
 [node name="Bouncer" instance=ExtResource( 2 )]
 initialSpeed = 3.0
 speedValues = PoolIntArray( 2, 3, 4, 5, 6 )
-random = true
+randomSpeed = true
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 6 )

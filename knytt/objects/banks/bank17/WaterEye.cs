@@ -9,8 +9,8 @@ public class WaterEye : BaseWaterMonsterNew
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 8));
-                p.VelocityMMF2 = 20 + GDKnyttDataStore.random.Next(40);
-                p.DirectionMMF2 = 8 + GDKnyttDataStore.random.Next(1, 4) * (GDKnyttDataStore.random.NextBoolean() ? 1 : -1);
+                p.VelocityMMF2 = 20 + random.Next(40);
+                p.DirectionMMF2 = 8 + random.Next(1, 4) * (random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 12;
             });
     }
