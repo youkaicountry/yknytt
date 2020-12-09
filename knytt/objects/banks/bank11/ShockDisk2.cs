@@ -8,7 +8,7 @@ public class ShockDisk2 : ShockDisk
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 12));
-                p.VelocityMMF2 = 20 + GDKnyttDataStore.random.Next(35);
+                p.VelocityMMF2 = 20 + random.Next(35);
                 p.DirectionMMF2 = i;
                 p.DecelerationMMF2 = 20;
             });

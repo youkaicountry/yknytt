@@ -12,8 +12,8 @@ public class TimedFlower : GDKnyttBaseObject
             {
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(11, 13));
-                p.VelocityMMF2 = 30 + GDKnyttDataStore.random.Next(30);
-                p.DirectionMMF2 = 7 + GDKnyttDataStore.random.Next(2) * 2;
+                p.VelocityMMF2 = 30 + random.Next(30);
+                p.DirectionMMF2 = 7 + random.Next(2) * 2;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 20;
                 p.ApllyPinballCorrections();

@@ -14,7 +14,7 @@ public class SunRay : GDKnyttBaseObject
     {
         base._Ready();
         var m = Modulate;
-        m.a = GDKnyttDataStore.random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+        m.a = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
         Modulate = m;
 
         chooseTarget();
@@ -31,6 +31,6 @@ public class SunRay : GDKnyttBaseObject
 
     private void chooseTarget()
     {
-        target = GDKnyttDataStore.random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+        target = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
     }
 }

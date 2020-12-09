@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class GDKnyttDataStore : Node
@@ -46,5 +48,13 @@ public class GDKnyttDataStore : Node
         CutsceneReturn = null;
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
+    }
+}
+
+public static class RandomExtension
+{
+    public static T NextElement<T>(this Random random, ICollection<T> e)
+    {
+        return e.ElementAt(GDKnyttDataStore.random.Next(e.Count()));
     }
 }

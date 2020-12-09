@@ -5,7 +5,7 @@ public class Bouncer : GDKnyttBaseObject
     [Export] float initialSpeed = 0;
     [Export] float gravity = 0.2f;
     [Export] int[] speedValues = null;
-    [Export] bool random = false;
+    [Export] bool randomSpeed = false;
     [Export] int counter = 0;
 
     protected float speed;
@@ -37,10 +37,7 @@ public class Bouncer : GDKnyttBaseObject
 
     protected float nextSpeed()
     {
-        if (random)
-        {
-            return speedValues[GDKnyttDataStore.random.Next(speedValues.Length)];
-        }
+        if (randomSpeed) { return random.NextElement(speedValues); }
 
         var result = speedValues[counter];
         counter = (counter + 1) % speedValues.Length;

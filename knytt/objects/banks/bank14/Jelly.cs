@@ -14,7 +14,7 @@ public class Jelly : Muff
 
     protected override void changeSpeed(float s)
     {
-        if (s == 0) { changeDirection(GDKnyttDataStore.random.NextBoolean() ? -1 : 1); }
+        if (s == 0) { changeDirection(random.NextBoolean() ? -1 : 1); }
         base.changeSpeed(s);
     }
 }

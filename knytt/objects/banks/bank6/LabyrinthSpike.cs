@@ -17,8 +17,8 @@ public class LabyrinthSpike : GDKnyttBaseObject
             while (collision != null)
             {
                 direction = direction == Vector2.Up || direction == Vector2.Down ?
-                    (GDKnyttDataStore.random.NextBoolean() ? Vector2.Left : Vector2.Right) :
-                    (GDKnyttDataStore.random.NextBoolean() ? Vector2.Down : Vector2.Up);
+                    (random.NextBoolean() ? Vector2.Left : Vector2.Right) :
+                    (random.NextBoolean() ? Vector2.Down : Vector2.Up);
                 collision = moveAndCollide(delta * speed * direction, testOnly: true);
                 if (retry-- <= 0) { return; }
             }

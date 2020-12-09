@@ -10,8 +10,8 @@ public class WaterMonsterNew : BaseWaterMonsterNew
                 (p as HomingBullet).globalJuni = Juni;
                 p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(12, 8));
-                p.VelocityX = GDKnyttDataStore.random.Next(-50, 50);
-                p.VelocityY = GDKnyttDataStore.random.Next(-150, -50);
+                p.VelocityX = random.Next(-50, 50);
+                p.VelocityY = random.Next(-150, -50);
             });
     }
 }

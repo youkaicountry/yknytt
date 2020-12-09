@@ -10,10 +10,10 @@ public class DropstuffRobot : Muff
         GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500,
             (p, i) => 
             {
-                p.Translate(new Vector2(12 + GDKnyttDataStore.random.Next(9) - 4, 18));
+                p.Translate(new Vector2(12 + random.Next(9) - 4, 18));
                 p.VelocityMMF2 = 0;
                 p.DirectionMMF2 = 24;
-                p.GravityMMF2 = 10 + GDKnyttDataStore.random.Next(5);
+                p.GravityMMF2 = 10 + random.Next(5);
             });
     }
 

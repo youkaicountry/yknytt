@@ -54,9 +54,9 @@ public class LiquidPool : GDKnyttBaseObject
         }
         if (!pool_info.deadly) { GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", true); }
 
-        player.SpeedScale = GDKnyttDataStore.random.NextFloat(.6f, 1f);
+        player.SpeedScale = random.NextFloat(.6f, 1f);
         player.Play(animation);
-        player.Frame = GDKnyttDataStore.random.Next(player.Frames.GetFrameCount(animation));
+        player.Frame = random.Next(player.Frames.GetFrameCount(animation));
     }
 
     public void _on_AnimatedSprite_animation_finished()

@@ -13,8 +13,8 @@ public class DarkRandomizer : Muff
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 14));
-                p.VelocityMMF2 = 20 + GDKnyttDataStore.random.Next(40);
-                p.DirectionMMF2 = 8 + GDKnyttDataStore.random.Next(1, 5) * (GDKnyttDataStore.random.NextBoolean() ? 1 : -1);
+                p.VelocityMMF2 = 20 + random.Next(40);
+                p.DirectionMMF2 = 8 + random.Next(1, 5) * (random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 12;
             });
         base._Ready();
@@ -45,7 +45,7 @@ public class DarkRandomizer : Muff
         }
         else
         {
-            changeSpeed(8 + GDKnyttDataStore.random.Next(5));
+            changeSpeed(8 + random.Next(5));
             _on_DirectionTimer_timeout();
         }
     }
