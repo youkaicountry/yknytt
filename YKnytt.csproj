@@ -47,7 +47,7 @@
     <Compile Include="knytt\objects\banks\bank17\CeilingMadSpider.cs" />
     <Compile Include="knytt\objects\banks\bank17\DarkRandomizer.cs" />
     <Compile Include="knytt\objects\banks\bank17\MadSpider.cs" />
-    <Compile Include="knytt\objects\banks\bank17\WallNinja.cs" />
+    <Compile Include="knytt\objects\banks\common\WallNinja.cs" />
     <Compile Include="knytt\objects\banks\bank17\WaterEye.cs" />
     <Compile Include="knytt\objects\banks\bank18\WaterMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\bank19\Artifact.cs" />

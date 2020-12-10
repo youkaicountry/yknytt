@@ -2,19 +2,23 @@ using Godot;
 
 public class WallNinja : Muff
 {
-    [Export] Vector2 shotPosition;
+    [Export] string bulletScene;
+    [Export] int bulletVelocity;
     [Export] int[] shotDirections;
+    [Export] bool randomDirection;
+    [Export] int bulletGravity;
+    [Export] Vector2 shotPosition;
 
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "NinjaStar",
+        GDArea.Bullets.RegisterEmitter(this, bulletScene,
             (p, i) => 
             {
                 p.Translate(shotPosition);
-                p.VelocityMMF2 = 80;
-                p.DirectionMMF2 = random.NextElement(shotDirections);
-                p.GravityMMF2 = 18;
+                p.VelocityMMF2 = bulletVelocity;
+                p.DirectionMMF2 = randomDirection ? random.NextElement(shotDirections) : shotDirections[i];
+                p.GravityMMF2 = bulletGravity;
             });
     }
 
@@ -24,15 +28,17 @@ public class WallNinja : Muff
         speed = 0;
 
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
-        sprite.Play("shoot1");
+        sprite.Play("prepare");
         await ToSignal(sprite, "animation_finished");
         
-        GDArea.Bullets.Emit(this);
+        for (int i = 0; i < (randomDirection ? 1 : shotDirections.Length); i++)
+        {
+            GDArea.Bullets.Emit(this, i);
+        }
         
-        sprite.Play("shoot2");
+        sprite.Play("aftershot");
         await ToSignal(sprite, "animation_finished");
         
-        sprite.Play("walk");
         speed = old_speed;
         _on_DirectionTimer_timeout();
     }
@@ -40,6 +46,6 @@ public class WallNinja : Muff
     protected override void changeDirection(int dir)
     {
         base.changeDirection(dir);
-        sprite.Play(dir < 0 ? "walk" : "slide");
+        sprite.Play(dir < 0 ? "climb" : "slide");
     }
 }
