@@ -104,7 +104,7 @@ extents = Vector2( 3, 8 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 shotPosition = Vector2( 10, 18 )
-shotDirections = PoolIntArray( 13, 14, 15 )
+shotDirections = PoolIntArray( 1, 2, 3 )
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 19 )
