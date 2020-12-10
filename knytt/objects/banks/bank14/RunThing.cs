@@ -3,25 +3,12 @@ using System;
 
 public class RunThing : Muff
 {
-    [Export] float firstDelay = 0;
-    [Export] float timer = 0;
     [Export] float safeDistance = 0;
     [Export] int attackSpeed = 0;
     [Export] float normalDeceleration = 0;
     [Export] float attackDeceleration = 0;
 
-    protected override void init()
-    {
-        GetNode<Timer>("FirstDelayTimer").Start(firstDelay);
-    }
-
-    private void _on_FirstDelayTimer_timeout()
-    {
-        GetNode<Timer>("SpeedTimer").Start(timer);
-        _on_SpeedTimer_timeout();
-    }
-
-    protected override void _on_SpeedTimer_timeout()
+    private void _on_RunTimer_timeout_ext()
     {
         var juni_distance = Juni.ApparentPosition.x - Center.x;
 

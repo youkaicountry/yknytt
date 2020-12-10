@@ -1,15 +1,13 @@
+using Godot;
 using YUtil.Random;
 
 public class Jelly : Muff
 {
-    protected override void init()
-    {
-        changeSpeed(0);
-    }
-
+    [Export] int jellySpeed;
+    
     private void _on_AnimatedSprite_animation_finished()
     {
-        if (sprite.Animation == "default") { changeSpeed(initialSpeed); }
+        if (sprite.Animation == "default") { changeSpeed(jellySpeed); }
     }
 
     protected override void changeSpeed(float s)
