@@ -25,13 +25,12 @@ public class BaseBullet : KinematicBody2D
     
     private const float VELOCITY_SCALE = 50f / 8;
     private const float GRAVITY_SCALE = VELOCITY_SCALE * VELOCITY_SCALE;
-    private const float DIRECTION_SCALE = Mathf.Pi / 16f;
     // TODO: more accurate value when gravity != 0!
     private const float DECELERATION_SCALE = 0.05f; // 0.025f;
 
     public float VelocityMMF2 { get { return Velocity / VELOCITY_SCALE; } set { Velocity = value * VELOCITY_SCALE; } }
     public float GravityMMF2 { get { return Gravity / GRAVITY_SCALE; } set { Gravity = value * GRAVITY_SCALE; } }
-    public float DirectionMMF2 { get { return Direction / DIRECTION_SCALE; } set { Direction = value * DIRECTION_SCALE; } }
+    public float DirectionMMF2 { get { return 16 * (1 - Direction / Mathf.Pi); } set { Direction = (1 - value / 16) * Mathf.Pi; } }
     public float DecelerationMMF2 { get { return Deceleration / DECELERATION_SCALE; } set { Deceleration = value * DECELERATION_SCALE; } }
 
     // Be careful! Doesn't support deceleration, total velocity and direction change

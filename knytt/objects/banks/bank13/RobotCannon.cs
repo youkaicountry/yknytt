@@ -9,7 +9,7 @@ public class RobotCannon : Cannon
             (p, i) =>
             {
                 p.Translate(new Vector2(8f, 8f));
-                p.DirectionMMF2 = 4;
+                p.DirectionMMF2 = 12;
                 p.VelocityMMF2 = 10 + i;
                 p.GravityMMF2 = 10 + random.Next(5);
             });

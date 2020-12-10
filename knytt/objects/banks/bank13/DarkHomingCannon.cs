@@ -9,7 +9,7 @@ public class DarkHomingCannon : Cannon
             (p, i) =>
             {
                 p.Translate(new Vector2(8f, 8f));
-                p.DirectionMMF2 = 4;
+                p.DirectionMMF2 = 12;
                 p.VelocityMMF2 = Mathf.Max(0, Center.x - Juni.ApparentPosition.x) / 10f + 36f + random.Next(3);
                 p.GravityMMF2 = 20 + random.Next(3);
             });
