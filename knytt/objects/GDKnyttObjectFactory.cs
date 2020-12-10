@@ -114,8 +114,12 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(3, 43)] =  "SmallCat";
         ObjectLookup[new KnyttPoint(3, 44)] =  "Muff44";
         ObjectLookup[new KnyttPoint(4, 1)] =   "RedFollowBall";
+        ObjectLookup[new KnyttPoint(4, 10)] =  "LeftStranger";
+        ObjectLookup[new KnyttPoint(4, 11)] =  "RightStranger";
         ObjectLookup[new KnyttPoint(4, 17)] =  "Hedgehog";
         ObjectLookup[new KnyttPoint(4, 18)] =  "ToastMonsterNew";
+        ObjectLookup[new KnyttPoint(4, 21)] =  "RightSuperStranger";
+        ObjectLookup[new KnyttPoint(4, 22)] =  "LeftSuperStranger";
         ObjectLookup[new KnyttPoint(5, 1)] =   "ShadowWitch";
         ObjectLookup[new KnyttPoint(5, 2)] =   "ShadowBoy";
         ObjectLookup[new KnyttPoint(5, 3)] =   "ShadowGirl";
