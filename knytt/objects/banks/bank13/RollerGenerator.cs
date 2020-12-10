@@ -7,7 +7,6 @@ public class RollerGenerator : GDKnyttBaseObject
         GDArea.Bullets.RegisterEmitter(this, "RollBullet",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.VelocityMMF2 = 12;
                 p.DirectionMMF2 = 16;
             });

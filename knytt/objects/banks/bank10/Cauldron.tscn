@@ -55,6 +55,3 @@ shape = SubResource( 7 )
 
 [node name="ShotPlayer" parent="." index="3" instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
-
-[node name="HitPlayer" parent="." index="4" instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Fire Hit.raw"

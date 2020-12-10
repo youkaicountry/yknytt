@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class DropstuffRobot : Muff
 {
@@ -19,7 +18,7 @@ public class DropstuffRobot : Muff
 
     private void _on_LoopTimer_timeout_ext()
     {
-        GetNode<AudioStreamPlayer2D>("Player").Play(0.4f);
+        GetNode<RawAudioPlayer2D>("Player").Play();
         GetNode<TimerExt>("ShotTimer").RunTimer();
         GetNode<Timer>("StopAttackTimer").Start();
     }

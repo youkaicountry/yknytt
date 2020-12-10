@@ -8,7 +8,6 @@ public class AgressiveTrapFlower : TrapFlower
         GDArea.Bullets.RegisterEmitter(this, "FireBullet",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(11, 12));
                 p.VelocityMMF2 = 30 + random.Next(30);
                 p.DirectionMMF2 = 8 + random.Next(1, 5) * (random.NextBoolean() ? 1 : -1);

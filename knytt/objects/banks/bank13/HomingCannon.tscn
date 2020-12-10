@@ -42,13 +42,11 @@ bulletsCount = 30
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 7 )
-frame = 3
+frame = 1
 
-[node name="DelayTimer" parent="." index="1"]
-wait_time = 0.2
-
-[node name="TotalTimer" parent="." index="2"]
+[node name="TotalTimer" parent="." index="1"]
 wait_time = 4.0
+firstDelay = 0.2
 
 [node name="Player" parent="." index="3"]
-rawPath = "res://knytt/data/Sfx/Liquid.raw"
+fromPosition = 1.0

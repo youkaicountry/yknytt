@@ -13,7 +13,6 @@ public class UpCannon : GDKnyttBaseObject
             (p, i) => 
             {
                 p.Modulate = new Color(2, 2, 2, 0.75f);
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(24, 0));
                 p.VelocityX = random.NextBoolean() ? 50 : -50;
                 p.VelocityY = random.NextBoolean() ? -150 : -200;

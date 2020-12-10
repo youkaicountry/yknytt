@@ -14,7 +14,6 @@ public class TrapFire : GDKnyttBaseObject
         GDArea.Bullets.RegisterEmitter(this, "FireBullet2",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(12, 12));
                 p.VelocityMMF2 = 50;
                 p.Direction = getDirection();

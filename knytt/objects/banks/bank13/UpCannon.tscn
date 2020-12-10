@@ -69,7 +69,4 @@ pickOne = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 2 )]
 rawPath = "res://knytt/data/Sfx/Cannon Shot.raw"
-
-[node name="HitPlayer" parent="." instance=ExtResource( 2 )]
-rawPath = "res://knytt/data/Sfx/Bullet Split.raw"
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]
