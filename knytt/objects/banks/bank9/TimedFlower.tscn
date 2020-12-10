@@ -56,8 +56,5 @@ autostart = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Tiny Shot.raw"
-
-[node name="HitPlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Tiny Hit.raw"
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout_ext" from="ToggleTimer" to="." method="_on_ToggleTimer_timeout_ext"]

@@ -68,9 +68,6 @@ autostart = true
 wait_time = 0.9
 one_shot = true
 
-[node name="HitPlayer" parent="." instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Homing Hit.raw"
-
 [node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
 [connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]

@@ -61,9 +61,6 @@ wait_time = 0.07
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Tiny Shot.raw"
-
-[node name="HitPlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Tiny Hit.raw"
 [connection signal="timeout_ext" from="AttackTimer" to="." method="_on_AttackTimer_timeout_ext"]
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]
 [connection signal="timeout_ext" from="ShotPlayerTimer" to="ShotPlayer" method="Play"]

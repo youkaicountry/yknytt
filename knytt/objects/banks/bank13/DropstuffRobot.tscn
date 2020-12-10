@@ -78,6 +78,7 @@ one_shot = true
 
 [node name="Player" parent="." index="7" instance=ExtResource( 5 )]
 rawPath = "res://knytt/data/Sfx/Liquid.raw"
+fromPosition = 0.4
 [connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]
 [connection signal="timeout" from="StopAttackTimer" to="." method="_on_StopAttackTimer_timeout"]

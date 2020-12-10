@@ -8,7 +8,6 @@ public class Cauldron : Bouncer
         GDArea.Bullets.RegisterEmitter(this, "CauldronSpike",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(12 + (i == 0 ? -7 : 7), 5));
                 p.VelocityMMF2 = -getSpeed() * 14;
                 p.DirectionMMF2 = i == 0 ? 7 : 9;

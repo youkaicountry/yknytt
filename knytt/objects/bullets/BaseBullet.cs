@@ -56,16 +56,17 @@ public class BaseBullet : KinematicBody2D
 
     
     public GDKnyttArea GDArea { protected get; set; }
-    public RawAudioPlayer2D DisapperarPlayer { protected get; set; }
     
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
+    protected RawAudioPlayer2D hitPlayer;
     protected bool hasDisappear;
 
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        hitPlayer = HasNode("HitPlayer") ? GetNode<RawAudioPlayer2D>("HitPlayer") : null;
         hasDisappear = sprite.Frames.HasAnimation("disappear");
     }
     
@@ -118,10 +119,9 @@ public class BaseBullet : KinematicBody2D
         _velocity_x = _velocity_y = _gravity = 0;
         if (collide)
         {
-            if (DisapperarPlayer != null && !DisapperarPlayer.IsDisposed)
+            if (hitPlayer != null)
             {
-                DisapperarPlayer.GlobalPosition = GlobalPosition;
-                DisapperarPlayer.Play();
+                hitPlayer.Play();
             }
             if (hasDisappear)
             {

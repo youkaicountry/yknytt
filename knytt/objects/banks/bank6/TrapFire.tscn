@@ -88,15 +88,12 @@ script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 17 )
-frame = 1
+frame = 6
 playing = true
 centered = false
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
-
-[node name="HitPlayer" parent="." instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Fire Hit.raw"
 
 [node name="ShotTimer" parent="." instance=ExtResource( 5 )]
 wait_time = 3.0
