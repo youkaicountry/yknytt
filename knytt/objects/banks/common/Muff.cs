@@ -28,11 +28,6 @@ public class Muff : GDKnyttBaseObject
        
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
-        init();
-    }
-
-    protected virtual void init()
-    {
         changeSpeed(initialSpeed);
         _on_DirectionTimer_timeout();
     }

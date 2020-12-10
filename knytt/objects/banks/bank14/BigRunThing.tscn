@@ -49,8 +49,6 @@ extents = Vector2( 10, 7 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 speedValues = PoolIntArray( 27, 28, 29, 30, 31, 32 )
-firstDelay = 0.6
-timer = 1.2
 safeDistance = 140.0
 attackSpeed = 37
 normalDeceleration = 24.0
@@ -66,3 +64,7 @@ shape = SubResource( 9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
 polygon = PoolVector2Array( 8.11652, 23.9658, 2.02003, 19.6562, 4.01715, 12.9291, 10.5341, 10.1961, 14.5284, 10.1961, 20.0993, 12.8239, 21.9913, 19.446, 15.8948, 23.8607 )
+
+[node name="RunTimer" parent="." index="5"]
+wait_time = 1.2
+firstDelay = 0.6

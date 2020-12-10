@@ -56,8 +56,6 @@ OrganicEnemy = true
 directionChangeTime = 1.12
 speedValues = PoolIntArray( 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 )
 deceleration = 12.0
-firstDelay = 0.6
-timer = 4.0
 runTo = 1
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -66,6 +64,10 @@ frames = SubResource( 9 )
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 18 )
 shape = SubResource( 10 )
+
+[node name="AttackTimer" parent="." index="4"]
+wait_time = 4.0
+firstDelay = 0.6
 
 [node name="Area2D" type="Area2D" parent="." index="5"]
 collision_layer = 0

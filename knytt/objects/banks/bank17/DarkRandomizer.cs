@@ -8,6 +8,7 @@ public class DarkRandomizer : Muff
 
     public override void _Ready()
     {
+        base._Ready();
         GDArea.Selector.Register(this);
         GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 
@@ -17,15 +18,9 @@ public class DarkRandomizer : Muff
                 p.DirectionMMF2 = 8 + random.Next(1, 5) * (random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 12;
             });
-        base._Ready();
-    }
-    
-    protected override void init()
-    {
-        _on_ShotTimer_timeout();
     }
 
-    private async void _on_ShotTimer_timeout()
+    private async void _on_ShotTimer_timeout_ext()
     {
         shoot = !shoot;
         if (shoot)
