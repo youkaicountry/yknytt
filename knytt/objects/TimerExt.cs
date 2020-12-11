@@ -5,13 +5,13 @@ public class TimerExt : Timer
     [Signal] public delegate void timeout_ext();
 
     // Delay before firing first timeout_ext event. Set firstDelay = 0 to fire first timeout_ext immediately.
-    [Export] float firstDelay;
+    [Export] float firstDelay = 0;
     
     // Set firstDelay to random value [0..WaitTime], shared for all objects of the same type
-    [Export] bool syncedRandomDelay;
+    [Export] bool syncedRandomDelay = false;
 
     // Fire timeout_ext only for one object of the type (and change it every loop)
-    [Export] bool pickOne;
+    [Export] bool pickOne = false;
 
     private GDKnyttBaseObject parent;
 

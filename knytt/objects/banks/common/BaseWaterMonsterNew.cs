@@ -3,7 +3,7 @@ using System;
 
 public abstract class BaseWaterMonsterNew : GDKnyttBaseObject
 {
-    [Export] int bullets;
+    [Export] int bullets = 0;
 
     private async void _on_ShotTimer_timeout_ext()
     {

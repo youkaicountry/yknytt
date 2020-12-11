@@ -147,8 +147,8 @@ Bank 4 (Meanies):
 [ ] -  7
 [ ] -  8
 [ ] -  9
-[ ] - 10
-[ ] - 11
+[x] - 10 Left Stranger
+[x] - 11 Right Stranger
 [ ] - 12
 [ ] - 13
 [ ] - 14
@@ -156,10 +156,10 @@ Bank 4 (Meanies):
 [ ] - 16
 [x] - 17 Hedgehog
 [x] - 18 Toast Monster
-[ ] - 19
-[ ] - 20
-[ ] - 21
-[ ] - 22
+[x] - 19 TriShot
+[x] - 20 FiveShot
+[x] - 21 Right Super Stranger
+[x] - 22 Left Super Stranger
 
 Bank 5 (Shadow People):
 [x] -  1 Shadow Witch

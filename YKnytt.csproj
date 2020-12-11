@@ -47,6 +47,7 @@
     <Compile Include="knytt\objects\banks\bank17\CeilingMadSpider.cs" />
     <Compile Include="knytt\objects\banks\bank17\DarkRandomizer.cs" />
     <Compile Include="knytt\objects\banks\bank17\MadSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank4\MultiShot.cs" />
     <Compile Include="knytt\objects\banks\common\WallNinja.cs" />
     <Compile Include="knytt\objects\banks\bank17\WaterEye.cs" />
     <Compile Include="knytt\objects\banks\bank18\WaterMonsterNew.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="knytt\objects\banks\bank17\SmallSpider.cs" />
     <Compile Include="knytt\objects\banks\bank3\LookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank3\RollerMuff.cs" />
-    <Compile Include="knytt\objects\banks\bank3\SpikerMuff.cs" />
+    <Compile Include="knytt\objects\banks\common\DistanceMuff.cs" />
     <Compile Include="knytt\objects\banks\bank4\ToastMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\bank5\ShadowGirl.cs" />
     <Compile Include="knytt\objects\banks\bank16\DeathZone.cs" />

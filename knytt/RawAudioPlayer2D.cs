@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class RawAudioPlayer2D : AudioStreamPlayer2D
 {
-    [Export] string rawPath;
+    [Export] string rawPath = null;
     [Export] int sampleRate = 11025;
     [Export] bool loop = false;
     [Export] float fromPosition = 0;

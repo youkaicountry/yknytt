@@ -2,12 +2,12 @@ using Godot;
 
 public class WallNinja : Muff
 {
-    [Export] string bulletScene;
-    [Export] int bulletVelocity;
-    [Export] int[] shotDirections;
-    [Export] bool randomDirection;
-    [Export] int bulletGravity;
-    [Export] Vector2 shotPosition;
+    [Export] string bulletScene = null;
+    [Export] int bulletVelocity = 0;
+    [Export] int[] shotDirections = null;
+    [Export] bool randomDirection = false;
+    [Export] int bulletGravity = 0;
+    [Export] Vector2 shotPosition = Vector2.Zero;
 
     public override void _Ready()
     {
