@@ -3,7 +3,7 @@ using YUtil.Random;
 
 public class Jelly : Muff
 {
-    [Export] int jellySpeed;
+    [Export] int jellySpeed = 0;
     
     private void _on_AnimatedSprite_animation_finished()
     {

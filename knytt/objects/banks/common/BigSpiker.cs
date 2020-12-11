@@ -2,7 +2,7 @@ using Godot;
 
 public class BigSpiker : GesturesObject
 {
-    [Export] Vector2 openOffset;
+    [Export] Vector2 openOffset = Vector2.Zero;
 
     public override void _Ready()
     {
