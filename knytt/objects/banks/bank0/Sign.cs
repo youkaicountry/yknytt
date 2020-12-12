@@ -8,6 +8,7 @@ public class Sign : GDKnyttBaseObject
     private int messageIndex;
     private bool messageVisible;
     private int shiftMessageIndex;
+    private int triggerMessageIndex;
 
     private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>();
 
@@ -26,6 +27,7 @@ public class Sign : GDKnyttBaseObject
         if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
 
         shiftMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignShift({letter})"), out var j) ? j : 0;
+        triggerMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignTrig({letter})"), out j) ? j : 0;
 
         adjustSign();
     }
@@ -60,7 +62,13 @@ public class Sign : GDKnyttBaseObject
             if (shiftMessageIndex > 0 && messageIndex == shiftMessageIndex)
             {
                 Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 3)) as Shift;
-                shift.executeShiftAnyway(juni);
+                shift?.executeAnyway(juni);
+            }
+
+            if (triggerMessageIndex > 0 && messageIndex == triggerMessageIndex)
+            {
+                Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 15)) as Trigger;
+                trigger?.executeAnyway(juni);
             }
         }
         else

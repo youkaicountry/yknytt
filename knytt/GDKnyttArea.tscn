@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/objects/BulletLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/banks/bank0/power_gfx/pickup.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "collect"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="KnyttArea" type="Node2D"]
 script = ExtResource( 3 )
@@ -18,4 +35,13 @@ one_shot = true
 
 [node name="Bullets" parent="." instance=ExtResource( 1 )]
 z_index = 8
+
+[node name="EffectSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 2, 2 )
+z_index = 5
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]
+anims/collect = SubResource( 1 )
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]
