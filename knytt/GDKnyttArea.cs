@@ -148,4 +148,12 @@ public class GDKnyttArea : Node2D
         GDWorld.AssetManager.returnGradient(Area.Background);
         QueueFree();
     }
+
+    public void playEffect(KnyttPoint point, Vector2 offset = new Vector2())
+    {
+        var sprite = GetNode<Sprite>("EffectSprite");
+        var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");
+        sprite.GlobalPosition = getTileLocation(point) + offset;
+        player.Play("collect");
+    }
 }

@@ -31,8 +31,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank0\DeletePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Switch.cs" />
     <Compile Include="knytt\objects\banks\bank0\Title.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Trigger.cs" />
     <Compile Include="knytt\objects\banks\bank10\Cauldron.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
