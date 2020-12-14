@@ -12,6 +12,7 @@ public class BaseBullet : KinematicBody2D
     private float _direction;
     private float _gravity;
     private bool _enabled;
+    private int _enable_countdown;
 
     public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
@@ -73,8 +74,8 @@ public class BaseBullet : KinematicBody2D
     {
         if (!Enabled) { return; }
         // Workaround to make sure that Translate was made before actual enabling
-        // Without this, player can move with a particle!
-        if (collisionShape.Disabled) { collisionShape.SetDeferred("disabled", false); }
+        // Without this, player can move with a particle and re-enter an area that has been left!
+        if (collisionShape.Disabled && --_enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
         
         _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
         if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
@@ -112,7 +113,7 @@ public class BaseBullet : KinematicBody2D
         }
     }
 
-    protected virtual async void disappear(bool collide)
+    public virtual async void disappear(bool collide)
     {
         Enabled = false;
         _velocity_x = _velocity_y = _gravity = 0;
@@ -138,7 +139,7 @@ public class BaseBullet : KinematicBody2D
         {
             _enabled = value;
             if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
-            if (!value) { collisionShape.SetDeferred("disabled", true); }
+            if (!value) { collisionShape.SetDeferred("disabled", true); } else { _enable_countdown = 2; }
         }
     }
 }
