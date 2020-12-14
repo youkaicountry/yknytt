@@ -24,6 +24,8 @@ public class GDKnyttBaseObject : Node2D
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
     [Export] public bool OrganicEnemy { get; protected set; } = false;
+    
+    private bool safe = false;
 
     protected Random random = GDKnyttDataStore.random; // Shortcut
 
@@ -51,10 +53,21 @@ public class GDKnyttBaseObject : Node2D
         Juni.updateOrganicEnemy(GlobalPosition);
     }
 
+    public void makeSafe()
+    {
+        safe = true;
+        OrganicEnemy = false;
+    }
+
+    public void juniDie(Juni juni)
+    {
+        if (!safe) { juni.die(); }
+    }
+
     // Connect signal to this function if you have simple deadly area in an object
     protected void onDeadlyAreaEntered(Node body)
     {
-        if (body is Juni juni) { juni.die(); }
+        if (body is Juni juni) { juniDie(juni); }
     }
 
     protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool infiniteInertia = true,

@@ -3,7 +3,7 @@ using YUtil.Random;
 
 public class CeilingMadSpider : TrapFlower
 {
-    protected override void registerEmitter()
+    public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) => 

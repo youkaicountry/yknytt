@@ -4,12 +4,6 @@ public class BigSpiker : GesturesObject
 {
     [Export] Vector2 openOffset = Vector2.Zero;
 
-    public override void _Ready()
-    {
-        GetNode<SpikerMod>("SpikerMod").globalJuni = Juni;
-        base._Ready();
-    }
-
     private void _on_SpikerMod_EnterEvent()
     {
         gesturesSprite.Offset = openOffset;

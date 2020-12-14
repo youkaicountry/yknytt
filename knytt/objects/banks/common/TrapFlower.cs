@@ -2,14 +2,6 @@ using Godot;
 
 public abstract class TrapFlower : GDKnyttBaseObject
 {
-    public override void _Ready()
-    {
-        GetNode<DistanceMod>("DistanceMod").globalJuni = Juni;
-        registerEmitter();
-    }
-
-    protected abstract void registerEmitter();
-
     private void _on_ShotTimer_timeout()
     {
         if (GDArea.Selector.IsObjectSelected(this))

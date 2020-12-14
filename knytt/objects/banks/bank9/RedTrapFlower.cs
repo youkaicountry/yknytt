@@ -2,7 +2,7 @@ using Godot;
 
 public class RedTrapFlower : TrapFlower
 {
-    protected override void registerEmitter()
+    public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet",
             (p, i) => 

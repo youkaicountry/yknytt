@@ -5,7 +5,6 @@ public class DistanceMuff : Muff
     public override void _Ready()
     {
         distanceMod = GetNode<DistanceMod>("DistanceMod");
-        distanceMod.globalJuni = Juni;
         base._Ready();
     }
 
