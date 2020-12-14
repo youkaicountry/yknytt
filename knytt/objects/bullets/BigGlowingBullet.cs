@@ -15,7 +15,7 @@ public class BigGlowingBullet : BaseBullet
             });
     }
 
-    protected override void disappear(bool collide)
+    public override void disappear(bool collide)
     {
         if (collide) { GDArea.Bullets.EmitMany(this, 17); }
         base.disappear(collide);

@@ -15,7 +15,7 @@ public class BlueBullet : BaseBullet
             });
     }
 
-    protected override void disappear(bool collide)
+    public override void disappear(bool collide)
     {
         if (collide) { GDArea.Bullets.EmitMany(this, 32); }
         base.disappear(collide);

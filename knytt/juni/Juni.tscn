@@ -234,7 +234,7 @@ tracks/0/keys = {
 process_priority = -1
 z_index = 6
 z_as_relative = false
-collision_mask = 2147483654
+collision_mask = 2147491846
 collision/safe_margin = 0.2
 script = ExtResource( 3 )
 
@@ -255,8 +255,8 @@ one_shot = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
-vframes = 5
 hframes = 10
+vframes = 5
 frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -506,6 +506,7 @@ texture = ExtResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]
 anims/collect = SubResource( 23 )
+
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

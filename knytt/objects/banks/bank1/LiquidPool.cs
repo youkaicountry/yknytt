@@ -66,4 +66,13 @@ public class LiquidPool : GDKnyttBaseObject
         player.Play(animation, ping);
         ping = !ping;
     }
+    
+    private void _on_Area2D_body_entered(object body)
+    {
+        switch (body)
+        {
+            case Juni juni:         juniDie(juni);           break;
+            case BaseBullet bullet: bullet.disappear(false); break;
+        }
+    }
 }
