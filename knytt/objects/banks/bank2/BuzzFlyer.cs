@@ -87,6 +87,7 @@ public class BuzzFlyer : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (_params.enemy) { ((Juni)body).die(); }
+        if (!(body is Juni juni)) { return; }
+        if (_params.enemy) { juniDie(juni); }
     }
 }

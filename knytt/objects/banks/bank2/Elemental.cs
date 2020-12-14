@@ -23,7 +23,7 @@ public class Elemental : GDKnyttBaseObject
         {
             sprite.Play($"{ObjectID.y}_launching");
             GetNode<AudioStreamPlayer2D>($"{ObjectID.y}_ExplodePlayer").Play();
-            Juni.die();
+            juniDie(Juni);
         }
     }
     

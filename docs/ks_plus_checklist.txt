@@ -79,7 +79,7 @@ Bank 19 (Collectables):
 [ ] 	TileWidth=
 [x] 	Bank=
 [x] 	Object=
-[ ] 	Hurts=False
+[x] 	Hurts=False
 
 [ ] Custom Characters
 

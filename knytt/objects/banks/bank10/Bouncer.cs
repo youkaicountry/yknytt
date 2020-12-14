@@ -27,7 +27,7 @@ public class Bouncer : GDKnyttBaseObject
 
     protected virtual void _on_Area2D_body_entered(object body)
     {
-        if (body is Juni juni) { juni.die(); return; }
+        if (body is Juni juni) { juniDie(juni); return; }
 
         animatedSprite.Frame = 0;
         animatedSprite.Play("bounce");

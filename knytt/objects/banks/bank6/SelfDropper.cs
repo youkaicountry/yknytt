@@ -34,7 +34,7 @@ public class SelfDropper : GDKnyttBaseObject
 
     private void _on_Area2D_body_entered(object body)
     {
-        if (body is Juni juni) { juni.die(); return; }
+        if (body is Juni juni) { juniDie(juni); return; }
         state = State.Dropped;
         collisionShape.SetDeferred("disabled", true);
         GetNode<AudioStreamPlayer2D>("DropPlayer").Play();

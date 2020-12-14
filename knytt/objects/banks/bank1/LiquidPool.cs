@@ -66,10 +66,4 @@ public class LiquidPool : GDKnyttBaseObject
         player.Play(animation, ping);
         ping = !ping;
     }
-
-    public void _on_Area2D_body_entered(Node body)
-    {
-        if (!(body is Juni)) { return; }
-        ((Juni)(body)).die();
-    }
 }

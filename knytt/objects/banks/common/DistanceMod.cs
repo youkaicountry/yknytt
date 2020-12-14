@@ -15,12 +15,15 @@ public class DistanceMod : Node2D
 
     private AnimatedSprite sprite;
 
-    public Juni globalJuni { protected get; set; }
+    protected GDKnyttBaseObject parent;
+    protected Juni globalJuni;
     public bool IsEntered { get; protected set; } = false;
 
     
     public override void _Ready()
     {
+        parent = GetParent<GDKnyttBaseObject>();
+        globalJuni = parent.Juni;
         sprite = GetNode<AnimatedSprite>(spritePath);
     }
 
