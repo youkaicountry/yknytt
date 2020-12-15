@@ -15,7 +15,8 @@ public class BulletLayer : Node2D
     {
         ["CauldronSpike"] = 20, ["ShockWave"] = 40, ["DropStuff"] = 500, ["RollBullet"] = 15, ["BlueBullet"] = 2,
         ["NinjaStar"] = 15, ["HomingBullet"] = 15, ["BigGlowingBullet"] = 10, ["FireBullet2"] = 15, ["FireBullet"] = 150,
-        ["EvilFlowerBullet"] = 150, ["SmallGlowingBullet"] = 200, ["BlueBulletExplosion"] = 100, ["ShockWave2"] = 40
+        ["EvilFlowerBullet"] = 150, ["SmallGlowingBullet"] = 200, ["BlueBulletExplosion"] = 100, ["ShockWave2"] = 40,
+        ["SuperBullet"] = 100, ["RunnerBullet"] = 15
     };
 
     public void RegisterEmitter(Node2D enemy_object, string bullet_scene, InitBulletEvent on_init)
@@ -90,5 +91,10 @@ public class BulletLayer : Node2D
         // Only GDKnyttBaseObjects reset with an area
         enemyScenes = enemyScenes.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
         initEvents = initEvents.Where(kv => !(kv.Key is GDKnyttBaseObject)).ToDictionary(kv => kv.Key, kv => kv.Value);
+    }
+
+    public int GetBulletsCount(string scene)
+    {
+        return bullets[scene].Where(p => p.Enabled).Count();
     }
 }
