@@ -28,6 +28,7 @@ public class TrapFire : GDKnyttBaseObject
 
     private async void _on_ShotTimer_timeout_ext()
     {
+        // TODO: different FPS in the original game
         sprite.Play("shoot");
         await ToSignal(sprite, "animation_finished");
 

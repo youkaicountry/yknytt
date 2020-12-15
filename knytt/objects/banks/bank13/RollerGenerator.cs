@@ -8,7 +8,7 @@ public class RollerGenerator : GDKnyttBaseObject
             (p, i) => 
             {
                 p.VelocityMMF2 = 12;
-                p.DirectionMMF2 = 16;
+                p.DirectionMMF2 = 0;
             });
     }
 
