@@ -140,15 +140,32 @@ public class GDKnyttGame : Node2D
 		jgp += new Vector2(GDKnyttArea.Width*wc.x, GDKnyttArea.Height*wc.y);
 		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
-		// Apply flag warps
-		foreach (var flag_warp in new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps)
+		// Find flag warps
+		var flag_warps = new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps;
+		var all_flag_warp = flag_warps[(int)KnyttArea.FlagWarpID.All];
+		bool some_check_failed = false;
+		Vector2? found_warp = null;
+		foreach (var flag_warp in flag_warps)
 		{
-			if (flag_warp != null && juni.Powers.check(flag_warp.flag))
+			if (flag_warp != null)
 			{
-				jgp += new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
-				break;
+				if (juni.Powers.check(flag_warp.flag))
+				{
+					if (flag_warp == all_flag_warp && flag_warp.flag.true_flag) // Special case
+					{
+						if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
+					}
+					found_warp = found_warp ?? new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
+				}
+				else
+				{
+					some_check_failed = true;
+				}
 			}
 		}
+
+		// Apply flag warps
+		if (found_warp != null) { jgp += found_warp.Value; }
 		var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 		
 		juni.GlobalPosition = jgp;
