@@ -52,8 +52,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 9 )
-frame = 2
-playing = true
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Bullet Split.raw"

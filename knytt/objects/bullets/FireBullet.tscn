@@ -35,9 +35,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 5 )
-frame = 1
-playing = true
-offset = Vector2( 0.5, 0.5 )
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Fire Hit Lite.raw"
