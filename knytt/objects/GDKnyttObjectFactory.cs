@@ -125,6 +125,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 1)] =   "RedFollowBall";
         ObjectLookup[new KnyttPoint(4, 10)] =  "LeftStranger";
         ObjectLookup[new KnyttPoint(4, 11)] =  "RightStranger";
+        ObjectLookup[new KnyttPoint(4, 12)] =  "StrangeRunner";
+        ObjectLookup[new KnyttPoint(4, 15)] =  "AnotherStrangeRunner";
+        ObjectLookup[new KnyttPoint(4, 16)] =  "HomingRunner";
         ObjectLookup[new KnyttPoint(4, 17)] =  "Hedgehog";
         ObjectLookup[new KnyttPoint(4, 18)] =  "ToastMonsterNew";
         ObjectLookup[new KnyttPoint(4, 19)] =  "TriShot";
@@ -159,11 +162,20 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(7, 10)] =  "Leaf";
         ObjectLookup[new KnyttPoint(7, 12)] =  "Leaf";
         ObjectLookup[new KnyttPoint(7, 16)] =  "Cloud";
+        ObjectLookup[new KnyttPoint(8, 1)] =   "HorizontalConnection";
+        ObjectLookup[new KnyttPoint(8, 2)] =   "VerticalConnection";
+        ObjectLookup[new KnyttPoint(8, 3)] =   "LampLeft";
+        ObjectLookup[new KnyttPoint(8, 4)] =   "LampMid";
+        ObjectLookup[new KnyttPoint(8, 5)] =   "LampRight";
         ObjectLookup[new KnyttPoint(8, 6)] =   "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 7)] =   "SimpleDecoration";
+        ObjectLookup[new KnyttPoint(8, 8)] =   "TinyFire";
         ObjectLookup[new KnyttPoint(8, 9)] =   "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 10)] =  "Star";
+        ObjectLookup[new KnyttPoint(8, 11)] =  "MachinePart1";
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
+        ObjectLookup[new KnyttPoint(8, 13)] =  "MachinePart3";
+        ObjectLookup[new KnyttPoint(8, 14)] =  "MachinePart4";
         ObjectLookup[new KnyttPoint(9, 1)] =   "RedTrapFlower";
         ObjectLookup[new KnyttPoint(9, 2)] =   "TimedFlower";
         ObjectLookup[new KnyttPoint(9, 3)] =   "HomingFlower";
@@ -199,6 +211,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(12, 21)] = "GhostMarker";
         ObjectLookup[new KnyttPoint(13, 1)] =  "RobotCannon";
         ObjectLookup[new KnyttPoint(13, 2)] =  "HomingCannon";
+        ObjectLookup[new KnyttPoint(13, 3)] =  "LaserRobot";
         ObjectLookup[new KnyttPoint(13, 4)] =  "UpCannon";
         ObjectLookup[new KnyttPoint(13, 5)] =  "DropstuffRobot";
         ObjectLookup[new KnyttPoint(13, 6)] =  "RollerGenerator";
@@ -227,6 +240,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(14, 18)] = "CeilingSpiker";
         ObjectLookup[new KnyttPoint(14, 19)] = "HiddenSpiker";
         ObjectLookup[new KnyttPoint(14, 20)] = "SpikelessSpiker";
+        ObjectLookup[new KnyttPoint(14, 21)] = "SuperShotCeiling";
+        ObjectLookup[new KnyttPoint(14, 22)] = "SuperShotFloor";
+        ObjectLookup[new KnyttPoint(14, 23)] = "SuperShotLeft";
+        ObjectLookup[new KnyttPoint(14, 24)] = "SuperShotRight";
         ObjectLookup[new KnyttPoint(15, 1)] =  "Block1";
         ObjectLookup[new KnyttPoint(15, 2)] =  "Block2";
         ObjectLookup[new KnyttPoint(15, 3)] =  "Block3";
@@ -287,6 +304,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(17, 3)] =  "WaterEye";
         ObjectLookup[new KnyttPoint(17, 4)] =  "MadSpider";
         ObjectLookup[new KnyttPoint(17, 5)] =  "CeilingMadSpider";
+        ObjectLookup[new KnyttPoint(17, 7)] =  "Ninja";
         ObjectLookup[new KnyttPoint(17, 8)] =  "RightNinja";
         ObjectLookup[new KnyttPoint(17, 9)] =  "LeftNinja";
         ObjectLookup[new KnyttPoint(17, 10)] = "FloorSpiker";
