@@ -135,10 +135,10 @@ Bank 19 (Collectables):
 [x] 	[World] Map=False
 
 [ ] Flag Warp
-[ ] 	Flag(All)=True
-[ ] 	FlagWarpX(All)=#
-[ ] 	FlagWarpY(All)=#
-[ ] 	Flag(A)=True
+[x] 	Flag(All)=True
+[x] 	FlagWarpX(All)=#
+[x] 	FlagWarpY(All)=#
+[x] 	Flag(A)=True
 [ ] 	FlagWarpY(A)=Artifact1
 [x] 	Flag(A)=Power12
 
