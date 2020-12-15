@@ -6,7 +6,7 @@ public class BigSpiker : GesturesObject
 
     private void _on_SpikerMod_EnterEvent()
     {
-        gesturesSprite.Offset = openOffset;
+        sprite.Offset = openOffset;
         timer.Stop();
     }
 
@@ -17,7 +17,7 @@ public class BigSpiker : GesturesObject
 
     protected override void nextAnimation()
     {
-        gesturesSprite.Offset = Vector2.Zero;
+        sprite.Offset = Vector2.Zero;
         base.nextAnimation();
     }
 }
