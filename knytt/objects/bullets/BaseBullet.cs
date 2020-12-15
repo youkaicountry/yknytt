@@ -19,6 +19,7 @@ public class BaseBullet : KinematicBody2D
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
     public bool EnableRotation { get; set; } = false;
+    public bool DisappearWhenStopped { get; set; } = true;
 
     public float DecelerationCorrectionX { get; set; } = 1;
     public float DecelerationCorrectionUp { get; set; } = 1;
@@ -68,6 +69,7 @@ public class BaseBullet : KinematicBody2D
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         hitPlayer = HasNode("HitPlayer") ? GetNode<RawAudioPlayer2D>("HitPlayer") : null;
         hasDisappear = sprite.Frames.HasAnimation("disappear");
+        sprite.Play("default");
     }
     
     public override void _PhysicsProcess(float delta)
@@ -92,7 +94,7 @@ public class BaseBullet : KinematicBody2D
             if (_gravity == 0 && _velocity_y > 0) { _velocity_y = 0; }
         }
 
-        if (_gravity == 0 && _velocity_x == 0 && _velocity_y == 0)
+        if (DisappearWhenStopped && _gravity == 0 && _velocity_x == 0 && _velocity_y == 0)
         {
             disappear(collide: false);
         }
