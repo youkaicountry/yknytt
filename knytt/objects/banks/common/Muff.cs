@@ -29,7 +29,7 @@ public class Muff : GDKnyttBaseObject
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         changeSpeed(initialSpeed);
-        _on_DirectionTimer_timeout();
+        changeDirection(getDirection(DirectionChange.Random));
     }
 
     public override void _PhysicsProcess(float delta)

@@ -10,7 +10,7 @@ public class Sign : GDKnyttBaseObject
     private int shiftMessageIndex;
     private int triggerMessageIndex;
 
-    private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>();
+    private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>(); // ConnectFlags.ReferenceCounted doesn't work..
 
     public override void _Ready()
     {
