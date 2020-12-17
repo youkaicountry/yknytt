@@ -129,6 +129,11 @@ public class GDKnyttGame : Node2D
 	}
 
     public void warpJuni(Juni juni)
+	{
+		CallDeferred("_warp_juni", juni);
+	}
+
+    private void _warp_juni(Juni juni)
     {
 		// Calculate the warp
 		var area = CurrentArea.Area;

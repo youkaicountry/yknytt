@@ -360,7 +360,12 @@ public class Juni : KinematicBody2D
     }
 
     // This kills the Juni
-    public async void die()
+    public void die()
+    {
+        CallDeferred("_die");
+    }
+
+    private async void _die()
     {
         if (dead) { return; }
         GetNode<DeathParticles>("DeathParticles").Play();
