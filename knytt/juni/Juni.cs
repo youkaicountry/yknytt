@@ -144,6 +144,18 @@ public class Juni : KinematicBody2D
         }
     }
 
+    private bool _immune;
+    private bool Immune
+    {
+        get { return _immune; }
+        set
+        {
+            _immune = value;
+            CollisionLayer = value ? (uint)0 : 1;
+            CollisionMask = value ? 2147483654 : 2147491846;
+        }
+    }
+
     public Sprite Sprite { get; private set; }
     public Umbrella Umbrella { get; private set; }
     public AnimationPlayer Anim { get; private set; }
@@ -201,6 +213,7 @@ public class Juni : KinematicBody2D
     {
         if (Input.IsActionJustPressed("debug_die")) { die(); }
         if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(this, true); }
+        if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -367,7 +380,7 @@ public class Juni : KinematicBody2D
 
     private async void _die()
     {
-        if (dead) { return; }
+        if (dead || Immune) { return; }
         GetNode<DeathParticles>("DeathParticles").Play();
         GetNode<AudioStreamPlayer2D>("Audio/DiePlayer2D").Play();
         this.next_state = null;
