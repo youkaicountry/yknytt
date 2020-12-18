@@ -10,16 +10,16 @@ public class LabyrinthSpike : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        var collision = Call("move_and_collide", delta * speed * direction, true, true, true) as KinematicCollision2D;
+        var collision = moveAndCollide(delta * speed * direction, testOnly: true);
         if (collision != null)
         {
             int retry = 5;
             while (collision != null)
             {
                 direction = direction == Vector2.Up || direction == Vector2.Down ?
-                    (GDKnyttDataStore.random.NextBoolean() ? Vector2.Left : Vector2.Right) :
-                    (GDKnyttDataStore.random.NextBoolean() ? Vector2.Down : Vector2.Up);
-                collision = Call("move_and_collide", delta * speed * direction, true, true, true) as KinematicCollision2D;
+                    (random.NextBoolean() ? Vector2.Left : Vector2.Right) :
+                    (random.NextBoolean() ? Vector2.Down : Vector2.Up);
+                collision = moveAndCollide(delta * speed * direction, testOnly: true);
                 if (retry-- <= 0) { return; }
             }
             onCollide();

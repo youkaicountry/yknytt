@@ -11,10 +11,9 @@ public class TrapFire : GDKnyttBaseObject
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
         GDArea.Selector.Register(this);
-        GDArea.Bullets.RegisterEmitter(this, "FireBullet2", 150,
+        GDArea.Bullets.RegisterEmitter(this, "FireBullet2",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(new Vector2(12, 12));
                 p.VelocityMMF2 = 50;
                 p.Direction = getDirection();
@@ -27,14 +26,9 @@ public class TrapFire : GDKnyttBaseObject
         return Mathf.Atan2(GlobalPosition.y - Juni.ApparentPosition.y + 10, GlobalPosition.x - Juni.ApparentPosition.x);
     }
 
-    private void _on_FirstDelayTimer_timeout()
+    private async void _on_ShotTimer_timeout_ext()
     {
-        GetNode<Timer>("ShotTimer").Start();
-        _on_ShotTimer_timeout();
-    }
-
-    private async void _on_ShotTimer_timeout()
-    {
+        // TODO: different FPS in the original game
         sprite.Play("shoot");
         await ToSignal(sprite, "animation_finished");
 

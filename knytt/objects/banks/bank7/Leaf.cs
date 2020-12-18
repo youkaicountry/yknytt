@@ -42,7 +42,7 @@ public class Leaf : GDKnyttBaseObject
     private void startSpawnDelay(float min, float max)
     {
         var timer = GetNode<Timer>("SpawnTimer");
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(min, max);
+        timer.WaitTime = random.NextFloat(min, max);
         timer.Start();
     }
 

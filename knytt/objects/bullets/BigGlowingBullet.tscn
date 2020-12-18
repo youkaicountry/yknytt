@@ -38,4 +38,4 @@ shape = SubResource( 1 )
 frames = SubResource( 5 )
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Tri Bullet Hit.raw"
+rawPath = "res://knytt/data/Sfx/Tri Bullet Shot.raw"

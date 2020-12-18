@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using YKnyttLib;
 
@@ -23,6 +24,10 @@ public class GDKnyttBaseObject : Node2D
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
     [Export] public bool OrganicEnemy { get; protected set; } = false;
+    
+    private bool safe = false;
+
+    protected Random random = GDKnyttDataStore.random; // Shortcut
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)
     {
@@ -48,9 +53,26 @@ public class GDKnyttBaseObject : Node2D
         Juni.updateOrganicEnemy(GlobalPosition);
     }
 
+    public void makeSafe()
+    {
+        safe = true;
+        OrganicEnemy = false;
+    }
+
+    public void juniDie(Juni juni)
+    {
+        if (!safe) { juni.die(); }
+    }
+
     // Connect signal to this function if you have simple deadly area in an object
     protected void onDeadlyAreaEntered(Node body)
     {
-        if (body is Juni juni) { juni.die(); }
+        if (body is Juni juni) { juniDie(juni); }
+    }
+
+    protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool infiniteInertia = true,
+        bool excludeRaycastShapes = true, bool testOnly = false)
+    {
+        return Call("move_and_collide", relVec, infiniteInertia, excludeRaycastShapes, testOnly) as KinematicCollision2D;
     }
 }

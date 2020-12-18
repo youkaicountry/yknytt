@@ -19,7 +19,7 @@ public class SelfDropper : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - (GlobalPosition.x + 12)) < DISTANCE_TO_DROP)
+        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - Center.x) < DISTANCE_TO_DROP)
         {
             state = State.Dropping;
             GetNode<AnimatedSprite>("AnimatedSprite").Play("launch");
@@ -34,7 +34,7 @@ public class SelfDropper : GDKnyttBaseObject
 
     private void _on_Area2D_body_entered(object body)
     {
-        if (body is Juni juni) { juni.die(); return; }
+        if (body is Juni juni) { juniDie(juni); return; }
         state = State.Dropped;
         collisionShape.SetDeferred("disabled", true);
         GetNode<AudioStreamPlayer2D>("DropPlayer").Play();

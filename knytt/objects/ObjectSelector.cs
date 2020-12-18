@@ -1,16 +1,16 @@
-using System;
 using System.Collections.Generic;
 using YUtil.Random;
+using YKnyttLib;
 
 public class ObjectSelector
 {
-    private Dictionary<Type, List<object>> allObjects = new Dictionary<Type, List<object>>();
-    private Dictionary<Type, int> counters = new Dictionary<Type, int>();
-    private Dictionary<Type, int> selections = new Dictionary<Type, int>();
+    private Dictionary<KnyttPoint, List<object>> allObjects = new Dictionary<KnyttPoint, List<object>>();
+    private Dictionary<KnyttPoint, int> counters = new Dictionary<KnyttPoint, int>();
+    private Dictionary<KnyttPoint, int> selections = new Dictionary<KnyttPoint, int>();
 
-    public void Register(object obj)
+    public void Register(GDKnyttBaseObject obj)
     {
-        var type = obj.GetType();
+        var type = obj.ObjectID;
         if (!allObjects.ContainsKey(type))
         {
             allObjects[type] = new List<object>();
@@ -20,9 +20,9 @@ public class ObjectSelector
         allObjects[type].Add(obj);
     }
 
-    public void Unregister(object obj)
+    public void Unregister(GDKnyttBaseObject obj)
     {
-        var type = obj.GetType();
+        var type = obj.ObjectID;
         if (!allObjects.ContainsKey(type)) { return; }
         allObjects[type].Remove(obj);
         // TODO: looks not reliable
@@ -30,9 +30,9 @@ public class ObjectSelector
         selections[type] = -1;
     }
 
-    public bool IsObjectSelected(object obj)
+    public bool IsObjectSelected(GDKnyttBaseObject obj)
     {
-        var type = obj.GetType();
+        var type = obj.ObjectID;
         if (!allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
 
         if (counters[type] >= allObjects[type].Count || selections[type] == -1)
@@ -44,11 +44,11 @@ public class ObjectSelector
         return allObjects[type][selections[type]] == obj;
     }
 
-    private Dictionary<Type, float> randomValues = new Dictionary<Type, float>();
+    private Dictionary<KnyttPoint, float> randomValues = new Dictionary<KnyttPoint, float>();
 
-    public float GetRandomValue(object obj, float maxValue)
+    public float GetRandomValue(GDKnyttBaseObject obj, float maxValue)
     {
-        var type = obj.GetType();
+        var type = obj.ObjectID;
         if (!randomValues.ContainsKey(type))
         {
             randomValues.Add(type, GDKnyttDataStore.random.NextFloat(maxValue));
@@ -56,9 +56,9 @@ public class ObjectSelector
         return randomValues[type];
     }
 
-    public int GetIndex(object obj)
+    public int GetIndex(GDKnyttBaseObject obj)
     {
-        var type = obj.GetType();
+        var type = obj.ObjectID;
         if (!allObjects.ContainsKey(type)) { return 0; }
         return allObjects[type].IndexOf(obj);
     }

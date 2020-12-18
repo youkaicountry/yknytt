@@ -56,18 +56,25 @@ public class GDObjectLayers : Node2D
         }
     }
 
-    public GDKnyttBaseObject findObject(KnyttPoint obj_id)
+    public List<GDKnyttBaseObject> findObjects(KnyttPoint obj_id)
     {
+        List<GDKnyttBaseObject> finds = new List<GDKnyttBaseObject>();
         foreach (var layer in GDArea.Objects.Layers)
         {
             foreach (GDKnyttBaseObject knytt_object in layer.GetChildren())
             {
                 if (obj_id.x == knytt_object.ObjectID.x && obj_id.y == knytt_object.ObjectID.y)
                 {
-                    return knytt_object;
+                    finds.Add(knytt_object);
                 }
             }
         }
-        return null;
+        return finds;
+    }
+
+    public GDKnyttBaseObject findObject(KnyttPoint obj_id)
+    {
+        var finds = findObjects(obj_id);
+        return finds.Count != 0 ? finds[0] : null;
     }
 }

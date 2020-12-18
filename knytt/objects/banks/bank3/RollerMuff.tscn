@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/bank3/RollerMuff.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 9 )
@@ -20,17 +21,16 @@ speedValues = PoolIntArray( 5, 10 )
 position = Vector2( 12, 16 )
 shape = SubResource( 1 )
 
-[node name="RollTimer" type="Timer" parent="." index="4"]
+[node name="RollTimer" parent="." index="4" instance=ExtResource( 3 )]
+autostart = true
+syncedRandomDelay = true
+pickOne = true
 
-[node name="FirstDelayTimer" type="Timer" parent="." index="5"]
-one_shot = true
-
-[node name="Area2D" type="Area2D" parent="." index="6"]
+[node name="Area2D" type="Area2D" parent="." index="5"]
 collision_layer = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 17 )
 shape = SubResource( 2 )
-[connection signal="timeout" from="RollTimer" to="." method="_on_RollTimer_timeout"]
-[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]
+[connection signal="timeout_ext" from="RollTimer" to="." method="_on_RollTimer_timeout_ext"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

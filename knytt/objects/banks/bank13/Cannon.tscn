@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/Cannon.cs" type="Script" id=1]
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,10 +11,7 @@ script = ExtResource( 1 )
 playing = true
 centered = false
 
-[node name="DelayTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="TotalTimer" type="Timer" parent="."]
+[node name="TotalTimer" parent="." instance=ExtResource( 3 )]
 autostart = true
 
 [node name="BulletTimer" type="Timer" parent="."]
@@ -21,6 +19,6 @@ process_mode = 0
 wait_time = 0.02
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-[connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]
-[connection signal="timeout" from="TotalTimer" to="." method="_on_TotalTimer_timeout"]
+rawPath = "res://knytt/data/Sfx/Liquid.raw"
+[connection signal="timeout_ext" from="TotalTimer" to="." method="_on_TotalTimer_timeout_ext"]
 [connection signal="timeout" from="BulletTimer" to="." method="_on_BulletTimer_timeout"]

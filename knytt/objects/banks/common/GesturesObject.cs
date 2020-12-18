@@ -10,16 +10,16 @@ public class GesturesObject : GDKnyttBaseObject
     [Export] float maxTime = 2;
     [Export] bool bidirectional = false;
 
-    protected AnimatedSprite gesturesSprite;
+    protected AnimatedSprite sprite;
     protected Timer timer;
     private List<string> animations;
     private bool leftDirection = true;
     
     public override void _Ready()
     {
-        gesturesSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         timer = GetNode<Timer>("IdleTimer");
-        animations = gesturesSprite.Frames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
+        animations = sprite.Frames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
 
         nextAnimation();        
     }
@@ -33,17 +33,20 @@ public class GesturesObject : GDKnyttBaseObject
     {
         if (bidirectional)
         {
-            leftDirection = GDKnyttDataStore.random.Next(2) == 0;
+            leftDirection = random.NextBoolean();
         }
-        string anim_name = animations[GDKnyttDataStore.random.Next(animations.Count)];
+        string anim_name = random.NextElement(animations);
 
         // Play animation
-        if (bidirectional) { gesturesSprite.FlipH = !leftDirection; }
-        gesturesSprite.Frame = 0;
-        gesturesSprite.Play(anim_name);
+        if (bidirectional) { sprite.FlipH = !leftDirection; }
+        sprite.Frame = 0;
+        sprite.Play(anim_name);
 
-        // Idle
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(minTime, maxTime);
-        timer.Start();
+        idle();
+    }
+
+    protected void idle()
+    {
+        timer.Start(random.NextFloat(minTime, maxTime));
     }
 }
