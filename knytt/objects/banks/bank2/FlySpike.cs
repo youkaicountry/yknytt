@@ -31,7 +31,7 @@ public class FlySpike : GDKnyttBaseObject
         animated.Stop();
         animated.Frame = 0;
         FacingRight = !FacingRight;
-        wait_timer.WaitTime = GDKnyttDataStore.random.NextFloat(MIN_WAIT, MAX_WAIT);
+        wait_timer.WaitTime = random.NextFloat(MIN_WAIT, MAX_WAIT);
         wait_timer.Start();
         await ToSignal(wait_timer, "timeout");
         start();

@@ -32,10 +32,16 @@ public class CustomObject : GDKnyttBaseObject
 
         int bank = getInt(section, "Bank", 0);
         int obj = getInt(section, "Object", 0);
+        bool safe = getString(section, "Hurts") == "False";
         if (bank != 0 && obj != 0)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
-            if (bundle != null) { AddChild(bundle.getNode(Layer, Coords)); }
+            if (bundle != null)
+            {
+                var node = bundle.getNode(Layer, Coords);
+                if (safe) { node.makeSafe(); }
+                AddChild(node);
+            }
             return;
         }
 

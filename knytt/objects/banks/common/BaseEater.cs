@@ -13,7 +13,7 @@ public class BaseEater : GDKnyttBaseObject
         if (!(body is Juni juni)) { return; }
         this_obj.GetNode<AnimatedSprite>("AnimatedSprite").Play("eat");
         this_obj.GetNode<AudioStreamPlayer2D>("Player").Play();
-        juni.die();
+        juniDie(juni);
     }
         
     private void _on_Area2D_body_entered(object body)

@@ -27,13 +27,13 @@ public class BuzzFlyer : GDKnyttBaseObject
         new Vector2(0, -1),
         new Vector2(0, 0) };
     
-    Vector2 NextDirection { get { return Directions[GDKnyttDataStore.random.Next(Directions.Length)]; } }
+    Vector2 NextDirection { get { return random.NextElement(Directions); } }
     Vector2 Buzz 
     {
         get 
         {
-            return new Vector2(GDKnyttDataStore.random.NextFloat(-BuzzStrength, BuzzStrength), 
-                               GDKnyttDataStore.random.NextFloat(-BuzzStrength, BuzzStrength));
+            return new Vector2(random.NextFloat(-BuzzStrength, BuzzStrength), 
+                               random.NextFloat(-BuzzStrength, BuzzStrength));
         }
     }
     Vector2 CurrentDirection { get; set; }
@@ -76,7 +76,7 @@ public class BuzzFlyer : GDKnyttBaseObject
         CurrentDirection = NextDirection;
         var timer = GetNode<Timer>("FlyTimer");
         timer.Stop();
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(MoveTime.x, MoveTime.y);
+        timer.WaitTime = random.NextFloat(MoveTime.x, MoveTime.y);
         timer.Start();
     }
 
@@ -87,6 +87,7 @@ public class BuzzFlyer : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (_params.enemy) { ((Juni)body).die(); }
+        if (!(body is Juni juni)) { return; }
+        if (_params.enemy) { juniDie(juni); }
     }
 }

@@ -49,7 +49,7 @@ public abstract class GhostObject : GDKnyttBaseObject
         while(flip_counter > flip_time) 
         { 
             flip_counter -= flip_time;
-            this.flip_target = GDKnyttDataStore.random.Next(2) == 0 ? flickerMin : flickerMax;
+            this.flip_target = random.Next(2) == 0 ? flickerMin : flickerMax;
         }
 
         var m = Modulate;

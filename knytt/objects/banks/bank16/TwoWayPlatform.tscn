@@ -10,10 +10,9 @@ extents = Vector2( 12, 1 )
 script = ExtResource( 2 )
 
 [node name="NoJumpArea" type="Area2D" parent="." index="2"]
+position = Vector2( 0, -1 )
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoJumpArea" index="0"]
 position = Vector2( 12, -1 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="NoJumpArea" to="." method="_on_NoJumpArea_body_entered"]
-[connection signal="body_exited" from="NoJumpArea" to="." method="_on_NoJumpArea_body_exited"]

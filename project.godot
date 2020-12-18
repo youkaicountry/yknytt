@@ -8,11 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[  ]
-_global_script_class_icons={
-
-}
-
 [application]
 
 config/name="YKnytt"
@@ -133,6 +128,11 @@ pause={
 "deadzone": 0.5,
 "events": [  ]
 }
+map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [input_devices]
 
@@ -146,7 +146,9 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_4="NoJump"
 2d_physics/layer_5="NoClimb"
 2d_physics/layer_12="ObjectsCollide"
+2d_physics/layer_14="Bullet"
 2d_physics/layer_15="ParticleMapping"
+2d_physics/windows_native_icon="res://knytt/icons/winicon.ico"
 
 [physics]
 

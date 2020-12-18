@@ -147,19 +147,19 @@ Bank 4 (Meanies):
 [ ] -  7
 [ ] -  8
 [ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
+[x] - 10 Left Stranger
+[x] - 11 Right Stranger
+[x] - 12 Strange Runner
 [ ] - 13
 [ ] - 14
-[ ] - 15
-[ ] - 16
+[x] - 15 Another Strange Runner
+[x] - 16 Homing Runner
 [x] - 17 Hedgehog
 [x] - 18 Toast Monster
-[ ] - 19
-[ ] - 20
-[ ] - 21
-[ ] - 22
+[x] - 19 TriShot
+[x] - 20 FiveShot
+[x] - 21 Right Super Stranger
+[x] - 22 Left Super Stranger
 
 Bank 5 (Shadow People):
 [x] -  1 Shadow Witch
@@ -200,20 +200,20 @@ Bank 7 (Nature FX):
 [x] - 16 Cloud
 
 Bank 8 (Decoration):
-[ ] -  1
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
+[x] -  1 Horizontal Connection
+[x] -  2 Vertical Connection
+[x] -  3 Lamp Left
+[x] -  4 Lamp Mid
+[x] -  5 Lamp Right
 [x] -  6 Torch Fire
 [x] -  7 Candle Fire
-[ ] -  8
+[x] -  8 Tiny Fire
 [x] -  9 Light
 [x] - 10 Star
-[ ] - 11
+[x] - 11 Machine Part 1
 [x] - 12 Fire Star
-[ ] - 13
-[ ] - 14
+[x] - 13 Machine Part 3
+[x] - 14 Machine Part 4
 [ ] - 15
 [ ] - 16
 [ ] - 17
@@ -228,7 +228,7 @@ Bank 9 (Flowers):
 Bank 10 (Bouncers):
 [x] -  1 Bouncer 1
 [x] -  2 Bouncer 2
-[ ] -  3
+[x] -  3 Cauldron
 [ ] -  4
 [x] -  5 Bouncer
 [ ] -  6
@@ -279,9 +279,9 @@ Bank 12 (Ghosts):
 Bank 13 (Robots):
 [x] -  1 Robot Cannon
 [x] -  2 Homing Cannon
-[ ] -  3
+[x] -  3 Laser Robot
 [x] -  4 Up Cannon
-[ ] -  5
+[x] -  5 Dropstuff Robot
 [x] -  6 Roller Generator
 [x] -  7 Laser
 [x] -  8 Laser
@@ -307,7 +307,7 @@ Bank 14 (Earth Beings):
 [ ] - 12
 [x] - 13 Small Spike Run Thing
 [x] - 14 Big Spike Run Thing
-[ ] - 15
+[x] - 15 Another Snail
 [x] - 16 Floor Spiker
 [x] - 17 Super Mario AI
 [x] - 18 Ceiling Spiker
@@ -369,15 +369,15 @@ Bank 16 (Invisible):
 [x] - 16 Invisible Slope
 
 Bank 17 (Creepy):
-[ ] -  1
+[x] -  1 Dark Randomizer
 [x] -  2 Small Spider
 [x] -  3 Creepy Water Monster
-[ ] -  4
-[ ] -  5
+[x] -  4 Mad Spider
+[x] -  5 Ceiling Mad Spider
 [ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
+[x] -  7 Ninja
+[x] -  8 Right Ninja
+[x] -  9 Left Ninja
 [x] - 10 Floor Spiker
 [x] - 11 Left Spiker
 [x] - 12 Right Spiker

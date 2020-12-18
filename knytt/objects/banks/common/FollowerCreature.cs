@@ -58,7 +58,7 @@ public class FollowerCreature : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (deadly) { Juni.die(); }
+        if (deadly && body is Juni juni) { juniDie(juni); }
         tryStopAnim();
         _at_juni = true;
     }

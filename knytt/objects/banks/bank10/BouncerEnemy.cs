@@ -71,9 +71,9 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (bouncer_data.deadly && body is Juni)
+        if (bouncer_data.deadly && body is Juni juni)
         {
-            Juni.die();
+            juniDie(juni);
             return;
         }
 

@@ -264,6 +264,8 @@ public class Juni : KinematicBody2D
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
+
+        if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
     }
 
     private void handleGravity(float delta)

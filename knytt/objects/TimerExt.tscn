@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/objects/TimerExt.cs" type="Script" id=1]
+
+[node name="Timer" type="Timer"]
+script = ExtResource( 1 )
+
+[node name="FirstDelayTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="." to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FirstDelayTimer" to="." method="_on_FirstDelayTimer_timeout"]

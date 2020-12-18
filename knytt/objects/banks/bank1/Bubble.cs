@@ -21,7 +21,7 @@ public class Bubble : GDKnyttBaseObject
     private void startTimer(float min = MIN_DELAY, float max = MAX_DELAY)
     {
         var timer = GetNode<Timer>("DelayTimer");
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(min, max);
+        timer.WaitTime = random.NextFloat(min, max);
         timer.Start();
     }
 }
