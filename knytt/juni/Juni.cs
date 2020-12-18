@@ -219,7 +219,7 @@ public class Juni : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         if (dead) { return; }
-        GD.Print("juni physics"); // uncomment this to decrease crashes. How to do this in a right way?
+        //GD.Print("juni physics"); // uncomment this to decrease crashes. How to do this in a right way?
 
         if (just_reset > 0) 
         {
