@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/bank6/labyrinth_spike.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank6/LabyrinthSpike.cs" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 12.0
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11.9, 11.9 )
 
 [node name="Spike" type="KinematicBody2D"]
 collision_layer = 0
@@ -13,15 +19,18 @@ script = ExtResource( 3 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 8, 0.1, 0.1, 8, 0.1, 16, 8, 23.9, 16, 23.9, 23.9, 16, 23.9, 8, 16, 0.1 )
-
 [node name="HitSound2D" parent="." instance=ExtResource( 1 )]
 rawPath = "res://knytt/data/Sfx/Machine Turn A.raw"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PoolVector2Array( 8, 0.1, 0.1, 8, 0.1, 16, 8, 23.9, 16, 23.9, 23.9, 16, 23.9, 8, 16, 0.1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 12, 12 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 12, 12 )
+shape = SubResource( 1 )
+
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

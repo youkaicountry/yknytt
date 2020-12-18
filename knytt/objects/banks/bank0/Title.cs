@@ -11,7 +11,7 @@ public class Title : GDKnyttBaseObject
         if (title != null) { GetNode<Label>("TitleLabel").Text = title; adjustLabel(GetNode<Label>("TitleLabel")); }
         if (subtitle != null) { GetNode<Label>("SubtitleLabel").Text = subtitle; adjustLabel(GetNode<Label>("SubtitleLabel")); }
 
-        if (title != null && subtitle != null)
+        if (title != null || subtitle != null)
         {
             GetNode<AnimationPlayer>("AnimationPlayer").Play(
                 title != null && subtitle != null ? "title_subtitle" :

@@ -133,11 +133,7 @@ public class GDKnyttAssetManager
 
     public static string loadTextFile(string path)
     {
-        var f = new File();
-        f.Open(path, File.ModeFlags.Read);
-        string txt = f.GetAsText();
-        f.Close();
-        return txt;
+        return loadTextFile(loadFile(path));
     }
 
     public static AudioStream loadRaw(byte[] buffer, int sample_rate=11025)
@@ -177,6 +173,10 @@ public class GDKnyttAssetManager
 
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
+        var image = texture.GetData();
+        var bitmap = new BitMap();
+        bitmap.CreateFromImageAlpha(image, .01f);
+        
         var ts = new TileSet();
         
         int i = 0;
@@ -191,10 +191,6 @@ public class GDKnyttAssetManager
 
                 if (collisions)
                 {
-                    var image = texture.GetData();
-                    var bitmap = new BitMap();
-                    bitmap.CreateFromImageAlpha(image, .01f);
-
                     var polygons = bitmap.OpaqueToPolygons(region, 2);
                     List<Vector2> plist = new List<Vector2>();
                     for (int j = 0; j < polygons.Count; j++)

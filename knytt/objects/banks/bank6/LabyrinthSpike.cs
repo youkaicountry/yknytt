@@ -25,7 +25,7 @@ public class LabyrinthSpike : GDKnyttBaseObject
             onCollide();
             GetNode<AudioStreamPlayer2D>("HitSound2D").Play();
         }
-        Translate(delta * speed * direction);
+        Call("move_and_slide", speed * direction);
     }
 
     protected virtual void onCollide() {}

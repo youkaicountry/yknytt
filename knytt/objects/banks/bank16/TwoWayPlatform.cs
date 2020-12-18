@@ -1,7 +1,10 @@
 using Godot;
+using System.Collections.Generic;
+using System.Linq;
 
 public class TwoWayPlatform : OneWayPlatform
 {
+    private HashSet<Juni> junis = new HashSet<Juni>();
     private CollisionShape2D noJumpShape;
 
     public override void _Ready()
@@ -11,15 +14,20 @@ public class TwoWayPlatform : OneWayPlatform
 
     public override void _PhysicsProcess(float delta)
     {
-        // TODO: use local Juni instead of global Juni
-        if (Juni.DownHeld)
-        { 
-            if (noJumpShape.Disabled) { noJumpShape.SetDeferred("disabled", false); }
-            if (Juni.JumpEdge) { disablePlatform(true); }
-        }
-        else
-        {
-            if (!noJumpShape.Disabled) { noJumpShape.SetDeferred("disabled", true); }
-        }
+        bool enable_nojump = junis.Any(j => j.DownHeld);
+        if (!enable_nojump != noJumpShape.Disabled) { noJumpShape.SetDeferred("disabled", !enable_nojump); }
+
+        bool disable_ground = enable_nojump && junis.Any(j => j.DownHeld && j.JumpEdge);
+        if (disable_ground) { disablePlatform(true); }
+    }
+
+    private void _on_EnterArea_body_entered(Juni juni)
+    {
+        junis.Add(juni);
+    }
+
+    private void _on_EnterArea_body_exited(Juni juni)
+    {
+        junis.Remove(juni);
     }
 }

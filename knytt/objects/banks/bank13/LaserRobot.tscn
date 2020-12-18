@@ -6,32 +6,32 @@
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 12, 96 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 12, 0, 12, 96 )
+region = Rect2( 0, 0, 12, 96 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 12, 96 )
+region = Rect2( 12, 0, 12, 96 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 12, 96 )
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 12, 96 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "on",
-"speed": 25.0
-}, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": false,
 "name": "off",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "on",
+"speed": 25.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -81,6 +81,7 @@ rawPath = "res://knytt/data/Sfx/Laser Machine A.raw"
 
 [node name="OffPlayer" parent="." instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Laser Machine B.raw"
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_entered" from="LaserArea2D" to="." method="_on_LaserArea2D_body_entered"]
+[connection signal="body_entered" from="LaserArea2D" to="." method="_on_Area2D_body_entered"]

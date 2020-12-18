@@ -4,33 +4,33 @@ Bank 0 (System):
 [x] - 34 Trigger
 [x] - 35 Map PowerItem
 [x] - 36 Title
-[ ] - 37
-[ ] - 38
-[ ] - 39
-[ ] - 40
-[ ] - 41
+[ ] - 37 Local Ambient A
+[ ] - 38 Local Ambient B
+[ ] - 39 Mute Local Ambient A
+[ ] - 40 Mute Local Ambient B
+[ ] - 41 ?? No Climb
 [x] - 42 Spawn Point
 [x] - 43 Spawn Point
 [x] - 44 Spawn Point
 [x] - 45 Delete Point
 [x] - 46 Delete Point
 [x] - 47 Delete Point
-[ ] - 48
-[ ] - 49
-[ ] - 247
-[ ] - 248
-[ ] - 249
-[ ] - 250
-[ ] - 251
-[ ] - 252
-[ ] - 253
-[ ] - 254
-[ ] - 255
+[ ] - 48 ?? Allow Hologram
+[ ] - 49 ??
+[ ] - 247 Block User
+[ ] - 248 Automation W
+[ ] - 249 Automation A
+[ ] - 250 Automation S
+[ ] - 251 Automation D
+[ ] - 252 Automation Up
+[ ] - 253 Automation Down
+[ ] - 254 Automation Left
+[ ] - 255 Automation Right
 
 Bank 1 (Liquids):
-[ ] - 25
-[ ] - 26
-[ ] - 27
+[ ] - 25 Swim
+[ ] - 26 Swim Area
+[ ] - 27 Swim Area
 
 Bank 6 (Traps):
 [x] - 14 Up Permanent Spikes
@@ -39,7 +39,7 @@ Bank 6 (Traps):
 [x] - 17 Right Permanent Spikes
 
 Bank 7 (Nature FX):
-[ ] - 17
+[ ] - 17 ?? Muffle
 
 Bank 15 (Objects & Areas):
 [x] - 31 Collection Door
@@ -48,22 +48,22 @@ Bank 15 (Objects & Areas):
 [x] - 34 Collection Door
 [x] - 35 Collection Door
 [x] - 36 Collection Door
-[ ] - 37
-[ ] - 38
+[ ] - 37 Touch Disappearing Block
+[ ] - 38 Touch Disappearing Block
 
 Bank 16 (Invisible):
 [x] - 17 Object Barrier
 [ ] - 18 Fish and Birds Barrier
-[ ] - 19
-[ ] - 20
-[ ] - 21
-[ ] - 22
-[ ] - 23
-[ ] - 24
-[ ] - 25
-[ ] - 26
-[ ] - 27
-[ ] - 28
+[ ] - 19 Additional Barrier
+[ ] - 20 Additional Barrier
+[ ] - 21 Additional Slope
+[ ] - 22 Additional Slope
+[ ] - 23 Additional Slope
+[ ] - 24 Additional Slope
+[ ] - 25 Additional Barrier
+[ ] - 26 Additional Barrier
+[ ] - 27 Additional Barrier
+[ ] - 28 Additional Barrier
 [x] - 29 One Way Platform
 [x] - 30 Two Ways Platform
 
@@ -142,7 +142,7 @@ Bank 19 (Collectables):
 [ ] 	FlagWarpY(A)=Artifact1
 [x] 	Flag(A)=Power12
 
-[ ] Overlay
+[/] Overlay
 
 [ ] Tint
 [ ] 	Tint=#

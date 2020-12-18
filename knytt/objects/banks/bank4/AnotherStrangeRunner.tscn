@@ -79,3 +79,11 @@ rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
 [node name="ShotDelayTimer" type="Timer" parent="." index="6"]
 wait_time = 0.36
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="." index="7"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 6.006, 24, 5.16496, 13.4656, 11.4717, 7.15891, 18.6193, 13.8861, 17.5682, 23.9768 )
+
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

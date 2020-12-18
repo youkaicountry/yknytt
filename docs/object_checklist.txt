@@ -313,10 +313,10 @@ Bank 14 (Earth Beings):
 [x] - 18 Ceiling Spiker
 [x] - 19 Hidden Spiker
 [x] - 20 Spikeless Spiker
-[ ] - 21
-[ ] - 22
-[ ] - 23
-[ ] - 24
+[x] - 21 Ceiling SuperShot
+[x] - 22 Floor SuperShot
+[x] - 23 Left SuperShot
+[x] - 24 Right SuperShot
 
 Bank 15 (Objects & Areas):
 [x] -  1 Solid Block 1

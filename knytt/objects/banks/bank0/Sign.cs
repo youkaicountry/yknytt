@@ -51,6 +51,19 @@ public class Sign : GDKnyttBaseObject
     public void nextMessage(Juni juni)
     {
         messageIndex++;
+
+        if (shiftMessageIndex > 0 && messageIndex == shiftMessageIndex)
+        {
+            Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 3)) as Shift;
+            shift?.executeAnyway(juni);
+        }
+
+        if (triggerMessageIndex > 0 && messageIndex == triggerMessageIndex)
+        {
+            Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 15)) as Trigger;
+            trigger?.executeAnyway(juni);
+        }
+
         if (messageIndex >= texts.Count) { messageIndex = -1; }
 
         if (messageIndex != -1 && texts[messageIndex] != null)
@@ -58,18 +71,6 @@ public class Sign : GDKnyttBaseObject
             GetNode<Label>("SignRect/Label").Text = texts[messageIndex];
             GetNode<Control>("SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
             if (!messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); messageVisible = true;}
-
-            if (shiftMessageIndex > 0 && messageIndex == shiftMessageIndex)
-            {
-                Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 3)) as Shift;
-                shift?.executeAnyway(juni);
-            }
-
-            if (triggerMessageIndex > 0 && messageIndex == triggerMessageIndex)
-            {
-                Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 15)) as Trigger;
-                trigger?.executeAnyway(juni);
-            }
         }
         else
         {

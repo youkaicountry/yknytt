@@ -14,11 +14,6 @@ public class LaserRobot : GDKnyttBaseObject
 
     private void _on_Area2D_body_entered(object body)
     {
-        collide();
-    }
-
-    private void _on_LaserArea2D_body_entered(object body)
-    {
         if (body is Juni juni) { juniDie(juni); } else { collide(); }
     }
 
