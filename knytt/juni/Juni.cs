@@ -263,7 +263,8 @@ public class Juni : KinematicBody2D
         }
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
-        velocity = MoveAndSlide(velocity, Godot.Vector2.Up);
+        velocity = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:false, maxSlides:4, floorMaxAngle:0.81f);
+        //GD.Print(GetFloorNormal());
     }
 
     private void handleGravity(float delta)
@@ -277,7 +278,8 @@ public class Juni : KinematicBody2D
         }
         else
         {
-            velocity.y += gravity * delta;
+            if (!Grounded) { velocity.y += gravity * delta; }
+            else { velocity.y = gravity * delta; }
             if (JumpHeld) 
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? 550f : 125f;

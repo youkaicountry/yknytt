@@ -2,6 +2,8 @@ using Godot;
 
 public class IdleState : JuniState
 {
+    public override bool StickToGround { get { return true; } }
+
     public IdleState(Juni juni) : base(juni) { }
 
     public override void onEnter()
@@ -38,6 +40,8 @@ public class WalkRunState : JuniState
 {
     bool walk_run;
     string WalkRunString { get { return walk_run ? "Run" : "Walk"; } }
+
+    public override bool StickToGround { get { return true; } }
 
     public WalkRunState(Juni juni, bool walk_run) : base(juni)
     { 
@@ -231,6 +235,7 @@ public class FallState : JuniState
 public class JuniState
 {
     protected Juni juni;
+    public virtual bool StickToGround { get { return false; } }
 
     public JuniState(Juni juni)
     {
