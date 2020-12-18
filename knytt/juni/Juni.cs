@@ -293,8 +293,8 @@ public class Juni : KinematicBody2D
         // framerate independence
         if (InUpdraft && Umbrella.Deployed)
         {
-            velocity.y -= gravity * delta * (JumpHeld ? .3f : .1f);
-            velocity.y = Mathf.Max(JumpHeld ? -220f : -120f, velocity.y);
+            velocity.y -= gravity * delta * (JumpHeld ? .4f : .25f);
+            velocity.y = Mathf.Max(JumpHeld ? -400f : -225f, velocity.y);
         }
         else
         {
