@@ -4,19 +4,22 @@ using System;
 public class BaseBullet : KinematicBody2D
 {
     private float _velocity;
-    protected float _velocity_x;
-    protected float _velocity_y;
+    private float _velocity_x;
+    private float _velocity_y;
     private float _deceleration;
     private float _deceleration_x;
     private float _deceleration_y;
     private float _direction;
     private float _gravity;
     private bool _enabled;
+    private int _enable_countdown;
 
     public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
+    public bool EnableRotation { get; set; } = false;
+    public bool DisappearWhenStopped { get; set; } = true;
 
     public float DecelerationCorrectionX { get; set; } = 1;
     public float DecelerationCorrectionUp { get; set; } = 1;
@@ -24,14 +27,17 @@ public class BaseBullet : KinematicBody2D
     
     private const float VELOCITY_SCALE = 50f / 8;
     private const float GRAVITY_SCALE = VELOCITY_SCALE * VELOCITY_SCALE;
-    private const float DIRECTION_SCALE = Mathf.Pi / 16f;
     // TODO: more accurate value when gravity != 0!
     private const float DECELERATION_SCALE = 0.05f; // 0.025f;
 
     public float VelocityMMF2 { get { return Velocity / VELOCITY_SCALE; } set { Velocity = value * VELOCITY_SCALE; } }
     public float GravityMMF2 { get { return Gravity / GRAVITY_SCALE; } set { Gravity = value * GRAVITY_SCALE; } }
-    public float DirectionMMF2 { get { return Direction / DIRECTION_SCALE; } set { Direction = value * DIRECTION_SCALE; } }
+    public float DirectionMMF2 { get { return 16 * (1 - Direction / Mathf.Pi); } set { Direction = (1 - value / 16) * Mathf.Pi; } }
     public float DecelerationMMF2 { get { return Deceleration / DECELERATION_SCALE; } set { Deceleration = value * DECELERATION_SCALE; } }
+
+    // Be careful! Doesn't support deceleration, total velocity and direction change
+    public float VelocityX { get { return _velocity_x; } set { _velocity_x = value; } }
+    public float VelocityY { get { return _velocity_y; } set { _velocity_y = value; } }
 
     protected void updateAxisVelocity()
     {
@@ -51,22 +57,27 @@ public class BaseBullet : KinematicBody2D
 
     
     public GDKnyttArea GDArea { protected get; set; }
-    public RawAudioPlayer2D DisapperarPlayer { protected get; set; }
     
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
+    protected RawAudioPlayer2D hitPlayer;
     protected bool hasDisappear;
 
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        hitPlayer = HasNode("HitPlayer") ? GetNode<RawAudioPlayer2D>("HitPlayer") : null;
         hasDisappear = sprite.Frames.HasAnimation("disappear");
+        sprite.Play("default");
     }
     
     public override void _PhysicsProcess(float delta)
     {
         if (!Enabled) { return; }
+        // Workaround to make sure that Translate was made before actual enabling
+        // Without this, player can move with a particle and re-enter an area that has been left!
+        if (collisionShape.Disabled && --_enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
         
         _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
         if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
@@ -83,12 +94,14 @@ public class BaseBullet : KinematicBody2D
             if (_gravity == 0 && _velocity_y > 0) { _velocity_y = 0; }
         }
 
-        if (_gravity == 0 && _velocity_x == 0 && _velocity_y == 0)
+        if (DisappearWhenStopped && _gravity == 0 && _velocity_x == 0 && _velocity_y == 0)
         {
             disappear(collide: false);
         }
 
         _velocity_y += _gravity * delta;
+
+        if (EnableRotation) { Rotation = Mathf.Atan2(_velocity_y, _velocity_x); }
 
         var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
         if (collision != null)
@@ -102,16 +115,15 @@ public class BaseBullet : KinematicBody2D
         }
     }
 
-    protected virtual async void disappear(bool collide)
+    public virtual async void disappear(bool collide)
     {
         Enabled = false;
         _velocity_x = _velocity_y = _gravity = 0;
         if (collide)
         {
-            if (DisapperarPlayer != null && !DisapperarPlayer.IsDisposed)
+            if (hitPlayer != null)
             {
-                DisapperarPlayer.GlobalPosition = GlobalPosition;
-                DisapperarPlayer.Play();
+                hitPlayer.Play();
             }
             if (hasDisappear)
             {
@@ -129,7 +141,7 @@ public class BaseBullet : KinematicBody2D
         {
             _enabled = value;
             if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
-            collisionShape.SetDeferred("disabled", !value);
+            if (!value) { collisionShape.SetDeferred("disabled", true); } else { _enable_countdown = 2; }
         }
     }
 }

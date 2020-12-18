@@ -2,9 +2,10 @@ using Godot;
 
 public class ShockDisk3 : ShockDisk
 {
-    protected override void registerEmitter()
+    public override void _Ready()
     {
-        GDArea.Bullets.RegisterEmitter(this, "ShockWave2", 40,
+        base._Ready();
+        GDArea.Bullets.RegisterEmitter(this, "ShockWave2",
             (p, i) => 
             {
                 p.Translate(new Vector2(12, 12));

@@ -80,7 +80,9 @@ animations = [ {
 } ]
 
 [node name="Muff" instance=ExtResource( 1 )]
-rollInterval = 6.0
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 15 )
+
+[node name="RollTimer" parent="." index="4"]
+wait_time = 6.0

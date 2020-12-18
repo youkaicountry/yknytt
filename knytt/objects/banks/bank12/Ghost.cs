@@ -72,11 +72,11 @@ public class Ghost : GhostObject
 
     private void move()
     {
-        Speed = GDKnyttDataStore.random.NextFloat(MIN_SPEED, MAX_SPEED);
-        if (GDKnyttDataStore.random.NextBoolean()) { Speed *= -1f; }
+        Speed = random.NextFloat(MIN_SPEED, MAX_SPEED);
+        if (random.NextBoolean()) { Speed *= -1f; }
 
         var timer = GetNode<Timer>("MoveTimer");
-        timer.WaitTime = GDKnyttDataStore.random.NextFloat(MIN_WAIT, MAX_WAIT);
+        timer.WaitTime = random.NextFloat(MIN_WAIT, MAX_WAIT);
         timer.Start();
     }
 

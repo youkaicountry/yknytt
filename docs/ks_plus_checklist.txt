@@ -1,7 +1,7 @@
 Bank 0 (System):
-[ ] - 32
-[ ] - 33
-[ ] - 34
+[x] - 32 Trigger
+[x] - 33 Trigger
+[x] - 34 Trigger
 [x] - 35 Map PowerItem
 [x] - 36 Title
 [ ] - 37
@@ -9,12 +9,12 @@ Bank 0 (System):
 [ ] - 39
 [ ] - 40
 [ ] - 41
-[ ] - 42
-[ ] - 43
-[ ] - 44
-[ ] - 45
-[ ] - 46
-[ ] - 47
+[x] - 42 Spawn Point
+[x] - 43 Spawn Point
+[x] - 44 Spawn Point
+[x] - 45 Delete Point
+[x] - 46 Delete Point
+[x] - 47 Delete Point
 [ ] - 48
 [ ] - 49
 [ ] - 247
@@ -79,7 +79,7 @@ Bank 19 (Collectables):
 [ ] 	TileWidth=
 [x] 	Bank=
 [x] 	Object=
-[ ] 	Hurts=False
+[x] 	Hurts=False
 
 [ ] Custom Characters
 
@@ -91,24 +91,24 @@ Bank 19 (Collectables):
 
 [x] Custom Artifacts
 
-[ ] Golden Creatures Icon
+[ ] Info Panel Icons
 
-[ ] Trigger: Spawns an object on the screen
-[ ] 	TrigBank(A)
-[ ] 	TrigObject(A)
-[ ] 	TrigSpawnX(A)
-[ ] 	TrigSpawnY(A)
-[ ] 	TrigAbsoluteTarget(A)
-[ ] 	TrigEffect(A)
-[ ] 	TrigEffectX(A)
-[ ] 	TrigEffectY(A)
-[ ] 	TrigTouch(A)
-[ ] 	TrigType(A)
-[ ] 	TrigVisible(A)
-[ ] 	TrigDenyHologram(A)
-[ ] 	TrigSound(A)
-[ ] 	TrigAsOne(A)
-[ ] 	TrigRepeat(A)
+[x] Trigger: Spawns an object on the screen
+[x] 	TrigBank(A)
+[x] 	TrigObject(A)
+[x] 	TrigSpawnX(A)
+[x] 	TrigSpawnY(A)
+[x] 	TrigAbsoluteTarget(A)
+[x] 	TrigEffect(A)
+[x] 	TrigEffectX(A)
+[x] 	TrigEffectY(A)
+[x] 	TrigTouch(A)
+[x] 	TrigType(A)
+[x] 	TrigVisible(A)
+[x] 	TrigDenyHologram(A)
+[x] 	TrigSound(A)
+[x] 	TrigAsOne(A)
+[x] 	TrigRepeat(A)
 
 [ ] Shift
 [ ] 	ShiftSound(A) custom sounds
@@ -120,25 +120,25 @@ Bank 19 (Collectables):
 
 [x]     Sign2(A)
 [x] 	SignShift(A)
-[ ] 	SignTrig(A)
+[x] 	SignTrig(A)
 
 [ ] Cutscene Fade Color
 
-[ ] Map
+[x] Map
 
-[ ] Map Spoofing
-[ ] 	MapX=1000
-[ ] 	MapY=1000
-[ ] 	MapVisible=True
-[ ] 	MapVisible=False
-[ ] 	MapColor=#
-[ ] 	[World] Map=False
+[x] Map Spoofing
+[x] 	MapX=1000
+[x] 	MapY=1000
+[x] 	MapVisible=True
+[x] 	MapVisible=False
+[x] 	MapColor=#
+[x] 	[World] Map=False
 
 [ ] Flag Warp
-[ ] 	Flag(All)=True
-[ ] 	FlagWarpX(All)=#
-[ ] 	FlagWarpY(All)=#
-[ ] 	Flag(A)=True
+[x] 	Flag(All)=True
+[x] 	FlagWarpX(All)=#
+[x] 	FlagWarpY(All)=#
+[x] 	Flag(A)=True
 [ ] 	FlagWarpY(A)=Artifact1
 [x] 	Flag(A)=Power12
 

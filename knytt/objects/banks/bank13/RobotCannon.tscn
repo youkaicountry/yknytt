@@ -44,11 +44,6 @@ bulletsCount = 80
 frames = SubResource( 7 )
 frame = 1
 
-[node name="DelayTimer" parent="." index="1"]
-wait_time = 0.2
-
-[node name="TotalTimer" parent="." index="2"]
+[node name="TotalTimer" parent="." index="1"]
 wait_time = 4.0
-
-[node name="Player" parent="." index="3"]
-rawPath = "res://knytt/data/Sfx/Liquid.raw"
+firstDelay = 0.2

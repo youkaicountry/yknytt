@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bullets/fire_bullet_2.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bullets/fire_bullet_2_disappear.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/bullets/FireBullet2.cs" type="Script" id=4]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
@@ -77,5 +78,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 14 )
-frame = 5
-playing = true
+
+[node name="HitPlayer" parent="." index="2" instance=ExtResource( 5 )]
+rawPath = "res://knytt/data/Sfx/Fire Hit.raw"

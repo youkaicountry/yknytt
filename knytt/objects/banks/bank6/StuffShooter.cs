@@ -22,10 +22,9 @@ public abstract class StuffShooter : GDKnyttBaseObject
         player = GetNode<AudioStreamPlayer2D>("ShotPlayer");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
-        GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet", 10,
+        GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet",
             (p, i) => 
             {
-                p.DisapperarPlayer = GetNode<RawAudioPlayer2D>("HitPlayer");
                 p.Translate(shotPosition);
                 p.Velocity = bulletSpeed * 50;
                 p.Direction = (up ? 1 : 3) * (Mathf.Pi / 2);
@@ -36,7 +35,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         if (Juni.dead) { return; }
-        if (Mathf.Abs(Juni.ApparentPosition.x - (GlobalPosition.x + 12)) < distanceToShot && readyToShoot)
+        if (Mathf.Abs(Juni.ApparentPosition.x - Center.x) < distanceToShot && readyToShoot)
         {
             sprite.Frame = 0;
             sprite.Play("launch");

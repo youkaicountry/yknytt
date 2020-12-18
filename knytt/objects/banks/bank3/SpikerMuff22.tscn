@@ -95,7 +95,7 @@ frames = SubResource( 14 )
 position = Vector2( 12, 19 )
 shape = SubResource( 16 )
 
-[node name="SpikerMod" parent="." index="4"]
+[node name="DistanceMod" parent="." index="4"]
 openDistance = 40.0
 closeDistance = 70.0
 method = 1

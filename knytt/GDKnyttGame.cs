@@ -8,6 +8,7 @@ public class GDKnyttGame : Node2D
 	public Juni Juni { get; private set; }
 
 	public UICanvasLayer UI { get; private set; }
+	private MapPanel mapPanel;
 
 	// TODO: This is per-player stuff, and should eventually be abstracted
 	public GDKnyttArea CurrentArea { get; private set; }
@@ -73,14 +74,17 @@ public class GDKnyttGame : Node2D
 		}
 
 		GDWorld.setWorld(this, world);
-		createJuni();
 		GDWorld.loadWorld();
+		createJuni();
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 		Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
 
 		UI.initialize(this);
 		UI.updatePowers();
+
+		mapPanel = GetNode<MapPanel>("UICanvasLayer/MapBackgroundPanel/MapPanel");
+		if (hasMap()) { mapPanel.init(GDWorld.KWorld, Juni); } else { mapPanel.init(null, null); }
 	}
 
 	// On load a save file
@@ -136,26 +140,51 @@ public class GDKnyttGame : Node2D
 		jgp += new Vector2(GDKnyttArea.Width*wc.x, GDKnyttArea.Height*wc.y);
 		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
-		// Apply flag warps
-		foreach (var flag_warp in new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps)
+		// Find flag warps
+		var flag_warps = new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps;
+		var all_flag_warp = flag_warps[(int)KnyttArea.FlagWarpID.All];
+		bool some_check_failed = false;
+		Vector2? found_warp = null;
+		foreach (var flag_warp in flag_warps)
 		{
-			if (flag_warp != null && juni.Powers.check(flag_warp.flag))
+			if (flag_warp != null)
 			{
-				jgp += new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
-				break;
+				if (juni.Powers.check(flag_warp.flag))
+				{
+					if (flag_warp == all_flag_warp && flag_warp.flag.true_flag) // Special case
+					{
+						if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
+					}
+					found_warp = found_warp ?? new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
+				}
+				else
+				{
+					some_check_failed = true;
+				}
 			}
 		}
+
+		// Apply flag warps
+		if (found_warp != null) { jgp += found_warp.Value; }
 		var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 		
 		juni.GlobalPosition = jgp;
 		changeArea(after_flag_warp_coords, regenerate_same:false);
     }
 
+	public bool hasMap()
+	{
+		var world_section = GDWorld.KWorld.INIData["World"];
+		return world_section["Format"] == "4" && world_section["Map"] != "False";
+	}
+
 	public override void _Process(float delta)
 	{
 		if (this.viewMode) { this.editorControls(); }
 
 		if (Input.IsActionJustPressed("pause")) { pause(); }
+
+		if (Input.IsActionJustPressed("map") && hasMap()) {	mapPanel.ShowMap(true); }
 	}
 
     // TODO: Difference between Paged areas, active areas, and current area.
@@ -226,6 +255,7 @@ public class GDKnyttGame : Node2D
 		this.beginTransitionEffects(force_jump);
 
 		Juni.stopHologram(cleanup:true);
+		if (hasMap()) { Juni.Powers.VisitedAreas.Add(CurrentArea.Area.Position); }
 	}
 
 	public async void win(string ending)

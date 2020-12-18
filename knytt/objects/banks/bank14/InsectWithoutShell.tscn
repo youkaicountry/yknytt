@@ -63,8 +63,6 @@ extents = Vector2( 10, 6 )
 directionChangeTime = 1.28
 speedValues = PoolIntArray( 15 )
 deceleration = 12.0
-firstDelay = 1.2
-timer = 4.0
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 11 )
@@ -73,3 +71,7 @@ animation = "walk"
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 18 )
 shape = SubResource( 12 )
+
+[node name="AttackTimer" parent="." index="4"]
+wait_time = 4.0
+firstDelay = 1.2

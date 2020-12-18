@@ -1,85 +1,18 @@
-using System;
 using Godot;
 using YKnyttLib;
-using static YKnyttLib.KnyttShift;
+using static YKnyttLib.KnyttSwitch;
 
-public class Shift : GDKnyttBaseObject
+public class Shift : Switch
 {
     KnyttShift shift;
 
-    private string sound;
-
     public override void _Ready()
     {
-        shift = new KnyttShift(GDArea.Area, Coords, (ShiftID)(ObjectID.y-14));
-        setupFromShift();
+        @switch = shift = new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y-14));
+        base._Ready();
     }
 
-    private void setupFromShift()
-    {
-        var shape = GetNode<Node>("Shapes").GetChild<Node2D>((int)shift.Shape);
-        shape.Visible = shift.Visible;
-        shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", true);
-
-        string[] available_sounds = {"Door", "Electronic", "Switch"};
-        sound = shift.Sound == null ? "Teleport" : 
-                Array.IndexOf(available_sounds, shift.Sound) != -1 ? shift.Sound : null;
-    }
-
-    public void _on_Area2D_body_entered(Node body)
-    {
-        if (!(body is Juni juni)) { return; }
-
-        GDArea.Selector.Register(this);
-        
-        if (shift.OnTouch)
-        { 
-            if (shift.DenyHologram && juni.Hologram != null)
-            {
-                juni.Connect(nameof(Juni.HologramStopped), this, nameof(executeShift));
-            }
-            else
-            {
-                executeShift(juni);
-            }
-        }
-        else
-        {
-            juni.Connect(nameof(Juni.DownEvent), this, nameof(executeShift));
-        }
-    }
-
-    public void _on_Area2D_body_exited(Node body)
-    {
-        if (!(body is Juni juni)) { return; }
-
-        GDArea.Selector.Unregister(this);
-
-        if (!shift.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(executeShift)))
-        {
-            juni.Disconnect(nameof(Juni.DownEvent), this, nameof(executeShift));
-        }
-
-        if (shift.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(executeShift)))
-        {
-            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(executeShift));
-        }
-    }
-
-    public void executeShift(Juni juni)
-    {
-        if (GDArea.Selector.IsObjectSelected(this))
-        {
-            CallDeferred("_execute_shift", juni);
-        }
-    }
-
-    public void executeShiftAnyway(Juni juni)
-    {
-        CallDeferred("_execute_shift", juni);
-    }
-
-    private async void _execute_shift(Juni juni)
+    protected override async void _execute(Juni juni)
     {
         var game = GDArea.GDWorld.Game;
 

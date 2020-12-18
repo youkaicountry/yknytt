@@ -139,13 +139,27 @@ public class GDKnyttArea : Node2D
         deactivateArea();
     }
 
-    public void destroyArea()
+    public async void destroyArea()
     {
         if (Area.Empty) { return; }
+
+        // Destroy an area with a delay to let it do exit things (for example, play sounds)
+        var destroy_timer = GetNode<Timer>("DestroyTimer");
+        destroy_timer.Start();
+        await ToSignal(destroy_timer, "timeout");
+
         if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
         GDWorld.AssetManager.returnGradient(Area.Background);
         QueueFree();
+    }
+
+    public void playEffect(KnyttPoint point, Vector2 offset = new Vector2())
+    {
+        var sprite = GetNode<Sprite>("EffectSprite");
+        var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");
+        sprite.GlobalPosition = getTileLocation(point) + offset;
+        player.Play("collect");
     }
 }
