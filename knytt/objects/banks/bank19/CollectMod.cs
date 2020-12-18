@@ -23,7 +23,8 @@ public class CollectMod : Node2D
         if (!(body is Juni juni)) { return; }
         juni.Powers.setCollectable(parent.ObjectID.y, true);
         juni.updateCollectables();
-        juni.showEffect(effect: true, sound: "PowerUp");
+        parent.GDArea.playEffect(offset: parent.Position);
+        juni.showEffect(effect: false, sound: "PowerUp");
         parent.QueueFree();
     }
 }

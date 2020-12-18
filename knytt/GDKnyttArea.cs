@@ -155,7 +155,7 @@ public class GDKnyttArea : Node2D
         QueueFree();
     }
 
-    public void playEffect(KnyttPoint point, Vector2 offset = new Vector2())
+    public void playEffect(KnyttPoint point = default(KnyttPoint), Vector2 offset = default(Vector2))
     {
         var sprite = GetNode<Sprite>("EffectSprite");
         var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");

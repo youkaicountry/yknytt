@@ -9,19 +9,13 @@ public class Artifact : CustomObject
         // Enable custom animation
         int artifact_number = (ObjectID.y - 151) / 7 + 1;
         var artifact_key = $"Artifact{artifact_number}";
-        if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey(artifact_key)) { playDefault(); return; }
+        if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey(artifact_key)) { sprite.Play($"default{artifact_number}"); return; }
 
         info = new CustomObject.CustomObjectInfo();
         info.image = GDArea.GDWorld.KWorld.INIData["World"][artifact_key];
         info.anim_loopback = 1;
         info.anim_to = 14;
         info.anim_speed = 250;
-        if (fillAnimation($"custom{artifact_number}")) { sprite.Play(); } else { playDefault(); }
-    }
-
-    private void playDefault()
-    {
-        sprite.Offset = new Vector2(4, 4);
-        sprite.Play("default");
+        if (fillAnimation($"custom{artifact_number}")) { sprite.Play(); } else { sprite.Play($"default{artifact_number}"); }
     }
 }
