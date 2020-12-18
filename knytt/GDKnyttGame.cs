@@ -99,7 +99,7 @@ public class GDKnyttGame : Node2D
 	public async void respawnJuni()
 	{
 		UI.WSOD.startWSOD();
-        await ToSignal(UI.WSOD, "WSODFinished");
+		await ToSignal(UI.WSOD, "WSODFinished");
 
 		var save = GDWorld.KWorld.CurrentSave;
 		Juni.Powers.readFromSave(save);
@@ -107,7 +107,6 @@ public class GDKnyttGame : Node2D
 		Juni.moveToPosition(CurrentArea, save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
-		
 	}
 
 	public void saveGame(Juni juni, bool write)
@@ -146,7 +145,7 @@ public class GDKnyttGame : Node2D
 		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
 		// Find flag warps
-		var flag_warps = new KnyttArea(after_warp_coords, GDWorld.KWorld).FlagWarps;
+		var flag_warps = GDWorld.KWorld.getArea(after_warp_coords).FlagWarps;
 		var all_flag_warp = flag_warps[(int)KnyttArea.FlagWarpID.All];
 		bool some_check_failed = false;
 		Vector2? found_warp = null;

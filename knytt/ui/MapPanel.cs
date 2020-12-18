@@ -40,7 +40,7 @@ public class MapPanel : Panel
             for (int y = world.MinBounds.y; y <= world.MaxBounds.y; y++)
             {
                 var coord = new KnyttPoint(x, y);
-                var area = new KnyttArea(coord, world);
+                var area = world.getArea(coord);
                 if (area.ExtraData == null) { continue; }
                 
                 int? map_x = int.TryParse(area.ExtraData["MapX"], out var i) ? i : null as int?;

@@ -16,9 +16,9 @@ animations = [ {
 "name": "Block11",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "Block7",
+"name": "Block24",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -31,9 +31,9 @@ animations = [ {
 "name": "Block8",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "Block17",
+"name": "Block7",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -41,9 +41,9 @@ animations = [ {
 "name": "Block21",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Block24",
+"name": "Block17",
 "speed": 5.0
 } ]
 
@@ -59,7 +59,7 @@ animation = "Block24"
 centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 2
+collision_layer = 2050
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]

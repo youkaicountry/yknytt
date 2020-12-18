@@ -52,6 +52,7 @@ public class LiquidPool : GDKnyttBaseObject
             halo.Play(pool_info.halo);
             halo.Visible = true;
         }
+        // TODO: diffferent collision shapes for different pools
         if (!pool_info.deadly) { GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", true); }
 
         player.SpeedScale = random.NextFloat(.6f, 1f);

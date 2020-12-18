@@ -13,7 +13,7 @@ public class SelfDropper : GDKnyttBaseObject
     public override void _Ready()
     {
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        dropSpeed = 50;
+        dropSpeed = 25;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -28,7 +28,7 @@ public class SelfDropper : GDKnyttBaseObject
         if (state == State.Dropping)
         {
             Translate(new Vector2(0, delta * dropSpeed));
-            if (dropSpeed < 450) { dropSpeed += 14 * 50 * delta; }
+            if (dropSpeed < 450) { dropSpeed += 10 * 50 * delta; }
         }
     }
 

@@ -2,36 +2,36 @@
 
 [ext_resource path="res://knytt/objects/banks/bank0/Title.cs" type="Script" id=2]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=2]
 font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 21
 extra_spacing_char = 1
-font_data = SubResource( 4 )
+font_data = SubResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=5]
 font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 extra_spacing_char = 1
-font_data = SubResource( 6 )
+font_data = SubResource( 5 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 resource_name = "subtitle"
 length = 6.0
 tracks/0/type = "value"
@@ -47,7 +47,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 resource_name = "title"
 length = 6.0
 tracks/0/type = "value"
@@ -63,9 +63,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 resource_name = "title_subtitle"
-length = 12.0
+length = 11.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("TitleLabel:modulate")
 tracks/0/interp = 1
@@ -73,7 +73,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 5, 6 ),
+"times": PoolRealArray( 0, 1, 4, 5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -85,13 +85,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 5.8, 6.8, 10.8, 11.8 ),
+"times": PoolRealArray( 4.8, 5.8, 9.8, 10.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Node2D" type="Node2D"]
+z_index = 5
 script = ExtResource( 2 )
 
 [node name="TitleLabel" type="Label" parent="."]
@@ -100,8 +101,8 @@ margin_right = 12.0
 margin_bottom = 6.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,13 +111,13 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 12.0
 margin_bottom = 6.0
-custom_styles/normal = SubResource( 5 )
-custom_fonts/font = SubResource( 7 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/subtitle = SubResource( 8 )
-anims/title = SubResource( 9 )
-anims/title_subtitle = SubResource( 10 )
+anims/subtitle = SubResource( 7 )
+anims/title = SubResource( 8 )
+anims/title_subtitle = SubResource( 9 )

@@ -46,6 +46,8 @@ public class GDObjectLayers : Node2D
                 }
             }
         }
+
+        if (GDArea.Area.getExtraData("Overlay") == "True") { turnOffObjects(Layers[3]); }
     }
 
     public void returnObjects()
@@ -53,6 +55,21 @@ public class GDObjectLayers : Node2D
         foreach (KnyttPoint id in UsedAssets)
         {
             GDArea.GDWorld.AssetManager.returnObject(id);
+        }
+    }
+
+    private void turnOffObjects(GDKnyttObjectLayer layer)
+    {
+        foreach (Node obj in layer.GetChildren())
+        {
+            foreach (Node child in obj.GetChildren())
+            {
+                switch (child)
+                {
+                    case Area2D area:        area.CollisionLayer = 0; area.CollisionMask = 0; break;
+                    case PhysicsBody2D body: body.CollisionLayer = 0; body.CollisionMask = 0; break;
+                }
+            }
         }
     }
 
