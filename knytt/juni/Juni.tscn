@@ -239,7 +239,7 @@ collision/safe_margin = 0.2
 script = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 6.75, 3.75, 8.6, -3.75, 8.6, -5.58, 6.75 )
+polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 8.4, 3.75, 8.6, -3.75, 8.6, -5.58, 8.4 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
