@@ -1,19 +1,17 @@
 using Godot;
-using System;
-using YUtil.Random;
 
 public class HomingCannon : Cannon
 {
-    protected override void reinitializeBullet(BaseBullet p, int i)
+    public override void _Ready()
     {
-        p.Translate(new Vector2(8f, 8f));
-        p.DirectionMMF2 = 4;
-        p.VelocityMMF2 = Mathf.Max(0, GlobalPosition.x - Juni.ApparentPosition.x) / 8f + 13f + GDKnyttDataStore.random.NextFloat(6);
-        p.GravityMMF2 = 10 + GDKnyttDataStore.random.NextFloat(5);
-    }
-
-    protected override void playSound()
-    {
-        player.Play(1f);
+        base._Ready();
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 
+            (p, i) =>
+            {
+                p.Translate(new Vector2(8f, 8f));
+                p.DirectionMMF2 = 12;
+                p.VelocityMMF2 = Mathf.Max(0, Center.x - Juni.ApparentPosition.x) / 8f + 13f + random.Next(6);
+                p.GravityMMF2 = 10 + random.Next(5);
+            });
     }
 }

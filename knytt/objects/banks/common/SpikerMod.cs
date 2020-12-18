@@ -24,7 +24,7 @@ public class SpikerMod : DistanceMod
         if (!(body is Juni juni)) { return; }
         if (IsEntered)
         {
-            juni.die();
+            parent.juniDie(juni);
         }
         else if (juni.Hologram != null)
         {
@@ -44,7 +44,7 @@ public class SpikerMod : DistanceMod
     public void hologramStopped(Juni juni)
     {
         updateSpikes(show: true);
-        juni.die();
+        parent.juniDie(juni);
     }
 
     protected override void updateSpikes(bool show)

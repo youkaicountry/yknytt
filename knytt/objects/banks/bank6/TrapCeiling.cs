@@ -16,11 +16,7 @@ public class TrapCeiling : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node2D body)
     {
-        if (body is Juni) 
-        {  
-            ((Juni)body).die();
-            return;
-        }
+        if (body is Juni juni) { juniDie(juni); return; }
 
         moving_up = !moving_up;
         GetNode<AudioStreamPlayer2D>("HitSound2D").Play();

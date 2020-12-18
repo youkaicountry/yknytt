@@ -67,5 +67,5 @@ frames = SubResource( 9 )
 position = Vector2( 12, 17 )
 shape = SubResource( 10 )
 
-[node name="ShotTimer" parent="." index="5"]
+[node name="ShotTimer" parent="." index="4"]
 wait_time = 3.0

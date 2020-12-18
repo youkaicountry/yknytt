@@ -1,38 +1,25 @@
 using Godot;
-using YUtil.Random;
 
 public abstract class Cannon : GDKnyttBaseObject
 {
     [Export] int bulletsCount = 0;
     
-    protected Timer delayTimer;
     protected Timer bulletTimer;
-    protected AudioStreamPlayer2D player;
+    protected RawAudioPlayer2D player;
     protected int counter;
     
     public override void _Ready()
     {
-        delayTimer = GetNode<Timer>("DelayTimer");
         bulletTimer = GetNode<Timer>("BulletTimer");
-        player = GetNode<AudioStreamPlayer2D>("Player");
-        
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 500, (p, i) => reinitializeBullet(p, i));
-
+        player = GetNode<RawAudioPlayer2D>("Player");
         GDArea.Selector.Register(this);
-        
-        _on_TotalTimer_timeout();
     }
     
-    private void _on_TotalTimer_timeout()
-    {
-        delayTimer.Start();
-    }
-
-    private void _on_DelayTimer_timeout()
+    private void _on_TotalTimer_timeout_ext()
     {
         counter = 0;
         bulletTimer.Start();
-        playSound();
+        player.Play();
     }
     
     private void _on_BulletTimer_timeout()
@@ -46,11 +33,4 @@ public abstract class Cannon : GDKnyttBaseObject
             bulletTimer.Stop();
         }
     }
-
-    protected virtual void playSound()
-    {
-        player.Play();
-    }
-    
-    protected abstract void reinitializeBullet(BaseBullet p, int i);
 }

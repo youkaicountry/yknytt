@@ -2,17 +2,11 @@ using Godot;
 
 public class BigSpiker : GesturesObject
 {
-    [Export] Vector2 openOffset;
-
-    public override void _Ready()
-    {
-        GetNode<SpikerMod>("SpikerMod").globalJuni = Juni;
-        base._Ready();
-    }
+    [Export] Vector2 openOffset = Vector2.Zero;
 
     private void _on_SpikerMod_EnterEvent()
     {
-        gesturesSprite.Offset = openOffset;
+        sprite.Offset = openOffset;
         timer.Stop();
     }
 
@@ -23,7 +17,7 @@ public class BigSpiker : GesturesObject
 
     protected override void nextAnimation()
     {
-        gesturesSprite.Offset = Vector2.Zero;
+        sprite.Offset = Vector2.Zero;
         base.nextAnimation();
     }
 }

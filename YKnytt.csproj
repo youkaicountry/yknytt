@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+﻿<Project Sdk="Godot.NET.Sdk/3.2.4">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -31,17 +31,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank0\DeletePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Switch.cs" />
     <Compile Include="knytt\objects\banks\bank0\Title.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Trigger.cs" />
+    <Compile Include="knytt\objects\banks\bank10\Cauldron.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk1.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk2.cs" />
     <Compile Include="knytt\objects\banks\bank11\ShockDisk3.cs" />
+    <Compile Include="knytt\objects\banks\bank13\DropstuffRobot.cs" />
+    <Compile Include="knytt\objects\banks\bank13\LaserRobot.cs" />
     <Compile Include="knytt\objects\banks\bank13\UpCannon.cs" />
+    <Compile Include="knytt\objects\banks\bank14\SuperShot.cs" />
     <Compile Include="knytt\objects\banks\bank15\CollectionDoor.cs" />
     <Compile Include="knytt\objects\banks\bank15\KeyDoor.cs" />
     <Compile Include="knytt\objects\banks\bank16\OneWayPlatform.cs" />
     <Compile Include="knytt\objects\banks\bank16\TwoWayPlatform.cs" />
+    <Compile Include="knytt\objects\banks\bank17\CeilingMadSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank17\DarkRandomizer.cs" />
+    <Compile Include="knytt\objects\banks\bank17\MadSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank17\Ninja.cs" />
+    <Compile Include="knytt\objects\banks\bank4\HomingRunner.cs" />
+    <Compile Include="knytt\objects\banks\bank4\MultiShot.cs" />
+    <Compile Include="knytt\objects\banks\bank4\StrangeRunner.cs" />
+    <Compile Include="knytt\objects\banks\bank8\MachinePart4.cs" />
+    <Compile Include="knytt\objects\banks\common\WalkingShooter.cs" />
+    <Compile Include="knytt\objects\banks\common\WallNinja.cs" />
+    <Compile Include="knytt\objects\banks\bank17\WaterEye.cs" />
+    <Compile Include="knytt\objects\banks\bank18\WaterMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\bank19\Artifact.cs" />
     <Compile Include="knytt\objects\banks\bank19\Coin.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectMod.cs" />
@@ -54,7 +73,10 @@
     <Compile Include="knytt\objects\banks\bank9\RedTrapFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
-    <Compile Include="knytt\objects\banks\bank9\TrapFlower.cs" />
+    <Compile Include="knytt\objects\banks\common\BaseWaterMonsterNew.cs" />
+    <Compile Include="knytt\objects\bullets\SuperBullet.cs" />
+    <Compile Include="knytt\objects\TimerExt.cs" />
+    <Compile Include="knytt\objects\banks\common\TrapFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BigSpiker.cs" />
     <Compile Include="knytt\objects\banks\bank14\Insect.cs" />
     <Compile Include="knytt\objects\banks\bank14\Jelly.cs" />
@@ -66,10 +88,9 @@
     <Compile Include="knytt\objects\banks\bank17\SmallSpider.cs" />
     <Compile Include="knytt\objects\banks\bank3\LookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank3\RollerMuff.cs" />
-    <Compile Include="knytt\objects\banks\bank3\SpikerMuff.cs" />
+    <Compile Include="knytt\objects\banks\common\DistanceMuff.cs" />
     <Compile Include="knytt\objects\banks\bank4\ToastMonsterNew.cs" />
     <Compile Include="knytt\objects\banks\bank5\ShadowGirl.cs" />
-    <Compile Include="knytt\objects\banks\bank16\DeathZone.cs" />
     <Compile Include="knytt\objects\banks\common\Muff.cs" />
     <Compile Include="knytt\objects\banks\common\DistanceMod.cs" />
     <Compile Include="knytt\objects\banks\common\SpikerMod.cs" />
@@ -105,7 +126,6 @@
     <Compile Include="knytt\objects\banks\bank6\RandomLabyrinthSpike.cs" />
     <Compile Include="knytt\objects\banks\bank6\SelfDropper.cs" />
     <Compile Include="knytt\objects\banks\bank6\LabyrinthSpike.cs" />
-    <Compile Include="knytt\objects\banks\common\Spikes.cs" />
     <Compile Include="knytt\objects\banks\bank6\StuffShooter.cs" />
     <Compile Include="knytt\objects\banks\bank6\TrapCeiling.cs" />
     <Compile Include="knytt\objects\banks\bank7\Leaf.cs" />
@@ -114,12 +134,10 @@
     <Compile Include="knytt\objects\banks\bank8\SimpleDecoration.cs" />
     <Compile Include="knytt\objects\banks\bank8\Star.cs" />
     <Compile Include="knytt\objects\banks\common\BaseEater.cs" />
-    <Compile Include="knytt\objects\banks\common\BaseWaterMonster.cs" />
     <Compile Include="knytt\objects\banks\common\FollowerCreature.cs" />
     <Compile Include="knytt\objects\banks\bank7\Cloud.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticleInstance.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticles.cs" />
-    <Compile Include="knytt\objects\banks\common\SparkParticle.cs" />
     <Compile Include="knytt\objects\BulletLayer.cs" />
     <Compile Include="knytt\objects\bullets\BaseBullet.cs" />
     <Compile Include="knytt\objects\bullets\BigGlowingBullet.cs" />
@@ -149,9 +167,6 @@
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank10\BouncerEnemy.cs" />
     <Compile Include="knytt\objects\banks\bank10\Bouncer.cs" />
-    <Compile Include="knytt\objects\banks\bank10\Bouncer1.cs" />
-    <Compile Include="knytt\objects\banks\bank10\Bouncer2.cs" />
-    <Compile Include="knytt\objects\banks\bank10\BouncerGreen.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
     <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />
@@ -179,6 +194,7 @@
     <Compile Include="knytt\objects\banks\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
+    <Compile Include="knytt\ui\MapPanel.cs" />
     <Compile Include="knytt\ui\PausePanel.cs" />
     <Compile Include="knytt\RawAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\ClickPlayer.cs" />

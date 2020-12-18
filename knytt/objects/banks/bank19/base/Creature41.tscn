@@ -71,8 +71,8 @@ extents = Vector2( 7, 3 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
-initialSpeed = 6
 deceleration = 18.0
+jellySpeed = 6
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 13 )
