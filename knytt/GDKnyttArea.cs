@@ -10,6 +10,9 @@ public class GDKnyttArea : Node2D
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
 
+    public bool HasAltInput { get; set; }
+    public bool BlockInput { get; set; }
+
     public static float Width { get { return KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; } }
     public static float Height { get { return KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; } }
     public static Vector2 Size { get { return new Vector2(Width, Height); } }
@@ -85,6 +88,7 @@ public class GDKnyttArea : Node2D
     public void activateArea(bool regenerate_same = false)
     {
         GetNode<Timer>("DeactivateTimer").Stop();
+        Selector.IsOpen = true;
         if ((!regenerate_same && this.active) || this.Area.Empty) { return; }
         this.createObjectLayers();
         this.active = true;
@@ -120,6 +124,7 @@ public class GDKnyttArea : Node2D
     // A whooole bunch of threads could queue up waiting for an event that never occurs if async
     public void scheduleDeactivation(float delay = .5f)
     {
+        Selector.IsOpen = false;
         var timer = GetNode<Timer>("DeactivateTimer");
         timer.WaitTime = delay;
         timer.Start();

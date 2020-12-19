@@ -246,6 +246,7 @@ public class GDKnyttGame : Node2D
 			}
 
 			CurrentArea.scheduleDeactivation();
+			Juni.altInput.ClearInput();
 		}
 		
 		// Update the paging

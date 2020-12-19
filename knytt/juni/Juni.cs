@@ -93,16 +93,26 @@ public class Juni : KinematicBody2D
 
     public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? 20f : 60f) : 350f; } }
 
-    public bool LeftHeld { get { return Input.IsActionPressed("left"); } }
-    public bool RightHeld { get { return Input.IsActionPressed("right"); } }
-    public bool UpHeld { get { return Input.IsActionPressed("up"); } }
-    public bool DownHeld { get { return Input.IsActionPressed("down"); } }
-    public bool DownPressed { get { return Input.IsActionJustPressed("down"); } }
-    public bool UmbrellaPressed { get { return Input.IsActionJustPressed("umbrella"); } }
-    public bool HologramPressed { get { return Input.IsActionJustPressed("hologram"); } }
-    public bool JumpEdge { get { return Input.IsActionJustPressed("jump"); } }
-    public bool JumpHeld { get { return Input.IsActionPressed("jump"); } }
-    public bool WalkHeld { get { return Input.IsActionPressed("walk"); } }
+    public AltInput altInput = new AltInput();
+    private bool checkPressed(string action)
+    {
+        return (!GDArea.BlockInput && Input.IsActionPressed(action)) || (GDArea.HasAltInput && altInput.IsActionPressed(action));
+    }
+    private bool checkJustPressed(string action)
+    {
+        return (!GDArea.BlockInput && Input.IsActionJustPressed(action)) || (GDArea.HasAltInput && altInput.IsActionJustPressed(action));
+    }
+
+    public bool LeftHeld { get { return checkPressed("left"); } }
+    public bool RightHeld { get { return checkPressed("right"); } }
+    public bool UpHeld { get { return checkPressed("up"); } }
+    public bool DownHeld { get { return checkPressed("down"); } }
+    public bool DownPressed { get { return checkJustPressed("down"); } }
+    public bool UmbrellaPressed { get { return checkJustPressed("umbrella"); } }
+    public bool HologramPressed { get { return checkJustPressed("hologram"); } }
+    public bool JumpEdge { get { return checkJustPressed("jump"); } }
+    public bool JumpHeld { get { return checkPressed("jump"); } }
+    public bool WalkHeld { get { return checkPressed("walk"); } }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
@@ -282,6 +292,8 @@ public class Juni : KinematicBody2D
         else { velocity = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); }
         
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
+
+        if (GDArea.HasAltInput) { altInput.FinishFrame(); }
     }
 
     private void handleSlope()

@@ -46,6 +46,15 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 45)] =  "DeletePoint";
         ObjectLookup[new KnyttPoint(0, 46)] =  "DeletePoint";
         ObjectLookup[new KnyttPoint(0, 47)] =  "DeletePoint";
+        ObjectLookup[new KnyttPoint(0, 247)] = "BlockUser";
+        ObjectLookup[new KnyttPoint(0, 248)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 249)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 250)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 251)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 252)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 253)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 254)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 255)] = "Automation";
         ObjectLookup[new KnyttPoint(1, 1)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 2)] =   "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 3)] =   "Waterfall";

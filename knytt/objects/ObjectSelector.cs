@@ -7,6 +7,7 @@ public class ObjectSelector
     private Dictionary<KnyttPoint, List<object>> allObjects = new Dictionary<KnyttPoint, List<object>>();
     private Dictionary<KnyttPoint, int> counters = new Dictionary<KnyttPoint, int>();
     private Dictionary<KnyttPoint, int> selections = new Dictionary<KnyttPoint, int>();
+    public bool IsOpen { get; set; }
 
     public void Register(GDKnyttBaseObject obj)
     {
@@ -33,7 +34,7 @@ public class ObjectSelector
     public bool IsObjectSelected(GDKnyttBaseObject obj)
     {
         var type = obj.ObjectID;
-        if (!allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
+        if (!IsOpen || !allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
 
         if (counters[type] >= allObjects[type].Count || selections[type] == -1)
         {
@@ -42,6 +43,19 @@ public class ObjectSelector
         }
         counters[type]++;
         return allObjects[type][selections[type]] == obj;
+    }
+
+    public int GetIndex(GDKnyttBaseObject obj)
+    {
+        var type = obj.ObjectID;
+        if (!allObjects.ContainsKey(type)) { return 0; }
+        return allObjects[type].IndexOf(obj);
+    }
+
+    public int GetSize(GDKnyttBaseObject obj)
+    {
+        var type = obj.ObjectID;
+        return allObjects.ContainsKey(type) ? allObjects[type].Count : 0;
     }
 
     private Dictionary<KnyttPoint, float> randomValues = new Dictionary<KnyttPoint, float>();
@@ -54,13 +68,6 @@ public class ObjectSelector
             randomValues.Add(type, GDKnyttDataStore.random.NextFloat(maxValue));
         }
         return randomValues[type];
-    }
-
-    public int GetIndex(GDKnyttBaseObject obj)
-    {
-        var type = obj.ObjectID;
-        if (!allObjects.ContainsKey(type)) { return 0; }
-        return allObjects[type].IndexOf(obj);
     }
 
     public void Reset()
