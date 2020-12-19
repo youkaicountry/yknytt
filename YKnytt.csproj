@@ -31,6 +31,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\juni\AltInput.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Automation.cs" />
+    <Compile Include="knytt\objects\banks\bank0\BlockUser.cs" />
     <Compile Include="knytt\objects\banks\bank0\DeletePoint.cs" />
     <Compile Include="knytt\objects\banks\bank0\SignArea.cs" />
     <Compile Include="knytt\objects\banks\bank0\Switch.cs" />

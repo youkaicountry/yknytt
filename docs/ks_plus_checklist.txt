@@ -17,15 +17,15 @@ Bank 0 (System):
 [x] - 47 Delete Point
 [ ] - 48 ?? Allow Hologram
 [ ] - 49 ??
-[ ] - 247 Block User
-[ ] - 248 Automation W
-[ ] - 249 Automation A
-[ ] - 250 Automation S
-[ ] - 251 Automation D
-[ ] - 252 Automation Up
-[ ] - 253 Automation Down
-[ ] - 254 Automation Left
-[ ] - 255 Automation Right
+[x] - 247 Block User
+[x] - 248 Automation W
+[x] - 249 Automation A
+[x] - 250 Automation S
+[x] - 251 Automation D
+[x] - 252 Automation Up
+[x] - 253 Automation Down
+[x] - 254 Automation Left
+[x] - 255 Automation Right
 
 Bank 1 (Liquids):
 [ ] - 25 Swim
