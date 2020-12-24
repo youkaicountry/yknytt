@@ -203,7 +203,7 @@ tracks/0/keys = {
 extents = Vector2( 0.56369, 5.09802 )
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 5.58, 0.5 )
+extents = Vector2( 5.50442, 0.5 )
 
 [sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -237,6 +237,9 @@ z_as_relative = false
 collision_mask = 2147491846
 collision/safe_margin = 0.2
 script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 8.4, 3.75, 8.6, -3.75, 8.6, -5.58, 8.4 )
