@@ -22,7 +22,6 @@ public class Juni : KinematicBody2D
 
     public Godot.Vector2 velocity = Godot.Vector2.Zero;
     public int dir = 0;
-    public float max_speed;
 
     //const float BaseHeightCorrection = 3.4f;
     public Godot.Vector2 BaseCorrection 
@@ -140,6 +139,14 @@ public class Juni : KinematicBody2D
         {
             if (!Powers.getPower(PowerNames.Run)) { return false; }
             return !WalkHeld;
+        }
+    }
+
+    public float MaxSpeed
+    {
+        get
+        {
+            return WalkRun ? 175f : 90f;
         }
     }
 
@@ -469,7 +476,7 @@ public class Juni : KinematicBody2D
         // Move, then clamp
         if (dir != 0)
         {
-            var uspeed = Umbrella.Deployed ? (Mathf.Min(max_speed, 120f)) : max_speed;
+            var uspeed = Umbrella.Deployed ? (Mathf.Min(MaxSpeed, 120f)) : MaxSpeed;
             MathTools.MoveTowards(ref velocity.x, dir*uspeed, 2500f*delta);
         }
         else

@@ -53,7 +53,6 @@ public class WalkRunState : JuniState
     {
         juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
         juni.Anim.Play(WalkRunString);
-        juni.max_speed = walk_run ? 175f : 90f;
         juni.jumps = 0;
     }
 
