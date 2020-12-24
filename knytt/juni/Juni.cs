@@ -288,7 +288,7 @@ public class Juni : KinematicBody2D
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         
-        if (Mathf.Abs(GetFloorNormal().x) > .00001f ) { handleSlope(); }
+        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !JumpEdge ) { handleSlope(); }
         else { velocity = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); }
         
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
@@ -302,15 +302,18 @@ public class Juni : KinematicBody2D
         var x_move = -(GetFloorNormal().Perpendicular().Normalized()) * velocity.x;
 
         // Isolate the unrotated y component
-        var y_move = new Godot.Vector2(0, velocity.y);
+        var y_move = -GetFloorNormal();
 
-        x_move = MoveAndSlide(x_move, Godot.Vector2.Up, stopOnSlope:false, maxSlides:4, floorMaxAngle:0.81f);
-        y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope:true, maxSlides:4, floorMaxAngle:0.81f);
+        x_move = MoveAndSlideWithSnap(x_move, Godot.Vector2.Down, Godot.Vector2.Up, stopOnSlope:false, maxSlides:2, floorMaxAngle:0.81f);
+        //MoveAndSlide(Godot.Vector2.Up * -.01f);
+        //MoveAndSlide(Godot.Vector2.Zero);
+        
+        y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope:true, maxSlides:2, floorMaxAngle:0.81f);
 
         // Unrotate the x component and set it back to the velocity
         // Currently disabled due to it exaggerating imperfections in the slope
         // velocity.x = x_move.Length() * Mathf.Sign(x_move.x);
-        velocity.y = y_move.y;
+        velocity.y = y_move.Length();
     }
 
     private void handleGravity(float delta)
