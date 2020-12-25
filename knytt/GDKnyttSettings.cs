@@ -125,6 +125,17 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static string getUUID()
+    {
+        if (!GDKnyttSettings.ini.Sections.ContainsSection("UUID") || !GDKnyttSettings.ini["UUID"].ContainsKey("UUID"))
+        {
+            GD.Print("save");
+            GDKnyttSettings.ensureSetting("UUID", "UUID", System.Guid.NewGuid().ToString());
+            GDKnyttSettings.saveSettings();
+        }
+        return GDKnyttSettings.ini["UUID"]["UUID"];
+    }
+
     public override void _Ready()
     {
         tree = GetTree();

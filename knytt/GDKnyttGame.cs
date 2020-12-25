@@ -27,7 +27,7 @@ public class GDKnyttGame : Node2D
 	public float edgeScrollSpeed = 1500f;
 
 	[Export]
-    public bool viewMode = true;
+	public bool viewMode = true;
 
 	public GDKnyttGame()
 	{
@@ -116,24 +116,25 @@ public class GDKnyttGame : Node2D
 
 	public void saveGame(KnyttPoint area, KnyttPoint position, bool write)
 	{
-	    var save = GDWorld.KWorld.CurrentSave;
+		var save = GDWorld.KWorld.CurrentSave;
 		save.setArea(area);
 		save.setAreaPosition(position);
 		Juni.Powers.writeToSave(save);
 		if (!write) { return; }
+		GDKnyttAssetManager.ensureDirExists("Saves");
 		var f = new File();
 		f.Open($"user://Saves/{save.SaveFileName}", File.ModeFlags.Write);
 		f.StoreString(save.ToString());
 		f.Close();
 	}
 
-    public void warpJuni(Juni juni)
+	public void warpJuni(Juni juni)
 	{
 		CallDeferred("_warp_juni", juni);
 	}
 
-    private void _warp_juni(Juni juni)
-    {
+	private void _warp_juni(Juni juni)
+	{
 		// Calculate the warp
 		var area = CurrentArea.Area;
 		var jgp = juni.GlobalPosition;
@@ -174,7 +175,7 @@ public class GDKnyttGame : Node2D
 		
 		juni.GlobalPosition = jgp;
 		changeArea(after_flag_warp_coords, regenerate_same:false);
-    }
+	}
 
 	public bool hasMap()
 	{
@@ -191,22 +192,22 @@ public class GDKnyttGame : Node2D
 		if (Input.IsActionJustPressed("map") && hasMap()) {	mapPanel.ShowMap(true); }
 	}
 
-    // TODO: Difference between Paged areas, active areas, and current area.
+	// TODO: Difference between Paged areas, active areas, and current area.
 	// Current area is per-Juni
-    public override void _PhysicsProcess(float delta)
-    {
-        // TODO: Do this only if the local player
-        if (!CurrentArea.isIn(Juni.GlobalPosition)) 
-        {
-            warpJuni(Juni);
-        }
-    }
+	public override void _PhysicsProcess(float delta)
+	{
+		// TODO: Do this only if the local player
+		if (!CurrentArea.isIn(Juni.GlobalPosition)) 
+		{
+			warpJuni(Juni);
+		}
+	}
 
-    public override void _Notification(int what)
-    {
-        if (what == MainLoop.NotificationWmQuitRequest) { pause(); }
+	public override void _Notification(int what)
+	{
+		if (what == MainLoop.NotificationWmQuitRequest) { pause(); }
 		if (what == MainLoop.NotificationWmGoBackRequest) { pause(); }
-    }
+	}
 
 	private void pause()
 	{
@@ -228,10 +229,10 @@ public class GDKnyttGame : Node2D
 		}
 	}
 
-    public void changeAreaDelta(KnyttPoint delta, bool force_jump = false, bool regenerate_same = true)
-    {
-        this.changeArea(this.CurrentArea.Area.Position + delta, force_jump);
-    }
+	public void changeAreaDelta(KnyttPoint delta, bool force_jump = false, bool regenerate_same = true)
+	{
+		this.changeArea(this.CurrentArea.Area.Position + delta, force_jump);
+	}
 
 	// Changes the current area
 	public void changeArea(KnyttPoint new_area, bool force_jump = false, bool regenerate_same = true)

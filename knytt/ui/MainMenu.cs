@@ -50,10 +50,11 @@ public class MainMenu : Node2D
         GDKnyttDataStore.KWorld = world;
     }
 
-    public void _on_PlayButton_pressed()
+    public void _on_PlayButton_pressed(bool local_load)
     {
         ClickPlayer.Play();
         var level_node = this.level_select_scene.Instance() as LevelSelection;
+        level_node.localLoad = local_load;
         this.AddChild(level_node);
     }
 

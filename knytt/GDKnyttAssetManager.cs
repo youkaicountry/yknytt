@@ -171,6 +171,12 @@ public class GDKnyttAssetManager
         return stream;
     }
 
+    public static void ensureDirExists(string dir_name)
+    {
+        var dir = new Directory();
+        if (!dir.DirExists($"user://{dir_name}")) { dir.MakeDir($"user://{dir_name}"); }
+    }
+
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
         var image = texture.GetData();

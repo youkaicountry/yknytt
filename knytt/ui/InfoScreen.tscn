@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://knytt/ui/RatePanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
@@ -49,6 +50,14 @@ margin_top = 172.213
 margin_right = 47.7526
 margin_bottom = 177.508
 slot = 3
+
+[node name="RatePanel" parent="." instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -135.0
+margin_top = 10.0
+margin_right = -10.0
+
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="Slot2Button" to="." method="_on_SlotButton_StartGame"]

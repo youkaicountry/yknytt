@@ -2,7 +2,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Text;
 using Godot;
+using Godot.Collections;
 using YKnyttLib;
 
 public class LevelSelection : CanvasLayer
@@ -15,20 +17,33 @@ public class LevelSelection : CanvasLayer
     string filter_category;
     string filter_difficulty;
     string filter_size;
+    int filter_category_int;
+    int filter_difficulty_int;
+    int filter_size_int;
 
     bool halt_consumers = false;
     bool discovery_over = false;
     List<Task> consumers;
 
     GameButton top_button;
+    GameContainer game_container;
+    ScrollBar games_scrollbar;
+    FileHTTPRequest http_node;
+    GameButton download_button;
+
+    [Export] string serverURL;
+    public bool localLoad = false;
+    private string next_page = null;
 
     ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry> finished_entries;
+    ConcurrentQueue<GameButtonInfo> remote_finished_entries; // TODO: process all found entries at once?
     ConcurrentQueue<Action> load_hopper;
 
     public LevelSelection()
     {
         Manager = new KnyttWorldManager<Texture>();
         finished_entries = new ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry>();
+        remote_finished_entries = new ConcurrentQueue<GameButtonInfo>();
         load_hopper = new ConcurrentQueue<Action>();
         consumers = new List<Task>();
     }
@@ -36,6 +51,12 @@ public class LevelSelection : CanvasLayer
     public override void _Ready()
     {
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
+
+        game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
+        games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
+        if (!localLoad) { games_scrollbar.Connect("value_changed", this, nameof(_on_GameContainter_scrolling)); }
+        http_node = GetNode<FileHTTPRequest>("FileHTTPRequest");
+
         var sys = OS.GetName();
         //if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
         //else { multiThreadedLoad(); }
@@ -46,6 +67,8 @@ public class LevelSelection : CanvasLayer
     {
         loadDefaultWorlds(true);
         discoverWorlds("./worlds", true);
+        discoverWorlds("user://Worlds", true);
+        if (!localLoad) { HttpLoad(); }
     }
 
     private void multiThreadedLoad()
@@ -91,16 +114,92 @@ public class LevelSelection : CanvasLayer
         Task.WaitAll(consumers.ToArray());
     }
 
+    public static T jsonValue<T>(object obj, string attr) where T : class // TODO: another place for common json functions
+    {
+        return obj is Dictionary dict && dict.Contains(attr) ? dict[attr] as T : null;
+    }
+
+    public static int jsonInt(object obj, string attr)
+    {
+        return obj is Dictionary dict && dict.Contains(attr) && dict[attr] is float ? (int)(float)dict[attr] : 0;
+    }
+
+    private void HttpLoad()
+    {
+        game_container.clearWorlds();
+        GetNode<Label>("ConnectionLostLabel").Visible = false;
+
+        string url = serverURL + "/levels/?";
+        if (filter_category_int != 0) { url += $"category={filter_category_int}&"; }
+        if (filter_difficulty_int != 0) { url += $"difficulty={filter_difficulty_int}&"; }
+        if (filter_size_int != 0) { url += $"size={filter_size_int}&"; }
+
+        var error = GetNode<HTTPRequest>("RestHTTPRequest").Request(url);
+        if (error != Error.Ok) { connectionLost(); }
+    }
+
+    private void connectionLost()
+    {
+        GetNode<Label>("ConnectionLostLabel").Visible = true;
+    }
+
+    private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
+    {
+        if (result == (int)HTTPRequest.Result.Success && response_code == 200) { ; }
+        else { connectionLost(); return; }
+
+        var response = Encoding.UTF8.GetString(body, 0, body.Length);
+        var json = JSON.Parse(response);
+        if (json.Error != Error.Ok) { connectionLost(); return; }
+
+        var world_infos = jsonValue<Godot.Collections.Array>(json.Result, "results");
+        if (world_infos == null) { connectionLost(); return; }
+
+        foreach (Dictionary record in world_infos)
+        {
+            if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
+        }
+
+        next_page = jsonValue<string>(json.Result, "next");
+    }
+
+    private void _on_GameContainter_scrolling(float value)
+    {
+        if (next_page != null && value + games_scrollbar.RectSize.y >= games_scrollbar.MaxValue)
+        {
+            GetNode<HTTPRequest>("RestHTTPRequest").Request(next_page);
+            next_page = null;
+        }
+    }
+
+    private KnyttWorldManager<Texture>.WorldEntry? findLocal(GameButtonInfo button_info)
+    {
+        foreach (var entry in finished_entries)
+        {
+            if (entry.world.Info.Name == button_info.Name && entry.world.Info.Author == button_info.Author) { return entry; }
+        }
+        return null;
+    }
+
     public override void _PhysicsProcess(float delta)
     {
         // Process the queue
-        if (finished_entries.Count == 0) { return; }
-        KnyttWorldManager<Texture>.WorldEntry entry;
-        if (!finished_entries.TryDequeue(out entry)) { return; }
-        if (Manager.addWorld(entry))
+        if ((localLoad && finished_entries.Count == 0) || 
+            (!localLoad && remote_finished_entries.Count == 0)) { return; }
+
+        if (localLoad)
         {
-            var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
-            game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data, game_container.Count == 0);
+            if (!finished_entries.TryDequeue(out var entry)) { return; }
+            if (Manager.addWorld(entry))
+            {
+                game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data, game_container.Count == 0);
+            }
+        }
+        else
+        {
+            if (!remote_finished_entries.TryDequeue(out var button_info)) { return; }
+            var entry = findLocal(button_info); // TODO: with multithreading local level can be added later than remote, and it won't be shown as downloaded
+            game_container.addWorld(button_info, entry != null ? (GDKnyttWorldImpl)entry.Value.world : null, mark_completed: entry != null);
         }
     }
 
@@ -188,17 +287,61 @@ public class LevelSelection : CanvasLayer
 
     private KnyttWorldManager<Texture>.WorldEntry generateBinWorld(string world_dir)
     {
-        Texture icon;
-        string txt;
-        KnyttBinWorldLoader binloader;
-        lock(file_lock) {binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir));}
-        lock(file_lock) {icon = GDKnyttAssetManager.loadTexture(binloader.GetFile("Icon.png"));}
-        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));}
+        byte[] icon_bin;
+        byte[] ini_bin;
+
+        string filename = world_dir.Substring(world_dir.LastIndexOf('/') + 1);
+        string cache_dir = "user://Cache/" + filename;
+        string icon_cache_name = cache_dir + "/Icon.png";
+        string ini_cache_name = cache_dir + "/World.ini";
+        if (new Directory().DirExists(cache_dir))
+        {
+            icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
+            ini_bin = GDKnyttAssetManager.loadFile(ini_cache_name);
+        }
+        else
+        {
+            KnyttBinWorldLoader binloader;
+            lock(file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
+            lock(file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
+            lock(file_lock) { ini_bin = binloader.GetFile("World.ini"); }
+
+            GDKnyttAssetManager.ensureDirExists("Cache");
+            new Directory().MakeDir(cache_dir);
+            var f = new File();
+            f.Open(icon_cache_name, File.ModeFlags.Write);
+            f.StoreBuffer(icon_bin);
+            f.Close();
+            f.Open(ini_cache_name, File.ModeFlags.Write);
+            f.StoreBuffer(ini_bin);
+            f.Close();
+        }
+
+        Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
+        string txt = GDKnyttAssetManager.loadTextFile(ini_bin);
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory(world_dir, binloader.RootDirectory);
+        world.setDirectory(world_dir, null); // TODO: replace setDirectory with something else
         world.loadWorldConfig(txt);
         world.setBinMode(null);
         return new KnyttWorldManager<Texture>.WorldEntry(world, icon);
+    }
+
+    private GameButtonInfo generateRemoteWorld(Dictionary json_item)
+    {
+        GameButtonInfo world_info = new GameButtonInfo();
+        world_info.LevelId = jsonInt(json_item, "id");
+        world_info.Name = jsonValue<string>(json_item, "name");
+        world_info.Author = jsonValue<string>(json_item, "author");
+        world_info.Description = jsonValue<string>(json_item, "description");
+        var base64_icon = jsonValue<string>(json_item, "icon");
+        world_info.Icon = base64_icon != null && base64_icon.Length > 0 ?
+            GDKnyttAssetManager.loadTexture(Convert.FromBase64String(base64_icon)) : null;
+        world_info.Link = jsonValue<string>(json_item, "link");
+        world_info.FileSize = jsonInt(json_item, "file_size");
+        world_info.Upvotes = jsonInt(json_item, "upvotes");
+        world_info.Downvotes = jsonInt(json_item, "downvotes");
+        world_info.Downloads = jsonInt(json_item, "downloads");
+        return world_info;
     }
 
     private bool verifyDirWorld(Directory dir, string name)
@@ -214,7 +357,6 @@ public class LevelSelection : CanvasLayer
         // Should take filter settings into account
         Manager.setFilter(filter_category, filter_difficulty, filter_size);
         var worlds = Manager.Filtered;
-        var game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         game_container.clearWorlds();
 
         foreach(var world_entry in worlds)
@@ -232,30 +374,88 @@ public class LevelSelection : CanvasLayer
 
     public void _on_GamePressed(GameButton button)
     {
-        ClickPlayer.Play();
-        var info = info_scene.Instance() as InfoScreen;
-        info.initialize(button.KWorld);
-        this.GetParent().AddChild(info);
+        if (button.KWorld == null)
+        {
+            var timer = GetNode<Timer>("DownloadMonitor");
+            if (!timer.IsStopped()) { return; }
+
+            GDKnyttAssetManager.ensureDirExists("Worlds");
+            string filename = button.buttonInfo.Link.Substring(button.buttonInfo.Link.LastIndexOf('/') + 1);
+            http_node.DownloadFile = $"user://Worlds/{filename}.part";
+            var error = http_node.Request(button.buttonInfo.Link);
+            if (error != Error.Ok) { download_button.markFailed(); return; }
+
+            timer.Start();
+
+            download_button = button;
+            button.setDownloaded(0);
+        }
+        else
+        {
+            ClickPlayer.Play();
+            var info_screen = info_scene.Instance() as InfoScreen;
+            info_screen.initialize(button.KWorld);
+            info_screen.ButtonInfo = button.buttonInfo;
+            this.GetParent().AddChild(info_screen);
+        }
+    }
+
+    private void _on_DownloadMonitor_timeout()
+    {
+        download_button.setDownloaded(http_node.GetDownloadedBytes());
+    }
+
+    private void _on_FileHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
+    {
+        if (result == (int)HTTPRequest.Result.Success && response_code == 200)
+        {
+            string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
+            new Directory().Rename(http_node.DownloadFile, final_filename);
+            download_button.markCompleted();
+            download_button.KWorld = (GDKnyttWorldImpl)generateBinWorld(final_filename).world;
+            sendDownload();
+        }
+        else
+        {
+            download_button.markFailed();
+            http_node.cleanup();
+        }
+
+        GetNode<Timer>("DownloadMonitor").Stop();
+        http_node.DownloadFile = null;
+        download_button = null;
+    }
+
+    private void sendDownload() // copied from RatePanel.sendRating
+    {
+        HTTPRequest rest_node = GetNode<HTTPRequest>("RestHTTPRequest2");
+        var dict = new Dictionary() { 
+            ["level_id"] = download_button.buttonInfo.LevelId, ["action"] = 1, 
+            ["uid"] = GDKnyttSettings.getUUID(), ["platform"] = OS.GetName() };
+        rest_node.Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
     }
 
     public void _on_CategoryDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
         filter_category = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
-        this.listWorlds();
+        filter_category_int = dropdown.GetSelectedId();
+        if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
 
     public void _on_DifficultyDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown");
         filter_difficulty = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
-        this.listWorlds();
+        filter_difficulty_int = dropdown.GetSelectedId();
+        if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
 
     public void _on_SizeDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown");
         filter_size = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
-        this.listWorlds();
+        filter_size_int = dropdown.GetSelectedId();
+        if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
 }

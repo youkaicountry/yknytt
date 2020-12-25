@@ -5,10 +5,18 @@ public class InfoScreen : CanvasLayer
 {
     public GDKnyttWorldImpl KWorld { get; private set; }
 
+    public GameButtonInfo ButtonInfo { set { GetNode<RatePanel>("RatePanel").ButtonInfo = value; } }
+
     public void initialize(GDKnyttWorldImpl world)
     {
         this.KWorld = world;
-        if (world.BinMode) { world.setBinMode(new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world.WorldDirectory))); }
+        GetNode<RatePanel>("RatePanel").KWorld = world;
+        if (world.BinMode)
+        {
+            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world.WorldDirectory));
+            world.setBinMode(loader);
+            world.setDirectory(world.WorldDirectory, loader.RootDirectory); // only WorldDirectory was set earlier
+        }
         var info = world.getWorldTexture("Info.png");
         GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
         GetNode<SlotButton>("Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
