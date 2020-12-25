@@ -148,6 +148,7 @@
     <Compile Include="knytt\objects\CosineMod.cs" />
     <Compile Include="knytt\objects\banks\common\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />
+    <Compile Include="knytt\ui\FileHTTPRequest.cs" />
     <Compile Include="knytt\ui\info_panel\ArtifactsInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CoinsInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CreaturesInfo.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="knytt\RawAudioPlayer.cs" />
     <Compile Include="knytt\ui\particles\MenuCloud.cs" />
     <Compile Include="knytt\ui\particles\ParticleCircle.cs" />
+    <Compile Include="knytt\ui\RatePanel.cs" />
     <Compile Include="knytt\ui\SettingsScreen.cs" />
     <Compile Include="knytt\ui\SlotButton.cs" />
     <Compile Include="knytt\ui\touch\TouchPanel.cs" />

@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://knytt/ui/RatePanel.cs" type="Script" id=2]
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.752941, 0.752941, 0.752941, 0.376471 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0 )
+
+[node name="RatePanel" type="Panel"]
+margin_right = 125.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+serverURL = "https://yknytt.herokuapp.com"
+complainURL = "https://github.com/youkaicountry/yknytt/issues"
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+anchor_right = 1.0
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 115.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Rate this level:"
+
+[node name="UpvoteButton" parent="." instance=ExtResource( 6 )]
+margin_top = 20.0
+margin_right = 25.125
+rect_min_size = Vector2( 30, 30 )
+custom_styles/disabled = SubResource( 2 )
+text = "+"
+
+[node name="DownvoteButton" parent="." instance=ExtResource( 6 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -30.0
+margin_top = 20.0
+margin_right = 0.0
+margin_bottom = 24.78
+rect_min_size = Vector2( 30, 30 )
+custom_styles/disabled = SubResource( 2 )
+text = "-"
+
+[node name="UpvoteLabel" type="Label" parent="."]
+margin_left = 30.0
+margin_top = 20.0
+margin_right = 60.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 1, 0, 1 )
+text = "+0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DownvoteLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -60.0
+margin_top = 20.0
+margin_right = -30.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "-0"
+align = 1
+valign = 1
+
+[node name="ComplainLabel" type="Label" parent="."]
+margin_top = 65.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Level doesn't work?"
+
+[node name="ComplainButton" parent="." instance=ExtResource( 6 )]
+anchor_right = 1.0
+margin_top = 80.0
+margin_right = 0.0
+custom_styles/disabled = SubResource( 2 )
+text = "Complain here"
+
+[node name="HintLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 100.0
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "(opens browser)"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestHTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="UpvoteButton" to="." method="_on_UpvoteButton_pressed"]
+[connection signal="pressed" from="DownvoteButton" to="." method="_on_DownvoteButton_pressed"]
+[connection signal="pressed" from="ComplainButton" to="." method="_on_ComplainButton_pressed"]
+[connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_RestHTTPRequest_request_completed"]

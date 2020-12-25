@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
@@ -8,6 +9,7 @@
 
 [node name="LevelSelection" type="CanvasLayer"]
 script = ExtResource( 5 )
+serverURL = "https://yknytt.herokuapp.com"
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -132,7 +134,35 @@ margin_top = -25.4749
 margin_right = -5.36865
 margin_bottom = -6.26004
 text = "Back"
+
+[node name="RestHTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="FileHTTPRequest" type="HTTPRequest" parent="."]
+script = ExtResource( 1 )
+
+[node name="DownloadMonitor" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="ConnectionLostLabel" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Cannot connect to the server"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestHTTPRequest2" type="HTTPRequest" parent="."]
+
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]
+[connection signal="timeout" from="DownloadMonitor" to="." method="_on_DownloadMonitor_timeout"]
