@@ -13,7 +13,7 @@ public class Star : GesturesObject
     {
         if (GDArea.Selector.IsObjectSelected(this))
         {
-            sprite.Position = new Vector2(random.NextFloat(24f), random.NextFloat(24f));
+            sprite.Offset = new Vector2(random.NextFloat(24f), random.NextFloat(24f));
             base.nextAnimation();
         }
         else
