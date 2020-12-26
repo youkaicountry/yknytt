@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.4">
+﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -151,6 +151,7 @@
     <Compile Include="knytt\ui\FileHTTPRequest.cs" />
     <Compile Include="knytt\ui\info_panel\ArtifactsInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CoinsInfo.cs" />
+    <Compile Include="knytt\ui\info_panel\CollectionInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CreaturesInfo.cs" />
     <Compile Include="knytt\ui\info_panel\InfoPanel.cs" />
     <Compile Include="knytt\ui\info_panel\ItemInfo.cs" />

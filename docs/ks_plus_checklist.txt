@@ -91,7 +91,7 @@ Bank 19 (Collectables):
 
 [x] Custom Artifacts
 
-[ ] Info Panel Icons
+[x] Info Panel Icons
 
 [x] Trigger: Spawns an object on the screen
 [x] 	TrigBank(A)
@@ -161,4 +161,4 @@ Bank 19 (Collectables):
 
 [ ] Intro Music
 
-[ ] Info Images
+[x] Info Images
