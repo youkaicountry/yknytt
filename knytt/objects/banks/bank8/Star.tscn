@@ -110,5 +110,6 @@ maxTime = 0.3
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 20 )
-animation = "3"
+animation = "0"
+frame = 4
 centered = true
