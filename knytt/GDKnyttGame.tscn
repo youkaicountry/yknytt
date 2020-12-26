@@ -153,6 +153,15 @@ script = ExtResource( 5 )
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 11 )
 
+[node name="CurtainRect" type="ColorRect" parent="UICanvasLayer"]
+visible = false
+margin_right = 600.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="InfoPanel" type="Panel" parent="UICanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = -3.61994
@@ -331,7 +340,6 @@ fadeOutTime = 1.5
 bus = "Ambiance2"
 fadeInTime = 0.8
 fadeOutTime = 1.5
-
 [connection signal="animation_finished" from="UICanvasLayer/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="_on_CloseButton_pressed"]

@@ -84,7 +84,15 @@ public class GDKnyttGame : Node2D
 		UI.updatePowers();
 
 		mapPanel = GetNode<MapPanel>("UICanvasLayer/MapBackgroundPanel/MapPanel");
-		if (hasMap()) { mapPanel.init(GDWorld.KWorld, Juni); } else { mapPanel.init(null, null); }
+		if (hasMap())
+		{
+			mapPanel.init(GDWorld.KWorld, Juni);
+			GetNode<TouchPanel>("UICanvasLayer/TouchPanel").InstallMap();
+		}
+		else
+		{
+			mapPanel.init(null, null);
+		}
 	}
 
 	// On load a save file

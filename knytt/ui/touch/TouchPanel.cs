@@ -115,6 +115,10 @@ public class TouchPanel : Panel
 		// Some magic formula to stick visible area to the top, or bottom, or center
 		var camera = GetTree().Root.FindNode("GKnyttCamera", owned: false) as Camera2D;
 		camera.Offset = new Vector2(-300, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
+
+		var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
+		curtain.RectSize = new Vector2(600, GetViewport().GetVisibleRect().Size.y - 240);
+		curtain.RectPosition = new Vector2(0, TouchSettings.AreaAnchor * 240);
 	}
 	
 	private void ChangeOpacity(Control c, bool pressed)
@@ -206,7 +210,7 @@ public class TouchPanel : Panel
 			ChangeOpacity(downPanel, Input.IsActionPressed("down"));
 			foreach (var p in jumpPanels.Zip(jumpActionNames, (a, b) => new {Pan = a, Name = b}))
 			{
-				if (p.Name == "pause") continue;
+				if (p.Name == "pause" || p.Name == "map") continue;
 				ChangeOpacity(p.Pan, Input.IsActionPressed(p.Name));
 			}
 		}
@@ -217,6 +221,8 @@ public class TouchPanel : Panel
 	{
 		Visible = TouchSettings.EnablePanel;
 		SetProcessInput(TouchSettings.EnablePanel);
+		var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
+		curtain.Visible = Visible;
 		if (!Visible) return;
 		
 		var scale = TouchSettings.Scale;
@@ -258,5 +264,13 @@ public class TouchPanel : Panel
 		{
 			p.GetNode<Control>("Label").RectScale = new Vector2(swap ? -1f : 1f, 1f);
 		}
+	}
+
+	// TODO: temporary solution. Maybe take some space from "down" button?
+	public void InstallMap()
+	{
+		actionNames[8] = "map";
+		jumpActionNames[4] = "map";
+		walkPanel.GetNode<Label>("Label").Text = "Map";
 	}
 }
