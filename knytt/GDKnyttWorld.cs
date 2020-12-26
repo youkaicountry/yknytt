@@ -49,6 +49,9 @@ public class GDKnyttWorld : Node2D
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
         
         this.KWorld.loadWorldMap(map_stream);
+
+        // Enable this if there will be level load screen
+		//AssetManager.compileInternalTileset();
     }
 
     public GDKnyttArea getArea(KnyttPoint area)
