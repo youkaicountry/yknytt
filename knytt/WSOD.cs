@@ -10,9 +10,10 @@ public class WSOD : ColorRect
         GetNode<Timer>("Timer").Start();
     }
     
-    public void _on_Timer_timeout()
+    public async void _on_Timer_timeout()
     {
-        Visible = false;
         EmitSignal("WSODFinished");
+        await ToSignal(GetTree().CreateTimer(.03f), "timeout");
+        Visible = false;
     }
 }
