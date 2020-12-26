@@ -58,10 +58,18 @@ public class GDKnyttAssetManager
 
     private TileSet buildTileSet(int num)
     {
+        string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
+        if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
+
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
         {
             case Texture t: return makeTileset(t, true);
+                // Tileset caching on-fly. Haven't decided if it's a right thing or not
+                /*TileSet new_tileset = makeTileset(t, true);
+                ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
+                ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
+                return new_tileset;*/
             case TileSet ts: return ts;
             default: return null;
         }
@@ -179,9 +187,13 @@ public class GDKnyttAssetManager
 
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
-        var image = texture.GetData();
-        var bitmap = new BitMap();
-        bitmap.CreateFromImageAlpha(image, .01f);
+        BitMap bitmap = null;
+        if (collisions)
+        {
+            var image = texture.GetData();
+            bitmap = new BitMap();
+            bitmap.CreateFromImageAlpha(image, .01f);
+        }
         
         var ts = new TileSet();
         
@@ -222,6 +234,27 @@ public class GDKnyttAssetManager
             }
         }
         return ts;
+    }
+
+    // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
+    public void compileInternalTileset()
+    {
+        ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
+
+        for (int num = 0; num < 256; num++)
+        {
+            string tileset_path = $"Tilesets/Tileset{num}.png";
+            if (!GDWorld.KWorld.worldFileExists(tileset_path)) { continue; }
+
+            string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
+            if (new File().FileExists(cached_path)) { continue; }
+
+            var texture = GDWorld.KWorld.getWorldTexture(tileset_path);
+            if (texture is Texture t)
+            {
+                ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
+            }
+        }
     }
 
     // Create "user://tilesets" directory and call this function at start to compile default tilesets
