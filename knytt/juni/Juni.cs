@@ -409,10 +409,9 @@ public class Juni : KinematicBody2D
         GetParent().AddChild(dj_node);
     }
 
-    public void showEffect(bool effect, string sound = null)
+    public void playSound(string sound)
     {
-        if (sound != null) { GetNode<AudioStreamPlayer2D>($"Audio/{sound}Player2D").Play(); }
-        if (effect) { GetNode<AnimationPlayer>("EffectSprite/AnimationPlayer").Play("collect"); }
+        GetNode<AudioStreamPlayer2D>($"Audio/{sound}Player2D").Play();
     }
 
     // This kills the Juni

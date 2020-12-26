@@ -165,6 +165,7 @@ public class GDKnyttArea : Node2D
         var sprite = GetNode<Sprite>("EffectSprite");
         var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         sprite.GlobalPosition = getTileLocation(point) + offset;
+        player.Stop();
         player.Play("collect");
     }
 }
