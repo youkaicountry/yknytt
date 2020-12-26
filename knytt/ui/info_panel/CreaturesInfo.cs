@@ -1,9 +1,9 @@
 using Godot;
 using YKnyttLib;
 
-public class CreaturesInfo : ItemInfo
+public class CreaturesInfo : CollectionInfo
 {
-    public override void _Ready() {}
+    public override string IconFilename { get; } = "Custom Objects/CreatureIcon.png";
     
     public override void updateItem(JuniValues values)
     {
