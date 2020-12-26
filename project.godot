@@ -157,7 +157,6 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-2d/thread_model=2
 common/enable_object_picking=false
 
 [rendering]
