@@ -135,6 +135,8 @@ public class GDKnyttGame : Node2D
 
 	private void _warp_juni(Juni juni)
 	{
+		if (juni.dead) { return; } // If juni is dead, ignore warps
+
 		// Calculate the warp
 		var area = CurrentArea.Area;
 		var jgp = juni.GlobalPosition;
