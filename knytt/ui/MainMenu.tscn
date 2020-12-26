@@ -61,6 +61,7 @@ anchor_bottom = 0.0
 margin_left = 208.0
 margin_right = 308.064
 margin_bottom = 19.2149
+focus_mode = 0
 enabled_focus_mode = 0
 text = " Download Levels "
 

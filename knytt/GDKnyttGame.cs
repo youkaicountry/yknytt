@@ -251,16 +251,18 @@ public class GDKnyttGame : Node2D
 			CurrentArea.scheduleDeactivation();
 			Juni.altInput.ClearInput();
 		}
-		
+
 		// Update the paging
 		GDWorld.Areas.setLocation(new_area);
 		var area = GDWorld.getArea(new_area);
 
 		if (area == null) { return; }
 
+		int change_distance = CurrentArea == null ? 0 : CurrentArea.Area.Position.manhattanDistance(new_area);
+
 		this.CurrentArea = area;
 		this.CurrentArea.activateArea();
-		this.beginTransitionEffects(force_jump);
+		this.beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
 
 		Juni.stopHologram(cleanup:true);
 		if (hasMap()) { Juni.Powers.VisitedAreas.Add(CurrentArea.Area.Position); }
