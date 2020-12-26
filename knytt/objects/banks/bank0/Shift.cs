@@ -77,9 +77,14 @@ public class Shift : Switch
             }
         }
 
-        if (shift.Effect || sound != null)
+        if (shift.Effect)
         {
-            juni.showEffect(effect: shift.Effect, sound: sound);
+            game.CurrentArea.playEffect(shift.AbsolutePosition);
+        }
+
+        if (sound != null)
+        {
+            juni.playSound(sound);
         }
 
         if (shift.StopMusic)

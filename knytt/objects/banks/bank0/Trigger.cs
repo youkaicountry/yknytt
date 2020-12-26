@@ -13,7 +13,7 @@ public class Trigger : Switch
 
     protected override void _execute(Juni juni)
     {
-        if (sound != null) { juni.showEffect(effect: false, sound: sound); }
+        if (sound != null) { juni.playSound(sound); }
 
         if (!trigger.ObjectID.Equals(new KnyttPoint(0, 0)))
         {

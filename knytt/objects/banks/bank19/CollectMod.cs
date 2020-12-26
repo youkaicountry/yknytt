@@ -24,7 +24,7 @@ public class CollectMod : Node2D
         juni.Powers.setCollectable(parent.ObjectID.y, true);
         juni.updateCollectables();
         parent.GDArea.playEffect(offset: parent.Position);
-        juni.showEffect(effect: false, sound: "PowerUp");
+        juni.playSound("PowerUp");
         parent.QueueFree();
     }
 }
