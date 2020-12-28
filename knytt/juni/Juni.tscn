@@ -241,8 +241,8 @@ one_shot = true
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
-vframes = 5
 hframes = 10
+vframes = 5
 frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -485,6 +485,7 @@ position = Vector2( 2.7, 0 )
 
 [node name="Ground" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
 position = Vector2( 0, 8 )
+
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
