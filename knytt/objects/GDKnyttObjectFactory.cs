@@ -289,6 +289,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 34)] = "CollectionDoor20";
         ObjectLookup[new KnyttPoint(15, 35)] = "CollectionDoor40";
         ObjectLookup[new KnyttPoint(15, 36)] = "CollectionDoor50";
+        ObjectLookup[new KnyttPoint(15, 37)] = "Crumble37";
+        ObjectLookup[new KnyttPoint(15, 38)] = "Crumble38";
         ObjectLookup[new KnyttPoint(16, 1)] =  "Spring";
         ObjectLookup[new KnyttPoint(16, 2)] =  "DeathZoneTop";
         ObjectLookup[new KnyttPoint(16, 3)] =  "DeathZoneBottom";
