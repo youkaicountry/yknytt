@@ -54,16 +54,16 @@ Bank 15 (Objects & Areas):
 Bank 16 (Invisible):
 [x] - 17 Object Barrier
 [ ] - 18 Fish and Birds Barrier
-[ ] - 19 Additional Barrier
-[ ] - 20 Additional Barrier
-[ ] - 21 Additional Slope
-[ ] - 22 Additional Slope
-[ ] - 23 Additional Slope
-[ ] - 24 Additional Slope
-[ ] - 25 Additional Barrier
-[ ] - 26 Additional Barrier
-[ ] - 27 Additional Barrier
-[ ] - 28 Additional Barrier
+[x] - 19 Additional Barrier
+[x] - 20 Additional Barrier
+[x] - 21 Additional Slope
+[x] - 22 Additional Slope
+[x] - 23 Additional Slope
+[x] - 24 Additional Slope
+[x] - 25 Additional Barrier
+[x] - 26 Additional Barrier
+[x] - 27 Additional Barrier
+[x] - 28 Additional Barrier
 [x] - 29 One Way Platform
 [x] - 30 Two Ways Platform
 

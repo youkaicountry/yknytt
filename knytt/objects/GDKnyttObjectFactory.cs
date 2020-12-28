@@ -308,6 +308,16 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(16, 15)] = "InvisibleSlopeLeft";
         ObjectLookup[new KnyttPoint(16, 16)] = "InvisibleSlopeRight";
         ObjectLookup[new KnyttPoint(16, 17)] = "Barrier";
+        ObjectLookup[new KnyttPoint(16, 19)] = "AdditionalBarrier19";
+        ObjectLookup[new KnyttPoint(16, 20)] = "AdditionalBarrier20";
+        ObjectLookup[new KnyttPoint(16, 21)] = "AdditionalSlope21";
+        ObjectLookup[new KnyttPoint(16, 22)] = "AdditionalSlope22";
+        ObjectLookup[new KnyttPoint(16, 23)] = "AdditionalSlope23";
+        ObjectLookup[new KnyttPoint(16, 24)] = "AdditionalSlope24";
+        ObjectLookup[new KnyttPoint(16, 25)] = "AdditionalBarrier25";
+        ObjectLookup[new KnyttPoint(16, 26)] = "AdditionalBarrier26";
+        ObjectLookup[new KnyttPoint(16, 27)] = "AdditionalBarrier27";
+        ObjectLookup[new KnyttPoint(16, 28)] = "AdditionalBarrier28";
         ObjectLookup[new KnyttPoint(16, 29)] = "OneWayPlatform";
         ObjectLookup[new KnyttPoint(16, 30)] = "TwoWayPlatform";
         ObjectLookup[new KnyttPoint(17, 1)] =  "DarkRandomizer";
