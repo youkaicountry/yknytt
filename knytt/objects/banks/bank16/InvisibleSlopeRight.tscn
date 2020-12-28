@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank16/InvisibleBlock.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=1]
 
 [node name="InvisibleSlopeRight" type="Node2D"]
 script = ExtResource( 1 )

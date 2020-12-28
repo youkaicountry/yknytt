@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+﻿<Project Sdk="Godot.NET.Sdk/3.2.4">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -49,6 +49,7 @@
     <Compile Include="knytt\objects\banks\bank13\UpCannon.cs" />
     <Compile Include="knytt\objects\banks\bank14\SuperShot.cs" />
     <Compile Include="knytt\objects\banks\bank15\CollectionDoor.cs" />
+    <Compile Include="knytt\objects\banks\bank15\Crumble.cs" />
     <Compile Include="knytt\objects\banks\bank15\KeyDoor.cs" />
     <Compile Include="knytt\objects\banks\bank16\OneWayPlatform.cs" />
     <Compile Include="knytt\objects\banks\bank16\TwoWayPlatform.cs" />
@@ -119,7 +120,6 @@
     <Compile Include="knytt\objects\banks\bank15\Password.cs" />
     <Compile Include="knytt\objects\banks\bank15\ProximityBlock.cs" />
     <Compile Include="knytt\objects\banks\bank15\Updraft.cs" />
-    <Compile Include="knytt\objects\banks\bank16\InvisibleBarrier.cs" />
     <Compile Include="knytt\objects\banks\bank16\Spring.cs" />
     <Compile Include="knytt\objects\banks\bank18\Fish.cs" />
     <Compile Include="knytt\objects\banks\bank1\Bubble.cs" />
@@ -175,7 +175,6 @@
     <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
     <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />
-    <Compile Include="knytt\objects\banks\bank16\InvisibleBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\Waterfall.cs" />
