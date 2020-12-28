@@ -23,7 +23,7 @@ public class IdleState : JuniState
         // Do climb check first so jump will override it.
         if (juni.UpHeld && juni.CanClimb)
         {
-            juni.velocity.y = -125f;
+            juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -68,7 +68,7 @@ public class WalkRunState : JuniState
         // Do climb check first so jump will override it.
         if (juni.UpHeld && juni.CanClimb) 
         {
-            juni.velocity.y = -125f;
+            juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -112,12 +112,12 @@ public class ClimbState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.UpHeld) { juni.velocity.y = -125f; }
+        if (juni.UpHeld) { juni.velocity.y = Juni.CLIMB_SPEED; }
         else if (juni.velocity.y > 0f) { juni.transitionState(new SlideState(juni)); }
 
         if (juni.JumpEdge) 
         {
-            juni.velocity.x = juni.FacingRight ? -130f : 130f;
+            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();
         }
     }
@@ -158,12 +158,12 @@ public class SlideState : JuniState
     {
         if (juni.UpHeld) 
         { 
-            juni.velocity.y = -125f; 
+            juni.velocity.y = Juni.CLIMB_SPEED; 
             juni.transitionState(new ClimbState(juni));
         }
         else if (!juni.DownHeld)
         {
-            juni.velocity.y = 25f;
+            juni.velocity.y = Juni.SLIDE_SPEED;
             if (slide_sound.Playing) { slide_sound.Stop(); }
             juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
         }
@@ -176,7 +176,7 @@ public class SlideState : JuniState
 
         if (juni.JumpEdge)
         {
-            juni.velocity.x = juni.FacingRight ? -130f : 130f;
+            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();
         }
     }
