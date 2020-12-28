@@ -48,8 +48,8 @@ Bank 15 (Objects & Areas):
 [x] - 34 Collection Door
 [x] - 35 Collection Door
 [x] - 36 Collection Door
-[ ] - 37 Touch Disappearing Block
-[ ] - 38 Touch Disappearing Block
+[x] - 37 Touch Disappearing Block
+[x] - 38 Touch Disappearing Block
 
 Bank 16 (Invisible):
 [x] - 17 Object Barrier
