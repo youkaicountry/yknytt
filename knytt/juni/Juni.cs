@@ -296,7 +296,12 @@ public class Juni : KinematicBody2D
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         
         if (Mathf.Abs(GetFloorNormal().x) > .00001f && !JumpEdge ) { handleSlope(); }
-        else { velocity = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); }
+        else 
+        { 
+            //velocity.x = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); 
+            velocity.x = MoveAndSlide(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, stopOnSlope:false, floorMaxAngle:0.81f).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f).y;
+        }
         
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
 
