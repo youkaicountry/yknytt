@@ -15,6 +15,15 @@ public class Shift : Switch
     protected override async void _execute(Juni juni)
     {
         var game = GDArea.GDWorld.Game;
+        var jgp = juni.GlobalPosition;
+
+        if (shift.Delay > 0)
+        {
+            var delay_timer = GetNode<Timer>("DelayTimer");
+            delay_timer.Start(shift.Delay / 1000f);
+            await ToSignal(delay_timer, "timeout");
+            if (GDArea != game.CurrentArea) { return; }
+        }
 
         if (shift.Coin != 0)
         {
@@ -35,7 +44,6 @@ public class Shift : Switch
             game.changeAreaDelta(relative_area, true);
         }
 
-        var jgp = juni.GlobalPosition;
         // Move Juni to the same spot in the new area
         jgp.x += relative_area.x * GDKnyttArea.Width;
         jgp.y += relative_area.y * GDKnyttArea.Height;

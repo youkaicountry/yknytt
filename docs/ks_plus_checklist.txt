@@ -113,7 +113,7 @@ Bank 19 (Collectables):
 [ ] Shift
 [ ] 	ShiftSound(A) custom sounds
 [ ] 	ShiftCharacter(A)
-[ ] 	ShiftTime(A)
+[x] 	ShiftTime(A)
 [ ] 	ShiftHide(A)
 [x] 	ShiftCoin(A)
 [ ] 	ShiftSave(A)
