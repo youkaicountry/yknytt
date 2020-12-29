@@ -9,20 +9,19 @@ public class LaserRobot : GDKnyttBaseObject
     {
         var diff = new Vector2(speed * delta, 0);
         Translate(diff);
-        if (!GDArea.isIn(Center + diff)) { collide(); }
+
+        var new_pos = Center + diff;
+        if (new_pos.x < GDArea.GlobalPosition.x) { collide(null, true); }
+        if (new_pos.x > GDArea.GlobalPosition.x + GDKnyttArea.Width) { collide(null, false); }
     }
 
-    private void _on_Area2D_body_entered(object body)
+    private void collide(object body, bool is_on)
     {
-        if (body is Juni juni) { juniDie(juni); } else { collide(); }
-    }
-
-    private void collide()
-    {
-        isOn = !isOn;
-        speed = isOn ? 50 : -100;
-        GetNode<CollisionShape2D>("LaserArea2D/CollisionShape2D").SetDeferred("disabled", !isOn);
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(isOn ? "on" : "off");
-        GetNode<RawAudioPlayer2D>(isOn ? "OnPlayer" : "OffPlayer").Play();
+        speed = is_on ? 50 : -100;
+        GetNode<CollisionShape2D>("LaserArea/CollisionShape2D").SetDeferred("disabled", !is_on);
+        GetNode<CollisionShape2D>("LeftLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
+        GetNode<CollisionShape2D>("RightLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
+        GetNode<AnimatedSprite>("AnimatedSprite").Play(is_on ? "on" : "off");
+        GetNode<RawAudioPlayer2D>(is_on ? "OnPlayer" : "OffPlayer").Play();
     }
 }
