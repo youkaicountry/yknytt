@@ -195,8 +195,8 @@ Bank 7 (Nature FX):
 [ ] - 11
 [x] - 12 White Leaf
 [ ] - 13
-[ ] - 14
-[ ] - 15
+[x] - 14 Dust Emitter
+[x] - 15 Dust 
 [x] - 16 Cloud
 
 Bank 8 (Decoration):
