@@ -41,7 +41,6 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 vframes = 6
-frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Explode = SubResource( 1 )
