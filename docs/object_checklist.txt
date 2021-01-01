@@ -214,7 +214,7 @@ Bank 8 (Decoration):
 [x] - 12 Fire Star
 [x] - 13 Machine Part 3
 [x] - 14 Machine Part 4
-[ ] - 15
+[x] - 15 Explosion
 [ ] - 16
 [ ] - 17
 
