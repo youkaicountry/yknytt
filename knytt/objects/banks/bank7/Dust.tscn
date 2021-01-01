@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/data/Objects/Bank7/Dust.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank7/Dust.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/common/SceneCPUParticles.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/banks/bank7/DustParticle.tscn" type="PackedScene" id=3]
 
