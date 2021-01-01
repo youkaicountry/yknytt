@@ -1,8 +1,11 @@
 using Godot;
+using YUtil.Random;
 using System.Collections.Generic;
 
 public class BouncerEnemy : GDKnyttBaseObject
 {
+    private const float MIN_JUMP = 6.5f*24f, MAX_JUMP = 9.5f*24f;
+
     struct BouncerData
     {
         public bool jump_trigger;
@@ -66,7 +69,17 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     public void juniJumped(Juni juni)
     {
-        if (bouncer_data.jump_trigger && !in_air) { launch(); }
+        if (in_air) { return; }
+
+        // Calculate and test jump chance
+        var dist = Juni.distance(Center, false);
+        if (dist > 24f*7)
+        {
+            var i = 1f - Mathf.Min((dist - MIN_JUMP) / (MAX_JUMP - MIN_JUMP), 1f);
+            if (random.NextFloat() > i) { return; }
+        }
+
+        launch();
     }
 
     public void _on_Area2D_body_entered(Node body)
