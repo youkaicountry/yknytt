@@ -31,7 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="knytt\data\Objects\Bank7\Dust.cs" />
+    <Compile Include="knytt\objects\banks\bank7\Dust.cs" />
     <Compile Include="knytt\juni\AltInput.cs" />
     <Compile Include="knytt\objects\banks\bank0\Automation.cs" />
     <Compile Include="knytt\objects\banks\bank0\BlockUser.cs" />
