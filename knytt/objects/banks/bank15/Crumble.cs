@@ -3,18 +3,15 @@ using Godot;
 public class Crumble : GDKnyttBaseObject
 {
     private AnimatedSprite sprite;
-    private Timer destroyTimer;
 
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        destroyTimer = GetNode<Timer>("DestroyTimer");
     }
 
     private void _on_Area2D_body_entered(Juni juni)
     {
-        if (!destroyTimer.IsStopped()) { return; }
-        destroyTimer.Start();
+        GetNode<Timer>("DestroyTimer").Start();
         sprite.Play("activate");
         GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", true);
     }

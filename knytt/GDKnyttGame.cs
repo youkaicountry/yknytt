@@ -138,6 +138,8 @@ public class GDKnyttGame : Node2D
 
 	public void warpJuni(Juni juni)
 	{
+		// This function, Switch._execute and Juni._die can be unwrapped, but you'll get a lot of messages about physics
+		// that should be deferred. I don't know if they are dangerous or not.
 		CallDeferred("_warp_juni", juni);
 	}
 
@@ -149,6 +151,7 @@ public class GDKnyttGame : Node2D
 		var area = CurrentArea.Area;
 		var jgp = juni.GlobalPosition;
 		var new_coords = GDKnyttWorld.getAreaCoords(jgp);
+		if (new_coords.Equals(area.Position)) { return; } // Area may change if warp is deferred
 		var wc = area.Warp.getWarpCoords(new_coords, area.Position);
 		
 		// Apply the warp
