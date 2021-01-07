@@ -4,14 +4,19 @@ using YKnyttLib;
 
 public class ObjectSelector
 {
-    private Dictionary<KnyttPoint, List<object>> allObjects = new Dictionary<KnyttPoint, List<object>>();
-    private Dictionary<KnyttPoint, int> counters = new Dictionary<KnyttPoint, int>();
-    private Dictionary<KnyttPoint, int> selections = new Dictionary<KnyttPoint, int>();
+    private Dictionary<object, List<object>> allObjects = new Dictionary<object, List<object>>();
+    private Dictionary<object, int> counters = new Dictionary<object, int>();
+    private Dictionary<object, int> selections = new Dictionary<object, int>();
     public bool IsOpen { get; set; }
 
-    public void Register(GDKnyttBaseObject obj)
+    private object getKey(GDKnyttBaseObject obj, bool by_type)
     {
-        var type = obj.ObjectID;
+        return by_type ? (object)obj.GetType() : obj.ObjectID;
+    }
+
+    public void Register(GDKnyttBaseObject obj, bool by_type = false)
+    {
+        var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type))
         {
             allObjects[type] = new List<object>();
@@ -21,9 +26,9 @@ public class ObjectSelector
         allObjects[type].Add(obj);
     }
 
-    public void Unregister(GDKnyttBaseObject obj)
+    public void Unregister(GDKnyttBaseObject obj, bool by_type = false)
     {
-        var type = obj.ObjectID;
+        var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return; }
         allObjects[type].Remove(obj);
         // TODO: looks not reliable
@@ -31,9 +36,9 @@ public class ObjectSelector
         selections[type] = -1;
     }
 
-    public bool IsObjectSelected(GDKnyttBaseObject obj)
+    public bool IsObjectSelected(GDKnyttBaseObject obj, bool by_type = false)
     {
-        var type = obj.ObjectID;
+        var type = getKey(obj, by_type);
         if (!IsOpen || !allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
 
         if (counters[type] >= allObjects[type].Count || selections[type] == -1)
@@ -45,24 +50,24 @@ public class ObjectSelector
         return allObjects[type][selections[type]] == obj;
     }
 
-    public int GetIndex(GDKnyttBaseObject obj)
+    public int GetIndex(GDKnyttBaseObject obj, bool by_type = false)
     {
-        var type = obj.ObjectID;
+        var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return 0; }
         return allObjects[type].IndexOf(obj);
     }
 
-    public int GetSize(GDKnyttBaseObject obj)
+    public int GetSize(GDKnyttBaseObject obj, bool by_type = false)
     {
-        var type = obj.ObjectID;
+        var type = getKey(obj, by_type);
         return allObjects.ContainsKey(type) ? allObjects[type].Count : 0;
     }
 
-    private Dictionary<KnyttPoint, float> randomValues = new Dictionary<KnyttPoint, float>();
+    private Dictionary<object, float> randomValues = new Dictionary<object, float>();
 
-    public float GetRandomValue(GDKnyttBaseObject obj, float maxValue)
+    public float GetRandomValue(GDKnyttBaseObject obj, float maxValue, bool by_type = false)
     {
-        var type = obj.ObjectID;
+        var type = getKey(obj, by_type);
         if (!randomValues.ContainsKey(type))
         {
             randomValues.Add(type, GDKnyttDataStore.random.NextFloat(maxValue));

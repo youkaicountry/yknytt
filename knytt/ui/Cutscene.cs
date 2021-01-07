@@ -100,4 +100,10 @@ public class Cutscene : Control
             GetTree().Paused = false;
         }
     }
+
+    public override void _Process(float delta)
+    {
+        if (Input.IsActionJustPressed("left") && current_scene > 1)  { _on_PreviousButton_pressed(); }
+        if (Input.IsActionJustPressed("right")) { _on_NextButton_pressed(); }
+    }
 }

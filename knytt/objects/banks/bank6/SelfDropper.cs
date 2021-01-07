@@ -13,7 +13,7 @@ public class SelfDropper : GDKnyttBaseObject
     public override void _Ready()
     {
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        dropSpeed = 25;
+        dropSpeed = 25; // 50;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -28,6 +28,8 @@ public class SelfDropper : GDKnyttBaseObject
         if (state == State.Dropping)
         {
             Translate(new Vector2(0, delta * dropSpeed));
+            // 14 * 50 * delta -- original formula
+            // TODO: implement moving hitbox like in the original game and get back to the accurate formula
             if (dropSpeed < 450) { dropSpeed += 10 * 50 * delta; }
         }
     }

@@ -24,7 +24,7 @@ public abstract class Switch : GDKnyttBaseObject
     {
         if (!(body is Juni juni)) { return; }
 
-        if (@switch.AsOne) { GDArea.Selector.Register(this); }
+        if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); }
         
         if (@switch.OnTouch)
         { 
@@ -47,7 +47,7 @@ public abstract class Switch : GDKnyttBaseObject
     {
         if (!(body is Juni juni)) { return; }
 
-        if (@switch.AsOne) { GDArea.Selector.Unregister(this); }
+        if (@switch.AsOne) { GDArea.Selector.Unregister(this, by_type: true); }
 
         if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(execute)))
         {
@@ -62,7 +62,7 @@ public abstract class Switch : GDKnyttBaseObject
 
     public void execute(Juni juni)
     {
-        if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this))
+        if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this, by_type: true))
         {
             executeAnyway(juni);
         }
