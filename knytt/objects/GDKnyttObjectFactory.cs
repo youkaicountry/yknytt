@@ -170,6 +170,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(7, 9)] =   "RaindropObject";
         ObjectLookup[new KnyttPoint(7, 10)] =  "Leaf";
         ObjectLookup[new KnyttPoint(7, 12)] =  "Leaf";
+        ObjectLookup[new KnyttPoint(7, 14)] =  "Dust";
+        ObjectLookup[new KnyttPoint(7, 15)] =  "Dust";
         ObjectLookup[new KnyttPoint(7, 16)] =  "Cloud";
         ObjectLookup[new KnyttPoint(8, 1)] =   "HorizontalConnection";
         ObjectLookup[new KnyttPoint(8, 2)] =   "VerticalConnection";
@@ -185,6 +187,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(8, 12)] =  "SimpleDecoration";
         ObjectLookup[new KnyttPoint(8, 13)] =  "MachinePart3";
         ObjectLookup[new KnyttPoint(8, 14)] =  "MachinePart4";
+        ObjectLookup[new KnyttPoint(8, 15)] =  "Explosion";
         ObjectLookup[new KnyttPoint(9, 1)] =   "RedTrapFlower";
         ObjectLookup[new KnyttPoint(9, 2)] =   "TimedFlower";
         ObjectLookup[new KnyttPoint(9, 3)] =   "HomingFlower";

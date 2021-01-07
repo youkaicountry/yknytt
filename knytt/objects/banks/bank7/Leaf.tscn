@@ -78,4 +78,5 @@ BrownianExponent = 2.8
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

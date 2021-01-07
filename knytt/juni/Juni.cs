@@ -22,7 +22,7 @@ public class Juni : KinematicBody2D
     MAX_UPDRAFT_SPEED_HOLD = -400f,             // Maximum Y speed in an updraft while holding jump
     JUMP_HOLD_POWER = 125f,                     // Y Force exerted while holding jump
     HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power
-    UMBRELLA_JUMP_HOLD_PENALTY = .75f,          // Penalty on jump hold when Juni has the umbrella deployed
+    UMBRELLA_JUMP_HOLD_PENALTY = .82f,          // Penalty on jump hold when Juni has the umbrella deployed
     MAX_X_MOVING_DELTA = 2500f,                 // Maximum rate of change of X velocity when moving
     MAX_X_DECAY_DELTA = 1500f,                  // Maximum rate of change of X velocity when stopped
     MAX_X_SPEED_UMBRELLA = 120f,                // Maximum X speed when Juni has the umbrella deployed

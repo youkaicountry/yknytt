@@ -9,7 +9,7 @@ public class IdleState : JuniState
     public override void onEnter()
     {
         juni.Anim.Play("Idle");
-        juni.jumps = 0; 
+        juni.jumps = 0;
     }
 
     public override void PreProcess(float delta)
