@@ -34,12 +34,11 @@ script = ExtResource( 2 )
 one_shot = true
 
 [node name="Bullets" parent="." instance=ExtResource( 1 )]
-z_index = 8
 
 [node name="EffectSprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 1.5, 1.5 )
-z_index = 5
+z_index = 7
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]

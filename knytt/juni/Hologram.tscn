@@ -22,7 +22,7 @@ animations = [ {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -0.3, -3 )
-z_index = 6
+z_index = 8
 z_as_relative = false
 frames = SubResource( 4 )
 frame = 1
