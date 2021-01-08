@@ -41,7 +41,7 @@ animations = [ {
 
 [node name="DoubleJump" type="AnimatedSprite"]
 modulate = Color( 1, 1, 1, 0.54902 )
-z_index = 6
+z_index = 8
 z_as_relative = false
 frames = SubResource( 9 )
 animation = "DoubleJump"

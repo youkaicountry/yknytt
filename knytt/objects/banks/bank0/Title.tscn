@@ -92,7 +92,7 @@ tracks/1/keys = {
 }
 
 [node name="Node2D" type="Node2D"]
-z_index = 5
+z_index = 7
 script = ExtResource( 2 )
 
 [node name="TitleLabel" type="Label" parent="."]

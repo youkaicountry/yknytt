@@ -215,7 +215,7 @@ extents = Vector2( 4.6728, 2.11682 )
 
 [node name="Juni" type="KinematicBody2D"]
 process_priority = -1
-z_index = 6
+z_index = 8
 z_as_relative = false
 collision_mask = 2147491846
 collision/safe_margin = 0.2

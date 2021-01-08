@@ -54,10 +54,10 @@ public class BulletLayer : Node2D
             bullet = queue.Dequeue();
         }
 
-        // TODO: set ZIndex of bullet
         bullet.GlobalPosition = enemy_object.GlobalPosition;
         bullet.Enabled = true;
         bullet.Visible = true;
+        bullet.ZIndex = enemy_object is GDKnyttBaseObject ? enemy_object.GetParent<Node2D>().ZIndex - 1 : enemy_object.ZIndex;
         initEvents[enemy_object](bullet, n);
         queue.Enqueue(bullet);
     }
