@@ -31,6 +31,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />
     <Compile Include="knytt\objects\banks\bank7\Dust.cs" />
     <Compile Include="knytt\juni\AltInput.cs" />
     <Compile Include="knytt\objects\banks\bank0\Automation.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="knytt\juni\JuniMotionParticles.cs" />
     <Compile Include="knytt\objects\banks\bank0\Shift.cs" />
     <Compile Include="knytt\objects\banks\bank0\Warp.cs" />
-    <Compile Include="knytt\objects\banks\bank12\GhostEater.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMarker.cs" />
     <Compile Include="knytt\objects\banks\bank12\NoWall.cs" />
     <Compile Include="knytt\objects\banks\bank13\Cannon.cs" />

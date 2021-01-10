@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/objects/banks/bank12/eater.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/common/BaseEater.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank12/GhostEater.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -42,7 +42,9 @@ animations = [ {
 } ]
 
 [node name="Node2D" instance=ExtResource( 2 )]
-script = ExtResource( 3 )
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 7 )
+
+[node name="GhostMod" parent="." index="3" instance=ExtResource( 4 )]
+flickering = false
