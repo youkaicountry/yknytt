@@ -380,12 +380,14 @@ public class LevelSelection : CanvasLayer
             if (!timer.IsStopped()) { return; }
 
             GDKnyttAssetManager.ensureDirExists("Worlds");
+            
             string filename = button.buttonInfo.Link;
             filename = filename.Substring(filename.LastIndexOf('/') + 1);
             if (filename.IndexOf('?') != -1) { filename = filename.Substring(0, filename.IndexOf('?')); }
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename);
             http_node.DownloadFile = $"user://Worlds/{filename}.part";
+            
             var error = http_node.Request(button.buttonInfo.Link);
             if (error != Error.Ok) { download_button.markFailed(); return; }
 

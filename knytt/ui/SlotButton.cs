@@ -91,7 +91,7 @@ public class SlotButton : Button
     public void _on_SlotButton_pressed()
     {
         ClickPlayer.Play();
-        GetParentOrNull<InfoScreen>()?.closeOtherSlots(this.slot);
+        GetNode<InfoScreen>("../..").closeOtherSlots(this.slot);
         StartLoadActive = true;
         if (!NewMode) { EraseActive = true; }
     }

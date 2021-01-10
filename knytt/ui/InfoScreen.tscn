@@ -11,16 +11,22 @@ script = ExtResource( 3 )
 [node name="BackgroundRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="InfoRect" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-expand = true
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackButton" parent="." instance=ExtResource( 2 )]
+[node name="InfoRect" type="TextureRect" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -120.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" parent="InfoRect" instance=ExtResource( 2 )]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -31,34 +37,35 @@ margin_right = -5.0
 margin_bottom = -6.0
 text = "Back"
 
-[node name="Slot1Button" parent="." instance=ExtResource( 4 )]
+[node name="Slot1Button" parent="InfoRect" instance=ExtResource( 4 )]
 margin_left = 2.93241
 margin_top = 123.18
 margin_right = 47.9324
 margin_bottom = 128.475
 
-[node name="Slot2Button" parent="." instance=ExtResource( 4 )]
+[node name="Slot2Button" parent="InfoRect" instance=ExtResource( 4 )]
 margin_left = 2.5166
 margin_top = 147.404
 margin_right = 47.5166
 margin_bottom = 152.699
 slot = 2
 
-[node name="Slot3Button" parent="." instance=ExtResource( 4 )]
+[node name="Slot3Button" parent="InfoRect" instance=ExtResource( 4 )]
 margin_left = 2.75257
 margin_top = 172.213
 margin_right = 47.7526
 margin_bottom = 177.508
 slot = 3
 
-[node name="RatePanel" parent="." instance=ExtResource( 1 )]
+[node name="RatePanel" parent="InfoRect" instance=ExtResource( 1 )]
 modulate = Color( 1, 1, 1, 0.878431 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -135.0
 margin_top = 10.0
 margin_right = -10.0
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="StartGame" from="Slot1Button" to="." method="_on_SlotButton_StartGame"]
-[connection signal="StartGame" from="Slot2Button" to="." method="_on_SlotButton_StartGame"]
-[connection signal="StartGame" from="Slot3Button" to="." method="_on_SlotButton_StartGame"]
+
+[connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]

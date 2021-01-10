@@ -13,6 +13,7 @@
 [node name="GameButton" type="Button"]
 margin_right = 290.0
 margin_bottom = 55.0
+mouse_filter = 1
 rect_min_size = Vector2( 290, 45 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 1 )
