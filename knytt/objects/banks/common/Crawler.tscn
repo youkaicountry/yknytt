@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/Crawler.cs" type="Script" id=1]
+
+[node name="Crawler" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2048
+script = ExtResource( 1 )
+OrganicEnemy = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false

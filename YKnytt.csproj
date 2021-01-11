@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.4">
+﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -64,6 +64,7 @@
     <Compile Include="knytt\objects\banks\bank4\StrangeRunner.cs" />
     <Compile Include="knytt\objects\banks\bank8\Explosion.cs" />
     <Compile Include="knytt\objects\banks\bank8\MachinePart4.cs" />
+    <Compile Include="knytt\objects\banks\common\Crawler.cs" />
     <Compile Include="knytt\objects\banks\common\WalkingShooter.cs" />
     <Compile Include="knytt\objects\banks\common\WallNinja.cs" />
     <Compile Include="knytt\objects\banks\bank17\WaterEye.cs" />

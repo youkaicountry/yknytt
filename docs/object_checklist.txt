@@ -138,19 +138,19 @@ Bank 3 (Knytt & Fluff):
 [x] - 44 Grey Lizard
 
 Bank 4 (Meanies):
-[x] -  1 Red Follow Ball
-[ ] -  2
-[ ] -  3
-[ ] -  4
-[ ] -  5
+[x] -  1 Circle Crawler
+[x] -  2 Side Crawler
+[x] -  3 Six Leg
+[x] -  4 Six Leg Child
+[x] -  5 Six Leg Baby
 [ ] -  6
 [ ] -  7
-[ ] -  8
+[x] -  8 Slow Side Crawler
 [ ] -  9
 [x] - 10 Left Stranger
 [x] - 11 Right Stranger
 [x] - 12 Strange Runner
-[ ] - 13
+[x] - 13 Side Crawler 2
 [ ] - 14
 [x] - 15 Another Strange Runner
 [x] - 16 Homing Runner
