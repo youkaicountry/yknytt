@@ -224,10 +224,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(12, 10)] = "GhostEater";
         ObjectLookup[new KnyttPoint(12, 11)] = "Ghost";
         ObjectLookup[new KnyttPoint(12, 17)] = "NoWall";
-        ObjectLookup[new KnyttPoint(12, 18)] = "GhostMarker";
-        ObjectLookup[new KnyttPoint(12, 19)] = "GhostMarker";
-        ObjectLookup[new KnyttPoint(12, 20)] = "GhostMarker";
-        ObjectLookup[new KnyttPoint(12, 21)] = "GhostMarker";
+        ObjectLookup[new KnyttPoint(12, 18)] = "GhostMarker18";
+        ObjectLookup[new KnyttPoint(12, 19)] = "GhostMarker19";
+        ObjectLookup[new KnyttPoint(12, 20)] = "GhostMarker20";
+        ObjectLookup[new KnyttPoint(12, 21)] = "GhostMarker21";
         ObjectLookup[new KnyttPoint(13, 1)] =  "RobotCannon";
         ObjectLookup[new KnyttPoint(13, 2)] =  "HomingCannon";
         ObjectLookup[new KnyttPoint(13, 3)] =  "LaserRobot";
