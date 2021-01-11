@@ -219,6 +219,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(11, 8)] =  "GreenDisk";
         ObjectLookup[new KnyttPoint(11, 9)] =  "ShockDisk3";
         ObjectLookup[new KnyttPoint(11, 10)] = "YellowDisk";
+        ObjectLookup[new KnyttPoint(11, 11)] = "YellowDisk2";
         ObjectLookup[new KnyttPoint(12, 5)] =  "GhostBlock";
         ObjectLookup[new KnyttPoint(12, 10)] = "GhostEater";
         ObjectLookup[new KnyttPoint(12, 11)] = "Ghost";
@@ -243,6 +244,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(13, 14)] = "DarkHomingCannon";
         ObjectLookup[new KnyttPoint(14, 1)] =  "RedJelly";
         ObjectLookup[new KnyttPoint(14, 2)] =  "GreenWorm";
+        ObjectLookup[new KnyttPoint(14, 3)] =  "Snail";
+        ObjectLookup[new KnyttPoint(14, 4)] =  "OrangeWorm";
         ObjectLookup[new KnyttPoint(14, 5)] =  "BouncingRock";
         ObjectLookup[new KnyttPoint(14, 6)] =  "SimpleWorm";
         ObjectLookup[new KnyttPoint(14, 7)] =  "LargeBouncingRock";
@@ -250,6 +253,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(14, 9)] =  "DangerousInsect";
         ObjectLookup[new KnyttPoint(14, 10)] = "StationaryRock";
         ObjectLookup[new KnyttPoint(14, 11)] = "InsectWithoutShell";
+        ObjectLookup[new KnyttPoint(14, 12)] = "SmileBall";
         ObjectLookup[new KnyttPoint(14, 13)] = "BigRunThing";
         ObjectLookup[new KnyttPoint(14, 14)] = "SmallRunThing";
         ObjectLookup[new KnyttPoint(14, 15)] = "AnotherSnail";

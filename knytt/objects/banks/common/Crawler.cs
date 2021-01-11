@@ -3,22 +3,17 @@ using System;
 
 public class Crawler : GDKnyttBaseObject
 {
-    [Export] bool horizontal = true;
-    [Export] float speed = 50;
-    [Export] int keepDistance = 4;
-    [Export] int radarBottom = 0;
-    [Export] int radarTop = 0;
-
-    protected AnimatedSprite sprite;
-
-    public override void _Ready()
-    {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-    }
+    [Export] protected bool horizontal = true;
+    [Export] protected float speed = 50;
+    [Export] protected int keepDistance = 4;
+    [Export] protected int radarBottom = 0;
+    [Export] protected int radarTop = 0;
 
     public override void _PhysicsProcess(float delta)
     {
+        var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         var jgp = Juni.GlobalPosition;
+
         float juni_radar_value = horizontal ? jgp.y : jgp.x;
         float obj_radar_value = horizontal ? Center.y : Center.x;
         bool out_of_radar = (radarTop != 0 && juni_radar_value < obj_radar_value - radarTop) ||
@@ -40,7 +35,7 @@ public class Crawler : GDKnyttBaseObject
             }
             else
             {
-                if (sprite.Animation == "default")
+                if (sprite.Animation != "walk")
                 {
                     sprite.Play("walk");
                     if (horizontal) { sprite.FlipH = direction < 0; } else { sprite.FlipV = direction > 0; }

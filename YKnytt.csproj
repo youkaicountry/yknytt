@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />
+    <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank7\Dust.cs" />
     <Compile Include="knytt\juni\AltInput.cs" />
     <Compile Include="knytt\objects\banks\bank0\Automation.cs" />
@@ -140,7 +141,6 @@
     <Compile Include="knytt\objects\banks\bank8\SimpleDecoration.cs" />
     <Compile Include="knytt\objects\banks\bank8\Star.cs" />
     <Compile Include="knytt\objects\banks\common\BaseEater.cs" />
-    <Compile Include="knytt\objects\banks\common\FollowerCreature.cs" />
     <Compile Include="knytt\objects\banks\bank7\Cloud.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticleInstance.cs" />
     <Compile Include="knytt\objects\banks\common\SceneCPUParticles.cs" />
