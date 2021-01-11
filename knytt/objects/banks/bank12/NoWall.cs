@@ -1,12 +1,10 @@
-public class NoWall : GhostObject
+public class NoWall : GDKnyttBaseObject
 {
-    protected override void _InvReady()
+    public override void _Ready()
     {
-        Flickering = false;
-    }
-
-    protected override void _InvEnable()
-    {
+        base._Ready();
+        if (IsQueuedForDeletion()) { return; }
+        
         // Copy values of the cells
         int a = GDArea.Tiles.Layers[3].A.GetCell(Coords.x, Coords.y);
         int b = GDArea.Tiles.Layers[3].B.GetCell(Coords.x, Coords.y);

@@ -5,22 +5,19 @@ public class GhostMod : Node2D
 {
     [Export] bool flickering = true;
 
-    public float flickerMin = .1f;
-    public float flickerMax = .8f;
-    public float flip_time = .065f;
+    [Export] public float flickerMin = .1f;
+    [Export] public float flickerMax = .8f;
+    [Export] public float flip_time = .065f;
     float flip_counter = 0f;
     float flip_target = 0f;
-    public float change_fraction = 8f;
+    [Export] public float change_fraction = 8f;
 
     protected GDKnyttBaseObject parent;
-    protected Juni globalJuni;
 
     public override void _Ready()
     {
         parent = GetParent<GDKnyttBaseObject>();
-        globalJuni = parent.Juni;
-
-        if (!globalJuni.Powers.getPower(YKnyttLib.JuniValues.PowerNames.Eye))
+        if (!parent.Juni.Powers.getPower(YKnyttLib.JuniValues.PowerNames.Eye))
         {
             parent.QueueFree();
             return;
