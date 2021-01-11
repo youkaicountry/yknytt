@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Ghost : GhostObject
+public class Ghost : GDKnyttBaseObject
 {
     float _speed;
     private float Speed 
@@ -21,18 +21,19 @@ public class Ghost : GhostObject
         {
             if (value)
             {
-                flickerMax = .05f;
-                flickerMin = 0f;
+                ghostMod.flickerMax = .05f;
+                ghostMod.flickerMin = 0f;
             }
             else
             {
-                flickerMin = .35f;
-                flickerMax = .7f;
+                ghostMod.flickerMin = .35f;
+                ghostMod.flickerMax = .7f;
             }
         }
     }
 
     private Area2D Area { get; set; }
+    private GhostMod ghostMod;
 
     private float height;
     private float time = 0f;
@@ -50,14 +51,14 @@ public class Ghost : GhostObject
     {
         base._Ready();
         Area = GetNode<Area2D>("Area2D");
-        flip_time = .08f;
-        change_fraction = 4f;
+        ghostMod = GetNode<GhostMod>("GhostMod");
         height = GlobalPosition.y;
         move();
     }
 
-    protected override void _InvProcess(float delta)
+    public override void _PhysicsProcess(float delta)
     {
+        base._PhysicsProcess(delta);
         time += delta;
 
         var gp = GlobalPosition;

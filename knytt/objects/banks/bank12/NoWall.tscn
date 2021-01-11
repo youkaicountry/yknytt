@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank12/NoWall.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=2]
 
 [node name="NoWall" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="GhostMod" parent="." instance=ExtResource( 2 )]
+flickering = false

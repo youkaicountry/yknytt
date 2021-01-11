@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank12/Ghost.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank12/ghost.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -71,6 +72,11 @@ collision_mask = 2048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 12 )
+
+[node name="GhostMod" parent="." instance=ExtResource( 3 )]
+flip_time = 0.08
+change_fraction = 4.0
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
