@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+﻿<Project Sdk="Godot.NET.Sdk/3.2.4">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -112,7 +112,6 @@
     <Compile Include="knytt\juni\JuniMotionParticles.cs" />
     <Compile Include="knytt\objects\banks\bank0\Shift.cs" />
     <Compile Include="knytt\objects\banks\bank0\Warp.cs" />
-    <Compile Include="knytt\objects\banks\bank12\GhostMarker.cs" />
     <Compile Include="knytt\objects\banks\bank12\NoWall.cs" />
     <Compile Include="knytt\objects\banks\bank13\Cannon.cs" />
     <Compile Include="knytt\objects\banks\bank13\DarkHomingCannon.cs" />
@@ -164,7 +163,6 @@
     <Compile Include="knytt\objects\banks\bank0\NoJump.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
     <Compile Include="knytt\objects\banks\bank12\Ghost.cs" />
-    <Compile Include="knytt\objects\banks\bank12\GhostBlock.cs" />
     <Compile Include="knytt\GDKnyttSettings.cs" />
     <Compile Include="knytt\juni\ClimbCheckers.cs" />
     <Compile Include="knytt\juni\DeathParticles.cs" />
@@ -175,7 +173,6 @@
     <Compile Include="knytt\objects\banks\bank0\Sign.cs" />
     <Compile Include="knytt\objects\banks\bank10\BouncerEnemy.cs" />
     <Compile Include="knytt\objects\banks\bank10\Bouncer.cs" />
-    <Compile Include="knytt\objects\banks\bank12\GhostObject.cs" />
     <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
