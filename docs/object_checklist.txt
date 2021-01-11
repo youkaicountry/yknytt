@@ -251,7 +251,7 @@ Bank 11 (Disks):
 [x] -  8 Green Disk
 [x] -  9 Shock Disk 3
 [x] - 10 Yellow Disk
-[ ] - 11
+[x] - 11 Yellow Disk 2
 
 Bank 12 (Ghosts):
 [ ] -  1
@@ -295,8 +295,8 @@ Bank 13 (Robots):
 Bank 14 (Earth Beings):
 [x] -  1 Red Jelly
 [x] -  2 Green Worm
-[ ] -  3
-[ ] -  4
+[x] -  3 Snail
+[x] -  4 Orange Worm
 [x] -  5 Bouncing Rock
 [x] -  6 Simple Worm
 [x] -  7 Large Bouncing Rock
@@ -304,7 +304,7 @@ Bank 14 (Earth Beings):
 [x] -  9 Dangerous Insect
 [x] - 10 Stationary Rock
 [x] - 11 Insect Without Shell
-[ ] - 12
+[x] - 12 Smile Ball
 [x] - 13 Small Spike Run Thing
 [x] - 14 Big Spike Run Thing
 [x] - 15 Another Snail
