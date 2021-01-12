@@ -1,22 +1,7 @@
 using Godot;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 
 public class TouchSettingsScreen : Control
 {
-	private readonly float[] SCALES = {0.5f, 0.75f, 1f, 1.25f, 1.5f};
-	private Dictionary<float, int> optionByScale = new Dictionary<float, int>();
-	
-	public TouchSettingsScreen()
-	{
-		int i = 0;
-		foreach (var scale in SCALES)
-		{
-			optionByScale.Add(scale, i++);
-		}
-	}
-
 	public override void _Ready()
 	{
 		fillControls();
@@ -27,8 +12,7 @@ public class TouchSettingsScreen : Control
 		GetNode<CheckBox>("SettingsContainer/EnableButton").Pressed = TouchSettings.EnablePanel;
 		GetNode<CheckBox>("SettingsContainer/SwapButton").Pressed = TouchSettings.SwapHands;
 		GetNode<OptionButton>("SettingsContainer/AnchorContainer/AnchorDropdown").Select((int)TouchSettings.Position);
-		GetNode<OptionButton>("SettingsContainer/ScaleContainer/ScaleDropdown").Select(
-			optionByScale.TryGetValue(TouchSettings.Scale, out var i) ? i : 0);
+		GetNode<HSlider>("SettingsContainer/ScaleContainer2/ScaleSlider").Value = TouchSettings.Scale;
 	}
 	
 	private void _on_EnableButton_pressed()
@@ -46,9 +30,15 @@ public class TouchSettingsScreen : Control
 		TouchSettings.Position = (TouchSettings.VerticalPosition)index;
 	}
 
-	private void _on_ScaleDropdown_item_selected(int index)
+	private void _on_ScaleSlider_value_changed(float value)
 	{
-		TouchSettings.Scale = SCALES[index];
+		TouchSettings.Scale = value;
+		GetNode<Label>("SettingsContainer/ScaleContainer2/ValueLabel").Text = $"x{value:0.00}";
+	}
+
+	private void _on_ScaleDefaultButton_pressed()
+	{
+		GetNode<HSlider>("SettingsContainer/ScaleContainer2/ScaleSlider").Value = 1;
 	}
 	
 	private void _on_BackButton_pressed()
@@ -57,4 +47,3 @@ public class TouchSettingsScreen : Control
 		QueueFree();
 	}
 }
-
