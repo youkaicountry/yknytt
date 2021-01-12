@@ -35,7 +35,7 @@ public class TouchSettings : Node
 	
 	public static float Scale
 	{
-		get { return Math.Min(float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]), 1.5f); }
+		get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
 		set { GDKnyttSettings.ini["TouchPanel"]["Scale"] = value.ToString(); }
 	}
 	
@@ -54,7 +54,7 @@ public class TouchSettings : Node
 		bool modified = false;
 		modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", OS.GetName() == "Android" || OS.GetName() == "iOS" ? "1" : "0");
 		modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
-		modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", "Top");
+		modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
 		modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
 		return modified;
 	}

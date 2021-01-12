@@ -35,7 +35,7 @@ public class TouchPanel : Panel
 	// Left/right prediction settings
 	private const int SPEED_TOO_FAST = 60;
 	private const int REL_TOO_FAST = 7;
-	private const int REL_TOO_SLOW = 2;
+	private const int REL_TOO_SLOW = 1;
 	
 
 	public override void _Ready()
@@ -65,6 +65,11 @@ public class TouchPanel : Panel
 		GetTree().Root.Connect("size_changed", this, nameof(_on_viewport_size_changed));
 		Configure();
 	}
+
+	private float getScale()
+	{
+		return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 80), 1.5f);
+	}
 	
 	// Returns rectangle for the button with excess space
 	private Rect2 getPressRect(Control c, bool grow_left = false, bool grow_top = false, 
@@ -73,7 +78,7 @@ public class TouchPanel : Panel
 	{
 		// "Scale" doesn't affect RectSize, needs to calculate it manually
 		// Also "flip_left" is a workaround when scale < 0
-		var scale = TouchSettings.Scale;
+		var scale = getScale();
 		float x = c.RectGlobalPosition.x - (grow_left ? X_EXCESS * scale : 0);
 		float y = c.RectGlobalPosition.y - (grow_top ? TOP_EXCESS * scale : 0);
 		float x_size = c.RectSize.x * scale + (grow_left ? X_EXCESS * scale : 0) 
@@ -86,7 +91,10 @@ public class TouchPanel : Panel
 	private void _on_viewport_size_changed()
 	{
 		if (!TouchSettings.EnablePanel) { return; }
-		var scale = TouchSettings.Scale;
+
+		var scale = getScale();
+		GetNode<Panel>("ArrowsPanel").RectScale = new Vector2(scale, scale);
+		ChangeHands();
 		
 		// Calculate rects for all the buttons
 		leftRect = getPressRect(leftUpPanel, grow_left: true, grow_top: true)
@@ -225,9 +233,7 @@ public class TouchPanel : Panel
 		curtain.Visible = Visible;
 		if (!Visible) return;
 		
-		var scale = TouchSettings.Scale;
 		var anchor_top = TouchSettings.PanelAnchor;
-		
 		var arrows_panel = GetNode<Panel>("ArrowsPanel");
 		var jump_panel = GetNode<Panel>("JumpPanel");
 		var height = arrows_panel.RectSize.y;
@@ -238,16 +244,12 @@ public class TouchPanel : Panel
 		arrows_panel.RectPivotOffset = new Vector2(0, (1 - anchor_top) * height);
 		jump_panel.RectPivotOffset = new Vector2(jump_panel.RectSize.x, (1 - anchor_top) * height);
 		
-		arrows_panel.RectScale = new Vector2(scale, scale);
-		jump_panel.RectScale = new Vector2(scale, scale);
-		
-		ChangeHands();
 		_on_viewport_size_changed();
 	}
 	
 	private void ChangeHands()
 	{
-		var scale = TouchSettings.Scale;
+		var scale = getScale();
 		var swap = TouchSettings.SwapHands;
 		
 		var arrows_panel = GetNode<Control>("ArrowsPanel");
