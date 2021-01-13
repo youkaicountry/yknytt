@@ -1,0 +1,133 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://knytt/objects/banks/common/WallNinja.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/left_stranger_climb.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank19/img/left_stranger_launch.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank19/img/left_stranger_slide.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 216, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 240, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "slide",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "climb",
+"speed": 25.0
+}, {
+"frames": [  ],
+"loop": false,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": false,
+"name": "prepare",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": false,
+"name": "aftershot",
+"speed": 25.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 7, 10 )
+
+[node name="Muff" instance=ExtResource( 1 )]
+bulletScene = "SmallGlowingBullet"
+bulletVelocity = 5
+shotDirections = PoolIntArray( -1, 0, 1 )
+shotPosition = Vector2( 10, 12 )
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 20 )
+animation = "climb"
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( 8, 11 )
+shape = SubResource( 21 )
+
+[node name="ShotTimer" parent="." index="4"]
+wait_time = 2.15
+
+[node name="ShotPlayer" parent="." index="5"]
+rawPath = "res://knytt/data/Sfx/Tri Bullet Shot B.raw"

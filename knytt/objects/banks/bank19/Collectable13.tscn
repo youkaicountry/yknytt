@@ -5,5 +5,5 @@
 
 [node name="FollowCreature" instance=ExtResource( 2 )]
 
-[node name="CollectMod" parent="." index="4" instance=ExtResource( 1 )]
-collisionPath = NodePath("../Area2D/CollisionShape2D")
+[node name="CollectMod" parent="." index="2" instance=ExtResource( 1 )]
+collisionPath = NodePath("../CollisionShape2D")

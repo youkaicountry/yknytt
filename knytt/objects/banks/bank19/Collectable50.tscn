@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank19/base/Creature50.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/CollectMod.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/banks/bank19/CollectableWaterMonster.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 21 )
+
+[node name="Node2D" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="CollectMod" parent="." index="3" instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectMod" index="1"]
+position = Vector2( 12, 27 )
+shape = SubResource( 1 )
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

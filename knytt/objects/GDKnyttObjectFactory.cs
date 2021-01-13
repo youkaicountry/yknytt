@@ -138,10 +138,12 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 4)] =   "SixLegChild";
         ObjectLookup[new KnyttPoint(4, 5)] =   "SixLegBaby";
         ObjectLookup[new KnyttPoint(4, 8)] =   "SlowSideCrawler";
-        ObjectLookup[new KnyttPoint(4, 13)] =  "SideCrawler2";
+        //ObjectLookup[new KnyttPoint(4, 9)] =   "Spider";
         ObjectLookup[new KnyttPoint(4, 10)] =  "LeftStranger";
         ObjectLookup[new KnyttPoint(4, 11)] =  "RightStranger";
         ObjectLookup[new KnyttPoint(4, 12)] =  "StrangeRunner";
+        ObjectLookup[new KnyttPoint(4, 13)] =  "SideCrawler2";
+        //ObjectLookup[new KnyttPoint(4, 14)] =  "TriLegSpider";
         ObjectLookup[new KnyttPoint(4, 15)] =  "AnotherStrangeRunner";
         ObjectLookup[new KnyttPoint(4, 16)] =  "HomingRunner";
         ObjectLookup[new KnyttPoint(4, 17)] =  "Hedgehog";
@@ -358,18 +360,12 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(18, 5)] =  "Fish";
         ObjectLookup[new KnyttPoint(18, 6)] =  "WaterMonsterNew";
 
-        for (int i = 11; i <= 22; i++)
+        ObjectLookup[new KnyttPoint(19, 7)] = "Collectable7";
+        ObjectLookup[new KnyttPoint(19, 9)] = "Collectable9";
+        for (int i = 11; i <= 50; i++)
         {
             ObjectLookup[new KnyttPoint(19, i)] = $"Collectable{i}";
         }
-        ObjectLookup[new KnyttPoint(19, 28)] = "Collectable28";
-        for (int i = 31; i <= 43; i++)
-        {
-            ObjectLookup[new KnyttPoint(19, i)] = $"Collectable{i}";
-        }
-        ObjectLookup[new KnyttPoint(19, 45)] = "Collectable45";
-        ObjectLookup[new KnyttPoint(19, 46)] = "Collectable46";
-        ObjectLookup[new KnyttPoint(19, 49)] = "Collectable49";
 
         for (int i = 51; i <= 150; i++)
         {
