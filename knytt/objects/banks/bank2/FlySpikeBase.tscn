@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank2/FlySpike.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7, 5.5 )
+
+[node name="FlySpike" type="Node2D"]
+script = ExtResource( 3 )
+OrganicEnemy = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+centered = false
+
+[node name="WallHitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHitArea"]
+position = Vector2( 12, 12 )
+shape = SubResource( 1 )
+
+[node name="JuniHitArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JuniHitArea"]
+position = Vector2( 12, 13.5 )
+shape = SubResource( 2 )
+
+[node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="WallHitArea" to="." method="_on_WallHitArea_body_entered"]
+[connection signal="body_entered" from="JuniHitArea" to="." method="onDeadlyAreaEntered"]
