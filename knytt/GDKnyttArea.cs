@@ -53,11 +53,11 @@ public class GDKnyttArea : Node2D
                               (int)((p.y - GlobalPosition.y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
     }
 
-    public bool isIn(Vector2 global_pos)
+    public bool isIn(Vector2 global_pos, float x_border = 0, float y_border = 0)
     {
         var gp = GlobalPosition;
-        return (global_pos.x >= gp.x && global_pos.x <= gp.x + Width &&
-                global_pos.y >= gp.y && global_pos.y <= gp.y + Height);
+        return (global_pos.x >= gp.x + x_border && global_pos.x <= gp.x + Width - x_border &&
+                global_pos.y >= gp.y + y_border && global_pos.y <= gp.y + Height - y_border);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)

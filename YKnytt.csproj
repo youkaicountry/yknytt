@@ -36,6 +36,9 @@
     <Compile Include="knytt\objects\banks\bank12\GroundBlob.cs" />
     <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectableWaterMonster.cs" />
+    <Compile Include="knytt\objects\banks\bank4\BigSpider.cs" />
+    <Compile Include="knytt\objects\banks\bank4\Spider.cs" />
+    <Compile Include="knytt\objects\banks\bank4\TriLegSpider.cs" />
     <Compile Include="knytt\objects\banks\bank7\Dust.cs" />
     <Compile Include="knytt\juni\AltInput.cs" />
     <Compile Include="knytt\objects\banks\bank0\Automation.cs" />
