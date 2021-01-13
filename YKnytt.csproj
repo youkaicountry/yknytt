@@ -149,7 +149,6 @@
     <Compile Include="knytt\objects\bullets\BaseBullet.cs" />
     <Compile Include="knytt\objects\bullets\BigGlowingBullet.cs" />
     <Compile Include="knytt\objects\bullets\SmallGlowingBullet.cs" />
-    <Compile Include="knytt\objects\CosineMod.cs" />
     <Compile Include="knytt\objects\banks\common\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />
     <Compile Include="knytt\ui\FileHTTPRequest.cs" />
