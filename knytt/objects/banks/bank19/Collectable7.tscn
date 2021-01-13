@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank19/base/Creature7.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/CollectMod.tscn" type="PackedScene" id=2]
+
+[node name="FlySpike" instance=ExtResource( 1 )]
+OrganicEnemy = false
+
+[node name="JuniHitArea" parent="." index="2"]
+monitoring = false
+
+[node name="CollectMod" parent="." index="4" instance=ExtResource( 2 )]
+collisionPath = NodePath("../WallHitArea/CollisionShape2D")

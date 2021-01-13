@@ -5,7 +5,7 @@ public abstract class BaseWaterMonsterNew : GDKnyttBaseObject
 {
     [Export] int bullets = 0;
 
-    private async void _on_ShotTimer_timeout_ext()
+    protected virtual async void _on_ShotTimer_timeout_ext()
     {
         var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         sprite.Play("prepare");
