@@ -31,7 +31,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank12\GhostLookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />
+    <Compile Include="knytt\objects\banks\bank12\GroundBlob.cs" />
     <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank7\Dust.cs" />
     <Compile Include="knytt\juni\AltInput.cs" />
