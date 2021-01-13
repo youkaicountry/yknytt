@@ -12,7 +12,7 @@ public class Crawler : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        var jgp = Juni.GlobalPosition;
+        var jgp = Juni.ApparentPosition;
 
         float juni_radar_value = horizontal ? jgp.y : jgp.x;
         float obj_radar_value = horizontal ? Center.y : Center.x;
@@ -29,7 +29,7 @@ public class Crawler : GDKnyttBaseObject
             int direction = juni_coord_value < obj_coord_value ? -1 : 1;
             float diff = speed * direction * delta;
             var diff_vec = horizontal ? new Vector2(diff, 0) : new Vector2(0, diff);
-            if (moveAndCollide(diff_vec) != null || !GDArea.isIn(Center + diff_vec))
+            if (!GDArea.isIn(Center + diff_vec, x_border: 10) || moveAndCollide(diff_vec) != null)
             {
                 stop = true;
             }
