@@ -85,7 +85,7 @@ Bank 2 (Flyers):
 [ ] - 25
 [ ] - 26
 [ ] - 27
-[ ] - 28
+[x] - 28 Birdie 3
 [ ] - 29
 [x] - 30 Circle Bird
 [ ] - 31
@@ -256,17 +256,17 @@ Bank 11 (Disks):
 Bank 12 (Ghosts):
 [ ] -  1
 [ ] -  2
-[ ] -  3
-[ ] -  4
+[x] -  3 Ghost Mufs
+[x] -  4 Another Ghost
 [x] -  5 Ghost Block
 [ ] -  6
-[ ] -  7
-[ ] -  8
-[ ] -  9
+[x] -  7 Another Ghost 2
+[x] -  8 Ghost Miner
+[x] -  9 Ground Blob
 [x] - 10 Ghost Eater
 [x] - 11 Ghost
 [ ] - 12
-[ ] - 13
+[x] - 13 Ghost Crawler
 [ ] - 14
 [ ] - 15
 [ ] - 16
