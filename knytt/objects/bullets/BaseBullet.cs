@@ -67,7 +67,7 @@ public class BaseBullet : KinematicBody2D
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
-        hitPlayer = HasNode("HitPlayer") ? GetNode<RawAudioPlayer2D>("HitPlayer") : null;
+        hitPlayer = GetNodeOrNull<RawAudioPlayer2D>("HitPlayer");
         hasDisappear = sprite.Frames.HasAnimation("disappear");
         sprite.Play("default");
     }
@@ -104,14 +104,14 @@ public class BaseBullet : KinematicBody2D
         if (EnableRotation) { Rotation = Mathf.Atan2(_velocity_y, _velocity_x); }
 
         var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
-        if (collision != null)
-        {
-            if (collision.Collider is Juni juni) { juni.die(); }
-            disappear(!(collision.Collider is Juni));
-        }
-        else if (!GDArea.isIn(GlobalPosition))
+        if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
         { 
             disappear(collide: false);
+        }
+        else if (collision != null)
+        {
+            if (collision.Collider is Juni juni) { juni.die(); }
+            else { disappear(collide: true); }
         }
     }
 
@@ -121,10 +121,8 @@ public class BaseBullet : KinematicBody2D
         _velocity_x = _velocity_y = _gravity = 0;
         if (collide)
         {
-            if (hitPlayer != null)
-            {
-                hitPlayer.Play();
-            }
+            hitPlayer?.Play();
+            
             if (hasDisappear)
             {
                 sprite.Play("disappear");

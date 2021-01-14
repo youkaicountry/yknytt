@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using YUtil.Random;
-using YKnyttLib;
 
 public class ObjectSelector
 {
     private Dictionary<object, List<object>> allObjects = new Dictionary<object, List<object>>();
     private Dictionary<object, int> counters = new Dictionary<object, int>();
-    private Dictionary<object, int> selections = new Dictionary<object, int>();
+    private Dictionary<object, object> selections = new Dictionary<object, object>();
     public bool IsOpen { get; set; }
 
     private object getKey(GDKnyttBaseObject obj, bool by_type)
@@ -21,7 +20,7 @@ public class ObjectSelector
         {
             allObjects[type] = new List<object>();
             counters[type] = 0;
-            selections[type] = -1;
+            selections[type] = null;
         }
         allObjects[type].Add(obj);
     }
@@ -31,23 +30,33 @@ public class ObjectSelector
         var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return; }
         allObjects[type].Remove(obj);
-        // TODO: looks not reliable
+        // Do not call Unregister between IsObjectSelected series!
         counters[type] = 0;
-        selections[type] = -1;
+        selections[type] = null;
     }
 
     public bool IsObjectSelected(GDKnyttBaseObject obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        if (!IsOpen || !allObjects.ContainsKey(type)) { return false; } // Reset might be called sooner than an object is disposed
+        // Reset might be called sooner than an object is disposed, or object may be not registered
+        if (!IsOpen || !allObjects.ContainsKey(type) || !allObjects[type].Contains(obj)) { return false; }
 
-        if (counters[type] >= allObjects[type].Count || selections[type] == -1)
+        if (selections[type] == null)
         {
             counters[type] = 0;
-            selections[type] = GDKnyttDataStore.random.Next(allObjects[type].Count);
+            selections[type] = GDKnyttDataStore.random.NextElement(allObjects[type]);
         }
+        
         counters[type]++;
-        return allObjects[type][selections[type]] == obj;
+        bool is_selected = selections[type] == obj;
+
+        if (counters[type] >= allObjects[type].Count)
+        {
+            counters[type] = 0;
+            selections[type] = GDKnyttDataStore.random.NextElement(allObjects[type]);
+        }
+
+        return is_selected;
     }
 
     public int GetIndex(GDKnyttBaseObject obj, bool by_type = false)

@@ -61,7 +61,7 @@ public class GDKnyttBaseObject : Node2D
 
     public void juniDie(Juni juni)
     {
-        if (!safe) { juni.die(); }
+        if (!safe && juni.GDArea == GDArea) { juni.die(); }
     }
 
     // Connect signal to this function if you have simple deadly area in an object

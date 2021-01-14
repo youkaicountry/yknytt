@@ -17,6 +17,7 @@
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [node name="TouchPanel" type="Panel"]
+modulate = Color( 0.75, 0.8, 1, 1 )
 margin_right = 600.0
 margin_bottom = 140.0
 custom_styles/panel = SubResource( 1 )
