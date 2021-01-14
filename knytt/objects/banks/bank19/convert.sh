@@ -14,7 +14,7 @@ cat knytt/objects/banks/bank3/Ratlike.tscn | sed -e $PATTERN > knytt/objects/ban
 cat knytt/objects/banks/bank3/Muff34.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature21.tscn
 cat knytt/objects/banks/bank3/BigCat.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature22.tscn
 cat knytt/objects/banks/bank4/SixLegChild.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature23.tscn
-# cat knytt/objects/banks/bank3/CeilingDropCrawler.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature24.tscn
+cat knytt/objects/banks/bank4/CeilingDropCrawler.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature24.tscn
 cat knytt/objects/banks/bank4/LeftStranger.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature25.tscn
 cat knytt/objects/banks/bank4/StrangeRunner.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature26.tscn
 cat knytt/objects/banks/bank4/HomingRunner.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature27.tscn
