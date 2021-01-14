@@ -30,8 +30,6 @@ public class TouchPanel : Panel
 	private const int TOP_EXCESS = 50;
 	private const int BOTTOM_EXCESS = 40;
 	
-	private readonly Color MODULATE_COLOR = new Color(0.75f, 0.8f, 1);
-	
 	// Left/right prediction settings
 	private const int SPEED_TOO_FAST = 60;
 	private const int REL_TOO_FAST = 7;
@@ -61,7 +59,6 @@ public class TouchPanel : Panel
 		};
 		jumpActionNames = actionNames.Skip(4).ToArray();
 		
-		Modulate = MODULATE_COLOR;
 		GetTree().Root.Connect("size_changed", this, nameof(_on_viewport_size_changed));
 		Configure();
 	}

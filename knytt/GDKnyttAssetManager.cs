@@ -164,7 +164,7 @@ public class GDKnyttAssetManager
     public static byte[] loadFile(string path)
     {
         var f = new File();
-        f.Open(path, File.ModeFlags.Read);
+        f.Open(path, File.ModeFlags.Read); // TODO: make case insensitive for Unix filesystems
         var buffer = f.GetBuffer((int)f.GetLen());
         f.Close();
         return buffer;

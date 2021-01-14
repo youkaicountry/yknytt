@@ -24,7 +24,7 @@ public class DistanceMod : Node2D
     {
         parent = GetParent<GDKnyttBaseObject>();
         globalJuni = parent.Juni;
-        sprite = GetNode<AnimatedSprite>(spritePath);
+        sprite = spritePath != null ? GetNode<AnimatedSprite>(spritePath) : null;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -44,6 +44,6 @@ public class DistanceMod : Node2D
     {
         IsEntered = show;
         EmitSignal(show ? nameof(EnterEvent) : nameof(ExitEvent));
-        sprite.Play(openAnimation, backwards: !show);
+        sprite?.Play(openAnimation, backwards: !show);
     }
 }

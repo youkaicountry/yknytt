@@ -13,6 +13,9 @@ public class TimerExt : Timer
     // Fire timeout_ext only for one object of the type (and change it every loop)
     [Export] bool pickOne = false;
 
+    // Do not add object for selection with pickOne automatically
+    [Export] bool manualRegister = false;
+
     private GDKnyttBaseObject parent;
 
     public override void _Ready()
@@ -23,7 +26,7 @@ public class TimerExt : Timer
 
         if (syncedRandomDelay || pickOne) { parent = GetParent<GDKnyttBaseObject>(); }
         if (syncedRandomDelay)            { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, WaitTime); }
-        if (pickOne)                      { parent.GDArea.Selector.Register(parent); }
+        if (pickOne && !manualRegister)   { parent.GDArea.Selector.Register(parent); }
 
         if (_autostart) { RunTimer(); }
     }
