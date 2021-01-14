@@ -137,6 +137,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 3)] =   "SixLeg";
         ObjectLookup[new KnyttPoint(4, 4)] =   "SixLegChild";
         ObjectLookup[new KnyttPoint(4, 5)] =   "SixLegBaby";
+        ObjectLookup[new KnyttPoint(4, 6)] =   "FloorDropCrawler";
+        ObjectLookup[new KnyttPoint(4, 7)] =   "CeilingDropCrawler";
         ObjectLookup[new KnyttPoint(4, 8)] =   "SlowSideCrawler";
         ObjectLookup[new KnyttPoint(4, 9)] =   "BigSpider";
         ObjectLookup[new KnyttPoint(4, 10)] =  "LeftStranger";
