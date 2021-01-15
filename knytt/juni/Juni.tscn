@@ -315,7 +315,7 @@ max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Hologram B.raw"
 sampleRate = 16000
 
-[node name="PowerUpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+[node name="PowerupPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 rawPath = "res://knytt/data/Sfx/Powerup.raw"
 
 [node name="DoorPlayer2D" parent="Audio" instance=ExtResource( 1 )]
@@ -329,6 +329,9 @@ rawPath = "res://knytt/data/Sfx/Switch.raw"
 
 [node name="TeleportPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 rawPath = "res://knytt/data/Sfx/Teleport.raw"
+
+[node name="CustomPlayer2D" type="AudioStreamPlayer2D" parent="Audio"]
+bus = "SFX"
 
 [node name="ClimbCheckers" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -485,6 +488,11 @@ position = Vector2( 2.7, 0 )
 
 [node name="Ground" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
 position = Vector2( 0, 8 )
+
+[node name="AttachmentSprite" type="Sprite" parent="."]
+visible = false
+z_index = 13
+z_as_relative = false
 
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

@@ -26,7 +26,8 @@ tracks/0/keys = {
 }
 
 [node name="Sign" type="Node2D"]
-z_index = 7
+z_index = 16
+z_as_relative = false
 script = ExtResource( 3 )
 
 [node name="SignRect" type="NinePatchRect" parent="."]

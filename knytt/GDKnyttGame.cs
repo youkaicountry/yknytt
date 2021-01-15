@@ -276,6 +276,7 @@ public class GDKnyttGame : Node2D
 		this.beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
 
 		Juni.stopHologram(cleanup:true);
+        if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
 		if (hasMap()) { Juni.Powers.VisitedAreas.Add(CurrentArea.Area.Position); }
 	}
 

@@ -222,6 +222,7 @@ public class Juni : KinematicBody2D
     {
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
+        enableAttachment(this.Powers.Attachment);
     }
 
     public void setPower(PowerNames name, bool value)
@@ -436,7 +437,41 @@ public class Juni : KinematicBody2D
 
     public void playSound(string sound)
     {
-        GetNode<AudioStreamPlayer2D>($"Audio/{sound}Player2D").Play();
+        string[] available_sounds = {"door", "electronic", "switch", "teleport", "powerup"};
+        if (Array.IndexOf(available_sounds, sound.ToLower()) != -1)
+        {
+            GetNode<AudioStreamPlayer2D>($"Audio/{sound.Capitalize()}Player2D").Play();
+        }
+        else
+        {
+            var custom_player = GetNode<AudioStreamPlayer2D>("Audio/CustomPlayer2D");
+            custom_player.Stream = Game.GDWorld.KWorld.getWorldSound($"Sounds/{sound}.ogg") as AudioStream;
+            if (custom_player.Stream != null) { custom_player.Play(); }
+        }
+    }
+
+    public void enableAttachment(string attachment)
+    {
+        var torch_sprite = GetNode<Sprite>("AttachmentSprite");
+        switch (attachment?.ToLower())
+        {
+            case "true": 
+            case "":
+                torch_sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/Attach.png");
+                torch_sprite.Visible = true;
+                Powers.Attachment = "true";
+                break;
+            case "false":
+            case null:
+                torch_sprite.Visible = false;
+                Powers.Attachment = "false";
+                break;
+            default:
+                torch_sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{attachment}") as Texture;
+                torch_sprite.Visible = torch_sprite.Texture != null;
+                Powers.Attachment = attachment;
+                break;
+        }
     }
 
     // This kills the Juni
@@ -493,6 +528,7 @@ public class Juni : KinematicBody2D
 
         Umbrella.reset();
         stopHologram(cleanup:true);
+        enableAttachment(Powers.Attachment);
     }
 
     private void handleXMovement(float delta)
