@@ -35,6 +35,8 @@ public class GDAreaTiles : Node2D
                 }
             }
         }
+
+        if (area.Area.getExtraData("Overlay")?.ToLower() == "true") { Layers[2].ZIndex = 12; }
     }
 
     public void setTile(int layer, int x, int y, int tilenum)

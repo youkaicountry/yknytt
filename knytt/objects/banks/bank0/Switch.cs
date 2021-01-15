@@ -15,9 +15,8 @@ public abstract class Switch : GDKnyttBaseObject
         shape.Visible = @switch.Visible;
         shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", true);
 
-        string[] available_sounds = {"Door", "Electronic", "Switch"};
-        sound = @switch.Sound == null ? "Teleport" : 
-                Array.IndexOf(available_sounds, @switch.Sound) != -1 ? @switch.Sound : null;
+        sound = @switch.Sound == null || @switch.Sound == "" ? "teleport" : 
+                @switch.Sound.ToLower() == "none" ? null : @switch.Sound;
     }
 
     public void _on_Area2D_body_entered(Node body)

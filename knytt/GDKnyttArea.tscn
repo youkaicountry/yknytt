@@ -39,6 +39,7 @@ one_shot = true
 modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 7
+z_as_relative = false
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]

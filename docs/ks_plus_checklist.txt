@@ -111,7 +111,7 @@ Bank 19 (Collectables):
 [x] 	TrigRepeat(A)
 
 [ ] Shift
-[ ] 	ShiftSound(A) custom sounds
+[x] 	ShiftSound(A) custom sounds
 [ ] 	ShiftCharacter(A)
 [x] 	ShiftTime(A)
 [ ] 	ShiftHide(A)
@@ -142,7 +142,7 @@ Bank 19 (Collectables):
 [ ] 	FlagWarpY(A)=Artifact1
 [x] 	Flag(A)=Power12
 
-[/] Overlay
+[x] Overlay
 
 [ ] Tint
 [ ] 	Tint=#
@@ -155,7 +155,7 @@ Bank 19 (Collectables):
 
 [ ] Custom Fonts
 
-[ ] Attachment
+[x] Attachment
 
 [ ] Loop Music
 

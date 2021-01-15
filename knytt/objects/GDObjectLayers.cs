@@ -47,7 +47,29 @@ public class GDObjectLayers : Node2D
             }
         }
 
-        if (GDArea.Area.getExtraData("Overlay") == "True") { turnOffObjects(Layers[3]); }
+        /*  With overlay:       Without overlay:
+        1   Tiles 1             Tiles 1
+        2                       Tiles 2
+        3   Tiles 3             Tiles 3
+        4   Objects 4 bullets   Objects 4 bullets
+        5   Objects 4           Objects 4
+        6   Objects 5 bullets   Objects 5 bullets
+        7   Objects 5 + effect  Objects 5 + shift effect
+        8   Juni                Juni
+        9   Objects 6 bullets   Objects 6 bullets
+        10  Objects 6           Objects 6
+        11                      Objects 7 bullets
+        12  Tiles 2             Objects 7
+        13  Juni's attachment   Juni's attachment
+        14  Objects 7 bullets
+        15  Objects 7
+        16  Signs and titles    Signs and titles
+        */
+        if (GDArea.Area.getExtraData("Overlay")?.ToLower() == "true")
+        {
+            turnOffObjects(Layers[3]);
+            Layers[3].ZIndex = 15;
+        }
     }
 
     public void returnObjects()
@@ -66,6 +88,8 @@ public class GDObjectLayers : Node2D
             {
                 switch (child)
                 {
+                    case CollisionShape2D shape:     shape.SetDeferred("disabled", true);     break;
+                    case CollisionPolygon2D polygon: polygon.SetDeferred("disabled", true);   break;
                     case Area2D area:        area.CollisionLayer = 0; area.CollisionMask = 0; break;
                     case PhysicsBody2D body: body.CollisionLayer = 0; body.CollisionMask = 0; break;
                 }
