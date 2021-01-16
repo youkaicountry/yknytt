@@ -14,9 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="YKnyttLib">
-      <HintPath>knytt\lib\YKnyttLib.dll</HintPath>
-    </Reference>
     <Reference Include="YUtil.Math">
       <HintPath>knytt\lib\YUtil.Math.dll</HintPath>
     </Reference>
@@ -25,9 +22,6 @@
     </Reference>
     <Reference Include="YUtil.Random">
       <HintPath>knytt\lib\YUtil.Random.dll</HintPath>
-    </Reference>
-    <Reference Include="IniParser">
-      <HintPath>knytt\lib\INIFileParser.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -232,5 +226,11 @@
     <Compile Include="knytt\ui\UICanvasLayer.cs" />
     <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="yknyttlib\YKnyttLib\YKnyttLib.csproj">
+      <Project>{943E0270-0FE6-42D6-8A0F-219CC072EA02}</Project>
+      <Name>YKnyttLib</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
