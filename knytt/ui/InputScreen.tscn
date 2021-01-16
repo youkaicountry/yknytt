@@ -29,10 +29,10 @@ margin_bottom = -6.0
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
-margin_left = 57.6814
-margin_top = 8.02888
-margin_right = 305.681
-margin_bottom = 234.029
+margin_left = 7.47669
+margin_top = 7.32177
+margin_right = 255.477
+margin_bottom = 233.322
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -126,6 +126,23 @@ margin_bottom = 226.0
 Action = "pause"
 ActionLabel = "Pause / Cancel"
 
+[node name="KSSettingsContainer" type="VBoxContainer" parent="."]
+margin_left = 265.571
+margin_top = 7.0
+margin_right = 513.571
+margin_bottom = 233.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapSetting" parent="KSSettingsContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 248.0
+margin_bottom = 19.0
+Action = "map"
+ActionLabel = "Map"
+
 [node name="KeyPrompt" type="Control" parent="."]
 visible = false
 margin_left = 404.187
@@ -159,5 +176,6 @@ text = "Cancel"
 [node name="BounceTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
 [connection signal="pressed" from="BackButton" to="." method="_on_GDKnyttButton_pressed"]
 [connection signal="pressed" from="KeyPrompt/CancelButton" to="." method="_on_CancelButton_pressed"]

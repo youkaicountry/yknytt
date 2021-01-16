@@ -1,7 +1,6 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 // TODO: Make a general version of this
@@ -40,6 +39,7 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "umbrella0", "Key(D)");
         modified |= ensureSetting("Input", "hologram0", "Key(W)");
         modified |= ensureSetting("Input", "pause0", "Key(Escape)");
+        modified |= ensureSetting("Input", "map0", "Key(M)");
 
         if (modified) { saveSettings(); }
         applyAllSettings();
@@ -113,6 +113,7 @@ public class GDKnyttKeys : Node
         applyAction("umbrella");
         applyAction("hologram");
         applyAction("pause");
+        applyAction("map");
     }
 
     private static void applyAction(string name)
