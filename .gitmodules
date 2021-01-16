@@ -1,0 +1,3 @@
+[submodule "yknyttlib"]
+	path = yknyttlib
+	url = https://github.com/youkaicountry/yknyttlib
