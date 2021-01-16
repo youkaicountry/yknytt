@@ -7,8 +7,13 @@ public class InputScreen : Control
 
     public override void _Ready()
     {
-        var settings = GetNode<Node>("SettingsContainer");
-        foreach (var child in settings.GetChildren())
+        connectSettings(GetNode<Node>("SettingsContainer"));
+        connectSettings(GetNode<Node>("KSSettingsContainer"));
+    }
+
+    private void connectSettings(Node node)
+    {
+        foreach (var child in node.GetChildren())
         {
             var io = child as InputOption;
             io.Screen = this;
