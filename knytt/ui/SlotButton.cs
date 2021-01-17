@@ -73,12 +73,14 @@ public class SlotButton : Button
     {
         NewMode = true;
         GetNode<Button>("StartLoadArrow/StartLoadButton").Text = "Start New Game";
+        GetNode<Control>("GreenLayer").Visible = false;
     }
 
     private void setupLoadMode()
     {
         NewMode = false;
         GetNode<Button>("StartLoadArrow/StartLoadButton").Text = "Load Game";
+        GetNode<Control>("GreenLayer").Visible = true;
     }
 
     public void close()
