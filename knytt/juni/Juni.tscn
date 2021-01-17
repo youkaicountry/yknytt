@@ -225,7 +225,7 @@ __meta__ = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 8.4, 3.75, 8.6, -3.75, 8.6, -5.58, 8.4 )
+polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 7.4, 3.75, 8.6, -3.75, 8.6, -5.58, 7.4 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
