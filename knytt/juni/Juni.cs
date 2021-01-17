@@ -7,7 +7,7 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    internal const float JUMP_SPEED = -250f,     // Speed of jump
+    internal const float JUMP_SPEED = -250f,    // Speed of jump
     GRAVITY = 1125f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
     FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
@@ -29,9 +29,9 @@ public class Juni : KinematicBody2D
     TERM_VEL = 350f,                            // Maximum +Y velocity
     TERM_VEL_UMB = 60f,                         // Maximum +Y velocity when Juni has the umbrella deployed
     TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the imbrella deployed in an updraft
-    CLIMB_SPEED = -125f,
-    SLIDE_SPEED = 25f,
-    CLIMB_JUMP_X_SPEED = 130f;
+    CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
+    SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
+    CLIMB_JUMP_X_SPEED = 130f;                  // Speed Juni jumps away from a wall
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();

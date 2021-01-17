@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using YKnyttLib;
 
 public abstract class Switch : GDKnyttBaseObject
