@@ -228,7 +228,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="yknyttlib\YKnyttLib\YKnyttLib.csproj">
+    <ProjectReference Include="knytt\lib\yknyttlib\YKnyttLib\YKnyttLib.csproj">
       <Project>{943E0270-0FE6-42D6-8A0F-219CC072EA02}</Project>
       <Name>YKnyttLib</Name>
     </ProjectReference>
