@@ -1,36 +1,37 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/Laser.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank13/laser.png" type="Texture" id=2]
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 72, 24, 24 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 24, 24, 24 )
+region = Rect2( 0, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 48, 24, 24 )
+region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": false,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "on",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": false,
+"name": "off",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -44,8 +45,9 @@ position = Vector2( 12, 12 )
 frames = SubResource( 5 )
 animation = "off"
 
-[node name="SwitchTimer" type="Timer" parent="."]
-one_shot = true
+[node name="SwitchTimer" parent="." instance=ExtResource( 4 )]
+wait_time = 1.6
+firstDelay = 0.8
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 12, 12 )
@@ -55,6 +57,8 @@ collision_layer = 0
 shape = SubResource( 6 )
 
 [node name="SwitchPlayer" parent="." instance=ExtResource( 3 )]
+volume_db = 10.0
 rawPath = "res://knytt/data/Sfx/Laser Machine B.raw"
-[connection signal="timeout" from="SwitchTimer" to="." method="_on_SwitchTimer_timeout"]
+
+[connection signal="timeout_ext" from="SwitchTimer" to="." method="_on_SwitchTimer_timeout_ext"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
