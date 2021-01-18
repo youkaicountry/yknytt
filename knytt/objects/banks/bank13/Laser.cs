@@ -2,43 +2,44 @@ using Godot;
 
 public class Laser : GDKnyttBaseObject
 {
-    [Export] bool horizontal = false;
-    [Export] bool alwaysOn = false;
-    [Export] bool onAtStart = false;
+    private bool[] horizontal = {true, true, true, false, false, false};
+    private bool[] alwaysOn = {false, false, true, false, false, true};
+    private bool[] onAtStart = {false, true, false, false, true, false};
 
-    private Timer timer;
     private AnimatedSprite sprite;
-    private AudioStreamPlayer2D player;
     private CollisionShape2D collisionShape;
     private bool is_on;
     
     public override void _Ready()
     {
-        timer = GetNode<Timer>("SwitchTimer");
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        player = GetNode<AudioStreamPlayer2D>("SwitchPlayer");
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        var area = GetNode<Area2D>("Area2D");
         
-        if (horizontal)
+        int index = ObjectID.y - 7;
+        if (horizontal[index])
         {
-            area.RotationDegrees = 90;
+            GetNode<Area2D>("Area2D").RotationDegrees = 90;
             sprite.RotationDegrees = 90;
         }
         
-        is_on = onAtStart || alwaysOn;
+        is_on = onAtStart[index] || alwaysOn[index];
         sprite.Play(is_on ? "on" : "off");
         collisionShape.SetDeferred("disabled", !is_on);
-        if (!alwaysOn) { timer.Start(0.8f); }
+        if (!alwaysOn[index])
+        {
+            GetNode<TimerExt>("SwitchTimer").RunTimer();
+            GDArea.Selector.Register(this, by_type: true);
+        }
     }
 
-    private void _on_SwitchTimer_timeout()
+    private void _on_SwitchTimer_timeout_ext()
     {
         is_on = !is_on;
         sprite.Play(is_on ? "on" : "off");
         collisionShape.SetDeferred("disabled", !is_on);
-        // Is it ok to play the same sound for a lot of objects?
-        player.Play();
-        timer.Start(1.6f);
+        if (GDArea.Selector.IsObjectSelected(this, by_type: true))
+        {
+            GetNode<AudioStreamPlayer2D>("SwitchPlayer").Play();
+        }
     }
 }
