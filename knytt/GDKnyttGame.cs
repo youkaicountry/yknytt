@@ -104,11 +104,15 @@ public class GDKnyttGame : Node2D
 		Juni.Connect("PowerChanged", UI, "powerUpdate");
 	}
 
-	public async void respawnJuni()
+	public async void respawnJuniWithWSOD()
 	{
 		UI.WSOD.startWSOD();
 		await ToSignal(UI.WSOD, "WSODFinished");
+		respawnJuni();
+	}
 
+	public void respawnJuni()
+	{
 		var save = GDWorld.KWorld.CurrentSave;
 		Juni.Powers.readFromSave(save);
 		this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
@@ -158,11 +162,21 @@ public class GDKnyttGame : Node2D
 		jgp += new Vector2(GDKnyttArea.Width*wc.x, GDKnyttArea.Height*wc.y);
 		var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
-		// Find flag warps
-		var flag_warps = GDWorld.KWorld.getArea(after_warp_coords).FlagWarps;
+		// Apply flag warps
+		var found_warp = getFlagWarp(after_warp_coords, juni);
+		if (found_warp != null) { jgp +=  new Vector2(GDKnyttArea.Width * found_warp.Value.x, GDKnyttArea.Height * found_warp.Value.y); }
+		var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
+		
+		juni.GlobalPosition = jgp;
+		changeArea(after_flag_warp_coords, regenerate_same:false);
+	}
+
+	public KnyttPoint? getFlagWarp(KnyttPoint area_coords, Juni juni)
+	{
+		var flag_warps = GDWorld.KWorld.getArea(area_coords).FlagWarps;
 		var all_flag_warp = flag_warps[(int)KnyttArea.FlagWarpID.All];
 		bool some_check_failed = false;
-		Vector2? found_warp = null;
+		KnyttPoint? found_warp = null;
 		foreach (var flag_warp in flag_warps)
 		{
 			if (flag_warp != null)
@@ -173,7 +187,7 @@ public class GDKnyttGame : Node2D
 					{
 						if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
 					}
-					found_warp = found_warp ?? new Vector2(GDKnyttArea.Width * flag_warp.x, GDKnyttArea.Height * flag_warp.y);
+					found_warp = found_warp ?? new KnyttPoint(flag_warp.x, flag_warp.y);
 				}
 				else
 				{
@@ -181,13 +195,7 @@ public class GDKnyttGame : Node2D
 				}
 			}
 		}
-
-		// Apply flag warps
-		if (found_warp != null) { jgp += found_warp.Value; }
-		var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
-		
-		juni.GlobalPosition = jgp;
-		changeArea(after_flag_warp_coords, regenerate_same:false);
+		return found_warp;
 	}
 
 	public bool hasMap()
