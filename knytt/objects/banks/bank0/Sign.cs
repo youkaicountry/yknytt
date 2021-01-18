@@ -80,6 +80,7 @@ public class Sign : GDKnyttBaseObject
 
     public void OnArea2DBodyEntered(Node body)
     {
+        // TODO: only one sign at a time in an area
         if (!(body is Juni juni)) { return; }
         if (refCounter.ContainsKey(juni))
         {

@@ -38,29 +38,6 @@ public class Shift : Switch
             }
         }
 
-        var relative_area = shift.RelativeArea;
-        if (!relative_area.isZero())
-        {
-            game.changeAreaDelta(relative_area, true);
-        }
-
-        // Move Juni to the same spot in the new area
-        jgp.x += relative_area.x * GDKnyttArea.Width;
-        jgp.y += relative_area.y * GDKnyttArea.Height;
-
-        // Move Juni to the correct location in the area
-        if (shift.Quantize)
-        {
-            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
-        }
-        else
-        {
-            var relative_pos = shift.RelativePosition;
-            jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
-            jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
-            juni.GlobalPosition = jgp;
-        }
-        
         if (shift.FlagOn != null)
         {
             if (shift.FlagOn.power)
@@ -83,6 +60,30 @@ public class Shift : Switch
             {
                 juni.Powers.setFlag(shift.FlagOff.number, false);
             }
+        }
+
+        var relative_area = shift.RelativeArea;
+        if (!relative_area.isZero())
+        {
+            relative_area += GDArea.GDWorld.Game.getFlagWarp(shift.AbsoluteArea, juni) ?? new KnyttPoint(0, 0);
+            game.changeAreaDelta(relative_area, true);
+        }
+
+        // Move Juni to the correct location in the area
+        if (shift.Quantize)
+        {
+            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+        }
+        else
+        {
+            // Move Juni to the same spot in the new area
+            jgp.x += relative_area.x * GDKnyttArea.Width;
+            jgp.y += relative_area.y * GDKnyttArea.Height;
+
+            var relative_pos = shift.RelativePosition;
+            jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
+            jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
+            juni.GlobalPosition = jgp;
         }
 
         if (shift.Effect)

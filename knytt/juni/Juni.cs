@@ -494,7 +494,7 @@ public class Juni : KinematicBody2D
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();
         await ToSignal(timer, "timeout");
-        Game.respawnJuni();
+        Game.respawnJuniWithWSOD();
     }
 
     public void moveToPosition(GDKnyttArea area, KnyttPoint position)

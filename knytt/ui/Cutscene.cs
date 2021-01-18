@@ -98,6 +98,7 @@ public class Cutscene : Control
             GetTree().Root.AddChild(GDKnyttDataStore.CutsceneReturn);
             GetTree().CurrentScene = GDKnyttDataStore.CutsceneReturn;
             GetTree().Paused = false;
+            (GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame).respawnJuni();
         }
     }
 

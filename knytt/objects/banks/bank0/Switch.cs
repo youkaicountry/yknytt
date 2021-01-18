@@ -14,8 +14,9 @@ public abstract class Switch : GDKnyttBaseObject
         shape.Visible = @switch.Visible;
         shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", true);
 
-        sound = @switch.Sound == null || @switch.Sound == "" ? "teleport" : 
-                @switch.Sound.ToLower() == "none" ? null : @switch.Sound;
+        var sound_cmp = @switch.Sound?.ToLower();
+        sound = sound_cmp == null || sound_cmp == "" ? "teleport" : 
+                sound_cmp == "none" || sound_cmp == "false" ? null : @switch.Sound;
     }
 
     public void _on_Area2D_body_entered(Node body)

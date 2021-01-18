@@ -368,6 +368,8 @@ wait_time = 1.5
 one_shot = true
 
 [node name="DeathParticles" type="Node2D" parent="."]
+z_index = 17
+z_as_relative = false
 script = ExtResource( 9 )
 
 [node name="DeathParticles1" type="CPUParticles2D" parent="DeathParticles"]

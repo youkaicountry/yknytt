@@ -13,6 +13,7 @@ public class ObjectSelector
         return by_type ? (object)obj.GetType() : obj.ObjectID;
     }
 
+    // Do not call Register and Unregister in IsObjectSelected series!
     public void Register(GDKnyttBaseObject obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
@@ -30,7 +31,6 @@ public class ObjectSelector
         var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return; }
         allObjects[type].Remove(obj);
-        // Do not call Unregister between IsObjectSelected series!
         counters[type] = 0;
         selections[type] = null;
     }
