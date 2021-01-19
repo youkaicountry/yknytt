@@ -173,11 +173,12 @@ public class GDKnyttGame : Node2D
 
 	public KnyttPoint? getFlagWarp(KnyttPoint area_coords, Juni juni)
 	{
-		var flag_warps = GDWorld.KWorld.getArea(area_coords).FlagWarps;
-		var all_flag_warp = flag_warps[(int)KnyttArea.FlagWarpID.All];
+		var area = GDWorld.KWorld.getArea(area_coords);
+		if (area == null) { return null; }
+		var all_flag_warp = area.FlagWarps[(int)KnyttArea.FlagWarpID.All];
 		bool some_check_failed = false;
 		KnyttPoint? found_warp = null;
-		foreach (var flag_warp in flag_warps)
+		foreach (var flag_warp in area.FlagWarps)
 		{
 			if (flag_warp != null)
 			{

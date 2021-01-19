@@ -89,7 +89,10 @@ public class Sign : GDKnyttBaseObject
         else
         {
             if (refCounter.Count == 0) { messageIndex = -1; nextMessage(juni); }
-            if (texts.Count > 1) { juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
+            if (texts.Count > 1 || shiftMessageIndex > 0 || triggerMessageIndex > 0)
+            {
+                juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage));
+            }
             refCounter[juni] = 1;
         }
     }
