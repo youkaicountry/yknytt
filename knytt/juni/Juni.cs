@@ -243,6 +243,8 @@ public class Juni : KinematicBody2D
         if (dead) { return; }
         //GD.Print("juni physics"); // uncomment this to decrease crashes. How to do this in a right way?
 
+        juniInput.Update();
+
         if (just_reset > 0) 
         {
             just_reset--;
