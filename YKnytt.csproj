@@ -197,6 +197,7 @@
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
+    <Compile Include="knytt\juni\JuniInput.cs" />
     <Compile Include="knytt\objects\banks\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />

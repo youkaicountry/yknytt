@@ -79,7 +79,9 @@ public class Juni : KinematicBody2D
 
     public int jumps = 0;
 
-    // Keys
+    // Input
+    public JuniInput juniInput;
+
     float _just_climbed = 0f;
     public bool JustClimbed 
     {
@@ -112,40 +114,21 @@ public class Juni : KinematicBody2D
 
     public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB ) : TERM_VEL; } }
 
-    public AltInput altInput = new AltInput();
-    private bool checkPressed(string action)
-    {
-        return (!GDArea.BlockInput && Input.IsActionPressed(action)) || (GDArea.HasAltInput && altInput.IsActionPressed(action));
-    }
-    private bool checkJustPressed(string action)
-    {
-        return (!GDArea.BlockInput && Input.IsActionJustPressed(action)) || (GDArea.HasAltInput && altInput.IsActionJustPressed(action));
-    }
-
-    public bool LeftHeld { get { return checkPressed("left"); } }
-    public bool RightHeld { get { return checkPressed("right"); } }
-    public bool UpHeld { get { return checkPressed("up"); } }
-    public bool DownHeld { get { return checkPressed("down"); } }
-    public bool DownPressed { get { return checkJustPressed("down"); } }
-    public bool UmbrellaPressed { get { return checkJustPressed("umbrella"); } }
-    public bool HologramPressed { get { return checkJustPressed("hologram"); } }
-    public bool JumpEdge { get { return checkJustPressed("jump"); } }
-    public bool JumpHeld { get { return checkPressed("jump"); } }
-    public bool WalkHeld { get { return checkPressed("walk"); } }
+    
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     //public bool Grounded { get { return IsOnFloor(); } }
     public bool Grounded { get { return GroundChecker.IsOnGround; } }
-    public bool DidJump { get { return JumpEdge && Grounded && GroundChecker.CanJump; } }
+    public bool DidJump { get { return juniInput.JumpEdge && Grounded && GroundChecker.CanJump; } }
     public bool FacingRight 
     {
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
         get { return !Sprite.FlipH; }
     }
     //public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
-    public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
+    public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
     public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
@@ -158,7 +141,7 @@ public class Juni : KinematicBody2D
         get 
         {
             if (!Powers.getPower(PowerNames.Run)) { return false; }
-            return !WalkHeld;
+            return !juniInput.WalkHeld;
         }
     }
 
@@ -175,8 +158,8 @@ public class Juni : KinematicBody2D
         get
         {
             var d = 0;
-            if (RightHeld) { d = 1; FacingRight = true; }
-            else if (LeftHeld) { d = -1; FacingRight = false; }
+            if (juniInput.RightHeld) { d = 1; FacingRight = true; }
+            else if (juniInput.LeftHeld) { d = -1; FacingRight = false; }
             return d;
         }
     }
@@ -199,6 +182,7 @@ public class Juni : KinematicBody2D
 
     public Juni()
     {
+        juniInput = new JuniInput(this);
         this.Powers = new JuniValues();
         this.double_jump_scene = ResourceLoader.Load("res://knytt/juni/DoubleJump.tscn") as PackedScene;
     }
@@ -265,7 +249,7 @@ public class Juni : KinematicBody2D
             if (just_reset == 0) { GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", false); }
         }
 
-        if (DownPressed) { EmitSignal(nameof(DownEvent), this); }
+        if (juniInput.DownPressed) { EmitSignal(nameof(DownEvent), this); }
 
         // Organic Enemy Distance
         if (Powers.getPower(PowerNames.EnemyDetector) && organic_enemy_distance <= ORGANIC_ENEMY_DISTANCE)
@@ -288,7 +272,7 @@ public class Juni : KinematicBody2D
         this.CurrentState?.PreProcess(delta);
 
         // Handle umbrella
-        if (CanUmbrella && UmbrellaPressed)
+        if (CanUmbrella && juniInput.UmbrellaPressed)
         {
             Umbrella.Deployed = !Umbrella.Deployed;
         }
@@ -316,7 +300,7 @@ public class Juni : KinematicBody2D
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         
-        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !JumpEdge ) { handleSlope(); }
+        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge ) { handleSlope(); }
         else 
         { 
             //velocity.x = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); 
@@ -326,7 +310,7 @@ public class Juni : KinematicBody2D
         
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
 
-        if (GDArea.HasAltInput) { altInput.FinishFrame(); }
+        if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
     }
 
     private void handleSlope()
@@ -355,14 +339,14 @@ public class Juni : KinematicBody2D
         // framerate independence
         if (InUpdraft && Umbrella.Deployed)
         {
-            velocity.y -= GRAVITY * delta * (JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
-            velocity.y = Mathf.Max(JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
+            velocity.y -= GRAVITY * delta * (juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
+            velocity.y = Mathf.Max(juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
         }
         else
         {
             if (!Grounded) { velocity.y += GRAVITY * delta; }
             else { velocity.y = GRAVITY * delta; }
-            if (JumpHeld) 
+            if (juniInput.JumpHeld) 
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? HIGH_JUMP_HOLD_POWER : JUMP_HOLD_POWER;
                 if (Umbrella.Deployed) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
@@ -376,14 +360,14 @@ public class Juni : KinematicBody2D
         if (!Powers.getPower(PowerNames.Hologram)) { return; }
 
         bool double_down = false;
-        if (DownPressed)
+        if (juniInput.DownPressed)
         {
             var dtimer = GetNode<Timer>("DoubleDownTimer");
             if (dtimer.TimeLeft > 0f) { double_down = true; dtimer.Stop(); }
             else { dtimer.Start(); }
         }
 
-        if (double_down || HologramPressed)
+        if (double_down || juniInput.HologramPressed)
         {
             if (Hologram == null)
             { 
