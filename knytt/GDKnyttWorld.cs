@@ -67,13 +67,10 @@ public class GDKnyttWorld : Node2D
 
     public GDKnyttArea instantiateArea(KnyttPoint point)
     {
-        var area = this.KWorld.getArea(point);
-        if (area == null) { return null; }
-
+        var area = this.KWorld.getArea(point) ?? new KnyttArea(point, KWorld);
         var area_node = this.area_scene.Instance() as GDKnyttArea;
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
-
         return area_node;
     }
 }

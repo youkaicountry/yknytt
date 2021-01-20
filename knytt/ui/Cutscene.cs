@@ -85,6 +85,7 @@ public class Cutscene : Control
 
     private async void endCutscene()
     {
+        SetProcess(false);
         var fade = GetNode<FadeLayer>("FadeLayer");
         fade.startFade();
         await ToSignal(fade, "FadeDone");

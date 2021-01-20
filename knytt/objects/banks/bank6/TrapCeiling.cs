@@ -14,11 +14,9 @@ public class TrapCeiling : GDKnyttBaseObject
         Translate(new Vector2(0, move_speed));
     }
 
-    public void _on_Area2D_body_entered(Node2D body)
+    private void _on_Checker_body_entered(object body, bool up)
     {
-        if (body is Juni juni) { juniDie(juni); return; }
-
-        moving_up = !moving_up;
+        moving_up = up;
         GetNode<AudioStreamPlayer2D>("HitSound2D").Play();
     }
 }

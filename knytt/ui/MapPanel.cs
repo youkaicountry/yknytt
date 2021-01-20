@@ -41,7 +41,7 @@ public class MapPanel : Panel
             {
                 var coord = new KnyttPoint(x, y);
                 var area = world.getArea(coord);
-                if (area.ExtraData == null) { continue; }
+                if (area?.ExtraData == null) { continue; }
                 
                 int? map_x = int.TryParse(area.ExtraData["MapX"], out var i) ? i : null as int?;
                 int? map_y = int.TryParse(area.ExtraData["MapY"], out     i) ? i : null as int?;
@@ -80,7 +80,7 @@ public class MapPanel : Panel
             for (int y = world.MinBounds.y; y <= world.MaxBounds.y; y++)
             {
                 var coord = new KnyttPoint(x, y);
-                if (world.Map[world.getMapIndex(coord)] == null) { continue; }
+                if (world.getArea(coord) == null) { continue; }
 
                 if (spoofing.ContainsKey(coord) && !(visible.ContainsKey(coord) && visible[coord]))
                 {
