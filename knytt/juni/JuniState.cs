@@ -21,7 +21,7 @@ public class IdleState : JuniState
     public override void PostProcess(float delta) 
     {
         // Do climb check first so jump will override it.
-        if (juni.UpHeld && juni.CanClimb)
+        if (juni.juniInput.UpHeld && juni.CanClimb)
         {
             juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
@@ -66,7 +66,7 @@ public class WalkRunState : JuniState
     public override void PostProcess(float delta)
     {
         // Do climb check first so jump will override it.
-        if (juni.UpHeld && juni.CanClimb) 
+        if (juni.juniInput.UpHeld && juni.CanClimb) 
         {
             juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
@@ -112,10 +112,10 @@ public class ClimbState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.UpHeld) { juni.velocity.y = Juni.CLIMB_SPEED; }
+        if (juni.juniInput.UpHeld) { juni.velocity.y = Juni.CLIMB_SPEED; }
         else if (juni.velocity.y > 0f) { juni.transitionState(new SlideState(juni)); }
 
-        if (juni.JumpEdge) 
+        if (juni.juniInput.JumpEdge)
         {
             juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();
@@ -156,12 +156,12 @@ public class SlideState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.UpHeld) 
+        if (juni.juniInput.UpHeld) 
         { 
             juni.velocity.y = Juni.CLIMB_SPEED; 
             juni.transitionState(new ClimbState(juni));
         }
-        else if (!juni.DownHeld)
+        else if (!juni.juniInput.DownHeld)
         {
             juni.velocity.y = Juni.SLIDE_SPEED;
             if (slide_sound.Playing) { slide_sound.Stop(); }
@@ -174,7 +174,7 @@ public class SlideState : JuniState
             juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
         }
 
-        if (juni.JumpEdge)
+        if (juni.juniInput.JumpEdge)
         {
             juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();

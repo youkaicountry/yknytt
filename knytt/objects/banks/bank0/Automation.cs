@@ -20,7 +20,7 @@ public class Automation : GDKnyttBaseObject
     {
         if (GDArea.Selector.GetSize(this) == 0 && GDArea.Selector.IsOpen)
         {
-            juni.altInput.ActionPress(action);
+            juni.juniInput.altInput.ActionPress(action);
         }
 
         GDArea.Selector.Register(this);
@@ -32,7 +32,7 @@ public class Automation : GDKnyttBaseObject
 
         if (GDArea.Selector.GetSize(this) == 0 && GDArea.Selector.IsOpen)
         {
-            juni.altInput.ActionRelease(action);
+            juni.juniInput.altInput.ActionRelease(action);
         }
     }
 }

@@ -14,10 +14,10 @@ public class TwoWayPlatform : OneWayPlatform
 
     public override void _PhysicsProcess(float delta)
     {
-        bool enable_nojump = junis.Any(j => j.DownHeld);
+        bool enable_nojump = junis.Any(j => j.juniInput.DownHeld);
         if (!enable_nojump != noJumpShape.Disabled) { noJumpShape.SetDeferred("disabled", !enable_nojump); }
 
-        bool disable_ground = enable_nojump && junis.Any(j => j.DownHeld && j.JumpEdge);
+        bool disable_ground = enable_nojump && junis.Any(j => j.juniInput.DownHeld && j.juniInput.JumpEdge);
         if (disable_ground) { disablePlatform(true); }
     }
 
