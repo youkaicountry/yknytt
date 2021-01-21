@@ -121,8 +121,8 @@ public class Juni : KinematicBody2D
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     //public bool Grounded { get { return IsOnFloor(); } }
     public bool Grounded { get { return GroundChecker.IsOnGround; } }
-    public bool DidJump { get { return juniInput.JumpEdge && Grounded && GroundChecker.CanJump; } }
-    public bool FacingRight 
+    public bool DidJump { get { return juniInput.JumpEdge && Grounded; } }
+    public bool FacingRight
     {
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
         get { return !Sprite.FlipH; }
@@ -241,7 +241,6 @@ public class Juni : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         if (dead) { return; }
-        //GD.Print("juni physics"); // uncomment this to decrease crashes. How to do this in a right way?
 
         juniInput.Update();
 
