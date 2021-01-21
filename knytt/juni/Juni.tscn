@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -201,9 +201,6 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 0.56369, 5.09802 )
 
-[sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 5.50442, 0.5 )
-
 [sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -360,8 +357,8 @@ collision_layer = 0
 collision_mask = 14
 script = ExtResource( 14 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundChecker"]
-shape = SubResource( 19 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundChecker"]
+polygon = PoolVector2Array( 5.6, -1.7, 3.8, 2.5, -3.8, 2.5, -5.6, -1.7 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
@@ -469,7 +466,7 @@ collision_mask = 16384
 shape = SubResource( 21 )
 
 [node name="GroundParticles" type="Area2D" parent="JuniMotionParticles"]
-position = Vector2( 0, 7.42 )
+position = Vector2( -1, 7.42 )
 collision_layer = 0
 collision_mask = 16384
 

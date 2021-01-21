@@ -4,7 +4,10 @@ public class IdleState : JuniState
 {
     public override bool StickToGround { get { return true; } }
 
-    public IdleState(Juni juni) : base(juni) { }
+    public IdleState(Juni juni) : base(juni)
+     { 
+
+     }
 
     public override void onEnter()
     {
@@ -31,14 +34,19 @@ public class IdleState : JuniState
         else if ( !juni.Grounded ) // Ground falls out from under Juni
         { 
             juni.CanFreeJump = true;
-            juni.transitionState(new FallState(juni)); } 
+            juni.transitionState(new FallState(juni)); }
     }
 }
 
 // TODO: Have a juni function that checks if walk or run
 public class WalkRunState : JuniState
 {
+    const float FALL_LEEWAY = .02f;
+
     bool walk_run;
+    int fall_frames;
+    int current_fall;
+
     string WalkRunString { get { return walk_run ? "Run" : "Walk"; } }
 
     public override bool StickToGround { get { return true; } }
@@ -47,6 +55,10 @@ public class WalkRunState : JuniState
     { 
         this.walk_run = walk_run;
         juni.MotionParticles.CurrentMotion = walk_run ? JuniMotionParticles.JuniMotion.RUN : JuniMotionParticles.JuniMotion.WALK;
+
+        // Calculate the leeway frames to fall in a frame independent manner
+        fall_frames = Mathf.FloorToInt(FALL_LEEWAY / (1f / ((int)ProjectSettings.GetSetting("physics/common/physics_fps"))));
+        current_fall = fall_frames;
     }
 
     public override void onEnter()
@@ -66,18 +78,23 @@ public class WalkRunState : JuniState
     public override void PostProcess(float delta)
     {
         // Do climb check first so jump will override it.
-        if (juni.juniInput.UpHeld && juni.CanClimb) 
+        if (juni.juniInput.UpHeld && juni.CanClimb)
         {
             juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(reset_jumps:true); }
-        else if ( !juni.Grounded ) // Juni Walks off Ledge / ground falls out from under
-        { 
-            juni.CanFreeJump = true;
-            juni.transitionState(new FallState(juni)); 
+        if (juni.juniInput.JumpEdge && current_fall > 0) { juni.executeJump(reset_jumps:true); }
+        else if ( !juni.Grounded) // Juni Walks off Ledge / ground falls out from under
+        {
+            if (current_fall == 0)
+            {
+                juni.CanFreeJump = true;
+                juni.transitionState(new FallState(juni));
+            }
+            current_fall--;
         }
+        else { current_fall = fall_frames; }
     }
 
     public override void onExit()
@@ -199,7 +216,7 @@ public class JumpState : JuniState
     }
 
     public override void PostProcess(float delta)
-    { 
+    {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
         else if (juni.velocity.y >= 0) { juni.transitionState(new FallState(juni)); }
     }
@@ -221,10 +238,10 @@ public class FallState : JuniState
     }
 
     public override void PostProcess(float delta)
-    { 
+    {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
         if (juni.Grounded) 
-        { 
+        {
             juni.transitionState(new IdleState(juni)); 
             juni.GetNode<RawAudioPlayer2D>("Audio/LandPlayer2D").Play();
         }
