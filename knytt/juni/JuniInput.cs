@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public class JuniInput
@@ -17,17 +18,20 @@ public class JuniInput
         }
     }
 
-    private PressEdge downPressed, umbrellaPressed, hologramPressed, jumpPressed;
+    private Dictionary<string, PressEdge> pressEdges;
 
     public JuniInput(Juni juni)
     {
         Juni = juni;
 
         // Register actions for JustPressed monitoring
-        downPressed = new PressEdge("down");
-        umbrellaPressed = new PressEdge("umbrella");
-        hologramPressed = new PressEdge("hologram");
-        jumpPressed = new PressEdge("jump");
+        pressEdges = new Dictionary<string, PressEdge>()
+        {
+            ["down"] = new PressEdge("down"),
+            ["umbrella"] = new PressEdge("umbrella"),
+            ["hologram"] = new PressEdge("hologram"),
+            ["jump"] = new PressEdge("jump")
+        };
     }
 
     public Juni Juni { get; }
@@ -38,26 +42,26 @@ public class JuniInput
     }
     public bool checkJustPressed(string action)
     {
-        return (!Juni.GDArea.BlockInput && Input.IsActionJustPressed(action)) || (Juni.GDArea.HasAltInput && altInput.IsActionJustPressed(action));
+        return (!Juni.GDArea.BlockInput && pressEdges[action].justPressed) || (Juni.GDArea.HasAltInput && altInput.IsActionJustPressed(action));
     }
 
     public bool LeftHeld { get { return checkPressed("left"); } }
     public bool RightHeld { get { return checkPressed("right"); } }
     public bool UpHeld { get { return checkPressed("up"); } }
     public bool DownHeld { get { return checkPressed("down"); } }
-    public bool DownPressed { get { return downPressed.justPressed; } }
-    public bool UmbrellaPressed { get { return umbrellaPressed.justPressed; } }
-    public bool HologramPressed { get { return hologramPressed.justPressed; } }
-    public bool JumpEdge { get { return jumpPressed.justPressed; } }
+    public bool DownPressed { get { return checkJustPressed("down"); } }
+    public bool UmbrellaPressed { get { return checkJustPressed("umbrella"); } }
+    public bool HologramPressed { get { return checkJustPressed("hologram"); } }
+    public bool JumpEdge { get { return checkJustPressed("jump"); } }
     public bool JumpHeld { get { return checkPressed("jump"); } }
     public bool WalkHeld { get { return checkPressed("walk"); } }
 
     public void Update()
     {
-        downPressed.Update();
-        umbrellaPressed.Update();
-        hologramPressed.Update();
-        jumpPressed.Update();
+        pressEdges["down"].Update();
+        pressEdges["umbrella"].Update();
+        pressEdges["hologram"].Update();
+        pressEdges["jump"].Update();
     }
 
     public void FinishFrame()
