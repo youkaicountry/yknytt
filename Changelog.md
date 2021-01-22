@@ -1,6 +1,6 @@
 All notable changes to YKnytt will be documented here.
 
-## [Unreleased]
+## [0.3.0] - 2021-01-22
 
 This is a huge release featuring many exciting new changes. Lots of new objects, Knytt Story Plus support,
 a level downloader, improved physics, bugfixes, and optimizations.
@@ -29,14 +29,14 @@ a level downloader, improved physics, bugfixes, and optimizations.
 - Invisible barrier was not blocking movement properly
 - Juni now spawns perfectly at ground level
 - Juni's double jump counter was not resetting occasionally
-- C# project and solution names had incorrect case [Contribution by: akien-mga]
+- C# project and solution names had incorrect case
 - Fix info panel showing 2 blue keys, and not the purple key
 - CallDeferred on several methods to prevent crashes
 
 ## Changed
 - X Button on window and back button on mobile now close the main menu
-- Stationary animated objects now dervice from a base class [Contribution by: up-left]
-- Optimized initial tileset loading [Contribution by: up-left]
+- Stationary animated objects now dervice from a base class
+- Optimized initial tileset loading
 - World selection screen layout
 - Better slope traversal
 - UI skin for sliders
