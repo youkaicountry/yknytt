@@ -366,6 +366,8 @@ one_shot = true
 
 [node name="DeathParticles" type="Node2D" parent="."]
 script = ExtResource( 9 )
+z_index = 16
+z_as_relative = false
 
 [node name="DeathParticles1" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
