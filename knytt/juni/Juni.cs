@@ -244,8 +244,6 @@ public class Juni : KinematicBody2D
 
         juniInput.Update();
 
-        
-
         if (just_reset > 0)
         {
             just_reset--;
