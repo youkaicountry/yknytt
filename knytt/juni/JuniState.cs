@@ -85,7 +85,7 @@ public class WalkRunState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.juniInput.JumpEdge && current_fall > 0) { juni.executeJump(reset_jumps:true); }
+        if (juni.juniInput.JumpEdge && juni.GroundChecker.CanJump && current_fall > 0) { juni.executeJump(reset_jumps:true); }
         else if ( !juni.Grounded) // Juni Walks off Ledge / ground falls out from under
         {
             if (current_fall <= 0)
