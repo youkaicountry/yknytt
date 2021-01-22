@@ -33,7 +33,8 @@ public class IdleState : JuniState
         if (juni.DidJump) { juni.executeJump(reset_jumps:true); }
         else if ( !juni.Grounded ) // Ground falls out from under Juni
         { 
-            juni.CanFreeJump = true;
+            juni.CanFreeJump = false;
+            juni.jumps = 1;
             juni.transitionState(new FallState(juni)); }
     }
 }
@@ -41,7 +42,7 @@ public class IdleState : JuniState
 // TODO: Have a juni function that checks if walk or run
 public class WalkRunState : JuniState
 {
-    const float FALL_LEEWAY = .02f;
+    const float FALL_LEEWAY = .085f;
 
     bool walk_run;
     int fall_frames;
@@ -87,9 +88,10 @@ public class WalkRunState : JuniState
         if (juni.juniInput.JumpEdge && current_fall > 0) { juni.executeJump(reset_jumps:true); }
         else if ( !juni.Grounded) // Juni Walks off Ledge / ground falls out from under
         {
-            if (current_fall == 0)
+            if (current_fall <= 0)
             {
-                juni.CanFreeJump = true;
+                juni.CanFreeJump = false;
+                juni.jumps = 1; // Transition as if Juni has jumped once
                 juni.transitionState(new FallState(juni));
             }
             current_fall--;
