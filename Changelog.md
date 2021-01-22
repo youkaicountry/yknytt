@@ -2,27 +2,28 @@ All notable changes to YKnytt will be documented here.
 
 ## [Unreleased]
 
+This is a huge release featuring many exciting new changes. Lots of new objects, Knytt Story Plus support,
+a level downloader, improved physics, bugfixes, and optimizations.
+
 ## Added
 - Shift quantization
-- Sun ray
-- Stationary Knytts [Contribution by: up-left]
-- Fluff [Contribution by: up-left]
-- Rock [Contribution by: up-left]
-- Bubbles
-- Fish
-- Scene particle system
-- Leaves
-- Water Monster
-- Spike Traps [Contribution by: up-left]
-- Drop Traps [Contribution by: up-left]
-- Lasers [Contribution by: up-left]
-- Cannons [Contribution by: up-left]
-- Bullet System [Contribution by: up-left]
-- Password / Locks [Contribution by: up-left]
-- Object Selector [Contribution by: up-left]
-- Invisible Death Zones
-- Invisible Slopes
+- Bullet System
+- Many new objects
 - Volume settings
+- More built-in official worlds
+- Knytt Stories Plus support
+- Golden Creatures (KS+)
+- Multiple message signs (KS+)
+- Level map (KS+)
+- Raw Audio cache
+- Triggers (KS+)
+- Flag(All) (KS+)
+- Invulnerable debug mode
+- Artifacts (KS+)
+- Autoplay (KS+)
+- Level Downloader
+- Welcome Screen (KS+)
+- Delayed Shift (KS+)
 
 ## Fixed
 - Invisible barrier was not blocking movement properly
@@ -30,6 +31,7 @@ All notable changes to YKnytt will be documented here.
 - Juni's double jump counter was not resetting occasionally
 - C# project and solution names had incorrect case [Contribution by: akien-mga]
 - Fix info panel showing 2 blue keys, and not the purple key
+- CallDeferred on several methods to prevent crashes
 
 ## Changed
 - X Button on window and back button on mobile now close the main menu
@@ -37,6 +39,22 @@ All notable changes to YKnytt will be documented here.
 - Optimized initial tileset loading [Contribution by: up-left]
 - World selection screen layout
 - Better slope traversal
+- UI skin for sliders
+- Tweak Umbrella physics
+- Tweak Water hit boxes
+- Optimize makeTileset
+- Imprtove Juni movement physics
+- Improve jumping logic
+- Knytt Stories Plus icons in info panel
+- Touchscreen controls improved
+- Knytt Stories Plus controls column added to input config screen
+- YKnyttLib is now a submodule
+- World slot button coloration
+
+## Contributors
+- up-left
+- youkaicountry
+- akien-mga
 
 ## [0.2.0] - 2020-10-20
 
