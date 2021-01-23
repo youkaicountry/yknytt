@@ -13,7 +13,6 @@ public class Juni : KinematicBody2D
     FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
     MAX_SPEED_RUN = 175f,                       // Max speed while running
-    ORGANIC_ENEMY_DISTANCE = 170f,              // Distance that the detector picks up an organic enemy 
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
     SLOPE_MAX_ANGLE = .81f,                     // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
     UPDRAFT_FORCE = .25f,                       // The base updraft force exerted
@@ -148,7 +147,8 @@ public class Juni : KinematicBody2D
     public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
     public Node2D Hologram { get; private set; }
 
-    public float organic_enemy_distance = float.MaxValue;
+    public float detector_reverse_distance = 0;
+    public Color detector_color = new Color(0, 0, 0, 0);
 
     public bool WalkRun 
     {
@@ -268,17 +268,16 @@ public class Juni : KinematicBody2D
         if (juniInput.DownPressed) { EmitSignal(nameof(DownEvent), this); }
 
         // Organic Enemy Distance
-        if (Powers.getPower(PowerNames.EnemyDetector) && organic_enemy_distance <= ORGANIC_ENEMY_DISTANCE)
+        if (detector_reverse_distance > 0)
         {
             Detector.Visible = true;
-            var m = Detector.Modulate;
-            float max = 1f - (organic_enemy_distance / ORGANIC_ENEMY_DISTANCE);
-            m.a = GDKnyttDataStore.random.NextFloat(.25f, max * .65f);
+            var m = detector_color;
+            m.a = GDKnyttDataStore.random.NextFloat(.25f, detector_reverse_distance * .65f);
             Detector.Modulate = m;
         }
         else { Detector.Visible = false; }
         
-        organic_enemy_distance = float.MaxValue;
+        detector_reverse_distance = 0;
 
         this.checkDebugInput(); // TODO: Check the mode for debug
 
@@ -605,10 +604,12 @@ public class Juni : KinematicBody2D
         return jp.DistanceSquaredTo(p);
     }
 
-    public void updateOrganicEnemy(Godot.Vector2 p)
+    public void updateOrganicEnemy(float rev_distance, Color color)
     {
-        if (!Powers.getPower(PowerNames.EnemyDetector)) { return; }
-        var md = distance(p, false);
-        if (md < organic_enemy_distance) { organic_enemy_distance = md; }
+        if (rev_distance > detector_reverse_distance)
+        {
+            detector_reverse_distance = rev_distance;
+            detector_color = color;
+        }
     }
 }

@@ -30,13 +30,7 @@ public class GDObjectLayers : Node2D
                 {
                     var oid = data.getObjectID(x, y);
                     if (oid.isZero()) { continue; }
-
-                    if (!GDKnyttObjectFactory.ObjectBundles.TryGetValue(oid, out var bundle))
-                    {
-                        GD.Print($"Object {oid.x}:{oid.y} unimplemented.");
-                        continue;
-                    }
-                    
+                    if (!GDKnyttObjectFactory.ObjectBundles.TryGetValue(oid, out var bundle)) { continue; }
                     this.Layers[layer].addObject(new KnyttPoint(x, y), bundle);
                 }
             }

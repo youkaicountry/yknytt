@@ -17,6 +17,7 @@ public class Spider : GDKnyttBaseObject
 
     public override void _PhysicsProcess(float delta)
     {
+        base._PhysicsProcess(delta);
         if (!isRunning) {return; }
         float diff = speed * direction * delta;
         var diff_vec = new Vector2(diff, 0);
