@@ -201,13 +201,13 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 0.56369, 5.09802 )
 
-[sub_resource type="Gradient" id=20]
+[sub_resource type="Gradient" id=19]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=21]
+[sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 6.71, 5.05 )
 
-[sub_resource type="RectangleShape2D" id=22]
+[sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 4.6728, 2.11682 )
 
 [node name="Juni" type="KinematicBody2D"]
@@ -354,7 +354,7 @@ shape = SubResource( 18 )
 [node name="GroundChecker" type="Area2D" parent="."]
 position = Vector2( 0, 9.1 )
 collision_layer = 0
-collision_mask = 14
+collision_mask = 6
 script = ExtResource( 14 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundChecker"]
@@ -365,9 +365,9 @@ wait_time = 1.5
 one_shot = true
 
 [node name="DeathParticles" type="Node2D" parent="."]
-script = ExtResource( 9 )
 z_index = 16
 z_as_relative = false
+script = ExtResource( 9 )
 
 [node name="DeathParticles1" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -383,7 +383,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 19 )
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -399,7 +399,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 19 )
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -415,7 +415,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 19 )
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -431,7 +431,7 @@ spread = 180.0
 gravity = Vector2( 0, -25 )
 initial_velocity = 16.0
 initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+color_ramp = SubResource( 19 )
 
 [node name="Detector" type="Sprite" parent="."]
 visible = false
@@ -465,7 +465,7 @@ collision_layer = 0
 collision_mask = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuniMotionParticles/ClimbParticles"]
-shape = SubResource( 21 )
+shape = SubResource( 20 )
 
 [node name="GroundParticles" type="Area2D" parent="JuniMotionParticles"]
 position = Vector2( -1, 7.42 )
@@ -473,7 +473,7 @@ collision_layer = 0
 collision_mask = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuniMotionParticles/GroundParticles"]
-shape = SubResource( 22 )
+shape = SubResource( 21 )
 
 [node name="Particles" type="Node" parent="JuniMotionParticles"]
 
