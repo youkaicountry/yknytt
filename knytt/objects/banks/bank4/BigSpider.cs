@@ -12,6 +12,7 @@ public class BigSpider : Spider
 
     public override void _PhysicsProcess(float delta)
     {
+        base._PhysicsProcess(delta);
         var jgp = Juni.ApparentPosition;
         float juni_radar_value = jgp.y;
         float obj_radar_value = Center.y;

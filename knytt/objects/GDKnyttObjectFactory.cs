@@ -35,6 +35,9 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 23)] =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 24)] =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 25)] =  "NoJump";
+        ObjectLookup[new KnyttPoint(0, 26)] =  "EnemyDetector";
+        ObjectLookup[new KnyttPoint(0, 27)] =  "SecretDetector";
+        ObjectLookup[new KnyttPoint(0, 28)] =  "SecretDetector";
         ObjectLookup[new KnyttPoint(0, 29)] =  "SignArea";
         ObjectLookup[new KnyttPoint(0, 30)] =  "SignArea";
         ObjectLookup[new KnyttPoint(0, 31)] =  "SignArea";
