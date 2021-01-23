@@ -136,6 +136,14 @@ public class Juni : KinematicBody2D
         set { no_jumps += (value ? -1 : 1); }
     }
 
+    // Whether or no Juni is in a sticky area
+    int stickies = 0; // Number of sticky zones covering Juni
+    public bool Sticky
+    {
+        get { return stickies > 0; }
+        set { stickies += (value ? 1 : -1); }
+    }
+
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
     public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
     public Node2D Hologram { get; private set; }
@@ -164,6 +172,7 @@ public class Juni : KinematicBody2D
         get
         {
             var d = 0;
+            if (Sticky) { return 0; }
             if (juniInput.RightHeld) { d = 1; FacingRight = true; }
             else if (juniInput.LeftHeld) { d = -1; FacingRight = false; }
             return d;
@@ -307,6 +316,8 @@ public class Juni : KinematicBody2D
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
         
+        //if (Sticky) { velocity.x = 0; } // Zero out x movement in sticky zones
+
         if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge ) { handleSlope(); }
         else 
         { 

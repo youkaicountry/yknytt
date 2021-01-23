@@ -25,6 +25,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\objects\banks\bank0\Sticky.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostLookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />
     <Compile Include="knytt\objects\banks\bank12\GroundBlob.cs" />
