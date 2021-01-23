@@ -18,10 +18,10 @@ public class IdleState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.dir != 0) { juni.transitionState(new WalkRunState(juni, juni.WalkRun)); }
+        if (juni.dir != 0 && !juni.Sticky) { juni.transitionState(new WalkRunState(juni, juni.WalkRun)); }
     }
 
-    public override void PostProcess(float delta) 
+    public override void PostProcess(float delta)
     {
         // Do climb check first so jump will override it.
         if (juni.juniInput.UpHeld && juni.CanClimb)
@@ -72,7 +72,7 @@ public class WalkRunState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.dir == 0) { juni.transitionState(new IdleState(juni)); }
+        if (juni.dir == 0 || juni.Sticky) { juni.transitionState(new IdleState(juni)); }
         if (juni.WalkRun != walk_run) { juni.transitionState(new WalkRunState(juni, !walk_run)); }
     }
 

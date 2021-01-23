@@ -22,6 +22,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 9)]  =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 10)] =  "PowerItem";
         ObjectLookup[new KnyttPoint(0, 11)] =  "NoClimb";
+        ObjectLookup[new KnyttPoint(0, 13)] =  "Sticky";
         ObjectLookup[new KnyttPoint(0, 14)] =  "Shift";
         ObjectLookup[new KnyttPoint(0, 15)] =  "Shift";
         ObjectLookup[new KnyttPoint(0, 16)] =  "Shift";
