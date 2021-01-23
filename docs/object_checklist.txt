@@ -24,9 +24,9 @@ Bank 0 (System):
 [x] - 23 Blue Key
 [x] - 24 Purple Key
 [x] - 25 No Jump
-[ ] - 26 Detect Target
-[ ] - 27 Detect Target
-[ ] - 28 Detect Target
+[x] - 26 Detect Target
+[x] - 27 Detect Target
+[x] - 28 Detect Target
 [x] - 29 Sign Area A
 [x] - 30 Sign Area B
 [x] - 31 Sign Area C

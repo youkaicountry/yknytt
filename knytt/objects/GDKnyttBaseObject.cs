@@ -24,6 +24,10 @@ public class GDKnyttBaseObject : Node2D
     public Juni Juni { get { return GDArea.GDWorld.Game.Juni; } }
 
     [Export] public bool OrganicEnemy { get; protected set; } = false;
+
+    protected float organic_enemy_max_distance = 170f;
+    protected bool discrete_detector = false;
+    protected Color enemy_detector_color = new Color(1, 0, 0);
     
     private bool safe = false;
 
@@ -43,14 +47,20 @@ public class GDKnyttBaseObject : Node2D
     public override void _PhysicsProcess(float delta)
     {
         // TODO: Check mode ( edit should be paused )
-        // TODO: Ensure area active
         if (OrganicEnemy) { updateOrganicEnemy(); }
     }
 
     private void updateOrganicEnemy()
     {
         // TODO: Iterate through all Junis
-        Juni.updateOrganicEnemy(GlobalPosition);
+        if (Juni.GDArea != GDArea) { return; }
+        if (!Juni.Powers.getPower(JuniValues.PowerNames.EnemyDetector)) { return; }
+        var md = Juni.distance(Center, false);
+        if (md < organic_enemy_max_distance)
+        {
+            float rev_distance = discrete_detector ? 1 : 1f - (md / organic_enemy_max_distance);
+            Juni.updateOrganicEnemy(rev_distance, enemy_detector_color);
+        }
     }
 
     public void makeSafe()

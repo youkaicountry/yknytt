@@ -86,10 +86,10 @@ extents = Vector2( 8, 22 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+OrganicEnemy = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 17 )
-frame = 6
 playing = true
 centered = false
 
@@ -100,4 +100,5 @@ collision_layer = 0
 position = Vector2( 12, 26 )
 shape = SubResource( 18 )
 disabled = true
+
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

@@ -11,6 +11,7 @@ public class Crawler : GDKnyttBaseObject
 
     public override void _PhysicsProcess(float delta)
     {
+        base._PhysicsProcess(delta);
         var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         var jgp = Juni.ApparentPosition;
 
