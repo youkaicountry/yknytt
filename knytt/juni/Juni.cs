@@ -114,14 +114,12 @@ public class Juni : KinematicBody2D
 
     public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB ) : TERM_VEL; } }
 
-    
-
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     //public bool Grounded { get { return IsOnFloor(); } }
     public bool Grounded { get { return GroundChecker.IsOnGround; } }
-    public bool DidJump { get { return juniInput.JumpEdge && Grounded && GroundChecker.CanJump; } }
+    public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
     public bool FacingRight
     {
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
@@ -129,6 +127,14 @@ public class Juni : KinematicBody2D
     }
     //public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
     public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
+
+    // Whether or no Juni is in a NoJump situation
+    int no_jumps = 0; // Number of no jump zones conditions covering Juni
+    public bool CanJump
+    {
+        get { return no_jumps == 0; }
+        set { no_jumps += (value ? -1 : 1); }
+    }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
     public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
