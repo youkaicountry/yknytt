@@ -202,24 +202,23 @@ public class GDKnyttAssetManager
                 if (collisions)
                 {
                     var polygons = bitmap.OpaqueToPolygons(region, 2);
-                    List<Vector2> plist = new List<Vector2>();
+                    int c = 0;
+                    
                     for (int j = 0; j < polygons.Count; j++)
                     {
+                        var collision = new ConvexPolygonShape2D();
                         Vector2[] v = (Vector2[])polygons[j];
+                        List<Vector2> plist = new List<Vector2>();
                         for (int k = 0; k < v.Length; k++)
                         {
                             // I have no idea why it's adding y*48 to y coordinates...
                             Vector2 mv = new Vector2(v[k].x, v[k].y-(y*TILE_HEIGHT*2));
                             plist.Add(mv);
                         }
-                    }
 
-                    // Point cloud must be at least 3
-                    if (plist.Count >= 3)
-                    {
-                        var collision = new ConvexPolygonShape2D();
+                        if (plist.Count < 3) { continue; }
                         collision.SetPointCloud(plist.ToArray());
-                        ts.TileSetShape(i, 0, collision);
+                        ts.TileSetShape(i, c++, collision);
                     }
                 }
                 i++;
@@ -257,7 +256,7 @@ public class GDKnyttAssetManager
             GD.Print($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture, true);
-            GD.PrintErr(ResourceSaver.Save($"user://tilesets/{i}.res", tileset, ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save($"user://tilesets/Tileset{i}.png.res", tileset, ResourceSaver.SaverFlags.Compress));
         }
     }
 }

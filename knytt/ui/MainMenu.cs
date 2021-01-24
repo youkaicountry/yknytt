@@ -15,10 +15,8 @@ public class MainMenu : Node2D
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
         fade = GetNode<FadeLayer>("MenuLayer/Fade");
-        //GetNode<Button>("MenuLayer/ButtonRow/PlayButton").GrabFocus();
         GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
-
     }
 
     public override void _Notification(int what)
