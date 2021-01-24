@@ -8,29 +8,31 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     internal const float JUMP_SPEED = -250f,    // Speed of jump
-    GRAVITY = 1125f,                            // Gravity exerted on Juni
-    JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
-    FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
-    MAX_SPEED_WALK = 90f,                       // Max speed while walking
-    MAX_SPEED_RUN = 175f,                       // Max speed while running
-    PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
-    SLOPE_MAX_ANGLE = .81f,                     // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
-    UPDRAFT_FORCE = .25f,                       // The base updraft force exerted
-    UPDRAFT_FORCE_HOLD = .4f,                   // The updraft force exterted when holding jump
-    MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
-    MAX_UPDRAFT_SPEED_HOLD = -400f,             // Maximum Y speed in an updraft while holding jump
-    JUMP_HOLD_POWER = 125f,                     // Y Force exerted while holding jump
-    HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power
-    UMBRELLA_JUMP_HOLD_PENALTY = .82f,          // Penalty on jump hold when Juni has the umbrella deployed
-    MAX_X_MOVING_DELTA = 2500f,                 // Maximum rate of change of X velocity when moving
-    MAX_X_DECAY_DELTA = 1500f,                  // Maximum rate of change of X velocity when stopped
-    MAX_X_SPEED_UMBRELLA = 120f,                // Maximum X speed when Juni has the umbrella deployed
-    TERM_VEL = 350f,                            // Maximum +Y velocity
-    TERM_VEL_UMB = 60f,                         // Maximum +Y velocity when Juni has the umbrella deployed
-    TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the imbrella deployed in an updraft
-    CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
-    SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
-    CLIMB_JUMP_X_SPEED = 130f;                  // Speed Juni jumps away from a wall
+    GRAVITY =                         1125f,    // Gravity exerted on Juni
+    JUST_CLIMBED_TIME =               .085f,    // Time after a jump considered (just jumped)
+    FREE_JUMP_TIME =                  .085f,    // Amount of time after leaving a wall that Juni gets a "free" jump
+    MAX_SPEED_WALK =                    90f,    // Max speed while walking
+    MAX_SPEED_RUN =                    175f,    // Max speed while running
+    PULL_OVER_FORCE =                   30f,    // X Force exerted when reaching the top of a climb
+    SLOPE_MAX_ANGLE =                  .81f,    // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
+    UPDRAFT_FORCE =                    .25f,    // The base updraft force exerted
+    UPDRAFT_FORCE_HOLD =                .4f,    // The updraft force exterted when holding jump
+    MAX_UPDRAFT_SPEED =               -225f,    // Maximum Y speed in an updraft
+    MAX_UPDRAFT_SPEED_HOLD =          -400f,    // Maximum Y speed in an updraft while holding jump
+    JUMP_HOLD_POWER =                  125f,    // Y Force exerted while holding jump
+    HIGH_JUMP_HOLD_POWER =             550f,    // Y Force exerted while holding jump when Juni has high jump power
+    UMBRELLA_JUMP_HOLD_PENALTY =       .82f,    // Penalty on jump hold when Juni has the umbrella deployed
+    MAX_X_MOVING_DELTA =              2500f,    // Maximum rate of change of X velocity when moving
+    MAX_X_DECAY_DELTA =               1500f,    // Maximum rate of change of X velocity when stopped
+    MAX_X_SPEED_UMBRELLA =             120f,    // Maximum X speed when Juni has the umbrella deployed
+    TERM_VEL =                         350f,    // Maximum +Y velocity
+    TERM_VEL_UMB =                      60f,    // Maximum +Y velocity when Juni has the umbrella deployed
+    TERM_VEL_UP =                       20f,    // Maximum +Y velocity when Juni has the imbrella deployed in an updraft
+    CLIMB_SPEED =                     -125f,    // Speed Juni climbs up a wall
+    SLIDE_SPEED =                       25f,    // Speed Juni slides down a wall
+    CLIMB_JUMP_X_SPEED =               130f,    // Speed Juni jumps away from a wall
+    INSIDE_X_SPEED =                   -22f,    // Speed at which Juni moves along the x-axis when stuck inside walls
+    INSIDE_Y_SPEED =                   -10f;    // Speed at which Juni moves along the y-axis when stuck inside walls
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -62,6 +64,7 @@ public class Juni : KinematicBody2D
 
     public JuniValues Powers { get; }
 
+    public InsideDetector InsideDetector { get; private set; }
     public ClimbCheckers ClimbCheckers { get; private set; }
     public GroundChecker GroundChecker { get; private set; }
 
@@ -208,6 +211,7 @@ public class Juni : KinematicBody2D
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite>("Detector");
         Detector.Visible = true;
+        InsideDetector = GetNode<InsideDetector>("InsideDetector");
         ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
         GroundChecker = GetNode<GroundChecker>("GroundChecker");
         Sprite = GetNode<Sprite>("Sprite");
@@ -299,7 +303,7 @@ public class Juni : KinematicBody2D
         this.CurrentState.PostProcess(delta);
 
         // Pull-over-edge
-        if (JustClimbed) 
+        if (JustClimbed)
         {
              velocity.x += (FacingRight ? 1f:-1f) * PULL_OVER_FORCE;
             _just_climbed -= delta;
@@ -314,13 +318,11 @@ public class Juni : KinematicBody2D
         }
 
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
-        
-        //if (Sticky) { velocity.x = 0; } // Zero out x movement in sticky zones
 
         if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge ) { handleSlope(); }
-        else 
-        { 
-            //velocity.x = MoveAndSlide(velocity, Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:0.81f); 
+        else if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED*MoveDirection*delta, INSIDE_Y_SPEED*delta)); }
+        else
+        {
             velocity.x = MoveAndSlide(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, stopOnSlope:false, floorMaxAngle:SLOPE_MAX_ANGLE).x;
             velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:SLOPE_MAX_ANGLE).y;
         }
@@ -339,14 +341,11 @@ public class Juni : KinematicBody2D
         var y_move = -GetFloorNormal();
 
         x_move = MoveAndSlideWithSnap(x_move, Godot.Vector2.Down, Godot.Vector2.Up, stopOnSlope:false, maxSlides:2, floorMaxAngle:SLOPE_MAX_ANGLE);
-        //MoveAndSlide(Godot.Vector2.Up * -.01f);
-        //MoveAndSlide(Godot.Vector2.Zero);
         
         y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope:true, maxSlides:2, floorMaxAngle:SLOPE_MAX_ANGLE);
 
         // Unrotate the x component and set it back to the velocity
         // Currently disabled due to it exaggerating imperfections in the slope
-        // velocity.x = x_move.Length() * Mathf.Sign(x_move.x);
         velocity.y = y_move.Length();
     }
 
