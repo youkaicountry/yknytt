@@ -12,12 +12,10 @@ public class InsideDetector : Area2D
     public void _on_InsideDetector_body_entered(Node body)
     {
         IsInside = true;
-        GD.Print($"INSIDE: {inside}");
     }
 
     public void _on_InsideDetector_body_exited(Node body)
     {
         IsInside = false;
-        GD.Print($"OUT: {inside}");
     }
 }
