@@ -23,7 +23,7 @@ public abstract class Switch : GDKnyttBaseObject
     {
         if (!(body is Juni juni)) { return; }
 
-        if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); }
+        if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); } // TODO: can stop work if different Junis enter different shifts
         
         if (@switch.OnTouch)
         { 

@@ -8,12 +8,14 @@ public class JuniInput
         public PressEdge(string action) { this.action = action; }
         public string action;
         public bool justPressed;
+        public bool justReleased;
         public bool lastState;
 
         public void Update()
         {
             var state = Input.IsActionPressed(action);
             justPressed = !lastState && state;
+            justReleased = lastState && !state;
             lastState = state;
         }
     }
@@ -43,6 +45,10 @@ public class JuniInput
     public bool checkJustPressed(string action)
     {
         return (!Juni.GDArea.BlockInput && pressEdges[action].justPressed) || (Juni.GDArea.HasAltInput && altInput.IsActionJustPressed(action));
+    }
+    public bool checkJustReleased(string action)
+    {
+        return (!Juni.GDArea.BlockInput && pressEdges[action].justReleased) || (Juni.GDArea.HasAltInput && altInput.IsActionJustReleased(action));
     }
 
     public bool LeftHeld { get { return checkPressed("left"); } }
