@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
 [ext_resource path="res://knytt/juni/GroundChecker.cs" type="Script" id=14]
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
+[ext_resource path="res://knytt/juni/InsideDetector.cs" type="Script" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 10 )
@@ -435,8 +436,6 @@ color_ramp = SubResource( 19 )
 
 [node name="Detector" type="Sprite" parent="."]
 visible = false
-z_index = 16
-z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="HologramTimer" type="Timer" parent="."]
@@ -495,6 +494,14 @@ visible = false
 z_index = 13
 z_as_relative = false
 
+[node name="InsideDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 16 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideDetector"]
+polygon = PoolVector2Array( -5.5, -8.5, 5.5, -8.5, 5.5, 7.3, 3.75, 8.5, -3.75, 8.5, -5.5, 7.3 )
+
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
@@ -502,3 +509,5 @@ z_as_relative = false
 [connection signal="area_shape_exited" from="JuniMotionParticles/ClimbParticles" to="JuniMotionParticles" method="_on_ClimbParticles_area_shape_exited"]
 [connection signal="area_shape_entered" from="JuniMotionParticles/GroundParticles" to="JuniMotionParticles" method="_on_GroundParticles_area_shape_entered"]
 [connection signal="area_shape_exited" from="JuniMotionParticles/GroundParticles" to="JuniMotionParticles" method="_on_GroundParticles_area_shape_exited"]
+[connection signal="body_entered" from="InsideDetector" to="InsideDetector" method="_on_InsideDetector_body_entered"]
+[connection signal="body_exited" from="InsideDetector" to="InsideDetector" method="_on_InsideDetector_body_exited"]
