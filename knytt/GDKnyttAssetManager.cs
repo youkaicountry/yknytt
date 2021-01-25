@@ -56,8 +56,9 @@ public class GDKnyttAssetManager
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
         {
-            case Texture t: 
-                t = preprocessTilesetTexture(t);
+            case Texture t:
+                // Preprocess the texture if no alpha channel
+                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
                 return makeTileset(t, true);
 
                 // Tileset caching on-fly. Haven't decided if it's a right thing or not
