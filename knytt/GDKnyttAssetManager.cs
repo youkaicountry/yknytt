@@ -56,7 +56,10 @@ public class GDKnyttAssetManager
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
         {
-            case Texture t: return makeTileset(t, true);
+            case Texture t: 
+                t = preprocessTilesetTexture(t);
+                return makeTileset(t, true);
+
                 // Tileset caching on-fly. Haven't decided if it's a right thing or not
                 /*TileSet new_tileset = makeTileset(t, true);
                 ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
@@ -177,6 +180,22 @@ public class GDKnyttAssetManager
         if (!dir.DirExists($"user://{dir_name}")) { dir.MakeDir($"user://{dir_name}"); }
     }
 
+    public static Texture preprocessTilesetTexture(Texture texture)
+    {
+        var image = texture.GetData();
+
+        if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
+
+        if (replaceColor(image, new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
+        {
+            var it = new ImageTexture();
+            it.CreateFromImage(image);
+            texture = it;
+        }
+
+        return texture;
+    }
+
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
         BitMap bitmap = null;
@@ -225,6 +244,28 @@ public class GDKnyttAssetManager
             }
         }
         return ts;
+    }
+
+    public static bool replaceColor(Image image, Color old_color, Color new_color)
+    {
+        if (old_color == new_color) { return false; }
+        bool replaced = false;
+
+        image.Lock();
+        for (int y = 0; y < image.GetHeight(); y++)
+        {
+            for (int x = 0; x < image.GetWidth(); x++)
+            {
+                if (image.GetPixel(x, y) == old_color) 
+                { 
+                    image.SetPixel(x, y, new_color);
+                    replaced = true;
+                }
+            }
+        }
+        image.Unlock();
+
+        return replaced;
     }
 
     // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
