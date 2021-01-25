@@ -94,8 +94,8 @@ public class MapPanel : Panel
 
                 Rect2 r = new Rect2((coord.x - world.MinBounds.x) * XSIZE, (coord.y - world.MinBounds.y) * YSIZE, XSIZE - 1, YSIZE - 1);
                 // TODO: color based on gradient
-                DrawRect(r, colors.ContainsKey(coord) ? colors[coord] :
-                            is_visited ? VISITED_COLOR : NOT_VISITED_COLOR);
+                DrawRect(r, !is_visited ? NOT_VISITED_COLOR :
+                            colors.ContainsKey(coord) ? colors[coord] : VISITED_COLOR);
 
                 if (coord.Equals(pos)) { DrawRect(r, CURRENT_BORDER, filled: false, width: 2); }
             }
