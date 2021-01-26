@@ -7,6 +7,13 @@ public class GDObjectLayers : Node2D
     public GDKnyttObjectLayer[] Layers { get; private set; }
     public GDKnyttArea GDArea { get; private set; }
 
+    public List<KnyttPoint> UsedAssets { get; }
+
+    public GDObjectLayers()
+    {
+        this.UsedAssets = new List<KnyttPoint>(64);
+    }
+
     public void initLayers(GDKnyttArea area)
     {
         GDArea = area;
@@ -30,7 +37,11 @@ public class GDObjectLayers : Node2D
                 {
                     var oid = data.getObjectID(x, y);
                     if (oid.isZero()) { continue; }
-                    if (!GDKnyttObjectFactory.ObjectBundles.TryGetValue(oid, out var bundle)) { continue; }
+
+                    var bundle = GDArea.GDWorld.AssetManager.GetObject(oid);
+                    this.UsedAssets.Add(oid);
+                    if (bundle == null) { continue; }
+                    
                     this.Layers[layer].addObject(new KnyttPoint(x, y), bundle);
                 }
             }
@@ -58,6 +69,14 @@ public class GDObjectLayers : Node2D
         {
             turnOffObjects(Layers[3]);
             Layers[3].ZIndex = 15;
+        }
+    }
+
+    public void returnObjects()
+    {
+        foreach (KnyttPoint id in UsedAssets)
+        {
+            GDArea.GDWorld.AssetManager.returnObject(id);
         }
     }
 

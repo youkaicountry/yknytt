@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using YKnyttLib;
 
 public static class GDKnyttObjectFactory
 {
     private static Dictionary<KnyttPoint, string> ObjectLookup;
-    public static Dictionary<KnyttPoint, GDKnyttObjectBundle> ObjectBundles;
 
     static GDKnyttObjectFactory()
     {
@@ -387,8 +385,6 @@ public static class GDKnyttObjectFactory
         {
             ObjectLookup[new KnyttPoint(255, i)] = "CustomObject";
         }
-
-        ObjectBundles = ObjectLookup.Keys.ToDictionary(p => p, p => buildKnyttObject(p));
     }
 
     public static GDKnyttObjectBundle buildKnyttObject(KnyttPoint object_id)
