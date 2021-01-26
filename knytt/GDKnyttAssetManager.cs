@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using Godot;
 using YUtil.Collections;
+using YKnyttLib;
 
 public class GDKnyttAssetManager
 {
@@ -17,8 +18,9 @@ public class GDKnyttAssetManager
     ObjectCache<int, Texture> GradientCache;
     ObjectCache<int, AudioStream> SongCache;
     ObjectCache<int, AudioStream> AmbianceCache;
+    ObjectCache<KnyttPoint, GDKnyttObjectBundle> ObjectCache;
     
-    public GDKnyttAssetManager(GDKnyttWorld gdworld, int tile_cache, int gradient_cache, int song_cache, int ambiance_cache)
+    public GDKnyttAssetManager(GDKnyttWorld gdworld, int tile_cache, int gradient_cache, int song_cache, int ambiance_cache, int object_cache)
     {
         this.GDWorld = gdworld;
         Directories = new Dictionary<string, string>();
@@ -34,6 +36,9 @@ public class GDKnyttAssetManager
 
         AmbianceCache = new ObjectCache<int, AudioStream>(ambiance_cache);
         AmbianceCache.OnCreate = (int num) => buildAmbiance(num);
+
+        ObjectCache = new ObjectCache<KnyttPoint, GDKnyttObjectBundle>(object_cache);
+        ObjectCache.OnCreate = (KnyttPoint id) => GDKnyttObjectFactory.buildKnyttObject(id);
     }
 
     public TileSet getTileSet(int num) { return TileSetCache.IncObject(num); }
@@ -47,6 +52,9 @@ public class GDKnyttAssetManager
 
     public AudioStream getAmbiance(int num) { return AmbianceCache.IncObject(num); }
     public void returnAmbiance(int num) { AmbianceCache.DecObject(num); }
+
+    public GDKnyttObjectBundle GetObject(KnyttPoint object_id) { return ObjectCache.IncObject(object_id); }
+    public void returnObject(KnyttPoint object_id) { ObjectCache.DecObject(object_id); }
 
     private TileSet buildTileSet(int num)
     {

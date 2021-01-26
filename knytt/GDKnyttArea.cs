@@ -113,7 +113,11 @@ public class GDKnyttArea : Node2D
 
     private void removeObjectLayers()
     {
-        this.Objects?.QueueFree();
+        if (Objects != null)
+        {
+            this.Objects.returnObjects();
+            this.Objects.QueueFree();
+        }
     }
 
     // We don't want this to be async, because it can be cancelled
@@ -149,6 +153,7 @@ public class GDKnyttArea : Node2D
         destroy_timer.Start();
         await ToSignal(destroy_timer, "timeout");
 
+        if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
         GDWorld.AssetManager.returnGradient(Area.Background);
