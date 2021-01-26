@@ -299,8 +299,8 @@ margin_bottom = 0.0
 [node name="MapBackgroundPanel" type="Panel" parent="UICanvasLayer"]
 pause_mode = 2
 visible = false
-margin_right = 600.0
-margin_bottom = 240.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -321,6 +321,26 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
 text = "X"
 
+[node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -65.0
+margin_right = -35.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+text = "—"
+
+[node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -100.0
+margin_right = -70.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+text = "+"
+
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
 pause_mode = 2
 
@@ -340,6 +360,9 @@ fadeOutTime = 1.5
 bus = "Ambiance2"
 fadeInTime = 0.8
 fadeOutTime = 1.5
+
 [connection signal="animation_finished" from="UICanvasLayer/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [ false ]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 0.9 ]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.11 ]]
