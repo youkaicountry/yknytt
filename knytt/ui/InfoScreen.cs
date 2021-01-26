@@ -17,7 +17,9 @@ public class InfoScreen : CanvasLayer
             world.setBinMode(loader);
             world.setDirectory(world.WorldDirectory, loader.RootDirectory); // only WorldDirectory was set earlier
         }
-        var info = world.worldFileExists("Info+.png") ? world.getWorldTexture("Info+.png") : world.getWorldTexture("Info.png");
+        Texture info = (world.worldFileExists("Info+.png") ? world.getWorldTexture("Info+.png") : 
+                                                             world.getWorldTexture("Info.png")) as Texture;
+        info.Flags |= (uint)Texture.FlagsEnum.Filter;
         GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;

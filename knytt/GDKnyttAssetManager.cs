@@ -58,14 +58,10 @@ public class GDKnyttAssetManager
         {
             case Texture t:
                 // Preprocess the texture if no alpha channel
-                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
-                return makeTileset(t, true);
-
-                // Tileset caching on-fly. Haven't decided if it's a right thing or not
-                /*TileSet new_tileset = makeTileset(t, true);
+                TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t), true);
                 ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
                 ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
-                return new_tileset;*/
+                return new_tileset;
             case TileSet ts: return ts;
             default: return null;
         }
@@ -191,6 +187,7 @@ public class GDKnyttAssetManager
         {
             var it = new ImageTexture();
             it.CreateFromImage(image);
+            it.Flags &= ~(uint)Texture.FlagsEnum.Filter;
             texture = it;
         }
 
@@ -285,6 +282,7 @@ public class GDKnyttAssetManager
             var texture = GDWorld.KWorld.getWorldTexture(tileset_path);
             if (texture is Texture t)
             {
+                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
                 ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
             }
         }
