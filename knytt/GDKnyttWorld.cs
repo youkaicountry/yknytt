@@ -35,9 +35,6 @@ public class GDKnyttWorld : Node2D
 
     public void loadWorld()
     {
-        var wd = new Directory();
-		wd.Open(KWorld.WorldDirectory);
-
         // If info is not initialized, load it
         if (KWorld.Info == null) 
         {  
@@ -51,6 +48,7 @@ public class GDKnyttWorld : Node2D
         this.KWorld.loadWorldMap(map_stream);
 
         // Enable this if there will be level load screen
+        //if (KWorld.BinMode) { KWorld.unpackWorld(); }
 		//AssetManager.compileInternalTileset();
     }
 

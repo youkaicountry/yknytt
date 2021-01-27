@@ -67,7 +67,7 @@ public class GDKnyttAssetManager
             case Texture t:
                 // Preprocess the texture if no alpha channel
                 TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t), true);
-                ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
+                ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
                 ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
             case TileSet ts: return ts;
@@ -182,7 +182,7 @@ public class GDKnyttAssetManager
     public static void ensureDirExists(string dir_name)
     {
         var dir = new Directory();
-        if (!dir.DirExists($"user://{dir_name}")) { dir.MakeDir($"user://{dir_name}"); }
+        if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
     }
 
     public static Texture preprocessTilesetTexture(Texture texture)
@@ -277,7 +277,7 @@ public class GDKnyttAssetManager
     // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
     public void compileInternalTileset()
     {
-        ensureDirExists($"Cache/{GDWorld.KWorld.WorldDirectoryName}");
+        ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
 
         for (int num = 0; num < 256; num++)
         {

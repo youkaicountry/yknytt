@@ -17,14 +17,14 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override bool externalFileExists(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath;
+        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         return f.FileExists(full_path);
     }
 
     protected override object getExternalSound(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath;
+        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalSound(full_path);
@@ -32,7 +32,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getExternalTexture(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath;
+        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalTexture(full_path);
@@ -40,7 +40,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected sealed override byte[] getExternalWorldData(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath;
+        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadFile(full_path);
@@ -60,5 +60,35 @@ public class GDKnyttWorldImpl : KnyttWorld
     protected sealed override byte[] getSystemWorldData(string filepath)
     {
         return GDKnyttAssetManager.loadFile("res://knytt/data/" + filepath);
+    }
+
+    // Call this if you don't want a level placed in RAM
+    public void unpackWorld()
+    {
+        string dir = $"user://Worlds/{BinLoader.RootDirectory}";
+        GDKnyttAssetManager.ensureDirExists(dir);
+
+        string marker_name = $"{dir}/_do_not_load_";
+        File marker = new File();
+        marker.Open(marker_name, File.ModeFlags.Write);
+        marker.Close();
+
+        foreach (string filename in BinLoader.GetFileNames())
+        {
+            string fullname = $"{dir}/{filename}";
+            GDKnyttAssetManager.ensureDirExists(fullname.Substring(0, fullname.LastIndexOf('/')));
+
+            File f = new File();
+            f.Open(fullname, File.ModeFlags.Write);
+            f.StoreBuffer(BinLoader.GetFile(filename));
+            f.Close();
+        }
+
+        new Directory().Remove(marker_name);
+        new Directory().Remove(WorldDirectory);
+
+        purgeBinFile();
+        setDirectory(dir, WorldDirectoryName);
+        BinMode = false;
     }
 }
