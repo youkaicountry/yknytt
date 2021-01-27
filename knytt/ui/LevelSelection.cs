@@ -277,8 +277,8 @@ public class LevelSelection : CanvasLayer
     {
         Texture icon;
         string txt;
-        lock(file_lock) {icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/Icon.png");}
-        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(world_dir + "/World.ini");}
+        lock(file_lock) {icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");}
+        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(world_dir + "/world.ini");}
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         world.setDirectory(world_dir, name);
         world.loadWorldConfig(txt);
@@ -306,7 +306,7 @@ public class LevelSelection : CanvasLayer
             lock(file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
             lock(file_lock) { ini_bin = binloader.GetFile("World.ini"); }
 
-            GDKnyttAssetManager.ensureDirExists("Cache");
+            GDKnyttAssetManager.ensureDirExists("user://Cache");
             new Directory().MakeDir(cache_dir);
             var f = new File();
             f.Open(icon_cache_name, File.ModeFlags.Write);
@@ -347,6 +347,7 @@ public class LevelSelection : CanvasLayer
     private bool verifyDirWorld(Directory dir, string name)
     {
         if (name.Equals(".") || name.Equals("..")) { return false; }
+        if (dir.FileExists($"{name}/_do_not_load_")) { return false; }
 
         // TODO: Check for file signatures
         return true;
@@ -379,7 +380,7 @@ public class LevelSelection : CanvasLayer
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }
 
-            GDKnyttAssetManager.ensureDirExists("Worlds");
+            GDKnyttAssetManager.ensureDirExists("user://Worlds");
             
             string filename = button.buttonInfo.Link;
             filename = filename.Substring(filename.LastIndexOf('/') + 1);

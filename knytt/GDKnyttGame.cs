@@ -133,7 +133,7 @@ public class GDKnyttGame : Node2D
 		save.setAreaPosition(position);
 		Juni.Powers.writeToSave(save);
 		if (!write) { return; }
-		GDKnyttAssetManager.ensureDirExists("Saves");
+		GDKnyttAssetManager.ensureDirExists("user://Saves");
 		var f = new File();
 		f.Open($"user://Saves/{save.SaveFileName}", File.ModeFlags.Write);
 		f.StoreString(save.ToString());
