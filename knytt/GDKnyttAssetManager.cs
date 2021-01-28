@@ -164,7 +164,7 @@ public class GDKnyttAssetManager
     public static byte[] loadFile(string path)
     {
         var f = new File();
-        f.Open(path, File.ModeFlags.Read); // TODO: make case insensitive for Unix filesystems
+        f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
         var buffer = f.GetBuffer((int)f.GetLen());
         f.Close();
         return buffer;
@@ -185,13 +185,13 @@ public class GDKnyttAssetManager
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
     }
 
-    public static Texture preprocessTilesetTexture(Texture texture)
+    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
     {
         var image = texture.GetData();
 
         if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
 
-        if (replaceColor(image, new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
+        if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
             var it = new ImageTexture();
             it.CreateFromImage(image);
