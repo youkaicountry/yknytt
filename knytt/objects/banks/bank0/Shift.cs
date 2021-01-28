@@ -118,11 +118,6 @@ public class Shift : Switch
 
         if (shift.Cutscene != null)
         {
-            // Cutscene can't be paused right now, because it re-emits signals after unpausing
-            // TODO: remove this timer when cutscene fade-in is ready
-            GetNode<Timer>("CutsceneTimer").Start();
-            await ToSignal(GetNode<Timer>("CutsceneTimer"), "timeout");
-
             // TODO: Cutscene stops the sound and it will be played later
             // In the original game sound is played at the start of cutscene while fading in
             GDKnyttDataStore.playCutscene(shift.Cutscene);
