@@ -134,12 +134,12 @@ Bank 19 (Collectables):
 [x] 	MapColor=#
 [x] 	[World] Map=False
 
-[ ] Flag Warp
+[x] Flag Warp
 [x] 	Flag(All)=True
 [x] 	FlagWarpX(All)=#
 [x] 	FlagWarpY(All)=#
 [x] 	Flag(A)=True
-[ ] 	FlagWarpY(A)=Artifact1
+[x] 	FlagWarpY(A)=Artifact1
 [x] 	Flag(A)=Power12
 
 [x] Overlay
