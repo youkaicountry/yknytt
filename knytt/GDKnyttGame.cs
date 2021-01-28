@@ -188,7 +188,9 @@ public class GDKnyttGame : Node2D
 					{
 						if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
 					}
-					found_warp = found_warp ?? new KnyttPoint(flag_warp.x, flag_warp.y);
+					found_warp = found_warp ?? new KnyttPoint(
+						flag_warp.xArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.x - 1) : flag_warp.x,
+						flag_warp.yArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.y - 1) : flag_warp.y);
 				}
 				else
 				{
