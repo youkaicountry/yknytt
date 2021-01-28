@@ -6,9 +6,5 @@
 [node name="Shift" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="CutsceneTimer" type="Timer" parent="." index="1"]
-wait_time = 0.001
-one_shot = true
-
-[node name="DelayTimer" type="Timer" parent="." index="2"]
+[node name="DelayTimer" type="Timer" parent="." index="1"]
 one_shot = true
