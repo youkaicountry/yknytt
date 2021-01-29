@@ -185,11 +185,11 @@ public class GDKnyttAssetManager
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
     }
 
-    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
+    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null, bool replace_anyway = false)
     {
         var image = texture.GetData();
 
-        if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
+        if (image.DetectAlpha() == Image.AlphaMode.None || replace_anyway) { image.Convert(Image.Format.Rgba8); }
 
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {

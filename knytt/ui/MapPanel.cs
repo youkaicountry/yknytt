@@ -25,6 +25,7 @@ public class MapPanel : Panel
     {
         SetProcessInput(false);
         SetProcess(false);
+        SetPhysicsProcess(false);
 
         if (world == null || juni == null) { return; }
         this.world = world;
@@ -111,6 +112,7 @@ public class MapPanel : Panel
         GetTree().Paused = show;
         SetProcess(show);
         SetProcessInput(show);
+        Cutscene.releaseAll();
     }
 
     public override void _Input(InputEvent @event)

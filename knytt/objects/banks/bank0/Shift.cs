@@ -8,6 +8,7 @@ public class Shift : Switch
 
     public override void _Ready()
     {
+        if (GDArea.Area.ExtraData == null) { return; }
         @switch = shift = new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y-14));
         base._Ready();
     }
@@ -68,6 +69,7 @@ public class Shift : Switch
             relative_area += GDArea.GDWorld.Game.getFlagWarp(shift.AbsoluteArea, juni) ?? new KnyttPoint(0, 0);
             game.changeAreaDelta(relative_area, true);
         }
+        GD.Print($"shift {shift.RelativeArea} {shift.RelativePosition} / {shift.AbsoluteArea} {shift.AbsolutePosition}");
 
         // Move Juni to the correct location in the area
         if (shift.Quantize)
