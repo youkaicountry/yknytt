@@ -224,6 +224,7 @@
     <Compile Include="knytt\ui\RatePanel.cs" />
     <Compile Include="knytt\ui\SettingsScreen.cs" />
     <Compile Include="knytt\ui\SlotButton.cs" />
+    <Compile Include="knytt\ui\stats\StatPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchSettings.cs" />
     <Compile Include="knytt\ui\touch\TouchSettingsScreen.cs" />
