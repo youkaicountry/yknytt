@@ -19,15 +19,16 @@ public class RatePanel : Panel
 
     private void update()
     {
+        var rate_root = GetNode<Control>("VBoxContainer/Rates");
         if (ButtonInfo.LevelId == 0)
         {
             requestRates();
-            GetNode<Label>("UpvoteLabel").Text = GetNode<Label>("DownvoteLabel").Text = "";
+            rate_root.GetNode<Label>("UpvoteLabel").Text = rate_root.GetNode<Label>("DownvoteLabel").Text = "";
         }
         else
         {
-            GetNode<Label>("UpvoteLabel").Text = $"+{ButtonInfo.Upvotes}";
-            GetNode<Label>("DownvoteLabel").Text = $"-{ButtonInfo.Downvotes}";
+            rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{ButtonInfo.Upvotes}";
+            rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{ButtonInfo.Downvotes}";
         }
     }
 

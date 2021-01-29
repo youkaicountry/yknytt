@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/ui/RatePanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
 
 [node name="InfoScreen" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -61,11 +62,40 @@ slot = 3
 modulate = Color( 1, 1, 1, 0.878431 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -135.0
+margin_left = -150.0
 margin_top = 10.0
 margin_right = -10.0
 
+[node name="StatsButton" parent="InfoRect/RatePanel" instance=ExtResource( 2 )]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -25.0
+margin_right = -5.0
+margin_bottom = -15.0
+text = "Level Stats"
+
+[node name="OptimizeButton" parent="InfoRect/RatePanel" instance=ExtResource( 2 )]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -60.0
+margin_right = -5.0
+margin_bottom = -45.0
+text = "Optimize"
+
+[node name="StatPanel" parent="InfoRect" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -310.0
+margin_top = 10.0
+margin_right = -160.0
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="pressed" from="InfoRect/RatePanel/StatsButton" to="." method="_on_StatsButton_pressed"]
+[connection signal="pressed" from="InfoRect/RatePanel/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]

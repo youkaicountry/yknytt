@@ -60,4 +60,12 @@ public class InfoScreen : CanvasLayer
         this.QueueFree();
     }
 
+    private void _on_StatsButton_pressed()
+    {
+        GetNode<Panel>("InfoRect/StatPanel").Visible = true;
+    }
+
+    private void _on_OptimizeButton_pressed()
+    {
+    }
 }
