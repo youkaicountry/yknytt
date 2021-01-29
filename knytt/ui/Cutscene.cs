@@ -10,6 +10,7 @@ public class Cutscene : Control
     {
         changeScene(1);
         loadMusic();
+        releaseAll();
     }
 
     private void loadMusic()
@@ -93,6 +94,7 @@ public class Cutscene : Control
         if (GDKnyttDataStore.CutsceneAfter != null)
         {
             GetTree().ChangeScene(GDKnyttDataStore.CutsceneAfter);
+            releaseAll();
         }
         else
         {
@@ -101,7 +103,16 @@ public class Cutscene : Control
             GetTree().CurrentScene = GDKnyttDataStore.CutsceneReturn;
             GetTree().Paused = false;
             (GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame).respawnJuni();
+            releaseAll();
         }
+    }
+
+    private static readonly string[] actions = {"left", "right", "up", "down",
+        "show_info", "debug_die", "umbrella", "walk", "jump", "hologram"};
+
+    public static void releaseAll()
+    {
+        foreach (string a in actions) { Input.ActionRelease(a); }
     }
 
     public override void _Process(float delta)

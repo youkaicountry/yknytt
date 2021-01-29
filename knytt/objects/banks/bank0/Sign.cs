@@ -17,12 +17,12 @@ public class Sign : GDKnyttBaseObject
         string letter = "ABC"[ObjectID.y - 17].ToString();
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
-        texts.Add(text);
+        texts.Add(text?.Trim(new char[]{'"'}));
         for (int i = 2; ; i++)
         {
             text = GDArea.Area.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
-            texts.Add(text);
+            texts.Add(text?.Trim(new char[]{'"'}));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
 

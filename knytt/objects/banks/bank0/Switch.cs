@@ -21,6 +21,7 @@ public abstract class Switch : GDKnyttBaseObject
 
     public void _on_Area2D_body_entered(Node body)
     {
+        if (@switch == null) { return; }
         if (!(body is Juni juni)) { return; }
 
         if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); } // TODO: can stop work if different Junis enter different shifts
@@ -44,6 +45,7 @@ public abstract class Switch : GDKnyttBaseObject
 
     public void _on_Area2D_body_exited(Node body)
     {
+        if (@switch == null) { return; }
         if (!(body is Juni juni)) { return; }
 
         if (@switch.AsOne) { GDArea.Selector.Unregister(this, by_type: true); }

@@ -409,6 +409,7 @@ public class Juni : KinematicBody2D
         node.GetNode<AnimatedSprite>("AnimatedSprite").FlipH = !FacingRight;
         Hologram = node;
         var m = Modulate; m.a = .45f; Modulate = m;
+        GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.a);
     }
 
     public void stopHologram(bool cleanup=false)
@@ -426,6 +427,7 @@ public class Juni : KinematicBody2D
         Hologram.QueueFree();
         Hologram = null;
         var m = Modulate; m.a = 1f; Modulate = m;
+        GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1);
     }
 
     public void doubleJumpEffect()
