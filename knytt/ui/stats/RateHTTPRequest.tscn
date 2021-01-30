@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.cs" type="Script" id=1]
+
+[node name="RateHTTPRequest" type="HTTPRequest"]
+script = ExtResource( 1 )
+
+[connection signal="request_completed" from="." to="." method="_on_HTTPRequest_request_completed"]

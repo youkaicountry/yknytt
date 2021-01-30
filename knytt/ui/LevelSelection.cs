@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
+using System.IO.Compression;
 using Godot;
 using Godot.Collections;
 using YKnyttLib;
@@ -31,7 +32,6 @@ public class LevelSelection : CanvasLayer
     FileHTTPRequest http_node;
     GameButton download_button;
 
-    [Export] string serverURL;
     public bool localLoad = false;
     private string next_page = null;
 
@@ -114,22 +114,12 @@ public class LevelSelection : CanvasLayer
         Task.WaitAll(consumers.ToArray());
     }
 
-    public static T jsonValue<T>(object obj, string attr) where T : class // TODO: another place for common json functions
-    {
-        return obj is Dictionary dict && dict.Contains(attr) ? dict[attr] as T : null;
-    }
-
-    public static int jsonInt(object obj, string attr)
-    {
-        return obj is Dictionary dict && dict.Contains(attr) && dict[attr] is float ? (int)(float)dict[attr] : 0;
-    }
-
     private void HttpLoad()
     {
         game_container.clearWorlds();
         GetNode<Label>("ConnectionLostLabel").Visible = false;
 
-        string url = serverURL + "/levels/?";
+        string url = GDKnyttSettings.getServerURL() + "/levels/?";
         if (filter_category_int != 0) { url += $"category={filter_category_int}&"; }
         if (filter_difficulty_int != 0) { url += $"difficulty={filter_difficulty_int}&"; }
         if (filter_size_int != 0) { url += $"size={filter_size_int}&"; }
@@ -152,7 +142,7 @@ public class LevelSelection : CanvasLayer
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { connectionLost(); return; }
 
-        var world_infos = jsonValue<Godot.Collections.Array>(json.Result, "results");
+        var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "results");
         if (world_infos == null) { connectionLost(); return; }
 
         foreach (Dictionary record in world_infos)
@@ -160,7 +150,7 @@ public class LevelSelection : CanvasLayer
             if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
         }
 
-        next_page = jsonValue<string>(json.Result, "next");
+        next_page = HTTPUtil.jsonValue<string>(json.Result, "next");
     }
 
     private void _on_GameContainter_scrolling(float value)
@@ -329,19 +319,30 @@ public class LevelSelection : CanvasLayer
     private GameButtonInfo generateRemoteWorld(Dictionary json_item)
     {
         GameButtonInfo world_info = new GameButtonInfo();
-        world_info.LevelId = jsonInt(json_item, "id");
-        world_info.Name = jsonValue<string>(json_item, "name");
-        world_info.Author = jsonValue<string>(json_item, "author");
-        world_info.Description = jsonValue<string>(json_item, "description");
-        var base64_icon = jsonValue<string>(json_item, "icon");
+        world_info.HasServerInfo = true;
+        world_info.Name = HTTPUtil.jsonValue<string>(json_item, "name");
+        world_info.Author = HTTPUtil.jsonValue<string>(json_item, "author");
+        world_info.Description = HTTPUtil.jsonValue<string>(json_item, "description");
+        var base64_icon = HTTPUtil.jsonValue<string>(json_item, "icon");
         world_info.Icon = base64_icon != null && base64_icon.Length > 0 ?
-            GDKnyttAssetManager.loadTexture(Convert.FromBase64String(base64_icon)) : null;
-        world_info.Link = jsonValue<string>(json_item, "link");
-        world_info.FileSize = jsonInt(json_item, "file_size");
-        world_info.Upvotes = jsonInt(json_item, "upvotes");
-        world_info.Downvotes = jsonInt(json_item, "downvotes");
-        world_info.Downloads = jsonInt(json_item, "downloads");
+            GDKnyttAssetManager.loadTexture(decompress(Convert.FromBase64String(base64_icon))) : null;
+        world_info.Link = HTTPUtil.jsonValue<string>(json_item, "link");
+        world_info.FileSize = HTTPUtil.jsonInt(json_item, "file_size");
+        world_info.Upvotes = HTTPUtil.jsonInt(json_item, "upvotes");
+        world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
+        world_info.Downloads = HTTPUtil.jsonInt(json_item, "downloads");
         return world_info;
+    }
+
+    private static byte[] decompress(byte[] file)
+    {
+        if (file[0] != 31 || file[1] != 139) { return file; }
+        var output = new System.IO.MemoryStream();
+        using (var gzip = new GZipStream(new System.IO.MemoryStream(file), CompressionMode.Decompress))
+        {
+            gzip.CopyTo(output);
+        }
+        return output.ToArray();
     }
 
     private bool verifyDirWorld(Directory dir, string name)
@@ -433,13 +434,10 @@ public class LevelSelection : CanvasLayer
         download_button = null;
     }
 
-    private void sendDownload() // copied from RatePanel.sendRating
+    private void sendDownload()
     {
-        HTTPRequest rest_node = GetNode<HTTPRequest>("RestHTTPRequest2");
-        var dict = new Dictionary() { 
-            ["level_id"] = download_button.buttonInfo.LevelId, ["action"] = 1, 
-            ["uid"] = GDKnyttSettings.getUUID(), ["platform"] = OS.GetName() };
-        rest_node.Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(
+            download_button.buttonInfo.Name, download_button.buttonInfo.Author, (int)RateHTTPRequest.Action.Download);
     }
 
     public void _on_CategoryDropdown_item_selected(int index)

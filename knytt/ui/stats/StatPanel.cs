@@ -2,7 +2,7 @@ using Godot;
 
 public class StatPanel : Panel
 {
-    private static string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram", 
+    private static readonly string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram", 
         "Red Key", "Yellow Key", "Blue Key", "Purple Key", "Map"};
 
     private PackedScene itemScene;
@@ -16,24 +16,24 @@ public class StatPanel : Panel
         container = GetNode<Control>("ScrollContainer/VBoxContainer");
     }
 
-    private void addLabel(string text)
+    public void addLabel(string text)
     {
         var label = labelScene.Instance() as Label;
         label.Text = text;
         container.AddChild(label);
     }
 
-    private void addPower(int i, int count)
+    public void addPower(int i, int count)
     {
         addItem($"res://knytt/ui/stats/Power{i}.tres", powers[i], count);
     }
 
-    private void addCutscene(string name, int count)
+    public void addCutscene(string name, int count)
     {
         addItem($"res://knytt/ui/stats/Cutscene.tres", name, count);
     }
 
-    private void addEnding(string name, int count)
+    public void addEnding(string name, int count)
     {
         addItem($"res://knytt/ui/stats/Ending.tres", name, count);
     }

@@ -221,9 +221,10 @@
     <Compile Include="knytt\RawAudioPlayer.cs" />
     <Compile Include="knytt\ui\particles\MenuCloud.cs" />
     <Compile Include="knytt\ui\particles\ParticleCircle.cs" />
-    <Compile Include="knytt\ui\RatePanel.cs" />
     <Compile Include="knytt\ui\SettingsScreen.cs" />
     <Compile Include="knytt\ui\SlotButton.cs" />
+    <Compile Include="knytt\ui\stats\HTTPUtil.cs" />
+    <Compile Include="knytt\ui\stats\RateHTTPRequest.cs" />
     <Compile Include="knytt\ui\stats\StatPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchSettings.cs" />

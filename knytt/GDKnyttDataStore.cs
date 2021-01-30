@@ -13,6 +13,9 @@ public class GDKnyttDataStore : Node
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }
     public static Node CutsceneReturn { get; private set; }
+    
+    public enum CutsceneMode { Intro, Middle, Ending };
+    public static CutsceneMode Mode { get; private set; }
 
     public override void _Ready()
     {
@@ -21,17 +24,23 @@ public class GDKnyttDataStore : Node
 
     public static void startGame(bool new_game)
     {
-        if (new_game) { startCutscene("Intro", "res://knytt/GDKnyttGame.tscn"); }
+        if (new_game)
+        {
+            Mode = CutsceneMode.Intro;
+            startCutscene("Intro", "res://knytt/GDKnyttGame.tscn");
+        }
         else { Tree.ChangeScene("res://knytt/GDKnyttGame.tscn"); }
     }
 
     public static void winGame(string ending="Ending")
     {
+        Mode = CutsceneMode.Ending;
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
     }
 
     public static void playCutscene(string cutscene)
     {
+        Mode = CutsceneMode.Middle;
         CutsceneName = cutscene;
         CutsceneAfter = null;
         CutsceneReturn = Tree.CurrentScene;
