@@ -120,4 +120,15 @@ public class Cutscene : Control
         if (Input.IsActionJustPressed("left") && current_scene > 1)  { _on_PreviousButton_pressed(); }
         if (Input.IsActionJustPressed("right")) { _on_NextButton_pressed(); }
     }
+
+    private void _on_RateHTTPRequest_ready()
+    {
+        if (GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Intro) { return; }
+        
+        var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle ? 
+            RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
+        
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(
+            GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author, (int)action, GDKnyttDataStore.CutsceneName);
+    }
 }

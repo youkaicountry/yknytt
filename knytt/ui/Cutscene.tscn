@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/Cutscene.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/small_arrow_disabled.png" type="Texture" id=4]
 [ext_resource path="res://knytt/ui/small_arrow.png" type="Texture" id=5]
@@ -79,5 +80,8 @@ texture = ExtResource( 5 )
 
 [node name="FadeLayer" parent="." instance=ExtResource( 6 )]
 
+[node name="RateHTTPRequest" parent="." instance=ExtResource( 2 )]
+
 [connection signal="pressed" from="BackButton" to="." method="_on_PreviousButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="ready" from="RateHTTPRequest" to="." method="_on_RateHTTPRequest_ready"]

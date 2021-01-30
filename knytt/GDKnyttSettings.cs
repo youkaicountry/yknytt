@@ -136,6 +136,11 @@ public class GDKnyttSettings : Node
         return GDKnyttSettings.ini["UUID"]["UUID"];
     }
 
+    public static string getServerURL()
+    {
+        return GDKnyttSettings.ini["Server"]["URL"];
+    }
+
     public override void _Ready()
     {
         tree = GetTree();
@@ -157,6 +162,8 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Music Volume", "80");
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Environment Volume", "80");
+
+        modified |= ensureSetting("Server", "URL", "https://yknytt.herokuapp.com");
   
         modified |= TouchSettings.ensureSettings();
 

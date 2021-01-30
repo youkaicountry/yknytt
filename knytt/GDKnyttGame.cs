@@ -101,7 +101,8 @@ public class GDKnyttGame : Node2D
 		Juni = juni_scene.Instance() as Juni;
 		Juni.initialize(this);
 		this.AddChild(Juni);
-		Juni.Connect("PowerChanged", UI, "powerUpdate");
+		Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
+		Juni.Connect(nameof(Juni.PowerChanged), this, nameof(sendPowerUpdate));
 	}
 
 	public async void respawnJuniWithWSOD()
@@ -338,5 +339,10 @@ public class GDKnyttGame : Node2D
 			Camera.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
 			// Later panel will set camera offset to stick it to the top or to the bottom
 		}
+	}
+
+    public void sendPowerUpdate(JuniValues.PowerNames names, bool value)
+	{
+		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + (int)names);
 	}
 }

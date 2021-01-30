@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
@@ -6,10 +6,10 @@
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
+[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=7]
 
 [node name="LevelSelection" type="CanvasLayer"]
 script = ExtResource( 5 )
-serverURL = "https://yknytt.herokuapp.com"
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -157,7 +157,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RestHTTPRequest2" type="HTTPRequest" parent="."]
+[node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
 
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]

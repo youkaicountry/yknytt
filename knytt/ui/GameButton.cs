@@ -7,9 +7,9 @@ public class GameButtonInfo
     public string Author;
     public string Description;
     public Texture Icon;
+    public bool HasServerInfo;
     public string Link;
     public int FileSize;
-    public int LevelId;
     public int Upvotes;
     public int Downvotes;
     public int Downloads;
@@ -21,6 +21,7 @@ public class GameButtonInfo
         info.Name = world.Info.Name;
         info.Author = world.Info.Author;
         info.Description = world.Info.Description;
+        info.HasServerInfo = false;
         return info;
     }
 }
@@ -51,7 +52,7 @@ public class GameButton : Button
         varProgressLength = RectSize.x - startProgressLength - progressRect.MarginLeft * 2;
 
         var rating_control = GetNode<Control>("RatingControl");
-        if (buttonInfo.LevelId == 0)
+        if (!buttonInfo.HasServerInfo)
         {
             rating_control.Visible = false;
             RectMinSize = new Vector2(RectMinSize.x, 45);
@@ -87,6 +88,8 @@ public class GameButton : Button
     public void markCompleted()
     {
         setProgress(1, new Color(0.375f, 1, 0.375f, 0.5f));
+        var label = GetNode<Label>("RatingControl/DownloadsLabel");
+        label.Text = $"{int.Parse(label.Text) + 1}";
     }
 
     public void markFailed()
