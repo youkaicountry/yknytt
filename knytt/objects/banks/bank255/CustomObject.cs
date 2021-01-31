@@ -81,7 +81,7 @@ public class CustomObject : GDKnyttBaseObject
             if (info.image == null) { return false; }
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
             if (image_texture == null) { return false; }
-            image_texture = GDKnyttAssetManager.preprocessTilesetTexture(image_texture, new Color(0, 0, 0), true); // TODO: replace with shader!
+            image_texture = GDKnyttAssetManager.preprocessTilesetTexture(image_texture, new Color(0, 0, 0)); // TODO: replace with shader!
             sprite.Frames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
             sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20);

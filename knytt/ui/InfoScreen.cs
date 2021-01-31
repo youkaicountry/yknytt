@@ -189,5 +189,8 @@ public class InfoScreen : CanvasLayer
 
     private void _on_OptimizeButton_pressed()
     {
+        // TODO: waiting animation
+        if (KWorld.BinMode) { KWorld.unpackWorld(); }
+        GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true); // To fix errors if chromakey and alpha channel used together
     }
 }
