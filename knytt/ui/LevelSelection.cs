@@ -420,6 +420,7 @@ public class LevelSelection : CanvasLayer
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
             new Directory().Rename(http_node.DownloadFile, final_filename);
             download_button.markCompleted();
+            download_button.incDownloads();
             download_button.KWorld = (GDKnyttWorldImpl)generateBinWorld(final_filename).world;
             sendDownload();
         }

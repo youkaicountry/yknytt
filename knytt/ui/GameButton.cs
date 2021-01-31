@@ -88,12 +88,16 @@ public class GameButton : Button
     public void markCompleted()
     {
         setProgress(1, new Color(0.375f, 1, 0.375f, 0.5f));
-        var label = GetNode<Label>("RatingControl/DownloadsLabel");
-        label.Text = $"{int.Parse(label.Text) + 1}";
     }
 
     public void markFailed()
     {
         setProgress(1, new Color(1, 0.375f, 0.375f, 0.5f));
+    }
+
+    public void incDownloads()
+    {
+        var label = GetNode<Label>("RatingControl/DownloadsLabel");
+        label.Text = $"{int.Parse(label.Text) + 1}";
     }
 }
