@@ -343,7 +343,7 @@ public class GDKnyttGame : Node2D
 
 	public void sendPowerUpdate(int power, bool value)
 	{
-		if (power < 0) { return; }
-		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + (int)power);
+		if (power < 0 || !value) { return; }
+		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
 	}
 }

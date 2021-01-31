@@ -185,11 +185,11 @@ public class GDKnyttAssetManager
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
     }
 
-    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null, bool replace_anyway = false)
+    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
     {
         var image = texture.GetData();
 
-        if (image.DetectAlpha() == Image.AlphaMode.None || replace_anyway) { image.Convert(Image.Format.Rgba8); }
+        if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
 
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
@@ -275,22 +275,22 @@ public class GDKnyttAssetManager
     }
 
     // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
-    public void compileInternalTileset()
+    public static void compileInternalTileset(KnyttWorld world, bool recompile)
     {
-        ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
+        ensureDirExists($"user://Cache/{world.WorldDirectoryName}");
 
         for (int num = 0; num < 256; num++)
         {
             string tileset_path = $"Tilesets/Tileset{num}.png";
-            if (!GDWorld.KWorld.worldFileExists(tileset_path)) { continue; }
+            if (!world.worldFileExists(tileset_path)) { continue; }
 
-            string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
-            if (new File().FileExists(cached_path)) { continue; }
+            string cached_path = $"user://Cache/{world.WorldDirectoryName}/Tileset{num}.res";
+            if (!recompile && new File().FileExists(cached_path)) { continue; }
 
-            var texture = GDWorld.KWorld.getWorldTexture(tileset_path);
+            var texture = world.getWorldTexture(tileset_path);
             if (texture is Texture t)
             {
-                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
+                t = preprocessTilesetTexture(t);
                 ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
             }
         }
