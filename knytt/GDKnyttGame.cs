@@ -341,8 +341,9 @@ public class GDKnyttGame : Node2D
 		}
 	}
 
-    public void sendPowerUpdate(JuniValues.PowerNames names, bool value)
+	public void sendPowerUpdate(int power, bool value)
 	{
-		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + (int)names);
+		if (power < 0) { return; }
+		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + (int)power);
 	}
 }
