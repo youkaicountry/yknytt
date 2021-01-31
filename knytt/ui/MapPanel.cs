@@ -148,11 +148,12 @@ public class MapPanel : Panel
 
     private void drag(Vector2 diff)
     {
-        var candidate = RectPosition + diff;
-        if (diff.x > 0 && candidate.x > BORDER) { diff = new Vector2(0, diff.y); }
-        if (diff.x < 0 && candidate.x < -RectSize.x * RectScale.x + GetParentAreaSize().x - BORDER)  { diff = new Vector2(0, diff.y); }
-        if (diff.y > 0 && candidate.y > BORDER) { diff = new Vector2(diff.x, 0); }
-        if (diff.y < 0 && candidate.y < -RectSize.y * RectScale.y + GetParentAreaSize().y - BORDER)  { diff = new Vector2(diff.x, 0); }
+        // This is very buggy
+        //var candidate = RectPosition + diff;
+        //if (diff.x > 0 && candidate.x > BORDER) { diff = new Vector2(0, diff.y); }
+        //if (diff.x < 0 && candidate.x < -RectSize.x * RectScale.x + GetParentAreaSize().x - BORDER)  { diff = new Vector2(0, diff.y); }
+        //if (diff.y > 0 && candidate.y > BORDER) { diff = new Vector2(diff.x, 0); }
+        //if (diff.y < 0 && candidate.y < -RectSize.y * RectScale.y + GetParentAreaSize().y - BORDER)  { diff = new Vector2(diff.x, 0); }
         if (diff != Vector2.Zero) { RectPosition += diff; }
     }
 }
