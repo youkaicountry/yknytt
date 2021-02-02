@@ -13,8 +13,8 @@
 [node name="GameButton" type="Button"]
 margin_right = 290.0
 margin_bottom = 55.0
-mouse_filter = 1
 rect_min_size = Vector2( 290, 45 )
+mouse_filter = 1
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 1 )
 custom_styles/focus = ExtResource( 6 )
@@ -87,11 +87,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VerifiedLabel" type="Label" parent="RatingControl"]
+margin_left = 56.0
+margin_right = 119.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Not Verified"
+
 [node name="SizeLabel" type="Label" parent="RatingControl"]
 margin_left = 123.0
-margin_top = -1.0
 margin_right = 170.0
-margin_bottom = 12.0
+margin_bottom = 13.0
 rect_min_size = Vector2( 18, 13 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -99,9 +106,8 @@ text = "111.2 MB"
 
 [node name="UpvotesLabel" type="Label" parent="RatingControl"]
 margin_left = 174.0
-margin_top = -1.0
 margin_right = 205.0
-margin_bottom = 12.0
+margin_bottom = 13.0
 rect_min_size = Vector2( 18, 13 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
@@ -112,9 +118,8 @@ __meta__ = {
 
 [node name="DownvotesLabel" type="Label" parent="RatingControl"]
 margin_left = 209.0
-margin_top = -1.0
 margin_right = 240.0
-margin_bottom = 12.0
+margin_bottom = 13.0
 rect_min_size = Vector2( 7, 13 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.752941, 0, 0, 1 )
@@ -126,7 +131,7 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="RatingControl"]
 margin_left = 244.0
 margin_right = 257.0
-margin_bottom = 13.0
+margin_bottom = 14.0
 rect_min_size = Vector2( 4, 4 )
 texture = ExtResource( 7 )
 stretch_mode = 4
@@ -136,9 +141,8 @@ __meta__ = {
 
 [node name="DownloadsLabel" type="Label" parent="RatingControl"]
 margin_left = 261.0
-margin_top = -1.0
 margin_right = 285.0
-margin_bottom = 12.0
+margin_bottom = 13.0
 rect_min_size = Vector2( 7, 13 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )

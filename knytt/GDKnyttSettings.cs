@@ -127,13 +127,12 @@ public class GDKnyttSettings : Node
 
     public static string getUUID()
     {
-        if (!GDKnyttSettings.ini.Sections.ContainsSection("UUID") || !GDKnyttSettings.ini["UUID"].ContainsKey("UUID"))
+        if (!GDKnyttSettings.ini.Sections.ContainsSection("Server") || !GDKnyttSettings.ini["Server"].ContainsKey("UUID"))
         {
-            GD.Print("save");
-            GDKnyttSettings.ensureSetting("UUID", "UUID", System.Guid.NewGuid().ToString());
+            GDKnyttSettings.ensureSetting("Server", "UUID", System.Guid.NewGuid().ToString());
             GDKnyttSettings.saveSettings();
         }
-        return GDKnyttSettings.ini["UUID"]["UUID"];
+        return GDKnyttSettings.ini["Server"]["UUID"];
     }
 
     public static string getServerURL()
