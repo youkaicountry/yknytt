@@ -233,7 +233,7 @@ public class TouchPanel : Panel
 		var anchor_top = TouchSettings.PanelAnchor;
 		var arrows_panel = GetNode<Panel>("ArrowsPanel");
 		var jump_panel = GetNode<Panel>("JumpPanel");
-		var height = arrows_panel.RectSize.y;
+		var height = arrows_panel.RectSize.y - 2; // correction to hide the border at the edge
 		
 		AnchorTop = AnchorBottom = 1 - anchor_top;
 		MarginTop = (1 - anchor_top) * -height;
