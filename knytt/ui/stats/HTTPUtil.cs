@@ -11,4 +11,9 @@ public class HTTPUtil
     {
         return obj is Dictionary dict && dict.Contains(attr) && dict[attr] is float ? (int)(float)dict[attr] : 0;
     }
+
+    public static bool jsonBool(object obj, string attr)
+    {
+        return obj is Dictionary dict && dict.Contains(attr) && dict[attr] is bool ? (bool)dict[attr] : false;
+    }
 }

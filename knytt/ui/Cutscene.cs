@@ -125,8 +125,9 @@ public class Cutscene : Control
     {
         if (GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Intro) { return; }
         
-        var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle ? 
-            RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
+        var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle && 
+                     GDKnyttDataStore.CutsceneName.ToLower() != "ending" ? 
+                        RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
         
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
             GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author, (int)action, GDKnyttDataStore.CutsceneName);

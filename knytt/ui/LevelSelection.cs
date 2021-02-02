@@ -331,6 +331,8 @@ public class LevelSelection : CanvasLayer
         world_info.Upvotes = HTTPUtil.jsonInt(json_item, "upvotes");
         world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
         world_info.Downloads = HTTPUtil.jsonInt(json_item, "downloads");
+        world_info.Verified = HTTPUtil.jsonBool(json_item, "verified");
+        world_info.Approved = HTTPUtil.jsonBool(json_item, "approved");
         return world_info;
     }
 

@@ -113,6 +113,12 @@ public class Shift : Switch
             }
         }
 
+        if (shift.Cutscene != null)
+        {
+            var list = shift.Cutscene.ToLower() != "ending" ? juni.Powers.Cutscenes : juni.Powers.Endings;
+            list.Add(shift.Cutscene);
+        }
+
         if (shift.Save)
         {
             game.saveGame(shift.AbsoluteArea, shift.AbsolutePosition, true);
@@ -120,6 +126,7 @@ public class Shift : Switch
 
         if (shift.Cutscene != null)
         {
+            // !! If a cutscene appears two times in a row, revert the commit about micro-delay
             // TODO: Cutscene stops the sound and it will be played later
             // In the original game sound is played at the start of cutscene while fading in
             GDKnyttDataStore.playCutscene(shift.Cutscene);

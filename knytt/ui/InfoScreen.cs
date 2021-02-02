@@ -78,6 +78,21 @@ public class InfoScreen : CanvasLayer
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
 
+        var my_powers = new HashSet<int>();
+        var my_cutscenes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var my_endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        for (int slot = 1; slot <= 3; slot++)
+        {
+            string savename = $"user://Saves/{KWorld.WorldDirectoryName} {slot}.ini";
+            if (new File().FileExists(savename))
+            {
+                KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);
+                for (int i = 0; i < 13; i++) { if (save.getPower(i)) { my_powers.Add(i); } }
+                my_cutscenes.UnionWith(save.Cutscenes);
+                my_endings.UnionWith(save.Endings);
+            }
+        }
+
         upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
         downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
         updateRates();
@@ -92,11 +107,11 @@ public class InfoScreen : CanvasLayer
         if (powers_count.Any(c => c > 0))
         {
             stat_panel.addLabel("Powers:");
-            for (int i = 0; i <= 12; i++)
+            for (int i = 0; i < 13; i++)
             {
                 if (powers_count[i] > 0)
                 {
-                    stat_panel.addPower(i, powers_count[i]);
+                    stat_panel.addPower(i, powers_count[i], my_powers.Contains(i));
                 }
             }
         }
@@ -109,7 +124,7 @@ public class InfoScreen : CanvasLayer
         var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "cutscenes");
         foreach (Dictionary record in cutscene_infos)
         {
-            bool is_ending = (bool)record["ending"];
+            bool is_ending = HTTPUtil.jsonBool(record, "ending");
             (is_ending ? endings : cutscenes).Add(HTTPUtil.jsonValue<string>(record, "name"));
             (is_ending ? endings_count : cutscenes_count).Add(HTTPUtil.jsonInt(record, "counter"));
         }
@@ -119,7 +134,7 @@ public class InfoScreen : CanvasLayer
             stat_panel.addLabel("Endings:");
             foreach (var p in endings.Zip(endings_count, (a, b) => new {Name = a, Count = b}))
             {
-                stat_panel.addEnding(p.Name, p.Count);
+                stat_panel.addEnding(p.Name, p.Count, my_endings.Contains(p.Name));
             }
         }
 
@@ -128,7 +143,7 @@ public class InfoScreen : CanvasLayer
             stat_panel.addLabel("Cutscenes:");
             foreach (var p in cutscenes.Zip(cutscenes_count, (a, b) => new {Name = a, Count = b}))
             {
-                stat_panel.addCutscene(p.Name, p.Count);
+                stat_panel.addCutscene(p.Name, p.Count, my_cutscenes.Contains(p.Name));
             }
         }
     }

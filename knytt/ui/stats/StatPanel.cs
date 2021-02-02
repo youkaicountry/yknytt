@@ -7,12 +7,14 @@ public class StatPanel : Panel
 
     private PackedScene itemScene;
     private PackedScene labelScene;
+    private StyleBox achievedStyle;
     private Control container;
 
     public override void _Ready()
     {
         itemScene = ResourceLoader.Load<PackedScene>("res://knytt/ui/stats/StatItem.tscn");
         labelScene = ResourceLoader.Load<PackedScene>("res://knytt/ui/stats/StatLabel.tscn");
+        achievedStyle = ResourceLoader.Load<StyleBox>("res://knytt/ui/styles/AchievedItem.tres");
         container = GetNode<Control>("ScrollContainer/VBoxContainer");
     }
 
@@ -23,27 +25,28 @@ public class StatPanel : Panel
         container.AddChild(label);
     }
 
-    public void addPower(int i, int count)
+    public void addPower(int i, int count, bool achieved)
     {
-        addItem($"res://knytt/ui/stats/Power{i}.tres", powers[i], count);
+        addItem($"res://knytt/ui/stats/Power{i}.tres", powers[i], count, achieved);
     }
 
-    public void addCutscene(string name, int count)
+    public void addCutscene(string name, int count, bool achieved)
     {
-        addItem($"res://knytt/ui/stats/Cutscene.tres", name, count);
+        addItem($"res://knytt/ui/stats/Cutscene.tres", name, count, achieved);
     }
 
-    public void addEnding(string name, int count)
+    public void addEnding(string name, int count, bool achieved)
     {
-        addItem($"res://knytt/ui/stats/Ending.tres", name, count);
+        addItem($"res://knytt/ui/stats/Ending.tres", name, count, achieved);
     }
 
-    private void addItem(string texture, string label, int count)
+    private void addItem(string texture, string label, int count, bool achieved)
     {
-        var node = itemScene.Instance();
-        node.GetNode<TextureRect>("TextureRect").Texture = ResourceLoader.Load<Texture>(texture);
-        node.GetNode<Label>("VBoxContainer/ItemLabel").Text = label;
-        node.GetNode<Label>("VBoxContainer/CountLabel").Text = $"Achieved {count} times";
+        var node = itemScene.Instance() as Control;
+        node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture>(texture);
+        node.GetNode<Label>("HBoxContainer/VBoxContainer/ItemLabel").Text = label;
+        node.GetNode<Label>("HBoxContainer/VBoxContainer/CountLabel").Text = $"Achieved {count} times";
+        if (achieved) { node.AddStyleboxOverride("panel", achievedStyle); }
         container.AddChild(node);
     }
 }
