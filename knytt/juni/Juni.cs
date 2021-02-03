@@ -114,6 +114,36 @@ public class Juni : KinematicBody2D
         set { _updrafts += (value ? 1 : -1); }
     }
 
+    public Color? JuniClothes
+    {
+        set 
+        {
+            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
+            mat.SetShaderParam("clothes_color", value);
+        }
+
+        get
+        {
+            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
+            return mat.GetShaderParam("clothes_color") as Color?;
+        }
+    }
+
+    public Color? JuniSkin
+    {
+        set 
+        {
+            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
+            mat.SetShaderParam("skin_color", value);
+        }
+
+        get
+        {
+            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
+            return mat.GetShaderParam("skin_color") as Color?;
+        }
+    }
+
     public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB ) : TERM_VEL; } }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
@@ -226,7 +256,10 @@ public class Juni : KinematicBody2D
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
+        JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
+        JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
     }
+
 
     public void setPower(PowerNames name, bool value)
     {
