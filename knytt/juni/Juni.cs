@@ -15,10 +15,10 @@ public class Juni : KinematicBody2D
     MAX_SPEED_RUN =                    175f,    // Max speed while running
     PULL_OVER_FORCE =                   30f,    // X Force exerted when reaching the top of a climb
     SLOPE_MAX_ANGLE =                  .81f,    // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
-    UPDRAFT_FORCE =                    .25f,    // The base updraft force exerted
-    UPDRAFT_FORCE_HOLD =                .4f,    // The updraft force exterted when holding jump
+    UPDRAFT_FORCE =                    .15f,    // The base updraft force exerted
+    UPDRAFT_FORCE_HOLD =                .3f,    // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED =               -225f,    // Maximum Y speed in an updraft
-    MAX_UPDRAFT_SPEED_HOLD =          -400f,    // Maximum Y speed in an updraft while holding jump
+    MAX_UPDRAFT_SPEED_HOLD =          -240f,    // Maximum Y speed in an updraft while holding jump
     JUMP_HOLD_POWER =                  125f,    // Y Force exerted while holding jump
     HIGH_JUMP_HOLD_POWER =             550f,    // Y Force exerted while holding jump when Juni has high jump power
     UMBRELLA_JUMP_HOLD_PENALTY =       .82f,    // Penalty on jump hold when Juni has the umbrella deployed
@@ -27,7 +27,7 @@ public class Juni : KinematicBody2D
     MAX_X_SPEED_UMBRELLA =             120f,    // Maximum X speed when Juni has the umbrella deployed
     TERM_VEL =                         350f,    // Maximum +Y velocity
     TERM_VEL_UMB =                      60f,    // Maximum +Y velocity when Juni has the umbrella deployed
-    TERM_VEL_UP =                       20f,    // Maximum +Y velocity when Juni has the imbrella deployed in an updraft
+    TERM_VEL_UP =                       20f,    // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
     CLIMB_SPEED =                     -125f,    // Speed Juni climbs up a wall
     SLIDE_SPEED =                       25f,    // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED =               130f,    // Speed Juni jumps away from a wall
