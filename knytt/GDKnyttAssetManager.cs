@@ -188,6 +188,7 @@ public class GDKnyttAssetManager
     public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
     {
         var image = texture.GetData();
+        if (image == null) { return texture; }
 
         if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
 

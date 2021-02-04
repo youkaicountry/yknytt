@@ -81,9 +81,7 @@ public class CustomObject : GDKnyttBaseObject
             if (info.image == null) { return false; }
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
             if (image_texture == null) { return false; }
-            // TODO: replace with shader!
-            // TODO: Still don't know if this should be checked for alpha or not. Maybe it's different in KS and KS+?
-            if (!image_texture.HasAlpha()) { image_texture = GDKnyttAssetManager.preprocessTilesetTexture(image_texture, new Color(0, 0, 0)); }
+            if (image_texture.HasAlpha()) { sprite.Material = null; }
             sprite.Frames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
             sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20);
