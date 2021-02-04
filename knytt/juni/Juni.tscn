@@ -366,7 +366,7 @@ collision_mask = 6
 script = ExtResource( 14 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundChecker"]
-polygon = PoolVector2Array( 5.5, -1.7, 3.8, 2.5, -3.8, 2.5, -5.5, -1.7 )
+polygon = PoolVector2Array( 5.25, -1.5, 3.2, 2.5, -3.2, 2.5, -5.25, -1.5 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
