@@ -24,13 +24,14 @@ public class Password : GDKnyttBaseObject
         sprite.Play(current_char.ToString());
     }
 
+    // TODO: refactor: make this class abstract, move implementation to derived SymbolPassword
     protected virtual bool checkPassword()
     {
         foreach (var layer in GDArea.Objects.Layers)
         {
             foreach (var knytt_object in layer.GetChildren())
             {
-                if (knytt_object is Password password)
+                if (knytt_object is Password password && password.GetType() == typeof(Password))
                 {
                     if (!password.IsCorrect()) { return false; }
                 }
