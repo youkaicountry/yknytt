@@ -454,7 +454,6 @@ wait_time = 0.25
 one_shot = true
 
 [node name="JuniMotionParticles" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 15 )
 
 [node name="Timers" type="Node" parent="JuniMotionParticles"]
@@ -503,7 +502,6 @@ z_index = 13
 z_as_relative = false
 
 [node name="InsideDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 16 )
