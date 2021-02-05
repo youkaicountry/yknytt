@@ -267,7 +267,7 @@ Bank 12 (Ghosts):
 [x] - 11 Ghost
 [ ] - 12
 [x] - 13 Ghost Crawler
-[ ] - 14
+[x] - 14 Attack Block
 [ ] - 15
 [ ] - 16
 [x] - 17 No Wall

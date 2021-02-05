@@ -1,0 +1,121 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank12/attack_block.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank12/AttackBlock.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=5]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 26, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 52, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 78, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 104, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 130, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 156, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 182, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 208, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 234, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 260, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 286, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 312, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 338, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 364, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 390, 0, 26, 72 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 416, 0, 26, 72 )
+
+[sub_resource type="SpriteFrames" id=19]
+animations = [ {
+"frames": [ null ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": false,
+"name": "open",
+"speed": 25.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11, 1 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 19 )
+centered = false
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 13, 71 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="GhostMod" parent="." instance=ExtResource( 1 )]
+flickering = false
+
+[node name="DistanceMod" parent="." instance=ExtResource( 4 )]
+openDistance = 60.0
+closeDistance = 10000.0
+method = 2
+spritePath = NodePath("../AnimatedSprite")
+
+[node name="OpenPlayer" parent="." instance=ExtResource( 5 )]
+rawPath = "res://knytt/data/Sfx/Ghost Rock.raw"
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
+[connection signal="EnterEvent" from="DistanceMod" to="." method="_on_DistanceMod_EnterEvent"]
