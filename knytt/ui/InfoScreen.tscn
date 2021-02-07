@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=6]
+[ext_resource path="res://knytt/ui/button_red.png" type="Texture" id=7]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -75,14 +76,15 @@ anchor_right = 1.0
 margin_left = -310.0
 margin_top = 10.0
 margin_right = -160.0
+margin_bottom = 205.0
 
 [node name="RatePanel" type="Panel" parent="InfoRect"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -150.0
+margin_left = -160.0
 margin_top = 10.0
 margin_right = -10.0
-margin_bottom = 200.0
+margin_bottom = 205.0
 custom_styles/panel = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -93,12 +95,13 @@ anchor_right = 1.0
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
+custom_constants/separation = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TitleLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_right = 130.0
+margin_right = 140.0
 margin_bottom = 13.0
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -108,9 +111,9 @@ __meta__ = {
 }
 
 [node name="Rates" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 17.0
-margin_right = 130.0
-margin_bottom = 47.0
+margin_top = 16.0
+margin_right = 140.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 25, 30 )
 
 [node name="UpvoteButton" parent="InfoRect/RatePanel/VBoxContainer/Rates" instance=ExtResource( 2 )]
@@ -158,63 +161,122 @@ rect_min_size = Vector2( 30, 30 )
 custom_styles/disabled = SubResource( 1 )
 text = "-"
 
-[node name="ComplainLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 51.0
-margin_right = 130.0
-margin_bottom = 64.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Level doesn't work?"
+[node name="Control2" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
+margin_top = 49.0
+margin_right = 140.0
+margin_bottom = 74.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 25 )
 
-[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
+[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/Control2" instance=ExtResource( 2 )]
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_top = 68.0
-margin_right = 130.0
-margin_bottom = 87.2149
+margin_top = 5.0
+margin_right = -25.0
+margin_bottom = 25.0
 custom_styles/disabled = SubResource( 1 )
-text = "Complain here"
+text = "Mark as broken"
 
-[node name="HintLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 91.0
-margin_right = 130.0
-margin_bottom = 104.0
+[node name="Label" type="Label" parent="InfoRect/RatePanel/VBoxContainer/Control2"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -23.0
+margin_top = 8.0
+margin_bottom = 21.0
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "(opens browser)"
+text = "(999)"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
+margin_top = 77.0
+margin_right = 140.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="VisitButton" parent="InfoRect/RatePanel/VBoxContainer/Control" instance=ExtResource( 2 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 140.0
+margin_bottom = 19.2149
+custom_styles/disabled = SubResource( 1 )
+text = "Visit GitHub to report"
+
 [node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 108.0
-margin_right = 130.0
-margin_bottom = 127.215
+margin_top = 100.0
+margin_right = 140.0
+margin_bottom = 119.215
 text = "Optimize"
+
+[node name="UninstallButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 122.0
+margin_right = 140.0
+margin_bottom = 141.215
+custom_styles/disabled = SubResource( 1 )
+text = "Uninstall Level"
+
+[node name="Control3" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
+margin_top = 144.0
+margin_right = 140.0
+margin_bottom = 163.0
+rect_min_size = Vector2( 0, 19 )
+
+[node name="ConfirmUninstallButton" parent="InfoRect/RatePanel/VBoxContainer/Control3" instance=ExtResource( 2 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 140.0
+margin_bottom = 19.0
+custom_styles/disabled = SubResource( 1 )
+text = "Confirm"
+
+[node name="RedLayer" type="NinePatchRect" parent="InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+texture = ExtResource( 7 )
+region_rect = Rect2( 2, 2, 8, 8 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StatsButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 131.0
-margin_right = 130.0
-margin_bottom = 150.215
-text = "Level Global Stats"
+margin_top = 166.0
+margin_right = 140.0
+margin_bottom = 185.215
+text = "Global Statistics"
 
 [node name="StatHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
-
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton" to="." method="_on_UpvoteButton_pressed"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton" to="." method="_on_DownvoteButton_pressed"]
-[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_ComplainButton_pressed"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Control2/ComplainButton" to="." method="_on_ComplainButton_pressed"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Control/VisitButton" to="." method="_on_VisitButton_pressed"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/UninstallButton" to="." method="_on_UninstallButton_pressed"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton" to="." method="_on_ConfirmUninstallButton_pressed"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/StatsButton" to="." method="_on_StatsButton_pressed"]
 [connection signal="ready" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_ready"]
 [connection signal="request_completed" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_request_completed"]

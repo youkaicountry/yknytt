@@ -28,6 +28,7 @@ public class InfoScreen : CanvasLayer
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/UninstallButton").Disabled = world.WorldDirectory.StartsWith("res://");
     }
 
     public void _on_BackButton_pressed()
@@ -95,6 +96,7 @@ public class InfoScreen : CanvasLayer
 
         upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
         downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
+        complains = HTTPUtil.jsonInt(json.Result, "complains");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -156,6 +158,7 @@ public class InfoScreen : CanvasLayer
 
     private int upvotes;
     private int downvotes;
+    private int complains;
 
     public GameButtonInfo ButtonInfo
     {
@@ -163,6 +166,7 @@ public class InfoScreen : CanvasLayer
         {
             upvotes = value.Upvotes;
             downvotes = value.Downvotes;
+            complains = value.Complains;
             updateRates();
         }
     }
@@ -180,7 +184,7 @@ public class InfoScreen : CanvasLayer
     private void _on_ComplainButton_pressed()
     {
         sendRating((int)RateHTTPRequest.Action.Complain);
-        OS.ShellOpen(complainURL);
+        GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Control/VisitButton").Visible = true;
     }
 
     private void sendRating(int action)
@@ -192,6 +196,7 @@ public class InfoScreen : CanvasLayer
     {
         if (action == (int)RateHTTPRequest.Action.Upvote) { upvotes++; }
         if (action == (int)RateHTTPRequest.Action.Downvote) { downvotes++; }
+        if (action == (int)RateHTTPRequest.Action.Complain) { complains++; }
         updateRates();
     }
 
@@ -200,6 +205,7 @@ public class InfoScreen : CanvasLayer
         var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates");
         rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{upvotes}";
         rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{downvotes}";
+        GetNode<Label>("InfoRect/RatePanel/VBoxContainer/Control2/Label").Text = $"({complains})";
     }
 
     private void _on_OptimizeButton_pressed()
@@ -207,5 +213,25 @@ public class InfoScreen : CanvasLayer
         // TODO: waiting animation
         if (KWorld.BinMode) { KWorld.unpackWorld(); }
         GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true); // To fix errors if chromakey and alpha channel used together
+    }
+
+    private void _on_VisitButton_pressed()
+    {
+        OS.ShellOpen(complainURL);
+    }
+
+    private void _on_UninstallButton_pressed()
+    {
+        var button = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton");
+        button.Visible = !button.Visible;
+    }
+
+    private void _on_ConfirmUninstallButton_pressed()
+    {
+        ClickPlayer.Play();
+        KWorld.uninstallWorld();
+        this.QueueFree();
+        (GetTree().Root.FindNode("LevelSelection", owned: false) as LevelSelection)?.reloadAll();
+        //GetTree().CallDeferred("change_scene", "res://knytt/ui/MainMenu.tscn"); -- this workaround doesn't work too
     }
 }

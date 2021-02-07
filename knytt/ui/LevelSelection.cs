@@ -114,6 +114,12 @@ public class LevelSelection : CanvasLayer
         Task.WaitAll(consumers.ToArray());
     }
 
+    public void reloadAll()
+    {
+        game_container.clearWorlds();
+        //singleThreadedLoad(); -- causes crash
+    }
+
     private void HttpLoad()
     {
         game_container.clearWorlds();
@@ -331,6 +337,7 @@ public class LevelSelection : CanvasLayer
         world_info.Upvotes = HTTPUtil.jsonInt(json_item, "upvotes");
         world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
         world_info.Downloads = HTTPUtil.jsonInt(json_item, "downloads");
+        world_info.Complains = HTTPUtil.jsonInt(json_item, "complains");
         world_info.Verified = HTTPUtil.jsonBool(json_item, "verified");
         world_info.Approved = HTTPUtil.jsonBool(json_item, "approved");
         return world_info;
@@ -422,7 +429,7 @@ public class LevelSelection : CanvasLayer
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
             new Directory().Rename(http_node.DownloadFile, final_filename);
             download_button.markCompleted();
-            download_button.incDownloads();
+            download_button.incDownloads(); // TODO: increment count only on first download (use RateAdded event)
             download_button.KWorld = (GDKnyttWorldImpl)generateBinWorld(final_filename).world;
             sendDownload();
         }

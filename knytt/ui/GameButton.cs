@@ -13,6 +13,7 @@ public class GameButtonInfo
     public int Upvotes;
     public int Downvotes;
     public int Downloads;
+    public int Complains;
     public bool Verified;
     public bool Approved;
 
@@ -68,7 +69,7 @@ public class GameButton : Button
             rating_control.GetNode<Label>("DownvotesLabel").Text = $"-{buttonInfo.Downvotes}";
             rating_control.GetNode<Label>("DownloadsLabel").Text = $"{buttonInfo.Downloads}";
             rating_control.GetNode<Label>("VerifiedLabel").Text = 
-                buttonInfo.Approved ? "Verified" : buttonInfo.Verified ? "Verified Auto" : "Not Verified";
+                buttonInfo.Approved ? "Approved" : buttonInfo.Verified ? "Autoverified" : "Not Verified";
             rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", 
                 buttonInfo.Approved || buttonInfo.Verified ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0));
         }
