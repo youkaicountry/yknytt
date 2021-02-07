@@ -11,6 +11,7 @@ public class Win : GDKnyttBaseObject
         juni.Powers.Endings.Add(ending);
         var save = GDArea.GDWorld.KWorld.CurrentSave;
         // TODO: use previous save, change endings only! do not change powers!
+        // TODO: send signal to server if no cutscene is shown?
         GDArea.GDWorld.Game.saveGame(save.getArea(), save.getAreaPosition(), true);
 
         juni.win(ending);

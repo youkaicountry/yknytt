@@ -107,7 +107,8 @@ public class GDKnyttAssetManager
     public static Texture loadTexture(byte[] buffer)
     {
         var image = new Image();
-        image.LoadPngFromBuffer(buffer);
+        var error = image.LoadPngFromBuffer(buffer);
+        if (error != Error.Ok) { return null; }
         return image2Texture(image);
     }
 
