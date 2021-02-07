@@ -86,9 +86,36 @@ public class GDKnyttWorldImpl : KnyttWorld
 
         new Directory().Remove(marker_name);
         new Directory().Remove(WorldDirectory);
+        removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOf('/') + 1));
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
         BinMode = false;
+    }
+
+    private void removeDirectory(string dir_name)
+    {
+        var dir = new Directory();
+        dir.Open(dir_name);
+        dir.ListDirBegin(skipNavigational: true);
+        for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
+        {
+            if (dir.FileExists(filename)) { dir.Remove(filename); } else { removeDirectory($"{dir_name}/{filename}"); }
+        }
+        new Directory().Remove(dir_name);
+    }
+
+    public void uninstallWorld()
+    {
+        if (BinMode)
+        {
+            new Directory().Remove(WorldDirectory);
+            removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOf('/') + 1));
+        }
+        else
+        {
+            removeDirectory(WorldDirectory);
+        }
+        removeDirectory($"user://Cache/{WorldDirectoryName}");
     }
 }
