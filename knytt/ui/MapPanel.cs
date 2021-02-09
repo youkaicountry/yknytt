@@ -47,8 +47,8 @@ public class MapPanel : Panel
                 spoofing[coord] = new KnyttPoint(map_x ?? coord.x, map_y ?? coord.y);
             }
 
-            if (area.ExtraData["MapVisible"] == "True")  { visible[coord] = true;  }
-            if (area.ExtraData["MapVisible"] == "False") { visible[coord] = false; }
+            if (area.ExtraData["MapVisible"]?.ToLower() == "true")  { visible[coord] = true;  }
+            if (area.ExtraData["MapVisible"]?.ToLower() == "false") { visible[coord] = false; }
 
             int? color = int.TryParse(area.ExtraData["MapColor"], out i) ? i : null as int?;
             if (color != null) 

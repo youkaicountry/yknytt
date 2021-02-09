@@ -51,7 +51,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 6.00916, 3.3343 )
+extents = Vector2( 10, 3.334 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 2 )
@@ -109,7 +109,7 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Spot"]
 frames = SubResource( 10 )
 animation = "Spot"
-frame = 4
+frame = 7
 playing = true
 centered = false
 
@@ -141,7 +141,7 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Circle"]
 frames = SubResource( 20 )
 animation = "Circle"
-frame = 3
+frame = 5
 playing = true
 centered = false
 

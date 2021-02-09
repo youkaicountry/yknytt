@@ -6,7 +6,7 @@ font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 [sub_resource type="DynamicFont" id=2]
 size = 12
 outline_size = 1
-extra_spacing_top = 4
+extra_spacing_top = 6
 extra_spacing_bottom = 2
 font_data = SubResource( 1 )
 

@@ -43,6 +43,7 @@ public class Shift : Switch
         {
             if (shift.FlagOn.power)
             {
+                // TODO: it fires RateHTTPRequest which will stop if shift has a cutscene. Power update will not be sent to the server!
                 juni.setPower(shift.FlagOn.number, true);
             }
             else
