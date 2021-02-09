@@ -32,7 +32,7 @@ public class CustomObject : GDKnyttBaseObject
 
         int bank = getInt(section, "Bank", 0);
         int obj = getInt(section, "Object", 0);
-        bool safe = getString(section, "Hurts") == "False";
+        bool safe = getString(section, "Hurts")?.ToLower() == "false";
         if (bank != 0 && obj != 0)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
@@ -69,9 +69,7 @@ public class CustomObject : GDKnyttBaseObject
 
     private static int getInt(KeyDataCollection section, string key, int @default)
     {
-        var value = getString(section, key);
-        return value == null ? @default : 
-                int.TryParse(value, out int i) ? i : @default;
+        return int.TryParse(getString(section, key), out int i) ? i : @default;
     }
 
     protected bool fillAnimation(string animation_name)

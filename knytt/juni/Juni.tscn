@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -217,6 +217,9 @@ extents = Vector2( 6.71, 5.05 )
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 4.6728, 2.11682 )
 
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 4, 7 )
+
 [node name="Juni" type="KinematicBody2D"]
 process_priority = -1
 z_index = 8
@@ -246,8 +249,8 @@ one_shot = true
 material = SubResource( 10 )
 position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
-hframes = 10
 vframes = 5
+hframes = 10
 frame = 47
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -443,6 +446,8 @@ color_ramp = SubResource( 20 )
 
 [node name="Detector" type="Sprite" parent="."]
 visible = false
+z_index = 16
+z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="HologramTimer" type="Timer" parent="."]
@@ -506,9 +511,8 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource( 16 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideDetector"]
-polygon = PoolVector2Array( -5.5, -8.5, 5.5, -8.5, 5.5, 7.3, 3.75, 8.5, -3.75, 8.5, -5.5, 7.3 )
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InsideDetector"]
+shape = SubResource( 23 )
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

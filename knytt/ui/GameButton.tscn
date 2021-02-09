@@ -53,7 +53,8 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-stretch_mode = 3
+expand = true
+stretch_mode = 6
 
 [node name="TextContainer" type="VBoxContainer" parent="MainContainer"]
 margin_left = 34.0
@@ -131,7 +132,7 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="RatingControl"]
 margin_left = 244.0
 margin_right = 257.0
-margin_bottom = 14.0
+margin_bottom = 13.0
 rect_min_size = Vector2( 4, 4 )
 texture = ExtResource( 7 )
 stretch_mode = 4
@@ -150,5 +151,4 @@ text = "9999"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="pressed" from="." to="." method="_on_GameButton_pressed"]

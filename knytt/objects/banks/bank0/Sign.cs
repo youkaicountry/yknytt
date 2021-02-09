@@ -14,15 +14,15 @@ public class Sign : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        string letter = "ABC"[ObjectID.y - 17].ToString();
+        char letter = "ABC"[ObjectID.y - 17];
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
-        texts.Add(text?.Trim(new char[]{'"'}));
+        texts.Add(trim(text));
         for (int i = 2; ; i++)
         {
             text = GDArea.Area.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
-            texts.Add(text?.Trim(new char[]{'"'}));
+            texts.Add(trim(text));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
 
@@ -30,6 +30,11 @@ public class Sign : GDKnyttBaseObject
         triggerMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignTrig({letter})"), out j) ? j : 0;
 
         adjustSign();
+    }
+
+    private string trim(string msg)
+    {
+        return msg != null && msg.StartsWith("\"") && msg.EndsWith("\"") ? msg.Substring(1, msg.Length - 2) : msg; 
     }
 
     protected void adjustSign()

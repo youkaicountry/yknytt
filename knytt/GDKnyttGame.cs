@@ -205,7 +205,7 @@ public class GDKnyttGame : Node2D
 	public bool hasMap()
 	{
 		var world_section = GDWorld.KWorld.INIData["World"];
-		return world_section["Format"] == "4" && world_section["Map"] != "False";
+		return world_section["Format"] == "4" && world_section["Map"]?.ToLower() != "false";
 	}
 
 	public override void _Process(float delta)
