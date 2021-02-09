@@ -1,11 +1,11 @@
 using Godot;
+using System.Collections.Generic;
 
 public class PowerItem : GDKnyttBaseObject
 {
-    public static int[] Object2Power = new int[] { -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 
-                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 9, 10, 11,
-                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12 };
-
+    public readonly Dictionary<int, int> Object2Power = new Dictionary<int, int>() {
+        [3] = 0, [4] = 1, [5] = 2, [6] = 3, [7] = 4, [8] = 5, [9] = 6, [10] = 7, [21] = 8, [22] = 9, [23] = 10, [24] = 11, [35] = 12
+    };
 
     int power;
 
@@ -13,19 +13,16 @@ public class PowerItem : GDKnyttBaseObject
     {
         this.power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
-        //GD.Print(Layer.ObjectLayers.GDArea.GDWorld.Game.Juni);
-        if (Juni.Powers.getPower(power)) { this.Visible = false; }
+        if (Juni.Powers.getPower(power)) { QueueFree(); }
         GetNode<AnimatedSprite>("AnimatedSprite").Animation = $"Power{power}";
     }
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (!(body is Juni)) { return; }
-        Juni juni = (Juni)body;
-        if (juni.Powers.getPower(power)) { return; }
+        if (!(body is Juni juni)) { return; }
         juni.setPower(power, true);
-
-        GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
-        GetNode<AnimationPlayer>("PickupAnimation").Play("Pickup");
+        GDArea.playEffect(Coords);
+        juni.playSound("powerup");
+        QueueFree();
     }
 }
