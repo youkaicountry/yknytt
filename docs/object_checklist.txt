@@ -66,10 +66,10 @@ Bank 2 (Flyers):
 [ ] -  6
 [ ] -  7
 [ ] -  8
-[ ] -  9
-[ ] - 10
-[ ] - 11
-[ ] - 12
+[x] -  9 Yellow Bee
+[x] - 10 Red Bee
+[x] - 11 Homing Circle
+[x] - 12 Homing Rectangle
 [ ] - 13
 [ ] - 14
 [x] - 15 Buzz Flyer
@@ -88,8 +88,8 @@ Bank 2 (Flyers):
 [x] - 28 Birdie 3
 [ ] - 29
 [x] - 30 Circle Bird
-[ ] - 31
-[ ] - 32
+[x] - 31 Background Bird
+[x] - 32 Fast Homing Square
 
 Bank 3 (Knytt & Fluff):
 [x] -  1 Friendly Mufs

@@ -83,6 +83,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(1, 22)] =  "LiquidPool";
         ObjectLookup[new KnyttPoint(1, 23)] =  "Waterfall";
         ObjectLookup[new KnyttPoint(1, 24)] =  "WaterBlock";
+        ObjectLookup[new KnyttPoint(2, 9)] =   "YellowBee";
+        ObjectLookup[new KnyttPoint(2, 10)] =  "RedBee";
+        ObjectLookup[new KnyttPoint(2, 11)] =  "HomingCircle";
+        ObjectLookup[new KnyttPoint(2, 12)] =  "HomingRect";
         ObjectLookup[new KnyttPoint(2, 15)] =  "BuzzFlyer";
         ObjectLookup[new KnyttPoint(2, 16)] =  "BuzzFlyer";
         ObjectLookup[new KnyttPoint(2, 17)] =  "BuzzFlyer";
@@ -92,6 +96,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(2, 21)] =  "FlySpike2";
         ObjectLookup[new KnyttPoint(2, 28)] =  "Birdie3";
         ObjectLookup[new KnyttPoint(2, 30)] =  "CircleBird";
+        ObjectLookup[new KnyttPoint(2, 31)] =  "BackgroundBird";
+        ObjectLookup[new KnyttPoint(2, 32)] =  "FastHomingSquare";
         ObjectLookup[new KnyttPoint(3, 1)] =   "Muff1";
         ObjectLookup[new KnyttPoint(3, 2)] =   "RollerMuff2";
         ObjectLookup[new KnyttPoint(3, 3)] =   "Muff3";
