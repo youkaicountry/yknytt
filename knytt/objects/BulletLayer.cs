@@ -16,7 +16,7 @@ public class BulletLayer : Node2D
         ["CauldronSpike"] = 20, ["ShockWave"] = 40, ["DropStuff"] = 500, ["RollBullet"] = 15, ["BlueBullet"] = 2,
         ["NinjaStar"] = 15, ["HomingBullet"] = 15, ["BigGlowingBullet"] = 10, ["FireBullet2"] = 15, ["FireBullet"] = 150,
         ["EvilFlowerBullet"] = 150, ["SmallGlowingBullet"] = 200, ["BlueBulletExplosion"] = 100, ["ShockWave2"] = 40,
-        ["SuperBullet"] = 100, ["RunnerBullet"] = 15
+        ["SuperBullet"] = 100, ["RunnerBullet"] = 15, ["BeeBullet"] = 15
     };
 
     public void RegisterEmitter(Node2D enemy_object, string bullet_scene, InitBulletEvent on_init)
