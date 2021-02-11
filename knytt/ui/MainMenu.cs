@@ -35,12 +35,14 @@ public class MainMenu : Node2D
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
 
+    private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
+
     public void loadTutorial()
     {
-        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile("res://knytt/worlds/Nifflas - Tutorial.knytt.bin"));
+        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(TUTORIAL_PATH));
         var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory("res://knytt/worlds", binloader.RootDirectory);
+        world.setDirectory(TUTORIAL_PATH, binloader.RootDirectory);
         world.loadWorldConfig(txt);
         var save_txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini"));
         world.CurrentSave = new KnyttSave(world, save_txt, 1);
