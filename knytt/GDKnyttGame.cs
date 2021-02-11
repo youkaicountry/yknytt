@@ -21,9 +21,6 @@ public class GDKnyttGame : Node2D
 	public GDKnyttAudioChannel AmbianceChannel2 { get; private set; }
 
 	[Export]
-	public string demoWorld = "./worlds/Nifflas - The Machine";
-
-	[Export]
 	public float edgeScrollSpeed = 1500f;
 
 	[Export]
@@ -63,16 +60,7 @@ public class GDKnyttGame : Node2D
 
 	private void setupWorld()
 	{
-		GDKnyttWorldImpl world;
-		if (GDKnyttDataStore.KWorld != null) { world = GDKnyttDataStore.KWorld; }
-		else
-		{
-			world = new GDKnyttWorldImpl();
-			world.setDirectory(this.demoWorld, "");
-			var save_data = GDKnyttAssetManager.loadTextFile(this.demoWorld + "/DefaultSavegame.ini");
-			world.CurrentSave = new KnyttSave(world, save_data, 1);
-		}
-
+		GDKnyttWorldImpl world = GDKnyttDataStore.KWorld;
 		GDWorld.setWorld(this, world);
 		GDWorld.loadWorld();
 		createJuni();

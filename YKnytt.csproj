@@ -234,6 +234,8 @@
     <Compile Include="knytt\ui\touch\TouchSettings.cs" />
     <Compile Include="knytt\ui\touch\TouchSettingsScreen.cs" />
     <Compile Include="knytt\ui\UICanvasLayer.cs" />
+    <Compile Include="knytt\ui\WorldEntry.cs" />
+    <Compile Include="knytt\ui\WorldManager.cs" />
     <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

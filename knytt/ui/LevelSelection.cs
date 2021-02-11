@@ -7,10 +7,11 @@ using System.IO.Compression;
 using Godot;
 using Godot.Collections;
 using YKnyttLib;
+using IniParser.Model;
 
 public class LevelSelection : CanvasLayer
 {
-    KnyttWorldManager<Texture> Manager { get; }
+    WorldManager Manager { get; }
     PackedScene info_scene;
 
     [Export] public int loadThreads = 4;
@@ -35,15 +36,15 @@ public class LevelSelection : CanvasLayer
     public bool localLoad = false;
     private string next_page = null;
 
-    ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry> finished_entries;
-    ConcurrentQueue<GameButtonInfo> remote_finished_entries; // TODO: process all found entries at once?
+    ConcurrentQueue<WorldEntry> finished_entries;
+    ConcurrentQueue<WorldEntry> remote_finished_entries; // TODO: process all found entries at once?
     ConcurrentQueue<Action> load_hopper;
 
     public LevelSelection()
     {
-        Manager = new KnyttWorldManager<Texture>();
-        finished_entries = new ConcurrentQueue<KnyttWorldManager<Texture>.WorldEntry>();
-        remote_finished_entries = new ConcurrentQueue<GameButtonInfo>();
+        Manager = new WorldManager();
+        finished_entries = new ConcurrentQueue<WorldEntry>();
+        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
         load_hopper = new ConcurrentQueue<Action>();
         consumers = new List<Task>();
     }
@@ -168,11 +169,11 @@ public class LevelSelection : CanvasLayer
         }
     }
 
-    private KnyttWorldManager<Texture>.WorldEntry? findLocal(GameButtonInfo button_info)
+    private WorldEntry findLocal(WorldEntry world_entry)
     {
         foreach (var entry in finished_entries)
         {
-            if (entry.world.Info.Name == button_info.Name && entry.world.Info.Author == button_info.Author) { return entry; }
+            if (entry.Name == world_entry.Name && entry.Author == world_entry.Author) { return entry; }
         }
         return null;
     }
@@ -188,14 +189,15 @@ public class LevelSelection : CanvasLayer
             if (!finished_entries.TryDequeue(out var entry)) { return; }
             if (Manager.addWorld(entry))
             {
-                game_container.addWorld((GDKnyttWorldImpl)entry.world, entry.extra_data, game_container.Count == 0);
+                game_container.addWorld(entry, focus: game_container.Count == 0);
             }
         }
         else
         {
-            if (!remote_finished_entries.TryDequeue(out var button_info)) { return; }
-            var entry = findLocal(button_info); // TODO: with multithreading local level can be added later than remote, and it won't be shown as downloaded
-            game_container.addWorld(button_info, entry != null ? (GDKnyttWorldImpl)entry.Value.world : null, mark_completed: entry != null);
+            if (!remote_finished_entries.TryDequeue(out var world_entry)) { return; }
+            var entry = findLocal(world_entry); // TODO: with multithreading local level can be added later than remote, and it won't be shown as downloaded
+            if (entry != null) { world_entry.MergeLocal(entry); }
+            game_container.addWorld(world_entry, focus: game_container.Count == 0, mark_completed: entry != null);
         }
     }
 
@@ -227,7 +229,7 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, name, single_threaded);
+                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, single_threaded);
             }
             else
             {
@@ -239,17 +241,17 @@ public class LevelSelection : CanvasLayer
         discovery_over = true;
     }
 
-    private void startDirectoryLoad(string world_dir, string name, bool single_threaded)
+    private void startDirectoryLoad(string world_dir, bool single_threaded)
     {
-        if (single_threaded) { directoryLoad(world_dir, name); return; }
+        if (single_threaded) { directoryLoad(world_dir); return; }
 
-        Action action = () => { directoryLoad(world_dir, name); };
+        Action action = () => { directoryLoad(world_dir); };
         load_hopper.Enqueue(action);
     }
 
-    private void directoryLoad(string world_dir, string name)
+    private void directoryLoad(string world_dir)
     {
-        var entry = generateDirectoryWorld(world_dir, name);
+        var entry = generateDirectoryWorld(world_dir);
         finished_entries.Enqueue(entry);
     }
 
@@ -269,22 +271,19 @@ public class LevelSelection : CanvasLayer
 
     object file_lock = new object();
 
-    private KnyttWorldManager<Texture>.WorldEntry generateDirectoryWorld(string world_dir, string name)
+    private WorldEntry generateDirectoryWorld(string world_dir)
     {
         Texture icon;
-        string txt;
+        byte[] ini_bin;
         lock(file_lock) {icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");}
-        lock(file_lock) {txt = GDKnyttAssetManager.loadTextFile(world_dir + "/world.ini");}
-        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory(world_dir, name);
-        world.loadWorldConfig(txt);
-        return new KnyttWorldManager<Texture>.WorldEntry(world, icon);
+        lock(file_lock) {ini_bin = GDKnyttAssetManager.loadFile(world_dir + "/world.ini");}
+        return new WorldEntry(icon, getWorldInfo(ini_bin), world_dir);
     }
 
-    private KnyttWorldManager<Texture>.WorldEntry generateBinWorld(string world_dir)
+    private WorldEntry generateBinWorld(string world_dir)
     {
         byte[] icon_bin;
-        byte[] ini_bin;
+        KnyttWorldInfo world_info;
 
         string filename = world_dir.Substring(world_dir.LastIndexOf('/') + 1);
         string cache_dir = "user://Cache/" + filename;
@@ -293,11 +292,12 @@ public class LevelSelection : CanvasLayer
         if (new Directory().DirExists(cache_dir))
         {
             icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
-            ini_bin = GDKnyttAssetManager.loadFile(ini_cache_name);
+            world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
         }
         else
         {
             KnyttBinWorldLoader binloader;
+            byte[] ini_bin;
             lock(file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
             lock(file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
             lock(file_lock) { ini_bin = binloader.GetFile("World.ini"); }
@@ -308,23 +308,30 @@ public class LevelSelection : CanvasLayer
             f.Open(icon_cache_name, File.ModeFlags.Write);
             f.StoreBuffer(icon_bin);
             f.Close();
+
+            var ini_data = new IniData();
+            world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
             f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreBuffer(ini_bin);
+            f.StoreString(ini_data.ToString());
             f.Close();
         }
 
         Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
-        string txt = GDKnyttAssetManager.loadTextFile(ini_bin);
-        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory(world_dir, null); // TODO: replace setDirectory with something else
-        world.loadWorldConfig(txt);
-        world.setBinMode(null);
-        return new KnyttWorldManager<Texture>.WorldEntry(world, icon);
+        return new WorldEntry(icon, world_info, world_dir);
     }
 
-    private GameButtonInfo generateRemoteWorld(Dictionary json_item)
+    private KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
     {
-        GameButtonInfo world_info = new GameButtonInfo();
+        string ini = GDKnyttAssetManager.loadTextFile(ini_bin);
+        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
+        world.loadWorldConfig(ini);
+        if (merge_to != null) { merge_to.Merge(world.INIData["World"]); }
+        return world.Info;
+    }
+
+    private WorldEntry generateRemoteWorld(Dictionary json_item)
+    {
+        WorldEntry world_info = new WorldEntry();
         world_info.HasServerInfo = true;
         world_info.Name = HTTPUtil.jsonValue<string>(json_item, "name");
         world_info.Author = HTTPUtil.jsonValue<string>(json_item, "author");
@@ -372,7 +379,7 @@ public class LevelSelection : CanvasLayer
 
         foreach(var world_entry in worlds)
         {
-            game_container.addWorld((GDKnyttWorldImpl)world_entry.world, world_entry.extra_data, false);
+            game_container.addWorld(world_entry, false);
         }
     }
 
@@ -385,21 +392,21 @@ public class LevelSelection : CanvasLayer
 
     public void _on_GamePressed(GameButton button)
     {
-        if (button.KWorld == null)
+        if (button.worldEntry.Path == null)
         {
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }
 
             GDKnyttAssetManager.ensureDirExists("user://Worlds");
             
-            string filename = button.buttonInfo.Link;
+            string filename = button.worldEntry.Link;
             filename = filename.Substring(filename.LastIndexOf('/') + 1);
             if (filename.IndexOf('?') != -1) { filename = filename.Substring(0, filename.IndexOf('?')); }
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename);
             http_node.DownloadFile = $"user://Worlds/{filename}.part";
             
-            var error = http_node.Request(button.buttonInfo.Link);
+            var error = http_node.Request(button.worldEntry.Link);
             if (error != Error.Ok) { download_button.markFailed(); return; }
 
             timer.Start();
@@ -411,8 +418,8 @@ public class LevelSelection : CanvasLayer
         {
             ClickPlayer.Play();
             var info_screen = info_scene.Instance() as InfoScreen;
-            info_screen.initialize(button.KWorld);
-            info_screen.ButtonInfo = button.buttonInfo;
+            info_screen.initialize(button.worldEntry.Path);
+            info_screen.worldEntry = button.worldEntry;
             this.GetParent().AddChild(info_screen);
         }
     }
@@ -430,7 +437,7 @@ public class LevelSelection : CanvasLayer
             new Directory().Rename(http_node.DownloadFile, final_filename);
             download_button.markCompleted();
             download_button.incDownloads(); // TODO: increment count only on first download (use RateAdded event)
-            download_button.KWorld = (GDKnyttWorldImpl)generateBinWorld(final_filename).world;
+            download_button.worldEntry.MergeLocal(generateBinWorld(final_filename));
             sendDownload();
         }
         else
@@ -447,7 +454,7 @@ public class LevelSelection : CanvasLayer
     private void sendDownload()
     {
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
-            download_button.buttonInfo.Name, download_button.buttonInfo.Author, (int)RateHTTPRequest.Action.Download);
+            download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHTTPRequest.Action.Download);
     }
 
     public void _on_CategoryDropdown_item_selected(int index)

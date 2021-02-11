@@ -12,23 +12,30 @@ public class InfoScreen : CanvasLayer
 
     public GDKnyttWorldImpl KWorld { get; private set; }
 
-    public void initialize(GDKnyttWorldImpl world)
+    public void initialize(string path)
     {
-        this.KWorld = world;
-        if (world.BinMode)
+        KWorld = new GDKnyttWorldImpl();
+        if (new Directory().DirExists(path))
         {
-            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world.WorldDirectory));
-            world.setBinMode(loader);
-            world.setDirectory(world.WorldDirectory, loader.RootDirectory); // only WorldDirectory was set earlier
+            KWorld.setDirectory(path, path.Substring(path.LastIndexOf('/') + 1));
         }
-        Texture info = (world.worldFileExists("Info+.png") ? world.getWorldTexture("Info+.png") : 
-                                                             world.getWorldTexture("Info.png")) as Texture;
+        else
+        {
+            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
+            KWorld.setBinMode(loader);
+            KWorld.setDirectory(path, loader.RootDirectory);
+        }
+        string ini = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
+        KWorld.loadWorldConfig(ini);
+
+        Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") : 
+                                                              KWorld.getWorldTexture("Info.png")) as Texture;
         info.Flags |= (uint)Texture.FlagsEnum.Filter;
         GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
-        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
-        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
-        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + world.WorldDirectoryName;
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/UninstallButton").Disabled = world.WorldDirectory.StartsWith("res://");
+        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
+        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
+        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/UninstallButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
     }
 
     public void _on_BackButton_pressed()
@@ -160,7 +167,7 @@ public class InfoScreen : CanvasLayer
     private int downvotes;
     private int complains;
 
-    public GameButtonInfo ButtonInfo
+    public WorldEntry worldEntry
     {
         set
         {
