@@ -53,7 +53,7 @@ Bank 15 (Objects & Areas):
 
 Bank 16 (Invisible):
 [x] - 17 Object Barrier
-[ ] - 18 Fish and Birds Barrier
+[x] - 18 Fish and Birds Barrier
 [x] - 19 Additional Barrier
 [x] - 20 Additional Barrier
 [x] - 21 Additional Slope
