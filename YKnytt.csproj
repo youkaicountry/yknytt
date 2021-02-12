@@ -28,6 +28,9 @@
     <Compile Include="knytt\juni\InsideDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\SecretDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\Sticky.cs" />
+    <Compile Include="knytt\objects\banks\bank10\RandomWalkingBouncer.cs" />
+    <Compile Include="knytt\objects\banks\bank10\SmartWalkingBouncer.cs" />
+    <Compile Include="knytt\objects\banks\bank10\WalkingBouncer.cs" />
     <Compile Include="knytt\objects\banks\bank12\AttackBlock.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostLookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />

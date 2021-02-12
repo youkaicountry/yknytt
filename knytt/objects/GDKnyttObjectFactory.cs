@@ -218,6 +218,8 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(10, 2)] =  "Bouncer2";
         ObjectLookup[new KnyttPoint(10, 3)] =  "Cauldron";
         ObjectLookup[new KnyttPoint(10, 5)] =  "BouncerEnemy";
+        ObjectLookup[new KnyttPoint(10, 6)] =  "SmartWalkingBouncer";
+        ObjectLookup[new KnyttPoint(10, 7)] =  "RandomWalkingBouncer";
         ObjectLookup[new KnyttPoint(10, 8)] =  "BouncerGreen";
         ObjectLookup[new KnyttPoint(10, 9)] =  "BigFluff";
         ObjectLookup[new KnyttPoint(10, 10)] = "HappyFluff";
