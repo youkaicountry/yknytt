@@ -17,7 +17,7 @@ centered = false
 
 [node name="WallHitArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 3072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallHitArea"]
 position = Vector2( 12, 12 )
@@ -32,6 +32,5 @@ shape = SubResource( 2 )
 
 [node name="WaitTimer" type="Timer" parent="."]
 one_shot = true
-
 [connection signal="body_entered" from="WallHitArea" to="." method="_on_WallHitArea_body_entered"]
 [connection signal="body_entered" from="JuniHitArea" to="." method="onDeadlyAreaEntered"]
