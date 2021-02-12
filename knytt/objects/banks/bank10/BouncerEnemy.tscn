@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/banks/bank10/BouncerEnemy.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank10/bouncer_sprites/Bouncer5.png" type="Texture" id=2]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
 
@@ -21,10 +21,15 @@ region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 7 ) ],
 "loop": false,
-"name": "Bouncer5",
-"speed": 30.0
+"name": "stop",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": false,
+"name": "jump",
+"speed": 25.0
 } ]
 
 [sub_resource type="CircleShape2D" id=6]
@@ -32,10 +37,15 @@ radius = 7.2004
 
 [node name="BouncerEnemy" type="Node2D"]
 script = ExtResource( 1 )
+OrganicEnemy = true
+gravity = 550.0
+jump_force = 100.0
+extra_gravity = 550.0
+extra_jump_force = 100.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
-animation = "Bouncer5"
+animation = "stop"
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -45,5 +55,4 @@ collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 6 )
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

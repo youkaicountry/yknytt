@@ -5,7 +5,6 @@ public abstract class WalkingBouncer : Muff
     [Export] protected float initialJumpSpeed = 0;
     [Export] protected float jumpGravity = 0;
 
-    protected float originY;
     protected bool inAir = false;
     protected float jumpSpeed;
 
@@ -14,7 +13,6 @@ public abstract class WalkingBouncer : Muff
     public override void _Ready()
     {
         base._Ready();
-        originY = GlobalPosition.y;
     }
     
     public override void _PhysicsProcess(float delta)
@@ -24,8 +22,8 @@ public abstract class WalkingBouncer : Muff
         {
             if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
             {
+                if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
-                GlobalPosition = new Vector2(GlobalPosition.x, originY);
                 GetNodeOrNull<RawAudioPlayer2D>("BouncePlayer")?.Play();
                 _on_DirectionTimer_timeout();
                 _on_SpeedTimer_timeout();

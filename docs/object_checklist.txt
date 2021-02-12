@@ -229,8 +229,8 @@ Bank 10 (Bouncers):
 [x] -  1 Bouncer 1
 [x] -  2 Bouncer 2
 [x] -  3 Cauldron
-[ ] -  4
-[x] -  5 Bouncer
+[x] -  4 Smart Bouncer
+[x] -  5 Mini Smart Bouncer
 [x] -  6 Smart Walking Bouncer
 [x] -  7 Random Walking Bouncer
 [x] -  8 Green Bouncer
