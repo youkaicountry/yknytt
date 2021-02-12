@@ -231,8 +231,8 @@ Bank 10 (Bouncers):
 [x] -  3 Cauldron
 [ ] -  4
 [x] -  5 Bouncer
-[ ] -  6
-[ ] -  7
+[x] -  6 Smart Walking Bouncer
+[x] -  7 Random Walking Bouncer
 [x] -  8 Green Bouncer
 [x] -  9 Big Fluff
 [x] - 10 Happy Fluff
