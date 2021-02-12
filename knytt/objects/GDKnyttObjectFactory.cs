@@ -369,11 +369,11 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(17, 10)] = "FloorSpiker";
         ObjectLookup[new KnyttPoint(17, 11)] = "LeftSpiker";
         ObjectLookup[new KnyttPoint(17, 12)] = "RightSpiker";
-        ObjectLookup[new KnyttPoint(18, 1)] =  "Fish";
-        ObjectLookup[new KnyttPoint(18, 2)] =  "Fish";
-        ObjectLookup[new KnyttPoint(18, 3)] =  "Fish";
-        ObjectLookup[new KnyttPoint(18, 4)] =  "Fish";
-        ObjectLookup[new KnyttPoint(18, 5)] =  "Fish";
+        ObjectLookup[new KnyttPoint(18, 1)] =  "Fish1";
+        ObjectLookup[new KnyttPoint(18, 2)] =  "Fish2";
+        ObjectLookup[new KnyttPoint(18, 3)] =  "Fish3";
+        ObjectLookup[new KnyttPoint(18, 4)] =  "Fish4";
+        ObjectLookup[new KnyttPoint(18, 5)] =  "Fish5";
         ObjectLookup[new KnyttPoint(18, 6)] =  "WaterMonsterNew";
 
         ObjectLookup[new KnyttPoint(19, 7)] = "Collectable7";

@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank18/FishNew.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank18/fish5.png" type="Texture" id=2]
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -0.0501976, 0.0411415, 0, 0, 0, 0, -24.244, 3.5658, 0, 0, 0, 0, -48.2096, 9.45208, 0, 0, 0, 0, -72.1751, 3.5658, 0, 0, 0, 0, -96.1407, -7.99652, 0, 0, 0, 0, -120.106, -17.0362, 0, 0, 0, 0, -126.153, -17.3469, 0, 0, 0, 0, -96.0671, -23.8361, 0, 0, 0, 0, -72.1171, -32.1685, 0, 0, 0, 0, -48.2648, -39.4645, 0, 0, 0, 0, -24.1319, -36.9389, 0, 0, 0, 0, -0.256851, -35.9386 )
+}
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 9.0
+} ]
+
+[node name="Path2D" instance=ExtResource( 1 )]
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" parent="." index="0"]
+position = Vector2( -0.0501976, 0.0411415 )
+
+[node name="AnimatedSprite" parent="PathFollow2D" index="0"]
+frames = SubResource( 10 )
