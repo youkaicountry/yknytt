@@ -345,6 +345,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(16, 15)] = "InvisibleSlopeLeft";
         ObjectLookup[new KnyttPoint(16, 16)] = "InvisibleSlopeRight";
         ObjectLookup[new KnyttPoint(16, 17)] = "Barrier";
+        ObjectLookup[new KnyttPoint(16, 18)] = "FlyersBarrier";
         ObjectLookup[new KnyttPoint(16, 19)] = "AdditionalBarrier19";
         ObjectLookup[new KnyttPoint(16, 20)] = "AdditionalBarrier20";
         ObjectLookup[new KnyttPoint(16, 21)] = "AdditionalSlope21";

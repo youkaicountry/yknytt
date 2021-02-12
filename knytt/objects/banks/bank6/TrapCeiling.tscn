@@ -29,7 +29,7 @@ shape = SubResource( 1 )
 
 [node name="DownChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 3072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownChecker"]
 position = Vector2( 48, 23 )
@@ -37,7 +37,7 @@ shape = SubResource( 2 )
 
 [node name="UpChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 3072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpChecker"]
 position = Vector2( 48, 3 )
@@ -47,7 +47,6 @@ shape = SubResource( 3 )
 volume_db = -2.836
 rawPath = "res://knytt/data/Sfx/Roller Hit.raw"
 sampleRate = 22050
-
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
 [connection signal="body_entered" from="DownChecker" to="." method="_on_Checker_body_entered" binds= [ true ]]
 [connection signal="body_entered" from="UpChecker" to="." method="_on_Checker_body_entered" binds= [ false ]]

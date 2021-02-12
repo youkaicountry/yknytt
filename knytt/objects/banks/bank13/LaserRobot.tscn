@@ -40,19 +40,19 @@ extents = Vector2( 1, 3 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 1, 3 )
 
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 1, 3 )
+
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 1, 3 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1, 3 )
+extents = Vector2( 1, 41 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 1, 41 )
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 1, 41 )
-
-[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 1, 42 )
 
 [node name="Node2D" type="Node2D"]
@@ -65,7 +65,7 @@ centered = false
 
 [node name="LeftUpChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftUpChecker"]
 position = Vector2( 2, 4 )
@@ -73,7 +73,7 @@ shape = SubResource( 6 )
 
 [node name="LeftDownChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftDownChecker"]
 position = Vector2( 2, 92 )
@@ -81,36 +81,36 @@ shape = SubResource( 7 )
 
 [node name="RightUpChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightUpChecker"]
 position = Vector2( 11, 4 )
-shape = SubResource( 9 )
+shape = SubResource( 8 )
 
 [node name="RightDownChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightDownChecker"]
 position = Vector2( 11, 92 )
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="LeftLaserChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftLaserChecker"]
 position = Vector2( 2, 48 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 disabled = true
 
 [node name="RightLaserChecker" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2048
+collision_mask = 2560
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightLaserChecker"]
 position = Vector2( 11, 48 )
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 disabled = true
 
 [node name="LaserArea" type="Area2D" parent="."]
@@ -119,7 +119,7 @@ collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaserArea"]
 position = Vector2( 5, 48 )
-shape = SubResource( 8 )
+shape = SubResource( 12 )
 disabled = true
 
 [node name="OnPlayer" parent="." instance=ExtResource( 4 )]
@@ -127,7 +127,6 @@ rawPath = "res://knytt/data/Sfx/Laser Machine A.raw"
 
 [node name="OffPlayer" parent="." instance=ExtResource( 4 )]
 rawPath = "res://knytt/data/Sfx/Laser Machine B.raw"
-
 [connection signal="body_entered" from="LeftUpChecker" to="." method="collide" binds= [ true ]]
 [connection signal="body_entered" from="LeftDownChecker" to="." method="collide" binds= [ true ]]
 [connection signal="body_entered" from="RightUpChecker" to="." method="collide" binds= [ false ]]
