@@ -1,53 +1,24 @@
 using Godot;
-using YUtil.Random;
-using System.Collections.Generic;
+using YKnyttLib;
 
 public class BouncerEnemy : GDKnyttBaseObject
 {
-    private const float MIN_JUMP = 6.5f*24f, MAX_JUMP = 9.5f*24f;
+    [Export] float gravity;
+    [Export] float jump_force;
+    [Export] float extra_gravity;
+    [Export] float extra_jump_force;
 
-    struct BouncerData
-    {
-        public bool jump_trigger;
-        public float gravity;
-        public float jump_force;
-        public bool deadly;
-
-        public BouncerData(bool jump_trigger, float gravity, float jump_force, bool deadly)
-        {
-            this.jump_trigger = jump_trigger;
-            this.gravity = gravity;
-            this.jump_force = jump_force;
-            this.deadly = deadly;
-        }
-    }
-
-    static Dictionary<int, BouncerData> bouncers;
-
-    private string Anim { get { return $"Bouncer{ObjectID.y}"; } }
-
-    BouncerData bouncer_data;
     float vel;
     bool in_air = false;
     float start_y;
 
-    static BouncerEnemy()
-    {
-        bouncers = new Dictionary<int, BouncerData>();
-        bouncers.Add(5, new BouncerData(true, 600f, 100f, true));
-    }
+    private AnimatedSprite sprite;
 
     public override void _Ready()
     {
         base._Ready();
-        bouncer_data = bouncers[ObjectID.y];
-        if (bouncer_data.deadly) { OrganicEnemy = true; }
-        
-        if (bouncer_data.jump_trigger)
-        {
-            // Connect to each Juni
-            Juni.Connect("Jumped", this, "juniJumped");
-        }
+        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
     }
 
     public override void _PhysicsProcess(float delta)
@@ -55,16 +26,17 @@ public class BouncerEnemy : GDKnyttBaseObject
         base._PhysicsProcess(delta);
         if (!in_air) { return; }
 
-        vel += bouncer_data.gravity * delta;
+        vel += (Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_gravity : gravity) * delta;
         Translate(new Vector2(0f, vel * delta));
     }
 
     public void launch()
     {
         start_y = Position.y;
-        vel = -bouncer_data.jump_force;
+        vel = -(Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_jump_force : jump_force);
         in_air = true;
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(Anim);
+        GetNodeOrNull<RawAudioPlayer2D>("JumpPlayer")?.Play();
+        sprite.Play("jump");
     }
 
     public void juniJumped(Juni juni)
@@ -72,19 +44,15 @@ public class BouncerEnemy : GDKnyttBaseObject
         if (in_air) { return; }
 
         // Calculate and test jump chance
-        var dist = Juni.distance(Center, false);
-        if (dist > 24f*7)
+        if (!in_air && juni.Hologram == null && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
         {
-            var i = 1f - Mathf.Min((dist - MIN_JUMP) / (MAX_JUMP - MIN_JUMP), 1f);
-            if (random.NextFloat() > i) { return; }
+            launch();
         }
-
-        launch();
     }
 
     public void _on_Area2D_body_entered(Node body)
     {
-        if (bouncer_data.deadly && body is Juni juni)
+        if (body is Juni juni)
         {
             juniDie(juni);
             return;
@@ -96,10 +64,9 @@ public class BouncerEnemy : GDKnyttBaseObject
 
         in_air = false;
         
-        var p = Position;
-        p.y = start_y;
-        Position = p;
+        Position = new Vector2(Position.x, start_y);
 
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(Anim, true);
+        GetNodeOrNull<RawAudioPlayer2D>("BouncePlayer")?.Play();
+        sprite.Play("stop", true);
     }
 }
