@@ -23,6 +23,9 @@
     <Reference Include="YUtil.Random">
       <HintPath>knytt\lib\YUtil.Random.dll</HintPath>
     </Reference>
+    <Reference Include="IniParser">
+      <HintPath>knytt\lib\INIFileParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="knytt\juni\InsideDetector.cs" />
