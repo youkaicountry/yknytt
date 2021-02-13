@@ -1,4 +1,5 @@
 using Godot;
+using YKnyttLib;
 
 public class Cutscene : Control
 {
@@ -8,6 +9,16 @@ public class Cutscene : Control
 
     public override void _Ready()
     {
+        GetNode<Control>("FadeControl").Modulate =
+            new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
+                GDKnyttDataStore.KWorld.INIData["Cutscene Color"][GDKnyttDataStore.CutsceneName], 0xFFFFFF)));
+        GetNode<FadeLayer>("FadeControl/FadeLayer").startFade(is_out: false);
+        
+        if (GDKnyttDataStore.CutsceneSound != null)
+        {
+            GetNode<StandartSoundPlayer>("StandartSoundPlayer").playSound(GDKnyttDataStore.CutsceneSound);
+        }
+
         changeScene(1);
         loadMusic();
         releaseAll();
@@ -15,11 +26,8 @@ public class Cutscene : Control
 
     private void loadMusic()
     {
-        var data = GDKnyttDataStore.KWorld.INIData;
-        if (!data.Sections.ContainsSection("Cutscene Music")) { return; }
-        if (!data["Cutscene Music"].ContainsKey(GDKnyttDataStore.CutsceneName)) { return; }
-
-        string song = data["Cutscene Music"][GDKnyttDataStore.CutsceneName];
+        string song = GDKnyttDataStore.KWorld.INIData["Cutscene Music"][GDKnyttDataStore.CutsceneName];
+        if (song == null) { return; }
         
         // Detect ambiance
         bool ambiance = false;
@@ -88,7 +96,7 @@ public class Cutscene : Control
     private async void endCutscene()
     {
         SetProcess(false);
-        var fade = GetNode<FadeLayer>("FadeLayer");
+        var fade = GetNode<FadeLayer>("FadeControl/FadeLayer");
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)

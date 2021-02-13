@@ -122,7 +122,7 @@ Bank 19 (Collectables):
 [x] 	SignShift(A)
 [x] 	SignTrig(A)
 
-[ ] Cutscene Fade Color
+[x] Cutscene Fade Color
 
 [x] Map
 
