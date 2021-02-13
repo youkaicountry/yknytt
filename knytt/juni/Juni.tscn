@@ -245,6 +245,16 @@ script = ExtResource( 11 )
 wait_time = 0.175
 one_shot = true
 
+[node name="UmbrellaBody" type="StaticBody2D" parent="Umbrella"]
+position = Vector2( 0, 3.95 )
+collision_layer = 4096
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Umbrella/UmbrellaBody"]
+position = Vector2( -3.7, 0 )
+polygon = PoolVector2Array( -9, -4.198, -9, -11, -3.882, -15.5, 2.243, -15.5, 6.80907, -11.5475 )
+disabled = true
+
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 10 )
 position = Vector2( -0.3, -3 )
