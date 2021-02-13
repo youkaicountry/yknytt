@@ -262,6 +262,7 @@ public class Juni : KinematicBody2D
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
+        GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
         JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
         JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
     }
@@ -484,17 +485,7 @@ public class Juni : KinematicBody2D
 
     public void playSound(string sound)
     {
-        string[] available_sounds = {"door", "electronic", "switch", "teleport", "powerup"};
-        if (Array.IndexOf(available_sounds, sound.ToLower()) != -1)
-        {
-            GetNode<AudioStreamPlayer2D>($"Audio/{sound.Capitalize()}Player2D").Play();
-        }
-        else
-        {
-            var custom_player = GetNode<AudioStreamPlayer2D>("Audio/CustomPlayer2D");
-            custom_player.Stream = Game.GDWorld.KWorld.getWorldSound($"Sounds/{sound}.ogg") as AudioStream;
-            if (custom_player.Stream != null) { custom_player.Play(); }
-        }
+        GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").playSound(sound);
     }
 
     public void enableAttachment(string attachment)

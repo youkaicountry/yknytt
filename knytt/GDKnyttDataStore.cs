@@ -16,6 +16,7 @@ public class GDKnyttDataStore : Node
     
     public enum CutsceneMode { Intro, Middle, Ending };
     public static CutsceneMode Mode { get; private set; }
+    public static string CutsceneSound { get; private set; }
 
     public override void _Ready()
     {
@@ -38,12 +39,13 @@ public class GDKnyttDataStore : Node
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
     }
 
-    public static void playCutscene(string cutscene)
+    public static void playCutscene(string cutscene, string sound)
     {
         Mode = CutsceneMode.Middle;
         CutsceneName = cutscene;
         CutsceneAfter = null;
         CutsceneReturn = Tree.CurrentScene;
+        CutsceneSound = sound;
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { return; }
         Tree.Paused = true;
         Tree.Root.RemoveChild(Tree.CurrentScene);
@@ -55,6 +57,7 @@ public class GDKnyttDataStore : Node
         CutsceneName = cutscene;
         CutsceneAfter = after;
         CutsceneReturn = null;
+        CutsceneSound = null;
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }
