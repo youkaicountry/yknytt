@@ -9,19 +9,16 @@ public class Cutscene : Control
 
     public override void _Ready()
     {
-        GetNode<Control>("FadeControl").Modulate =
-            new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
-                GDKnyttDataStore.KWorld.INIData["Cutscene Color"][GDKnyttDataStore.CutsceneName], 0xFFFFFF)));
-        GetNode<FadeLayer>("FadeControl/FadeLayer").startFade(is_out: false);
-        
-        if (GDKnyttDataStore.CutsceneSound != null)
-        {
-            GetNode<StandartSoundPlayer>("StandartSoundPlayer").playSound(GDKnyttDataStore.CutsceneSound);
-        }
-
+        GetNode<FadeLayer>("FadeLayer").startFade(is_out: false, color: getCutsceneColor());
         changeScene(1);
         loadMusic();
         releaseAll();
+    }
+
+    public static Color getCutsceneColor(string name = null)
+    {
+        return new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
+                GDKnyttDataStore.KWorld.INIData["Cutscene Color"][name ?? GDKnyttDataStore.CutsceneName], 0xFFFFFF)));
     }
 
     private void loadMusic()
@@ -96,8 +93,8 @@ public class Cutscene : Control
     private async void endCutscene()
     {
         SetProcess(false);
-        var fade = GetNode<FadeLayer>("FadeControl/FadeLayer");
-        fade.startFade();
+        var fade = GetNode<FadeLayer>("FadeLayer");
+        fade.startFade(color: getCutsceneColor());
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {

@@ -282,10 +282,15 @@ public class GDKnyttGame : Node2D
 
 	public async void win(string ending)
 	{
-		var fade = GetNode<FadeLayer>("FadeCanvasLayer/Fade");
-		fade.startFade();
-		await ToSignal(fade, "FadeDone");
+		await fade(ending);
 		GDKnyttDataStore.winGame(ending);
+	}
+
+	public SignalAwaiter fade(string cutscene)
+	{
+		var fade = GetNode<FadeLayer>("FadeCanvasLayer/Fade");
+		fade.startFade(color: Cutscene.getCutsceneColor(cutscene));
+		return ToSignal(fade, "FadeDone");
 	}
 
 	// Handles transition effects
