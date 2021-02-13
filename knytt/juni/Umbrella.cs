@@ -11,6 +11,8 @@ public class Umbrella : AnimatedSprite
             var pos = Position;
             pos.x = value ? 3.7f : -4.32f;
             this.Position = pos;
+            umbrellaShape.Scale = new Vector2(value ? 1 : -1, 1);
+            umbrellaShape.Position = new Vector2(value ? -3.7f : 3.7f, 0);
         }
     }
 
@@ -25,6 +27,13 @@ public class Umbrella : AnimatedSprite
         }
     }
 
+    private CollisionPolygon2D umbrellaShape;
+
+    public override void _Ready()
+    {
+        umbrellaShape = GetNode<CollisionPolygon2D>("UmbrellaBody/CollisionPolygon2D");
+    }
+
     private void deploy()
     {
         this.Visible = true;
@@ -32,6 +41,7 @@ public class Umbrella : AnimatedSprite
         _deployed = true;
         Play("Open");
         GetNode<AudioStreamPlayer2D>("../Audio/UmbrellaOpenPlayer2D").Play();
+        umbrellaShape.SetDeferred("disabled", false);
     }
 
     private async void stow()
@@ -45,11 +55,13 @@ public class Umbrella : AnimatedSprite
         await ToSignal(timer, "timeout");
         if (_deployed) { return; }
         this.Visible = false;
+        umbrellaShape.SetDeferred("disabled", true);
     }
 
     public void reset()
     {
         this._deployed = false;
         this.Visible = false;
+        umbrellaShape.SetDeferred("disabled", true);
     }
 }
