@@ -71,6 +71,7 @@ extents = Vector2( 8, 10 )
 [node name="Spider" instance=ExtResource( 3 )]
 script = ExtResource( 4 )
 speed = 187.5
+border = 8.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 12, 14 )
@@ -86,5 +87,4 @@ shape = SubResource( 14 )
 [node name="RunTimer" type="Timer" parent="." index="4"]
 wait_time = 0.75
 autostart = true
-
 [connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]

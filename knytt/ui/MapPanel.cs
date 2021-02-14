@@ -112,6 +112,7 @@ public class MapPanel : Panel
         GetTree().Paused = show;
         SetProcess(show);
         SetProcessInput(show);
+        SetPhysicsProcess(show);
         Cutscene.releaseAll();
     }
 
@@ -136,14 +137,17 @@ public class MapPanel : Panel
 
     public override void _PhysicsProcess(float delta)
     {
-        if (Input.IsActionJustPressed("map") || Input.IsActionJustPressed("pause")) { ShowMap(false); }
-        
         var new_offset = Vector2.Zero;
         if (Input.IsActionPressed("up"))    { new_offset += new Vector2(0, 1)  * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("down"))  { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("left"))  { new_offset += new Vector2(1, 0)  * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta; }
         drag(new_offset);
+    }
+
+	public override void _Process(float delta)
+    {
+        if (Input.IsActionJustPressed("map") || Input.IsActionJustPressed("pause")) { ShowMap(false); }
     }
 
     private void drag(Vector2 diff)

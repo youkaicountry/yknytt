@@ -285,7 +285,7 @@ public class LevelSelection : CanvasLayer
         byte[] icon_bin;
         KnyttWorldInfo world_info;
 
-        string filename = world_dir.Substring(world_dir.LastIndexOf('/') + 1);
+        string filename = world_dir.Substring(world_dir.LastIndexOfAny("/\\".ToCharArray()) + 1);
         string cache_dir = "user://Cache/" + filename;
         string icon_cache_name = cache_dir + "/Icon.png";
         string ini_cache_name = cache_dir + "/World.ini";

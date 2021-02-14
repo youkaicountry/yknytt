@@ -4,6 +4,7 @@ public class Spider : GDKnyttBaseObject
 {
     [Export] protected float speed = 50;
     [Export] protected float centerOffset = 12;
+    [Export] protected float border = 12;
 
     protected AnimatedSprite sprite;
 
@@ -22,7 +23,7 @@ public class Spider : GDKnyttBaseObject
         float diff = speed * direction * delta;
         var diff_vec = new Vector2(diff, 0);
         var center = GlobalPosition + new Vector2(centerOffset, 0);
-        if (!GDArea.isIn(center + diff_vec, x_border: centerOffset) || moveAndCollide(diff_vec) != null)
+        if (!GDArea.isIn(center + diff_vec, x_border: border) || moveAndCollide(diff_vec) != null)
         {
             isRunning = false;
             direction = -direction;

@@ -80,6 +80,7 @@ Bank 19 (Collectables):
 [x] 	Bank=
 [x] 	Object=
 [x] 	Hurts=False
+[/]     Color=
 
 [ ] Custom Characters
 
