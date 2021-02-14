@@ -10,6 +10,7 @@ public class SuperBullet : BaseBullet
 
     private void onDisappear(int limit)
     {
+        if (!Enabled) { return; }
         // TODO: O(n^2) check, maybe replace with ObjectSelector Register/Unregister/GetSize?
         int count = GDArea.Bullets.GetBulletsCount("SuperBullet");
         if (count > limit && GDKnyttDataStore.random.Next(count) == 0)

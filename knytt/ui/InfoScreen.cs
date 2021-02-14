@@ -17,7 +17,7 @@ public class InfoScreen : CanvasLayer
         KWorld = new GDKnyttWorldImpl();
         if (new Directory().DirExists(path))
         {
-            KWorld.setDirectory(path, path.Substring(path.LastIndexOf('/') + 1));
+            KWorld.setDirectory(path, path.Substring(path.LastIndexOfAny("/\\".ToCharArray()) + 1));
         }
         else
         {

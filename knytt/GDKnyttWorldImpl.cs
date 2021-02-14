@@ -86,7 +86,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
         new Directory().Remove(marker_name);
         new Directory().Remove(WorldDirectory);
-        removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOf('/') + 1));
+        removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOfAny("/\\".ToCharArray()) + 1));
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
@@ -110,7 +110,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         if (BinMode)
         {
             new Directory().Remove(WorldDirectory);
-            removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOf('/') + 1));
+            removeDirectory("user://Cache/" + WorldDirectory.Substring(WorldDirectory.LastIndexOfAny("/\\".ToCharArray()) + 1));
         }
         else
         {

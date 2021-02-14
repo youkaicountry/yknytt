@@ -28,11 +28,12 @@ public class CustomObject : GDKnyttBaseObject
     {
         string key = $"Custom Object {ObjectID.y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
-        if (section == null) { Visible = false; return; }
+        if (section == null) { QueueFree(); return; }
 
         int bank = getInt(section, "Bank", 0);
         int obj = getInt(section, "Object", 0);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
+        Color color = new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
         if (bank != 0 && obj != 0)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
@@ -40,6 +41,8 @@ public class CustomObject : GDKnyttBaseObject
             {
                 var node = bundle.getNode(Layer, Coords);
                 if (safe) { node.makeSafe(); }
+                // TODO: make all images from bank 7 white (modulate can't be applied to black color)
+                if (bank == 7) { node.Modulate = color * 2; }
                 AddChild(node);
             }
             return;

@@ -67,6 +67,7 @@ public class GDKnyttGame : Node2D
 
 		this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
 		Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
+		saveGame(Juni, false);
 
 		UI.initialize(this);
 		UI.updatePowers();
@@ -122,6 +123,11 @@ public class GDKnyttGame : Node2D
 		save.setAreaPosition(position);
 		Juni.Powers.writeToSave(save);
 		if (!write) { return; }
+		saveGame(save);
+	}
+
+	public void saveGame(KnyttSave save)
+	{
 		GDKnyttAssetManager.ensureDirExists("user://Saves");
 		var f = new File();
 		f.Open($"user://Saves/{save.SaveFileName}", File.ModeFlags.Write);
