@@ -38,6 +38,8 @@
     <Compile Include="knytt\objects\banks\bank12\GhostLookMuff.cs" />
     <Compile Include="knytt\objects\banks\bank12\GhostMod.cs" />
     <Compile Include="knytt\objects\banks\bank12\GroundBlob.cs" />
+    <Compile Include="knytt\objects\banks\bank12\RoofBlob.cs" />
+    <Compile Include="knytt\objects\banks\bank12\RoofDropper.cs" />
     <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectableWaterMonster.cs" />
     <Compile Include="knytt\objects\banks\bank2\BackgroundBird.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="knytt\objects\banks\bank9\SmallTimedFlower.cs" />
     <Compile Include="knytt\objects\banks\bank9\TimedFlower.cs" />
     <Compile Include="knytt\objects\banks\common\BaseWaterMonsterNew.cs" />
+    <Compile Include="knytt\objects\bullets\GhostSlimeBullet.cs" />
     <Compile Include="knytt\objects\bullets\SuperBullet.cs" />
     <Compile Include="knytt\objects\TimerExt.cs" />
     <Compile Include="knytt\objects\banks\common\TrapFlower.cs" />
