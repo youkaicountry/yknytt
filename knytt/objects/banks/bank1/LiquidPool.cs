@@ -72,8 +72,9 @@ public class LiquidPool : GDKnyttBaseObject
     {
         switch (body)
         {
-            case Juni juni:         juniDie(juni);           break;
-            case BaseBullet bullet: bullet.disappear(false); break;
+            case Juni juni:              juniDie(juni);           break;
+            case GhostSlimeBullet slime: slime.disappear(true);   break;
+            case BaseBullet bullet:      bullet.disappear(false); break;
         }
     }
 }

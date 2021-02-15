@@ -33,12 +33,16 @@ public class TimerExt : Timer
 
     public void RunTimer(float first_delay = -1, float time_sec = -1)
     {
+        var first_delay_timer = GetNode<Timer>("FirstDelayTimer");
+        first_delay_timer.Stop();
+        Stop();
+
         if (first_delay != -1) { firstDelay = first_delay; }
         if (time_sec != -1) { WaitTime = time_sec; }
 
         if (firstDelay != 0)
         {
-            GetNode<Timer>("FirstDelayTimer").Start(firstDelay);
+            first_delay_timer.Start(firstDelay);
         }
         else
         {

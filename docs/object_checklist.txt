@@ -259,13 +259,13 @@ Bank 12 (Ghosts):
 [x] -  3 Ghost Mufs
 [x] -  4 Another Ghost
 [x] -  5 Ghost Block
-[ ] -  6
+[x] -  6 Roof Blob
 [x] -  7 Another Ghost 2
 [x] -  8 Ghost Miner
 [x] -  9 Ground Blob
 [x] - 10 Ghost Eater
 [x] - 11 Ghost
-[ ] - 12
+[x] - 12 Roof Dropper
 [x] - 13 Ghost Crawler
 [x] - 14 Attack Block
 [ ] - 15
