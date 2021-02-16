@@ -25,18 +25,18 @@ public class Cutscene : Control
     {
         string song = GDKnyttDataStore.KWorld.INIData["Cutscene Music"][GDKnyttDataStore.CutsceneName];
         if (song == null) { return; }
-        
+
         // Detect ambiance
         bool ambiance = false;
         if (song.EndsWith("a"))
         {
             ambiance = true;
-            song = song.Substring(0, song.Length-1);
+            song = song.Substring(0, song.Length - 1);
         }
 
         string loc = ambiance ? $"Ambiance/Ambi{song}.ogg" : $"Music/Song{song}.ogg";
         var stream = GDKnyttDataStore.KWorld.getWorldSound(loc) as AudioStream;
-        
+
         var player = GetNode<AudioStreamPlayer>("MusicPlayer");
         player.Stream = stream;
         player.Play();
@@ -67,7 +67,7 @@ public class Cutscene : Control
         var next_button = GetNode<Button>("NextButton");
         var arrow = GetNode<TextureRect>("NextButton/Arrow");
 
-        last_page = !GDKnyttDataStore.KWorld.worldFileExists(makeScenePath(current_scene+1));
+        last_page = !GDKnyttDataStore.KWorld.worldFileExists(makeScenePath(current_scene + 1));
         next_button.Text = last_page ? "OK" : "";
         arrow.Visible = !last_page;
     }
@@ -122,18 +122,18 @@ public class Cutscene : Control
 
     public override void _Process(float delta)
     {
-        if (Input.IsActionJustPressed("left") && current_scene > 1)  { _on_PreviousButton_pressed(); }
+        if (Input.IsActionJustPressed("left") && current_scene > 1) { _on_PreviousButton_pressed(); }
         if (Input.IsActionJustPressed("right")) { _on_NextButton_pressed(); }
     }
 
     private void _on_RateHTTPRequest_ready()
     {
         if (GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Intro) { return; }
-        
-        var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle && 
-                     GDKnyttDataStore.CutsceneName.ToLower() != "ending" ? 
+
+        var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle &&
+                     GDKnyttDataStore.CutsceneName.ToLower() != "ending" ?
                         RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
-        
+
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
             GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author, (int)action, GDKnyttDataStore.CutsceneName);
     }

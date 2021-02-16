@@ -1,6 +1,6 @@
+using Godot;
 using System;
 using System.Collections.Generic;
-using Godot;
 
 public class ParticleCircle : Node2D
 {
@@ -38,7 +38,7 @@ public class ParticleCircle : Node2D
     {
         cloud_speeds = new List<float>();
 
-        if (this.cloud) {setupCloud();} else {setupCircle();}
+        if (this.cloud) { setupCloud(); } else { setupCircle(); }
     }
 
     private void setupCircle()
@@ -51,7 +51,7 @@ public class ParticleCircle : Node2D
 
         for (int i = 0; i < particleNumber; i++)
         {
-            addParticle(radius, start_angle+(da*i));
+            addParticle(radius, start_angle + (da * i));
         }
     }
 
@@ -81,12 +81,12 @@ public class ParticleCircle : Node2D
 
     public override void _Process(float delta)
     {
-        if (this.cloud) {cloudProcess(delta);} else {circleProcess(delta);}
+        if (this.cloud) { cloudProcess(delta); } else { circleProcess(delta); }
     }
 
     public void circleProcess(float delta)
     {
-        Rotate(delta*rot_speed);
+        Rotate(delta * rot_speed);
     }
 
     public void cloudProcess(float delta)
@@ -94,12 +94,12 @@ public class ParticleCircle : Node2D
         var children = this.GetChildren();
         for (int i = 0; i < GetChildCount(); i++)
         {
-            ((Node2D)children[i]).Rotate(delta*cloud_speeds[i]);
+            ((Node2D)children[i]).Rotate(delta * cloud_speeds[i]);
         }
     }
 
     private float getRangeValue(Vector2 range)
     {
-        return ((float)R.NextDouble())*(range.y-range.x) + range.x;
+        return ((float)R.NextDouble()) * (range.y - range.x) + range.x;
     }
 }

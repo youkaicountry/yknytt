@@ -6,7 +6,7 @@ public class AgressiveTrapFlower : TrapFlower
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "FireBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(11, 12));
                 p.VelocityMMF2 = 30 + random.Next(30);
@@ -15,5 +15,5 @@ public class AgressiveTrapFlower : TrapFlower
                 p.DecelerationMMF2 = 10;
                 p.ApllyPinballCorrections();
             });
-    }    
+    }
 }

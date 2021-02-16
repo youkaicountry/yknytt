@@ -30,7 +30,7 @@ public class GameContainer : VBoxContainer
         game_node.initialize(world_entry);
 
         game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
-        
+
         if (current_container == null)
         {
             current_container = new HBoxContainer();

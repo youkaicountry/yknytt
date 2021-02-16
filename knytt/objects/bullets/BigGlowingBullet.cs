@@ -6,7 +6,7 @@ public class BigGlowingBullet : BaseBullet
     {
         base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "SmallGlowingBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 var sign = Direction < Mathf.Pi ? -1 : 1;
                 p.Translate(new Vector2(0, -sign * 2));

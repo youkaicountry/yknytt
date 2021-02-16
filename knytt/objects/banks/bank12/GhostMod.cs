@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class GhostMod : Node2D
 {
@@ -31,8 +30,8 @@ public class GhostMod : Node2D
     private void handleFlicker(float delta)
     {
         flip_counter += delta;
-        while(flip_counter > flip_time) 
-        { 
+        while (flip_counter > flip_time)
+        {
             flip_counter -= flip_time;
             this.flip_target = GDKnyttDataStore.random.Next(2) == 0 ? flickerMin : flickerMax;
         }

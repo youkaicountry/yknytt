@@ -14,11 +14,11 @@ public class Password : GDKnyttBaseObject
     {
         if (!(body is Juni)) { return; }
 
-        current_char = current_char == 21 ? 13 : 
+        current_char = current_char == 21 ? 13 :
                        current_char < 21 ? current_char + 1 : current_char;
-        
+
         if (checkPassword()) { destroyWalls(); }
-        
+
         sprite.Play("press");
         await ToSignal(sprite, "animation_finished");
         sprite.Play(current_char.ToString());

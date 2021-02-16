@@ -10,7 +10,7 @@ public class Dust : GDKnyttBaseObject
     public override void _Ready()
     {
         particles = GetNode<SceneCPUParticles>("DustEmitter");
-        
+
         if (ObjectID.y == 14) { startSpawnDelay(min_time / 2f, max_time / 2f); }
         else { particles.spawnParticles(); }
     }

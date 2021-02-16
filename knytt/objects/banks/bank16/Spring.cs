@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 
 public class Spring : GDKnyttBaseObject
 {
@@ -15,7 +15,7 @@ public class Spring : GDKnyttBaseObject
     }
 
     public override void _PhysicsProcess(float delta)
-    { 
+    {
         foreach (Juni juni in junis)
         {
             // Enforce one-way
@@ -31,7 +31,7 @@ public class Spring : GDKnyttBaseObject
             // Spring
             juni.executeJump(-340f, sound: false, reset_jumps: true);
             GetNode<AudioStreamPlayer2D>("BouncePlayer2D").Play();
-            
+
             var anim = GetNode<AnimationPlayer>("AnimationPlayer");
             anim.Stop();
             anim.Play("Spring");

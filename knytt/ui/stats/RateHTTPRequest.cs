@@ -1,6 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
 using System.Text;
 
 public class RateHTTPRequest : HTTPRequest
@@ -20,17 +19,22 @@ public class RateHTTPRequest : HTTPRequest
 
     public void send(string level_name, string level_author, int action, string cutscene = null)
     {
-        string serverURL = GDKnyttSettings.getServerURL();
-        var dict = new Dictionary() { 
-            ["name"] = level_name, ["author"] = level_author, ["action"] = action, 
-            ["uid"] = GDKnyttSettings.getUUID(), ["platform"] = OS.GetName() };
+        string serverURL = GDKnyttSettings.ServerURL;
+        var dict = new Dictionary()
+        {
+            ["name"] = level_name,
+            ["author"] = level_author,
+            ["action"] = action,
+            ["uid"] = GDKnyttSettings.UUID,
+            ["platform"] = OS.GetName()
+        };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
         Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) { ; } else { return; }
+        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }

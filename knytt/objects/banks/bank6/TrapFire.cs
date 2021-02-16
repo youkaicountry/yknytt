@@ -12,7 +12,7 @@ public class TrapFire : GDKnyttBaseObject
 
         GDArea.Selector.Register(this);
         GDArea.Bullets.RegisterEmitter(this, "FireBullet2",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12, 12));
                 p.VelocityMMF2 = 50;

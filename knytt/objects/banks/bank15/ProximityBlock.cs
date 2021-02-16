@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 
 public class ProximityBlock : GDKnyttBaseObject
 {

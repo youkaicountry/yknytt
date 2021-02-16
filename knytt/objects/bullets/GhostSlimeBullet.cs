@@ -1,1 +1,1 @@
-public class GhostSlimeBullet : BaseBullet {}
+public class GhostSlimeBullet : BaseBullet { }

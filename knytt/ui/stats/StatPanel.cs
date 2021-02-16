@@ -2,7 +2,7 @@ using Godot;
 
 public class StatPanel : Panel
 {
-    private static readonly string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram", 
+    private static readonly string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram",
         "Red Key", "Yellow Key", "Blue Key", "Purple Key", "Map"};
 
     private PackedScene itemScene;

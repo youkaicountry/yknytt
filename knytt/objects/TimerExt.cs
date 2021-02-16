@@ -6,7 +6,7 @@ public class TimerExt : Timer
 
     // Delay before firing first timeout_ext event. Set firstDelay = 0 to fire first timeout_ext immediately.
     [Export] float firstDelay = 0;
-    
+
     // Set firstDelay to random value [0..WaitTime], shared for all objects of the same type
     [Export] bool syncedRandomDelay = false;
 
@@ -25,8 +25,8 @@ public class TimerExt : Timer
         base._Ready();
 
         if (syncedRandomDelay || pickOne) { parent = GetParent<GDKnyttBaseObject>(); }
-        if (syncedRandomDelay)            { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, WaitTime); }
-        if (pickOne && !manualRegister)   { parent.GDArea.Selector.Register(parent); }
+        if (syncedRandomDelay) { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, WaitTime); }
+        if (pickOne && !manualRegister) { parent.GDArea.Selector.Register(parent); }
 
         if (_autostart) { RunTimer(); }
     }

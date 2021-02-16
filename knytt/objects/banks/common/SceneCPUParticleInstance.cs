@@ -13,23 +13,23 @@ public class SceneCPUParticleInstance : Node2D
     bool stopped = false;
 
     bool _brownian;
-    public bool BrownianMotion 
-    { 
-        get { return _brownian; } 
+    public bool BrownianMotion
+    {
+        get { return _brownian; }
         set
         {
-            if (value) 
-            { 
-                if (_noise == null) 
-                { 
+            if (value)
+            {
+                if (_noise == null)
+                {
                     _noise = new OpenSimplexNoise();
                     _noise.Seed = GDKnyttDataStore.random.Next();
-                } 
+                }
             }
             _brownian = value;
-        } 
+        }
     }
-    
+
     public Vector2 BrownianForce;
     public Vector2 BrownianSpeed;
     public float BrownianExponent;

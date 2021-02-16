@@ -13,7 +13,7 @@ public class MultiShot : DistanceMuff
         base._Ready();
         shotTimer = GetNode<Timer>("ShotTimer");
 
-        GDArea.Bullets.RegisterEmitter(this, "FireBullet", 
+        GDArea.Bullets.RegisterEmitter(this, "FireBullet",
             (p, i) =>
             {
                 p.Translate(i == -1 ? new Vector2(12, 11) : shotPositions[i]);

@@ -9,7 +9,7 @@ public class WSOD : ColorRect
         Visible = true;
         GetNode<Timer>("Timer").Start();
     }
-    
+
     public async void _on_Timer_timeout()
     {
         EmitSignal("WSODFinished");

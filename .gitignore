@@ -5,6 +5,7 @@
 export.cfg
 export_presets.cfg
 .mono/
+.vs/
 
 bin/
 worlds/

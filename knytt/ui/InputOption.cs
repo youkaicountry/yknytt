@@ -23,12 +23,12 @@ public class InputOption : HBoxContainer
 
     public void setCollecting(int num)
     {
-        GetNode<Button>("Button"+num).Text = "...";
+        GetNode<Button>("Button" + num).Text = "...";
     }
 
     private void refreshButton(int num)
     {
-        GetNode<Button>("Button"+num).Text = GDKnyttKeys.getValueString(Action+num);
+        GetNode<Button>("Button" + num).Text = GDKnyttKeys.getValueString(Action + num);
     }
 
     private void _on_Button0_pressed()
