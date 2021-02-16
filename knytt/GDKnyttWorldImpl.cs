@@ -5,9 +5,9 @@ public class GDKnyttWorldImpl : KnyttWorld
 {
     public GDKnyttWorldImpl() : base() { }
 
-    protected override object bytesToSound(byte[] data)
+    protected override object bytesToSound(byte[] data, bool loop)
     {
-        return GDKnyttAssetManager.loadOGG(data);
+        return GDKnyttAssetManager.loadOGG(data, loop);
     }
 
     protected override object bytesToTexture(byte[] data)
@@ -22,12 +22,12 @@ public class GDKnyttWorldImpl : KnyttWorld
         return f.FileExists(full_path);
     }
 
-    protected override object getExternalSound(string filepath)
+    protected override object getExternalSound(string filepath, bool loop)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
-        return GDKnyttAssetManager.loadExternalSound(full_path);
+        return GDKnyttAssetManager.loadExternalSound(full_path, loop);
     }
 
     protected override object getExternalTexture(string filepath)
@@ -46,9 +46,9 @@ public class GDKnyttWorldImpl : KnyttWorld
         return GDKnyttAssetManager.loadFile(full_path);
     }
 
-    protected override object getSystemSound(string filepath)
+    protected override object getSystemSound(string filepath, bool loop)
     {
-        return GDKnyttAssetManager.loadInternalSound("res://knytt/data/" + filepath);
+        return GDKnyttAssetManager.loadInternalSound("res://knytt/data/" + filepath, loop);
     }
 
     protected override object getSystemTexture(string filepath)

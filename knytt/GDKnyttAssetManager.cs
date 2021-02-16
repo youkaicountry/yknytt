@@ -83,13 +83,18 @@ public class GDKnyttAssetManager
     public AudioStream buildSong(int num)
     {
         if (num == 0) { return null; }
-        return (AudioStream)GDWorld.KWorld.getWorldSound($"Music/Song{num}.ogg");
+        return (AudioStream)GDWorld.KWorld.getWorldSound($"Music/Song{num}.ogg", loop: isSongLooped(num));
+    }
+
+    private bool isSongLooped(int num)
+    {
+        return GDWorld.KWorld.INIData["Loop Music"][num.ToString()]?.ToLower() == "true";
     }
 
     public AudioStream buildAmbiance(int num)
     {
         if (num == 0) { return null; }
-        return (AudioStream)GDWorld.KWorld.getWorldSound($"Ambiance/Ambi{num}.ogg");
+        return (AudioStream)GDWorld.KWorld.getWorldSound($"Ambiance/Ambi{num}.ogg", loop: true);
     }
 
     public static Texture loadExternalTexture(string path)
@@ -117,14 +122,16 @@ public class GDKnyttAssetManager
         return ResourceLoader.Exists(path) ? ResourceLoader.Load<TileSet>(path) : null;
     }
 
-    public static AudioStream loadInternalSound(string path)
+    public static AudioStream loadInternalSound(string path, bool loop)
     {
-        return ResourceLoader.Load<AudioStream>(path);
+        var stream = ResourceLoader.Load<AudioStreamOGGVorbis>(path);
+        stream.Loop = loop;
+        return stream;
     }
 
-    public static AudioStream loadExternalSound(string path)
+    public static AudioStream loadExternalSound(string path, bool loop)
     {
-        return loadOGG(loadFile(path));
+        return loadOGG(loadFile(path), loop);
     }
 
     private static Texture image2Texture(Image image)

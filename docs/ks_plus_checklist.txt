@@ -158,7 +158,7 @@ Bank 19 (Collectables):
 
 [x] Attachment
 
-[ ] Loop Music
+[x] Loop Music
 
 [ ] Intro Music
 
