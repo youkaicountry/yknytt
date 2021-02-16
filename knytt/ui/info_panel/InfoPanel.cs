@@ -9,7 +9,7 @@ public class InfoPanel : Panel
     public void updateItems(Juni juni)
     {
         if (!hasCreatures && juni.Powers.getCreaturesCount() > 0) { addItem("CreaturesInfo"); hasCreatures = true; }
-        if (!hasCoins     && juni.Powers.getCoinCount()      > 0) { addItem("CoinsInfo");     hasCoins     = true; }
+        if (!hasCoins && juni.Powers.getCoinCount() > 0) { addItem("CoinsInfo"); hasCoins = true; }
         if (!hasArtifacts && juni.Powers.getArtifactsCount() > 0) { addItem("ArtifactsInfo"); hasArtifacts = true; }
 
         foreach (var child in GetNode<Node>("ItemContainer").GetChildren())

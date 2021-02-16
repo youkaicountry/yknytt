@@ -9,7 +9,7 @@ public class Shift : Switch
     public override void _Ready()
     {
         if (GDArea.Area.ExtraData == null) { return; }
-        @switch = shift = new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y-14));
+        @switch = shift = new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y - 14));
         base._Ready();
     }
 
@@ -128,7 +128,7 @@ public class Shift : Switch
         if (shift.Cutscene != null)
         {
             // !! If a cutscene appears two times in a row, revert the commit about micro-delay
-    		await game.fade(shift.Cutscene);
+            await game.fade(shift.Cutscene);
             GDKnyttDataStore.playCutscene(shift.Cutscene);
         }
     }

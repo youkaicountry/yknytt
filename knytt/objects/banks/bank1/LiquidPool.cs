@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 using YUtil.Random;
 
 public class LiquidPool : GDKnyttBaseObject
@@ -43,7 +43,7 @@ public class LiquidPool : GDKnyttBaseObject
     {
         base._Ready();
         var player = GetNode<AnimatedSprite>("AnimatedSprite");
-        
+
         animation = $"Pool{ObjectID.y}";
         var pool_info = Info[ObjectID.y];
         if (pool_info.halo != null)
@@ -67,14 +67,14 @@ public class LiquidPool : GDKnyttBaseObject
         player.Play(animation, ping);
         ping = !ping;
     }
-    
+
     private void _on_Area2D_body_entered(object body)
     {
         switch (body)
         {
-            case Juni juni:              juniDie(juni);           break;
-            case GhostSlimeBullet slime: slime.disappear(true);   break;
-            case BaseBullet bullet:      bullet.disappear(false); break;
+            case Juni juni: juniDie(juni); break;
+            case GhostSlimeBullet slime: slime.disappear(true); break;
+            case BaseBullet bullet: bullet.disappear(false); break;
         }
     }
 }

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 using YKnyttLib;
 
 public class GDObjectLayers : Node2D
@@ -41,7 +41,7 @@ public class GDObjectLayers : Node2D
                     var bundle = GDArea.GDWorld.AssetManager.GetObject(oid);
                     this.UsedAssets.Add(oid);
                     if (bundle == null) { continue; }
-                    
+
                     this.Layers[layer].addObject(new KnyttPoint(x, y), bundle);
                 }
             }
@@ -88,9 +88,9 @@ public class GDObjectLayers : Node2D
             {
                 switch (child)
                 {
-                    case CollisionShape2D shape:     shape.SetDeferred("disabled", true);     break;
-                    case CollisionPolygon2D polygon: polygon.SetDeferred("disabled", true);   break;
-                    case Area2D area:        area.CollisionLayer = 0; area.CollisionMask = 0; break;
+                    case CollisionShape2D shape: shape.SetDeferred("disabled", true); break;
+                    case CollisionPolygon2D polygon: polygon.SetDeferred("disabled", true); break;
+                    case Area2D area: area.CollisionLayer = 0; area.CollisionMask = 0; break;
                     case PhysicsBody2D body: body.CollisionLayer = 0; body.CollisionMask = 0; break;
                 }
             }

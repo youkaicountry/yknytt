@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 using YKnyttLib;
 using YUtil.Math;
 using YUtil.Random;
@@ -8,31 +8,31 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     internal const float JUMP_SPEED = -250f,    // Speed of jump
-    GRAVITY =                         1125f,    // Gravity exerted on Juni
-    JUST_CLIMBED_TIME =               .085f,    // Time after a jump considered (just jumped)
-    FREE_JUMP_TIME =                  .085f,    // Amount of time after leaving a wall that Juni gets a "free" jump
-    MAX_SPEED_WALK =                    90f,    // Max speed while walking
-    MAX_SPEED_RUN =                    175f,    // Max speed while running
-    PULL_OVER_FORCE =                   30f,    // X Force exerted when reaching the top of a climb
-    SLOPE_MAX_ANGLE =                  .81f,    // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
-    UPDRAFT_FORCE =                    .15f,    // The base updraft force exerted
-    UPDRAFT_FORCE_HOLD =                .3f,    // The updraft force exterted when holding jump
-    MAX_UPDRAFT_SPEED =               -225f,    // Maximum Y speed in an updraft
-    MAX_UPDRAFT_SPEED_HOLD =          -240f,    // Maximum Y speed in an updraft while holding jump
-    JUMP_HOLD_POWER =                  125f,    // Y Force exerted while holding jump
-    HIGH_JUMP_HOLD_POWER =             550f,    // Y Force exerted while holding jump when Juni has high jump power
-    UMBRELLA_JUMP_HOLD_PENALTY =       .82f,    // Penalty on jump hold when Juni has the umbrella deployed
-    MAX_X_MOVING_DELTA =              2500f,    // Maximum rate of change of X velocity when moving
-    MAX_X_DECAY_DELTA =               1500f,    // Maximum rate of change of X velocity when stopped
-    MAX_X_SPEED_UMBRELLA =             120f,    // Maximum X speed when Juni has the umbrella deployed
-    TERM_VEL =                         350f,    // Maximum +Y velocity
-    TERM_VEL_UMB =                      60f,    // Maximum +Y velocity when Juni has the umbrella deployed
-    TERM_VEL_UP =                       20f,    // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
-    CLIMB_SPEED =                     -125f,    // Speed Juni climbs up a wall
-    SLIDE_SPEED =                       25f,    // Speed Juni slides down a wall
-    CLIMB_JUMP_X_SPEED =               130f,    // Speed Juni jumps away from a wall
-    INSIDE_X_SPEED =                   -22f,    // Speed at which Juni moves along the x-axis when stuck inside walls
-    INSIDE_Y_SPEED =                   -10f;    // Speed at which Juni moves along the y-axis when stuck inside walls
+    GRAVITY = 1125f,    // Gravity exerted on Juni
+    JUST_CLIMBED_TIME = .085f,    // Time after a jump considered (just jumped)
+    FREE_JUMP_TIME = .085f,    // Amount of time after leaving a wall that Juni gets a "free" jump
+    MAX_SPEED_WALK = 90f,    // Max speed while walking
+    MAX_SPEED_RUN = 175f,    // Max speed while running
+    PULL_OVER_FORCE = 30f,    // X Force exerted when reaching the top of a climb
+    SLOPE_MAX_ANGLE = .81f,    // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
+    UPDRAFT_FORCE = .15f,    // The base updraft force exerted
+    UPDRAFT_FORCE_HOLD = .3f,    // The updraft force exterted when holding jump
+    MAX_UPDRAFT_SPEED = -225f,    // Maximum Y speed in an updraft
+    MAX_UPDRAFT_SPEED_HOLD = -240f,    // Maximum Y speed in an updraft while holding jump
+    JUMP_HOLD_POWER = 125f,    // Y Force exerted while holding jump
+    HIGH_JUMP_HOLD_POWER = 550f,    // Y Force exerted while holding jump when Juni has high jump power
+    UMBRELLA_JUMP_HOLD_PENALTY = .82f,    // Penalty on jump hold when Juni has the umbrella deployed
+    MAX_X_MOVING_DELTA = 2500f,    // Maximum rate of change of X velocity when moving
+    MAX_X_DECAY_DELTA = 1500f,    // Maximum rate of change of X velocity when stopped
+    MAX_X_SPEED_UMBRELLA = 120f,    // Maximum X speed when Juni has the umbrella deployed
+    TERM_VEL = 350f,    // Maximum +Y velocity
+    TERM_VEL_UMB = 60f,    // Maximum +Y velocity when Juni has the umbrella deployed
+    TERM_VEL_UP = 20f,    // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
+    CLIMB_SPEED = -125f,    // Speed Juni climbs up a wall
+    SLIDE_SPEED = 25f,    // Speed Juni slides down a wall
+    CLIMB_JUMP_X_SPEED = 130f,    // Speed Juni jumps away from a wall
+    INSIDE_X_SPEED = -22f,    // Speed at which Juni moves along the x-axis when stuck inside walls
+    INSIDE_Y_SPEED = -10f;    // Speed at which Juni moves along the y-axis when stuck inside walls
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -45,9 +45,9 @@ public class Juni : KinematicBody2D
     public int dir = 0;
 
     //const float BaseHeightCorrection = 3.4f;
-    public Godot.Vector2 BaseCorrection 
+    public Godot.Vector2 BaseCorrection
     {
-        get 
+        get
         {
             //var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
             //return new Godot.Vector2(0f, 12f - rect.Extents.y);
@@ -89,7 +89,7 @@ public class Juni : KinematicBody2D
     public JuniInput juniInput;
 
     float _just_climbed = 0f;
-    public bool JustClimbed 
+    public bool JustClimbed
     {
         get { return _just_climbed > 0f; }
         set { _just_climbed = value ? JUST_CLIMBED_TIME : 0f; }
@@ -101,10 +101,10 @@ public class Juni : KinematicBody2D
         get { return _can_free_jump > 0f; }
         set { _can_free_jump = value ? FREE_JUMP_TIME : 0f; }
     }
-    
+
     public Godot.Vector2 Bottom
     {
-        get 
+        get
         {
             var gp = GlobalPosition;
             return new Godot.Vector2(gp.x, gp.y + 8.6f);
@@ -120,7 +120,7 @@ public class Juni : KinematicBody2D
 
     public Color? JuniClothes
     {
-        set 
+        set
         {
             var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
             mat.SetShaderParam("clothes_color", value);
@@ -135,7 +135,7 @@ public class Juni : KinematicBody2D
 
     public Color? JuniSkin
     {
-        set 
+        set
         {
             var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
             mat.SetShaderParam("skin_color", value);
@@ -148,7 +148,7 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public float TerminalVelocity { get { return Umbrella.Deployed ? ( InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB ) : TERM_VEL; } }
+    public float TerminalVelocity { get { return Umbrella.Deployed ? (InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB) : TERM_VEL; } }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
@@ -181,15 +181,15 @@ public class Juni : KinematicBody2D
     }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
-    public bool CanDeployHologram { get {return ((CurrentState is IdleState)||(CurrentState is WalkRunState));} }
+    public bool CanDeployHologram { get { return ((CurrentState is IdleState) || (CurrentState is WalkRunState)); } }
     public Node2D Hologram { get; private set; }
 
     public float detector_reverse_distance = 0;
     public Color detector_color = new Color(0, 0, 0, 0);
 
-    public bool WalkRun 
+    public bool WalkRun
     {
-        get 
+        get
         {
             if (!Powers.getPower(PowerNames.Run)) { return false; }
             return !juniInput.WalkHeld;
@@ -204,7 +204,7 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public int MoveDirection 
+    public int MoveDirection
     {
         get
         {
@@ -319,7 +319,7 @@ public class Juni : KinematicBody2D
             Detector.Modulate = m;
         }
         else { Detector.Visible = false; }
-        
+
         detector_reverse_distance = 0;
 
         this.checkDebugInput(); // TODO: Check the mode for debug
@@ -338,13 +338,13 @@ public class Juni : KinematicBody2D
         handleHologram();
         handleXMovement(delta);
         handleGravity(delta);
-        
+
         this.CurrentState.PostProcess(delta);
 
         // Pull-over-edge
         if (JustClimbed)
         {
-             velocity.x += (FacingRight ? 1f:-1f) * PULL_OVER_FORCE;
+            velocity.x += (FacingRight ? 1f : -1f) * PULL_OVER_FORCE;
             _just_climbed -= delta;
             if (_can_free_jump <= 0f) { JustClimbed = false; }
         }
@@ -361,17 +361,17 @@ public class Juni : KinematicBody2D
         // Slope check
         // This helps keeps Juni from entering slope mode when jumping onto platforms
         // TODO: Move this frame independence calculation to a utility function somewhere
-        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge ) { frames_on_slope += 1; }
+        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge) { frames_on_slope += 1; }
         else { frames_on_slope = 0; }
 
         if (frames_on_slope > start_slope_frames) { handleSlope(); }
-        else if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED*MoveDirection*delta, INSIDE_Y_SPEED*delta)); }
+        else if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
-            velocity.x = MoveAndSlide(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, stopOnSlope:false, floorMaxAngle:SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope:true, floorMaxAngle:SLOPE_MAX_ANGLE).y;
+            velocity.x = MoveAndSlide(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, stopOnSlope: false, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
         }
-        
+
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
 
         if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
@@ -385,9 +385,9 @@ public class Juni : KinematicBody2D
         // Isolate the unrotated y component
         var y_move = -GetFloorNormal();
 
-        x_move = MoveAndSlideWithSnap(x_move, Godot.Vector2.Down, Godot.Vector2.Up, stopOnSlope:false, maxSlides:2, floorMaxAngle:SLOPE_MAX_ANGLE);
-        
-        y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope:true, maxSlides:2, floorMaxAngle:SLOPE_MAX_ANGLE);
+        x_move = MoveAndSlideWithSnap(x_move, Godot.Vector2.Down, Godot.Vector2.Up, stopOnSlope: false, maxSlides: 2, floorMaxAngle: SLOPE_MAX_ANGLE);
+
+        y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope: true, maxSlides: 2, floorMaxAngle: SLOPE_MAX_ANGLE);
 
         // Unrotate the x component and set it back to the velocity
         // Currently disabled due to it exaggerating imperfections in the slope
@@ -407,13 +407,13 @@ public class Juni : KinematicBody2D
         {
             if (!Grounded) { velocity.y += GRAVITY * delta; }
             else { velocity.y = GRAVITY * delta; }
-            if (juniInput.JumpHeld) 
+            if (juniInput.JumpHeld)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? HIGH_JUMP_HOLD_POWER : JUMP_HOLD_POWER;
                 if (Umbrella.Deployed) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
                 velocity.y -= jump_hold * delta;
             }
-        } 
+        }
     }
 
     private void handleHologram()
@@ -431,11 +431,11 @@ public class Juni : KinematicBody2D
         if (double_down || juniInput.HologramPressed)
         {
             if (Hologram == null)
-            { 
+            {
                 if (CanDeployHologram) { deployHologram(); }
             }
             else
-            { 
+            {
                 stopHologram();
                 EmitSignal(nameof(HologramStopped), this);
             }
@@ -457,7 +457,7 @@ public class Juni : KinematicBody2D
         GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.a);
     }
 
-    public void stopHologram(bool cleanup=false)
+    public void stopHologram(bool cleanup = false)
     {
         if (Hologram == null) { return; }
 
@@ -468,7 +468,7 @@ public class Juni : KinematicBody2D
             timer.Start();
             GetNode<AudioStreamPlayer2D>("Audio/HoloStopPlayer2D").Play();
         }
-        
+
         Hologram.QueueFree();
         Hologram = null;
         var m = Modulate; m.a = 1f; Modulate = m;
@@ -484,7 +484,7 @@ public class Juni : KinematicBody2D
 
     public void playSound(string sound)
     {
-        string[] available_sounds = {"door", "electronic", "switch", "teleport", "powerup"};
+        string[] available_sounds = { "door", "electronic", "switch", "teleport", "powerup" };
         if (Array.IndexOf(available_sounds, sound.ToLower()) != -1)
         {
             GetNode<AudioStreamPlayer2D>($"Audio/{sound.Capitalize()}Player2D").Play();
@@ -502,7 +502,7 @@ public class Juni : KinematicBody2D
         var torch_sprite = GetNode<Sprite>("AttachmentSprite");
         switch (attachment?.ToLower())
         {
-            case "true": 
+            case "true":
             case "":
                 torch_sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/Attach.png");
                 torch_sprite.Visible = true;
@@ -574,7 +574,7 @@ public class Juni : KinematicBody2D
         CanFreeJump = false;
 
         Umbrella.reset();
-        stopHologram(cleanup:true);
+        stopHologram(cleanup: true);
         enableAttachment(Powers.Attachment);
     }
 
@@ -584,11 +584,11 @@ public class Juni : KinematicBody2D
         if (dir != 0)
         {
             var uspeed = Umbrella.Deployed ? (Mathf.Min(MaxSpeed, MAX_X_SPEED_UMBRELLA)) : MaxSpeed;
-            MathTools.MoveTowards(ref velocity.x, dir*uspeed, MAX_X_MOVING_DELTA*delta);
+            MathTools.MoveTowards(ref velocity.x, dir * uspeed, MAX_X_MOVING_DELTA * delta);
         }
         else
         {
-            MathTools.MoveTowards(ref velocity.x, 0f, MAX_X_DECAY_DELTA*delta ); // deceleration
+            MathTools.MoveTowards(ref velocity.x, 0f, MAX_X_DECAY_DELTA * delta); // deceleration
         }
     }
 
@@ -611,9 +611,9 @@ public class Juni : KinematicBody2D
         Anim.Play("Jump");
         if (sound) { GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play(); }
         velocity.y = jump_speed;
-        
+
         if (air_jump && jumps > 0) { doubleJumpEffect(); }
-        
+
         jumps = reset_jumps ? 1 : jumps + 1;
         JustClimbed = false;
         CanFreeJump = false;
@@ -632,19 +632,19 @@ public class Juni : KinematicBody2D
         Anim.Play("Falling");
     }
 
-    public float manhattanDistance(Godot.Vector2 p, bool apparent=true)
+    public float manhattanDistance(Godot.Vector2 p, bool apparent = true)
     {
         var jp = apparent ? ApparentPosition : GlobalPosition;
-        return Math.Abs(p.x-jp.x) + Math.Abs(p.y-jp.y);
+        return Math.Abs(p.x - jp.x) + Math.Abs(p.y - jp.y);
     }
 
-    public float distance(Godot.Vector2 p, bool apparent=true)
+    public float distance(Godot.Vector2 p, bool apparent = true)
     {
         var jp = apparent ? ApparentPosition : GlobalPosition;
         return jp.DistanceTo(p);
     }
 
-    public float distanceSquared(Godot.Vector2 p, bool apparent=true)
+    public float distanceSquared(Godot.Vector2 p, bool apparent = true)
     {
         var jp = apparent ? ApparentPosition : GlobalPosition;
         return jp.DistanceSquaredTo(p);

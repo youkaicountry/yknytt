@@ -33,13 +33,13 @@ public class GameButton : Button
         {
             rating_control.Visible = true;
             RectMinSize = new Vector2(RectMinSize.x, 55);
-            rating_control.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize/1024f/1024f):0.#} MB";
+            rating_control.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
             rating_control.GetNode<Label>("UpvotesLabel").Text = $"+{worldEntry.Upvotes}";
             rating_control.GetNode<Label>("DownvotesLabel").Text = $"-{worldEntry.Downvotes}";
             rating_control.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
-            rating_control.GetNode<Label>("VerifiedLabel").Text = 
+            rating_control.GetNode<Label>("VerifiedLabel").Text =
                 worldEntry.Approved ? "Approved" : worldEntry.Verified ? "Autoverified" : "Not Verified";
-            rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", 
+            rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color",
                 worldEntry.Approved || worldEntry.Verified ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0));
         }
     }

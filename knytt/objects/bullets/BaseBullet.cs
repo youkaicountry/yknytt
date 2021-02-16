@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class BaseBullet : KinematicBody2D
 {
@@ -24,7 +23,7 @@ public class BaseBullet : KinematicBody2D
     public float DecelerationCorrectionX { get; set; } = 1;
     public float DecelerationCorrectionUp { get; set; } = 1;
     public float DecelerationCorrectionDown { get; set; } = 1;
-    
+
     private const float VELOCITY_SCALE = 50f / 8;
     private const float GRAVITY_SCALE = VELOCITY_SCALE * VELOCITY_SCALE;
     // TODO: more accurate value when gravity != 0!
@@ -55,9 +54,9 @@ public class BaseBullet : KinematicBody2D
         DecelerationCorrectionDown = 0.5f;
     }
 
-    
+
     public GDKnyttArea GDArea { protected get; set; }
-    
+
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
     protected RawAudioPlayer2D hitPlayer;
@@ -71,14 +70,14 @@ public class BaseBullet : KinematicBody2D
         hasDisappear = sprite.Frames.HasAnimation("disappear");
         sprite.Play("default");
     }
-    
+
     public override void _PhysicsProcess(float delta)
     {
         if (!Enabled) { return; }
         // Workaround to make sure that Translate was made before actual enabling
         // Without this, player can move with a particle and re-enter an area that has been left!
         if (collisionShape.Disabled && --_enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
-        
+
         _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
         if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
         if (_deceleration_x < 0 && _velocity_x > 0) { _velocity_x = 0; }
@@ -105,7 +104,7 @@ public class BaseBullet : KinematicBody2D
 
         var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
-        { 
+        {
             disappear(collide: false);
         }
         else if (collision != null)
@@ -123,7 +122,7 @@ public class BaseBullet : KinematicBody2D
         if (collide)
         {
             hitPlayer?.Play();
-            
+
             if (hasDisappear)
             {
                 sprite.Play("disappear");

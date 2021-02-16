@@ -2,8 +2,8 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 using YKnyttLib;
 
 public class InfoScreen : CanvasLayer
@@ -28,7 +28,7 @@ public class InfoScreen : CanvasLayer
         string ini = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
         KWorld.loadWorldConfig(ini);
 
-        Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") : 
+        Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
                                                               KWorld.getWorldTexture("Info.png")) as Texture;
         info.Flags |= (uint)Texture.FlagsEnum.Filter;
         GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
@@ -60,12 +60,12 @@ public class InfoScreen : CanvasLayer
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
         GetNode<LevelSelection>("../LevelSelection").killConsumers();
-        
-        KnyttSave save = new KnyttSave(KWorld, 
+
+        KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
-                                    GDKnyttAssetManager.loadTextFile(filename), 
+                                    GDKnyttAssetManager.loadTextFile(filename),
                                     slot);
-        
+
         KWorld.CurrentSave = save;
         GDKnyttDataStore.KWorld = KWorld;
         GDKnyttDataStore.startGame(new_save);
@@ -74,14 +74,14 @@ public class InfoScreen : CanvasLayer
 
     private void _on_StatHTTPRequest_ready()
     {
-        string serverURL = GDKnyttSettings.getServerURL();
+        string serverURL = GDKnyttSettings.ServerURL;
         GetNode<HTTPRequest>("StatHTTPRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
     }
 
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) { ; } else { return; }
+        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
@@ -141,7 +141,7 @@ public class InfoScreen : CanvasLayer
         if (endings.Count > 0)
         {
             stat_panel.addLabel("Endings:");
-            foreach (var p in endings.Zip(endings_count, (a, b) => new {Name = a, Count = b}))
+            foreach (var p in endings.Zip(endings_count, (a, b) => new { Name = a, Count = b }))
             {
                 stat_panel.addEnding(p.Name, p.Count, my_endings.Contains(p.Name));
             }
@@ -150,7 +150,7 @@ public class InfoScreen : CanvasLayer
         if (cutscenes.Count > 0)
         {
             stat_panel.addLabel("Cutscenes:");
-            foreach (var p in cutscenes.Zip(cutscenes_count, (a, b) => new {Name = a, Count = b}))
+            foreach (var p in cutscenes.Zip(cutscenes_count, (a, b) => new { Name = a, Count = b }))
             {
                 stat_panel.addCutscene(p.Name, p.Count, my_cutscenes.Contains(p.Name));
             }

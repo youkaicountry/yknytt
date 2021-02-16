@@ -3,48 +3,48 @@ using YUtil.Random;
 
 public class SceneCPUParticles : Node2D
 {
-    [Export]public int Particles = 1;
-    
-    [Export]public float Lifetime = 1f;
-    [Export]public float LifetimeVariation = 0f;
+    [Export] public int Particles = 1;
 
-    [Export]PackedScene ParticleScene;
+    [Export] public float Lifetime = 1f;
+    [Export] public float LifetimeVariation = 0f;
 
-    [Export]public float Direction = 0f;
-    [Export]public float DirectionVariation = 0f;
+    [Export] PackedScene ParticleScene = null;
 
-    [Export]public float Velocity = 0f;
-    [Export]public float VelocityVariation = 0f;
+    [Export] public float Direction = 0f;
+    [Export] public float DirectionVariation = 0f;
 
-    [Export]public float Mass = 1f;
-    [Export]public float MassVariation = 0f;
+    [Export] public float Velocity = 0f;
+    [Export] public float VelocityVariation = 0f;
 
-    [Export]public float GravityDirection = 1.571f;
-    [Export]public float GravityDirectionVariation = 0f;
+    [Export] public float Mass = 1f;
+    [Export] public float MassVariation = 0f;
 
-    [Export]public float Gravity = 1f;
-    [Export]public float GravityVariation = 0f;
+    [Export] public float GravityDirection = 1.571f;
+    [Export] public float GravityDirectionVariation = 0f;
 
-    [Export]public float Drag = 0f;
-    [Export]public float DragVariation = 0f;
+    [Export] public float Gravity = 1f;
+    [Export] public float GravityVariation = 0f;
 
-    [Export]public string ParticleParams = "";
+    [Export] public float Drag = 0f;
+    [Export] public float DragVariation = 0f;
+
+    [Export] public string ParticleParams = "";
 
     // Brownian motion
-    [Export]public bool BrownianMotion = false;
+    [Export] public bool BrownianMotion = false;
 
-    [Export]public float BrownianX = 0f;
-    [Export]public float BrownianXVariation = 0f;
-    [Export]public float BrownianXSpeed = 1f;
-    [Export]public float BrownianXSpeedVariation = 0f;
+    [Export] public float BrownianX = 0f;
+    [Export] public float BrownianXVariation = 0f;
+    [Export] public float BrownianXSpeed = 1f;
+    [Export] public float BrownianXSpeedVariation = 0f;
 
-    [Export]public float BrownianY = 0f;
-    [Export]public float BrownianYVariation = 0f;
-    [Export]public float BrownianYSpeed = 1f;
-    [Export]public float BrownianYSpeedVariation = 0f;
+    [Export] public float BrownianY = 0f;
+    [Export] public float BrownianYVariation = 0f;
+    [Export] public float BrownianYSpeed = 1f;
+    [Export] public float BrownianYSpeedVariation = 0f;
 
-    [Export]public float BrownianExponent = 1.5f;
-    
+    [Export] public float BrownianExponent = 1.5f;
+
     PackedScene pinstance_scene;
 
     public override void _Ready()
@@ -74,7 +74,7 @@ public class SceneCPUParticles : Node2D
         p.BrownianForce = new Vector2(CalcVariation(BrownianX, BrownianXVariation), CalcVariation(BrownianY, BrownianYVariation));
         p.BrownianSpeed = new Vector2(CalcVariation(BrownianXSpeed, BrownianXSpeedVariation), CalcVariation(BrownianYSpeed, BrownianYSpeedVariation));
         p.BrownianExponent = BrownianExponent;
-        
+
         var ps = ParticleScene.Instance() as Node2D;
         p.AddChild(ps);
         ps.Position = Vector2.Zero;
@@ -96,6 +96,6 @@ public class SceneCPUParticles : Node2D
 
     private float CalcVariation(float value, float variation)
     {
-        return value + (GDKnyttDataStore.random.NextFloat(2*variation) - variation);
+        return value + (GDKnyttDataStore.random.NextFloat(2 * variation) - variation);
     }
 }

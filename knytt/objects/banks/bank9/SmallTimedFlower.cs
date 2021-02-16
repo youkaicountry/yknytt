@@ -10,7 +10,7 @@ public class SmallTimedFlower : GDKnyttBaseObject
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12, 18));
                 p.VelocityMMF2 = 20 + random.Next(40);

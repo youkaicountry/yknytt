@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 using YUtil.Random;
 
 public class BuzzFlyer : GDKnyttBaseObject
@@ -26,13 +26,13 @@ public class BuzzFlyer : GDKnyttBaseObject
         new Vector2(0, 1),
         new Vector2(0, -1),
         new Vector2(0, 0) };
-    
+
     Vector2 NextDirection { get { return random.NextElement(Directions); } }
-    Vector2 Buzz 
+    Vector2 Buzz
     {
-        get 
+        get
         {
-            return new Vector2(random.NextFloat(-BuzzStrength, BuzzStrength), 
+            return new Vector2(random.NextFloat(-BuzzStrength, BuzzStrength),
                                random.NextFloat(-BuzzStrength, BuzzStrength));
         }
     }
@@ -45,9 +45,9 @@ public class BuzzFlyer : GDKnyttBaseObject
     static BuzzFlyer()
     {
         ID2Params = new Dictionary<int, BuzzFlyerParams>();
-        ID2Params.Add(15, new BuzzFlyerParams(speed:45f, enemy:true));
-        ID2Params.Add(16, new BuzzFlyerParams(speed:45f, enemy:false));
-        ID2Params.Add(17, new BuzzFlyerParams(speed:45f, enemy:false));
+        ID2Params.Add(15, new BuzzFlyerParams(speed: 45f, enemy: true));
+        ID2Params.Add(16, new BuzzFlyerParams(speed: 45f, enemy: false));
+        ID2Params.Add(17, new BuzzFlyerParams(speed: 45f, enemy: false));
     }
 
     BuzzFlyerParams _params;
@@ -55,7 +55,7 @@ public class BuzzFlyer : GDKnyttBaseObject
     public override void _Ready()
     {
         _params = ID2Params[ObjectID.y];
-        OrganicEnemy =_params.enemy;
+        OrganicEnemy = _params.enemy;
         GetNode<AnimatedSprite>("AnimatedSprite").Play(ObjectID.y.ToString());
         startMove();
     }
@@ -64,9 +64,9 @@ public class BuzzFlyer : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
 
-        var movement = (CurrentDirection*_params.speed*delta) + Buzz*delta;
+        var movement = (CurrentDirection * _params.speed * delta) + Buzz * delta;
         var col = Call("move_and_collide", movement, true, true, true) as KinematicCollision2D;
-        var offscreen = !GDArea.isIn(Center + (movement*6f));
+        var offscreen = !GDArea.isIn(Center + (movement * 6f));
         if (col == null && !offscreen) { Translate(movement); }
         else { startMove(); }
     }

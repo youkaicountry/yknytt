@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 public class RandomLabyrinthSpike : LabyrinthSpike
 {
     protected override void onCollide()

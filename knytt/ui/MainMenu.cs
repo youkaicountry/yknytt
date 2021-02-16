@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using Godot;
+using System.Threading.Tasks;
 using YKnyttLib;
 
 public class MainMenu : Node2D
@@ -22,7 +22,7 @@ public class MainMenu : Node2D
     public override void _Notification(int what)
     {
         if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
-		if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
+        if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
     }
 
     public async void _on_TutorialButton_pressed()
@@ -87,6 +87,6 @@ public class MainMenu : Node2D
 
     public void _on_ButtonRow_focus_exited()
     {
-        
+
     }
 }

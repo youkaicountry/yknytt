@@ -5,7 +5,7 @@ public class RobotCannon : Cannon
     public override void _Ready()
     {
         base._Ready();
-        GDArea.Bullets.RegisterEmitter(this, "DropStuff", 
+        GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) =>
             {
                 p.Translate(new Vector2(8f, 8f));

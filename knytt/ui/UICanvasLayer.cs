@@ -12,7 +12,7 @@ public class UICanvasLayer : CanvasLayer
     public void initialize(GDKnyttGame game)
     {
         Game = game;
-        
+
         if (game.hasMap()) { GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map); }
     }
 
@@ -44,7 +44,7 @@ public class UICanvasLayer : CanvasLayer
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
-        else 
+        else
         {
             anim.PlaybackSpeed *= -1f;
             sliding_out = !sliding_out;
@@ -57,12 +57,12 @@ public class UICanvasLayer : CanvasLayer
     }
 
     public void powerUpdate(PowerNames names, bool value)
-	{
-		updatePowers();
+    {
+        updatePowers();
     }
 
-	public void updatePowers()
-	{
-		GetNode<InfoPanel>("InfoPanel").updateItems(Game.Juni);
-	}
+    public void updatePowers()
+    {
+        GetNode<InfoPanel>("InfoPanel").updateItems(Game.Juni);
+    }
 }

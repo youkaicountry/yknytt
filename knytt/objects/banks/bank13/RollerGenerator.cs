@@ -5,7 +5,7 @@ public class RollerGenerator : GDKnyttBaseObject
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "RollBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.VelocityMMF2 = 12;
                 p.DirectionMMF2 = 0;

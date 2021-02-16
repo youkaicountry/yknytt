@@ -19,7 +19,7 @@ public class DistanceMod : Node2D
     protected Juni globalJuni;
     public bool IsEntered { get; protected set; } = false;
 
-    
+
     public override void _Ready()
     {
         parent = GetParent<GDKnyttBaseObject>();
@@ -30,12 +30,12 @@ public class DistanceMod : Node2D
     public override void _PhysicsProcess(float delta)
     {
         if (globalJuni.dead) { return; }
-        
-        var distance = 
-            method == DistanceMethod.Distance ? globalJuni.distance(GlobalPosition) : 
+
+        var distance =
+            method == DistanceMethod.Distance ? globalJuni.distance(GlobalPosition) :
             method == DistanceMethod.ManhattanDistance ? globalJuni.manhattanDistance(GlobalPosition) :
                 Mathf.Abs(GlobalPosition.x - globalJuni.ApparentPosition.x);
-                
+
         if (!IsEntered && distance < openDistance) { updateSpikes(show: true); }
         if (IsEntered && distance > closeDistance) { updateSpikes(show: false); }
     }

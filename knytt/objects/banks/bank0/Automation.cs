@@ -4,8 +4,14 @@ public class Automation : GDKnyttBaseObject
 {
     private static Dictionary<int, string> actionNames = new Dictionary<int, string>()
     {
-        [248] = "hologram", [249] = "walk", [250] = "jump", [251] = "umbrella", 
-        [252] = "up", [253] = "down", [254] = "left", [255] = "right"
+        [248] = "hologram",
+        [249] = "walk",
+        [250] = "jump",
+        [251] = "umbrella",
+        [252] = "up",
+        [253] = "down",
+        [254] = "left",
+        [255] = "right"
     };
 
     private string action;

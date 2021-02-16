@@ -15,7 +15,7 @@ public abstract class Switch : GDKnyttBaseObject
         shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", true);
 
         var sound_cmp = @switch.Sound?.ToLower();
-        sound = sound_cmp == null || sound_cmp == "" ? "teleport" : 
+        sound = sound_cmp == null || sound_cmp == "" ? "teleport" :
                 sound_cmp == "none" || sound_cmp == "false" ? null : @switch.Sound;
     }
 
@@ -25,9 +25,9 @@ public abstract class Switch : GDKnyttBaseObject
         if (!(body is Juni juni)) { return; }
 
         if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); } // TODO: can stop work if different Junis enter different shifts
-        
+
         if (@switch.OnTouch)
-        { 
+        {
             if (@switch.DenyHologram && juni.Hologram != null)
             {
                 juni.Connect(nameof(Juni.HologramStopped), this, nameof(execute));

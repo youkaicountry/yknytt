@@ -7,7 +7,7 @@ public class WaterEye : BaseWaterMonsterNew
     {
         base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "DropStuff",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12, 8));
                 p.VelocityMMF2 = 20 + random.Next(40);

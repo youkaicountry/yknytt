@@ -13,10 +13,24 @@ public class BulletLayer : Node2D
 
     private readonly Dictionary<string, int> bulletsLimit = new Dictionary<string, int>()
     {
-        ["CauldronSpike"] = 20, ["ShockWave"] = 40, ["DropStuff"] = 500, ["RollBullet"] = 15, ["BlueBullet"] = 2,
-        ["NinjaStar"] = 15, ["HomingBullet"] = 15, ["BigGlowingBullet"] = 10, ["FireBullet2"] = 15, ["FireBullet"] = 150,
-        ["EvilFlowerBullet"] = 150, ["SmallGlowingBullet"] = 200, ["BlueBulletExplosion"] = 100, ["ShockWave2"] = 40,
-        ["SuperBullet"] = 100, ["RunnerBullet"] = 15, ["BeeBullet"] = 15, ["GhostSlimeBullet"] = 50
+        ["CauldronSpike"] = 20,
+        ["ShockWave"] = 40,
+        ["DropStuff"] = 500,
+        ["RollBullet"] = 15,
+        ["BlueBullet"] = 2,
+        ["NinjaStar"] = 15,
+        ["HomingBullet"] = 15,
+        ["BigGlowingBullet"] = 10,
+        ["FireBullet2"] = 15,
+        ["FireBullet"] = 150,
+        ["EvilFlowerBullet"] = 150,
+        ["SmallGlowingBullet"] = 200,
+        ["BlueBulletExplosion"] = 100,
+        ["ShockWave2"] = 40,
+        ["SuperBullet"] = 100,
+        ["RunnerBullet"] = 15,
+        ["BeeBullet"] = 15,
+        ["GhostSlimeBullet"] = 50
     };
 
     public void RegisterEmitter(Node2D enemy_object, string bullet_scene, InitBulletEvent on_init)
@@ -61,7 +75,7 @@ public class BulletLayer : Node2D
         var enemy_parent = enemy_object.GetParent<Node2D>();
         if (enemy_parent is CustomObject) { enemy_parent = enemy_parent.GetParent<Node2D>(); }
         bullet.ZIndex = enemy_parent is GDKnyttObjectLayer ? enemy_parent.ZIndex - 1 : enemy_object.ZIndex;
-        
+
         initEvents[enemy_object](bullet, n);
         queue.Enqueue(bullet);
     }

@@ -17,7 +17,7 @@ public class ShadowWitch : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         bool juni_at_right = Juni.ApparentPosition.x > Center.x;
-        value += (Juni.FacingRight && juni_at_right) || (!Juni.FacingRight && !juni_at_right) ? 
+        value += (Juni.FacingRight && juni_at_right) || (!Juni.FacingRight && !juni_at_right) ?
             -50 * delta : 50 * delta;
         value = Mathf.Max(Mathf.Min(128, value), 0);
 

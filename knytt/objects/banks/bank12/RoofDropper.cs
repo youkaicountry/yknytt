@@ -13,7 +13,7 @@ public class RoofDropper : GDKnyttBaseObject
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         GDArea.Bullets.RegisterEmitter(this, "GhostSlimeBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(11.5f, 5));
                 p.VelocityMMF2 = 0;

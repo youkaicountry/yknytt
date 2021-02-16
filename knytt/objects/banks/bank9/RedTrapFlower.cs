@@ -5,7 +5,7 @@ public class RedTrapFlower : TrapFlower
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "EvilFlowerBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(11, 14));
                 p.VelocityMMF2 = 30 + random.Next(30);
@@ -14,5 +14,5 @@ public class RedTrapFlower : TrapFlower
                 p.DecelerationMMF2 = 10;
                 p.ApllyPinballCorrections();
             });
-    }    
+    }
 }

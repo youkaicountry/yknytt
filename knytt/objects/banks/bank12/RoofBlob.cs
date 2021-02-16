@@ -8,7 +8,7 @@ public class RoofBlob : Muff
     {
         base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "GhostSlimeBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(38 - random.Next(29), 6));
                 p.VelocityMMF2 = 0;
@@ -18,7 +18,7 @@ public class RoofBlob : Muff
                 p.ApllyPinballCorrections();
             });
     }
-    
+
     private void _on_AnimatedSprite_animation_finished()
     {
         if (sprite.Animation == "turn") { sprite.Play("walk"); }

@@ -1,18 +1,19 @@
+using Godot;
+using Godot.Collections;
+using IniParser.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
 using System.IO.Compression;
-using Godot;
-using Godot.Collections;
+using System.Text;
+using System.Threading.Tasks;
 using YKnyttLib;
-using IniParser.Model;
 
 public class LevelSelection : CanvasLayer
 {
     WorldManager Manager { get; }
-    PackedScene info_scene;
+
+    private PackedScene info_scene;
 
     [Export] public int loadThreads = 4;
 
@@ -27,7 +28,7 @@ public class LevelSelection : CanvasLayer
     bool discovery_over = false;
     List<Task> consumers;
 
-    GameButton top_button;
+    //GameButton top_button;
     GameContainer game_container;
     ScrollBar games_scrollbar;
     FileHTTPRequest http_node;
@@ -126,7 +127,7 @@ public class LevelSelection : CanvasLayer
         game_container.clearWorlds();
         GetNode<Label>("ConnectionLostLabel").Visible = false;
 
-        string url = GDKnyttSettings.getServerURL() + "/levels/?";
+        string url = GDKnyttSettings.ServerURL + "/levels/?";
         if (filter_category_int != 0) { url += $"category={filter_category_int}&"; }
         if (filter_difficulty_int != 0) { url += $"difficulty={filter_difficulty_int}&"; }
         if (filter_size_int != 0) { url += $"size={filter_size_int}&"; }
@@ -142,7 +143,7 @@ public class LevelSelection : CanvasLayer
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) { ; }
+        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; }
         else { connectionLost(); return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
@@ -181,7 +182,7 @@ public class LevelSelection : CanvasLayer
     public override void _PhysicsProcess(float delta)
     {
         // Process the queue
-        if ((localLoad && finished_entries.Count == 0) || 
+        if ((localLoad && finished_entries.Count == 0) ||
             (!localLoad && remote_finished_entries.Count == 0)) { return; }
 
         if (localLoad)
@@ -221,11 +222,11 @@ public class LevelSelection : CanvasLayer
         if (error != Error.Ok) { discovery_over = true; return; }
 
         wd.ListDirBegin();
-        while(true)
+        while (true)
         {
             string name = wd.GetNext();
             if (name.Length == 0) { break; }
-            
+
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
@@ -275,8 +276,8 @@ public class LevelSelection : CanvasLayer
     {
         Texture icon;
         byte[] ini_bin;
-        lock(file_lock) {icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");}
-        lock(file_lock) {ini_bin = GDKnyttAssetManager.loadFile(world_dir + "/world.ini");}
+        lock (file_lock) { icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png"); }
+        lock (file_lock) { ini_bin = GDKnyttAssetManager.loadFile(world_dir + "/world.ini"); }
         return new WorldEntry(icon, getWorldInfo(ini_bin), world_dir);
     }
 
@@ -298,9 +299,9 @@ public class LevelSelection : CanvasLayer
         {
             KnyttBinWorldLoader binloader;
             byte[] ini_bin;
-            lock(file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
-            lock(file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
-            lock(file_lock) { ini_bin = binloader.GetFile("World.ini"); }
+            lock (file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
+            lock (file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
+            lock (file_lock) { ini_bin = binloader.GetFile("World.ini"); }
 
             GDKnyttAssetManager.ensureDirExists("user://Cache");
             new Directory().MakeDir(cache_dir);
@@ -377,7 +378,7 @@ public class LevelSelection : CanvasLayer
         var worlds = Manager.Filtered;
         game_container.clearWorlds();
 
-        foreach(var world_entry in worlds)
+        foreach (var world_entry in worlds)
         {
             game_container.addWorld(world_entry, false);
         }
@@ -398,14 +399,14 @@ public class LevelSelection : CanvasLayer
             if (!timer.IsStopped()) { return; }
 
             GDKnyttAssetManager.ensureDirExists("user://Worlds");
-            
+
             string filename = button.worldEntry.Link;
             filename = filename.Substring(filename.LastIndexOf('/') + 1);
             if (filename.IndexOf('?') != -1) { filename = filename.Substring(0, filename.IndexOf('?')); }
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename);
             http_node.DownloadFile = $"user://Worlds/{filename}.part";
-            
+
             var error = http_node.Request(button.worldEntry.Link);
             if (error != Error.Ok) { download_button.markFailed(); return; }
 

@@ -5,7 +5,7 @@ public class JuniMotionParticles : Node2D
     int _climb_particle;
     int _climb_areas;
     public int ClimbParticle
-    { 
+    {
         get { return _climb_areas > 0 ? _climb_particle : -1; }
         private set { _climb_particle = value; }
     }
@@ -26,9 +26,9 @@ public class JuniMotionParticles : Node2D
         CLIMB
     }
 
-    public Vector2 ClimbPosition 
-    { 
-        get { return GetNode<Node2D>(Juni.FacingRight ? "SpawnLocations/LeftClimb" : "SpawnLocations/LeftClimb").GlobalPosition; } 
+    public Vector2 ClimbPosition
+    {
+        get { return GetNode<Node2D>(Juni.FacingRight ? "SpawnLocations/LeftClimb" : "SpawnLocations/LeftClimb").GlobalPosition; }
     }
 
     public Vector2 GroundPosition { get { return GetNode<Node2D>("SpawnLocations/Ground").GlobalPosition; } }
@@ -56,7 +56,7 @@ public class JuniMotionParticles : Node2D
     {
         if (_current_motion == motion) { return; }
         _current_motion = motion;
-        switch(motion)
+        switch (motion)
         {
             case JuniMotion.NONE:
                 foreach (var child in GetNode("Timers").GetChildren())
@@ -81,7 +81,7 @@ public class JuniMotionParticles : Node2D
 
     public void _on_Timer_timeout()
     {
-        switch(CurrentMotion)
+        switch (CurrentMotion)
         {
             case JuniMotion.NONE: return;
 

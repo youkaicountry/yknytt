@@ -34,7 +34,7 @@ public class Sign : GDKnyttBaseObject
 
     private string trim(string msg)
     {
-        return msg != null && msg.StartsWith("\"") && msg.EndsWith("\"") ? msg.Substring(1, msg.Length - 2) : msg; 
+        return msg != null && msg.StartsWith("\"") && msg.EndsWith("\"") ? msg.Substring(1, msg.Length - 2) : msg;
     }
 
     protected void adjustSign()
@@ -75,7 +75,7 @@ public class Sign : GDKnyttBaseObject
         {
             GetNode<Label>("SignRect/Label").Text = texts[messageIndex];
             GetNode<Control>("SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
-            if (!messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); messageVisible = true;}
+            if (!messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); messageVisible = true; }
         }
         else
         {

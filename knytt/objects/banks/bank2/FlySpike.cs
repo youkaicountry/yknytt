@@ -38,7 +38,7 @@ public class FlySpike : GDKnyttBaseObject
     }
 
     public override void _PhysicsProcess(float delta)
-    { 
+    {
         base._PhysicsProcess(delta);
         if (wait_timer.TimeLeft > 0f) { return; }
         Translate(new Vector2(speed * delta * (FacingRight ? 1f : -1f), 0f));

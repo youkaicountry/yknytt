@@ -73,7 +73,7 @@ public class GDKnyttKeys : Node
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
 
-        switch(groups["type"].Value)
+        switch (groups["type"].Value)
         {
             case "Key": return groups["value"].Value;
             case "Joy": return $"Joy {groups["value"]}";
@@ -84,14 +84,14 @@ public class GDKnyttKeys : Node
 
     public static bool setAction(string ini_name, InputEvent ev)
     {
-        switch(ev)
+        switch (ev)
         {
             case InputEventKey key:
                 var keyname = OS.GetScancodeString(key.Scancode);
                 ini["Input"][ini_name] = $"Key({keyname})";
                 break;
-            
-            case InputEventJoypadButton jb: 
+
+            case InputEventJoypadButton jb:
                 ini["Input"][ini_name] = $"Joy({jb.ButtonIndex})";
                 break;
 
@@ -120,8 +120,8 @@ public class GDKnyttKeys : Node
     {
         // Clear the action
         InputMap.ActionEraseEvents(name);
-        applyInput(name, name+"0");
-        applyInput(name, name+"1");
+        applyInput(name, name + "0");
+        applyInput(name, name + "1");
     }
 
     private static void applyInput(string action_name, string ini_name)
@@ -130,7 +130,7 @@ public class GDKnyttKeys : Node
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
 
-        switch(groups["type"].Value)
+        switch (groups["type"].Value)
         {
             case "Key": applyKey(action_name, groups["value"].Value); break;
             case "Joy": applyJoy(action_name, groups["value"].Value); break;
@@ -157,8 +157,8 @@ public class GDKnyttKeys : Node
     {
         bool modified = false;
         if (!ini.Sections.ContainsSection(section))
-        { 
-            ini.Sections.AddSection(section); 
+        {
+            ini.Sections.AddSection(section);
             modified = true;
         }
 
