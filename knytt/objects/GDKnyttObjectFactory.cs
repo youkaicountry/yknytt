@@ -94,7 +94,11 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(2, 19)] =  "RedElemental";
         ObjectLookup[new KnyttPoint(2, 20)] =  "FlySpike1";
         ObjectLookup[new KnyttPoint(2, 21)] =  "FlySpike2";
+        ObjectLookup[new KnyttPoint(2, 25)] =  "Humbird";
+        ObjectLookup[new KnyttPoint(2, 26)] =  "Birdie1";
+        ObjectLookup[new KnyttPoint(2, 27)] =  "Birdie2";
         ObjectLookup[new KnyttPoint(2, 28)] =  "Birdie3";
+        ObjectLookup[new KnyttPoint(2, 29)] =  "SnowBird";
         ObjectLookup[new KnyttPoint(2, 30)] =  "CircleBird";
         ObjectLookup[new KnyttPoint(2, 31)] =  "BackgroundBird";
         ObjectLookup[new KnyttPoint(2, 32)] =  "FastHomingSquare";
@@ -250,6 +254,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(12, 12)] = "RoofDropper";
         ObjectLookup[new KnyttPoint(12, 13)] = "GhostCrawler";
         ObjectLookup[new KnyttPoint(12, 14)] = "AttackBlock";
+        ObjectLookup[new KnyttPoint(12, 16)] = "Birdie";
         ObjectLookup[new KnyttPoint(12, 17)] = "NoWall";
         ObjectLookup[new KnyttPoint(12, 18)] = "GhostMarker18";
         ObjectLookup[new KnyttPoint(12, 19)] = "GhostMarker19";

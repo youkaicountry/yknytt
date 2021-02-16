@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank18/Fish.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/common/PathCreature.cs" type="Script" id=1]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -22,10 +22,10 @@ lookahead = 48.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
 centered = false
 
-[node name="Area2D" type="Area2D" parent="PathFollow2D"]
+[node name="WallChecker" type="Area2D" parent="PathFollow2D"]
 collision_layer = 0
 collision_mask = 1024
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/WallChecker"]
 position = Vector2( 12, 12 )
 shape = SubResource( 2 )

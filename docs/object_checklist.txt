@@ -82,11 +82,11 @@ Bank 2 (Flyers):
 [ ] - 22
 [ ] - 23
 [ ] - 24
-[ ] - 25
-[ ] - 26
-[ ] - 27
+[x] - 25 Humbird
+[x] - 26 Birdie 1
+[x] - 27 Birdie 2
 [x] - 28 Birdie 3
-[ ] - 29
+[x] - 29 Snow Bird
 [x] - 30 Circle Bird
 [x] - 31 Background Bird
 [x] - 32 Fast Homing Square
@@ -269,7 +269,7 @@ Bank 12 (Ghosts):
 [x] - 13 Ghost Crawler
 [x] - 14 Attack Block
 [ ] - 15
-[ ] - 16
+[x] - 16 Birdie
 [x] - 17 No Wall
 [x] - 18 Ghost Marker
 [x] - 19 Ghost Marker
