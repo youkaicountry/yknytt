@@ -6,7 +6,7 @@ public class BlueBullet : BaseBullet
     {
         base._Ready();
         GDArea.Bullets.RegisterEmitter(this, "BlueBulletExplosion",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Modulate = new Color(2, 2, 2, 0.75f);
                 p.DirectionMMF2 = i;

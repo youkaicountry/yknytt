@@ -6,7 +6,7 @@ public class DarkRandomizer : WalkingShooter
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "DropStuff",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12, 14));
                 p.VelocityMMF2 = 20 + random.Next(40);

@@ -31,19 +31,19 @@ public class GDKnyttArea : Node2D
 
     public Vector2 GlobalCenter
     {
-        get 
-        { 
+        get
+        {
             var gp = GlobalPosition;
-            return new Vector2(gp.x + Width/2f,
-                               gp.y + Height/2f);
+            return new Vector2(gp.x + Width / 2f,
+                               gp.y + Height / 2f);
         }
     }
 
     public Vector2 getTileLocation(KnyttPoint point)
     {
         var gp = GlobalPosition;
-        return new Vector2(gp.x + GDKnyttAssetManager.TILE_WIDTH*point.x + GDKnyttAssetManager.TILE_WIDTH/2f, 
-                       gp.y + GDKnyttAssetManager.TILE_HEIGHT*point.y + GDKnyttAssetManager.TILE_HEIGHT/2f);
+        return new Vector2(gp.x + GDKnyttAssetManager.TILE_WIDTH * point.x + GDKnyttAssetManager.TILE_WIDTH / 2f,
+                       gp.y + GDKnyttAssetManager.TILE_HEIGHT * point.y + GDKnyttAssetManager.TILE_HEIGHT / 2f);
     }
 
     public KnyttPoint getPosition(Vector2 p)

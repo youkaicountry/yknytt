@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class RunThing : Muff
 {
@@ -12,7 +11,7 @@ public class RunThing : Muff
     {
         var juni_distance = Juni.ApparentPosition.x - Center.x;
 
-        var direction = 
+        var direction =
             juni_distance >= safeDistance ? 1 :
             juni_distance <= -safeDistance ? -1 :
             Juni.FacingRight && juni_distance < 0 ? 1 :
@@ -20,7 +19,7 @@ public class RunThing : Muff
             Juni.FacingRight && juni_distance > 0 ? 1 : -1;
 
         var any_speed = random.NextElement(speedValues);
-        var speed = 
+        var speed =
             Mathf.Abs(juni_distance) >= safeDistance ? any_speed :
             Juni.FacingRight && juni_distance < 0 ? any_speed :
             !Juni.FacingRight && juni_distance < 0 ? attackSpeed :

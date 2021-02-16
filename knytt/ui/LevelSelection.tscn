@@ -138,7 +138,6 @@ text = "Back"
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="FileHTTPRequest" type="HTTPRequest" parent="."]
-download_chunk_size = 65536
 script = ExtResource( 1 )
 
 [node name="DownloadMonitor" type="Timer" parent="."]
@@ -159,6 +158,7 @@ __meta__ = {
 }
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
+
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]

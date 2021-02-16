@@ -7,7 +7,7 @@ public class Win : GDKnyttBaseObject
         if (!(body is Juni juni)) { return; }
 
         string ending = GDArea.Area.getExtraData("Ending") ?? "Ending";
-        
+
         var save = GDArea.GDWorld.KWorld.CurrentSave;
         var endings = save.Endings;
         endings.Add(ending);

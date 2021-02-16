@@ -14,7 +14,7 @@ public class GDKnyttObjectLayer : Node2D
     public void addObject(KnyttPoint coords, GDKnyttObjectBundle bundle)
     {
         var node = bundle.getNode(this, coords);
-        node.Position = new Vector2(coords.x*GDKnyttAssetManager.TILE_WIDTH, coords.y*GDKnyttAssetManager.TILE_HEIGHT);
+        node.Position = new Vector2(coords.x * GDKnyttAssetManager.TILE_WIDTH, coords.y * GDKnyttAssetManager.TILE_HEIGHT);
         this.AddChild(node);
     }
 }

@@ -1,7 +1,7 @@
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
 
 public class GDKnyttDataStore : Node
 {
@@ -13,7 +13,7 @@ public class GDKnyttDataStore : Node
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }
     public static Node CutsceneReturn { get; private set; }
-    
+
     public enum CutsceneMode { Intro, Middle, Ending };
     public static CutsceneMode Mode { get; private set; }
 
@@ -32,7 +32,7 @@ public class GDKnyttDataStore : Node
         else { Tree.ChangeScene("res://knytt/GDKnyttGame.tscn"); }
     }
 
-    public static void winGame(string ending="Ending")
+    public static void winGame(string ending = "Ending")
     {
         Mode = CutsceneMode.Ending;
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public abstract class BaseWaterMonsterNew : GDKnyttBaseObject
 {

@@ -4,7 +4,7 @@ using YUtil.Math;
 public class GDKnyttCamera : Camera2D
 {
     public GDKnyttGame Game { get; private set; }
-    
+
     public Godot.Vector2 Target { get; private set; }
 
     public bool Scrolling { get; private set; }
@@ -36,8 +36,8 @@ public class GDKnyttCamera : Camera2D
         {
             var gp = this.GlobalPosition;
             var s = speed * delta;
-            this.Scrolling = !(MathTools.MoveTowards(ref gp.x, Target.x, s)&MathTools.MoveTowards(ref gp.y, Target.y, s));
-            
+            this.Scrolling = !(MathTools.MoveTowards(ref gp.x, Target.x, s) & MathTools.MoveTowards(ref gp.y, Target.y, s));
+
             this.GlobalPosition = gp;
         }
     }

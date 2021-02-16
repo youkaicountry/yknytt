@@ -2,7 +2,7 @@ using Godot;
 
 public class RawAudioPlayer : AudioStreamPlayer
 {
-    [Export] string rawPath;
+    [Export] string rawPath = "";
     [Export] int sampleRate = 11025;
     [Export] bool loop = false;
 

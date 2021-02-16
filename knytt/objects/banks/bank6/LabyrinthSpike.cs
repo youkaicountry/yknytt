@@ -28,5 +28,5 @@ public class LabyrinthSpike : GDKnyttBaseObject
         moveAndCollide(delta * speed * direction);
     }
 
-    protected virtual void onCollide() {}
+    protected virtual void onCollide() { }
 }

@@ -1,8 +1,8 @@
+using Godot;
 using System.Collections.Generic;
 using System.Text;
-using Godot;
-using YUtil.Collections;
 using YKnyttLib;
+using YUtil.Collections;
 
 public class GDKnyttAssetManager
 {
@@ -19,7 +19,7 @@ public class GDKnyttAssetManager
     ObjectCache<int, AudioStream> SongCache;
     ObjectCache<int, AudioStream> AmbianceCache;
     ObjectCache<KnyttPoint, GDKnyttObjectBundle> ObjectCache;
-    
+
     public GDKnyttAssetManager(GDKnyttWorld gdworld, int tile_cache, int gradient_cache, int song_cache, int ambiance_cache, int object_cache)
     {
         this.GDWorld = gdworld;
@@ -145,7 +145,7 @@ public class GDKnyttAssetManager
         return loadTextFile(loadFile(path));
     }
 
-    public static AudioStream loadRaw(byte[] buffer, int sample_rate=11025)
+    public static AudioStream loadRaw(byte[] buffer, int sample_rate = 11025)
     {
         var sample = new AudioStreamSample();
         sample.Format = AudioStreamSample.FormatEnum.Format8Bits;
@@ -156,7 +156,7 @@ public class GDKnyttAssetManager
         return sample;
     }
 
-    public static AudioStream loadRaw(string path, int sample_rate=11025)
+    public static AudioStream loadRaw(string path, int sample_rate = 11025)
     {
         var sample = loadRaw(loadFile(path), sample_rate);
         return sample;
@@ -171,7 +171,7 @@ public class GDKnyttAssetManager
         return buffer;
     }
 
-    public static AudioStream loadOGG(byte[] buffer, bool loop=false)
+    public static AudioStream loadOGG(byte[] buffer, bool loop = false)
     {
         var stream = new AudioStreamOGGVorbis();
         stream.Data = buffer;
@@ -213,9 +213,9 @@ public class GDKnyttAssetManager
             bitmap = new BitMap();
             bitmap.CreateFromImageAlpha(image, .01f);
         }
-        
+
         var ts = new TileSet();
-        
+
         int i = 0;
         for (int y = 0; y < TILESET_HEIGHT; y++)
         {
@@ -223,14 +223,14 @@ public class GDKnyttAssetManager
             {
                 ts.CreateTile(i);
                 ts.TileSetTexture(i, texture);
-                var region = new Rect2(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
 
                 if (collisions)
                 {
                     var polygons = bitmap.OpaqueToPolygons(region, 2);
                     int c = 0;
-                    
+
                     for (int j = 0; j < polygons.Count; j++)
                     {
                         var collision = new ConvexPolygonShape2D();
@@ -239,7 +239,7 @@ public class GDKnyttAssetManager
                         for (int k = 0; k < v.Length; k++)
                         {
                             // I have no idea why it's adding y*48 to y coordinates...
-                            Vector2 mv = new Vector2(v[k].x, v[k].y-(y*TILE_HEIGHT*2));
+                            Vector2 mv = new Vector2(v[k].x, v[k].y - (y * TILE_HEIGHT * 2));
                             plist.Add(mv);
                         }
 
@@ -264,8 +264,8 @@ public class GDKnyttAssetManager
         {
             for (int x = 0; x < image.GetWidth(); x++)
             {
-                if (image.GetPixel(x, y) == old_color) 
-                { 
+                if (image.GetPixel(x, y) == old_color)
+                {
                     image.SetPixel(x, y, new_color);
                     replaced = true;
                 }

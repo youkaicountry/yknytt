@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class WorldManager
 {
-    public List<WorldEntry> Filtered 
-    { 
+    public List<WorldEntry> Filtered
+    {
         get
         {
             var result = new List<WorldEntry>();

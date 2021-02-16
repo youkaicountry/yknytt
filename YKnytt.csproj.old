@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/3.2.4">
+<Project Sdk="Godot.NET.Sdk/3.2.3">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -45,7 +45,6 @@
     <Compile Include="knytt\objects\banks\bank2\BackgroundBird.cs" />
     <Compile Include="knytt\objects\banks\bank2\Bee.cs" />
     <Compile Include="knytt\objects\banks\bank2\HomingEnemy.cs" />
-    <Compile Include="knytt\objects\banks\bank2\Humbird.cs" />
     <Compile Include="knytt\objects\banks\bank4\BigSpider.cs" />
     <Compile Include="knytt\objects\banks\bank4\CeilingDropCrawler.cs" />
     <Compile Include="knytt\objects\banks\bank4\DropCrawler.cs" />
@@ -144,7 +143,7 @@
     <Compile Include="knytt\objects\banks\bank15\ProximityBlock.cs" />
     <Compile Include="knytt\objects\banks\bank15\Updraft.cs" />
     <Compile Include="knytt\objects\banks\bank16\Spring.cs" />
-    <Compile Include="knytt\objects\banks\common\PathCreature.cs" />
+    <Compile Include="knytt\objects\banks\bank18\Fish.cs" />
     <Compile Include="knytt\objects\banks\bank1\Bubble.cs" />
     <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />

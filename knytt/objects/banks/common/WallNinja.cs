@@ -13,7 +13,7 @@ public class WallNinja : Muff
     {
         base._Ready();
         GDArea.Bullets.RegisterEmitter(this, bulletScene,
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(shotPosition);
                 p.VelocityMMF2 = bulletVelocity;
@@ -30,15 +30,15 @@ public class WallNinja : Muff
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         sprite.Play("prepare");
         await ToSignal(sprite, "animation_finished");
-        
+
         for (int i = 0; i < (randomDirection ? 1 : shotDirections.Length); i++)
         {
             GDArea.Bullets.Emit(this, i);
         }
-        
+
         sprite.Play("aftershot");
         await ToSignal(sprite, "animation_finished");
-        
+
         speed = old_speed;
         _on_DirectionTimer_timeout();
     }

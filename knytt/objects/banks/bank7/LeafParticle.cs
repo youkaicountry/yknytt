@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 
 public class LeafParticle : Node2D
 {
@@ -13,7 +13,7 @@ public class LeafParticle : Node2D
         colors["10"] = new Color(.2f, .34f, .16f);
         colors["12"] = new Color(.95f, .95f, .95f);
     }
-    
+
     public override void _Ready()
     {
         string p = GetParent<SceneCPUParticleInstance>().Params;

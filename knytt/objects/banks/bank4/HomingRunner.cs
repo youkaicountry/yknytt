@@ -5,7 +5,7 @@ public class HomingRunner : WalkingShooter
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "HomingBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 (p as HomingBullet).globalJuni = Juni;
                 p.Translate(new Vector2(12, 8));

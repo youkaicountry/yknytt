@@ -31,9 +31,9 @@ public class SlotButton : Button
     public string BaseFile
     {
         get { return _base_file; }
-        set 
-        { 
-            _base_file = value;  
+        set
+        {
+            _base_file = value;
             checkSlot();
         }
     }
@@ -42,7 +42,7 @@ public class SlotButton : Button
 
     public File SlotFile
     {
-        get 
+        get
         {
             var f = new File();
             f.Open(FullFilename, File.ModeFlags.Read);
@@ -66,7 +66,7 @@ public class SlotButton : Button
         if (f.IsOpen()) { setupLoadMode(); }
         else { setupNewMode(); }
         f.Close();
-        
+
     }
 
     private void setupNewMode()

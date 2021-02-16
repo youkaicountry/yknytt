@@ -31,7 +31,7 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
             var player = (AnimationPlayer)GetNode("AnimationPlayer");
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
             if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut")) { player.PlaybackSpeed = -(1f / this.fadeOutTime); }
-            return; 
+            return;
         }
 
         // Track is different
@@ -51,8 +51,8 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut"))
         {
             // Ensure that it's fading out, not back in
-            player.PlaybackSpeed = 1f / this.fadeOutTime; 
-            return; 
+            player.PlaybackSpeed = 1f / this.fadeOutTime;
+            return;
         }
         // Else if this is actively playing a track, start a fade out
         else if (this.Playing)

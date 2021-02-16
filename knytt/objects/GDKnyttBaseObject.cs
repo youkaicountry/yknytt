@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System;
 using YKnyttLib;
 
 public class GDKnyttBaseObject : Node2D
@@ -9,13 +9,13 @@ public class GDKnyttBaseObject : Node2D
     public KnyttPoint ObjectID { get; private set; }
     public KnyttPoint Coords { get; private set; }
 
-    public Vector2 Center 
-    { 
-        get 
-        { 
+    public Vector2 Center
+    {
+        get
+        {
             var gp = GlobalPosition;
             return gp + new Vector2(12f, 12f);
-        }  
+        }
     }
 
     public GDKnyttObjectLayer Layer { get; private set; }
@@ -28,7 +28,7 @@ public class GDKnyttBaseObject : Node2D
     protected float organic_enemy_max_distance = 170f;
     protected bool discrete_detector = false;
     protected Color enemy_detector_color = new Color(1, 0, 0);
-    
+
     private bool safe = false;
 
     protected Random random = GDKnyttDataStore.random; // Shortcut

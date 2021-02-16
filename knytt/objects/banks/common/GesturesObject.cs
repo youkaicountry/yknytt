@@ -1,7 +1,6 @@
 using Godot;
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using YUtil.Random;
 
 public class GesturesObject : GDKnyttBaseObject
@@ -14,16 +13,16 @@ public class GesturesObject : GDKnyttBaseObject
     protected Timer timer;
     private List<string> animations;
     private bool leftDirection = true;
-    
+
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         timer = GetNode<Timer>("IdleTimer");
         animations = sprite.Frames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
 
-        nextAnimation();        
+        nextAnimation();
     }
-    
+
     private void _on_IdleTimer_timeout()
     {
         nextAnimation();

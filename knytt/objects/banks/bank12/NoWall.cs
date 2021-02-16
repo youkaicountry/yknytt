@@ -4,7 +4,7 @@ public class NoWall : GDKnyttBaseObject
     {
         base._Ready();
         if (IsQueuedForDeletion()) { return; }
-        
+
         // Copy values of the cells
         int a = GDArea.Tiles.Layers[3].A.GetCell(Coords.x, Coords.y);
         int b = GDArea.Tiles.Layers[3].B.GetCell(Coords.x, Coords.y);

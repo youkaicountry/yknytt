@@ -4,11 +4,11 @@ using YUtil.Random;
 public class Ghost : GDKnyttBaseObject
 {
     float _speed;
-    private float Speed 
-    { 
+    private float Speed
+    {
         get { return _speed; }
 
-        set 
+        set
         {
             _speed = value;
             GetNode<AnimatedSprite>("AnimatedSprite").FlipH = _speed < 0f;
@@ -37,7 +37,7 @@ public class Ghost : GDKnyttBaseObject
 
     private float height;
     private float time = 0f;
-    
+
     private const float HOVER_HEIGHT = 6f;
     private const float HOVER_SPEED = 1.5f;
 
@@ -62,12 +62,12 @@ public class Ghost : GDKnyttBaseObject
         time += delta;
 
         var gp = GlobalPosition;
-        gp.x += Speed*delta;
-        gp.y = height + (Mathf.Sin(time*HOVER_SPEED)*HOVER_HEIGHT);
+        gp.x += Speed * delta;
+        gp.y = height + (Mathf.Sin(time * HOVER_SPEED) * HOVER_HEIGHT);
         GlobalPosition = gp;
 
         // Collide with area edge
-        var dp = GlobalPosition + new Vector2(12f+(12f*Mathf.Sign(Speed)), 0f);
+        var dp = GlobalPosition + new Vector2(12f + (12f * Mathf.Sign(Speed)), 0f);
         if (!GDArea.isIn(dp)) { Speed *= -1f; }
     }
 

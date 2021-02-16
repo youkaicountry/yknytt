@@ -20,8 +20,8 @@ public class Umbrella : AnimatedSprite
     public bool Deployed
     {
         get { return _deployed; }
-        set 
-        { 
+        set
+        {
             if (_deployed) { stow(); }
             else { deploy(); }
         }

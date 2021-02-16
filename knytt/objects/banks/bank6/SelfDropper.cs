@@ -43,6 +43,6 @@ public class SelfDropper : GDKnyttBaseObject
     {
         int frame = GetNode<AnimatedSprite>("AnimatedSprite").Frame;
         collisionShape.Position = new Vector2(12, 15 + frame * 2);
-        collisionShape.Scale = new Vector2(new float[]{0.4f, 0.5f, 0.6f, 0.9f, 1f}[frame], 1);
+        collisionShape.Scale = new Vector2(new float[] { 0.4f, 0.5f, 0.6f, 0.9f, 1f }[frame], 1);
     }
 }

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public abstract class StuffShooter : GDKnyttBaseObject
 {
@@ -21,7 +20,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
         GDArea.Bullets.RegisterEmitter(this, "BigGlowingBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(shotPosition);
                 p.Velocity = bulletSpeed * 50;
@@ -48,7 +47,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
             GDArea.Bullets.Emit(this);
         }
     }
-    
+
     private void _on_ShotDelayTimer_timeout()
     {
         readyToShoot = true;

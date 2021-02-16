@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 using YKnyttLib;
 
 public class Rain : GDKnyttBaseObject
-{   
+{
     PackedScene drop_scene;
     Queue<Raindrop> _drop_q;
     Raindrop add_next;
@@ -21,14 +21,14 @@ public class Rain : GDKnyttBaseObject
     {
         if (add_next != null && add_next.GetParent() == null && GetChildCount() < MAX_DROPS)
         {
-            add_next.Position = new Vector2((float)random.NextDouble()*GDKnyttAssetManager.TILE_WIDTH, 12f);
+            add_next.Position = new Vector2((float)random.NextDouble() * GDKnyttAssetManager.TILE_WIDTH, 12f);
             add_next.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
             add_next.reset(this);
             CallDeferred("add_child", add_next);
             add_next = null;
         }
 
-        if (add_next == null && ((float)random.NextDouble())*.4f < delta)
+        if (add_next == null && ((float)random.NextDouble()) * .4f < delta)
         {
             add_next = nextRaindrop();
         }

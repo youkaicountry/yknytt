@@ -9,7 +9,7 @@ public class SuperShot : GesturesObject
     {
         base._Ready();
 
-        GDArea.Bullets.RegisterEmitter(this, "SuperBullet", 
+        GDArea.Bullets.RegisterEmitter(this, "SuperBullet",
             (p, i) =>
             {
                 p.Translate(shotPosition);

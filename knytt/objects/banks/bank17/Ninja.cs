@@ -5,7 +5,7 @@ public class Ninja : WalkingShooter
     public override void _Ready()
     {
         GDArea.Bullets.RegisterEmitter(this, "NinjaStar",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12 + getDirection() * 5, 17));
                 p.VelocityMMF2 = 80;

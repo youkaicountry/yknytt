@@ -19,7 +19,7 @@ public class GDKnyttWorld : Node2D
 
     public GDKnyttWorld()
     {
-        this.AssetManager = new GDKnyttAssetManager(this, tile_cache:32, gradient_cache:16, song_cache:4, ambiance_cache:8, object_cache:64);
+        this.AssetManager = new GDKnyttAssetManager(this, tile_cache: 32, gradient_cache: 16, song_cache: 4, ambiance_cache: 8, object_cache: 64);
         this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(1, 1));
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => area?.destroyArea();
@@ -36,20 +36,20 @@ public class GDKnyttWorld : Node2D
     public void loadWorld()
     {
         // If info is not initialized, load it
-        if (KWorld.Info == null) 
-        {  
+        if (KWorld.Info == null)
+        {
             var txt = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
             KWorld.loadWorldConfig(txt);
         }
 
         var map_data = KWorld.getWorldData("Map.bin");
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
-        
+
         this.KWorld.loadWorldMap(map_stream);
 
         // Enable this if there will be level load screen
         //if (KWorld.BinMode) { KWorld.unpackWorld(); }
-		//AssetManager.compileInternalTileset();
+        //AssetManager.compileInternalTileset();
     }
 
     public GDKnyttArea getArea(KnyttPoint area)
@@ -59,8 +59,8 @@ public class GDKnyttWorld : Node2D
 
     public static KnyttPoint getAreaCoords(Vector2 global_pos)
     {
-        return new KnyttPoint((int)(global_pos.x/(GDKnyttAssetManager.TILE_WIDTH*KnyttArea.AREA_WIDTH)),
-                              (int)(global_pos.y/(GDKnyttAssetManager.TILE_HEIGHT*KnyttArea.AREA_HEIGHT)));
+        return new KnyttPoint((int)(global_pos.x / (GDKnyttAssetManager.TILE_WIDTH * KnyttArea.AREA_WIDTH)),
+                              (int)(global_pos.y / (GDKnyttAssetManager.TILE_HEIGHT * KnyttArea.AREA_HEIGHT)));
     }
 
     public GDKnyttArea instantiateArea(KnyttPoint point)

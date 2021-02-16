@@ -58,12 +58,12 @@ public class BouncerEnemy : GDKnyttBaseObject
             return;
         }
 
-        if (!in_air) { return;}
+        if (!in_air) { return; }
         if (!GDArea.isIn(GlobalPosition)) { return; } // ignore all collisions if out of the area
         if (vel < 0f) { vel = -vel; return; }
 
         in_air = false;
-        
+
         Position = new Vector2(Position.x, start_y);
 
         GetNodeOrNull<RawAudioPlayer2D>("BouncePlayer")?.Play();

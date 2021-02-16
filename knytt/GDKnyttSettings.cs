@@ -22,7 +22,7 @@ public class GDKnyttSettings : Node
     public static bool Fullscreen
     {
         get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
-        set 
+        set
         {
             OS.WindowBorderless = value;
             OS.WindowMaximized = value;
@@ -33,18 +33,18 @@ public class GDKnyttSettings : Node
     public static bool SmoothScaling
     {
         get { return ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false; }
-        set 
+        set
         {
             if (!TouchSettings.EnablePanel)
             {
-              tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
-                          SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+                tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+                            SceneTree.StretchAspect.Keep, new Vector2(600, 240));
             }
             else
             {
-              // Touch panel needs some screen space, so "Viewport" mode is not suitable here
-              tree.SetScreenStretch(SceneTree.StretchMode.Mode2d, 
-                          SceneTree.StretchAspect.KeepWidth, new Vector2(600, 240));
+                // Touch panel needs some screen space, so "Viewport" mode is not suitable here
+                tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
+                            SceneTree.StretchAspect.KeepWidth, new Vector2(600, 240));
             }
             (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
 
@@ -68,7 +68,7 @@ public class GDKnyttSettings : Node
     public static int MasterVolume
     {
         get { return int.Parse(ini["Audio"]["Master Volume"]); }
-        set 
+        set
         {
             ini["Audio"]["Master Volume"] = $"{value}";
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), calcVolume(value));
@@ -78,8 +78,8 @@ public class GDKnyttSettings : Node
     public static int MusicVolume
     {
         get { return int.Parse(ini["Audio"]["Music Volume"]); }
-        set 
-        { 
+        set
+        {
             ini["Audio"]["Music Volume"] = $"{value}";
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("MusicVol"), calcVolume(value));
         }
@@ -88,8 +88,8 @@ public class GDKnyttSettings : Node
     public static int EffectsVolume
     {
         get { return int.Parse(ini["Audio"]["Effects Volume"]); }
-        set 
-        { 
+        set
+        {
             ini["Audio"]["Effects Volume"] = $"{value}";
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("SFX"), calcVolume(value));
         }
@@ -98,8 +98,8 @@ public class GDKnyttSettings : Node
     public static int EnvironmentVolume
     {
         get { return int.Parse(ini["Audio"]["Environment Volume"]); }
-        set 
-        { 
+        set
+        {
             ini["Audio"]["Environment Volume"] = $"{value}";
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Environment"), calcVolume(value));
         }
@@ -107,7 +107,7 @@ public class GDKnyttSettings : Node
 
     private static ScrollTypes String2ScrollTypes(string s)
     {
-        switch(s)
+        switch (s)
         {
             case "Smooth": return ScrollTypes.Smooth;
             case "Original": return ScrollTypes.Original;
@@ -117,7 +117,7 @@ public class GDKnyttSettings : Node
 
     private static string ScrollTypes2String(ScrollTypes t)
     {
-        switch(t)
+        switch (t)
         {
             case ScrollTypes.Smooth: return "Smooth";
             case ScrollTypes.Original: return "Original";
@@ -125,19 +125,23 @@ public class GDKnyttSettings : Node
         }
     }
 
-    public static string getUUID()
+    public static string UUID
     {
-        if (!GDKnyttSettings.ini.Sections.ContainsSection("Server") || !GDKnyttSettings.ini["Server"].ContainsKey("UUID"))
+        get
         {
-            GDKnyttSettings.ensureSetting("Server", "UUID", System.Guid.NewGuid().ToString());
-            GDKnyttSettings.saveSettings();
+            if (!GDKnyttSettings.ini.Sections.ContainsSection("Server") || !GDKnyttSettings.ini["Server"].ContainsKey("UUID"))
+            {
+                GDKnyttSettings.ensureSetting("Server", "UUID", System.Guid.NewGuid().ToString());
+                GDKnyttSettings.saveSettings();
+            }
+
+            return GDKnyttSettings.ini["Server"]["UUID"];
         }
-        return GDKnyttSettings.ini["Server"]["UUID"];
     }
 
-    public static string getServerURL()
+    public static string ServerURL
     {
-        return GDKnyttSettings.ini["Server"]["URL"];
+        get { return GDKnyttSettings.ini["Server"]["URL"]; }
     }
 
     public override void _Ready()
@@ -163,7 +167,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Environment Volume", "80");
 
         modified |= ensureSetting("Server", "URL", "https://yknytt.herokuapp.com");
-  
+
         modified |= TouchSettings.ensureSettings();
 
         if (modified) { saveSettings(); }
@@ -207,8 +211,8 @@ public class GDKnyttSettings : Node
     {
         bool modified = false;
         if (!ini.Sections.ContainsSection(section))
-        { 
-            ini.Sections.AddSection(section); 
+        {
+            ini.Sections.AddSection(section);
             modified = true;
         }
 
