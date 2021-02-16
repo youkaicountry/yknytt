@@ -492,7 +492,7 @@ public class Juni : KinematicBody2D
         else
         {
             var custom_player = GetNode<AudioStreamPlayer2D>("Audio/CustomPlayer2D");
-            custom_player.Stream = Game.GDWorld.KWorld.getWorldSound($"Sounds/{sound}.ogg") as AudioStream;
+            custom_player.Stream = Game.GDWorld.KWorld.getWorldSound($"Sounds/{sound}.ogg", loop: false) as AudioStream;
             if (custom_player.Stream != null) { custom_player.Play(); }
         }
     }

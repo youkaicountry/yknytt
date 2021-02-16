@@ -35,7 +35,7 @@ public class Cutscene : Control
         }
 
         string loc = ambiance ? $"Ambiance/Ambi{song}.ogg" : $"Music/Song{song}.ogg";
-        var stream = GDKnyttDataStore.KWorld.getWorldSound(loc) as AudioStream;
+        var stream = GDKnyttDataStore.KWorld.getWorldSound(loc, loop: false) as AudioStream;
 
         var player = GetNode<AudioStreamPlayer>("MusicPlayer");
         player.Stream = stream;
