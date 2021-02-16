@@ -6,6 +6,7 @@ export.cfg
 export_presets.cfg
 .mono/
 .vs/
+.vscode
 
 bin/
 worlds/
