@@ -5,9 +5,9 @@ public class IdleState : JuniState
     public override bool StickToGround { get { return true; } }
 
     public IdleState(Juni juni) : base(juni)
-     { 
+    {
 
-     }
+    }
 
     public override void onEnter()
     {
@@ -30,12 +30,13 @@ public class IdleState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(reset_jumps:true); }
-        else if ( !juni.Grounded ) // Ground falls out from under Juni
-        { 
+        if (juni.DidJump) { juni.executeJump(reset_jumps: true); }
+        else if (!juni.Grounded) // Ground falls out from under Juni
+        {
             juni.CanFreeJump = false;
             juni.jumps = 1;
-            juni.transitionState(new FallState(juni)); }
+            juni.transitionState(new FallState(juni));
+        }
     }
 }
 
@@ -53,7 +54,7 @@ public class WalkRunState : JuniState
     public override bool StickToGround { get { return true; } }
 
     public WalkRunState(Juni juni, bool walk_run) : base(juni)
-    { 
+    {
         this.walk_run = walk_run;
         juni.MotionParticles.CurrentMotion = walk_run ? JuniMotionParticles.JuniMotion.RUN : JuniMotionParticles.JuniMotion.WALK;
 
@@ -85,8 +86,8 @@ public class WalkRunState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.juniInput.JumpEdge && juni.CanJump && current_fall > 0) { juni.executeJump(reset_jumps:true); }
-        else if ( !juni.Grounded) // Juni Walks off Ledge / ground falls out from under
+        if (juni.juniInput.JumpEdge && juni.CanJump && current_fall > 0) { juni.executeJump(reset_jumps: true); }
+        else if (!juni.Grounded) // Juni Walks off Ledge / ground falls out from under
         {
             if (current_fall <= 0)
             {
@@ -109,7 +110,7 @@ public class WalkRunState : JuniState
 public class ClimbState : JuniState
 {
     public ClimbState(Juni juni) : base(juni) { }
-    
+
     public override void onEnter()
     {
         juni.Anim.Play("Climbing");
@@ -122,7 +123,7 @@ public class ClimbState : JuniState
     {
         juni.dir = juni.MoveDirection;
         if (!juni.CanClimb)
-        { 
+        {
             juni.transitionState(new FallState(juni));
             juni.JustClimbed = true;
             juni.CanFreeJump = true;
@@ -164,8 +165,8 @@ public class SlideState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (!juni.CanClimb) 
-        { 
+        if (!juni.CanClimb)
+        {
             juni.transitionState(new FallState(juni));
             juni.JustClimbed = true;
             juni.CanFreeJump = true;
@@ -175,9 +176,9 @@ public class SlideState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.juniInput.UpHeld) 
-        { 
-            juni.velocity.y = Juni.CLIMB_SPEED; 
+        if (juni.juniInput.UpHeld)
+        {
+            juni.velocity.y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
         else if (!juni.juniInput.DownHeld)
@@ -242,9 +243,9 @@ public class FallState : JuniState
     public override void PostProcess(float delta)
     {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
-        if (juni.Grounded) 
+        if (juni.Grounded)
         {
-            juni.transitionState(new IdleState(juni)); 
+            juni.transitionState(new IdleState(juni));
             juni.GetNode<RawAudioPlayer2D>("Audio/LandPlayer2D").Play();
         }
     }

@@ -23,7 +23,7 @@ public class AltInput
         pressed.Add(action);
         justPressed.Add(action);
     }
-    
+
     public void ActionRelease(string action)
     {
         pressed.Remove(action);

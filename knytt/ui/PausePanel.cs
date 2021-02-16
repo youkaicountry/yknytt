@@ -28,7 +28,7 @@ public class PausePanel : Control
     public override void _Notification(int what)
     {
         if (bounce) { return; }
-		if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
+        if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
     }
 
     private void pause()

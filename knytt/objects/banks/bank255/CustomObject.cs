@@ -98,7 +98,7 @@ public class CustomObject : GDKnyttBaseObject
     {
         int pos = 0;
         if (image_texture.GetHeight() < info.tile_height) { info.tile_height = image_texture.GetHeight(); }
-        if (image_texture.GetWidth()  < info.tile_width)  { info.tile_width  = image_texture.GetWidth();  }
+        if (image_texture.GetWidth() < info.tile_width) { info.tile_width = image_texture.GetWidth(); }
         for (int i = 0; i < image_texture.GetHeight() / info.tile_height; i++)
         {
             for (int j = 0; j < image_texture.GetWidth() / info.tile_width; j++)

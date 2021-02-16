@@ -25,7 +25,7 @@ public class Muff : GDKnyttBaseObject
     {
         if (speedChangeTime > 0) { GetNode<Timer>("SpeedTimer").Start(speedChangeTime); }
         if (directionChangeTime > 0) { GetNode<Timer>("DirectionTimer").Start(directionChangeTime); }
-       
+
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         changeSpeed(initialSpeed);

@@ -11,7 +11,7 @@ public class Bee : Muff
         base._Ready();
         GetNode<Timer>("ShootTimer").WaitTime = shootTimer;
         GDArea.Bullets.RegisterEmitter(this, "BeeBullet",
-            (p, i) => 
+            (p, i) =>
             {
                 p.Translate(new Vector2(12 + (i > 0 ? 5 : -5), 24));
                 p.Modulate = bulletModulate;

@@ -35,8 +35,8 @@ public class Raindrop : Node2D
         sprite.Visible = true;
         int drop_type = GDKnyttDataStore.random.Next(3);
         this.sprite.Frame = drop_type;
-        this.speed = baseFallspeed / ((float)(drop_type+1));
-        this.speed -= ((float)GDKnyttDataStore.random.NextDouble()*variance);
+        this.speed = baseFallspeed / ((float)(drop_type + 1));
+        this.speed -= ((float)GDKnyttDataStore.random.NextDouble() * variance);
         this.init = false;
     }
 
@@ -44,7 +44,7 @@ public class Raindrop : Node2D
     {
         if (init) { initialize(); }
 
-        var mv = speed*delta;
+        var mv = speed * delta;
         this.Translate(new Vector2(0, mv));
         distance += mv;
         if (distance >= max_distance) { retire(); }

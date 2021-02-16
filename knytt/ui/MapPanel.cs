@@ -30,7 +30,7 @@ public class MapPanel : Panel
         if (world == null || juni == null) { return; }
         this.world = world;
         this.juni = juni;
-        
+
         this.RectSize = new Vector2(
             (world.MaxBounds.x - world.MinBounds.x + 1) * XSIZE,
             (world.MaxBounds.y - world.MinBounds.y + 1) * YSIZE);
@@ -39,19 +39,19 @@ public class MapPanel : Panel
         {
             if (area?.ExtraData == null) { continue; }
             var coord = area.Position;
-            
+
             int? map_x = int.TryParse(area.ExtraData["MapX"], out var i) ? i : null as int?;
-            int? map_y = int.TryParse(area.ExtraData["MapY"], out     i) ? i : null as int?;
+            int? map_y = int.TryParse(area.ExtraData["MapY"], out i) ? i : null as int?;
             if (map_x != null || map_y != null)
             {
                 spoofing[coord] = new KnyttPoint(map_x ?? coord.x, map_y ?? coord.y);
             }
 
-            if (area.ExtraData["MapVisible"]?.ToLower() == "true")  { visible[coord] = true;  }
+            if (area.ExtraData["MapVisible"]?.ToLower() == "true") { visible[coord] = true; }
             if (area.ExtraData["MapVisible"]?.ToLower() == "false") { visible[coord] = false; }
 
             int? color = int.TryParse(area.ExtraData["MapColor"], out i) ? i : null as int?;
-            if (color != null) 
+            if (color != null)
             {
                 if (color == 64)
                 {
@@ -64,7 +64,7 @@ public class MapPanel : Panel
             }
         }
     }
- 
+
     public override void _Draw()
     {
         KnyttPoint pos = juni.GDArea.Area.Position;
@@ -122,8 +122,8 @@ public class MapPanel : Panel
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelDown) { scale(0.9f);  }
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp)   { scale(1.11f); }
+            if (mouse_event.ButtonIndex == (int)ButtonList.WheelDown) { scale(0.9f); }
+            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp) { scale(1.11f); }
         }
     }
 
@@ -138,14 +138,14 @@ public class MapPanel : Panel
     public override void _PhysicsProcess(float delta)
     {
         var new_offset = Vector2.Zero;
-        if (Input.IsActionPressed("up"))    { new_offset += new Vector2(0, 1)  * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("down"))  { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("left"))  { new_offset += new Vector2(1, 0)  * SCROLL_SPEED * delta; }
+        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta; }
+        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
+        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta; }
         drag(new_offset);
     }
 
-	public override void _Process(float delta)
+    public override void _Process(float delta)
     {
         if (Input.IsActionJustPressed("map") || Input.IsActionJustPressed("pause")) { ShowMap(false); }
     }

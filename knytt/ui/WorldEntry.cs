@@ -22,7 +22,7 @@ public class WorldEntry
     public bool Verified;
     public bool Approved;
 
-    public WorldEntry() {}
+    public WorldEntry() { }
 
     public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path)
     {

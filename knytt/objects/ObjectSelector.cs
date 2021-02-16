@@ -46,7 +46,7 @@ public class ObjectSelector
             counters[type] = 0;
             selections[type] = GDKnyttDataStore.random.NextElement(allObjects[type]);
         }
-        
+
         counters[type]++;
         bool is_selected = selections[type] == obj;
 

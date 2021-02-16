@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Godot;
+using System.Collections.Generic;
 using YKnyttLib;
 
 public class GDAreaTiles : Node2D
@@ -12,7 +12,7 @@ public class GDAreaTiles : Node2D
 
         TileSet ta = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetA);
         TileSet tb = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetB);
-        
+
         foreach (GDAreaLayer c in this.GetChildren())
         {
             llayers.Add(c);
@@ -22,7 +22,7 @@ public class GDAreaTiles : Node2D
         // Render map
         this.Layers = llayers.ToArray();
 
-        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++ )
+        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
         {
             var data = area.Area.TileLayers[layer];
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
