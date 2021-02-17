@@ -103,10 +103,7 @@ public class Shift : Switch
         {
             if (relative_area.isZero())
             {
-                // TODO: This is a workaround to mute the music for a while
-                var player = game.MusicChannel.GetNode<AnimationPlayer>("AnimationPlayer");
-                player.PlaybackSpeed = 0.3f;
-                player.Play("FadeIn");
+                game.MusicChannel.fadeIn(3);
             }
             else
             {

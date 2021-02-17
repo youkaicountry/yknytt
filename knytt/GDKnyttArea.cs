@@ -13,6 +13,12 @@ public class GDKnyttArea : Node2D
     public bool HasAltInput { get; set; }
     public bool BlockInput { get; set; }
 
+    public bool PlayNoMusic { get; set; }
+    public bool PlayNoAmbiance1 { get; set; }
+    public bool PlayNoAmbiance2 { get; set; }
+    public bool NoAmbiance1FadeIn { get; set; }
+    public bool NoAmbiance2FadeIn { get; set; }
+
     public static float Width { get { return KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; } }
     public static float Height { get { return KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; } }
     public static Vector2 Size { get { return new Vector2(Width, Height); } }

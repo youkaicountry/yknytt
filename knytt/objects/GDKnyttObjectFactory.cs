@@ -20,6 +20,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 9)] = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 10)] = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 11)] = "NoClimb";
+        ObjectLookup[new KnyttPoint(0, 12)] = "GhostMusic";
         ObjectLookup[new KnyttPoint(0, 13)] = "Sticky";
         ObjectLookup[new KnyttPoint(0, 14)] = "Shift";
         ObjectLookup[new KnyttPoint(0, 15)] = "Shift";
@@ -44,6 +45,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 34)] = "Trigger";
         ObjectLookup[new KnyttPoint(0, 35)] = "PowerItem";
         ObjectLookup[new KnyttPoint(0, 36)] = "Title";
+        ObjectLookup[new KnyttPoint(0, 37)] = "LocalAmbient";
+        ObjectLookup[new KnyttPoint(0, 38)] = "LocalAmbient";
+        ObjectLookup[new KnyttPoint(0, 39)] = "MuteAmbient";
+        ObjectLookup[new KnyttPoint(0, 40)] = "MuteAmbient";
         ObjectLookup[new KnyttPoint(0, 42)] = "SpawnPoint";
         ObjectLookup[new KnyttPoint(0, 43)] = "SpawnPoint";
         ObjectLookup[new KnyttPoint(0, 44)] = "SpawnPoint";

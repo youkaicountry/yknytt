@@ -4,10 +4,10 @@ Bank 0 (System):
 [x] - 34 Trigger
 [x] - 35 Map PowerItem
 [x] - 36 Title
-[ ] - 37 Local Ambient A
-[ ] - 38 Local Ambient B
-[ ] - 39 Mute Local Ambient A
-[ ] - 40 Mute Local Ambient B
+[x] - 37 Local Ambient A
+[x] - 38 Local Ambient B
+[x] - 39 Mute Local Ambient A ??
+[x] - 40 Mute Local Ambient B ??
 [ ] - 41 ?? No Climb
 [x] - 42 Spawn Point
 [x] - 43 Spawn Point

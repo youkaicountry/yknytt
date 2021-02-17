@@ -10,7 +10,7 @@ Bank 0 (System):
 [x] -  9 Umbrella
 [x] - 10 Hologram
 [x] - 11 No Climb
-[ ] - 12 Music
+[x] - 12 Ghost Music
 [x] - 13 Sticky
 [x] - 14 Shift A
 [x] - 15 Shift B
