@@ -21,14 +21,24 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
     private int q_track;
     private AudioStream q_stream;
 
-    public void setTrack(int num)
+    private AnimationPlayer player;
+    private bool no_fade_in;
+
+    public override void _Ready()
     {
+        player = GetNode<AnimationPlayer>("AnimationPlayer");
+    }
+
+    public void setTrack(int num, bool no_fade_in = false)
+    {
+        this.no_fade_in = no_fade_in;
+        
         // If it's the same track already playing nothing happens
         if (num == this.TrackNumber)
         {
             this.clearQ();
+            if (no_fade_in) { return; }
             // If the song is fading out, reverse the fading
-            var player = (AnimationPlayer)GetNode("AnimationPlayer");
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
             if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut")) { player.PlaybackSpeed = -(1f / this.fadeOutTime); }
             return;
@@ -45,7 +55,6 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         // Queue gets changed no matter what
         this.setQ(track, stream);
 
-        var player = (AnimationPlayer)GetNode("AnimationPlayer");
         //GD.Print(player.IsPlaying(), " ", this.Playing);
         // If already fading out, simply change the queue
         if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut"))
@@ -97,20 +106,22 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         if (this.q_stream == null) { return; }
 
         this.Stream = this.q_stream;
-        this.VolumeDb = -80f;
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
         this.Play();
 
-        var player = (AnimationPlayer)GetNode("AnimationPlayer");
-        player.PlaybackSpeed = 1f / this.fadeInTime;
-        player.Play("FadeIn");
+        if (!no_fade_in) { fadeIn(this.fadeInTime); }
     }
 
     private void resetAnimation()
     {
-        var player = (AnimationPlayer)GetNode("AnimationPlayer");
         player.Stop();
-        this.VolumeDb = 0.0f;
+        this.VolumeDb = -80f;
+    }
+
+    public void fadeIn(float sec)
+    {
+        player.PlaybackSpeed = 1f / sec;
+        player.Play("FadeIn");
     }
 
     public void _on_finished()
