@@ -166,7 +166,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Environment Volume", "80");
 
-        modified |= ensureSetting("Server", "URL", "https://yknytt.herokuapp.com");
+        modified |= ensureSetting("Server", "URL", "http://yknytt.herokuapp.com");
 
         modified |= TouchSettings.ensureSettings();
 
