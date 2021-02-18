@@ -180,7 +180,7 @@ public class LevelSelection : CanvasLayer
 
     private void _on_GameContainter_scrolling(float value)
     {
-        max_requested_level = Math.Max(max_requested_level, 2 * (((int)(value + games_scrollbar.RectSize.y)) / GameContainter.BUTTON_HEIGHT) + 2);
+        max_requested_level = Math.Max(max_requested_level, 2 * (((int)(value + games_scrollbar.RectSize.y)) / GameContainer.BUTTON_HEIGHT) + 2);
         if (next_page != null && max_requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
         {
             http_levels_node.Request(next_page);
@@ -231,7 +231,6 @@ public class LevelSelection : CanvasLayer
     }
 
     // Search the given directory for worlds
-    // TODO: This should do a very different process for bin files
     private void discoverWorlds(string path, bool single_threaded)
     {
         var wd = new Directory();
@@ -285,6 +284,7 @@ public class LevelSelection : CanvasLayer
     private void binLoad(string world_dir)
     {
         var entry = generateBinWorld(world_dir);
+        if (entry == null) { return; }
         finished_entries.Enqueue(entry);
     }
 
@@ -317,7 +317,14 @@ public class LevelSelection : CanvasLayer
         {
             KnyttBinWorldLoader binloader;
             byte[] ini_bin;
-            lock (file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
+            try
+            {
+                lock (file_lock) { binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_dir)); }
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
             lock (file_lock) { icon_bin = binloader.GetFile("Icon.png"); }
             lock (file_lock) { ini_bin = binloader.GetFile("World.ini"); }
 
@@ -384,8 +391,7 @@ public class LevelSelection : CanvasLayer
     {
         if (name.Equals(".") || name.Equals("..")) { return false; }
         if (dir.FileExists($"{name}/_do_not_load_")) { return false; }
-
-        // TODO: Check for file signatures
+        if (!dir.FileExists("map.bin") || !dir.FileExists("world.ini")) { return false; }
         return true;
     }
 
@@ -455,10 +461,20 @@ public class LevelSelection : CanvasLayer
         {
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
             new Directory().Rename(http_node.DownloadFile, final_filename);
-            download_button.markCompleted();
-            download_button.incDownloads(); // TODO: increment count only on first download (use RateAdded event)
-            download_button.worldEntry.MergeLocal(generateBinWorld(final_filename));
-            sendDownload();
+            var entry = generateBinWorld(final_filename);
+
+            if (entry != null)
+            {
+                download_button.markCompleted();
+                download_button.incDownloads(); // TODO: increment count only on first download (use RateAdded event)
+                download_button.worldEntry.MergeLocal(entry);
+                sendDownload();
+            }
+            else
+            {
+                new Directory().Remove(final_filename);
+                download_button.markFailed();
+            }
         }
         else
         {
