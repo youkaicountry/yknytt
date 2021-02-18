@@ -1,10 +1,17 @@
 using Godot;
+using System.Collections.Generic;
 
 public class GameContainer : VBoxContainer
 {
-    PackedScene game_scene;
+    private PackedScene game_scene;
 
-    HBoxContainer current_container = null;
+    private HBoxContainer current_container = null;
+
+    private Queue<GameButton> stubs = new Queue<GameButton>();
+
+    public int GamesCount { get; private set; }
+
+    public const int BUTTON_HEIGHT = 59;
 
     public GameContainer()
     {
@@ -21,16 +28,40 @@ public class GameContainer : VBoxContainer
         }
 
         current_container = null;
+        stubs.Clear();
+        GamesCount = 0;
     }
 
     public void addWorld(WorldEntry world_entry, bool focus = false, bool mark_completed = false)
     {
-        var game_node = this.game_scene.Instance() as GameButton;
-
+        bool replace_stub = stubs.Count != 0;
+        var game_node = replace_stub ? stubs.Dequeue() : this.game_scene.Instance() as GameButton;
         game_node.initialize(world_entry);
-
         game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
+        if (!replace_stub) { addButton(game_node); }
+        
+        if (focus) { game_node.GrabFocus(); }
+        if (mark_completed) { game_node.markCompleted(); }
+        GamesCount++;
+    }
 
+    public void fillStubs(int count)
+    {
+        for (int i = GamesCount + stubs.Count; i < count; i++)
+        {
+            var game_node = this.game_scene.Instance() as GameButton;
+            stubs.Enqueue(game_node);
+            addButton(game_node);
+        }
+
+        for (int i = GamesCount + stubs.Count; i > count; i--)
+        {
+            stubs.Dequeue().QueueFree();
+        }
+    }
+
+    private void addButton(GameButton game_node)
+    {
         if (current_container == null)
         {
             current_container = new HBoxContainer();
@@ -42,8 +73,5 @@ public class GameContainer : VBoxContainer
             current_container.AddChild(game_node);
             current_container = null;
         }
-
-        if (focus) { game_node.GrabFocus(); }
-        if (mark_completed) { game_node.markCompleted(); }
     }
 }

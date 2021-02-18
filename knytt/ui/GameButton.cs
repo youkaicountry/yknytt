@@ -14,6 +14,10 @@ public class GameButton : Button
     {
         worldEntry = info;
 
+        GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
+        GetNode<Control>("MainContainer").Visible = true;
+        GetNode<Control>("RatingControl").Visible = true;
+
         GetNode<TextureRect>("MainContainer/IconTexture").Texture = info.Icon;
         GetNode<TextureRect>("MainContainer/IconTexture").RectSize = new Vector2(30, 30);
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";

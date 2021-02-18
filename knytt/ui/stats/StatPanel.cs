@@ -20,6 +20,7 @@ public class StatPanel : Panel
 
     public void addLabel(string text)
     {
+        GetNodeOrNull<AnimatedSprite>("ScrollContainer/VBoxContainer/AnimatedSprite")?.QueueFree();
         var label = labelScene.Instance() as Label;
         label.Text = text;
         container.AddChild(label);

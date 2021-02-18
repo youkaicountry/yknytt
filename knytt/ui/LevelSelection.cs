@@ -32,9 +32,11 @@ public class LevelSelection : CanvasLayer
     GameContainer game_container;
     ScrollBar games_scrollbar;
     FileHTTPRequest http_node;
+    HTTPRequest http_levels_node;
     GameButton download_button;
 
     public bool localLoad = false;
+    private int max_requested_level = 0;
     private string next_page = null;
 
     ConcurrentQueue<WorldEntry> finished_entries;
@@ -58,6 +60,7 @@ public class LevelSelection : CanvasLayer
         games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
         if (!localLoad) { games_scrollbar.Connect("value_changed", this, nameof(_on_GameContainter_scrolling)); }
         http_node = GetNode<FileHTTPRequest>("FileHTTPRequest");
+        http_levels_node = GetNode<HTTPRequest>("RestHTTPRequest");
 
         var sys = OS.GetName();
         //if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
@@ -119,12 +122,15 @@ public class LevelSelection : CanvasLayer
     public void reloadAll()
     {
         game_container.clearWorlds();
+        max_requested_level = 0;
         //singleThreadedLoad(); -- causes crash
     }
 
     private void HttpLoad()
     {
         game_container.clearWorlds();
+        max_requested_level = 0;
+        game_container.fillStubs(4);
         GetNode<Label>("ConnectionLostLabel").Visible = false;
 
         string url = GDKnyttSettings.ServerURL + "/levels/?";
@@ -158,14 +164,26 @@ public class LevelSelection : CanvasLayer
             if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
         }
 
-        next_page = HTTPUtil.jsonValue<string>(json.Result, "next");
+        var worlds_total = HTTPUtil.jsonInt(json.Result, "count");
+        game_container.fillStubs(worlds_total);
+
+        var next = HTTPUtil.jsonValue<string>(json.Result, "next");
+        if (next != null && max_requested_level > game_container.GamesCount + world_infos.Count)
+        {
+            http_levels_node.Request(next);
+        }
+        else
+        {
+            next_page = next;
+        }
     }
 
     private void _on_GameContainter_scrolling(float value)
     {
-        if (next_page != null && value + games_scrollbar.RectSize.y >= games_scrollbar.MaxValue)
+        max_requested_level = Math.Max(max_requested_level, 2 * (((int)(value + games_scrollbar.RectSize.y)) / GameContainter.BUTTON_HEIGHT) + 2);
+        if (next_page != null && max_requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
         {
-            GetNode<HTTPRequest>("RestHTTPRequest").Request(next_page);
+            http_levels_node.Request(next_page);
             next_page = null;
         }
     }
@@ -377,6 +395,7 @@ public class LevelSelection : CanvasLayer
         Manager.setFilter(filter_category, filter_difficulty, filter_size);
         var worlds = Manager.Filtered;
         game_container.clearWorlds();
+        max_requested_level = 0;
 
         foreach (var world_entry in worlds)
         {

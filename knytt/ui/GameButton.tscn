@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
@@ -7,18 +7,67 @@
 [ext_resource path="res://knytt/ui/GameButton.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
 [ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=7]
+[ext_resource path="res://knytt/objects/banks/bank2/birdie2_fly.png" type="Texture" id=8]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 8 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 8 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 8 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 8 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 8 )
+region = Rect2( 216, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
 
 [node name="GameButton" type="Button"]
 margin_right = 290.0
 margin_bottom = 55.0
-rect_min_size = Vector2( 290, 45 )
+rect_min_size = Vector2( 290, 55 )
 mouse_filter = 1
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 1 )
 custom_styles/focus = ExtResource( 6 )
-custom_styles/disabled = SubResource( 1 )
+custom_styles/disabled = SubResource( 11 )
 custom_styles/normal = ExtResource( 2 )
 script = ExtResource( 5 )
 __meta__ = {
@@ -37,7 +86,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 145, 22 )
+frames = SubResource( 12 )
+playing = true
+
 [node name="MainContainer" type="HBoxContainer" parent="."]
+visible = false
 margin_left = 6.0
 margin_top = 7.0
 margin_right = 48.0
@@ -77,6 +132,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "That night, she has a strange dream..."
 
 [node name="RatingControl" type="HBoxContainer" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -151,4 +207,5 @@ text = "9999"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="." to="." method="_on_GameButton_pressed"]
