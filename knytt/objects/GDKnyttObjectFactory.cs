@@ -49,12 +49,14 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 38)] = "LocalAmbient";
         ObjectLookup[new KnyttPoint(0, 39)] = "MuteAmbient";
         ObjectLookup[new KnyttPoint(0, 40)] = "MuteAmbient";
+        ObjectLookup[new KnyttPoint(0, 41)] = "NoClimb";
         ObjectLookup[new KnyttPoint(0, 42)] = "SpawnPoint";
         ObjectLookup[new KnyttPoint(0, 43)] = "SpawnPoint";
         ObjectLookup[new KnyttPoint(0, 44)] = "SpawnPoint";
         ObjectLookup[new KnyttPoint(0, 45)] = "DeletePoint";
         ObjectLookup[new KnyttPoint(0, 46)] = "DeletePoint";
         ObjectLookup[new KnyttPoint(0, 47)] = "DeletePoint";
+        ObjectLookup[new KnyttPoint(0, 49)] = "Halt";
         ObjectLookup[new KnyttPoint(0, 247)] = "BlockUser";
         ObjectLookup[new KnyttPoint(0, 248)] = "Automation";
         ObjectLookup[new KnyttPoint(0, 249)] = "Automation";
