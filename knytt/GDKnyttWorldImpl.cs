@@ -117,5 +117,6 @@ public class GDKnyttWorldImpl : KnyttWorld
             removeDirectory(WorldDirectory);
         }
         removeDirectory($"user://Cache/{WorldDirectoryName}");
+        // TODO: also remove .part files which might left after an unfinished download
     }
 }
