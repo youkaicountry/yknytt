@@ -6,17 +6,17 @@ Bank 0 (System):
 [x] - 36 Title
 [x] - 37 Local Ambient A
 [x] - 38 Local Ambient B
-[x] - 39 Mute Local Ambient A ??
-[x] - 40 Mute Local Ambient B ??
-[ ] - 41 ?? No Climb
+[x] - 39 Mute Local Ambient A (just set track to 0?)
+[x] - 40 Mute Local Ambient B (just set track to 0?)
+[x] - 41 No Climb (what's the difference with 0:11?)
 [x] - 42 Spawn Point
 [x] - 43 Spawn Point
 [x] - 44 Spawn Point
 [x] - 45 Delete Point
 [x] - 46 Delete Point
 [x] - 47 Delete Point
-[ ] - 48 ?? Allow Hologram
-[ ] - 49 ??
+[ ] - 48 Allow Hologram (see demo)
+[x] - 49 Halt
 [x] - 247 Block User
 [x] - 248 Automation W
 [x] - 249 Automation A

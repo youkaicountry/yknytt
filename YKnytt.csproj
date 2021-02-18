@@ -30,6 +30,7 @@
   <ItemGroup>
     <Compile Include="knytt\juni\InsideDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\GhostMusic.cs" />
+    <Compile Include="knytt\objects\banks\bank0\Halt.cs" />
     <Compile Include="knytt\objects\banks\bank0\LocalAmbient.cs" />
     <Compile Include="knytt\objects\banks\bank0\MuteAmbient.cs" />
     <Compile Include="knytt\objects\banks\bank0\SecretDetector.cs" />
