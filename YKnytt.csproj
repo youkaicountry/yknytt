@@ -44,6 +44,7 @@
     <Compile Include="knytt\objects\banks\bank12\GroundBlob.cs" />
     <Compile Include="knytt\objects\banks\bank12\RoofBlob.cs" />
     <Compile Include="knytt\objects\banks\bank12\RoofDropper.cs" />
+    <Compile Include="knytt\objects\banks\bank12\GhostWalker.cs" />
     <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectableWaterMonster.cs" />
     <Compile Include="knytt\objects\banks\bank2\BackgroundBird.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="knytt\objects\banks\bank0\NoClimb.cs" />
     <Compile Include="knytt\objects\banks\bank0\NoJump.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
-    <Compile Include="knytt\objects\banks\bank12\Ghost.cs" />
     <Compile Include="knytt\GDKnyttSettings.cs" />
     <Compile Include="knytt\juni\ClimbCheckers.cs" />
     <Compile Include="knytt\juni\DeathParticles.cs" />
