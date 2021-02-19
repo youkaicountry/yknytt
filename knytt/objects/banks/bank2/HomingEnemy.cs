@@ -49,6 +49,7 @@ public class HomingEnemy : GDKnyttBaseObject
 
     private void _on_Area2D_body_exited(object body)
     {
+        if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 0) { return; }
         Modulate = new Color(1, 1, 1, 1);
         speed = airSpeed;
         if (hasWallAnimation) { sprite.Play("default"); }

@@ -254,8 +254,8 @@ Bank 11 (Disks):
 [x] - 11 Yellow Disk 2
 
 Bank 12 (Ghosts):
-[ ] -  1
-[ ] -  2
+[x] -  1 Boy Ghost
+[x] -  2 Girl Ghost
 [x] -  3 Ghost Mufs
 [x] -  4 Another Ghost
 [x] -  5 Ghost Block
