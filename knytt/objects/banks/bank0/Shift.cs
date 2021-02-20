@@ -94,7 +94,7 @@ public class Shift : Switch
             game.CurrentArea.playEffect(shift.AbsolutePosition);
         }
 
-        if (sound != null)
+        if (sound != null && shift.Cutscene == null)
         {
             juni.playSound(sound);
         }
@@ -125,8 +125,9 @@ public class Shift : Switch
         if (shift.Cutscene != null)
         {
             // !! If a cutscene appears two times in a row, revert the commit about micro-delay
-            await game.fade(shift.Cutscene);
-            GDKnyttDataStore.playCutscene(shift.Cutscene);
+            GetTree().Paused = true;
+            await game.fade(fast: true, color: Cutscene.getCutsceneColor(shift.Cutscene));
+            GDKnyttDataStore.playCutscene(shift.Cutscene, sound);
         }
     }
 }
