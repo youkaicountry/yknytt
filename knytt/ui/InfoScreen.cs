@@ -239,6 +239,5 @@ public class InfoScreen : CanvasLayer
         KWorld.uninstallWorld();
         this.QueueFree();
         (GetTree().Root.FindNode("LevelSelection", owned: false) as LevelSelection)?.reloadAll();
-        //GetTree().CallDeferred("change_scene", "res://knytt/ui/MainMenu.tscn"); -- this workaround doesn't work too
     }
 }

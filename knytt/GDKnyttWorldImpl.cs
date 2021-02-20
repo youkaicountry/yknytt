@@ -96,12 +96,14 @@ public class GDKnyttWorldImpl : KnyttWorld
     private void removeDirectory(string dir_name)
     {
         var dir = new Directory();
+        if (!dir.DirExists(dir_name)) { return; }
         dir.Open(dir_name);
         dir.ListDirBegin(skipNavigational: true);
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {
             if (dir.FileExists(filename)) { dir.Remove(filename); } else { removeDirectory($"{dir_name}/{filename}"); }
         }
+        dir.ListDirEnd();
         new Directory().Remove(dir_name);
     }
 
