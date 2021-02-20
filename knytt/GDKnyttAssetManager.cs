@@ -100,7 +100,8 @@ public class GDKnyttAssetManager
     public static Texture loadExternalTexture(string path)
     {
         var image = new Image();
-        image.Load(path);
+        var error = image.Load(path);
+        if (error != Error.Ok) { return null; }
         return image2Texture(image);
     }
 
