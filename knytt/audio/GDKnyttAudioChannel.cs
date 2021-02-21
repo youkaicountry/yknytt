@@ -45,7 +45,7 @@ public class GDKnyttAudioChannel : AudioStreamPlayer
         }
 
         // Track is different
-        var next_stream = this.OnFetch.Invoke(num);
+        var next_stream = this.OnFetch?.Invoke(num);
 
         this.changeTrack(num, next_stream);
     }

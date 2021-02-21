@@ -2,7 +2,7 @@ using Godot;
 
 public class LocalAmbient : GDKnyttBaseObject
 {
-    private GDKnyttAudioChannel channel;
+    private GDKnyttAmbiChannel channel;
 
     public override void _Ready()
     {
@@ -20,6 +20,6 @@ public class LocalAmbient : GDKnyttBaseObject
 
     public override void _PhysicsProcess(float delta)
     {
-        channel.VolumeDb = -Mathf.Pow(40, Juni.distance(Center) / 240);
+        channel.CurrentTrack.VolumeDb = -Mathf.Pow(40, Juni.distance(Center) / 240);
     }
 }
