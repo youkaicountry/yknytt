@@ -100,6 +100,7 @@ public class Cutscene : Control
         SetProcess(false);
         var fade = GetNode<FadeLayer>("FadeLayer");
         fade.startFade(color: getCutsceneColor());
+        GetNode<AnimationPlayer>("MusicPlayer/AnimationPlayer").Play("FadeOut"); // both fadeouts should be synchronized
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {

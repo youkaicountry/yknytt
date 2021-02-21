@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=2]
@@ -7,6 +7,21 @@
 [ext_resource path="res://knytt/ui/small_arrow.png" type="Texture" id=5]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeOut"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -6.667, -16.428, -30.881, -80.0 ]
+}
 
 [node name="Cutscene" type="Control"]
 pause_mode = 2
@@ -73,6 +88,9 @@ texture = ExtResource( 5 )
 [node name="FadeLayer" parent="." instance=ExtResource( 6 )]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MusicPlayer"]
+anims/FadeOut = SubResource( 1 )
 
 [node name="StandartSoundPlayer" parent="." instance=ExtResource( 7 )]
 
