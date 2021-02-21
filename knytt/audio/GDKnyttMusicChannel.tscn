@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/audio/GDKnyttAudioChannel.cs" type="Script" id=1]
+[ext_resource path="res://knytt/audio/GDKnyttMusicChannel.cs" type="Script" id=1]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -46,7 +46,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="GKnyttAudioChannel" type="AudioStreamPlayer"]
+[node name="GKnyttMusicChannel" type="AudioStreamPlayer"]
 volume_db = -80.0
 script = ExtResource( 1 )
 

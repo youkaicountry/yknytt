@@ -217,7 +217,7 @@
     <Compile Include="knytt\GDKnyttGame.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectLayer.cs" />
     <Compile Include="knytt\GDKnyttWorld.cs" />
-    <Compile Include="knytt\audio\GDKnyttAudioChannel.cs" />
+    <Compile Include="knytt\audio\GDKnyttMusicChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
