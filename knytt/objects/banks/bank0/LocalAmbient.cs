@@ -2,10 +2,12 @@ using Godot;
 
 public class LocalAmbient : GDKnyttBaseObject
 {
-    private GDKnyttAmbiChannel channel;
+    private int bus;
 
     public override void _Ready()
     {
+        GDKnyttAmbiChannel channel = null;
+
         if (ObjectID.y == 37)
         {
             GDArea.NoAmbiance1FadeIn = true;
@@ -16,10 +18,12 @@ public class LocalAmbient : GDKnyttBaseObject
             GDArea.NoAmbiance2FadeIn = true;
             channel = GDArea.GDWorld.Game.AmbianceChannel2;
         }
+
+        bus = AudioServer.GetBusIndex(channel.CurrentTrack.Bus);
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        channel.CurrentTrack.VolumeDb = -Mathf.Pow(40, Juni.distance(Center) / 240);
+        AudioServer.SetBusVolumeDb(bus, -Mathf.Pow(40, Juni.distance(Center) / 240));
     }
 }
