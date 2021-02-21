@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
 [ext_resource path="res://knytt/juni/InsideDetector.cs" type="Script" id=16]
 [ext_resource path="res://knytt/juni/Juni.shader" type="Shader" id=17]
+[ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=18]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 10 )
@@ -333,23 +334,7 @@ max_distance = 1000.0
 rawPath = "res://knytt/data/Sfx/Hologram B.raw"
 sampleRate = 16000
 
-[node name="PowerupPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Powerup.raw"
-
-[node name="DoorPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Door.raw"
-
-[node name="ElectronicPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Electronic.raw"
-
-[node name="SwitchPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Switch.raw"
-
-[node name="TeleportPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Teleport.raw"
-
-[node name="CustomPlayer2D" type="AudioStreamPlayer2D" parent="Audio"]
-bus = "SFX"
+[node name="StandartSoundPlayer" parent="Audio" instance=ExtResource( 18 )]
 
 [node name="ClimbCheckers" type="Node2D" parent="."]
 script = ExtResource( 4 )

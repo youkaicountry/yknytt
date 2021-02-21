@@ -35,6 +35,7 @@
     <Compile Include="knytt\objects\banks\bank0\Halt.cs" />
     <Compile Include="knytt\objects\banks\bank0\LocalAmbient.cs" />
     <Compile Include="knytt\objects\banks\bank0\MuteAmbient.cs" />
+    <Compile Include="knytt\juni\StandartSoundPlayer.cs" />
     <Compile Include="knytt\objects\banks\bank0\SecretDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\Sticky.cs" />
     <Compile Include="knytt\objects\banks\bank10\RandomWalkingBouncer.cs" />

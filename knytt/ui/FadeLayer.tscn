@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/ui/FadeLayer.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
-length = 0.6
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -12,7 +12,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -44,6 +44,22 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=3]
+resource_name = "FastFadeOut"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -65,4 +81,5 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/FadeIn = SubResource( 1 )
 anims/FadeOut = SubResource( 2 )
+anims/FastFadeOut = SubResource( 3 )
 [connection signal="animation_finished" from="Fade/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

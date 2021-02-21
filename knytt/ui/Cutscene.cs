@@ -10,6 +10,11 @@ public class Cutscene : Control
     public override void _Ready()
     {
         GetNode<FadeLayer>("FadeLayer").startFade(is_out: false, color: getCutsceneColor());
+        if (GDKnyttDataStore.CutsceneSound != null)
+        {
+            GetNode<StandartSoundPlayer>("StandartSoundPlayer").playSound(GDKnyttDataStore.CutsceneSound);
+        }
+
         changeScene(1);
         loadMusic();
         releaseAll();
