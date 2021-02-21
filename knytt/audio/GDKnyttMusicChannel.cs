@@ -1,6 +1,6 @@
 using Godot;
 
-public class GDKnyttAudioChannel : AudioStreamPlayer
+public class GDKnyttMusicChannel : AudioStreamPlayer
 {
     public delegate AudioStream FetchEvent(int num);
     public delegate void CloseEvent(int num);

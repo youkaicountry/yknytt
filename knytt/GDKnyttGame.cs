@@ -16,7 +16,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttCamera Camera { get; private set; }
 
     // Audio channels
-    public GDKnyttAudioChannel MusicChannel { get; private set; }
+    public GDKnyttMusicChannel MusicChannel { get; private set; }
     public GDKnyttAmbiChannel AmbianceChannel1 { get; private set; }
     public GDKnyttAmbiChannel AmbianceChannel2 { get; private set; }
 
@@ -34,7 +34,7 @@ public class GDKnyttGame : Node2D
 
     public override void _Ready()
     {
-        this.MusicChannel = GetNode<GDKnyttAudioChannel>("MusicChannel");
+        this.MusicChannel = GetNode<GDKnyttMusicChannel>("MusicChannel");
         this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
         this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
 
