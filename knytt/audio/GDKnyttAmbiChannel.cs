@@ -22,7 +22,7 @@ public class GDKnyttAmbiChannel : Node
         track2 = GetNode<GDKnyttAmbiTrack>("AmbiTrack2");
     }
 
-    public void setTrack(int num)
+    public void setTrack(int num, bool no_fade_in = false)
     {
         // If already playing it, no change
         if (CurrentTrack.AmbiNum == num) { return; }
@@ -43,6 +43,9 @@ public class GDKnyttAmbiChannel : Node
         // If already playing, simply fade back in, else change to that track
         if (CurrentTrack.AmbiNum == num) { CurrentTrack.fadeIn(); }
         else { CurrentTrack.changeTrack(num, stream); }
+
+        // If no fade in, start the track at full volume
+        if (no_fade_in) { CurrentTrack.fullVolume(); }
     }
 
     private void flipTracks()

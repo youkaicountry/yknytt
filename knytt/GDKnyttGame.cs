@@ -304,8 +304,8 @@ public class GDKnyttGame : Node2D
     {
         // Audio
         this.MusicChannel.setTrack(CurrentArea.PlayNoMusic ? 0 : CurrentArea.Area.Song);
-        this.AmbianceChannel1.setTrack(CurrentArea.PlayNoAmbiance1 ? 0 : CurrentArea.Area.AtmosphereA);
-        this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB);
+        this.AmbianceChannel1.setTrack(CurrentArea.PlayNoAmbiance1 ? 0 : CurrentArea.Area.AtmosphereA, CurrentArea.NoAmbiance1FadeIn);
+        this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB, CurrentArea.NoAmbiance2FadeIn);
 
         // UI
         if (this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").updateLocation(this.CurrentArea.Area.Position); }
