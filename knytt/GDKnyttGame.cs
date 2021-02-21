@@ -17,8 +17,8 @@ public class GDKnyttGame : Node2D
 
     // Audio channels
     public GDKnyttAudioChannel MusicChannel { get; private set; }
-    public GDKnyttAudioChannel AmbianceChannel1 { get; private set; }
-    public GDKnyttAudioChannel AmbianceChannel2 { get; private set; }
+    public GDKnyttAmbiChannel AmbianceChannel1 { get; private set; }
+    public GDKnyttAmbiChannel AmbianceChannel2 { get; private set; }
 
     [Export]
     public float edgeScrollSpeed = 1500f;
@@ -38,11 +38,11 @@ public class GDKnyttGame : Node2D
         this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
         this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
 
-        this.AmbianceChannel1 = GetNode<GDKnyttAudioChannel>("Ambi1Channel");
+        this.AmbianceChannel1 = GetNode<GDKnyttAmbiChannel>("Ambi1Channel");
         this.AmbianceChannel1.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
         this.AmbianceChannel1.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-        this.AmbianceChannel2 = GetNode<GDKnyttAudioChannel>("Ambi2Channel");
+        this.AmbianceChannel2 = GetNode<GDKnyttAmbiChannel>("Ambi2Channel");
         this.AmbianceChannel2.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
         this.AmbianceChannel2.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
@@ -304,8 +304,8 @@ public class GDKnyttGame : Node2D
     {
         // Audio
         this.MusicChannel.setTrack(CurrentArea.PlayNoMusic ? 0 : CurrentArea.Area.Song);
-        this.AmbianceChannel1.setTrack(CurrentArea.PlayNoAmbiance1 ? 0 : CurrentArea.Area.AtmosphereA, CurrentArea.NoAmbiance1FadeIn);
-        this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB, CurrentArea.NoAmbiance2FadeIn);
+        this.AmbianceChannel1.setTrack(CurrentArea.PlayNoAmbiance1 ? 0 : CurrentArea.Area.AtmosphereA);
+        this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB);
 
         // UI
         if (this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").updateLocation(this.CurrentArea.Area.Position); }

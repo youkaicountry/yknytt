@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/audio/GDKnyttAmbiTrack.cs" type="Script" id=1]
+[ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.cs" type="Script" id=2]
+
+[node name="GDAmbiChannel" type="Node"]
+script = ExtResource( 2 )
+
+[node name="AmbiTrack1" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+script = ExtResource( 1 )
+
+[node name="AmbiTrack2" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+script = ExtResource( 1 )

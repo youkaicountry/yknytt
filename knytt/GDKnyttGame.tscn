@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/GDKnyttAudioChannel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/audio/GDKnyttAudioChannel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/GDKnyttGame.cs" type="Script" id=4]
 [ext_resource path="res://knytt/GDKnyttCamera.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
@@ -16,6 +16,7 @@
 [ext_resource path="res://knytt/ui/MapPanel.cs" type="Script" id=14]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
+[ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 8 )
@@ -352,15 +353,21 @@ bus = "Music"
 fadeInTime = 0.1
 fadeOutTime = 4.5
 
-[node name="Ambi1Channel" parent="." instance=ExtResource( 3 )]
-bus = "Ambiance1"
-fadeInTime = 0.8
-fadeOutTime = 1.5
+[node name="Ambi1Channel" parent="." instance=ExtResource( 17 )]
 
-[node name="Ambi2Channel" parent="." instance=ExtResource( 3 )]
+[node name="AmbiTrack1" parent="Ambi1Channel" index="0"]
+bus = "Ambiance1"
+
+[node name="AmbiTrack2" parent="Ambi1Channel" index="1"]
+bus = "Ambiance1"
+
+[node name="Ambi2Channel" parent="." instance=ExtResource( 17 )]
+
+[node name="AmbiTrack1" parent="Ambi2Channel" index="0"]
 bus = "Ambiance2"
-fadeInTime = 0.8
-fadeOutTime = 1.5
+
+[node name="AmbiTrack2" parent="Ambi2Channel" index="1"]
+bus = "Ambiance2"
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 16 )]
 
@@ -369,3 +376,6 @@ fadeOutTime = 1.5
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [ false ]]
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 0.9 ]]
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.11 ]]
+
+[editable path="Ambi1Channel"]
+[editable path="Ambi2Channel"]

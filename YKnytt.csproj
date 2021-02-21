@@ -28,6 +28,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="knytt\audio\GDKnyttAmbiChannel.cs" />
+    <Compile Include="knytt\audio\GDKnyttAmbiTrack.cs" />
     <Compile Include="knytt\juni\InsideDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\GhostMusic.cs" />
     <Compile Include="knytt\objects\banks\bank0\Halt.cs" />
@@ -214,7 +216,7 @@
     <Compile Include="knytt\GDKnyttGame.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectLayer.cs" />
     <Compile Include="knytt\GDKnyttWorld.cs" />
-    <Compile Include="knytt\GDKnyttAudioChannel.cs" />
+    <Compile Include="knytt\audio\GDKnyttAudioChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
