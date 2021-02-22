@@ -6,7 +6,16 @@ public class JuniAudio : Node2D
     {
         foreach (var child in GetChildren())
         {
-            ((AudioStreamPlayer2D)child).Stop();
+            switch (child)
+            {
+                case AudioStreamPlayer player:
+                    player.Stop();
+                    break;
+
+                case StandartSoundPlayer player:
+                    player.stopAll();
+                    break;
+            }
         }
     }
 }
