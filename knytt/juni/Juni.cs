@@ -241,7 +241,12 @@ public class Juni : KinematicBody2D
         { 
             _debug_fly = value;
             CollisionsDisabled = value;
-            if (value) { transitionState(new IdleState(this)); executeStateTransition(); }
+            velocity = new Godot.Vector2();
+            if (value) 
+            { 
+                transitionState(new IdleState(this)); 
+                executeStateTransition(); 
+            }
         }
     }
 
@@ -414,7 +419,7 @@ public class Juni : KinematicBody2D
 
     private void processFlyMode(float delta)
     {
-        var dir = new Godot.Vector2(0, 0);
+        var dir = new Godot.Vector2();
         if (juniInput.UpHeld) { dir.y -= 1f; }
         if (juniInput.DownHeld) { dir.y += 1f; }
         if (juniInput.LeftHeld) { dir.x -= 1f; }
