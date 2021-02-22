@@ -276,6 +276,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="LocationLabel" type="Label" parent="UICanvasLayer"]
+visible = false
 margin_left = 4.69768
 margin_top = 213.347
 margin_right = 115.698

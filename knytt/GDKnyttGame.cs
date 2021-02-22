@@ -52,8 +52,6 @@ public class GDKnyttGame : Node2D
         UI = GetNode<UICanvasLayer>("UICanvasLayer");
         this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
-        if (!this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").Visible = false; }
-
         this.setupCamera();
         this.setupWorld();
     }
@@ -237,8 +235,6 @@ public class GDKnyttGame : Node2D
 
     private void editorControls()
     {
-        if (Input.IsActionJustPressed("show_info")) { ((LocationLabel)GetNode("UICanvasLayer").GetNode("LocationLabel")).showLocation(); }
-
         if (!this.Camera.Scrolling)
         {
             if (Input.IsActionPressed("up")) { this.changeAreaDelta(new KnyttPoint(0, -1)); }
@@ -308,7 +304,7 @@ public class GDKnyttGame : Node2D
         this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB, CurrentArea.NoAmbiance2FadeIn);
 
         // UI
-        if (this.viewMode) { GetNode<LocationLabel>("UICanvasLayer/LocationLabel").updateLocation(this.CurrentArea.Area.Position); }
+        UI.Location.updateLocation(this.CurrentArea.Area.Position);
 
         // Camera
         var scroll = GDKnyttSettings.ScrollType;
