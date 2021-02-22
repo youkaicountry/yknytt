@@ -11,6 +11,7 @@ public class IdleState : JuniState
 
     public override void onEnter()
     {
+        juni.setCollisionMap(true, true, true);
         juni.Anim.Play("Idle");
         juni.jumps = 0;
     }
@@ -65,6 +66,7 @@ public class WalkRunState : JuniState
 
     public override void onEnter()
     {
+        juni.setCollisionMap(true, true, true);
         juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
         juni.Anim.Play(WalkRunString);
         juni.jumps = 0;
@@ -113,6 +115,7 @@ public class ClimbState : JuniState
 
     public override void onEnter()
     {
+        calcCollisionMap();
         juni.Anim.Play("Climbing");
         juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Play();
         juni.jumps = 0;
@@ -121,13 +124,26 @@ public class ClimbState : JuniState
 
     public override void PreProcess(float delta)
     {
-        juni.dir = juni.MoveDirection;
+        calcDir();
         if (!juni.CanClimb)
         {
             juni.transitionState(new FallState(juni));
             juni.JustClimbed = true;
             juni.CanFreeJump = true;
         }
+    }
+
+    protected void calcDir()
+    {
+        juni.dir = juni.MoveDirection;
+
+        calcCollisionMap();
+    }
+
+    protected void calcCollisionMap()
+    {
+        if (!juni.FacingRight) { juni.setCollisionMap( true, true, false ); }
+        else { juni.setCollisionMap(false, true, true); }
     }
 
     public override void PostProcess(float delta)
@@ -149,7 +165,7 @@ public class ClimbState : JuniState
     }
 }
 
-public class SlideState : JuniState
+public class SlideState : ClimbState
 {
     private AudioStreamPlayer2D slide_sound;
 
@@ -157,6 +173,7 @@ public class SlideState : JuniState
 
     public override void onEnter()
     {
+        calcCollisionMap();
         juni.Anim.Play("Sliding");
         slide_sound = juni.GetNode<RawAudioPlayer2D>("Audio/SlidePlayer2D");
         juni.jumps = 0;
@@ -164,7 +181,7 @@ public class SlideState : JuniState
 
     public override void PreProcess(float delta)
     {
-        juni.dir = juni.MoveDirection;
+        calcDir();
         if (!juni.CanClimb)
         {
             juni.transitionState(new FallState(juni));
@@ -212,6 +229,11 @@ public class JumpState : JuniState
 {
     public JumpState(Juni juni) : base(juni) { }
 
+    public override void onEnter()
+    {
+        juni.setCollisionMap(true, true, true);
+    }
+
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
@@ -231,6 +253,7 @@ public class FallState : JuniState
 
     public override void onEnter()
     {
+        juni.setCollisionMap(true, true, true);
         juni.Anim.Play("StartFall");
     }
 
