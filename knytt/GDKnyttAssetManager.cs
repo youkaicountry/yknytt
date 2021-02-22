@@ -107,7 +107,7 @@ public class GDKnyttAssetManager
 
     public static Texture loadInternalTexture(string path)
     {
-        return ResourceLoader.Load<Texture>(path);
+        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture>(path) : null;
     }
 
     public static Texture loadTexture(byte[] buffer)
@@ -125,8 +125,8 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadInternalSound(string path, bool loop)
     {
-        var stream = ResourceLoader.Load<AudioStreamOGGVorbis>(path);
-        stream.Loop = loop;
+        var stream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStreamOGGVorbis>(path) : null;
+        if (stream != null) { stream.Loop = loop; }
         return stream;
     }
 
