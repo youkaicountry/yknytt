@@ -29,7 +29,7 @@ public class Cutscene : Control
     private void loadMusic()
     {
         string song = GDKnyttDataStore.KWorld.INIData["Cutscene Music"][GDKnyttDataStore.CutsceneName];
-        if (song == null) { return; }
+        if (song == null || song == "") { return; }
 
         // Detect ambiance
         bool ambiance = false;
