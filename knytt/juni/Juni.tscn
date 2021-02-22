@@ -219,7 +219,7 @@ extents = Vector2( 6.71, 5.05 )
 extents = Vector2( 4.6728, 2.11682 )
 
 [sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 4, 7 )
+extents = Vector2( 2, 7 )
 
 [node name="Juni" type="KinematicBody2D"]
 process_priority = -1
