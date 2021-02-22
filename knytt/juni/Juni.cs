@@ -8,31 +8,32 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     internal const float JUMP_SPEED = -250f,    // Speed of jump
-    GRAVITY = 1125f,    // Gravity exerted on Juni
-    JUST_CLIMBED_TIME = .085f,    // Time after a jump considered (just jumped)
-    FREE_JUMP_TIME = .085f,    // Amount of time after leaving a wall that Juni gets a "free" jump
-    MAX_SPEED_WALK = 90f,    // Max speed while walking
-    MAX_SPEED_RUN = 175f,    // Max speed while running
-    PULL_OVER_FORCE = 30f,    // X Force exerted when reaching the top of a climb
-    SLOPE_MAX_ANGLE = .81f,    // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
-    UPDRAFT_FORCE = .15f,    // The base updraft force exerted
-    UPDRAFT_FORCE_HOLD = .3f,    // The updraft force exterted when holding jump
-    MAX_UPDRAFT_SPEED = -225f,    // Maximum Y speed in an updraft
-    MAX_UPDRAFT_SPEED_HOLD = -240f,    // Maximum Y speed in an updraft while holding jump
-    JUMP_HOLD_POWER = 125f,    // Y Force exerted while holding jump
-    HIGH_JUMP_HOLD_POWER = 550f,    // Y Force exerted while holding jump when Juni has high jump power
-    UMBRELLA_JUMP_HOLD_PENALTY = .82f,    // Penalty on jump hold when Juni has the umbrella deployed
-    MAX_X_MOVING_DELTA = 2500f,    // Maximum rate of change of X velocity when moving
-    MAX_X_DECAY_DELTA = 1500f,    // Maximum rate of change of X velocity when stopped
-    MAX_X_SPEED_UMBRELLA = 120f,    // Maximum X speed when Juni has the umbrella deployed
-    TERM_VEL = 350f,    // Maximum +Y velocity
-    TERM_VEL_UMB = 60f,    // Maximum +Y velocity when Juni has the umbrella deployed
-    TERM_VEL_UP = 20f,    // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
-    CLIMB_SPEED = -125f,    // Speed Juni climbs up a wall
-    SLIDE_SPEED = 25f,    // Speed Juni slides down a wall
-    CLIMB_JUMP_X_SPEED = 130f,    // Speed Juni jumps away from a wall
-    INSIDE_X_SPEED = -22f,    // Speed at which Juni moves along the x-axis when stuck inside walls
-    INSIDE_Y_SPEED = -10f;    // Speed at which Juni moves along the y-axis when stuck inside walls
+    GRAVITY = 1125f,                            // Gravity exerted on Juni
+    JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
+    FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
+    MAX_SPEED_WALK = 90f,                       // Max speed while walking
+    MAX_SPEED_RUN = 175f,                       // Max speed while running
+    PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
+    SLOPE_MAX_ANGLE = .81f,                     // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
+    UPDRAFT_FORCE = .15f,                       // The base updraft force exerted
+    UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
+    MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
+    MAX_UPDRAFT_SPEED_HOLD = -240f,             // Maximum Y speed in an updraft while holding jump
+    JUMP_HOLD_POWER = 125f,                     // Y Force exerted while holding jump
+    HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power
+    UMBRELLA_JUMP_HOLD_PENALTY = .82f,          // Penalty on jump hold when Juni has the umbrella deployed
+    MAX_X_MOVING_DELTA = 2500f,                 // Maximum rate of change of X velocity when moving
+    MAX_X_DECAY_DELTA = 1500f,                  // Maximum rate of change of X velocity when stopped
+    MAX_X_SPEED_UMBRELLA = 120f,                // Maximum X speed when Juni has the umbrella deployed
+    TERM_VEL = 350f,                            // Maximum +Y velocity
+    TERM_VEL_UMB = 60f,                         // Maximum +Y velocity when Juni has the umbrella deployed
+    TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
+    CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
+    SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
+    CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
+    INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
+    INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
+    DEBUG_FLY_SPEED = 300f;                     // Speed at which Juni flies while in debug fly mode
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -232,6 +233,32 @@ public class Juni : KinematicBody2D
     public Umbrella Umbrella { get; private set; }
     public AnimationPlayer Anim { get; private set; }
 
+    bool _debug_fly = false;
+    public bool DebugFlyMode
+    {
+        get { return _debug_fly; }
+        set 
+        { 
+            _debug_fly = value;
+            CollisionsDisabled = value;
+            if (value) { transitionState(new IdleState(this)); executeStateTransition(); }
+        }
+    }
+
+    bool _collisions_disabled = false;
+    public bool CollisionsDisabled
+    {
+        get { return _collisions_disabled; }
+        set
+        {
+            _collisions_disabled = value;
+            GetNode<CollisionPolygon2D>("CollisionPolygon2D").Disabled = value;
+            GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
+            GetNode<GroundChecker>("GroundChecker").Disabled = value;
+            GetNode<ClimbCheckers>("ClimbCheckers").Disabled = value;
+        }
+    }
+
     public Juni()
     {
         juniInput = new JuniInput(this);
@@ -290,20 +317,30 @@ public class Juni : KinematicBody2D
         this.next_state = state;
     }
 
-    private void checkDebugInput()
-    {
-        if (Input.IsActionJustPressed("debug_die")) { die(); }
-        if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(this, true); }
-        if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
-        if (Input.IsActionJustPressed("debug_ui")) { Game.UI.Location.toggle(); }
-    }
-
     public override void _PhysicsProcess(float delta)
     {
         if (dead) { return; }
 
         juniInput.Update();
 
+        this.checkDebugInput(); // TODO: Check the mode for debug
+
+        if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
+
+        if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
+    }
+
+    private void checkDebugInput()
+    {
+        if (Input.IsActionJustPressed("debug_die")) { die(); }
+        if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(this, true); }
+        if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
+        if (Input.IsActionJustPressed("debug_ui")) { Game.UI.Location.toggle(); }
+        if (Input.IsActionJustPressed("debug_idclip")) { DebugFlyMode = !DebugFlyMode; }
+    }
+
+    public void processMotion(float delta)
+    {
         if (just_reset > 0)
         {
             just_reset--;
@@ -323,8 +360,6 @@ public class Juni : KinematicBody2D
         else { Detector.Visible = false; }
 
         detector_reverse_distance = 0;
-
-        this.checkDebugInput(); // TODO: Check the mode for debug
 
         // Handle state transitions
         if (next_state != null) { executeStateTransition(); }
@@ -375,8 +410,17 @@ public class Juni : KinematicBody2D
         }
 
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
+    }
 
-        if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
+    private void processFlyMode(float delta)
+    {
+        var dir = new Godot.Vector2(0, 0);
+        if (juniInput.UpHeld) { dir.y -= 1f; }
+        if (juniInput.DownHeld) { dir.y += 1f; }
+        if (juniInput.LeftHeld) { dir.x -= 1f; }
+        if (juniInput.RightHeld) { dir.x += 1f; }
+
+        Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta);
     }
 
     private void handleSlope()

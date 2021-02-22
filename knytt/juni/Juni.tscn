@@ -260,8 +260,8 @@ disabled = true
 material = SubResource( 10 )
 position = Vector2( -0.3, -3 )
 texture = ExtResource( 2 )
-vframes = 5
 hframes = 10
+vframes = 5
 frame = 47
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
@@ -508,6 +508,7 @@ script = ExtResource( 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InsideDetector"]
 shape = SubResource( 23 )
+
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
