@@ -226,14 +226,14 @@ process_priority = -1
 z_index = 8
 z_as_relative = false
 collision_mask = 2147491846
-collision/safe_margin = 0.2
+collision/safe_margin = 0.25
 script = ExtResource( 3 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5.58, -8.6, 5.58, -8.6, 5.58, 7.4, 3.75, 8.6, -3.75, 8.6, -5.58, 7.4 )
+polygon = PoolVector2Array( -5.3, -8, 5.3, -8, 5.3, 7.4, 3.75, 8.6, -3.75, 8.6, -5.3, 7.4 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
@@ -258,11 +258,11 @@ disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 10 )
-position = Vector2( -0.3, -3 )
+position = Vector2( 0, -3 )
 texture = ExtResource( 2 )
 hframes = 10
 vframes = 5
-frame = 47
+frame = 26
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Climbing = SubResource( 11 )
@@ -364,7 +364,7 @@ collision_mask = 6
 script = ExtResource( 14 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundChecker"]
-polygon = PoolVector2Array( 5.25, -1.5, 3.2, 2.5, -3.2, 2.5, -5.25, -1.5 )
+polygon = PoolVector2Array( 5.2, -1.6, 3.2, 2.5, -3.2, 2.5, -5.2, -1.6 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
