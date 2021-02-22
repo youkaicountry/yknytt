@@ -20,4 +20,12 @@ public class StandartSoundPlayer : Node2D
             if (custom_player.Stream != null) { custom_player.Play(); }
         }
     }
+
+    public void stopAll()
+    {
+        foreach (var child in GetChildren())
+        {
+            ((AudioStreamPlayer2D)child).Stop();
+        }
+    }
 }
