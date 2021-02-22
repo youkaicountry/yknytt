@@ -8,6 +8,7 @@ public class UICanvasLayer : CanvasLayer
     bool sliding_out = false;
 
     public WSOD WSOD { get; private set; }
+    public LocationLabel Location { get; private set; }
 
     public void initialize(GDKnyttGame game)
     {
@@ -19,6 +20,7 @@ public class UICanvasLayer : CanvasLayer
     public override void _Ready()
     {
         WSOD = GetNode<WSOD>("WSOD");
+        Location = GetNode<LocationLabel>("LocationLabel");
     }
 
     public override void _PhysicsProcess(float delta)

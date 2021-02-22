@@ -12,6 +12,16 @@ public class LocationLabel : Label
     [Export]
     float fadeOutTime = 1.5f;
 
+    public override void _Ready()
+    {
+    }
+
+    public void toggle()
+    {
+        Visible = !Visible;
+        showLocation();
+    }
+
     public void updateLocation(KnyttPoint location)
     {
         this.Text = location.ToString();
@@ -20,6 +30,7 @@ public class LocationLabel : Label
 
     public void showLocation()
     {
+        if (!Visible) { return; }
         var player = this.GetNode("AnimationPlayer") as AnimationPlayer;
         player.PlaybackSpeed = 1f / showTime;
         player.Stop();
