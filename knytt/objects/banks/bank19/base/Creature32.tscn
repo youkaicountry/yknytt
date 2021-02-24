@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank6/SelfDropper.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank19/img/self_dropper.png" type="Texture" id=2]
@@ -44,7 +44,12 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 11, 1 )
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 11, 1 )
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 2048
 script = ExtResource( 1 )
 OrganicEnemy = true
 
@@ -54,13 +59,18 @@ centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 12, 23 )
+position = Vector2( 12, 15 )
+scale = Vector2( 0.4, 1 )
 shape = SubResource( 8 )
 disabled = true
 
 [node name="DropPlayer" parent="." instance=ExtResource( 3 )]
 rawPath = "res://knytt/data/Sfx/Selfdrop.raw"
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 12, 23 )
+shape = SubResource( 9 )
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
