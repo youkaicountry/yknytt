@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank19/img/birdie1_stop.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/birdie1_fly.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/common/PathCreature.cs" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0.00775146, 0.026062, 0, 0, 0, 0, 30.4124, -10.7267, 0, 0, 0, 0, 73.4124, -19.7267, 0, 0, 0, 0, 133.412, -28.7267, 0, 0, 0, 0, 201.412, -34.7267, 0, 0, 0, 0, 283.412, -35.7267, 0, 0, 0, 0, 350.412, -31.7267, 0, 0, 0, 0, 416.412, -23.7267, 0, 0, 0, 0, 464.412, -16.7267, 0, 0, 0, 0, 522.418, 0.026062 )
+}
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 10 ) ],
+"loop": false,
+"name": "stop",
+"speed": 5.0
+} ]
+
+[node name="Path2D" type="Path2D"]
+curve = SubResource( 1 )
+script = ExtResource( 3 )
+speed = 65.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2( 0.00775146, 0.026062 )
+rotate = false
+loop = false
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
+frames = SubResource( 11 )
+animation = "stop"
+centered = false
+
+[node name="FlipTimer" type="Timer" parent="."]
+wait_time = 3.1
+one_shot = true
+
+[node name="RunTimer" type="Timer" parent="."]
+wait_time = 3.1
+one_shot = true
+[connection signal="timeout" from="FlipTimer" to="." method="_on_FlipTimer_timeout"]
+[connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]
