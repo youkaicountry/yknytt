@@ -78,6 +78,8 @@ public class CustomObject : GDKnyttBaseObject
     {
         bool has_alpha_animation = sprite.Frames.HasAnimation(animation_name);
         bool has_replace_animation = sprite.Frames.HasAnimation(animation_name + " replace");
+        if (has_replace_animation) { animation_name += " replace"; }
+
         if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
@@ -95,7 +97,7 @@ public class CustomObject : GDKnyttBaseObject
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);
         sprite.Animation = animation_name;
         sprite.Frame = info.anim_from;
-        if (has_alpha_animation) { sprite.Material = null; }
+        if (!has_replace_animation) { sprite.Material = null; }
         return true;
     }
 
