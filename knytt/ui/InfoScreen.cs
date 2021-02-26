@@ -17,7 +17,7 @@ public class InfoScreen : CanvasLayer
         KWorld = new GDKnyttWorldImpl();
         if (new Directory().DirExists(path))
         {
-            KWorld.setDirectory(path, path.Substring(path.LastIndexOfAny("/\\".ToCharArray()) + 1));
+            KWorld.setDirectory(path, GDKnyttAssetManager.extractFilename(path));
         }
         else
         {
@@ -60,6 +60,12 @@ public class InfoScreen : CanvasLayer
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
         GetNode<LevelSelection>("../LevelSelection").killConsumers();
+
+        string cache_dir = GDKnyttAssetManager.extractFilename(KWorld.WorldDirectory);
+        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+        var f = new File();
+        f.Open($"user://Cache/{cache_dir}/LastPlayed.flag", File.ModeFlags.Write);
+        f.Close();
 
         KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
