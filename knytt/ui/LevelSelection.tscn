@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
@@ -7,6 +7,18 @@
 [ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 3.0
+bg_color = Color( 1, 1, 1, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
 
 [node name="LevelSelection" type="CanvasLayer"]
 script = ExtResource( 5 )
@@ -124,6 +136,71 @@ text = "[All]"
 items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
 selected = 0
 
+[node name="Sort" type="VBoxContainer" parent="MainContainer/FilterContainer"]
+margin_left = 272.0
+margin_right = 362.0
+margin_bottom = 36.0
+
+[node name="SortLabel" type="Label" parent="MainContainer/FilterContainer/Sort"]
+margin_right = 90.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sort by:"
+align = 1
+
+[node name="SortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 17.0
+margin_right = 90.0
+margin_bottom = 36.2149
+rect_min_size = Vector2( 90, 0 )
+text = "[Default]"
+items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null ]
+selected = 0
+
+[node name="RemoteSortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource( 2 )]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 40.0
+margin_right = 90.0
+margin_bottom = 59.2149
+rect_min_size = Vector2( 90, 0 )
+text = "Downloads"
+items = [ "Downloads", null, false, 5, null, "Upvotes", null, false, 6, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
+selected = 0
+
+[node name="Search" type="VBoxContainer" parent="MainContainer/FilterContainer"]
+margin_left = 366.0
+margin_right = 486.0
+margin_bottom = 36.0
+custom_constants/separation = 6
+
+[node name="SearchLabel" type="Label" parent="MainContainer/FilterContainer/Search"]
+margin_right = 120.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Search:"
+align = 1
+
+[node name="SearchEdit" type="LineEdit" parent="MainContainer/FilterContainer/Search"]
+margin_top = 19.0
+margin_right = 120.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 120, 15 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/cursor_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+caret_blink = true
+
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -148,6 +225,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -50.0
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Cannot connect to the server"
@@ -159,10 +237,18 @@ __meta__ = {
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
 
+[node name="SearchEditTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/Sort/SortDropdown" to="." method="_on_SortDropdown_item_selected"]
+[connection signal="item_selected" from="MainContainer/FilterContainer/Sort/RemoteSortDropdown" to="." method="_on_RemoteSortDropdown_item_selected"]
+[connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
+[connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]
 [connection signal="timeout" from="DownloadMonitor" to="." method="_on_DownloadMonitor_timeout"]
+[connection signal="timeout" from="SearchEditTimer" to="." method="_on_SearchEditTimer_timeout"]
