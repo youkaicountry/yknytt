@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class Automation : GDKnyttBaseObject
 {
@@ -24,9 +25,11 @@ public class Automation : GDKnyttBaseObject
 
     private void _on_Area2D_body_entered(Juni juni)
     {
-        if (GDArea.Selector.GetSize(this) == 0 && GDArea.Selector.IsOpen)
+        if (!juni.juniInput.altInput.IsActionPressed(action) && GDArea.Selector.IsOpen)
         {
             juni.juniInput.altInput.ActionPress(action);
+            if (action == "left" && juni.juniInput.altInput.IsActionPressed("right")) { juni.juniInput.altInput.ActionRelease("right"); }
+            if (action == "right" && juni.juniInput.altInput.IsActionPressed("left")) { juni.juniInput.altInput.ActionRelease("left"); }
         }
 
         GDArea.Selector.Register(this);
