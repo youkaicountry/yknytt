@@ -29,9 +29,13 @@ public class InfoScreen : CanvasLayer
         KWorld.loadWorldConfig(ini);
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
-                                                              KWorld.getWorldTexture("Info.png")) as Texture;
-        info.Flags |= (uint)Texture.FlagsEnum.Filter;
-        GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
+                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
+        if (info != null)
+        {
+            info.Flags |= (uint)Texture.FlagsEnum.Filter;
+            GetNode<TextureRect>("InfoRect").Texture = info;
+        }
+
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;

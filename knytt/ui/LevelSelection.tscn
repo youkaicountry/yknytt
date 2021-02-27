@@ -215,6 +215,7 @@ text = "Back"
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="FileHTTPRequest" type="HTTPRequest" parent="."]
+download_chunk_size = 65536
 script = ExtResource( 1 )
 
 [node name="DownloadMonitor" type="Timer" parent="."]
