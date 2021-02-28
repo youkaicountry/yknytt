@@ -123,13 +123,6 @@ public class LevelSelection : CanvasLayer
         Task.WaitAll(consumers.ToArray());
     }
 
-    public void reloadAll()
-    {
-        game_container.clearWorlds();
-        requested_level = 0;
-        singleThreadedLoad();
-    }
-
     private void HttpLoad()
     {
         game_container.clearWorlds();

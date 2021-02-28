@@ -247,7 +247,6 @@ public class InfoScreen : CanvasLayer
     {
         ClickPlayer.Play();
         KWorld.uninstallWorld();
-        this.QueueFree();
-        (GetTree().Root.FindNode("LevelSelection", owned: false) as LevelSelection)?.reloadAll();
+        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 }
