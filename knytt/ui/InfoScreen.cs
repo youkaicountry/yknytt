@@ -165,6 +165,11 @@ public class InfoScreen : CanvasLayer
                 stat_panel.addCutscene(p.Name, p.Count, my_cutscenes.Contains(p.Name));
             }
         }
+
+        if (!(powers_count.Any(c => c > 0) || endings.Count > 0 || cutscenes.Count > 0))
+        {
+            stat_panel.addLabel("No achievements found");
+        }
     }
 
     private void _on_StatsButton_pressed()

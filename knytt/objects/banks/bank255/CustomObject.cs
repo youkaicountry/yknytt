@@ -83,8 +83,10 @@ public class CustomObject : GDKnyttBaseObject
         if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
+            // TODO: some custom objects are loaded as black squares on Android. Check if it's true on every Android or not
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
             if (image_texture == null) { return false; }
+            if (image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0 ) { return false; }
 
             if (image_texture.HasAlpha()) { has_alpha_animation = true; }
             else { has_replace_animation = true; animation_name += " replace"; }
