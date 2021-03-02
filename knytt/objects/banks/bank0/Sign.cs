@@ -17,12 +17,12 @@ public class Sign : GDKnyttBaseObject
         char letter = "ABC"[ObjectID.y - 17];
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
-        texts.Add(trim(text));
+        texts.Add(preprocess(text));
         for (int i = 2; ; i++)
         {
             text = GDArea.Area.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
-            texts.Add(trim(text));
+            texts.Add(preprocess(text));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
 
@@ -32,9 +32,12 @@ public class Sign : GDKnyttBaseObject
         adjustSign();
     }
 
-    private string trim(string msg)
+    private string preprocess(string msg)
     {
-        return msg != null && msg.StartsWith("\"") && msg.EndsWith("\"") ? msg.Substring(1, msg.Length - 2) : msg;
+        if (msg == null) { return null; }
+        if (msg.StartsWith("\"") && msg.EndsWith("\"")) { msg = msg.Substring(1, msg.Length - 2); }
+        msg = msg.Replace("\\n", "\n");
+        return msg;
     }
 
     protected void adjustSign()

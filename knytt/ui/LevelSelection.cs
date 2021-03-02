@@ -489,6 +489,7 @@ public class LevelSelection : CanvasLayer
                 download_button.markCompleted();
                 download_button.incDownloads(); // TODO: increment count only on first download (use RateAdded event)
                 download_button.worldEntry.MergeLocal(entry);
+                finished_entries.Enqueue(entry);
                 sendDownload();
             }
             else
