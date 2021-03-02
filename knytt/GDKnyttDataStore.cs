@@ -46,7 +46,7 @@ public class GDKnyttDataStore : Node
         CutsceneAfter = null;
         CutsceneReturn = Tree.CurrentScene;
         CutsceneSound = sound;
-        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { return; }
+        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.Paused = false; return; }
         Tree.Paused = true;
         Tree.Root.RemoveChild(Tree.CurrentScene);
         // TODO: how not to blink?
