@@ -16,6 +16,7 @@ public class Shift : Switch
     protected override async void _execute(Juni juni)
     {
         var game = GDArea.GDWorld.Game;
+        if (GDArea != game.CurrentArea) { return; }
 
         if (shift.Delay > 0)
         {
