@@ -619,7 +619,7 @@ public class Juni : KinematicBody2D
 
     public void moveToPosition(GDKnyttArea area, KnyttPoint position)
     {
-        GlobalPosition = (area.getTileLocation(position) + BaseCorrection);
+        GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
     }
 
     public void win(string ending)
