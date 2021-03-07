@@ -51,6 +51,8 @@
     <Compile Include="knytt\objects\banks\bank12\GhostWalker.cs" />
     <Compile Include="knytt\objects\banks\bank14\SmileBall.cs" />
     <Compile Include="knytt\objects\banks\bank19\CollectableWaterMonster.cs" />
+    <Compile Include="knytt\objects\banks\bank1\LiquidPoolDeadly.cs" />
+    <Compile Include="knytt\objects\banks\bank1\LiquidPoolNew.cs" />
     <Compile Include="knytt\objects\banks\bank2\BackgroundBird.cs" />
     <Compile Include="knytt\objects\banks\bank2\Bee.cs" />
     <Compile Include="knytt\objects\banks\bank2\HomingEnemy.cs" />
@@ -202,7 +204,6 @@
     <Compile Include="knytt\objects\banks\bank10\Bouncer.cs" />
     <Compile Include="knytt\objects\banks\bank13\FlyBot.cs" />
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />
-    <Compile Include="knytt\objects\banks\bank1\LiquidPool.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\Waterfall.cs" />
     <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
