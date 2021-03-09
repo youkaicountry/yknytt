@@ -83,7 +83,7 @@ public class MapPanel : Panel
                 coord = spoofing[coord];
             }
 
-            bool is_visited = juni.Powers.VisitedAreas.Contains(coord);
+            bool is_visited = juni.Powers.isVisited(area);
             if (!juni.Powers.getPower(JuniValues.PowerNames.Map) && !is_visited) { continue; }
 
             if (visible.ContainsKey(coord) && !visible[coord]) { continue; }
