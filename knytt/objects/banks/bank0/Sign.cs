@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using YKnyttLib;
 
 public class Sign : GDKnyttBaseObject
@@ -9,11 +10,14 @@ public class Sign : GDKnyttBaseObject
     private bool messageVisible;
     private int shiftMessageIndex;
     private int triggerMessageIndex;
+    private AnimationPlayer player;
 
     private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>(); // ConnectFlags.ReferenceCounted doesn't work..
 
     public override void _Ready()
     {
+        player = GetNode<AnimationPlayer>("AnimationPlayer");
+
         char letter = "ABC"[ObjectID.y - 17];
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
@@ -78,18 +82,29 @@ public class Sign : GDKnyttBaseObject
         {
             GetNode<Label>("SignRect/Label").Text = texts[messageIndex];
             GetNode<Control>("SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
-            if (!messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").Play("FadeIn"); messageVisible = true; }
+            if (!messageVisible) { player.Play("FadeIn"); messageVisible = true; }
         }
         else
         {
-            if (messageVisible) { GetNode<AnimationPlayer>("AnimationPlayer").PlayBackwards("FadeIn"); messageVisible = false; }
+            if (messageVisible) { player.PlayBackwards("FadeIn"); messageVisible = false; }
         }
     }
 
     public void OnArea2DBodyEntered(Node body)
     {
-        // TODO: only one sign at a time in an area
         if (!(body is Juni juni)) { return; }
+
+        var signs = GDArea.Objects.findObjects(new KnyttPoint(0, 17))
+            .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 18)))
+            .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 19)));
+        foreach (Sign sign in signs)
+        {
+            if (sign != this)
+            {
+                sign.OnArea2DBodyExited(body, exit_all: true);
+            }
+        }
+
         if (refCounter.ContainsKey(juni))
         {
             refCounter[juni]++;
@@ -105,11 +120,11 @@ public class Sign : GDKnyttBaseObject
         }
     }
 
-    public void OnArea2DBodyExited(Node body)
+    public void OnArea2DBodyExited(Node body, bool exit_all = false)
     {
-        if (!(body is Juni juni)) { return; }
+        if (!(body is Juni juni) || !refCounter.ContainsKey(juni)) { return; }
         refCounter[juni]--;
-        if (refCounter[juni] == 0)
+        if (refCounter[juni] == 0 || exit_all)
         {
             if (texts.Count > 1) { juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
             refCounter.Remove(juni);
