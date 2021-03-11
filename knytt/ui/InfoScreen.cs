@@ -17,7 +17,7 @@ public class InfoScreen : CanvasLayer
         KWorld = new GDKnyttWorldImpl();
         if (new Directory().DirExists(path))
         {
-            KWorld.setDirectory(path, path.Substring(path.LastIndexOfAny("/\\".ToCharArray()) + 1));
+            KWorld.setDirectory(path, GDKnyttAssetManager.extractFilename(path));
         }
         else
         {
@@ -29,9 +29,13 @@ public class InfoScreen : CanvasLayer
         KWorld.loadWorldConfig(ini);
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
-                                                              KWorld.getWorldTexture("Info.png")) as Texture;
-        info.Flags |= (uint)Texture.FlagsEnum.Filter;
-        GetNode<TextureRect>("InfoRect").Texture = (Texture)info;
+                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
+        if (info != null)
+        {
+            info.Flags |= (uint)Texture.FlagsEnum.Filter;
+            GetNode<TextureRect>("InfoRect").Texture = info;
+        }
+
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
@@ -60,6 +64,12 @@ public class InfoScreen : CanvasLayer
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
         GetNode<LevelSelection>("../LevelSelection").killConsumers();
+
+        string cache_dir = GDKnyttAssetManager.extractFilename(KWorld.WorldDirectory);
+        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+        var f = new File();
+        f.Open($"user://Cache/{cache_dir}/LastPlayed.flag", File.ModeFlags.Write);
+        f.Close();
 
         KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
@@ -155,6 +165,11 @@ public class InfoScreen : CanvasLayer
                 stat_panel.addCutscene(p.Name, p.Count, my_cutscenes.Contains(p.Name));
             }
         }
+
+        if (!(powers_count.Any(c => c > 0) || endings.Count > 0 || cutscenes.Count > 0))
+        {
+            stat_panel.addLabel("No achievements found");
+        }
     }
 
     private void _on_StatsButton_pressed()
@@ -237,7 +252,6 @@ public class InfoScreen : CanvasLayer
     {
         ClickPlayer.Play();
         KWorld.uninstallWorld();
-        this.QueueFree();
-        (GetTree().Root.FindNode("LevelSelection", owned: false) as LevelSelection)?.reloadAll();
+        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 }

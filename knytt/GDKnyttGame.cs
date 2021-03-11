@@ -279,7 +279,7 @@ public class GDKnyttGame : Node2D
 
         Juni.stopHologram(cleanup: true);
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
-        if (hasMap()) { Juni.Powers.VisitedAreas.Add(CurrentArea.Area.Position); }
+        if (hasMap()) { Juni.Powers.setVisited(CurrentArea.Area); }
     }
 
     public async void win(string ending)

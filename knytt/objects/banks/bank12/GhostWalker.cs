@@ -24,7 +24,7 @@ public class GhostWalker : Muff
 
     private void _on_Area2D_body_exited(object body)
     {
-        if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 0) { return; }
+        if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 1) { return; }
         inWall = false;
         ghostMod.flickerMax = .4f;
         ghostMod.flickerMin = .2f;

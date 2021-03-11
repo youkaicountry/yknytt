@@ -99,6 +99,7 @@ public class GDKnyttAssetManager
 
     public static Texture loadExternalTexture(string path)
     {
+        if (!new File().FileExists(path)) { return null; }
         var image = new Image();
         var error = image.Load(path);
         if (error != Error.Ok) { return null; }
@@ -112,6 +113,7 @@ public class GDKnyttAssetManager
 
     public static Texture loadTexture(byte[] buffer)
     {
+        if (buffer == null || buffer.Length == 0) { return null; }
         var image = new Image();
         var error = image.LoadPngFromBuffer(buffer);
         if (error != Error.Ok) { return null; }
@@ -172,6 +174,7 @@ public class GDKnyttAssetManager
 
     public static byte[] loadFile(string path)
     {
+        if (!new File().FileExists(path)) { return null; }
         var f = new File();
         f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
         var buffer = f.GetBuffer((int)f.GetLen());
@@ -192,6 +195,11 @@ public class GDKnyttAssetManager
     {
         var dir = new Directory();
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
+    }
+
+    public static string extractFilename(string full_path)
+    {
+        return full_path.Substring(full_path.LastIndexOfAny("/\\".ToCharArray()) + 1);
     }
 
     public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)

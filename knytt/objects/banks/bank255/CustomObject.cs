@@ -16,7 +16,6 @@ public class CustomObject : GDKnyttBaseObject
         public int anim_from = 0;
         public int anim_to = -1;
         public int anim_loopback = 0;
-
     }
 
     protected CustomObjectInfo info;
@@ -42,7 +41,7 @@ public class CustomObject : GDKnyttBaseObject
                 var node = bundle.getNode(Layer, Coords);
                 if (safe) { node.makeSafe(); }
                 // TODO: make all images from bank 7 white (modulate can't be applied to black color)
-                if (bank == 7) { node.Modulate = color * 2; }
+                if (bank == 7) { node.Modulate = color; }
                 AddChild(node);
             }
             return;
@@ -61,7 +60,7 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        fillAnimation($"custom{ObjectID.y}");
+        fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{ObjectID.y}");
         sprite.Play();
     }
 
@@ -77,12 +76,21 @@ public class CustomObject : GDKnyttBaseObject
 
     protected bool fillAnimation(string animation_name)
     {
-        if (!sprite.Frames.HasAnimation(animation_name))
+        bool has_alpha_animation = sprite.Frames.HasAnimation(animation_name);
+        bool has_replace_animation = sprite.Frames.HasAnimation(animation_name + " replace");
+        if (has_replace_animation) { animation_name += " replace"; }
+
+        if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
+            // TODO: some custom objects are loaded as black squares on Android. Check if it's true on every Android or not
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
             if (image_texture == null) { return false; }
-            if (image_texture.HasAlpha()) { sprite.Material = null; }
+            if (image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0 ) { return false; }
+
+            if (image_texture.HasAlpha()) { has_alpha_animation = true; }
+            else { has_replace_animation = true; animation_name += " replace"; }
+
             sprite.Frames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
             sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20);
@@ -91,6 +99,7 @@ public class CustomObject : GDKnyttBaseObject
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);
         sprite.Animation = animation_name;
         sprite.Frame = info.anim_from;
+        if (!has_replace_animation) { sprite.Material = null; }
         return true;
     }
 

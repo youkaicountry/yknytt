@@ -268,7 +268,7 @@ Bank 12 (Ghosts):
 [x] - 12 Roof Dropper
 [x] - 13 Ghost Crawler
 [x] - 14 Attack Block
-[ ] - 15
+[x] - 15 Flying Bomb
 [x] - 16 Birdie
 [x] - 17 No Wall
 [x] - 18 Ghost Marker

@@ -11,6 +11,8 @@ public class WorldEntry
     public string Size;
     public List<string> Difficulties = new List<string>();
     public List<string> Categories = new List<string>();
+    public ulong InstalledTime;
+    public ulong LastPlayedTime;
     public string Path;
     public bool HasServerInfo;
     public string Link;
@@ -24,7 +26,7 @@ public class WorldEntry
 
     public WorldEntry() { }
 
-    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path)
+    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played)
     {
         Icon = icon;
         Name = world_info.Name;
@@ -35,6 +37,8 @@ public class WorldEntry
         Categories = world_info.Categories;
         HasServerInfo = false;
         Path = path;
+        InstalledTime = new File().GetModifiedTime(path);
+        LastPlayedTime = last_played;
     }
 
     public void MergeLocal(WorldEntry info)
@@ -43,5 +47,7 @@ public class WorldEntry
         Difficulties = info.Difficulties;
         Categories = info.Categories;
         Path = info.Path;
+        InstalledTime = info.InstalledTime;
+        LastPlayedTime = info.LastPlayedTime;
     }
 }

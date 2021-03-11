@@ -7,7 +7,7 @@ public class GameContainer : VBoxContainer
 
     private HBoxContainer current_container = null;
 
-    private Queue<GameButton> stubs = new Queue<GameButton>();
+    private LinkedList<GameButton> stubs = new LinkedList<GameButton>();
 
     public int GamesCount { get; private set; }
 
@@ -35,7 +35,8 @@ public class GameContainer : VBoxContainer
     public void addWorld(WorldEntry world_entry, bool focus = false, bool mark_completed = false)
     {
         bool replace_stub = stubs.Count != 0;
-        var game_node = replace_stub ? stubs.Dequeue() : this.game_scene.Instance() as GameButton;
+        var game_node = replace_stub ? stubs.First.Value : this.game_scene.Instance() as GameButton;
+        if (replace_stub) { stubs.RemoveFirst(); }
         game_node.initialize(world_entry);
         game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
         if (!replace_stub) { addButton(game_node); }
@@ -50,14 +51,18 @@ public class GameContainer : VBoxContainer
         for (int i = GamesCount + stubs.Count; i < count; i++)
         {
             var game_node = this.game_scene.Instance() as GameButton;
-            stubs.Enqueue(game_node);
+            stubs.AddLast(game_node);
             addButton(game_node);
         }
 
         for (int i = GamesCount + stubs.Count; i > count; i--)
         {
-            stubs.Dequeue().QueueFree();
+            if (i % 2 == 1) { stubs.Last.Value.GetParent().QueueFree(); }
+            stubs.Last.Value.QueueFree();
+            stubs.RemoveLast();
         }
+
+        current_container = count % 2 == 1 ? stubs.Last?.Value.GetParent<HBoxContainer>() : null;
     }
 
     private void addButton(GameButton game_node)
