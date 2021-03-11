@@ -16,11 +16,12 @@ public class Shift : Switch
     protected override async void _execute(Juni juni)
     {
         var game = GDArea.GDWorld.Game;
-        var jgp = juni.GlobalPosition;
+        if (GDArea != game.CurrentArea) { return; }
 
         if (shift.Delay > 0)
         {
             var delay_timer = GetNode<Timer>("DelayTimer");
+            if (!delay_timer.IsStopped()) { return; }
             delay_timer.Start(shift.Delay / 1000f);
             await ToSignal(delay_timer, "timeout");
             if (GDArea != game.CurrentArea) { return; }
@@ -73,12 +74,13 @@ public class Shift : Switch
         GD.Print($"shift {shift.RelativeArea} {shift.RelativePosition} / {shift.AbsoluteArea} {shift.AbsolutePosition}");
 
         // Move Juni to the correct location in the area
-        if (shift.Quantize)
+        if (shift.Quantize || shift.AbsoluteTarget)
         {
             juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
         }
         else
         {
+            var jgp = juni.GlobalPosition;
             // Move Juni to the same spot in the new area
             jgp.x += relative_area.x * GDKnyttArea.Width;
             jgp.y += relative_area.y * GDKnyttArea.Height;
@@ -91,7 +93,7 @@ public class Shift : Switch
 
         if (shift.Effect)
         {
-            game.CurrentArea.playEffect(shift.AbsolutePosition);
+            game.CurrentArea.playEffect(juni.AreaPosition);
         }
 
         if (sound != null && shift.Cutscene == null)

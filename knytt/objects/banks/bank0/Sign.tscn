@@ -32,9 +32,9 @@ script = ExtResource( 3 )
 
 [node name="SignRect" type="NinePatchRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = -66.9955
+margin_left = -75.0
 margin_top = -85.6637
-margin_right = 92.0045
+margin_right = 100.0
 margin_bottom = -15.6637
 texture = ExtResource( 1 )
 patch_margin_left = 11
@@ -48,7 +48,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="SignRect"]
 margin_left = 9.0
 margin_top = 4.0
-margin_right = 150.0
+margin_right = 166.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -78,6 +78,5 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

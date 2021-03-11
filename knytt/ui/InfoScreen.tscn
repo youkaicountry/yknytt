@@ -263,11 +263,12 @@ anchor_bottom = 0.0
 margin_top = 166.0
 margin_right = 140.0
 margin_bottom = 185.215
-text = "Global Statistics"
+text = "View Achievements"
 
 [node name="StatHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
+
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]

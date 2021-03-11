@@ -8,7 +8,13 @@ public class CollectMod : Node2D
 
     public override void _Ready()
     {
-        parent = GetParent<GDKnyttBaseObject>();
+        Node candidate = GetParent();
+        while (!(candidate is GDKnyttBaseObject))
+        {
+            candidate = candidate.GetParent();
+        }
+        parent = candidate as GDKnyttBaseObject;
+
         if (parent.Juni.Powers.getCollectable(parent.ObjectID.y))
         {
             parent.QueueFree();
@@ -23,8 +29,8 @@ public class CollectMod : Node2D
         if (!(body is Juni juni)) { return; }
         juni.Powers.setCollectable(parent.ObjectID.y, true);
         juni.updateCollectables();
-        parent.GDArea.playEffect(offset: parent.Position);
+        parent.GDArea.playEffect(offset: GlobalPosition - parent.GDArea.GlobalPosition);
         juni.playSound("powerup");
-        parent.QueueFree();
+        foreach (var obj in parent.GDArea.Objects.findObjects(parent.ObjectID)) { obj.QueueFree(); }
     }
 }

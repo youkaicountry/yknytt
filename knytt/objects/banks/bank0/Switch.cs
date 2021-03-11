@@ -24,7 +24,7 @@ public abstract class Switch : GDKnyttBaseObject
         if (@switch == null) { return; }
         if (!(body is Juni juni)) { return; }
 
-        if (@switch.AsOne) { GDArea.Selector.Register(this, by_type: true); } // TODO: can stop work if different Junis enter different shifts
+        if (@switch.AsOne) { GDArea.Selector.Register(this); } // TODO: can stop work if different Junis enter different shifts
 
         if (@switch.OnTouch)
         {
@@ -48,7 +48,7 @@ public abstract class Switch : GDKnyttBaseObject
         if (@switch == null) { return; }
         if (!(body is Juni juni)) { return; }
 
-        if (@switch.AsOne) { GDArea.Selector.Unregister(this, by_type: true); }
+        if (@switch.AsOne) { GDArea.Selector.Unregister(this); }
 
         if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(execute)))
         {
@@ -63,7 +63,7 @@ public abstract class Switch : GDKnyttBaseObject
 
     public void execute(Juni juni)
     {
-        if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this, by_type: true))
+        if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this))
         {
             executeAnyway(juni);
         }
