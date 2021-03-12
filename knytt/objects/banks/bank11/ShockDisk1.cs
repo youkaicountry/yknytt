@@ -12,6 +12,7 @@ public class ShockDisk1 : ShockDisk
                 p.VelocityMMF2 = 30;
                 p.DirectionMMF2 = i;
                 p.DecelerationMMF2 = 20;
+                p.DisappearWhenStopped = true;
             });
     }
 }

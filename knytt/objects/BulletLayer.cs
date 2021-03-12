@@ -30,7 +30,8 @@ public class BulletLayer : Node2D
         ["SuperBullet"] = 100,
         ["RunnerBullet"] = 15,
         ["BeeBullet"] = 15,
-        ["GhostSlimeBullet"] = 50
+        ["GhostSlimeBullet"] = 50,
+        ["FlythingBullet"] = 40
     };
 
     public void RegisterEmitter(Node2D enemy_object, string bullet_scene, InitBulletEvent on_init)
