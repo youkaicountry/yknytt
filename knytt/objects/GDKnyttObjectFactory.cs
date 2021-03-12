@@ -402,7 +402,10 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(18, 5)] = "Fish5";
         ObjectLookup[new KnyttPoint(18, 6)] = "WaterMonster";
 
-        for (int i = 7; i <= 50; i++)
+        ObjectLookup[new KnyttPoint(19, 1)] = "Collectable1";
+        ObjectLookup[new KnyttPoint(19, 2)] = "Collectable2";
+        ObjectLookup[new KnyttPoint(19, 3)] = "Collectable3";
+        for (int i = 5; i <= 50; i++)
         {
             ObjectLookup[new KnyttPoint(19, i)] = $"Collectable{i}";
         }
