@@ -54,9 +54,13 @@
     <Compile Include="knytt\objects\banks\bank1\LiquidPoolDeadly.cs" />
     <Compile Include="knytt\objects\banks\bank1\LiquidPoolNew.cs" />
     <Compile Include="knytt\objects\banks\bank2\BackgroundBird.cs" />
+    <Compile Include="knytt\objects\banks\bank2\BadFlything.cs" />
     <Compile Include="knytt\objects\banks\bank2\Bee.cs" />
+    <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\HomingEnemy.cs" />
+    <Compile Include="knytt\objects\banks\bank2\HomingFlything.cs" />
     <Compile Include="knytt\objects\banks\bank2\Humbird.cs" />
+    <Compile Include="knytt\objects\banks\bank2\DropFlything.cs" />
     <Compile Include="knytt\objects\banks\bank4\BigSpider.cs" />
     <Compile Include="knytt\objects\banks\bank4\CeilingDropCrawler.cs" />
     <Compile Include="knytt\objects\banks\bank4\DropCrawler.cs" />
@@ -157,7 +161,6 @@
     <Compile Include="knytt\objects\banks\bank16\Spring.cs" />
     <Compile Include="knytt\objects\banks\common\PathCreature.cs" />
     <Compile Include="knytt\objects\banks\bank1\Bubble.cs" />
-    <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\FlySpike.cs" />
     <Compile Include="knytt\objects\banks\bank2\Elemental.cs" />
     <Compile Include="knytt\objects\banks\bank6\RandomLabyrinthSpike.cs" />
