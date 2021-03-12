@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class BaseWaterMonsterNew : GDKnyttBaseObject
+public abstract class BaseWaterMonster : GDKnyttBaseObject
 {
     [Export] int bullets = 0;
 

@@ -1,4 +1,4 @@
-public class LiquidPoolDeadly : LiquidPoolNew
+public class LiquidPoolDeadly : LiquidPool
 {
     private void _on_Area2D_body_entered(object body)
     {

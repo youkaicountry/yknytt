@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class LiquidPoolNew : GDKnyttBaseObject
+public class LiquidPool : GDKnyttBaseObject
 {
     protected AnimatedSprite player;
     bool ping = true;
