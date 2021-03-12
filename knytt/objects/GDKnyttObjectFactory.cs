@@ -177,7 +177,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(4, 15)] = "AnotherStrangeRunner";
         ObjectLookup[new KnyttPoint(4, 16)] = "HomingRunner";
         ObjectLookup[new KnyttPoint(4, 17)] = "Hedgehog";
-        ObjectLookup[new KnyttPoint(4, 18)] = "ToastMonsterNew";
+        ObjectLookup[new KnyttPoint(4, 18)] = "ToastMonster";
         ObjectLookup[new KnyttPoint(4, 19)] = "TriShot";
         ObjectLookup[new KnyttPoint(4, 20)] = "FiveShot";
         ObjectLookup[new KnyttPoint(4, 21)] = "RightSuperStranger";
@@ -400,7 +400,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(18, 3)] = "Fish3";
         ObjectLookup[new KnyttPoint(18, 4)] = "Fish4";
         ObjectLookup[new KnyttPoint(18, 5)] = "Fish5";
-        ObjectLookup[new KnyttPoint(18, 6)] = "WaterMonsterNew";
+        ObjectLookup[new KnyttPoint(18, 6)] = "WaterMonster";
 
         for (int i = 7; i <= 50; i++)
         {
