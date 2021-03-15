@@ -81,7 +81,7 @@ Bank 2 (Flyers):
 [x] - 21 Fly Spike
 [x] - 22 Quad Flything
 [ ] - 23
-[ ] - 24
+[x] - 24 Fall Propeller Dude
 [x] - 25 Humbird
 [x] - 26 Birdie 1
 [x] - 27 Birdie 2
