@@ -62,6 +62,7 @@ position = Vector2( 12, 12 )
 shape = SubResource( 11 )
 
 [node name="FlyTimer" parent="." index="2"]
+wait_time = 1000.0
 autostart = false
 
 [node name="ShootTimer" parent="." index="3"]
