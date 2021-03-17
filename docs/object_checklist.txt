@@ -65,12 +65,12 @@ Bank 2 (Flyers):
 [x] -  5 Bad Flything 2
 [x] -  6 Homing Flything
 [x] -  7 Flything 2
-[ ] -  8
+[x] -  8 Cave Firefly
 [x] -  9 Yellow Bee
 [x] - 10 Red Bee
 [x] - 11 Homing Circle
 [x] - 12 Homing Rectangle
-[ ] - 13
+[x] - 13 Red Firefly
 [x] - 14 Tentacle Flything
 [x] - 15 Propeller Dude
 [x] - 16 Propeller Child
@@ -80,7 +80,7 @@ Bank 2 (Flyers):
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
 [x] - 22 Quad Flything
-[ ] - 23
+[x] - 23 Green Firefly
 [x] - 24 Fall Propeller Dude
 [x] - 25 Humbird
 [x] - 26 Birdie 1

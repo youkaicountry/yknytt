@@ -2,6 +2,7 @@ PATTERN="s/bank[0-9]\+\(\/[a-z_]\+\)\?\/\([a-zA-z0-9_]\+\)\.png/bank19\/img\/\2\
 cat knytt/objects/banks/bank2/Flything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature1.tscn
 cat knytt/objects/banks/bank2/BadFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature2.tscn
 cat knytt/objects/banks/bank2/HomingFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature3.tscn
+cat knytt/objects/banks/bank2/CaveFirefly.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature4.tscn
 cat knytt/objects/banks/bank2/TentacleFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature5.tscn
 cat knytt/objects/banks/bank2/PropellerChild2.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature6.tscn
 cat knytt/objects/banks/bank2/FlySpike1.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature7.tscn
