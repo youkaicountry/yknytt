@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank2/Firefly.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/cave_firefly_idle.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank19/img/cave_firefly_run.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 6, 3 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "run",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 3 )
+
+[node name="Node2D" instance=ExtResource( 1 )]
+limitSpeed = 15.0
+resetSpeed = 10.0
+idleSpeed = 10.0
+runSpeed = 10.0
+speedBuzz = 300.0
+speedOffset = 50.0
+directionBuzz = 13.0
+opacityBuzz = 8.0
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 3 )
+animation = "run"
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 12, 12 )
+shape = SubResource( 4 )

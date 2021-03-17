@@ -50,20 +50,21 @@ animations = [ {
 "speed": 35.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=10]
 
-[sub_resource type="CircleShape2D" id=10]
+[sub_resource type="CircleShape2D" id=11]
 radius = 9.0
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+OrganicEnemy = true
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 9 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 12, 12 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="FlyTimer" parent="." index="2"]
 wait_time = 1000.0
@@ -74,9 +75,10 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 11.5, 13 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 
 [node name="AttackTimer" type="Timer" parent="." index="4"]
 wait_time = 0.25
 autostart = true
+[connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
