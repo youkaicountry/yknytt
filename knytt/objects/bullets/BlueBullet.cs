@@ -12,6 +12,7 @@ public class BlueBullet : BaseBullet
                 p.DirectionMMF2 = i;
                 p.VelocityMMF2 = 25;
                 p.DecelerationMMF2 = 15;
+                p.DisappearWhenStopped = true;
             });
     }
 
