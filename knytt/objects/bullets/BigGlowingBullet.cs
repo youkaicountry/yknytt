@@ -12,7 +12,6 @@ public class BigGlowingBullet : BaseBullet
                 p.Translate(new Vector2(0, -sign * 2));
                 p.DirectionMMF2 = sign * i;
                 p.VelocityMMF2 = 5;
-                p.DisappearWhenStopped = true;
             });
     }
 
