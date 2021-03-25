@@ -18,7 +18,7 @@ public class BaseBullet : KinematicBody2D
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
     public bool EnableRotation { get; set; } = false;
-    public bool DisappearWhenStopped { get; set; } = true;
+    public bool DisappearWhenStopped { get; set; } = false;
 
     public float DecelerationCorrectionX { get; set; } = 1;
     public float DecelerationCorrectionUp { get; set; } = 1;
@@ -100,7 +100,7 @@ public class BaseBullet : KinematicBody2D
 
         _velocity_y += _gravity * delta;
 
-        if (EnableRotation) { Rotation = Mathf.Atan2(_velocity_y, _velocity_x); }
+        if (EnableRotation) { Rotation = Mathf.Atan2(-_velocity_y, -_velocity_x); }
 
         var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))

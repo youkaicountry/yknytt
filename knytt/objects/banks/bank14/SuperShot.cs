@@ -16,7 +16,6 @@ public class SuperShot : GesturesObject
                 p.VelocityMMF2 = 4 + random.Next(8); //5 + random.Next(6); -- original formula
                 p.DirectionMMF2 = random.NextElement(shotDirections);
                 p.DecelerationMMF2 = 3;
-                p.DisappearWhenStopped = false;
             });
 
         _on_PrepareTimer_timeout();

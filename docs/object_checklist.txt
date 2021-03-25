@@ -58,30 +58,30 @@ Bank 1 (Liquids):
 [x] - 24 Water Block
 
 Bank 2 (Flyers):
-[ ] -  1
-[ ] -  2
+[x] -  1 Flything
+[x] -  2 Bad Flything
 [ ] -  3
 [ ] -  4
-[ ] -  5
-[ ] -  6
-[ ] -  7
-[ ] -  8
+[x] -  5 Bad Flything 2
+[x] -  6 Homing Flything
+[x] -  7 Flything 2
+[x] -  8 Cave Firefly
 [x] -  9 Yellow Bee
 [x] - 10 Red Bee
 [x] - 11 Homing Circle
 [x] - 12 Homing Rectangle
-[ ] - 13
-[ ] - 14
-[x] - 15 Buzz Flyer
-[x] - 16 Buzz Flyer
-[x] - 17 Buzz Flyer
+[x] - 13 Red Firefly
+[x] - 14 Tentacle Flything
+[x] - 15 Propeller Dude
+[x] - 16 Propeller Child
+[x] - 17 Propeller Child 2
 [x] - 18 Yellow Elemental
 [x] - 19 Red Elemental
 [x] - 20 Fly Spike
 [x] - 21 Fly Spike
-[ ] - 22
-[ ] - 23
-[ ] - 24
+[x] - 22 Quad Flything
+[x] - 23 Green Firefly
+[x] - 24 Fall Propeller Dude
 [x] - 25 Humbird
 [x] - 26 Birdie 1
 [x] - 27 Birdie 2
@@ -374,7 +374,7 @@ Bank 17 (Creepy):
 [x] -  3 Creepy Water Monster
 [x] -  4 Mad Spider
 [x] -  5 Ceiling Mad Spider
-[ ] -  6
+[x] -  6 Flything
 [x] -  7 Ninja
 [x] -  8 Right Ninja
 [x] -  9 Left Ninja

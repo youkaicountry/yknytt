@@ -331,17 +331,17 @@ public class Juni : KinematicBody2D
         JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
     }
 
-
     public void setPower(PowerNames name, bool value)
     {
+        if (name == PowerNames.Umbrella && !value && Umbrella.Deployed) { Umbrella.Deployed = false; }
+        if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
         Powers.setPower(name, value);
         EmitSignal(nameof(PowerChanged), name, value);
     }
 
     public void setPower(int power, bool value)
     {
-        Powers.setPower(power, value);
-        EmitSignal(nameof(PowerChanged), power, value);
+        setPower((PowerNames)power, value);
     }
 
     public void updateCollectables()

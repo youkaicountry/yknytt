@@ -68,7 +68,7 @@ Bank 16 (Invisible):
 [x] - 30 Two Ways Platform
 
 Bank 19 (Collectables):
-[/] - 0-50 Golden Creatures
+[x] - 0-50 Golden Creatures
 [x] - 51-150 Coins
 [x] - 151-199 Artifacts
 
