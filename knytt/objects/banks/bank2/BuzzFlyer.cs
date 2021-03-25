@@ -1,93 +1,40 @@
 using Godot;
-using System.Collections.Generic;
 using YUtil.Random;
 
 public class BuzzFlyer : GDKnyttBaseObject
 {
-    struct BuzzFlyerParams
-    {
-        public float speed;
-        public bool enemy;
+    [Export] protected float speed = 48;
+    [Export] protected float buzzStrength = 66;
+    [Export] protected float border = 10;
 
-        public BuzzFlyerParams(float speed, bool enemy)
-        {
-            this.speed = speed;
-            this.enemy = enemy;
-        }
-    }
+    protected static readonly Vector2[] Directions = new Vector2[] {
+        new Vector2(-1, -1), new Vector2(0, -1), new Vector2(1, -1),
+        new Vector2(-1, 0),  new Vector2(0, 0),  new Vector2(1, 0),
+        new Vector2(-1, 1),  new Vector2(0, 1),  new Vector2(1, 1),
+    };
 
-    static readonly Vector2[] Directions = new Vector2[] {
-        new Vector2(1, 0),
-        new Vector2(1, -1),
-        new Vector2(1, 1),
-        new Vector2(-1, 0),
-        new Vector2(-1, -1),
-        new Vector2(-1, 1),
-        new Vector2(0, 1),
-        new Vector2(0, -1),
-        new Vector2(0, 0) };
-
-    Vector2 NextDirection { get { return random.NextElement(Directions); } }
-    Vector2 Buzz
-    {
-        get
-        {
-            return new Vector2(random.NextFloat(-BuzzStrength, BuzzStrength),
-                               random.NextFloat(-BuzzStrength, BuzzStrength));
-        }
-    }
-    Vector2 CurrentDirection { get; set; }
-    static Vector2 MoveTime = new Vector2(.5f, 4f);
-    const float BuzzStrength = 100f;
-
-    static Dictionary<int, BuzzFlyerParams> ID2Params;
-
-    static BuzzFlyer()
-    {
-        ID2Params = new Dictionary<int, BuzzFlyerParams>();
-        ID2Params.Add(15, new BuzzFlyerParams(speed: 45f, enemy: true));
-        ID2Params.Add(16, new BuzzFlyerParams(speed: 45f, enemy: false));
-        ID2Params.Add(17, new BuzzFlyerParams(speed: 45f, enemy: false));
-    }
-
-    BuzzFlyerParams _params;
+    protected Vector2 currentDirection;
 
     public override void _Ready()
     {
-        _params = ID2Params[ObjectID.y];
-        OrganicEnemy = _params.enemy;
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(ObjectID.y.ToString());
-        startMove();
+        GetNode<AnimatedSprite>("AnimatedSprite").Play();
+        changeDirection();
     }
 
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-
-        var movement = (CurrentDirection * _params.speed * delta) + Buzz * delta;
-        var col = Call("move_and_collide", movement, true, true, true) as KinematicCollision2D;
-        var offscreen = !GDArea.isIn(Center + (movement * 6f));
-        if (col == null && !offscreen) { Translate(movement); }
-        else { startMove(); }
+        var buzz = new Vector2(random.NextFloat(-buzzStrength, buzzStrength),
+                               random.NextFloat(-buzzStrength, buzzStrength));
+        var movement = currentDirection * speed * delta + buzz * delta;
+        var collision = moveAndCollide(movement, testOnly: true);
+        var offscreen = !GDArea.isIn(Center + movement, x_border: border, y_border: border);
+        if (collision == null && !offscreen) { Translate(movement); }
+        else { changeDirection(); GetNode<Timer>("FlyTimer").Start(); }
     }
 
-    private void startMove()
+    protected virtual void changeDirection()
     {
-        CurrentDirection = NextDirection;
-        var timer = GetNode<Timer>("FlyTimer");
-        timer.Stop();
-        timer.WaitTime = random.NextFloat(MoveTime.x, MoveTime.y);
-        timer.Start();
-    }
-
-    public void _on_FlyTimer_timeout()
-    {
-        startMove();
-    }
-
-    public void _on_Area2D_body_entered(Node body)
-    {
-        if (!(body is Juni juni)) { return; }
-        if (_params.enemy) { juniDie(juni); }
+        currentDirection = random.NextElement(Directions);
     }
 }

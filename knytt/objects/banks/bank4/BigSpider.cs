@@ -1,3 +1,5 @@
+using Godot;
+
 public class BigSpider : Spider
 {
     private const int RADAR_BOTTOM = 8;
@@ -8,6 +10,10 @@ public class BigSpider : Spider
         base._Ready();
         direction = Juni.GlobalPosition.x < GlobalPosition.x ? -1 : 1;
         sprite.FlipH = direction == -1;
+        if (GlobalPosition.x + centerOffset + border > GDArea.GlobalPosition.x + GDKnyttArea.Width)
+        {
+            GlobalPosition = new Vector2(GDArea.GlobalPosition.x + GDKnyttArea.Width - centerOffset - border, GlobalPosition.y);
+        }
     }
 
     public override void _PhysicsProcess(float delta)
