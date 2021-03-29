@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using YKnyttLib;
 using YUtil.Collections;
+using System.Linq;
 
 public class GDKnyttAssetManager
 {
@@ -212,8 +213,7 @@ public class GDKnyttAssetManager
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
             var it = new ImageTexture();
-            it.CreateFromImage(image);
-            it.Flags &= ~(uint)Texture.FlagsEnum.Filter;
+            it.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
             texture = it;
         }
 
@@ -227,7 +227,7 @@ public class GDKnyttAssetManager
         {
             var image = texture.GetData();
             bitmap = new BitMap();
-            bitmap.CreateFromImageAlpha(image, .01f);
+            bitmap.CreateFromImageAlpha(image, .001f);
         }
 
         var ts = new TileSet();
@@ -244,23 +244,16 @@ public class GDKnyttAssetManager
 
                 if (collisions)
                 {
-                    var polygons = bitmap.OpaqueToPolygons(region, 2);
+                    bitmap.GrowMask(1, region); // fill inner void pixels
+                    var polygons = bitmap.OpaqueToPolygons(region, 0.99f);
                     int c = 0;
 
-                    for (int j = 0; j < polygons.Count; j++)
+                    foreach (Vector2[] polygon in polygons)
                     {
+                        // I have no idea why it's adding y*48 to y coordinates...
+                        Vector2[] v = polygon.Select(p => new Vector2(p.x, p.y - (y * TILE_HEIGHT * 2))).ToArray();
                         var collision = new ConvexPolygonShape2D();
-                        Vector2[] v = (Vector2[])polygons[j];
-                        List<Vector2> plist = new List<Vector2>();
-                        for (int k = 0; k < v.Length; k++)
-                        {
-                            // I have no idea why it's adding y*48 to y coordinates...
-                            Vector2 mv = new Vector2(v[k].x, v[k].y - (y * TILE_HEIGHT * 2));
-                            plist.Add(mv);
-                        }
-
-                        if (plist.Count < 3) { continue; }
-                        collision.SetPointCloud(plist.ToArray());
+                        collision.SetPointCloud(v);
                         ts.TileSetShape(i, c++, collision);
                     }
                 }
@@ -292,7 +285,7 @@ public class GDKnyttAssetManager
         return replaced;
     }
 
-    // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
+    // Call this in any level-optimizing procedure (level load screen, post-download processing, special button).
     public static void compileInternalTileset(KnyttWorld world, bool recompile)
     {
         ensureDirExists($"user://Cache/{world.WorldDirectoryName}");
