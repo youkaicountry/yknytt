@@ -244,6 +244,9 @@ public class GDKnyttAssetManager
 
                 if (collisions)
                 {
+                    // Controversial solution - corridors may become too thin, but some complex tiles (with nested polygons)
+                    //  are processed correctly. Also makes movement smoother on uneven tiles, so Juni isn't got stuck.
+                    //  Can stop when entering slopes. Revert if required, or combine two masks somehow.
                     bitmap.GrowMask(1, region); // fill inner void pixels
                     var polygons = bitmap.OpaqueToPolygons(region, 0.99f);
                     int c = 0;

@@ -21,6 +21,7 @@ public class HomingEnemy : GDKnyttBaseObject
         speed = initialSpeed;
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         hasWallAnimation = sprite.Frames.HasAnimation("wall");
+        sprite.Play("default");
     }
 
     public override void _PhysicsProcess(float delta)
