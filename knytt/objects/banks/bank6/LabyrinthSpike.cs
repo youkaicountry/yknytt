@@ -4,13 +4,14 @@ using YUtil.Random;
 public class LabyrinthSpike : GDKnyttBaseObject
 {
     protected Vector2 direction = Vector2.Up;
+    protected bool wasFree = false;
 
     [Export] protected float speed = 50f;
 
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        var collision = moveAndCollide(delta * speed * direction, testOnly: true);
+        var collision = moveAndCollide(delta * speed * direction, testOnly: !wasFree);
         if (collision != null)
         {
             int retry = 5;
@@ -25,7 +26,7 @@ public class LabyrinthSpike : GDKnyttBaseObject
             onCollide();
             GetNode<AudioStreamPlayer2D>("HitSound2D").Play();
         }
-        moveAndCollide(delta * speed * direction);
+        if (collision == null) { wasFree = true; }
     }
 
     protected virtual void onCollide() { }

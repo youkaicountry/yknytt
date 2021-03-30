@@ -51,7 +51,7 @@ public class Cutscene : Control
     {
         current_scene += delta;
         Texture t = GDKnyttDataStore.KWorld.getWorldTexture(makeScenePath(current_scene)) as Texture;
-        t.Flags |= (uint)Texture.FlagsEnum.Filter;
+        if (t != null) { t.Flags |= (uint)Texture.FlagsEnum.Filter; }
         GetNode<TextureRect>("Image").Texture = t;
         setupBackButton();
         setupNextButton();

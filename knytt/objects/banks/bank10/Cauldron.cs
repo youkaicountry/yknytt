@@ -8,7 +8,7 @@ public class Cauldron : Bouncer
         GDArea.Bullets.RegisterEmitter(this, "CauldronSpike",
             (p, i) =>
             {
-                p.Translate(new Vector2(12 + (i == 0 ? -7 : 7), 5));
+                p.Translate(new Vector2(12, 5));
                 p.VelocityMMF2 = -getSpeed() * 14;
                 p.DirectionMMF2 = i == 0 ? 9 : 7;
                 p.GravityMMF2 = 20;
