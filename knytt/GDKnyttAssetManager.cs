@@ -223,11 +223,22 @@ public class GDKnyttAssetManager
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
         BitMap bitmap = null;
+        BitMap bitmap_copy = null;
         if (collisions)
         {
             var image = texture.GetData();
+            var original_bitmap = new BitMap();
+            original_bitmap.CreateFromImageAlpha(image, .001f);
+            
+            // bitmap with border is needed to shrink mask later
             bitmap = new BitMap();
-            bitmap.CreateFromImageAlpha(image, .001f);
+            bitmap.Create(new Vector2(original_bitmap.GetSize().x + 2, original_bitmap.GetSize().y + 2));
+            for (int m = 0; m < original_bitmap.GetSize().y; m++)
+                for (int n = 0; n < original_bitmap.GetSize().x; n++)
+                    bitmap.SetBit(new Vector2(n + 1, m + 1), original_bitmap.GetBit(new Vector2(n, m)));
+
+            // bitmap copy to restore information after shrinking
+            bitmap_copy = bitmap.Duplicate() as BitMap;
         }
 
         var ts = new TileSet();
@@ -244,26 +255,95 @@ public class GDKnyttAssetManager
 
                 if (collisions)
                 {
-                    // Controversial solution - corridors may become too thin, but some complex tiles (with nested polygons)
-                    //  are processed correctly. Also makes movement smoother on uneven tiles, so Juni isn't got stuck.
-                    //  Can stop when entering slopes. Revert if required, or combine two masks somehow.
-                    bitmap.GrowMask(1, region); // fill inner void pixels
-                    var polygons = bitmap.OpaqueToPolygons(region, 0.99f);
+                    var bitmap_region = new Rect2(x * TILE_WIDTH + 1, y * TILE_HEIGHT + 1, TILE_WIDTH, TILE_HEIGHT);
+                    var polygons = tilePolygons(bitmap, bitmap_copy, bitmap_region);
                     int c = 0;
 
                     foreach (Vector2[] polygon in polygons)
                     {
-                        // I have no idea why it's adding y*48 to y coordinates...
-                        Vector2[] v = polygon.Select(p => new Vector2(p.x, p.y - (y * TILE_HEIGHT * 2))).ToArray();
-                        var collision = new ConvexPolygonShape2D();
-                        collision.SetPointCloud(v);
-                        ts.TileSetShape(i, c++, collision);
+                        if (isConvex(polygon))
+                        {
+                            var collision = new ConvexPolygonShape2D();
+                            collision.SetPointCloud(polygon);
+                            ts.TileSetShape(i, c++, collision);
+                        }
+                        else
+                        {
+                            int[] triangles = Geometry.TriangulatePolygon(polygon);
+                            for (int t = 0; t < triangles.Length; t += 3)
+                            {
+                                Vector2[] triangle = { polygon[triangles[t]], polygon[triangles[t + 1]], polygon[triangles[t + 2]] };
+                                var collision = new ConvexPolygonShape2D();
+                                collision.SetPointCloud(triangle);
+                                ts.TileSetShape(i, c++, collision);
+                            }
+                        }
                     }
                 }
                 i++;
             }
         }
         return ts;
+    }
+
+    private static List<Vector2[]> tilePolygons(BitMap bitmap, BitMap bitmap_copy, Rect2 region)
+    {
+        /*if (debug) // Print bitmap mask: before
+        for (float n = region.Position.y; n < region.End.y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));
+        if (debug) GD.Print("");*/
+
+        // Smooth mask a little: grow true bits, then shrink. This will fill inner void pixels and reduce number of polygons.
+        // Also workaround for https://github.com/godotengine/godot/issues/31675
+        bitmap.GrowMask(1, region);
+
+        // To keep border bits, we need to fill tile border with true bits
+        bitmap.SetBitRect(new Rect2(region.Position.x, region.Position.y - 1, TILE_WIDTH, 1), true);
+        bitmap.SetBitRect(new Rect2(region.Position.x, region.Position.y + TILE_HEIGHT, TILE_WIDTH, 1), true);
+        bitmap.SetBitRect(new Rect2(region.Position.x - 1, region.Position.y, 1, TILE_HEIGHT), true);
+        bitmap.SetBitRect(new Rect2(region.Position.x + TILE_WIDTH, region.Position.y, 1, TILE_HEIGHT), true);
+
+        bitmap.GrowMask(-1, new Rect2(region.Position.x - 1, region.Position.y - 1, TILE_WIDTH + 2, TILE_HEIGHT + 2));
+
+        // Restore spoiled tiles
+        for (int i = 0; i < TILE_WIDTH; i++)  { var v = new Vector2(region.Position.x + i, region.Position.y - 1); bitmap.SetBit(v, bitmap_copy.GetBit(v)); }
+        for (int i = 0; i < TILE_WIDTH; i++)  { var v = new Vector2(region.Position.x + i, region.Position.y + TILE_HEIGHT); bitmap.SetBit(v, bitmap_copy.GetBit(v)); }
+        for (int i = 0; i < TILE_HEIGHT; i++) { var v = new Vector2(region.Position.x - 1, region.Position.y + i); bitmap.SetBit(v, bitmap_copy.GetBit(v)); }
+        for (int i = 0; i < TILE_HEIGHT; i++) { var v = new Vector2(region.Position.x + TILE_WIDTH, region.Position.y + i); bitmap.SetBit(v, bitmap_copy.GetBit(v)); }
+
+        /*if (debug) // Print bitmap mask: after
+        for (float n = region.Position.y; n < region.End.y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
+
+        var polygons = bitmap.OpaqueToPolygons(region, 0.99f);
+        // I have no idea why it's adding y*48 to y coordinates...
+        List<Vector2[]> fixed_polygons = new List<Vector2[]>();
+        foreach (Vector2[] polygon in polygons)
+        {
+            fixed_polygons.Add(polygon.Select(p => new Vector2(p.x, p.y - (region.Position.y * 2))).ToArray());
+        }
+        return fixed_polygons;
+    }
+
+    private static bool isConvex(Vector2[] vertices)
+    {
+        bool got_negative = false;
+        bool got_positive = false;
+        for (int a = 0; a < vertices.Length; a++)
+        {
+            int b = (a + 1) % vertices.Length;
+            int c = (a + 2) % vertices.Length;
+            float cross_product = crossProduct(vertices[a], vertices[b], vertices[c]);
+            if (cross_product < 0) { got_negative = true; }
+            if (cross_product > 0) { got_positive = true; }
+            if (got_negative && got_positive) { return false; }
+        }
+        return true;
+    }
+
+    private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
+    {
+        return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
     }
 
     public static bool replaceColor(Image image, Color old_color, Color new_color)
