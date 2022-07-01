@@ -1,8 +1,10 @@
 using Godot;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using YKnyttLib;
 using YUtil.Collections;
+using System.Linq;
 
 public class GDKnyttAssetManager
 {
@@ -212,8 +214,7 @@ public class GDKnyttAssetManager
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
             var it = new ImageTexture();
-            it.CreateFromImage(image);
-            it.Flags &= ~(uint)Texture.FlagsEnum.Filter;
+            it.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
             texture = it;
         }
 
@@ -222,12 +223,18 @@ public class GDKnyttAssetManager
 
     public static TileSet makeTileset(Texture texture, bool collisions)
     {
+        BitMap original_bitmap = null;
         BitMap bitmap = null;
         if (collisions)
         {
             var image = texture.GetData();
+            original_bitmap = new BitMap();
+            original_bitmap.CreateFromImageAlpha(image, .001f);
+            
+            // bitmap with borders is needed to shrink mask later
             bitmap = new BitMap();
-            bitmap.CreateFromImageAlpha(image, .01f);
+            bitmap.Create(new Vector2((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
+            bitmap.SetBitRect(new Rect2(new Vector2(0, 0), bitmap.GetSize()), true);
         }
 
         var ts = new TileSet();
@@ -244,30 +251,88 @@ public class GDKnyttAssetManager
 
                 if (collisions)
                 {
-                    var polygons = bitmap.OpaqueToPolygons(region, 2);
+                    for (int m = 0; m < TILE_WIDTH; m++)
+                    {
+                        for (int n = 0; n < TILE_HEIGHT; n++)
+                        {
+                            bitmap.SetBit(new Vector2(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1), 
+                                original_bitmap.GetBit(new Vector2(x * TILE_WIDTH + m, y * TILE_HEIGHT + n)));
+                        }
+                    }
+
+                    var bitmap_region = new Rect2(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
+                    var polygons = tilePolygons(bitmap, bitmap_region);
                     int c = 0;
 
-                    for (int j = 0; j < polygons.Count; j++)
+                    foreach (Vector2[] polygon in polygons)
                     {
-                        var collision = new ConvexPolygonShape2D();
-                        Vector2[] v = (Vector2[])polygons[j];
-                        List<Vector2> plist = new List<Vector2>();
-                        for (int k = 0; k < v.Length; k++)
+                        if (isConvex(polygon))
                         {
-                            // I have no idea why it's adding y*48 to y coordinates...
-                            Vector2 mv = new Vector2(v[k].x, v[k].y - (y * TILE_HEIGHT * 2));
-                            plist.Add(mv);
+                            var collision = new ConvexPolygonShape2D();
+                            collision.SetPointCloud(polygon);
+                            ts.TileSetShape(i, c++, collision);
                         }
-
-                        if (plist.Count < 3) { continue; }
-                        collision.SetPointCloud(plist.ToArray());
-                        ts.TileSetShape(i, c++, collision);
+                        else
+                        {
+                            int[] triangles = Geometry.TriangulatePolygon(polygon);
+                            for (int t = 0; t < triangles.Length; t += 3)
+                            {
+                                Vector2[] triangle = { polygon[triangles[t]], polygon[triangles[t + 1]], polygon[triangles[t + 2]] };
+                                var collision = new ConvexPolygonShape2D();
+                                collision.SetPointCloud(triangle);
+                                ts.TileSetShape(i, c++, collision);
+                            }
+                        }
                     }
                 }
                 i++;
             }
         }
         return ts;
+    }
+
+    private static IEnumerable<Vector2[]> tilePolygons(BitMap bitmap, Rect2 region)
+    {
+        /*if (debug) // Print bitmap mask: before
+        for (float n = region.Position.y; n < region.End.y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));
+        if (debug) GD.Print("");*/
+
+        // Smooth mask a little: grow true bits, then shrink. This will fill inner void pixels and reduce number of polygons.
+        // Also workaround for https://github.com/godotengine/godot/issues/31675
+        bitmap.GrowMask(1, region);
+        bitmap.GrowMask(-1, new Rect2(region.Position.x - 1, region.Position.y - 1, TILE_WIDTH + 2, TILE_HEIGHT + 2));
+
+        /*if (debug) // Print bitmap mask: after
+        for (float n = region.Position.y; n < region.End.y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
+
+        var polygons = (bitmap.OpaqueToPolygons(region, 0.99f) as IEnumerable).Cast<Vector2[]>();
+        // I have no idea why it's adding y*48 to y coordinates...
+        return polygons.Select(p => p.Select(v => new Vector2(v.x, v.y - (region.Position.y * 2))).ToArray());
+    }
+
+    private static bool isConvex(Vector2[] vertices)
+    {
+        // TODO: return true for polygons which are almost convex, or their recesses are too small
+        //  (because unnecessary triangles inflate tilesets)
+        bool got_negative = false;
+        bool got_positive = false;
+        for (int a = 0; a < vertices.Length; a++)
+        {
+            int b = (a + 1) % vertices.Length;
+            int c = (a + 2) % vertices.Length;
+            float cross_product = crossProduct(vertices[a], vertices[b], vertices[c]);
+            if (cross_product < 0) { got_negative = true; }
+            if (cross_product > 0) { got_positive = true; }
+            if (got_negative && got_positive) { return false; }
+        }
+        return true;
+    }
+
+    private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
+    {
+        return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
     }
 
     public static bool replaceColor(Image image, Color old_color, Color new_color)
@@ -292,7 +357,7 @@ public class GDKnyttAssetManager
         return replaced;
     }
 
-    // Call this in any level-optimizing procedure (level load screen, post-download processing, special button). Currently disabled.
+    // Call this in any level-optimizing procedure (level load screen, post-download processing, special button).
     public static void compileInternalTileset(KnyttWorld world, bool recompile)
     {
         ensureDirExists($"user://Cache/{world.WorldDirectoryName}");
