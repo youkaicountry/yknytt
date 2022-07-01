@@ -101,7 +101,6 @@ margin_bottom = -0.8909
 stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
-
 [connection signal="focus_entered" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_entered"]
 [connection signal="focus_exited" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_exited"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
