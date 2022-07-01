@@ -60,6 +60,6 @@ public class Rain : GDKnyttBaseObject
             node.QueueFree();
         }
 
-        if (add_next != null) { add_next.QueueFree(); }
+        if (add_next != null) { add_next.QueueFree(); add_next = null; }
     }
 }
