@@ -12,7 +12,8 @@ public class FadeLayer : Control
 
     public void _on_AnimationPlayer_animation_finished(string name)
     {
-        Modulate = new Color(1, 1, 1, 0);
+
+        Modulate = new Color(1, 1, 1, Modulate.a);
         EmitSignal(nameof(FadeDone));
     }
 }
