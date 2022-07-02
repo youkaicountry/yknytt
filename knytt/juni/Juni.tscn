@@ -347,18 +347,18 @@ script = ExtResource( 4 )
 
 [node name="RightChecker" type="Area2D" parent="ClimbCheckers"]
 position = Vector2( 6.148, 0.285 )
-priority = 1.0
 collision_layer = 0
 collision_mask = 22
+priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
 shape = SubResource( 19 )
 
 [node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
 position = Vector2( -6.141, 0.285 )
-priority = 1.0
 collision_layer = 0
 collision_mask = 22
+priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
 shape = SubResource( 19 )

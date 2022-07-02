@@ -18,6 +18,23 @@ public class GDKnyttDataStore : Node
     public static CutsceneMode Mode { get; private set; }
     public static string CutsceneSound { get; private set; }
 
+    const float SpeedAmount = .25f;
+    const int BaseIterations = 60;
+    private static int _currentSpeed = 0;
+    public static int CurrentSpeed 
+    { 
+        get { return _currentSpeed; }
+        set
+        {
+            var new_d = 1f + (value * SpeedAmount);
+            if (new_d < 0) { return; }
+            int iterations = (int)(BaseIterations * new_d);
+            Godot.Engine.TimeScale = new_d;
+            Godot.Engine.IterationsPerSecond = iterations;
+            _currentSpeed = value;
+        }
+    }
+
     public override void _Ready()
     {
         Tree = GetTree();
