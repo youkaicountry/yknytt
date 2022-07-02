@@ -86,6 +86,10 @@ public class Juni : KinematicBody2D
     int start_slope_frames;
     int frames_on_slope = 0;
 
+    // Speed
+    int speed_step = 0;
+    const float speed_step_size = .33f;
+
     // Input
     public JuniInput juniInput;
 
@@ -374,6 +378,8 @@ public class Juni : KinematicBody2D
         if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
         if (Input.IsActionJustPressed("debug_ui")) { Game.UI.Location.toggle(); }
         if (Input.IsActionJustPressed("debug_idclip")) { DebugFlyMode = !DebugFlyMode; }
+        if (Input.IsActionJustPressed("debug_slow")) { GDKnyttDataStore.CurrentSpeed -= 1; }
+        if (Input.IsActionJustPressed("debug_fast")) { GDKnyttDataStore.CurrentSpeed += 1; }
     }
 
     public void processMotion(float delta)
