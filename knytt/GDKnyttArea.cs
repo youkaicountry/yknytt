@@ -1,5 +1,7 @@
 using Godot;
 using YKnyttLib;
+using System.Linq;
+using System;
 
 public class GDKnyttArea : Node2D
 {
@@ -99,6 +101,8 @@ public class GDKnyttArea : Node2D
         this.createObjectLayers();
         this.active = true;
         Tiles.activate();
+        string flags = String.Join(",", GDWorld.Game.Juni.Powers.Flags.Select(p => p ? "1" : "0"));
+        GetNode<Label>("Debug/Label").Text = $"{Area.Position} {flags}";
     }
 
     public void deactivateArea()
