@@ -232,14 +232,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5.3, -8, -2, -8, -2, 8.6, -3.75, 8.6, -5.3, 7.4 )
-
-[node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -2, -8, 2, -8, 2, 8.6, -2, 8.6 )
-
-[node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 2, -8, 5.3, -8, 5.3, 7.4, 3.75, 8.6, 2, 8.6 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -5.3, -8, 5.3, -8, 5.3, 7.4, 3.75, 8.6, -3.75, 8.6, -5.3, 7.4 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )

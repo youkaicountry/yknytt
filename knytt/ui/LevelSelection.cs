@@ -230,6 +230,7 @@ public class LevelSelection : CanvasLayer
         startBinLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin", single_threaded);
         startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin", single_threaded);
+        if (OS.GetName() != "Android") { startDirectoryLoad("d:\\games\\Knytt Stories\\Worlds\\test - test", single_threaded); }
     }
 
     // Search the given directory for worlds
