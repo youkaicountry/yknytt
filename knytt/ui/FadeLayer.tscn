@@ -82,4 +82,5 @@ __meta__ = {
 anims/FadeIn = SubResource( 1 )
 anims/FadeOut = SubResource( 2 )
 anims/FastFadeOut = SubResource( 3 )
+
 [connection signal="animation_finished" from="Fade/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

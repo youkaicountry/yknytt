@@ -314,6 +314,8 @@ public class GDKnyttAssetManager
 
     private static bool isConvex(Vector2[] vertices)
     {
+        // TODO: return true for polygons which are almost convex, or their recesses are too small
+        //  (because unnecessary triangles inflate tilesets)
         bool got_negative = false;
         bool got_positive = false;
         for (int a = 0; a < vertices.Length; a++)
