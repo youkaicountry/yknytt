@@ -75,7 +75,7 @@ public class MainMenu : Node2D
 	{
 		if (quitting) { return; }
 		quitting = true;
-		fade.startFade();
+		fade.startFade(reset:false);
 		await ToSignal(fade, "FadeDone");
 		GetTree().Quit();
 	}
