@@ -152,6 +152,8 @@ position = Vector2( 300, 120 )
 current = true
 script = ExtResource( 5 )
 
+[node name="ShaderCanvasLayer" type="CanvasLayer" parent="GKnyttCamera"]
+
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 11 )
 
@@ -281,8 +283,8 @@ margin_left = 4.69768
 margin_top = 213.347
 margin_right = 115.698
 margin_bottom = 237.347
-custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
+custom_fonts/font = SubResource( 4 )
 text = "(1234, 5678)"
 script = ExtResource( 6 )
 __meta__ = {
