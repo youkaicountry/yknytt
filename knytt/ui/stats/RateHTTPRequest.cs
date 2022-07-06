@@ -14,7 +14,9 @@ public class RateHTTPRequest : HTTPRequest
         Downvote = 3,
         Complain = 4,
         Cutscene = 5,
-        Ending = 6
+        Ending = 6,
+        Enter = 7,
+        Exit = 8
     }
 
     public void send(string level_name, string level_author, int action, string cutscene = null)
