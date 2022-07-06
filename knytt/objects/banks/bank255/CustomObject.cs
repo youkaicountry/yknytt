@@ -22,18 +22,23 @@ public class CustomObject : GDKnyttBaseObject
     protected AnimatedSprite sprite;
     private int counter = 0;
 
-
+    // TODO: load textures in _Initialize and loadArea in a background thread, because loading may take a long time
+    // Currently _Initialize is called in activateArea, and there is no way to do some initializations before it
+    // GDKnyttObjectLayer.addObject should be split in two: getNode for loadArea, and addChild for activateArea
+    // Nodes must be stored somehow, since they are not in the tree (to prevent _Ready execution)
+    // Or just give up, because it's a lot of changes and seems it's noticable only for image loading in custom objects
+    // (and only first time, because cache is implemented)
     public override void _Ready()
     {
         string key = $"Custom Object {ObjectID.y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); return; }
 
-        int bank = getInt(section, "Bank", 0);
-        int obj = getInt(section, "Object", 0);
+        int bank = getInt(section, "Bank", -1);
+        int obj = getInt(section, "Object", -1);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
         Color color = new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
-        if (bank != 0 && obj != 0)
+        if (bank != -1 && obj != -1)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
             if (bundle != null)
@@ -86,7 +91,6 @@ public class CustomObject : GDKnyttBaseObject
             // TODO: some custom objects are loaded as black squares on Android. Check if it's true on every Android or not
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
             if (image_texture == null) { return false; }
-            if (image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0 ) { return false; }
 
             if (image_texture.HasAlpha()) { has_alpha_animation = true; }
             else { has_replace_animation = true; animation_name += " replace"; }
@@ -108,6 +112,8 @@ public class CustomObject : GDKnyttBaseObject
         int pos = 0;
         if (image_texture.GetHeight() < info.tile_height) { info.tile_height = image_texture.GetHeight(); }
         if (image_texture.GetWidth() < info.tile_width) { info.tile_width = image_texture.GetWidth(); }
+        // Workaround: if texture wasn't loaded, create empty animation, don't try to load it every time
+        if (image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { info.tile_width = info.tile_height = 1; }
         for (int i = 0; i < image_texture.GetHeight() / info.tile_height; i++)
         {
             for (int j = 0; j < image_texture.GetWidth() / info.tile_width; j++)
