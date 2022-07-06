@@ -63,6 +63,9 @@ public class PausePanel : Control
 
     private async void quit()
     {
+        var worldInfo = GetNode<GDKnyttGame>("../../..").GDWorld.KWorld.Info;
+		GetNode<RateHTTPRequest>("../RateHTTPRequest").send(worldInfo.Name, worldInfo.Author, (int)RateHTTPRequest.Action.Exit);
+
         var fade = GetNode<FadeLayer>("../../../FadeCanvasLayer/Fade");
         fade.startFade();
         await ToSignal(fade, "FadeDone");
