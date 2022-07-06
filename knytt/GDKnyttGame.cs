@@ -80,6 +80,9 @@ public class GDKnyttGame : Node2D
 		{
 			mapPanel.init(null, null);
 		}
+
+		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+			(int)RateHTTPRequest.Action.Enter);
 	}
 
 	// On load a save file
@@ -286,6 +289,8 @@ public class GDKnyttGame : Node2D
 
 	public async void win(string ending)
 	{
+		GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+			(int)RateHTTPRequest.Action.Exit);
 		await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
 		GDKnyttDataStore.winGame(ending);
 	}
