@@ -448,8 +448,21 @@ public class Juni : KinematicBody2D
         if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
-            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, Godot.Vector2.Down*20f, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope: true, maxSlides: 1, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            var normal = Godot.Vector2.Up;
+            var snap = Godot.Vector2.Zero;
+            if (IsOnFloor())
+            {
+                normal = GetFloorNormal();
+                snap = -normal * 10f;
+                var gravity = velocity.y;
+                velocity.y = 0f;
+                velocity -= gravity * normal;
+            }
+
+            velocity.y = MoveAndSlideWithSnap(new Godot.Vector2(0, velocity.y), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            
+            //MoveAndCollide(new Godot.Vector2(0, velocity.y));
             //velocity = MoveAndSlideWithSnap(velocity, Godot.Vector2.Down*0f, Godot.Vector2.Up,
             //                                stopOnSlope: true, maxSlides: 1, floorMaxAngle: SLOPE_MAX_ANGLE);
             //velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2)
