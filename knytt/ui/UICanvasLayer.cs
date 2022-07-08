@@ -9,6 +9,7 @@ public class UICanvasLayer : CanvasLayer
 
     public WSOD WSOD { get; private set; }
     public LocationLabel Location { get; private set; }
+    private ArtifactsPanel artifactsPanel;
 
     public void initialize(GDKnyttGame game)
     {
@@ -40,15 +41,19 @@ public class UICanvasLayer : CanvasLayer
     private void togglePanel()
     {
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");
+        var anim2 = artifactsPanel?.GetNode<AnimationPlayer>("AnimationPlayer");
+
         if (!anim.IsPlaying())
         {
             anim.PlaybackSpeed = 6f;
-            if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
-            else { anim.Play("SlideOut"); sliding_out = true; }
+            if (anim2 != null) { anim2.PlaybackSpeed = 6f; }
+            if (showing) { anim.PlayBackwards("SlideOut"); anim2?.PlayBackwards("SlideOut"); sliding_out = false; }
+            else { anim.Play("SlideOut"); anim2?.Play("SlideOut"); sliding_out = true; }
         }
         else
         {
             anim.PlaybackSpeed *= -1f;
+            if (anim2 != null) { anim2.PlaybackSpeed *= -1f; }
             sliding_out = !sliding_out;
         }
     }
@@ -66,5 +71,18 @@ public class UICanvasLayer : CanvasLayer
     public void updatePowers()
     {
         GetNode<InfoPanel>("InfoPanel").updateItems(Game.Juni);
+
+        if (artifactsPanel == null && (
+                Game.Juni.Powers.getCreaturesCount() > 0 || 
+                Game.Juni.Powers.getCoinCount() > 0 || 
+                Game.Juni.Powers.getArtifactsCount() > 0))
+        {
+            var scene = ResourceLoader.Load("res://knytt/ui/info_panel/ArtifactsPanel.tscn") as PackedScene;
+            artifactsPanel = scene.Instance() as ArtifactsPanel;
+            artifactsPanel.Modulate = new Color(1, 1, 1, 0);
+            AddChild(artifactsPanel);
+        }
+
+        artifactsPanel?.updateItems(Game.Juni);
     }
 }
