@@ -448,10 +448,11 @@ public class Juni : KinematicBody2D
         if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
-            //velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, Godot.Vector2.Down*20f, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            //velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
-            velocity = MoveAndSlideWithSnap(velocity, Godot.Vector2.Down*0f, Godot.Vector2.Up,
-                                            stopOnSlope: true, maxSlides: 2, floorMaxAngle: SLOPE_MAX_ANGLE);
+            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, Godot.Vector2.Down*20f, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope: true, maxSlides: 1, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            //velocity = MoveAndSlideWithSnap(velocity, Godot.Vector2.Down*0f, Godot.Vector2.Up,
+            //                                stopOnSlope: true, maxSlides: 1, floorMaxAngle: SLOPE_MAX_ANGLE);
+            //velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2)
         }
 
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
