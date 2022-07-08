@@ -7,7 +7,6 @@
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=11]
 
 [node name="MainMenu" type="Node2D"]
-position = Vector2( 2, 0 )
 script = ExtResource( 2 )
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]

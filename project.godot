@@ -194,7 +194,6 @@ quality/driver/fallback_to_gles2=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 2d/snapping/use_gpu_pixel_snap=true
-threads/thread_model=2
 quality/filters/use_nearest_mipmap_filter=true
 environment/default_clear_color=Color( 0.47451, 0.47451, 0.47451, 1 )
 environment/default_environment="res://default_env.tres"
