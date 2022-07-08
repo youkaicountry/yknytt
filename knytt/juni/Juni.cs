@@ -65,7 +65,6 @@ public class Juni : KinematicBody2D
 
     public InsideDetector InsideDetector { get; private set; }
     public ClimbCheckers ClimbCheckers { get; private set; }
-    public GroundChecker GroundChecker { get; private set; }
 
     public JuniMotionParticles MotionParticles { get; private set; }
 
@@ -153,7 +152,6 @@ public class Juni : KinematicBody2D
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     public bool Grounded { get { return IsOnFloor(); } }
-    //public bool Grounded { get { return GroundChecker.IsOnGround; } }
     public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
     public bool FacingRight
     {
@@ -256,7 +254,6 @@ public class Juni : KinematicBody2D
             if (DebugFlyMode && !value) { return; }
             _collisions_disabled = value;
             GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
-            GetNode<GroundChecker>("GroundChecker").Disabled = value;
             GetNode<ClimbCheckers>("ClimbCheckers").Disabled = value;
             enforceCollisionMap();
         }
@@ -308,7 +305,6 @@ public class Juni : KinematicBody2D
         Detector.Visible = true;
         InsideDetector = GetNode<InsideDetector>("InsideDetector");
         ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
-        GroundChecker = GetNode<GroundChecker>("GroundChecker");
         Sprite = GetNode<Sprite>("Sprite");
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
