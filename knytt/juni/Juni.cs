@@ -450,7 +450,7 @@ public class Juni : KinematicBody2D
         {
             var normal = Godot.Vector2.Up;
             var snap = Godot.Vector2.Zero;
-            if (IsOnFloor())
+            if (IsOnFloor() && !juniInput.JumpEdge && !CanClimb)
             {
                 normal = GetFloorNormal();
                 snap = -normal * 10f;
@@ -459,10 +459,13 @@ public class Juni : KinematicBody2D
                 velocity -= gravity * normal;
             }
 
-            velocity.y = MoveAndSlideWithSnap(new Godot.Vector2(0, velocity.y), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
             velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
             
-            //MoveAndCollide(new Godot.Vector2(0, velocity.y));
+            //var col = MoveAndCollide(new Godot.Vector2(0, velocity.y)*delta);
+            //if (col != null) { velocity.y = 0f; }
+
+
             //velocity = MoveAndSlideWithSnap(velocity, Godot.Vector2.Down*0f, Godot.Vector2.Up,
             //                                stopOnSlope: true, maxSlides: 1, floorMaxAngle: SLOPE_MAX_ANGLE);
             //velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), Godot.Vector2)
