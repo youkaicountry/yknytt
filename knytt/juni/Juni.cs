@@ -50,8 +50,6 @@ public class Juni : KinematicBody2D
     {
         get
         {
-            //var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
-            //return new Godot.Vector2(0f, 12f - rect.Extents.y);
             return new Godot.Vector2(0f, 3.4f);
         }
     }
@@ -297,8 +295,6 @@ public class Juni : KinematicBody2D
         juniInput = new JuniInput(this);
         this.Powers = new JuniValues();
         this.double_jump_scene = ResourceLoader.Load("res://knytt/juni/DoubleJump.tscn") as PackedScene;
-
-        this.start_slope_frames = Mathf.FloorToInt(START_SLOPE_TIME / (1f / ((int)ProjectSettings.GetSetting("physics/common/physics_fps"))));
     }
 
     public override void _Ready()
@@ -434,7 +430,6 @@ public class Juni : KinematicBody2D
         // Limit falling speed to terminal velocity
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
 
-        //if (frames_on_slope > 0) { handleSlope(); }
         if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
