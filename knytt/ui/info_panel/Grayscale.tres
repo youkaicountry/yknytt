@@ -1,0 +1,18 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+uniform bool grayscale = false;
+
+void fragment()
+{
+    vec4 color = texture(TEXTURE, UV);
+    if (grayscale) {
+        float v = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+        //float a = v > .5 || color.a < .1 ? 0. : 1.; COLOR = vec4(0, 0, 0, a); // only edges
+        COLOR = vec4(v,v,v,color.a);
+    } else {
+        COLOR = color;
+    }
+}
+"

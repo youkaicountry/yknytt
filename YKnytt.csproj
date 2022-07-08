@@ -187,6 +187,7 @@
     <Compile Include="knytt\objects\IParticleFetch.cs" />
     <Compile Include="knytt\ui\FileHTTPRequest.cs" />
     <Compile Include="knytt\ui\info_panel\ArtifactsInfo.cs" />
+    <Compile Include="knytt\ui\info_panel\ArtifactsPanel.cs" />
     <Compile Include="knytt\ui\info_panel\CoinsInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CollectionInfo.cs" />
     <Compile Include="knytt\ui\info_panel\CreaturesInfo.cs" />
