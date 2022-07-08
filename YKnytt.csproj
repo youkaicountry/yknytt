@@ -192,7 +192,6 @@
     <Compile Include="knytt\ui\info_panel\CreaturesInfo.cs" />
     <Compile Include="knytt\ui\info_panel\InfoPanel.cs" />
     <Compile Include="knytt\ui\info_panel\ItemInfo.cs" />
-    <Compile Include="knytt\juni\GroundChecker.cs" />
     <Compile Include="knytt\juni\JuniAudio.cs" />
     <Compile Include="knytt\objects\banks\bank0\NoClimb.cs" />
     <Compile Include="knytt\objects\banks\bank0\NoJump.cs" />

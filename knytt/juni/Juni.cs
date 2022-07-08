@@ -50,8 +50,6 @@ public class Juni : KinematicBody2D
     {
         get
         {
-            //var rect = GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D;
-            //return new Godot.Vector2(0f, 12f - rect.Extents.y);
             return new Godot.Vector2(0f, 3.4f);
         }
     }
@@ -67,7 +65,6 @@ public class Juni : KinematicBody2D
 
     public InsideDetector InsideDetector { get; private set; }
     public ClimbCheckers ClimbCheckers { get; private set; }
-    public GroundChecker GroundChecker { get; private set; }
 
     public JuniMotionParticles MotionParticles { get; private set; }
 
@@ -81,10 +78,6 @@ public class Juni : KinematicBody2D
     public int just_reset = 0;
 
     public int jumps = 0;
-
-    const float START_SLOPE_TIME = .02f;
-    int start_slope_frames;
-    int frames_on_slope = 0;
 
     // Speed
     int speed_step = 0;
@@ -158,18 +151,16 @@ public class Juni : KinematicBody2D
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
-    //public bool Grounded { get { return IsOnFloor(); } }
-    public bool Grounded { get { return GroundChecker.IsOnGround; } }
+    public bool Grounded { get { return IsOnFloor(); } }
     public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
     public bool FacingRight
     {
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
         get { return !Sprite.FlipH; }
     }
-    //public bool DidAirJump { get { return JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
     public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
-    // Whether or no Juni is in a NoJump situation
+    // Whether or not Juni is in a NoJump situation
     int no_jumps = 0; // Number of no jump zones conditions covering Juni
     public bool CanJump
     {
@@ -177,7 +168,7 @@ public class Juni : KinematicBody2D
         set { no_jumps += (value ? -1 : 1); }
     }
 
-    // Whether or no Juni is in a sticky area
+    // Whether or not Juni is in a sticky area
     int stickies = 0; // Number of sticky zones covering Juni
     public bool Sticky
     {
@@ -263,7 +254,6 @@ public class Juni : KinematicBody2D
             if (DebugFlyMode && !value) { return; }
             _collisions_disabled = value;
             GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
-            GetNode<GroundChecker>("GroundChecker").Disabled = value;
             GetNode<ClimbCheckers>("ClimbCheckers").Disabled = value;
             enforceCollisionMap();
         }
@@ -302,8 +292,6 @@ public class Juni : KinematicBody2D
         juniInput = new JuniInput(this);
         this.Powers = new JuniValues();
         this.double_jump_scene = ResourceLoader.Load("res://knytt/juni/DoubleJump.tscn") as PackedScene;
-
-        this.start_slope_frames = Mathf.FloorToInt(START_SLOPE_TIME / (1f / ((int)ProjectSettings.GetSetting("physics/common/physics_fps"))));
     }
 
     public override void _Ready()
@@ -317,7 +305,6 @@ public class Juni : KinematicBody2D
         Detector.Visible = true;
         InsideDetector = GetNode<InsideDetector>("InsideDetector");
         ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
-        GroundChecker = GetNode<GroundChecker>("GroundChecker");
         Sprite = GetNode<Sprite>("Sprite");
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
@@ -436,20 +423,29 @@ public class Juni : KinematicBody2D
             if (_can_free_jump <= 0f) { jumps++; CanFreeJump = false; }
         }
 
+        // Limit falling speed to terminal velocity
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
 
-        // Slope check
-        // This helps keeps Juni from entering slope mode when jumping onto platforms
-        // TODO: Move this frame independence calculation to a utility function somewhere
-        if (Mathf.Abs(GetFloorNormal().x) > .00001f && !juniInput.JumpEdge) { frames_on_slope += 1; }
-        else { frames_on_slope = 0; }
-
-        if (frames_on_slope > start_slope_frames) { handleSlope(); }
-        else if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
+        if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
-            velocity.x = MoveAndSlide(new Godot.Vector2(velocity.x, 0), Godot.Vector2.Up, stopOnSlope: false, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            var normal = Godot.Vector2.Up;
+            var snap = Godot.Vector2.Zero;
+
+            // If on the floor, and not about to jump / climb
+            if (IsOnFloor() && !juniInput.JumpEdge && !CanClimb)
+            {
+                // change the direction of gravity
+                normal = GetFloorNormal();
+                snap = -normal * 10f;
+                var gravity = velocity.y;
+                velocity.y = 0f;
+                velocity -= gravity * normal;
+            }
+
+            // Do the movement in two steps to avoid hanging up on tile seams
+            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
         }
 
         if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
@@ -464,23 +460,6 @@ public class Juni : KinematicBody2D
         if (juniInput.RightHeld) { dir.x += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta);
-    }
-
-    private void handleSlope()
-    {
-        // Rotate the x component of the velocity to the perpendicular of the floor normal
-        var x_move = -(GetFloorNormal().Perpendicular().Normalized()) * velocity.x;
-
-        // Isolate the unrotated y component
-        var y_move = -GetFloorNormal();
-
-        x_move = MoveAndSlideWithSnap(x_move, Godot.Vector2.Down, Godot.Vector2.Up, stopOnSlope: false, maxSlides: 2, floorMaxAngle: SLOPE_MAX_ANGLE);
-
-        y_move = MoveAndSlide(y_move, Godot.Vector2.Up, stopOnSlope: true, maxSlides: 2, floorMaxAngle: SLOPE_MAX_ANGLE);
-
-        // Unrotate the x component and set it back to the velocity
-        // Currently disabled due to it exaggerating imperfections in the slope
-        velocity.y = y_move.Length();
     }
 
     private void handleGravity(float delta)
@@ -645,7 +624,6 @@ public class Juni : KinematicBody2D
         this.transitionState(new IdleState(this));
 
         SetDeferred("CollisionsDisabled", true);
-        //GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", true);
         this.just_reset = 2;
 
         dir = 0;
