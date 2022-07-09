@@ -57,9 +57,12 @@ public class GameContainer : VBoxContainer
 
         for (int i = GamesCount + stubs.Count; i > count; i--)
         {
-            if (i % 2 == 1) { stubs.Last.Value.GetParent().QueueFree(); }
-            stubs.Last.Value.QueueFree();
-            stubs.RemoveLast();
+            if (stubs.Count > 0)
+            {
+                if (i % 2 == 1) { stubs.Last.Value.GetParent().QueueFree(); }
+                stubs.Last.Value.QueueFree();
+                stubs.RemoveLast();
+            }
         }
 
         current_container = count % 2 == 1 ? stubs.Last?.Value.GetParent<HBoxContainer>() : null;
