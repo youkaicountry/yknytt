@@ -72,7 +72,7 @@ Bank 19 (Collectables):
 [x] - 51-150 Coins
 [x] - 151-199 Artifacts
 
-[ ] Info Panel with golden creatures and artifacts
+[x] Info Panel with golden creatures and artifacts
 
 [ ] Override Custom Objects
 [ ] 	Image=YourSpriteSheet.png
