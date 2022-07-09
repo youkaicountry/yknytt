@@ -16,6 +16,7 @@ public class GDKnyttDataStore : Node
 
     public enum CutsceneMode { Intro, Middle, Ending };
     public static CutsceneMode Mode { get; private set; }
+    public static bool CutsceneFadeIn { get; private set; }
     public static string CutsceneSound { get; private set; }
 
     const float SpeedAmount = .25f;
@@ -45,6 +46,7 @@ public class GDKnyttDataStore : Node
         if (new_game)
         {
             Mode = CutsceneMode.Intro;
+            CutsceneFadeIn = true;
             startCutscene("Intro", "res://knytt/GDKnyttGame.tscn");
         }
         else { Tree.ChangeScene("res://knytt/GDKnyttGame.tscn"); }
@@ -53,12 +55,24 @@ public class GDKnyttDataStore : Node
     public static void winGame(string ending = "Ending")
     {
         Mode = CutsceneMode.Ending;
+        CutsceneFadeIn = false;
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
+    }
+
+    private static void startCutscene(string cutscene, string after)
+    {
+        CutsceneName = cutscene;
+        CutsceneAfter = after;
+        CutsceneReturn = null;
+        CutsceneSound = null;
+        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
+        Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }
 
     public static void playCutscene(string cutscene, string sound)
     {
         Mode = CutsceneMode.Middle;
+        CutsceneFadeIn = false;
         CutsceneName = cutscene;
         CutsceneAfter = null;
         CutsceneReturn = Tree.CurrentScene;
@@ -70,17 +84,6 @@ public class GDKnyttDataStore : Node
         }
         Tree.Paused = true;
         Tree.Root.RemoveChild(Tree.CurrentScene);
-        // TODO: how not to blink?
-        Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
-    }
-
-    private static void startCutscene(string cutscene, string after)
-    {
-        CutsceneName = cutscene;
-        CutsceneAfter = after;
-        CutsceneReturn = null;
-        CutsceneSound = null;
-        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }
 }
