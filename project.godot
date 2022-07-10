@@ -27,6 +27,7 @@ GdKnyttSettings="*res://knytt/GDKnyttSettings.tscn"
 GdKnyttDataStore="*res://knytt/GDKnyttDataStore.cs"
 GdKnyttKeys="*res://knytt/GDKnyttKeys.cs"
 ClickPlayer="*res://knytt/ui/ClickPlayer.tscn"
+Console="*res://knytt/ui/console/Console.tscn"
 
 [display]
 
