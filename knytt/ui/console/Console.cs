@@ -34,6 +34,7 @@ public class Console : CanvasLayer
 
         if (!anim.IsPlaying())
         {
+            anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
@@ -47,7 +48,8 @@ public class Console : CanvasLayer
     public void _on_AnimationPlayer_animation_finished(string name)
     {
         showing = sliding_out;
-        lineEdit.GrabFocus();
+        if (showing) { lineEdit.GrabFocus(); }
+        else { lineEdit.ReleaseFocus(); }
     }
 
     public void _on_LineEdit_text_changed(string newText)
