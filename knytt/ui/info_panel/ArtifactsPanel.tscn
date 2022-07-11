@@ -1093,5 +1093,6 @@ margin_bottom = 12.0
 texture = SubResource( 71 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 6.0
 anims/RESET = SubResource( 78 )
 anims/SlideOut = SubResource( 80 )

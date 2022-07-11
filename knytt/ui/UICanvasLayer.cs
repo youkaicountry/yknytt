@@ -45,8 +45,8 @@ public class UICanvasLayer : CanvasLayer
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = 6f;
-            if (anim2 != null) { anim2.PlaybackSpeed = 6f; }
+            anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
+            if (anim2 != null) { anim2.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed); }
             if (showing) { anim.PlayBackwards("SlideOut"); anim2?.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); anim2?.Play("SlideOut"); sliding_out = true; }
         }
