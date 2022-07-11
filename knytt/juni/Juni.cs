@@ -240,7 +240,7 @@ public class Juni : KinematicBody2D
             if (value) 
             { 
                 transitionState(new IdleState(this)); 
-                executeStateTransition(); 
+                executeStateTransition();
             }
         }
     }
