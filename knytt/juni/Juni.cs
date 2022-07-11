@@ -296,6 +296,9 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
+        GetNode("/root/Console").Connect("ConsoleOpen", this, "OnConsoleOpen");
+        GetNode("/root/Console").Connect("ConsoleClosed", this, "OnConsoleClosed");
+
         _collision_polygons = new CollisionPolygon2D[] { GetNode<CollisionPolygon2D>("CollisionPolygonA"),
                                                          GetNode<CollisionPolygon2D>("CollisionPolygonB"),
                                                          GetNode<CollisionPolygon2D>("CollisionPolygonC") };
@@ -310,6 +313,16 @@ public class Juni : KinematicBody2D
         Umbrella.reset();
         Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
+    }
+
+    public void OnConsoleOpen()
+    {
+        juniInput.Enabled = false;
+    }
+
+    public void OnConsoleClosed()
+    {
+        juniInput.Enabled = true;
     }
 
     public void initialize(GDKnyttGame game)

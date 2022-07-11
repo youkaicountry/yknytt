@@ -5,27 +5,51 @@ using System.Collections.Generic;
 
 public class Console : CanvasLayer
 {
+    [Signal] public delegate void ConsoleOpen();
+    [Signal] public delegate void ConsoleClosed();
+
+    [Export] public int HistoryLength = 256;
+
     bool showing = false;
     bool sliding_out = false;
     HashSet<char> disallowed = new HashSet<char>(new char[] {'`'});
     LineEdit lineEdit;
+    RichTextLabel textLabel;
+
+    LinkedList<string> displayBuffer;
+    List<string> backBuffer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        displayBuffer = new LinkedList<string>();
+        backBuffer = new List<string>();
         var consoleContainer = GetNode<Control>("ConsoleContainer");
         consoleContainer.MarginTop = -240;
         consoleContainer.MarginBottom = -240;
         lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/LineEdit");
+        textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/RichTextLabel");
+        AddMessage("[color=#cc00FF]Welcome to YKnytt![/color]");
     }
 
     public override void _Process(float delta)
     {
         if (Input.IsActionJustPressed("debug_console"))
         {
-            lineEdit.ReleaseFocus();
             toggleConsole();
+            flushBuffer();
+            if (showing)
+            {
+                lineEdit.ReleaseFocus();
+                EmitSignal(nameof(ConsoleClosed));
+            }
         }
+    }
+
+    public void AddMessage(string message)
+    {
+        backBuffer.Add(message);
+        if (showing) { flushBuffer(); }
     }
 
     private void toggleConsole()
@@ -45,11 +69,45 @@ public class Console : CanvasLayer
         }
     }
 
+    private void handleOpen()
+    {
+        lineEdit.GrabFocus();
+        EmitSignal(nameof(ConsoleOpen));
+        flushBuffer();
+    }
+
+    private void handleClose()
+    {
+        lineEdit.ReleaseFocus();
+    }
+
+    private void flushBuffer()
+    {
+        bool dirty = backBuffer.Count > 0;
+        foreach (var message in backBuffer)
+        {
+            displayBuffer.AddLast(message);
+        }
+        backBuffer.Clear();
+
+        while (displayBuffer.Count > HistoryLength)
+        {
+            displayBuffer.RemoveFirst();
+        }
+
+        if (dirty) { render(); }
+    }
+
+    private void render()
+    {
+        textLabel.BbcodeText = string.Join("\n", displayBuffer);
+    }
+
     public void _on_AnimationPlayer_animation_finished(string name)
     {
         showing = sliding_out;
-        if (showing) { lineEdit.GrabFocus(); }
-        else { lineEdit.ReleaseFocus(); }
+        if (showing) { handleOpen(); }
+        else { handleClose(); }
     }
 
     public void _on_LineEdit_text_changed(string newText)
@@ -64,5 +122,11 @@ public class Console : CanvasLayer
 
         lineEdit.Text = sb.ToString();
         lineEdit.CaretPosition = caretPosition;
+    }
+
+    public void _on_LineEdit_text_entered(string enteredText)
+    {
+        AddMessage($"> {lineEdit.Text}");
+        lineEdit.Text = "";
     }
 }

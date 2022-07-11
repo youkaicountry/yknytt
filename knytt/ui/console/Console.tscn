@@ -101,7 +101,7 @@ anchor_top = 0.005
 anchor_right = 0.995
 anchor_bottom = 0.995
 margin_bottom = -34.0
-text = "asdasdasdsda"
+bbcode_enabled = true
 scroll_following = true
 
 [node name="LineEdit" type="LineEdit" parent="ConsoleContainer/Panel"]
@@ -120,10 +120,11 @@ margin_bottom = 233.0
 text = ">"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 4.0
+playback_speed = 5.0
 anims/RESET = SubResource( 2 )
 anims/SlideIn = SubResource( 3 )
 anims/SlideOut = SubResource( 1 )
 
 [connection signal="text_changed" from="ConsoleContainer/Panel/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="ConsoleContainer/Panel/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
