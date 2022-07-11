@@ -1,10 +1,13 @@
 using Godot;
 using System;
+using System.Text;
+using System.Collections.Generic;
 
 public class Console : CanvasLayer
 {
     bool showing = false;
     bool sliding_out = false;
+    HashSet<char> disallowed = new HashSet<char>(new char[] {'`'});
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -18,8 +21,9 @@ public class Console : CanvasLayer
     {
         if (Input.IsActionJustPressed("debug_console"))
         {
+            GetNode<Control>("ConsoleContainer/Panel/LineEdit").ReleaseFocus(); 
             toggleConsole();
-        }      
+        }
     }
 
     private void toggleConsole()
@@ -42,5 +46,21 @@ public class Console : CanvasLayer
     public void _on_AnimationPlayer_animation_finished(string name)
     {
         showing = sliding_out;
+        GetNode<Control>("ConsoleContainer/Panel/LineEdit").GrabFocus();
+    }
+
+    public void _on_LineEdit_text_changed(string newText)
+    {
+        var lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/LineEdit");
+        var caretPosition = lineEdit.CaretPosition;
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var c in newText)
+        {
+            if (!disallowed.Contains(c)) { sb.Append(c); }
+        }
+
+        lineEdit.Text = sb.ToString();
+        lineEdit.CaretPosition = caretPosition;
     }
 }

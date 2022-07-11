@@ -123,4 +123,5 @@ anims/RESET = SubResource( 2 )
 anims/SlideIn = SubResource( 3 )
 anims/SlideOut = SubResource( 1 )
 
+[connection signal="text_changed" from="ConsoleContainer/Panel/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
