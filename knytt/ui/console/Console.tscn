@@ -84,6 +84,7 @@ tracks/1/keys = {
 }
 
 [node name="Console" type="CanvasLayer"]
+layer = 20
 script = ExtResource( 1 )
 
 [node name="ConsoleContainer" type="Control" parent="."]
@@ -119,6 +120,7 @@ margin_bottom = 233.0
 text = ">"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 4.0
 anims/RESET = SubResource( 2 )
 anims/SlideIn = SubResource( 3 )
 anims/SlideOut = SubResource( 1 )
