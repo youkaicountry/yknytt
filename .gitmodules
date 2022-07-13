@@ -1,6 +1,0 @@
-[submodule "yknyttlib"]
-	path = yknyttlib
-	url = https://github.com/youkaicountry/yknyttlib
-[submodule "knytt/lib/yknyttlib"]
-	path = knytt/lib/yknyttlib
-	url = https://github.com/youkaicountry/yknyttlib
