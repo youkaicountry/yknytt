@@ -56,7 +56,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     public void NewMessage(KnyttLogMessage message)
     {
-        AddMessage(message.Render());
+        AddMessage(message.RenderBBCode());
     }
 
     public void AddMessage(string message)
