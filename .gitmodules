@@ -1,0 +1,3 @@
+[submodule "knytt/lib/yknyttlib"]
+	path = knytt/lib/yknyttlib
+	url = git@github.com:youkaicountry/yknyttlib.git
