@@ -36,8 +36,6 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/LineEdit");
         textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/RichTextLabel");
         AddMessage("[color=#cc00FF]Welcome to YKnytt![/color]");
-
-        KnyttLogger.Log(KnyttLogger.Level.INFO, "Test Message");
     }
 
     public override void _Process(float delta)

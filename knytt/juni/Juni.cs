@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using YKnyttLib;
+using YKnyttLib.Logging;
 using YUtil.Math;
 using YUtil.Random;
 using static YKnyttLib.JuniValues;
@@ -600,7 +601,18 @@ public class Juni : KinematicBody2D
 
     private async void _die()
     {
-        if (dead || Immune) { return; }
+        if (dead)
+        {
+            KnyttLogger.Debug("Juni is already dead");
+            return;
+        }
+
+        if (Immune)
+        {
+            KnyttLogger.Debug("Juni is immune to death");
+            return;
+        }
+
         GetNode<DeathParticles>("DeathParticles").Play();
         GetNode<AudioStreamPlayer2D>("Audio/DiePlayer2D").Play();
         this.next_state = null;
@@ -611,6 +623,9 @@ public class Juni : KinematicBody2D
         this.dead = true;
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();
+
+        KnyttLogger.Info("Juni has died");
+
         await ToSignal(timer, "timeout");
         Game.respawnJuniWithWSOD();
     }
