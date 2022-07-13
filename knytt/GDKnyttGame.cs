@@ -113,7 +113,7 @@ public class GDKnyttGame : Node2D
 		Juni.moveToPosition(CurrentArea, save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
-		KnyttLogger.Info("Juni has respawned");
+		KnyttLogger.Debug("Juni has respawned");
 	}
 
 	public void saveGame(Juni juni, bool write)
