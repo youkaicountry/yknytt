@@ -1,5 +1,6 @@
 using Godot;
 using YKnyttLib;
+using YKnyttLib.Logging;
 
 public class GDKnyttGame : Node2D
 {
@@ -112,6 +113,7 @@ public class GDKnyttGame : Node2D
 		Juni.moveToPosition(CurrentArea, save.getAreaPosition());
 		Juni.reset();
 		UI.updatePowers();
+		KnyttLogger.Info("Juni has respawned");
 	}
 
 	public void saveGame(Juni juni, bool write)
@@ -133,9 +135,12 @@ public class GDKnyttGame : Node2D
 	{
 		GDKnyttAssetManager.ensureDirExists("user://Saves");
 		var f = new File();
-		f.Open($"user://Saves/{save.SaveFileName}", File.ModeFlags.Write);
+		var fname = $"user://Saves/{save.SaveFileName}";
+		f.Open(fname, File.ModeFlags.Write);
 		f.StoreString(save.ToString());
 		f.Close();
+
+		KnyttLogger.Info($"Game saved to {fname}");
 	}
 
 	public void warpJuni(Juni juni)
