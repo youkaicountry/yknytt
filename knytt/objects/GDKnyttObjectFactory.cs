@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
+using YKnyttLib.Logging;
 
 public static class GDKnyttObjectFactory
 {
@@ -428,7 +429,7 @@ public static class GDKnyttObjectFactory
     {
         if (!ObjectLookup.ContainsKey(object_id))
         {
-            GD.Print($"Object {object_id.x}:{object_id.y} unimplemented.");
+            KnyttLogger.Warn($"Object {object_id.x}:{object_id.y} unimplemented");
             return null;
         }
 

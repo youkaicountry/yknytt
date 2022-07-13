@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using YKnyttLib;
+using YKnyttLib.Logging;
 using YUtil.Collections;
 using System.Linq;
 
@@ -384,7 +385,7 @@ public class GDKnyttAssetManager
     {
         for (int i = 0; i < 256; i++)
         {
-            GD.Print($"Compiling tileset #{i}");
+            KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture, true);
             GD.PrintErr(ResourceSaver.Save($"user://tilesets/Tileset{i}.png.res", tileset, ResourceSaver.SaverFlags.Compress));

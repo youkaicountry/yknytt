@@ -549,7 +549,6 @@ public class LevelSelection : CanvasLayer
     private void _on_RemoteSortDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown");
-        GD.Print(index);
         filter_order_int = dropdown.GetSelectedId();
         this.HttpLoad();
     }

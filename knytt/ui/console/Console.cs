@@ -1,9 +1,10 @@
 using Godot;
 using System;
 using System.Text;
+using YKnyttLib.Logging;
 using System.Collections.Generic;
 
-public class Console : CanvasLayer
+public class Console : CanvasLayer, IKnyttLoggerTarget
 {
     [Signal] public delegate void ConsoleOpen();
     [Signal] public delegate void ConsoleClosed();
@@ -22,6 +23,11 @@ public class Console : CanvasLayer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Setup logger
+        KnyttLogger.AddTarget(new GodotLoggerTarget());
+        KnyttLogger.AddTarget(this);
+        
+
         displayBuffer = new LinkedList<string>();
         backBuffer = new List<string>();
         var consoleContainer = GetNode<Control>("ConsoleContainer");
@@ -44,6 +50,11 @@ public class Console : CanvasLayer
                 EmitSignal(nameof(ConsoleClosed));
             }
         }
+    }
+
+    public void NewMessage(KnyttLogMessage message)
+    {
+        AddMessage(message.RenderBBCode());
     }
 
     public void AddMessage(string message)
