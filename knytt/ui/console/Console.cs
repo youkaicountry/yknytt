@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using YKnyttLib.Logging;
 using System.Collections.Generic;
+using YKnyttLib.Parser;
 
 public class Console : CanvasLayer, IKnyttLoggerTarget
 {
@@ -20,13 +21,18 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     LinkedList<string> displayBuffer;
     List<string> backBuffer;
 
+    CommandParser parser;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         // Setup logger
         KnyttLogger.AddTarget(new GodotLoggerTarget());
         KnyttLogger.AddTarget(this);
-        
+
+        // Setup parser
+        var cs = ConsoleCommands.BuildCommandSet();
+        parser = new CommandParser(cs);
 
         displayBuffer = new LinkedList<string>();
         backBuffer = new List<string>();
@@ -138,6 +144,10 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     public void _on_LineEdit_text_entered(string enteredText)
     {
         AddMessage($"> {lineEdit.Text}");
+
+        var p = parser.Parse(lineEdit.Text);
+        if (p.Error != null) { AddMessage($"[color=#CC0000]{p.Error}[/color]"); }
+
         lineEdit.Text = "";
     }
 }
