@@ -149,7 +149,12 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         AddMessage($"> {lineEdit.Text}");
 
         var p = parser.Parse(lineEdit.Text);
-        if (p.Error != null) { AddMessage($"[color=#CC0000]{p.Error}[/color]"); }
+        if (p.Error != null)
+        {
+            AddMessage($"[color=#CC0000]{p.Error}[/color]");
+            lineEdit.Text = "";
+            return;
+        }
 
         // Parse the commands
         foreach (var res in p.Results.Results)
