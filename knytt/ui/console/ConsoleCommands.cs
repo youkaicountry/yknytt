@@ -14,6 +14,8 @@ public static class ConsoleCommands
     public class SpeedCommand : ICommand
     {
         float? value;
+        const float MIN_SPEED = 0.1f;
+        const float MAX_SPEED = 5f;
 
         public SpeedCommand(CommandParseResult result)
         {
@@ -36,7 +38,7 @@ public static class ConsoleCommands
                 return null;
             }
 
-            if (value < .1f || value > 5f) { return "value should be between 0 and 10"; }
+            if (value < MIN_SPEED || value > MAX_SPEED) { return $"value should be between {MIN_SPEED} and {MAX_SPEED}"; }
             
             GDKnyttDataStore.CurrentSpeed = (float)value;
             env.Console.AddMessage($"Speed changed to {value}");
