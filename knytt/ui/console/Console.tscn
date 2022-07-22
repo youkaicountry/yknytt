@@ -120,6 +120,7 @@ tracks/2/keys = {
 }
 
 [node name="Console" type="CanvasLayer"]
+pause_mode = 2
 layer = 20
 script = ExtResource( 1 )
 
