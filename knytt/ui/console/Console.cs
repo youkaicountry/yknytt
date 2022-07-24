@@ -11,6 +11,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     [Signal] public delegate void ConsoleClosed();
 
     [Export] public int HistoryLength = 256;
+    [Export] public float SlideSpeed = 5f;
 
     bool showing = false;
     bool sliding_out = false;
@@ -78,7 +79,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
+            anim.PlaybackSpeed = SlideSpeed * (1f/Godot.Engine.TimeScale);
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
