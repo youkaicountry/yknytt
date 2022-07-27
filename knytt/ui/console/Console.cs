@@ -145,15 +145,12 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         lineEdit.CaretPosition = caretPosition;
     }
 
-    public void _on_LineEdit_text_entered(string enteredText)
+    public void RunCommand(string command)
     {
-        AddMessage($"> {lineEdit.Text}");
-
-        var p = parser.Parse(lineEdit.Text);
+        var p = parser.Parse(command);
         if (p.Error != null)
         {
             AddMessage($"[color=#CC0000]{p.Error}[/color]");
-            lineEdit.Text = "";
             return;
         }
 
@@ -164,7 +161,12 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             var err = cmd.Execute(environment);
             if (err != null) { AddMessage($"[color=#CC0000]{err}[/color]"); }
         }
+    }
 
+    public void _on_LineEdit_text_entered(string enteredText)
+    {
+        AddMessage($"> [color=#00CC00]{lineEdit.Text}[/color]");
+        RunCommand(lineEdit.Text);
         lineEdit.Text = "";
     }
 }
