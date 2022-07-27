@@ -7,7 +7,8 @@ public static class ConsoleCommands
     {
         var cs = new CommandSet();
         cs.AddCommand(new CommandDeclaration("speed", "View or set the speed of the game", false, SpeedCommand.NewSpeedCommand, new CommandArg("value", CommandArg.Type.FloatArg, optional: true)));
-
+        cs.AddCommand(new CommandDeclaration("help", "View help for a given command", false, HelpCommand.NewHelpCommand, new CommandArg("name", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("list", "View the list of commands", false, ListCommand.NewListCommand));
         return cs;
     }
 
@@ -47,4 +48,62 @@ public static class ConsoleCommands
         }
     }
 
+    public class HelpCommand : ICommand
+    {
+        string name;
+
+        public HelpCommand(CommandParseResult result)
+        {
+            name = result.Args["name"];
+        }
+
+        public static ICommand NewHelpCommand(CommandParseResult result)
+        {
+            return new HelpCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+
+            if (name == null)
+            {
+                env.Console.AddMessage($"Type list to see all commands, or help <command> to see help on a specific command");
+                return null;
+            }
+
+            if (!env.Parser.Commands.Name2Command.ContainsKey(name))
+            {
+                return $"Cannot show help for unknown command: {name}";
+            }
+
+            var decl = env.Parser.Commands.Name2Command[name];
+            env.Console.AddMessage($"{decl.Description}");
+            env.Console.AddMessage($"Usage: {decl}");
+
+            return null;
+        }
+    }
+
+    public class ListCommand : ICommand
+    {
+        public ListCommand(CommandParseResult result)
+        {
+        }
+
+        public static ICommand NewListCommand(CommandParseResult result)
+        {
+            return new ListCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+
+            var list = env.Parser.Commands.MakeList(true);
+            env.Console.AddMessage(string.Join("\n", list));
+
+            return null;
+        }
+    }
 }
