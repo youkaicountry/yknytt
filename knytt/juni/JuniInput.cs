@@ -22,6 +22,8 @@ public class JuniInput
 
     private Dictionary<string, PressEdge> pressEdges;
 
+    public bool Enabled { get; set; } = true;
+
     public JuniInput(Juni juni)
     {
         Juni = juni;
@@ -40,11 +42,11 @@ public class JuniInput
     public AltInput altInput = new AltInput();
     public bool checkPressed(string action)
     {
-        return (!Juni.GDArea.BlockInput && Input.IsActionPressed(action)) || (Juni.GDArea.HasAltInput && altInput.IsActionPressed(action));
+        return Enabled && ((!Juni.GDArea.BlockInput && Input.IsActionPressed(action)) || (Juni.GDArea.HasAltInput && altInput.IsActionPressed(action)));
     }
     public bool checkJustPressed(string action)
     {
-        return (!Juni.GDArea.BlockInput && pressEdges[action].justPressed) || (Juni.GDArea.HasAltInput && altInput.IsActionJustPressed(action));
+        return Enabled && ((!Juni.GDArea.BlockInput && pressEdges[action].justPressed) || (Juni.GDArea.HasAltInput && altInput.IsActionJustPressed(action)));
     }
     public bool checkJustReleased(string action)
     {

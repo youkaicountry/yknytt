@@ -7,14 +7,15 @@
 [node name="FullScreen" type="CheckBox"]
 margin_right = 121.0
 margin_bottom = 21.0
-custom_icons/radio_checked = ExtResource( 2 )
-custom_icons/checked = ExtResource( 2 )
-custom_icons/radio_unchecked = ExtResource( 3 )
-custom_icons/unchecked = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+custom_icons/radio_checked = ExtResource( 2 )
+custom_icons/checked = ExtResource( 2 )
+custom_icons/radio_unchecked = ExtResource( 3 )
+custom_icons/unchecked = ExtResource( 3 )
 text = "Fullscreen"
