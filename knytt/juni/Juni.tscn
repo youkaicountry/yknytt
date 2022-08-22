@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://knytt/juni/Umbrella.cs" type="Script" id=11]
 [ext_resource path="res://knytt/juni/detector.png" type="Texture" id=12]
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
-[ext_resource path="res://knytt/juni/GroundChecker.cs" type="Script" id=14]
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
 [ext_resource path="res://knytt/juni/InsideDetector.cs" type="Script" id=16]
 [ext_resource path="res://knytt/juni/Juni.shader" type="Shader" id=17]
@@ -232,8 +231,14 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5.3, -8, 5.3, -8, 5.3, 7.4, 3.75, 8.6, -3.75, 8.6, -5.3, 7.4 )
+[node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -5, -8, -2, -8, -2, 8.6, -5, 8.6 )
+
+[node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -2, -8, 2, -8, 2, 8.6, -2, 8.6 )
+
+[node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 2, -8, 5, -8, 5, 8.6, 2, 8.6 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
@@ -356,15 +361,6 @@ priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
 shape = SubResource( 19 )
-
-[node name="GroundChecker" type="Area2D" parent="."]
-position = Vector2( 0, 9.1 )
-collision_layer = 0
-collision_mask = 6
-script = ExtResource( 14 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundChecker"]
-polygon = PoolVector2Array( 5.2, -1.6, 3.2, 2.5, -3.2, 2.5, -5.2, -1.6 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5

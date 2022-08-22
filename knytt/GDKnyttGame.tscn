@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -7,9 +7,7 @@
 [ext_resource path="res://knytt/GDKnyttCamera.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/ui/button_up.png" type="Texture" id=8]
-[ext_resource path="res://knytt/ui/info_panel/ItemInfo.tscn" type="PackedScene" id=9]
-[ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=10]
+[ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
@@ -17,14 +15,6 @@
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
 [ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
-
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 12, 12 )
-margin_left = 3.34132
-margin_right = 3.2128
-margin_top = 3.34132
-margin_bottom = 3.46983
 
 [sub_resource type="Animation" id=2]
 resource_name = "SlideIn"
@@ -166,97 +156,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InfoPanel" type="Panel" parent="UICanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = -3.61994
-margin_top = -32.2144
-margin_right = 287.0
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemContainer" type="HBoxContainer" parent="UICanvasLayer/InfoPanel"]
-anchor_right = 1.0
-margin_left = 0.186974
-margin_top = 2.91589
-margin_bottom = 26.9159
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemInfo0" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_bottom = 24.0
-
-[node name="ItemInfo1" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 24.0
-margin_right = 48.0
-margin_bottom = 24.0
-ItemID = 1
-
-[node name="ItemInfo2" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 48.0
-margin_right = 72.0
-margin_bottom = 24.0
-ItemID = 2
-
-[node name="ItemInfo3" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 72.0
-margin_right = 96.0
-margin_bottom = 24.0
-ItemID = 3
-
-[node name="ItemInfo4" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 96.0
-margin_right = 120.0
-margin_bottom = 24.0
-ItemID = 4
-
-[node name="ItemInfo5" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 120.0
-margin_right = 144.0
-margin_bottom = 24.0
-ItemID = 5
-
-[node name="ItemInfo6" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 144.0
-margin_right = 168.0
-margin_bottom = 24.0
-ItemID = 6
-
-[node name="ItemInfo7" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 168.0
-margin_right = 192.0
-margin_bottom = 24.0
-ItemID = 7
-
-[node name="ItemInfo8" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 192.0
-margin_right = 216.0
-margin_bottom = 24.0
-ItemID = 8
-
-[node name="ItemInfo9" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 216.0
-margin_right = 240.0
-margin_bottom = 24.0
-ItemID = 9
-
-[node name="ItemInfo10" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 240.0
-margin_right = 264.0
-margin_bottom = 24.0
-ItemID = 10
-
-[node name="ItemInfo11" parent="UICanvasLayer/InfoPanel/ItemContainer" instance=ExtResource( 9 )]
-margin_left = 264.0
-margin_right = 288.0
-margin_bottom = 24.0
-ItemID = 11
+[node name="InfoPanel" parent="UICanvasLayer" instance=ExtResource( 8 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer"]
+playback_speed = 6.0
 anims/SlideIn = SubResource( 2 )
 anims/SlideOut = SubResource( 3 )
 

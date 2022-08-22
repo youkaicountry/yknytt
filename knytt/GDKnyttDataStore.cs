@@ -19,20 +19,15 @@ public class GDKnyttDataStore : Node
     public static bool CutsceneFadeIn { get; private set; }
     public static string CutsceneSound { get; private set; }
 
-    const float SpeedAmount = .25f;
     const int BaseIterations = 60;
-    private static int _currentSpeed = 0;
-    public static int CurrentSpeed 
-    { 
-        get { return _currentSpeed; }
+    public static float CurrentSpeed
+    {
+        get { return Godot.Engine.TimeScale; }
         set
         {
-            var new_d = 1f + (value * SpeedAmount);
-            if (new_d < 0) { return; }
-            int iterations = (int)(BaseIterations * new_d);
-            Godot.Engine.TimeScale = new_d;
+            int iterations = (int)(BaseIterations * value);
+            Godot.Engine.TimeScale = value;
             Godot.Engine.IterationsPerSecond = iterations;
-            _currentSpeed = value;
         }
     }
 

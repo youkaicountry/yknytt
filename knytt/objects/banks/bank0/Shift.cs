@@ -1,5 +1,6 @@
 using Godot;
 using YKnyttLib;
+using YKnyttLib.Logging;
 using static YKnyttLib.KnyttSwitch;
 
 public class Shift : Switch
@@ -71,7 +72,8 @@ public class Shift : Switch
             relative_area += GDArea.GDWorld.Game.getFlagWarp(shift.AbsoluteArea, juni) ?? new KnyttPoint(0, 0);
             game.changeAreaDelta(relative_area, true);
         }
-        GD.Print($"shift {shift.RelativeArea} {shift.RelativePosition} / {shift.AbsoluteArea} {shift.AbsolutePosition}");
+
+        KnyttLogger.Debug($"Shift {shift.RelativeArea} {shift.RelativePosition} / {shift.AbsoluteArea} {shift.AbsolutePosition}");
 
         // Move Juni to the correct location in the area
         if (shift.Quantize || shift.AbsoluteTarget)
