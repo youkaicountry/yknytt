@@ -9,7 +9,7 @@ public class TouchPanel : Panel
 
     private Control leftUpPanel, rightUpPanel, leftPanel, rightPanel, downPanel,
         infoPanel, resetPanel, pausePanel, umbrellaPanel, walkPanel,
-        jumpPanel, down2Panel;
+        jumpPanel, down2Panel, arrowsMainPanel, jumpMainPanel;
 
     private Rect2 leftRect, rightRect, upRect, downRect,
         infoRect, resetRect, pauseRect, umbrellaRect, walkRect,
@@ -31,9 +31,8 @@ public class TouchPanel : Panel
     private const int BOTTOM_EXCESS = 40;
 
     // Left/right prediction settings
-    private const int SPEED_TOO_FAST = 60;
-    private const int REL_TOO_FAST = 7;
-    private const int REL_TOO_SLOW = 1;
+    private const float SPEED_TOO_FAST = 80;
+    private const float SPEED_TOO_SLOW = 30;
 
 
     public override void _Ready()
@@ -53,6 +52,8 @@ public class TouchPanel : Panel
         walkPanel = GetNode<Control>("JumpPanel/WalkPanel");
         jumpPanel = GetNode<Control>("JumpPanel/JumpPanel");
         down2Panel = GetNode<Control>("JumpPanel/DownPanel");
+        arrowsMainPanel = GetNode<Control>("ArrowsPanel");
+        jumpMainPanel = GetNode<Control>("JumpPanel");
 
         jumpPanels = new Control[] {
             infoPanel, resetPanel, pausePanel, umbrellaPanel, walkPanel, jumpPanel, down2Panel
@@ -63,9 +64,47 @@ public class TouchPanel : Panel
         Configure();
     }
 
+    // Manipulates anchors and margins to apply program settings
+    public void Configure()
+    {
+        Visible = TouchSettings.EnablePanel;
+        SetProcessInput(TouchSettings.EnablePanel);
+        var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
+        curtain.Visible = Visible;
+        if (!Visible) return;
+        
+        Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, TouchSettings.Opacity);
+    
+        var anchor_top = TouchSettings.PanelAnchor;
+        var height = arrowsMainPanel.RectSize.y - 2; // correction to hide the border at the edge
+
+        AnchorTop = AnchorBottom = 1 - anchor_top;
+        MarginTop = (1 - anchor_top) * -height;
+        MarginBottom = anchor_top * height;
+
+        int jump_width_excess = (int)(120 * (TouchSettings.JumpScale - 1));
+        jumpMainPanel.MarginLeft = -240 - jump_width_excess;
+        down2Panel.MarginRight = jumpPanel.MarginRight = 240 + jump_width_excess;
+        jumpPanel.GetNode<Control>("Label").RectPivotOffset = jumpPanel.RectSize / 2;
+        down2Panel.GetNode<Control>("Label").RectPivotOffset = down2Panel.RectSize / 2;
+
+        arrowsMainPanel.RectPivotOffset = new Vector2(0, (1 - anchor_top) * height);
+        jumpMainPanel.RectPivotOffset = new Vector2(jumpMainPanel.RectSize.x, (1 - anchor_top) * height);
+        
+        var swap = TouchSettings.SwapHands;
+        arrowsMainPanel.AnchorLeft = arrowsMainPanel.AnchorRight = swap ? 1f : 0f;
+        jumpMainPanel.AnchorLeft = jumpMainPanel.AnchorRight = swap ? 0f : 1f;
+        foreach (var p in jumpPanels)
+        {
+            p.GetNode<Control>("Label").RectScale = new Vector2(swap ? -1f : 1f, 1f);
+        }
+
+        _on_viewport_size_changed();
+    }
+
     private float getScale()
     {
-        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 80), 1.5f);
+        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 100), 1.4f);
     }
 
     // Returns rectangle for the button with excess space
@@ -90,9 +129,14 @@ public class TouchPanel : Panel
         if (!TouchSettings.EnablePanel) { return; }
 
         var scale = getScale();
-        GetNode<Panel>("ArrowsPanel").RectScale = new Vector2(scale, scale);
-        ChangeHands();
+        var swap_hands = TouchSettings.SwapHands;
 
+        // Finish button placements (they dynamically depends on scale)
+        arrowsMainPanel.MarginLeft = swap_hands ? -120 * scale : 0;
+        arrowsMainPanel.MarginRight = swap_hands ? 0 : 120 * scale;
+        arrowsMainPanel.RectScale = new Vector2(scale, scale);
+        jumpMainPanel.RectScale = new Vector2(swap_hands ? -scale : scale, scale);
+        
         // Calculate rects for all the buttons
         leftRect = getPressRect(leftUpPanel, grow_left: true, grow_top: true)
                         .GrowIndividual(0, 0, 0, leftPanel.RectSize.y * scale);
@@ -102,7 +146,6 @@ public class TouchPanel : Panel
                         .GrowIndividual(0, 0, rightUpPanel.RectSize.y * scale, 0);
         downRect = getPressRect(downPanel, grow_left: true, grow_right: true, grow_bottom: true);
 
-        var swap_hands = TouchSettings.SwapHands;
         infoRect = getPressRect(infoPanel, flip_left: swap_hands);
         resetRect = getPressRect(resetPanel, flip_left: swap_hands);
         pauseRect = getPressRect(pausePanel, flip_left: swap_hands);
@@ -157,7 +200,7 @@ public class TouchPanel : Panel
                 var rel = drag_event.Relative;
                 var old_position = drag_event.Position - drag_event.Relative;
 
-                // Release action if the user lefts the button
+                // Release action if user lefts the button
                 if ((leftRect.HasPoint(old_position) && !leftRect.HasPoint(position)) ||
                     (rightRect.HasPoint(old_position) && !rightRect.HasPoint(position)))
                 {
@@ -169,29 +212,33 @@ public class TouchPanel : Panel
                     if (p.Rect.HasPoint(old_position) && !p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
                 }
 
-                // If user swipes left/right too fast, left/right action can be pressed in advance
-                if (leftRect.HasPoint(position) || rightRect.HasPoint(position))
+                float adj_speed = speed.x / getScale();
+                if (TouchSettings.Swipe)
                 {
-                    if (speed.x > SPEED_TOO_FAST || rel.x > REL_TOO_FAST)
+                    // If user swipes left/right too fast, left/right action can be pressed in advance
+                    if (leftRect.HasPoint(position) || rightRect.HasPoint(position))
                     {
-                        Input.ActionRelease("left");
-                        Input.ActionPress("right");
-                    }
-                    if (speed.x < -SPEED_TOO_FAST || rel.x < -REL_TOO_FAST)
-                    {
-                        Input.ActionRelease("right");
-                        Input.ActionPress("left");
+                        if (adj_speed > SPEED_TOO_FAST)
+                        {
+                            Input.ActionRelease("left");
+                            Input.ActionPress("right");
+                        }
+                        if (adj_speed < -SPEED_TOO_FAST)
+                        {
+                            Input.ActionRelease("right");
+                            Input.ActionPress("left");
+                        }
                     }
                 }
 
                 // If user swipes back after this, original direction should be restored
                 // Swiping up/down (too slow on X) should not affect this
-                if (leftRect.HasPoint(position) && !(Input.IsActionPressed("right") && rel.x >= -REL_TOO_SLOW))
+                if (leftRect.HasPoint(position) && !(Input.IsActionPressed("right") && adj_speed >= -SPEED_TOO_SLOW ))
                 {
                     Input.ActionRelease("right");
                     Input.ActionPress("left");
                 }
-                if (rightRect.HasPoint(position) && !(Input.IsActionPressed("left") && rel.x <= REL_TOO_SLOW))
+                if (rightRect.HasPoint(position) && !(Input.IsActionPressed("left") && adj_speed <= SPEED_TOO_SLOW))
                 {
                     Input.ActionRelease("left");
                     Input.ActionPress("right");
@@ -206,6 +253,11 @@ public class TouchPanel : Panel
                 {
                     if (p.Rect.HasPoint(position)) { Input.ActionPress(p.Name); }
                 }
+                
+                if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
+                {
+                    Input.ActionPress("debug_console"); // TODO: close button in console
+                }
             }
 
             ChangeOpacity(leftUpPanel, Input.IsActionPressed("left") && Input.IsActionPressed("up"));
@@ -218,50 +270,6 @@ public class TouchPanel : Panel
                 if (p.Name == "pause" || p.Name == "map") continue;
                 ChangeOpacity(p.Pan, Input.IsActionPressed(p.Name));
             }
-        }
-    }
-
-    // Manipulates anchors and margins to apply program settings
-    public void Configure()
-    {
-        Visible = TouchSettings.EnablePanel;
-        SetProcessInput(TouchSettings.EnablePanel);
-        var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
-        curtain.Visible = Visible;
-        if (!Visible) return;
-
-        var anchor_top = TouchSettings.PanelAnchor;
-        var arrows_panel = GetNode<Panel>("ArrowsPanel");
-        var jump_panel = GetNode<Panel>("JumpPanel");
-        var height = arrows_panel.RectSize.y - 2; // correction to hide the border at the edge
-
-        AnchorTop = AnchorBottom = 1 - anchor_top;
-        MarginTop = (1 - anchor_top) * -height;
-        MarginBottom = anchor_top * height;
-        arrows_panel.RectPivotOffset = new Vector2(0, (1 - anchor_top) * height);
-        jump_panel.RectPivotOffset = new Vector2(jump_panel.RectSize.x, (1 - anchor_top) * height);
-
-        _on_viewport_size_changed();
-    }
-
-    private void ChangeHands()
-    {
-        var scale = getScale();
-        var swap = TouchSettings.SwapHands;
-
-        var arrows_panel = GetNode<Control>("ArrowsPanel");
-        arrows_panel.AnchorLeft = swap ? 1f : 0f;
-        arrows_panel.AnchorRight = swap ? 1f : 0f;
-        arrows_panel.MarginLeft = swap ? -120 * scale : 0;
-        arrows_panel.MarginRight = swap ? 0 : 120 * scale;
-
-        var jump_panel = GetNode<Control>("JumpPanel");
-        jump_panel.AnchorLeft = swap ? 0f : 1f;
-        jump_panel.AnchorRight = swap ? 0f : 1f;
-        jump_panel.RectScale = new Vector2(swap ? -scale : scale, scale);
-        foreach (var p in jumpPanels)
-        {
-            p.GetNode<Control>("Label").RectScale = new Vector2(swap ? -1f : 1f, 1f);
         }
     }
 

@@ -32,11 +32,35 @@ public class TouchSettings : Node
         get { return (VerticalPosition)Enum.Parse(typeof(VerticalPosition), GDKnyttSettings.ini["TouchPanel"]["VerticalPosition"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["VerticalPosition"] = value.ToString(); }
     }
+    
+    public static bool Swipe
+    {
+        get { return GDKnyttSettings.ini["TouchPanel"]["Swipe"].Equals("1"); }
+        set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value ? "1" : "0"; }
+    }
 
     public static float Scale
     {
         get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["Scale"] = value.ToString(); }
+    }
+
+    public static float Viewport
+    {
+        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Viewport"]); }
+        set { GDKnyttSettings.ini["TouchPanel"]["Viewport"] = value.ToString(); }
+    }
+    
+    public static float JumpScale
+    {
+        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["JumpScale"]); }
+        set { GDKnyttSettings.ini["TouchPanel"]["JumpScale"] = value.ToString(); }
+    }
+
+    public static float Opacity
+    {
+        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Opacity"]); }
+        set { GDKnyttSettings.ini["TouchPanel"]["Opacity"] = value.ToString(); }
     }
 
     public static float PanelAnchor
@@ -55,7 +79,11 @@ public class TouchSettings : Node
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", OS.GetName() == "Android" || OS.GetName() == "iOS" ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (0.8).ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Opacity", (0.5).ToString());
         return modified;
     }
 
