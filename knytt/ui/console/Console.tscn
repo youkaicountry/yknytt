@@ -26,7 +26,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 240.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ConsoleContainer:modulate")
@@ -65,7 +65,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, -240.0 ]
+"values": [ 240.0, 0.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ConsoleContainer:modulate")
@@ -104,7 +104,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -240.0, 0.0 ]
+"values": [ 0.0, 240.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ConsoleContainer:modulate")
@@ -127,7 +127,7 @@ script = ExtResource( 1 )
 [node name="ConsoleContainer" type="Control" parent="."]
 modulate = Color( 1, 1, 1, 0.627451 )
 anchor_right = 1.0
-anchor_bottom = 1.0
+margin_bottom = 240.0
 
 [node name="Panel" type="Panel" parent="ConsoleContainer"]
 anchor_right = 1.0
