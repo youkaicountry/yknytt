@@ -207,7 +207,6 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(6, 15)] = "DownPermanentSpikes";
         ObjectLookup[new KnyttPoint(6, 16)] = "LeftPermanentSpikes";
         ObjectLookup[new KnyttPoint(6, 17)] = "RightPermanentSpikes";
-        if (OS.GetName() != "Android") {
         ObjectLookup[new KnyttPoint(7, 1)] = "Leaf";
         ObjectLookup[new KnyttPoint(7, 5)] = "SunRay";
         ObjectLookup[new KnyttPoint(7, 6)] = "Leaf";
@@ -218,7 +217,6 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(7, 14)] = "Dust";
         ObjectLookup[new KnyttPoint(7, 15)] = "Dust";
         ObjectLookup[new KnyttPoint(7, 16)] = "Cloud";
-        }
         ObjectLookup[new KnyttPoint(8, 1)] = "HorizontalConnection";
         ObjectLookup[new KnyttPoint(8, 2)] = "VerticalConnection";
         ObjectLookup[new KnyttPoint(8, 3)] = "LampLeft";

@@ -333,8 +333,6 @@ public class GDKnyttAssetManager
 
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {
-        //if (Mathf.Abs(va.x - vb.x) < 8 && Mathf.Abs(vc.x - vb.x) < 8 &&
-        //    Mathf.Abs(va.y - vb.y) < 8 && Mathf.Abs(vc.y - vb.y) < 8) { return 0; }
         return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
     }
 
