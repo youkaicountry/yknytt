@@ -252,39 +252,10 @@ public class Juni : KinematicBody2D
         get { return _collisions_disabled; }
         set
         {
-            if (DebugFlyMode && !value) { return; }
             _collisions_disabled = value;
+            GetNode<CollisionPolygon2D>("CollisionPolygon2D").Disabled = value;
             GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
             GetNode<ClimbCheckers>("ClimbCheckers").Disabled = value;
-            enforceCollisionMap();
-        }
-    }
-
-    // Toggle the collision shapes
-    CollisionPolygon2D[] _collision_polygons = {null, null, null};
-    bool[] _collision_map = { true, true, true };
-    public void setCollisionMap(bool a, bool b, bool c)
-    {
-        _collision_map[0] = a;
-        _collision_map[1] = b;
-        _collision_map[2] = c;
-
-        enforceCollisionMap();
-    }
-
-    private void enforceCollisionMap()
-    {
-        if (CollisionsDisabled)
-        {
-            _collision_polygons[0].Disabled = true;
-            _collision_polygons[1].Disabled = true;
-            _collision_polygons[2].Disabled = true;
-        }
-        else
-        {
-            _collision_polygons[0].Disabled = !_collision_map[0];
-            _collision_polygons[1].Disabled = !_collision_map[1];
-            _collision_polygons[2].Disabled = !_collision_map[2];
         }
     }
 
@@ -386,7 +357,7 @@ public class Juni : KinematicBody2D
         if (just_reset > 0)
         {
             just_reset--;
-            if (just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
+            if (just_reset == 0) { GetNode<CollisionPolygon2D>("CollisionPolygon2D").SetDeferred("disabled", false); }
         }
 
         if (juniInput.DownPressed) { EmitSignal(nameof(DownEvent), this); }

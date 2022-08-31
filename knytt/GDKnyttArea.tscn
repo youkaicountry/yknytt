@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/objects/BulletLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
 [ext_resource path="res://knytt/objects/banks/bank0/power_gfx/pickup.png" type="Texture" id=4]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "collect"
@@ -48,4 +49,17 @@ anims/collect = SubResource( 1 )
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="Debug" type="Node2D" parent="."]
+z_index = 16
+z_as_relative = false
+
+[node name="Label" type="Label" parent="Debug"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Text"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]

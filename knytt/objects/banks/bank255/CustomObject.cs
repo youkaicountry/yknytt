@@ -103,7 +103,7 @@ public class CustomObject : GDKnyttBaseObject
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);
         sprite.Animation = animation_name;
         sprite.Frame = info.anim_from;
-        if (!has_replace_animation) { sprite.Material = null; }
+        if (!has_replace_animation && OS.GetName() != "Android") { sprite.Material = null; }
         return true;
     }
 
