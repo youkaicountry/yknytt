@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/objects/banks/common/WalkingShooter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/bank4/strange_runner.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank4/StrangeRunner.cs" type="Script" id=3]
+[ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -73,7 +74,7 @@ firstDelay = 1.0
 syncedRandomDelay = false
 
 [node name="ShotPlayer" parent="." index="5"]
-rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
+stream = ExtResource( 4 )
 
 [node name="ShotDelayTimer" type="Timer" parent="." index="6"]
 wait_time = 0.5

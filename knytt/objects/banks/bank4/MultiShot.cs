@@ -38,7 +38,7 @@ public class MultiShot : DistanceMuff
 
     private void _on_ShotTimer_timeout()
     {
-        GetNode<RawAudioPlayer2D>("ShotPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         GDArea.Bullets.Emit(this, -1);
         for (int i = 0; i < additionalDirections.Length; i++)
         {

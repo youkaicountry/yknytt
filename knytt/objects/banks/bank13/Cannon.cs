@@ -3,15 +3,16 @@ using Godot;
 public abstract class Cannon : GDKnyttBaseObject
 {
     [Export] int bulletsCount = 0;
+    [Export] float audioPosition = 0;
 
     protected Timer bulletTimer;
-    protected RawAudioPlayer2D player;
+    protected AudioStreamPlayer2D player;
     protected int counter;
 
     public override void _Ready()
     {
         bulletTimer = GetNode<Timer>("BulletTimer");
-        player = GetNode<RawAudioPlayer2D>("Player");
+        player = GetNode<AudioStreamPlayer2D>("Player");
         GDArea.Selector.Register(this);
     }
 
@@ -19,7 +20,7 @@ public abstract class Cannon : GDKnyttBaseObject
     {
         counter = 0;
         bulletTimer.Start();
-        player.Play();
+        player.Play(audioPosition);
     }
 
     private void _on_BulletTimer_timeout()

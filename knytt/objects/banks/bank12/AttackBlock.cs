@@ -18,7 +18,7 @@ public class AttackBlock : GDKnyttBaseObject
     {
         // TODO: rock particles
         shape.SetDeferred("disabled", false);
-        GetNode<RawAudioPlayer2D>("OpenPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("OpenPlayer").Play();
     }
 
     private void _on_AnimatedSprite_frame_changed()

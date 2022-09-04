@@ -22,6 +22,6 @@ public class LaserRobot : GDKnyttBaseObject
         GetNode<CollisionShape2D>("LeftLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<CollisionShape2D>("RightLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<AnimatedSprite>("AnimatedSprite").Play(is_on ? "on" : "off");
-        GetNode<RawAudioPlayer2D>(is_on ? "OnPlayer" : "OffPlayer").Play();
+        GetNode<AudioStreamPlayer2D>(is_on ? "OnPlayer" : "OffPlayer").Play();
     }
 }

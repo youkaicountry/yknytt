@@ -23,7 +23,7 @@ public class Cauldron : Bouncer
         base._on_Area2D_body_entered(body);
         if (body is Juni juni) { return; }
 
-        GetNode<RawAudioPlayer2D>("ShotPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         GDArea.Bullets.Emit(this, 0);
         GDArea.Bullets.Emit(this, 1);
     }

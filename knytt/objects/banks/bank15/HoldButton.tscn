@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank15/hold/1_stop.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank15/hold/5_inc.png" type="Texture" id=2]
@@ -15,11 +15,8 @@
 [ext_resource path="res://knytt/objects/banks/bank15/hold/5_stop.png" type="Texture" id=13]
 [ext_resource path="res://knytt/objects/banks/bank15/hold/4_stop.png" type="Texture" id=14]
 [ext_resource path="res://knytt/objects/banks/bank15/HoldButton.cs" type="Script" id=15]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=16]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 24, 48 )
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=16]
+[ext_resource path="res://knytt/data/Sfx/Right Combination.wav" type="AudioStream" id=17]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 13 )
@@ -61,6 +58,10 @@ region = Rect2( 48, 0, 24, 48 )
 atlas = ExtResource( 4 )
 region = Rect2( 72, 0, 24, 48 )
 
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 48 )
+
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 5 )
 region = Rect2( 24, 0, 24, 48 )
@@ -72,6 +73,18 @@ region = Rect2( 48, 0, 24, 48 )
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 5 )
 region = Rect2( 72, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 24, 48 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 12 )
@@ -97,10 +110,6 @@ region = Rect2( 48, 0, 24, 48 )
 atlas = ExtResource( 2 )
 region = Rect2( 72, 0, 24, 48 )
 
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 48 )
-
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 24, 48 )
@@ -109,25 +118,12 @@ region = Rect2( 0, 0, 24, 48 )
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 24, 48 )
 
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 14 )
-region = Rect2( 0, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 10 )
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 24, 48 )
 
 [sub_resource type="SpriteFrames" id=33]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": false,
-"name": "3_stop",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ) ],
 "loop": false,
 "name": "5_stop",
@@ -148,34 +144,19 @@ animations = [ {
 "name": "4_inc",
 "speed": 9.0
 }, {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
-"loop": true,
-"name": "3_inc",
-"speed": 9.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
-"loop": true,
-"name": "6_inc",
-"speed": 9.0
-}, {
-"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
-"loop": true,
-"name": "5_inc",
-"speed": 9.0
-}, {
 "frames": [ SubResource( 27 ) ],
 "loop": false,
 "name": "1_stop",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 28 ) ],
-"loop": false,
-"name": "6_stop",
-"speed": 5.0
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "3_inc",
+"speed": 9.0
 }, {
-"frames": [ SubResource( 29 ) ],
+"frames": [ SubResource( 32 ) ],
 "loop": false,
-"name": "7_stop",
+"name": "2_stop",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 30 ) ],
@@ -188,9 +169,29 @@ animations = [ {
 "name": "7_inc",
 "speed": 9.0
 }, {
-"frames": [ SubResource( 32 ) ],
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "6_inc",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "5_inc",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 28 ) ],
 "loop": false,
-"name": "2_stop",
+"name": "6_stop",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 29 ) ],
+"loop": false,
+"name": "7_stop",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "3_stop",
 "speed": 5.0
 } ]
 
@@ -213,6 +214,7 @@ position = Vector2( 12, 22 )
 shape = SubResource( 34 )
 
 [node name="OpenPlayer" parent="." instance=ExtResource( 16 )]
-rawPath = "res://knytt/data/Sfx/Right Comb.raw"
+stream = ExtResource( 17 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

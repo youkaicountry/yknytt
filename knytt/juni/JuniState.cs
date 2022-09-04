@@ -67,7 +67,7 @@ public class WalkRunState : JuniState
     public override void onEnter()
     {
         juni.setCollisionMap(true, true, true);
-        juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
+        juni.GetNode<AudioStreamPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
         juni.Anim.Play(WalkRunString);
         juni.jumps = 0;
     }
@@ -104,7 +104,7 @@ public class WalkRunState : JuniState
 
     public override void onExit()
     {
-        juni.GetNode<RawAudioPlayer2D>($"Audio/{WalkRunString}Player2D").Stop();
+        juni.GetNode<AudioStreamPlayer2D>($"Audio/{WalkRunString}Player2D").Stop();
         juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }
@@ -117,7 +117,7 @@ public class ClimbState : JuniState
     {
         calcCollisionMap();
         juni.Anim.Play("Climbing");
-        juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Play();
+        juni.GetNode<AudioStreamPlayer2D>("Audio/ClimbPlayer2D").Play();
         juni.jumps = 0;
         juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
     }
@@ -160,7 +160,7 @@ public class ClimbState : JuniState
 
     public override void onExit()
     {
-        juni.GetNode<RawAudioPlayer2D>("Audio/ClimbPlayer2D").Stop();
+        juni.GetNode<AudioStreamPlayer2D>("Audio/ClimbPlayer2D").Stop();
         juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
     }
 }
@@ -175,7 +175,7 @@ public class SlideState : ClimbState
     {
         calcCollisionMap();
         juni.Anim.Play("Sliding");
-        slide_sound = juni.GetNode<RawAudioPlayer2D>("Audio/SlidePlayer2D");
+        slide_sound = juni.GetNode<AudioStreamPlayer2D>("Audio/SlidePlayer2D");
         juni.jumps = 0;
     }
 
@@ -269,7 +269,7 @@ public class FallState : JuniState
         if (juni.Grounded)
         {
             juni.transitionState(new IdleState(juni));
-            juni.GetNode<RawAudioPlayer2D>("Audio/LandPlayer2D").Play();
+            juni.GetNode<AudioStreamPlayer2D>("Audio/LandPlayer2D").Play();
         }
     }
 }

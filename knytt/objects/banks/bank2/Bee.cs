@@ -24,7 +24,7 @@ public class Bee : Muff
     private void _on_ShootTimer_timeout()
     {
         if (random.Next(chance) != 0) { return; }
-        GetNode<RawAudioPlayer2D>("ShotPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         GDArea.Bullets.Emit(this, direction < 0 ? -1 : 1);
     }
 }

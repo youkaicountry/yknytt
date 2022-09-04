@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Roller Shot B.wav-174f4717218e76b7e819217758548d7e.sample"
+
+[deps]
+
+source_file="res://knytt/data/Sfx/Roller Shot B.wav"
+dest_files=[ "res://.import/Roller Shot B.wav-174f4717218e76b7e819217758548d7e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

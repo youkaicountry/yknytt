@@ -23,7 +23,7 @@ public class SuperShot : GesturesObject
 
     private void _on_LoopTimer_timeout_ext()
     {
-        GetNode<RawAudioPlayer2D>("ShotPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         for (int i = 0; i < 25; i++)
         {
             GDArea.Bullets.Emit(this, i);

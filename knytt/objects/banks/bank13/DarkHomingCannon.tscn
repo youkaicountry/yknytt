@@ -39,6 +39,7 @@ animations = [ {
 [node name="Node2D" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 bulletsCount = 5
+audioPosition = 1.55
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 7 )

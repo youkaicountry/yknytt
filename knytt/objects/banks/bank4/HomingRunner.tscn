@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank4/homing_bullet_runner_walk.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank4/homing_bullet_runner.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/common/WalkingShooter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/banks/bank4/HomingRunner.cs" type="Script" id=4]
+[ext_resource path="res://knytt/data/Sfx/Homing Shot.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -93,4 +94,4 @@ firstDelay = 1.0
 syncedRandomDelay = false
 
 [node name="ShotPlayer" parent="." index="5"]
-rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
+stream = ExtResource( 5 )

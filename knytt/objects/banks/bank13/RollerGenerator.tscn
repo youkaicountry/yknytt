@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/RollerGenerator.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank13/roller_generator.png" type="Texture" id=2]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/data/Sfx/Roller Shot B.wav" type="AudioStream" id=5]
+[ext_resource path="res://knytt/data/Sfx/Roller Shot A.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -88,11 +90,12 @@ position = Vector2( 12, 12 )
 shape = SubResource( 11 )
 
 [node name="PreparePlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Roller A.raw"
+stream = ExtResource( 6 )
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Roller B.raw"
+stream = ExtResource( 5 )
+
 [connection signal="timeout_ext" from="TotalTimer" to="." method="_on_TotalTimer_timeout_ext"]
-[connection signal="timeout" from="Sound1Timer" to="PreparePlayer" method="Play"]
-[connection signal="timeout" from="Sound2Timer" to="ShotPlayer" method="Play"]
-[connection signal="timeout" from="FirstShotTimer" to="ShotPlayer" method="Play"]
+[connection signal="timeout" from="Sound1Timer" to="." method="_on_Sound1Timer_timeout"]
+[connection signal="timeout" from="Sound2Timer" to="." method="_on_Sound2Timer_timeout"]
+[connection signal="timeout" from="FirstShotTimer" to="." method="_on_FirstShotTimer_timeout"]

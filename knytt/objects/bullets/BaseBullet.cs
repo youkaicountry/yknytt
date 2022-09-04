@@ -59,14 +59,14 @@ public class BaseBullet : KinematicBody2D
 
     protected AnimatedSprite sprite;
     protected CollisionShape2D collisionShape;
-    protected RawAudioPlayer2D hitPlayer;
+    protected AudioStreamPlayer2D hitPlayer;
     protected bool hasDisappear;
 
     public override void _Ready()
     {
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
-        hitPlayer = GetNodeOrNull<RawAudioPlayer2D>("HitPlayer");
+        hitPlayer = GetNodeOrNull<AudioStreamPlayer2D>("HitPlayer");
         hasDisappear = sprite.Frames.HasAnimation("disappear");
         sprite.Play("default");
     }

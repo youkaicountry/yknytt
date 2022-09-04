@@ -18,7 +18,7 @@ public class DropstuffRobot : Muff
 
     private void _on_LoopTimer_timeout_ext()
     {
-        GetNode<RawAudioPlayer2D>("Player").Play();
+        GetNode<AudioStreamPlayer2D>("Player").Play(0.4f);
         GetNode<TimerExt>("ShotTimer").RunTimer();
         GetNode<Timer>("StopAttackTimer").Start();
     }

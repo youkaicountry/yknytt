@@ -158,23 +158,6 @@ public class GDKnyttAssetManager
         return loadTextFile(loadFile(path));
     }
 
-    public static AudioStream loadRaw(byte[] buffer, int sample_rate = 11025)
-    {
-        var sample = new AudioStreamSample();
-        sample.Format = AudioStreamSample.FormatEnum.Format8Bits;
-        sample.MixRate = sample_rate;
-        sample.Stereo = false;
-        sample.Data = buffer;
-        //sample.LoopMode = loop ? AudioStreamSample.LoopModeEnum.PingPong : AudioStreamSample.LoopModeEnum.Disabled;
-        return sample;
-    }
-
-    public static AudioStream loadRaw(string path, int sample_rate = 11025)
-    {
-        var sample = loadRaw(loadFile(path), sample_rate);
-        return sample;
-    }
-
     public static byte[] loadFile(string path)
     {
         if (!new File().FileExists(path)) { return null; }

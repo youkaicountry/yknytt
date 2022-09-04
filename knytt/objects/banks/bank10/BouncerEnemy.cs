@@ -35,7 +35,7 @@ public class BouncerEnemy : GDKnyttBaseObject
         start_y = Position.y;
         vel = -(Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_jump_force : jump_force);
         in_air = true;
-        GetNodeOrNull<RawAudioPlayer2D>("JumpPlayer")?.Play();
+        GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
         sprite.Play("jump");
     }
 
@@ -66,7 +66,7 @@ public class BouncerEnemy : GDKnyttBaseObject
 
         Position = new Vector2(Position.x, start_y);
 
-        GetNodeOrNull<RawAudioPlayer2D>("BouncePlayer")?.Play();
+        GetNodeOrNull<AudioStreamPlayer2D>("BouncePlayer")?.Play();
         sprite.Play("stop", true);
     }
 }

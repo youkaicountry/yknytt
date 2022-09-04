@@ -30,7 +30,7 @@ public class DropFlything : BuzzFlyer
     {
         counter = 0;
         bulletTimer.Start();
-        GetNode<RawAudioPlayer2D>("ShootPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShootPlayer").Play(1.4f);
     }
 
     private void _on_BulletTimer_timeout()

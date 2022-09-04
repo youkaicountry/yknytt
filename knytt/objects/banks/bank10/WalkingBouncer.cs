@@ -24,7 +24,7 @@ public abstract class WalkingBouncer : Muff
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
-                GetNodeOrNull<RawAudioPlayer2D>("BouncePlayer")?.Play();
+                GetNodeOrNull<AudioStreamPlayer2D>("BouncePlayer")?.Play();
                 _on_DirectionTimer_timeout();
                 _on_SpeedTimer_timeout();
             }
@@ -41,7 +41,7 @@ public abstract class WalkingBouncer : Muff
         speed = 0;
         jumpSpeed = -initialJumpSpeed;
         sprite.Play("jump");
-        GetNodeOrNull<RawAudioPlayer2D>("JumpPlayer")?.Play();
+        GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
     }
 
     protected override void _on_SpeedTimer_timeout()

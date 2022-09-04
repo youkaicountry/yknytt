@@ -38,7 +38,7 @@ public class Spider : GDKnyttBaseObject
         {
             isRunning = true;
             sprite.Play("walk");
-            GetNode<RawAudioPlayer2D>("RunPlayer").Play();
+            GetNode<AudioStreamPlayer2D>("RunPlayer").Play();
         }
     }
 }

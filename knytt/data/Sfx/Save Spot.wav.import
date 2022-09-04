@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample"
+
+[deps]
+
+source_file="res://knytt/data/Sfx/Save Spot.wav"
+dest_files=[ "res://.import/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
