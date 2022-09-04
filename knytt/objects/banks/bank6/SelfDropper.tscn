@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank6/SelfDropper.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank6/self_dropper.png" type="Texture" id=2]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/data/Sfx/Self Dropper Land.wav" type="AudioStream" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -67,10 +68,11 @@ shape = SubResource( 8 )
 disabled = true
 
 [node name="DropPlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Selfdrop.raw"
+stream = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 12, 23 )
 shape = SubResource( 9 )
+
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

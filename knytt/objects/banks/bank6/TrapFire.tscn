@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank6/trap_fire.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank6/trap_fire_shoot.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank6/TrapFire.cs" type="Script" id=3]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
+[ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -93,7 +94,7 @@ playing = true
 centered = false
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Fire Shot.raw"
+stream = ExtResource( 6 )
 
 [node name="ShotTimer" parent="." instance=ExtResource( 5 )]
 wait_time = 3.0
@@ -103,4 +104,5 @@ firstDelay = 1.0
 [node name="ShotDelayTimer" type="Timer" parent="."]
 process_mode = 0
 one_shot = true
+
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

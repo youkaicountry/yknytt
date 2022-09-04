@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/StandartSoundPlayer.cs" type="Script" id=2]
+[ext_resource path="res://knytt/data/Sfx/Powerup.wav" type="AudioStream" id=3]
+[ext_resource path="res://knytt/data/Sfx/Door.wav" type="AudioStream" id=4]
+[ext_resource path="res://knytt/data/Sfx/Electronic.wav" type="AudioStream" id=5]
+[ext_resource path="res://knytt/data/Sfx/Teleport.wav" type="AudioStream" id=6]
+[ext_resource path="res://knytt/data/Sfx/Switch.wav" type="AudioStream" id=7]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -10,16 +15,16 @@ script = ExtResource( 2 )
 bus = "SFX"
 
 [node name="PowerupPlayer2D" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Powerup.raw"
+stream = ExtResource( 3 )
 
 [node name="DoorPlayer2D" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Door.raw"
+stream = ExtResource( 4 )
 
 [node name="ElectronicPlayer2D" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Electronic.raw"
+stream = ExtResource( 5 )
 
 [node name="SwitchPlayer2D" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Switch.raw"
+stream = ExtResource( 7 )
 
 [node name="TeleportPlayer2D" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Teleport.raw"
+stream = ExtResource( 6 )

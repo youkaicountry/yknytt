@@ -693,7 +693,7 @@ public class Juni : KinematicBody2D
     {
         transitionState(new JumpState(this));
         Anim.Play("Jump");
-        if (sound) { GetNode<RawAudioPlayer2D>("Audio/JumpPlayer2D").Play(); }
+        if (sound) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
         velocity.y = jump_speed;
 
         if (air_jump && jumps > 0) { doubleJumpEffect(); }

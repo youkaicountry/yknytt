@@ -6,7 +6,7 @@ public class ClickPlayer : Node
 
     public override void _Ready()
     {
-        AudioPlayer = GetNode<AudioStreamPlayer>("RawAudioPlayer");
+        AudioPlayer = GetNode<AudioStreamPlayer>("AudioPlayer");
     }
 
     public static void Play()

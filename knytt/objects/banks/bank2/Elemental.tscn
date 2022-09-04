@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=7]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=7]
 [ext_resource path="res://knytt/objects/banks/bank2/Elemental.cs" type="Script" id=8]
 
 [node name="Elemental" type="Node2D"]

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Tri Bullet Shot A.wav-b47c0279589a2b2612b914e1063c07ab.sample"
+
+[deps]
+
+source_file="res://knytt/data/Sfx/Tri Bullet Shot A.wav"
+dest_files=[ "res://.import/Tri Bullet Shot A.wav-b47c0279589a2b2612b914e1063c07ab.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

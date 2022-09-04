@@ -20,7 +20,7 @@ public class BadFlything : BuzzFlyer
     private void _on_ShootTimer_timeout_ext()
     {
         currentDirection = Vector2.Zero;
-        GetNode<RawAudioPlayer2D>("ShootPlayer").Play();
+        GetNode<AudioStreamPlayer2D>("ShootPlayer").Play();
         foreach (int dir in directions)
         {
             GDArea.Bullets.Emit(this, dir);

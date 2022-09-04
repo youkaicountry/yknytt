@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank0/savepoint.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank0/SavePoint.cs" type="Script" id=2]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/data/Sfx/Save Spot.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -87,6 +88,7 @@ position = Vector2( 12, 18 )
 shape = SubResource( 3 )
 
 [node name="SavePlayer2D" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Save Spot.raw"
+stream = ExtResource( 4 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

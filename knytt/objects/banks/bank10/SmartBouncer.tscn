@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank10/smart_bouncer_jump.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank10/smart_bouncer_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/data/Sfx/Bounce Lite.wav" type="AudioStream" id=4]
 [ext_resource path="res://knytt/objects/banks/bank10/BouncerEnemy.cs" type="Script" id=5]
+[ext_resource path="res://knytt/data/Sfx/Bounce.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
@@ -58,8 +60,9 @@ position = Vector2( 11, 14 )
 shape = SubResource( 6 )
 
 [node name="BouncePlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Bounce.raw"
+stream = ExtResource( 6 )
 
 [node name="JumpPlayer" parent="." instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Bounce Lite.raw"
+stream = ExtResource( 4 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

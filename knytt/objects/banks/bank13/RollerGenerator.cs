@@ -18,4 +18,19 @@ public class RollerGenerator : GDKnyttBaseObject
         GetNode<Timer>("Sound1Timer").Start();
         GetNode<Timer>("Sound2Timer").Start();
     }
+    
+    private void _on_Sound1Timer_timeout()
+    {
+        GetNode<AudioStreamPlayer2D>("PreparePlayer").Play();
+    }
+
+    private void _on_Sound2Timer_timeout()
+    {
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
+    }
+
+    private void _on_FirstShotTimer_timeout()
+    {
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
+    }
 }

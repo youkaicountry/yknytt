@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/common/BaseWaterMonster.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
-
+[ext_resource path="res://knytt/data/Sfx/Homing Shot.wav" type="AudioStream" id=4]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -19,5 +19,6 @@ firstDelay = 0.3
 pickOne = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 1 )]
-rawPath = "res://knytt/data/Sfx/Homing Shot.raw"
+stream = ExtResource( 4 )
+
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

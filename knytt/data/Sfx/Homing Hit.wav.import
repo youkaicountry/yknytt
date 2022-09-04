@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Homing Hit.wav-79df4594ede9467a9f35e5c8b5478bae.sample"
+
+[deps]
+
+source_file="res://knytt/data/Sfx/Homing Hit.wav"
+dest_files=[ "res://.import/Homing Hit.wav-79df4594ede9467a9f35e5c8b5478bae.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

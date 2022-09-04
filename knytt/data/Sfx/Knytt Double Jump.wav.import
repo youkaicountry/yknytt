@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample"
+
+[deps]
+
+source_file="res://knytt/data/Sfx/Knytt Double Jump.wav"
+dest_files=[ "res://.import/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

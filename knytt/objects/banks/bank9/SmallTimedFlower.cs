@@ -40,4 +40,9 @@ public class SmallTimedFlower : GDKnyttBaseObject
             GetNode<Timer>("ShotPlayerTimer").Stop();
         }
     }
+
+    private void _on_ShotPlayerTimer_timeout_ext()
+    {
+        GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
+    }
 }

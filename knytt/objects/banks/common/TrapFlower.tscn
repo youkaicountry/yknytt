@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/common/TrapFlower.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=3]
+
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )

@@ -238,7 +238,6 @@
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
     <Compile Include="knytt\ui\MapPanel.cs" />
     <Compile Include="knytt\ui\PausePanel.cs" />
-    <Compile Include="knytt\RawAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\ClickPlayer.cs" />
     <Compile Include="knytt\ui\Cutscene.cs" />
     <Compile Include="knytt\ui\FadeLayer.cs" />
@@ -250,7 +249,6 @@
     <Compile Include="knytt\ui\LevelSelection.cs" />
     <Compile Include="knytt\ui\LocationLabel.cs" />
     <Compile Include="knytt\ui\MainMenu.cs" />
-    <Compile Include="knytt\RawAudioPlayer.cs" />
     <Compile Include="knytt\ui\particles\MenuCloud.cs" />
     <Compile Include="knytt\ui\particles\ParticleCircle.cs" />
     <Compile Include="knytt\ui\SettingsScreen.cs" />

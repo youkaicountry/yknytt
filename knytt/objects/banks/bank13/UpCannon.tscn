@@ -1,13 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/UpCannon.cs" type="Script" id=1]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/banks/bank13/up_cannon.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 48, 48 )
+[ext_resource path="res://knytt/data/Sfx/Big Cannon Shot.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
@@ -41,17 +38,21 @@ region = Rect2( 0, 336, 48, 48 )
 atlas = ExtResource( 3 )
 region = Rect2( 0, 384, 48, 48 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 48, 48 )
+
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": false,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": false,
 "name": "shoot",
 "speed": 12.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
 } ]
 
 [node name="Node2D" type="Node2D"]
@@ -68,5 +69,6 @@ firstDelay = 1.0
 pickOne = true
 
 [node name="ShotPlayer" parent="." instance=ExtResource( 2 )]
-rawPath = "res://knytt/data/Sfx/Cannon Shot.raw"
+stream = ExtResource( 5 )
+
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

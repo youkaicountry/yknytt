@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/flything_bullet.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/data/Sfx/Tiny Hit.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.0
@@ -63,4 +64,4 @@ frames = SubResource( 10 )
 animation = "disappear"
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]
-rawPath = "res://knytt/data/Sfx/Tiny Hit.raw"
+stream = ExtResource( 4 )

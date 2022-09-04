@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank13/laser_robot_off.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/banks/bank13/laser_robot_on.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/banks/bank13/LaserRobot.cs" type="Script" id=3]
-[ext_resource path="res://knytt/RawAudioPlayer2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://knytt/data/Sfx/Laser Machine A.wav" type="AudioStream" id=5]
+[ext_resource path="res://knytt/data/Sfx/Laser Machine B.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -123,10 +125,13 @@ shape = SubResource( 12 )
 disabled = true
 
 [node name="OnPlayer" parent="." instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Laser Machine A.raw"
+stream = ExtResource( 5 )
+volume_db = 10.0
 
 [node name="OffPlayer" parent="." instance=ExtResource( 4 )]
-rawPath = "res://knytt/data/Sfx/Laser Machine B.raw"
+stream = ExtResource( 6 )
+volume_db = 10.0
+
 [connection signal="body_entered" from="LeftUpChecker" to="." method="collide" binds= [ true ]]
 [connection signal="body_entered" from="LeftDownChecker" to="." method="collide" binds= [ true ]]
 [connection signal="body_entered" from="RightUpChecker" to="." method="collide" binds= [ false ]]

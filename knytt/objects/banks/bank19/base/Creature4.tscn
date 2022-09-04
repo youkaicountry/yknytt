@@ -40,7 +40,7 @@ opacityBuzz = 8.0
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 3 )
-animation = "run"
+animation = "idle"
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 12, 12 )
