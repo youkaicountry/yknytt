@@ -486,13 +486,18 @@ tracks/0/keys = {
 [node name="ArtifactsPanel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 margin_left = 60.0
 margin_top = 45.0
 margin_right = 540.0
 margin_bottom = 225.0
+mouse_filter = 2
 color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 
 [node name="CreaturesControl" type="Control" parent="."]
@@ -500,6 +505,7 @@ margin_left = 60.0
 margin_top = 70.0
 margin_right = 100.0
 margin_bottom = 110.0
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="CreaturesControl"]
 visible = false
@@ -507,6 +513,7 @@ margin_left = 27.0
 margin_top = 4.0
 margin_right = 299.0
 margin_bottom = 147.0
+mouse_filter = 2
 custom_styles/panel = SubResource( 100 )
 
 [node name="Creature1" type="TextureRect" parent="CreaturesControl"]
@@ -915,15 +922,18 @@ margin_left = 100.0
 margin_top = 60.0
 margin_right = 140.0
 margin_bottom = 100.0
+mouse_filter = 2
 
 [node name="FullCoinProgress" type="ColorRect" parent="CoinControl"]
 margin_right = 400.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="CoinControl"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 1, 1, 0.12549, 1 )
 
 [node name="CoinIcon" type="TextureRect" parent="CoinControl"]
@@ -937,6 +947,7 @@ texture = ExtResource( 40 )
 margin_left = 40.0
 margin_right = 80.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactsControl" type="Control" parent="."]
@@ -944,19 +955,23 @@ margin_left = 400.0
 margin_top = 85.0
 margin_right = 440.0
 margin_bottom = 125.0
+mouse_filter = 2
 
 [node name="Artifact1Control" type="Control" parent="ArtifactsControl"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact1Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact1Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact1Control"]
@@ -970,15 +985,18 @@ stretch_mode = 2
 margin_top = 20.0
 margin_right = 40.0
 margin_bottom = 60.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact2Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact2Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact2Control"]
@@ -991,15 +1009,18 @@ texture = SubResource( 66 )
 margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 80.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact3Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact3Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact3Control"]
@@ -1012,15 +1033,18 @@ texture = SubResource( 67 )
 margin_top = 60.0
 margin_right = 40.0
 margin_bottom = 100.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact4Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact4Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact4Control"]
@@ -1033,15 +1057,18 @@ texture = SubResource( 68 )
 margin_top = 80.0
 margin_right = 40.0
 margin_bottom = 120.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact5Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact5Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact5Control"]
@@ -1054,15 +1081,18 @@ texture = SubResource( 69 )
 margin_top = 100.0
 margin_right = 40.0
 margin_bottom = 140.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact6Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact6Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact6Control"]
@@ -1075,15 +1105,18 @@ texture = SubResource( 70 )
 margin_top = 120.0
 margin_right = 40.0
 margin_bottom = 160.0
+mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact7Control"]
 margin_right = 100.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.752941, 0.752941, 0.752941, 1 )
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact7Control"]
 margin_right = 40.0
 margin_bottom = 5.0
+mouse_filter = 2
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact7Control"]
