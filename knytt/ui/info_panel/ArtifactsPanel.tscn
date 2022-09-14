@@ -484,22 +484,23 @@ tracks/0/keys = {
 }
 
 [node name="ArtifactsPanel" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -240.0
+margin_top = 45.0
+margin_right = 240.0
+margin_bottom = 225.0
 script = ExtResource( 11 )
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
-margin_left = 60.0
-margin_top = 45.0
-margin_right = 540.0
-margin_bottom = 225.0
+margin_right = 480.0
+margin_bottom = 180.0
 color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 
 [node name="CreaturesControl" type="Control" parent="."]
-margin_left = 60.0
-margin_top = 70.0
-margin_right = 100.0
-margin_bottom = 110.0
+margin_top = 25.0
+margin_right = 40.0
+margin_bottom = 65.0
 
 [node name="Panel" type="Panel" parent="CreaturesControl"]
 visible = false
@@ -911,10 +912,10 @@ margin_bottom = 116.5
 texture = SubResource( 99 )
 
 [node name="CoinControl" type="Control" parent="."]
-margin_left = 100.0
-margin_top = 60.0
-margin_right = 140.0
-margin_bottom = 100.0
+margin_left = 60.0
+margin_top = 15.0
+margin_right = 100.0
+margin_bottom = 55.0
 
 [node name="FullCoinProgress" type="ColorRect" parent="CoinControl"]
 margin_right = 400.0
@@ -940,10 +941,10 @@ margin_bottom = 5.0
 color = Color( 0.12549, 0.12549, 1, 1 )
 
 [node name="ArtifactsControl" type="Control" parent="."]
-margin_left = 400.0
-margin_top = 85.0
-margin_right = 440.0
-margin_bottom = 125.0
+margin_left = 340.0
+margin_top = 40.0
+margin_right = 380.0
+margin_bottom = 80.0
 
 [node name="Artifact1Control" type="Control" parent="ArtifactsControl"]
 margin_right = 40.0

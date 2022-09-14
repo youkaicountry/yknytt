@@ -199,10 +199,10 @@ custom_icons/grabber = ExtResource( 6 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 5 )
 custom_styles/grabber_area = SubResource( 6 )
+min_value = 0.5
 max_value = 1.0
 step = 0.01
 value = 0.8
-editable = false
 
 [node name="ValueLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
 margin_left = 273.0

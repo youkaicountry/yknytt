@@ -51,7 +51,9 @@ public class PausePanel : Control
     public void _on_SettingsButton_pressed()
     {
         ClickPlayer.Play();
+        GDKnyttSettings.setupViewport(for_ui: true);
         var settings_node = this.settings_scene.Instance() as SettingsScreen;
+        settings_node.CleanupViewport = true;
         GetParent().AddChild(settings_node);
     }
 
@@ -64,11 +66,12 @@ public class PausePanel : Control
     private async void quit()
     {
         var worldInfo = GetNode<GDKnyttGame>("../../..").GDWorld.KWorld.Info;
-		GetNode<RateHTTPRequest>("../RateHTTPRequest").send(worldInfo.Name, worldInfo.Author, (int)RateHTTPRequest.Action.Exit);
+        GetNode<RateHTTPRequest>("../RateHTTPRequest").send(worldInfo.Name, worldInfo.Author, (int)RateHTTPRequest.Action.Exit);
 
         var fade = GetNode<FadeLayer>("../../../FadeCanvasLayer/Fade");
         fade.startFade();
         await ToSignal(fade, "FadeDone");
+
         GetTree().Paused = false;
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }

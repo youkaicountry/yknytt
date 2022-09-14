@@ -35,23 +35,28 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false; }
         set
         {
-            if (!TouchSettings.EnablePanel)
-            {
-                tree.SetScreenStretch(value ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-                            SceneTree.StretchAspect.Keep, new Vector2(600, 240));
-            }
-            else
-            {
-                // Touch panel needs some screen space, so "Viewport" mode is not suitable here
-                tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
-                            SceneTree.StretchAspect.KeepWidth, new Vector2(600, 240));
-            }
-            (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
-
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
+            setupViewport(for_ui: true);
+            (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
         }
     }
-
+    
+    public static void setupViewport(bool for_ui = false)
+    {
+        if (!TouchSettings.EnablePanel)
+        {
+            tree.SetScreenStretch(
+                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+                SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+        }
+        else
+        {
+            // Touch panel needs some screen space, so "Viewport" mode is not suitable here
+            tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
+                SceneTree.StretchAspect.KeepWidth, new Vector2(for_ui ? 600 : TouchSettings.ScreenWidth, 240));
+        }
+    }
+    
     public static ScrollTypes ScrollType
     {
         get { return String2ScrollTypes(ini["Graphics"]["Scroll Type"]); }

@@ -26,14 +26,15 @@ __meta__ = {
 }
 
 [node name="PausePanel" type="ColorRect" parent="."]
-margin_left = 180.318
-margin_top = 63.1748
-margin_right = 420.318
-margin_bottom = 173.175
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -55.0
+margin_right = 120.0
+margin_bottom = 55.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BounceTimer" type="Timer" parent="PausePanel"]
 wait_time = 0.3
@@ -48,9 +49,6 @@ margin_left = 27.0
 margin_top = 82.0
 margin_right = 215.0
 margin_bottom = 101.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0

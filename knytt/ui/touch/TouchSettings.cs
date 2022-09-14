@@ -51,6 +51,11 @@ public class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["Viewport"] = value.ToString(); }
     }
     
+    public static float ScreenWidth
+    {
+        get { return EnablePanel ? 600 / Viewport : 600; }
+    }
+    
     public static float JumpScale
     {
         get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["JumpScale"]); }

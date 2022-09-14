@@ -25,10 +25,13 @@ tracks/0/keys = {
 
 [node name="Cutscene" type="Control"]
 pause_mode = 2
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -300.0
 margin_top = -120.0
+margin_right = 300.0
 margin_bottom = 120.0
 script = ExtResource( 3 )
 __meta__ = {
@@ -95,6 +98,7 @@ anims/FadeOut = SubResource( 1 )
 [node name="StandartSoundPlayer" parent="." instance=ExtResource( 7 )]
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 2 )]
+
 [connection signal="pressed" from="BackButton" to="." method="_on_PreviousButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="ready" from="RateHTTPRequest" to="." method="_on_RateHTTPRequest_ready"]

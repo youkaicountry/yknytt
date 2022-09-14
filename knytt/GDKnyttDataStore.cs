@@ -87,6 +87,6 @@ public static class RandomExtension
 {
     public static T NextElement<T>(this Random random, ICollection<T> e)
     {
-        return e.ElementAt(GDKnyttDataStore.random.Next(e.Count()));
+        return e.ElementAt(random.Next(e.Count()));
     }
 }

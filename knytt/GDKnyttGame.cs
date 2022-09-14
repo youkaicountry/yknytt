@@ -53,6 +53,7 @@ public class GDKnyttGame : Node2D
 		UI = GetNode<UICanvasLayer>("UICanvasLayer");
 		this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
+		GDKnyttSettings.setupViewport(for_ui: false);
 		this.setupCamera();
 		this.setupWorld();
 	}
