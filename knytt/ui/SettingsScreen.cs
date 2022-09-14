@@ -4,6 +4,8 @@ public class SettingsScreen : CanvasLayer
 {
     PackedScene input_scene;
     PackedScene touch_scene;
+    
+    public bool CleanupViewport { set; get; } = false;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -29,6 +31,7 @@ public class SettingsScreen : CanvasLayer
     {
         GDKnyttSettings.saveSettings();
         TouchSettings.applyAllSettings(GetTree());
+        if (CleanupViewport) { GDKnyttSettings.setupViewport(for_ui: false); }
         ClickPlayer.Play();
         this.QueueFree();
     }

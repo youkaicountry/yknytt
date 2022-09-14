@@ -69,11 +69,13 @@ public class TouchPanel : Panel
     {
         Visible = TouchSettings.EnablePanel;
         SetProcessInput(TouchSettings.EnablePanel);
-        var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
+        var curtain = GetTree().Root.FindNode("Curtain", owned: false) as Control;
         curtain.Visible = Visible;
         if (!Visible) return;
         
         Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, TouchSettings.Opacity);
+        
+        RectSize = new Vector2(TouchSettings.ScreenWidth + 4, RectSize.y);
     
         var anchor_top = TouchSettings.PanelAnchor;
         var height = arrowsMainPanel.RectSize.y - 2; // correction to hide the border at the edge
@@ -104,7 +106,7 @@ public class TouchPanel : Panel
 
     private float getScale()
     {
-        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 100), 1.4f);
+        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 100), 1.4f / TouchSettings.Viewport);
     }
 
     // Returns rectangle for the button with excess space
@@ -126,7 +128,7 @@ public class TouchPanel : Panel
 
     private void _on_viewport_size_changed()
     {
-        if (!TouchSettings.EnablePanel) { return; }
+        if (!TouchSettings.EnablePanel || GetViewport() == null) { return; }
 
         var scale = getScale();
         var swap_hands = TouchSettings.SwapHands;
@@ -162,11 +164,18 @@ public class TouchPanel : Panel
 
         // Some magic formula to stick visible area to the top, or bottom, or center
         var camera = GetTree().Root.FindNode("GKnyttCamera", owned: false) as Camera2D;
-        camera.Offset = new Vector2(-300, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
+        camera.Offset = new Vector2(-TouchSettings.ScreenWidth / 2, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
 
-        var curtain = GetTree().Root.FindNode("CurtainRect", owned: false) as ColorRect;
-        curtain.RectSize = new Vector2(600, GetViewport().GetVisibleRect().Size.y - 240);
-        curtain.RectPosition = new Vector2(0, TouchSettings.AreaAnchor * 240);
+        var curtain = GetTree().Root.FindNode("Curtain", owned: false);
+        var horizontalCurtain = curtain.GetNode<ColorRect>("HorizontalRect");
+        var leftCurtain = curtain.GetNode<ColorRect>("LeftRect");
+        var rightCurtain = curtain.GetNode<ColorRect>("RightRect");
+        float curtainHeight = GetViewport().GetVisibleRect().Size.y - 240;
+        horizontalCurtain.RectSize = new Vector2(TouchSettings.ScreenWidth, curtainHeight);
+        horizontalCurtain.RectPosition = new Vector2(0, TouchSettings.AreaAnchor * 240);
+        leftCurtain.RectSize = rightCurtain.RectSize = 
+            new Vector2((TouchSettings.ScreenWidth - 600) / 2, GetViewport().GetVisibleRect().Size.y);
+        rightCurtain.RectPosition = new Vector2(TouchSettings.ScreenWidth - rightCurtain.RectSize.x, 0);
     }
 
     private void ChangeOpacity(Control c, bool pressed)

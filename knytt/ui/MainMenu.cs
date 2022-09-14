@@ -17,6 +17,7 @@ public class MainMenu : Node2D
 		fade = GetNode<FadeLayer>("MenuLayer/Fade");
 		GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
 		VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
+		GDKnyttSettings.setupViewport(for_ui: true);
 	}
 
 	public override void _Notification(int what)
