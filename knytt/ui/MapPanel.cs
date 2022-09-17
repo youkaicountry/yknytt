@@ -70,9 +70,6 @@ public class MapPanel : Panel
         KnyttPoint pos = juni.GDArea.Area.Position;
         if (spoofing.ContainsKey(pos)) { pos = spoofing[pos]; }
 
-        float xsize = XSIZE * RectScale.x;
-        float ysize = YSIZE * RectScale.y;
-
         foreach (var area in world.Map)
         {
             if (area == null) { continue; }
@@ -88,26 +85,33 @@ public class MapPanel : Panel
 
             if (visible.ContainsKey(coord) && !visible[coord]) { continue; }
 
-            Rect2 r = new Rect2((coord.x - world.MinBounds.x) * xsize, (coord.y - world.MinBounds.y) * ysize, xsize - 1, ysize - 1);
+            Rect2 r = new Rect2((coord.x - world.MinBounds.x) * XSIZE, (coord.y - world.MinBounds.y) * YSIZE, XSIZE - 1, YSIZE - 1);
             DrawRect(r, is_visited ? (colors.ContainsKey(coord) ? colors[coord] : VISITED_COLOR) :
                                         (colors.ContainsKey(coord) ? makeGrey(colors[coord]) : NOT_VISITED_COLOR));
 
             if (coord.Equals(pos)) { DrawRect(r, CURRENT_BORDER, filled: false, width: 2); }
         }
-
-        RectPosition = new Vector2(
-            (world.MinBounds.x - pos.x) * xsize * RectScale.x + (GetParentAreaSize().x - xsize) / 2,
-            (world.MinBounds.y - pos.y) * ysize * RectScale.y + (GetParentAreaSize().y - ysize) / 2);
     }
 
     private Color makeGrey(Color c)
     {
-        return new Color(0.5f + (c.r - 0.5f) / 5, 0.5f + (c.g - 0.5f) / 5, 0.5f + (c.b - 0.5f) / 5);
+        return new Color(0.5f + (c.r - 0.5f) * 0.1f, 0.5f + (c.g - 0.5f) * 0.1f, 0.5f + (c.b - 0.5f) * 0.1f);
     }
 
     public void ShowMap(bool show)
     {
-        if (show) { RectScale = new Vector2(1, 1); Update(); }
+        if (show)
+        {
+            KnyttPoint pos = juni.GDArea.Area.Position;
+            if (spoofing.ContainsKey(pos)) { pos = spoofing[pos]; }
+
+            RectScale = new Vector2(1, 1);
+            RectPosition = new Vector2(
+                (world.MinBounds.x - pos.x) * XSIZE + (GetParentAreaSize().x - XSIZE) / 2,
+                (world.MinBounds.y - pos.y) * YSIZE + (GetParentAreaSize().y - YSIZE) / 2);
+            RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
+            Update();
+        }
         GetParent<Panel>().Visible = show;
         GetTree().Paused = show;
         SetProcess(show);
@@ -118,21 +122,18 @@ public class MapPanel : Panel
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventScreenDrag drag_event) { drag(drag_event.Relative); }
+        if (@event is InputEventScreenDrag drag_event) { drag(drag_event.Relative / RectScale); }
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {
             if (mouse_event.ButtonIndex == (int)ButtonList.WheelDown) { scale(0.9f); }
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp) { scale(1.11f); }
+            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp) { scale(10 / 9f); }
         }
     }
 
     private void scale(float k)
     {
-        // TODO: wrong positioning sometimes
-        // TODO: scale with current center of the map, not current area of the game
         RectScale *= k;
-        RectSize *= k;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -142,7 +143,7 @@ public class MapPanel : Panel
         if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta; }
         if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta; }
-        drag(new_offset);
+        if (new_offset != Vector2.Zero) { drag(new_offset); }
     }
 
     public override void _Process(float delta)
@@ -152,12 +153,14 @@ public class MapPanel : Panel
 
     private void drag(Vector2 diff)
     {
-        // This is very buggy
-        //var candidate = RectPosition + diff;
-        //if (diff.x > 0 && candidate.x > BORDER) { diff = new Vector2(0, diff.y); }
-        //if (diff.x < 0 && candidate.x < -RectSize.x * RectScale.x + GetParentAreaSize().x - BORDER)  { diff = new Vector2(0, diff.y); }
-        //if (diff.y > 0 && candidate.y > BORDER) { diff = new Vector2(diff.x, 0); }
-        //if (diff.y < 0 && candidate.y < -RectSize.y * RectScale.y + GetParentAreaSize().y - BORDER)  { diff = new Vector2(diff.x, 0); }
+        var candidate = RectPosition + diff;
+        Vector2 up_left = new Vector2(20, 20) + RectPivotOffset * (RectScale - new Vector2(1, 1));
+        Vector2 bottom_right = -(new Vector2(20, 20) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - new Vector2(1, 1));
+        if (diff.x > 0 && candidate.x > up_left.x) { diff = new Vector2(0, diff.y); }
+        if (diff.y > 0 && candidate.y > up_left.y) { diff = new Vector2(diff.x, 0); }
+        if (diff.x < 0 && candidate.x < bottom_right.x)  { diff = new Vector2(0, diff.y); }
+        if (diff.y < 0 && candidate.y < bottom_right.y)  { diff = new Vector2(diff.x, 0); }
         if (diff != Vector2.Zero) { RectPosition += diff; }
+        RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
     }
 }
