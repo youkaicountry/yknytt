@@ -256,7 +256,7 @@ margin_left = -65.0
 margin_right = -35.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
-text = "—"
+text = "–"
 
 [node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
 anchor_left = 1.0
@@ -300,7 +300,7 @@ bus = "Ambiance2"
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [ false ]]
 [connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 0.9 ]]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.11 ]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.111 ]]
 
 [editable path="Ambi1Channel"]
 [editable path="Ambi2Channel"]
