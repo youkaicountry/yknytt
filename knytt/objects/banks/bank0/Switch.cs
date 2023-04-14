@@ -1,12 +1,14 @@
 using Godot;
 using YKnyttLib;
 
-public abstract class Switch : GDKnyttBaseObject
+public abstract partial class Switch : GDKnyttBaseObject
 {
     protected KnyttSwitch @switch;
 
     protected string sound;
     protected bool alreadyExecuted;
+    private bool hologram_event_connected;
+    private bool down_event_connected;
 
     public override void _Ready()
     {
@@ -17,6 +19,12 @@ public abstract class Switch : GDKnyttBaseObject
         var sound_cmp = @switch.Sound?.ToLower();
         sound = sound_cmp == null || sound_cmp == "" ? "teleport" :
                 sound_cmp == "none" || sound_cmp == "false" ? null : @switch.Sound;
+    }
+
+    private void _on_tree_exiting()
+    {
+        if (hologram_event_connected) { Juni.HologramStopped -= execute; }
+        if (down_event_connected) { Juni.DownEvent -= execute; }
     }
 
     public void _on_Area2D_body_entered(Node body)
@@ -30,7 +38,8 @@ public abstract class Switch : GDKnyttBaseObject
         {
             if (@switch.DenyHologram && juni.Hologram != null)
             {
-                juni.Connect(nameof(Juni.HologramStopped), this, nameof(execute));
+                juni.HologramStopped += execute;
+                hologram_event_connected = true;
             }
             else
             {
@@ -39,7 +48,8 @@ public abstract class Switch : GDKnyttBaseObject
         }
         else
         {
-            juni.Connect(nameof(Juni.DownEvent), this, nameof(execute));
+            juni.DownEvent += execute;
+            down_event_connected = true;
         }
     }
 
@@ -50,14 +60,16 @@ public abstract class Switch : GDKnyttBaseObject
 
         if (@switch.AsOne) { GDArea.Selector.Unregister(this); }
 
-        if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(execute)))
+        if (!@switch.OnTouch && down_event_connected)
         {
-            juni.Disconnect(nameof(Juni.DownEvent), this, nameof(execute));
+            juni.DownEvent -= execute;
+            down_event_connected = false;
         }
 
-        if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(execute)))
+        if (@switch.DenyHologram && hologram_event_connected)
         {
-            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(execute));
+            juni.HologramStopped -= execute;
+            hologram_event_connected = false;
         }
     }
 

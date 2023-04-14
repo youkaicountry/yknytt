@@ -10,7 +10,7 @@ script = ExtResource( 3 )
 OrganicEnemy = true
 
 [node name="DistanceMod" parent="." index="4" instance=ExtResource( 1 )]
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 areaPath = NodePath("../DeadArea2D")
 
 [node name="DeadArea2D" type="Area2D" parent="." index="5"]

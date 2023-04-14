@@ -1,6 +1,6 @@
 using Godot;
 
-public class RunThing : Muff
+public partial class RunThing : Muff
 {
     [Export] float safeDistance = 0;
     [Export] int attackSpeed = 0;
@@ -9,7 +9,7 @@ public class RunThing : Muff
 
     private void _on_RunTimer_timeout_ext()
     {
-        var juni_distance = Juni.ApparentPosition.x - Center.x;
+        var juni_distance = Juni.ApparentPosition.X - Center.X;
 
         var direction =
             juni_distance >= safeDistance ? 1 :

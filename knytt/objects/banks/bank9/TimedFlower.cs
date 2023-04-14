@@ -1,6 +1,6 @@
 using Godot;
 
-public class TimedFlower : GDKnyttBaseObject
+public partial class TimedFlower : GDKnyttBaseObject
 {
     private bool isShooting = false;
 
@@ -29,7 +29,7 @@ public class TimedFlower : GDKnyttBaseObject
         {
             GetNode<Timer>("ShotTimer").Stop();
         }
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("open", backwards: !isShooting);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("open", customSpeed: isShooting ? 1 : -1);
     }
 
     private void _on_ShotTimer_timeout()

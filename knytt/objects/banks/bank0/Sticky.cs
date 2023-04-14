@@ -1,6 +1,6 @@
 using Godot;
 
-public class Sticky : GDKnyttBaseObject
+public partial class Sticky : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

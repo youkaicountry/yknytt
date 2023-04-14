@@ -1,45 +1,48 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bd078pigmpfuo"]
 
-[ext_resource path="res://knytt/objects/banks/bank7/rain.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank7/Raindrop.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/banks/bank7/splash_particle.png" type="Texture" id=3]
+[ext_resource type="Texture2D" uid="uid://hlbq1j8hdf1r" path="res://knytt/objects/banks/bank7/rain.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank7/Raindrop.cs" id="2"]
+[ext_resource type="Texture2D" uid="uid://dxeeymnxpvcbb" path="res://knytt/objects/banks/bank7/splash_particle.png" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2.41516, 6.64484 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(4.83032, 13.2897)
 
 [node name="RainDrop" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2( -0.551839, -0.0788336 )
-input_pickable = false
+position = Vector2(-0.551839, -0.0788336)
 collision_layer = 0
 collision_mask = 2049
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -0.551839, -0.0788336 )
-texture = ExtResource( 1 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.551839, -0.0788336)
+texture = ExtResource("1")
 vframes = 3
 
 [node name="Splash" type="CPUParticles2D" parent="."]
-position = Vector2( -0.551839, 3.04284 )
+position = Vector2(-0.551839, 3.04284)
 emitting = false
 lifetime = 0.45
 one_shot = true
 explosiveness = 0.85
 randomness = 1.0
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 emission_shape = 1
 emission_sphere_radius = 3.0
-direction = Vector2( 0, -1 )
+direction = Vector2(0, -1)
 spread = 32.0
-gravity = Vector2( 0, 260 )
-initial_velocity = 68.0
-scale_amount = 0.04
+gravity = Vector2(0, 260)
+initial_velocity_min = 68.0
+initial_velocity_max = 68.0
+scale_amount_min = 0.04
+scale_amount_max = 0.04
 
 [node name="SplashTimer" type="Timer" parent="."]
 one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

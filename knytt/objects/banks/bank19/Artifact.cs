@@ -1,10 +1,10 @@
 using Godot;
 
-public class Artifact : CustomObject
+public partial class Artifact : CustomObject
 {
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Enable custom animation
         int artifact_number = (ObjectID.y - 151) / 7 + 1;

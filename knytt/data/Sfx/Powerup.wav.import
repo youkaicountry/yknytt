@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Powerup.wav-84e692b80c2cf4692b7a698ad8aa6295.sample"
+type="AudioStreamWAV"
+uid="uid://did1pxr24g18u"
+path="res://.godot/imported/Powerup.wav-84e692b80c2cf4692b7a698ad8aa6295.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Powerup.wav"
-dest_files=[ "res://.import/Powerup.wav-84e692b80c2cf4692b7a698ad8aa6295.sample" ]
+dest_files=["res://.godot/imported/Powerup.wav-84e692b80c2cf4692b7a698ad8aa6295.sample"]
 
 [params]
 

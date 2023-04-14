@@ -1,18 +1,18 @@
 using Godot;
 
-public class Laser : GDKnyttBaseObject
+public partial class Laser : GDKnyttBaseObject
 {
     private bool[] horizontal = { true, true, true, false, false, false };
     private bool[] alwaysOn = { false, false, true, false, false, true };
     private bool[] onAtStart = { false, true, false, false, true, false };
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private CollisionShape2D collisionShape;
     private bool is_on;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
 
         int index = ObjectID.y - 7;

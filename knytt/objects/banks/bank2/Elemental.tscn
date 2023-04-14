@@ -7,7 +7,7 @@
 script = ExtResource( 8 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 offset = Vector2( 12, 12 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -16,5 +16,5 @@ autostart = true
 
 [node name="ExplodePlayer" parent="." instance=ExtResource( 7 )]
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

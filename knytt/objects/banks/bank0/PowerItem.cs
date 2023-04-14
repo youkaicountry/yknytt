@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class PowerItem : GDKnyttBaseObject
+public partial class PowerItem : GDKnyttBaseObject
 {
     public readonly Dictionary<int, int> Object2Power = new Dictionary<int, int>()
     {
@@ -27,7 +27,7 @@ public class PowerItem : GDKnyttBaseObject
         this.power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
         if (Juni.Powers.getPower(power)) { QueueFree(); }
-        GetNode<AnimatedSprite>("AnimatedSprite").Animation = $"Power{power}";
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = $"Power{power}";
     }
 
     public void _on_Area2D_body_entered(Node body)

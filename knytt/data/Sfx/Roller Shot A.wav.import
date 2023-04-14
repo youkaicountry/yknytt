@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Roller Shot A.wav-2d4783250e3daf5d3a8d9c8fe6ea1b6a.sample"
+type="AudioStreamWAV"
+uid="uid://dteqq3w2go0jc"
+path="res://.godot/imported/Roller Shot A.wav-2d4783250e3daf5d3a8d9c8fe6ea1b6a.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Roller Shot A.wav"
-dest_files=[ "res://.import/Roller Shot A.wav-2d4783250e3daf5d3a8d9c8fe6ea1b6a.sample" ]
+dest_files=["res://.godot/imported/Roller Shot A.wav-2d4783250e3daf5d3a8d9c8fe6ea1b6a.sample"]
 
 [params]
 

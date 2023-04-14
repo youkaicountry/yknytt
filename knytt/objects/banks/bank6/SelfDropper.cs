@@ -1,6 +1,6 @@
 using Godot;
 
-public class SelfDropper : GDKnyttBaseObject
+public partial class SelfDropper : GDKnyttBaseObject
 {
     private const int DISTANCE_TO_DROP = 12;
     private float dropSpeed;
@@ -16,18 +16,18 @@ public class SelfDropper : GDKnyttBaseObject
         dropSpeed = 0; // 50;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - Center.x) < DISTANCE_TO_DROP)
+        if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.X - Center.X) < DISTANCE_TO_DROP)
         {
             state = State.Dropping;
-            GetNode<AnimatedSprite>("AnimatedSprite").Play("launch");
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("launch");
             collisionShape.SetDeferred("disabled", false);
         }
         if (state == State.Dropping)
         {
-            if (moveAndCollide(new Vector2(0, delta * dropSpeed)) != null)
+            if (moveAndCollide(new Vector2(0, (float)delta * dropSpeed)) != null)
             {
                 state = State.Dropped;
                 collisionShape.SetDeferred("disabled", true);
@@ -35,13 +35,13 @@ public class SelfDropper : GDKnyttBaseObject
             }
             // 14 * 50 * delta -- original formula
             // for some odd reasons original formula makes some enemies impossible to pass
-            if (dropSpeed < 450) { dropSpeed += 10 * 50 * delta; }
+            if (dropSpeed < 450) { dropSpeed += 10 * 50 * (float)delta; }
         }
     }
 
     private void _on_AnimatedSprite_frame_changed()
     {
-        int frame = GetNode<AnimatedSprite>("AnimatedSprite").Frame;
+        int frame = GetNode<AnimatedSprite2D>("AnimatedSprite2D").Frame;
         collisionShape.Position = new Vector2(12, 15 + frame * 2);
         collisionShape.Scale = new Vector2(new float[] { 0.4f, 0.5f, 0.6f, 0.9f, 1f }[frame], 1);
     }

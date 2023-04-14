@@ -1,7 +1,7 @@
 using YUtil.Math;
 using YUtil.Random;
 
-public class SunRay : GDKnyttBaseObject
+public partial class SunRay : GDKnyttBaseObject
 {
     const float MIN_BRIGHTNESS = 0f;
     const float MAX_BRIGHTNESS = .25f;
@@ -14,18 +14,18 @@ public class SunRay : GDKnyttBaseObject
     {
         base._Ready();
         var m = Modulate;
-        m.a = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+        m.A = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
         Modulate = m;
 
         chooseTarget();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 
         var m = Modulate;
-        if (MathTools.MoveTowards(ref m.a, target, CHANGE_SPEED * delta)) { chooseTarget(); }
+        if (MathTools.MoveTowards(ref m.A, target, CHANGE_SPEED * (float)delta)) { chooseTarget(); }
         Modulate = m;
     }
 

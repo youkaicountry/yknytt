@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class Rain : GDKnyttBaseObject
+public partial class Rain : GDKnyttBaseObject
 {
     PackedScene drop_scene;
     Queue<Raindrop> _drop_q;
@@ -17,7 +17,7 @@ public class Rain : GDKnyttBaseObject
         _drop_q = new Queue<Raindrop>();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (add_next != null && add_next.GetParent() == null && GetChildCount() < MAX_DROPS)
         {
@@ -38,7 +38,7 @@ public class Rain : GDKnyttBaseObject
     {
         if (_drop_q.Count > 0) { return _drop_q.Dequeue(); }
         if (GetChildCount() >= MAX_DROPS) { return null; }
-        var raindrop = drop_scene.Instance() as Raindrop;
+        var raindrop = drop_scene.Instantiate<Raindrop>();
         raindrop.Name = $"Raindrop{drop_count++}";
         return raindrop;
     }

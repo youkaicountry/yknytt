@@ -1,6 +1,6 @@
 using Godot;
 
-public class GDKnyttAmbiChannel : Node
+public partial class GDKnyttAmbiChannel : Node
 {
     public delegate AudioStream FetchEvent(int num);
     public delegate void CloseEvent(int num);

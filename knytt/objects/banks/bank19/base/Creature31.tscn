@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank19/img/eater.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/eater.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/common/BaseEater.tscn" type="PackedScene" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -42,5 +42,5 @@ animations = [ {
 
 [node name="Node2D" instance=ExtResource( 2 )]
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 7 )

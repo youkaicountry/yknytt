@@ -1,6 +1,6 @@
 using Godot;
 
-public class SettingsScreen : CanvasLayer
+public partial class SettingsScreen : CanvasLayer
 {
     PackedScene input_scene;
     PackedScene touch_scene;
@@ -18,8 +18,8 @@ public class SettingsScreen : CanvasLayer
 
     public void fillControls()
     {
-        GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
-        GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
+        GetNode<CheckBox>("SettingsContainer/FullScreen").ButtonPressed = GDKnyttSettings.Fullscreen;
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").ButtonPressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
@@ -38,12 +38,12 @@ public class SettingsScreen : CanvasLayer
 
     public void _on_FullScreen_pressed()
     {
-        GDKnyttSettings.Fullscreen = GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed;
+        GDKnyttSettings.Fullscreen = GetNode<CheckBox>("SettingsContainer/FullScreen").ButtonPressed;
     }
 
     public void _on_SmoothScale_pressed()
     {
-        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed;
+        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("SettingsContainer/SmoothScale").ButtonPressed;
     }
 
     public void _on_ScollDropdown_item_selected(int index)
@@ -54,14 +54,14 @@ public class SettingsScreen : CanvasLayer
     public void _on_KeyRemapButton_pressed()
     {
         ClickPlayer.Play();
-        var inp = input_scene.Instance();
+        var inp = input_scene.Instantiate();
         AddChild(inp);
     }
 
     private void _on_TouchPanelButton_pressed()
     {
         ClickPlayer.Play();
-        var inp = touch_scene.Instance();
+        var inp = touch_scene.Instantiate();
         AddChild(inp);
     }
 

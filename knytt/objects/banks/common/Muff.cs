@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Muff : GDKnyttBaseObject
+public partial class Muff : GDKnyttBaseObject
 {
     protected enum DirectionChange { Random, TowardsJuni, AwayFromJuni }
 
@@ -20,25 +20,25 @@ public class Muff : GDKnyttBaseObject
     protected int direction;
     protected float _deceleration;
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         if (speedChangeTime > 0) { GetNode<Timer>("SpeedTimer").Start(speedChangeTime); }
         if (directionChangeTime > 0) { GetNode<Timer>("DirectionTimer").Start(directionChangeTime); }
 
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         changeSpeed(initialSpeed);
         changeDirection(getDirection(DirectionChange.Random));
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 
         // Check for collisions with ObjectsCollide and area bounds
-        var diff = speed * direction * SPEED_SCALE * delta;
+        var diff = speed * direction * SPEED_SCALE * (float)delta;
         var diff_vec = vertical ? new Vector2(0, diff) : new Vector2(diff, 0);
         // Sometimes collision can be detected with zero movement! Muff got stuck after this.
         if (diff != 0 && (!GDArea.isIn(Center + diff_vec, x_border: xBorder) || moveAndCollide(diff_vec) != null))
@@ -46,7 +46,7 @@ public class Muff : GDKnyttBaseObject
             collide();
         }
 
-        var new_speed = speed - _deceleration * delta;
+        var new_speed = speed - _deceleration * (float)delta;
         if (speed > 0 && new_speed <= 0) { changeSpeed(0); } else { speed = new_speed; }
     }
 
@@ -63,8 +63,8 @@ public class Muff : GDKnyttBaseObject
     protected int getDirection(DirectionChange dir_change)
     {
         return dir_change == DirectionChange.Random ? (random.NextBoolean() ? -1 : 1) :
-               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.x > Center.x ? 1 : -1) :
-                    (Juni.ApparentPosition.x > Center.x ? -1 : 1);
+               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.X > Center.X ? 1 : -1) :
+                    (Juni.ApparentPosition.X > Center.X ? -1 : 1);
     }
 
     protected virtual void collide()

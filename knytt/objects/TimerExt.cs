@@ -1,8 +1,8 @@
 using Godot;
 
-public class TimerExt : Timer
+public partial class TimerExt : Timer
 {
-    [Signal] public delegate void timeout_ext();
+    [Signal] public delegate void timeout_extEventHandler();
 
     // Delay before firing first timeout_ext event. Set firstDelay = 0 to fire first timeout_ext immediately.
     [Export] float firstDelay = 0;
@@ -25,7 +25,7 @@ public class TimerExt : Timer
         base._Ready();
 
         if (syncedRandomDelay || pickOne) { parent = GetParent<GDKnyttBaseObject>(); }
-        if (syncedRandomDelay) { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, WaitTime); }
+        if (syncedRandomDelay) { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, (float)WaitTime); }
         if (pickOne && !manualRegister) { parent.GDArea.Selector.Register(parent); }
 
         if (_autostart) { RunTimer(); }
@@ -60,9 +60,9 @@ public class TimerExt : Timer
     {
         if (!pickOne || parent.GDArea.Selector.IsObjectSelected(parent))
         {
-            EmitSignal(nameof(timeout_ext));
+            EmitSignal(SignalName.timeout_ext);
         }
     }
 
-    public new void Start(float _ = 0) { GD.Print("Use RunTimer!"); }
+    public new void Start(double _ = 0) { GD.Print("Use RunTimer!"); }
 }

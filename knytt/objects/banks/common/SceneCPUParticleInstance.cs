@@ -1,6 +1,6 @@
 using Godot;
 
-public class SceneCPUParticleInstance : Node2D
+public partial class SceneCPUParticleInstance : Node2D
 {
     public Vector2 Velocity;
     public float Mass;
@@ -8,7 +8,7 @@ public class SceneCPUParticleInstance : Node2D
     public Vector2 Gravity;
     public float Drag;
 
-    public OpenSimplexNoise _noise;
+    public FastNoiseLite _noise;
 
     bool stopped = false;
 
@@ -22,7 +22,7 @@ public class SceneCPUParticleInstance : Node2D
             {
                 if (_noise == null)
                 {
-                    _noise = new OpenSimplexNoise();
+                    _noise = new FastNoiseLite();
                     _noise.Seed = GDKnyttDataStore.random.Next();
                 }
             }
@@ -47,21 +47,21 @@ public class SceneCPUParticleInstance : Node2D
         _brownian_t = new Vector2(0f, 999999f);
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (stopped) { return; }
 
         base._PhysicsProcess(delta);
-        _time += delta;
+        _time += (float)delta;
         if (_time >= Lifetime) { QueueFree(); }
 
-        if (_brownian) { calcBrownianForces(delta); }
+        if (_brownian) { calcBrownianForces((float)delta); }
 
         // Simple Euler Integration
         _acceleration = Force / Mass;
         _acceleration += Gravity;
-        Velocity += (_acceleration - (Drag * Velocity)) * delta;
-        Translate(Velocity * delta);
+        Velocity += (_acceleration - (Drag * Velocity)) * (float)delta;
+        Translate(Velocity * (float)delta);
 
         Force = Vector2.Zero;
     }
@@ -71,9 +71,9 @@ public class SceneCPUParticleInstance : Node2D
         _brownian_t += BrownianSpeed * delta;
 
 
-        var bm = new Vector2(_noise.GetNoise1d(_brownian_t.x), _noise.GetNoise1d(_brownian_t.y)) * BrownianForce;
-        bm.x = Mathf.Pow(Mathf.Abs(bm.x), BrownianExponent) * Mathf.Sign(bm.x);
-        bm.y = Mathf.Pow(Mathf.Abs(bm.y), BrownianExponent) * Mathf.Sign(bm.y);
+        var bm = new Vector2(_noise.GetNoise1D(_brownian_t.X), _noise.GetNoise1D(_brownian_t.Y)) * BrownianForce;
+        bm.X = Mathf.Pow(Mathf.Abs(bm.X), BrownianExponent) * Mathf.Sign(bm.X);
+        bm.Y = Mathf.Pow(Mathf.Abs(bm.Y), BrownianExponent) * Mathf.Sign(bm.Y);
         Force += bm;
     }
 

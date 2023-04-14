@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Dark Forest Bullet.wav-e6fa0855dbeff2fc1f528eca177fd4f9.sample"
+type="AudioStreamWAV"
+uid="uid://com5f6dxs5k6y"
+path="res://.godot/imported/Dark Forest Bullet.wav-e6fa0855dbeff2fc1f528eca177fd4f9.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Dark Forest Bullet.wav"
-dest_files=[ "res://.import/Dark Forest Bullet.wav-e6fa0855dbeff2fc1f528eca177fd4f9.sample" ]
+dest_files=["res://.godot/imported/Dark Forest Bullet.wav-e6fa0855dbeff2fc1f528eca177fd4f9.sample"]
 
 [params]
 

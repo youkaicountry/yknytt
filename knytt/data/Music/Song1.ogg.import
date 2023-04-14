@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Song1.ogg-15999c67205c4714c483d2c39d5496a6.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://f0u0usr5oawm"
+path="res://.godot/imported/Song1.ogg-15999c67205c4714c483d2c39d5496a6.oggvorbisstr"
 
 [deps]
 
 source_file="res://knytt/data/Music/Song1.ogg"
-dest_files=[ "res://.import/Song1.ogg-15999c67205c4714c483d2c39d5496a6.oggstr" ]
+dest_files=["res://.godot/imported/Song1.ogg-15999c67205c4714c483d2c39d5496a6.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

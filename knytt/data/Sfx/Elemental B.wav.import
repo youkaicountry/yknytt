@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Elemental B.wav-082e5c1ead6d532b421c1214af277a59.sample"
+type="AudioStreamWAV"
+uid="uid://d0664f4a17xnw"
+path="res://.godot/imported/Elemental B.wav-082e5c1ead6d532b421c1214af277a59.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Elemental B.wav"
-dest_files=[ "res://.import/Elemental B.wav-082e5c1ead6d532b421c1214af277a59.sample" ]
+dest_files=["res://.godot/imported/Elemental B.wav-082e5c1ead6d532b421c1214af277a59.sample"]
 
 [params]
 

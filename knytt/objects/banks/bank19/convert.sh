@@ -1,51 +1,52 @@
-PATTERN="s/bank[0-9]\+\(\/[a-z_]\+\)\?\/\([a-zA-z0-9_]\+\)\.png/bank19\/img\/\2\.png/g"
-cat knytt/objects/banks/bank2/Flything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature1.tscn
-cat knytt/objects/banks/bank2/BadFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature2.tscn
-cat knytt/objects/banks/bank2/HomingFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature3.tscn
-cat knytt/objects/banks/bank2/CaveFirefly.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature4.tscn
-cat knytt/objects/banks/bank2/TentacleFlything.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature5.tscn
-cat knytt/objects/banks/bank2/PropellerChild2.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature6.tscn
-cat knytt/objects/banks/bank2/FlySpike1.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature7.tscn
-cat knytt/objects/banks/bank2/Birdie1.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature8.tscn
-cat knytt/objects/banks/bank2/Birdie3.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature9.tscn
-cat knytt/objects/banks/bank2/SnowBird.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature10.tscn
-cat knytt/objects/banks/bank2/CircleBird.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature11.tscn
-cat knytt/objects/banks/bank3/Muff3.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature12.tscn
-cat knytt/objects/banks/bank3/YellowDog.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature13.tscn
-cat knytt/objects/banks/bank3/SpikerMuff6.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature14.tscn
-cat knytt/objects/banks/bank3/Muff7.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature15.tscn
-cat knytt/objects/banks/bank3/Muff9.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature16.tscn
-cat knytt/objects/banks/bank3/Muff17.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature17.tscn
-cat knytt/objects/banks/bank3/Muff19.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature18.tscn
-cat knytt/objects/banks/bank3/Muff24.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature19.tscn
-cat knytt/objects/banks/bank3/Ratlike.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature20.tscn
-cat knytt/objects/banks/bank3/Muff34.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature21.tscn
-cat knytt/objects/banks/bank3/BigCat.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature22.tscn
-cat knytt/objects/banks/bank4/SixLegChild.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature23.tscn
-cat knytt/objects/banks/bank4/CeilingDropCrawler.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature24.tscn
-cat knytt/objects/banks/bank4/LeftStranger.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature25.tscn
-cat knytt/objects/banks/bank4/StrangeRunner.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature26.tscn
-cat knytt/objects/banks/bank4/HomingRunner.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature27.tscn
-cat knytt/objects/banks/bank4/ToastMonster.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature28.tscn
-cat knytt/objects/banks/bank4/TriShot.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature29.tscn
-cat knytt/objects/banks/bank4/RightSuperStranger.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature30.tscn
-cat knytt/objects/banks/bank6/Eater.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature31.tscn
-cat knytt/objects/banks/bank6/SelfDropper.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature32.tscn
-cat knytt/objects/banks/bank6/UpStuffShooter.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature33.tscn
-cat knytt/objects/banks/bank9/RedTrapFlower.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature34.tscn
-cat knytt/objects/banks/bank9/TimedFlower.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature35.tscn
-cat knytt/objects/banks/bank9/SmallTimedFlower.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature36.tscn
-cat knytt/objects/banks/bank10/TeenageFluff.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature37.tscn
-cat knytt/objects/banks/bank11/ShockDisk2.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature38.tscn
-cat knytt/objects/banks/bank11/GreenDisk.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature39.tscn
-cat knytt/objects/banks/bank11/ShockDisk3.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature40.tscn
-cat knytt/objects/banks/bank14/GreenWorm.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature41.tscn
-cat knytt/objects/banks/bank14/HarmlessInsect.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature42.tscn
-cat knytt/objects/banks/bank14/StationaryRock.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature43.tscn
-cat knytt/objects/banks/bank14/SmileBall.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature44.tscn
-cat knytt/objects/banks/bank14/AnotherSnail.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature45.tscn
-cat knytt/objects/banks/bank14/SpikelessSpiker.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature46.tscn
-cat knytt/objects/banks/bank14/SuperShotRight.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature47.tscn
-cat knytt/objects/banks/bank17/DarkRandomizer.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature48.tscn
-cat knytt/objects/banks/bank17/SmallSpider.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature49.tscn
-cat knytt/objects/banks/bank18/WaterMonster.tscn | sed -e $PATTERN > knytt/objects/banks/bank19/base/Creature50.tscn
+PATTERN="s|bank[0-9]\+\(/[a-z_]\+\)\?/\([a-zA-z0-9_]\+\)\.png|bank19/img/\2\.png|g"
+PATTERN2='s|"Texture2D" uid="uid://[0-9a-z]\+"|"Texture2D"|g'
+cat knytt/objects/banks/bank2/Flything.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature1.tscn
+cat knytt/objects/banks/bank2/BadFlything.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature2.tscn
+cat knytt/objects/banks/bank2/HomingFlything.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature3.tscn
+cat knytt/objects/banks/bank2/CaveFirefly.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature4.tscn
+cat knytt/objects/banks/bank2/TentacleFlything.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature5.tscn
+cat knytt/objects/banks/bank2/PropellerChild2.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature6.tscn
+cat knytt/objects/banks/bank2/FlySpike1.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature7.tscn
+cat knytt/objects/banks/bank2/Birdie1.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature8.tscn
+cat knytt/objects/banks/bank2/Birdie3.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature9.tscn
+cat knytt/objects/banks/bank2/SnowBird.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature10.tscn
+cat knytt/objects/banks/bank2/CircleBird.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature11.tscn
+cat knytt/objects/banks/bank3/Muff3.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature12.tscn
+cat knytt/objects/banks/bank3/YellowDog.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature13.tscn
+cat knytt/objects/banks/bank3/SpikerMuff6.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature14.tscn
+cat knytt/objects/banks/bank3/Muff7.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature15.tscn
+cat knytt/objects/banks/bank3/Muff9.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature16.tscn
+cat knytt/objects/banks/bank3/Muff17.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature17.tscn
+cat knytt/objects/banks/bank3/Muff19.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature18.tscn
+cat knytt/objects/banks/bank3/Muff24.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature19.tscn
+cat knytt/objects/banks/bank3/Ratlike.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature20.tscn
+cat knytt/objects/banks/bank3/Muff34.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature21.tscn
+cat knytt/objects/banks/bank3/BigCat.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature22.tscn
+cat knytt/objects/banks/bank4/SixLegChild.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature23.tscn
+cat knytt/objects/banks/bank4/CeilingDropCrawler.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature24.tscn
+cat knytt/objects/banks/bank4/LeftStranger.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature25.tscn
+cat knytt/objects/banks/bank4/StrangeRunner.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature26.tscn
+cat knytt/objects/banks/bank4/HomingRunner.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature27.tscn
+cat knytt/objects/banks/bank4/ToastMonster.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature28.tscn
+cat knytt/objects/banks/bank4/TriShot.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature29.tscn
+cat knytt/objects/banks/bank4/RightSuperStranger.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature30.tscn
+cat knytt/objects/banks/bank6/Eater.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature31.tscn
+cat knytt/objects/banks/bank6/SelfDropper.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature32.tscn
+cat knytt/objects/banks/bank6/UpStuffShooter.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature33.tscn
+cat knytt/objects/banks/bank9/RedTrapFlower.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature34.tscn
+cat knytt/objects/banks/bank9/TimedFlower.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature35.tscn
+cat knytt/objects/banks/bank9/SmallTimedFlower.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature36.tscn
+cat knytt/objects/banks/bank10/TeenageFluff.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature37.tscn
+cat knytt/objects/banks/bank11/ShockDisk2.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature38.tscn
+cat knytt/objects/banks/bank11/GreenDisk.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature39.tscn
+cat knytt/objects/banks/bank11/ShockDisk3.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature40.tscn
+cat knytt/objects/banks/bank14/GreenWorm.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature41.tscn
+cat knytt/objects/banks/bank14/HarmlessInsect.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature42.tscn
+cat knytt/objects/banks/bank14/StationaryRock.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature43.tscn
+cat knytt/objects/banks/bank14/SmileBall.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature44.tscn
+cat knytt/objects/banks/bank14/AnotherSnail.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature45.tscn
+cat knytt/objects/banks/bank14/SpikelessSpiker.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature46.tscn
+cat knytt/objects/banks/bank14/SuperShotRight.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature47.tscn
+cat knytt/objects/banks/bank17/DarkRandomizer.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature48.tscn
+cat knytt/objects/banks/bank17/SmallSpider.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature49.tscn
+cat knytt/objects/banks/bank18/WaterMonster.tscn | sed -e $PATTERN -e "$PATTERN2" > knytt/objects/banks/bank19/base/Creature50.tscn

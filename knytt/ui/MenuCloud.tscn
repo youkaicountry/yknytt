@@ -2,9 +2,9 @@
 
 [ext_resource path="res://knytt/ui/particles/MenuCloud.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/particles/ParticleCircle.cs" type="Script" id=2]
-[ext_resource path="res://knytt/ui/particles/gray_hi.png" type="Texture" id=3]
-[ext_resource path="res://knytt/ui/particles/red_hi.png" type="Texture" id=4]
-[ext_resource path="res://knytt/ui/particles/yellow_hi.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/particles/gray_hi.png" type="Texture2D" id=3]
+[ext_resource path="res://knytt/ui/particles/red_hi.png" type="Texture2D" id=4]
+[ext_resource path="res://knytt/ui/particles/yellow_hi.png" type="Texture2D" id=5]
 
 [node name="MenuCloud" type="Node2D"]
 position = Vector2( 300, 120 )

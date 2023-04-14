@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BulletLayer : Node2D
+public partial class BulletLayer : Node2D
 {
     public delegate void InitBulletEvent(BaseBullet bullet, int i);
 
@@ -60,7 +60,7 @@ public class BulletLayer : Node2D
         }
         else if (queue.Count == 0 || queue.Peek().Visible)
         {
-            bullet = bulletScenes[bullet_scene].Instance() as BaseBullet;
+            bullet = bulletScenes[bullet_scene].Instantiate<BaseBullet>();
             bullet.GDArea = GetParent<GDKnyttArea>();
             AddChild(bullet);
         }

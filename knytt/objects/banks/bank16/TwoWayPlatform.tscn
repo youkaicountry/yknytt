@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank16/TwoWayPlatform.cs" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 2 )
+size = Vector2(24, 4)
 
 [node name="Node2D" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

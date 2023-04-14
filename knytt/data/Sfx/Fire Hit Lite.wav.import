@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Fire Hit Lite.wav-020e213189fbae4826f3d3ef5532d0f1.sample"
+type="AudioStreamWAV"
+uid="uid://trqcsym31ao6"
+path="res://.godot/imported/Fire Hit Lite.wav-020e213189fbae4826f3d3ef5532d0f1.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Fire Hit Lite.wav"
-dest_files=[ "res://.import/Fire Hit Lite.wav-020e213189fbae4826f3d3ef5532d0f1.sample" ]
+dest_files=["res://.godot/imported/Fire Hit Lite.wav-020e213189fbae4826f3d3ef5532d0f1.sample"]
 
 [params]
 

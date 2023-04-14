@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample"
+type="AudioStreamWAV"
+uid="uid://cffhlogwalsmg"
+path="res://.godot/imported/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Save Spot.wav"
-dest_files=[ "res://.import/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample" ]
+dest_files=["res://.godot/imported/Save Spot.wav-bcb5d619f8dc90a18e330d820b2feeee.sample"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank14/RunThing.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank14/small_run_thing.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank14/small_run_thing.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -49,17 +49,17 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 8, 6 )
+size = Vector2(16, 12)
 
 [node name="Muff" instance=ExtResource( 1 )]
-speedValues = PoolIntArray( 17, 18, 19, 20, 21, 22 )
+speedValues = PackedInt32Array( 17, 18, 19, 20, 21, 22 )
 deceleration = 48.0
 safeDistance = 80.0
 attackSpeed = 40
 normalDeceleration = 48.0
 attackDeceleration = 24.0
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 9 )
 animation = "walk"
 
@@ -68,7 +68,7 @@ position = Vector2( 12, 18 )
 shape = SubResource( 10 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PoolVector2Array( 8.37872, 24.0375, 4.01337, 19.7714, 9.37085, 12.2312, 15.522, 12.3304, 19.9866, 19.6722, 17.0102, 24.0375 )
+polygon = PackedVector2Array( 8.37872, 24.0375, 4.01337, 19.7714, 9.37085, 12.2312, 15.522, 12.3304, 19.9866, 19.6722, 17.0102, 24.0375 )
 
 [node name="RunTimer" parent="." index="5"]
 wait_time = 0.8

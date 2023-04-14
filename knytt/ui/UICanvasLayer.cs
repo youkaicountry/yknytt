@@ -1,7 +1,7 @@
 using Godot;
 using static YKnyttLib.JuniValues;
 
-public class UICanvasLayer : CanvasLayer
+public partial class UICanvasLayer : CanvasLayer
 {
     public GDKnyttGame Game { get; private set; }
     bool showing = false;
@@ -24,7 +24,7 @@ public class UICanvasLayer : CanvasLayer
         Location = GetNode<LocationLabel>("LocationLabel");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (Input.IsActionJustPressed("show_info"))
         {
@@ -45,15 +45,15 @@ public class UICanvasLayer : CanvasLayer
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
-            if (anim2 != null) { anim2.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed); }
+            anim.SpeedScale = Mathf.Abs(anim.SpeedScale);
+            if (anim2 != null) { anim2.SpeedScale = Mathf.Abs(anim2.SpeedScale); }
             if (showing) { anim.PlayBackwards("SlideOut"); anim2?.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); anim2?.Play("SlideOut"); sliding_out = true; }
         }
         else
         {
-            anim.PlaybackSpeed *= -1f;
-            if (anim2 != null) { anim2.PlaybackSpeed *= -1f; }
+            anim.SpeedScale *= -1f;
+            if (anim2 != null) { anim2.SpeedScale *= -1f; }
             sliding_out = !sliding_out;
         }
     }
@@ -63,7 +63,7 @@ public class UICanvasLayer : CanvasLayer
         showing = sliding_out;
     }
 
-    public void powerUpdate(PowerNames names, bool value)
+    public void powerUpdate(int name, bool value)
     {
         updatePowers();
     }
@@ -78,7 +78,7 @@ public class UICanvasLayer : CanvasLayer
                 Game.Juni.Powers.getArtifactsCount() > 0))
         {
             var scene = ResourceLoader.Load("res://knytt/ui/info_panel/ArtifactsPanel.tscn") as PackedScene;
-            artifactsPanel = scene.Instance() as ArtifactsPanel;
+            artifactsPanel = scene.Instantiate<ArtifactsPanel>();
             artifactsPanel.Modulate = new Color(1, 1, 1, 0);
             AddChild(artifactsPanel);
         }

@@ -1,12 +1,12 @@
 using Godot;
 
-public class SlotButton : Button
+public partial class SlotButton : Button
 {
     [Export]
     public int slot = 1;
 
     [Signal]
-    public delegate void StartGame();
+    public delegate void StartGameEventHandler();
 
     public bool ConfirmActive
     {
@@ -40,16 +40,6 @@ public class SlotButton : Button
 
     public bool NewMode { get; private set; }
 
-    public File SlotFile
-    {
-        get
-        {
-            var f = new File();
-            f.Open(FullFilename, File.ModeFlags.Read);
-            return f;
-        }
-    }
-
     public string FullFilename { get { return $"{BaseFile} {slot}.ini"; } }
 
     public override void _Ready()
@@ -62,11 +52,9 @@ public class SlotButton : Button
     public void checkSlot()
     {
         close();
-        var f = SlotFile;
-        if (f.IsOpen()) { setupLoadMode(); }
+        using var f = FileAccess.Open(FullFilename, FileAccess.ModeFlags.Read);
+        if (f != null && f.IsOpen()) { setupLoadMode(); }
         else { setupNewMode(); }
-        f.Close();
-
     }
 
     private void setupNewMode()
@@ -107,8 +95,7 @@ public class SlotButton : Button
     public void _on_ConfirmButton_pressed()
     {
         ClickPlayer.Play();
-        var dir = new Directory();
-        dir.Remove(FullFilename);
+        DirAccess.RemoveAbsolute(FullFilename);
         checkSlot();
     }
 
@@ -116,6 +103,6 @@ public class SlotButton : Button
     {
         ClickPlayer.Play();
         // Message up to the level selection with a new? flag, the filename, and the slot number
-        EmitSignal(nameof(StartGame), NewMode, FullFilename, slot);
+        EmitSignal(SignalName.StartGame, NewMode, FullFilename, slot);
     }
 }

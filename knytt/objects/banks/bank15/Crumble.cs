@@ -1,12 +1,12 @@
 using Godot;
 
-public class Crumble : GDKnyttBaseObject
+public partial class Crumble : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
     private void _on_Area2D_body_entered(Juni juni)

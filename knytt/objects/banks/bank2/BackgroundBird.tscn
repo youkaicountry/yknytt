@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank2/BackgroundBird.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/background_bird_1.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank2/background_bird_2.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank2/background_bird_1.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/objects/banks/bank2/background_bird_2.png" type="Texture2D" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -84,7 +84,7 @@ animations = [ {
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color( 1, 1, 1, 0.627451 )
 frames = SubResource( 17 )
 animation = "fly0"

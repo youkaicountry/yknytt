@@ -1,103 +1,106 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://brymt0dewvx1i"]
 
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/Cutscene.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/small_arrow_disabled.png" type="Texture" id=4]
-[ext_resource path="res://knytt/ui/small_arrow.png" type="Texture" id=5]
-[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=7]
+[ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttButton.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHTTPRequest.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/Cutscene.cs" id="3"]
+[ext_resource type="Texture2D" uid="uid://ch4vb5lp482yq" path="res://knytt/ui/small_arrow_disabled.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://ctq5othubefrb" path="res://knytt/ui/small_arrow.png" id="5"]
+[ext_resource type="PackedScene" path="res://knytt/ui/FadeLayer.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://knytt/juni/StandartSoundPlayer.tscn" id="7"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "FadeOut"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [ 0.0, -6.667, -16.428, -30.881, -80.0 ]
+"values": [0.0, -6.667, -16.428, -30.881, -80.0]
 }
 
-[node name="Cutscene" type="Control"]
-pause_mode = 2
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -120.0
-margin_right = 300.0
-margin_bottom = 120.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f3167"]
+_data = {
+"FadeOut": SubResource("1")
 }
+
+[node name="Cutscene" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("3")
 
 [node name="Image" type="TextureRect" parent="."]
+texture_filter = 2
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_mode = 1
 
-[node name="BackButton" parent="." instance=ExtResource( 1 )]
-margin_left = 10.0
-margin_top = 214.0
-margin_right = 55.0
-margin_bottom = 219.295
-rect_min_size = Vector2( 60, 0 )
+[node name="BackButton" parent="." instance=ExtResource("1")]
+custom_minimum_size = Vector2(60, 0)
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 214.0
+offset_right = 70.0
+offset_bottom = 233.0
 text = ""
 
 [node name="Arrow" type="TextureRect" parent="BackButton"]
-margin_left = 22.0
-margin_top = 7.0
-margin_right = 36.0
-margin_bottom = 12.0
-texture = ExtResource( 5 )
+layout_mode = 0
+offset_left = 22.0
+offset_top = 7.0
+offset_right = 36.0
+offset_bottom = 12.0
+texture = ExtResource("5")
 flip_h = true
 
 [node name="DisabledArrow" type="TextureRect" parent="BackButton"]
-margin_left = 22.0
-margin_top = 7.0
-margin_right = 36.0
-margin_bottom = 12.0
-texture = ExtResource( 4 )
+layout_mode = 0
+offset_left = 22.0
+offset_top = 7.0
+offset_right = 36.0
+offset_bottom = 12.0
+texture = ExtResource("4")
 flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="NextButton" parent="." instance=ExtResource( 1 )]
-margin_left = 532.0
-margin_top = 214.0
-margin_right = 577.0
-margin_bottom = 219.295
-rect_min_size = Vector2( 60, 0 )
+[node name="NextButton" parent="." instance=ExtResource("1")]
+custom_minimum_size = Vector2(60, 0)
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 532.0
+offset_top = 214.0
+offset_right = 592.0
+offset_bottom = 231.0
 text = ""
 
 [node name="Arrow" type="TextureRect" parent="NextButton"]
-margin_left = 23.0
-margin_top = 7.0
-margin_right = 37.0
-margin_bottom = 12.0
-texture = ExtResource( 5 )
+layout_mode = 0
+offset_left = 23.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 12.0
+texture = ExtResource("5")
 
-[node name="FadeLayer" parent="." instance=ExtResource( 6 )]
+[node name="FadeLayer" parent="." instance=ExtResource("6")]
+layout_mode = 3
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MusicPlayer"]
-anims/FadeOut = SubResource( 1 )
+libraries = {
+"": SubResource("AnimationLibrary_f3167")
+}
 
-[node name="StandartSoundPlayer" parent="." instance=ExtResource( 7 )]
+[node name="StandartSoundPlayer" parent="." instance=ExtResource("7")]
 
-[node name="RateHTTPRequest" parent="." instance=ExtResource( 2 )]
+[node name="RateHTTPRequest" parent="." instance=ExtResource("2")]
 
 [connection signal="pressed" from="BackButton" to="." method="_on_PreviousButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]

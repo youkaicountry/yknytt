@@ -1,13 +1,13 @@
 using Godot;
 using YUtil.Random;
 
-public class UpCannon : GDKnyttBaseObject
+public partial class UpCannon : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         GDArea.Bullets.RegisterEmitter(this, "BlueBullet",
             (p, i) =>

@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingFlower : GDKnyttBaseObject
+public partial class HomingFlower : GDKnyttBaseObject
 {
     public override void _Ready()
     {
@@ -16,13 +16,13 @@ public class HomingFlower : GDKnyttBaseObject
 
     private void _on_LoopTimer_timeout_ext()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("prepare");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("prepare");
         GetNode<Timer>("ShotTimer").Start();
     }
 
     private void _on_ShotTimer_timeout()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("close");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("close");
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         GDArea.Bullets.Emit(this);
     }

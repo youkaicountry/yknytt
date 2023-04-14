@@ -1,95 +1,135 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://f86a5d7wh43g"]
 
-[ext_resource path="res://knytt/objects/banks/bank2/snow_bird_fly.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/snow_bird_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/common/PathCreature.cs" type="Script" id=3]
+[ext_resource type="Texture2D" uid="uid://cvphqkw6kcnbq" path="res://knytt/objects/banks/bank2/snow_bird_fly.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://4obewdi8ks8i" path="res://knytt/objects/banks/bank2/snow_bird_stop.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/banks/common/PathCreature.cs" id="3"]
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id="1"]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -0.0141602, 1.11926, 0, 0, 0, 0, -15.0142, -11.8807, 0, 0, 0, 0, -23.0142, -27.8807, 0, 0, 0, 0, -26.0142, -55.8807, 0, 0, 0, 0, -16.0142, -70.8807, 0, 0, 0, 0, 0.98584, -84.8807, 0, 0, 0, 0, 10.9858, -96.8807, 0, 0, 0, 0, 17.9858, -116.881, 0, 0, 0, 0, 10.9858, -137.881, 0, 0, 0, 0, -2.01416, -153.881, 0, 0, 0, 0, -37.0142, -166.881, 0, 0, 0, 0, -88.0142, -177.881, 0, 0, 0, 0, -125.014, -174.881, 0, 0, 0, 0, -142.014, -171.881, 0, 0, 0, 0, -156.014, -163.881, 0, 0, 0, 0, -161.014, -149.881, 0, 0, 0, 0, -156.014, -131.881, 0, 0, 0, 0, -143.014, -116.881, 0, 0, 0, 0, -106.014, -105.881, 0, 0, 0, 0, 13.9858, -79.8807, 0, 0, 0, 0, 27.9858, -68.8807, 0, 0, 0, 0, 35.9858, -55.8807, 0, 0, 0, 0, 33.9858, -38.8807, 0, 0, 0, 0, 13.9858, -13.8807, 0, 0, 0, 0, 0.98584, 1.11926 )
+"points": PackedVector2Array(0, 0, 0, 0, -0.0141602, 1.11926, 0, 0, 0, 0, -15.0142, -11.8807, 0, 0, 0, 0, -23.0142, -27.8807, 0, 0, 0, 0, -26.0142, -55.8807, 0, 0, 0, 0, -16.0142, -70.8807, 0, 0, 0, 0, 0.98584, -84.8807, 0, 0, 0, 0, 10.9858, -96.8807, 0, 0, 0, 0, 17.9858, -116.881, 0, 0, 0, 0, 10.9858, -137.881, 0, 0, 0, 0, -2.01416, -153.881, 0, 0, 0, 0, -37.0142, -166.881, 0, 0, 0, 0, -88.0142, -177.881, 0, 0, 0, 0, -125.014, -174.881, 0, 0, 0, 0, -142.014, -171.881, 0, 0, 0, 0, -156.014, -163.881, 0, 0, 0, 0, -161.014, -149.881, 0, 0, 0, 0, -156.014, -131.881, 0, 0, 0, 0, -143.014, -116.881, 0, 0, 0, 0, -106.014, -105.881, 0, 0, 0, 0, 13.9858, -79.8807, 0, 0, 0, 0, 27.9858, -68.8807, 0, 0, 0, 0, 35.9858, -55.8807, 0, 0, 0, 0, 33.9858, -38.8807, 0, 0, 0, 0, 13.9858, -13.8807, 0, 0, 0, 0, 0.98584, 1.11926)
 }
+point_count = 25
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 72, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
+region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
+region = Rect2(96, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 120, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
+region = Rect2(120, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 144, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
+region = Rect2(144, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 168, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
+region = Rect2(168, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
-region = Rect2( 192, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
-region = Rect2( 216, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("1")
+region = Rect2(216, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
-region = Rect2( 240, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("1")
+region = Rect2(240, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
-region = Rect2( 264, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("1")
+region = Rect2(264, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id=15]
-animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+[sub_resource type="SpriteFrames" id="15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}],
 "loop": false,
-"name": "stop",
+"name": &"stop",
 "speed": 5.0
-} ]
+}]
 
 [node name="Path2D" type="Path2D"]
-curve = SubResource( 1 )
-script = ExtResource( 3 )
+curve = SubResource("1")
+script = ExtResource("3")
 speed = 32.5
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2( -0.0141602, 1.11926 )
-rotate = false
+rotates = false
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
-frames = SubResource( 15 )
-animation = "stop"
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
+sprite_frames = SubResource("15")
+animation = &"stop"
 centered = false
 flip_h = true
 
 [node name="RunTimer" type="Timer" parent="."]
 wait_time = 1.7
 one_shot = true
+
 [connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]

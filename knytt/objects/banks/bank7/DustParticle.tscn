@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank7/dust.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank7/dust.png" type="Texture2D" id=2]
 
-[node name="DustParticle" type="Sprite"]
+[node name="DustParticle" type="Sprite2D"]
 texture = ExtResource( 2 )

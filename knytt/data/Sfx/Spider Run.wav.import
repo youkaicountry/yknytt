@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Spider Run.wav-aa4552230f0ae127de26b5886e5adf0b.sample"
+type="AudioStreamWAV"
+uid="uid://cyhnl1ug61eak"
+path="res://.godot/imported/Spider Run.wav-aa4552230f0ae127de26b5886e5adf0b.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Spider Run.wav"
-dest_files=[ "res://.import/Spider Run.wav-aa4552230f0ae127de26b5886e5adf0b.sample" ]
+dest_files=["res://.godot/imported/Spider Run.wav-aa4552230f0ae127de26b5886e5adf0b.sample"]
 
 [params]
 

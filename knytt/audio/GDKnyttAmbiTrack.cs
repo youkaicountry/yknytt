@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Math;
 
-public class GDKnyttAmbiTrack : AudioStreamPlayer
+public partial class GDKnyttAmbiTrack : AudioStreamPlayer
 {
     public int AmbiNum { get; set; }
 
@@ -39,11 +39,11 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         fade_i = 1f;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!fading) { return; }
 
-        if (MathTools.MoveTowards(ref fade_i, fade_target, .8f * delta))
+        if (MathTools.MoveTowards(ref fade_i, fade_target, .8f * (float)delta))
         {
             fading = false;
             if (fade_i == 0)

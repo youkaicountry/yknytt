@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Spike Up.wav-45424aaece506963248a6add6ee8ad15.sample"
+type="AudioStreamWAV"
+uid="uid://bbaqxk8b0pm0s"
+path="res://.godot/imported/Spike Up.wav-45424aaece506963248a6add6ee8ad15.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Spike Up.wav"
-dest_files=[ "res://.import/Spike Up.wav-45424aaece506963248a6add6ee8ad15.sample" ]
+dest_files=["res://.godot/imported/Spike Up.wav-45424aaece506963248a6add6ee8ad15.sample"]
 
 [params]
 

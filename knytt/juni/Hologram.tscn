@@ -1,29 +1,35 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://b2jxpvacy2sn8"]
 
-[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://8dg7v58gudo0" path="res://knytt/juni/juni.png" id="1"]
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 192, 96, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(192, 96, 24, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 216, 96, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(216, 96, 24, 24)
 
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 2 ) ],
+[sub_resource type="SpriteFrames" id="4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 25.0
-} ]
+}]
 
 [node name="Hologram" type="Node2D"]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.3, -3 )
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 8
 z_as_relative = false
-frames = SubResource( 4 )
+position = Vector2(-0.3, -3)
+sprite_frames = SubResource("4")
+autoplay = "default"
 frame = 1
-playing = true

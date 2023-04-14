@@ -1,4 +1,4 @@
-public class Warp : GDKnyttBaseObject
+public partial class Warp : GDKnyttBaseObject
 {
     public override void _Ready()
     {

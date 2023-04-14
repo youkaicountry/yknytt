@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class SceneCPUParticles : Node2D
+public partial class SceneCPUParticles : Node2D
 {
     [Export] public int Particles = 1;
 
@@ -62,7 +62,7 @@ public class SceneCPUParticles : Node2D
 
     private void spawnParticle()
     {
-        var p = pinstance_scene.Instance() as SceneCPUParticleInstance;
+        var p = pinstance_scene.Instantiate<SceneCPUParticleInstance>();
         p.Lifetime = CalcVariation(Lifetime, LifetimeVariation);
         p.Velocity = MagnitudeVector(Direction, DirectionVariation, Velocity, VelocityVariation);
         p.Gravity = MagnitudeVector(GravityDirection, GravityDirectionVariation, Gravity, GravityVariation);
@@ -75,7 +75,7 @@ public class SceneCPUParticles : Node2D
         p.BrownianSpeed = new Vector2(CalcVariation(BrownianXSpeed, BrownianXSpeedVariation), CalcVariation(BrownianYSpeed, BrownianYSpeedVariation));
         p.BrownianExponent = BrownianExponent;
 
-        var ps = ParticleScene.Instance() as Node2D;
+        var ps = ParticleScene.Instantiate<Node2D>();
         p.AddChild(ps);
         ps.Position = Vector2.Zero;
 

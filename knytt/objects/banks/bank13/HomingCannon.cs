@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingCannon : Cannon
+public partial class HomingCannon : Cannon
 {
     public override void _Ready()
     {
@@ -10,7 +10,7 @@ public class HomingCannon : Cannon
             {
                 p.Translate(new Vector2(8f, 8f));
                 p.DirectionMMF2 = 12;
-                p.VelocityMMF2 = Mathf.Max(0, Center.x - Juni.ApparentPosition.x) / 8f + 13f + random.Next(6);
+                p.VelocityMMF2 = Mathf.Max(0, Center.X - Juni.ApparentPosition.X) / 8f + 13f + random.Next(6);
                 p.GravityMMF2 = 10 + random.Next(5);
             });
     }

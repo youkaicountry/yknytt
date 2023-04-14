@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectMod : Node2D
+public partial class CollectMod : Node2D
 {
     [Export] NodePath collisionPath = new NodePath("CollisionShape2D");
 

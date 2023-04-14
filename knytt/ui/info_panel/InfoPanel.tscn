@@ -1,100 +1,76 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bcxxogd2axpqj"]
 
-[ext_resource path="res://knytt/ui/button_up.png" type="Texture" id=1]
-[ext_resource path="res://knytt/ui/info_panel/ItemInfo.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=4]
+[ext_resource type="Texture2D" uid="uid://cxsu0fs4stshh" path="res://knytt/ui/button_up.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/ui/info_panel/ItemInfo.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/info_panel/InfoPanel.cs" id="4"]
 
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 12, 12 )
-margin_left = 3.34132
-margin_right = 3.2128
-margin_top = 3.34132
-margin_bottom = 3.46983
+[sub_resource type="StyleBoxTexture" id="1"]
+texture = ExtResource("1")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(0, 0, 12, 12)
 
 [node name="InfoPanel" type="Panel"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = -3.61994
-margin_top = -32.2144
-margin_right = 287.0
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 4 )
+modulate = Color(1, 1, 1, 0)
+offset_left = -3.61994
+offset_top = -32.2144
+offset_right = 287.0
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("4")
 
 [node name="ItemContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
-margin_left = 0.186974
-margin_top = 2.91589
-margin_bottom = 26.9159
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 0.186974
+offset_top = 2.91589
+offset_bottom = 26.9159
+theme_override_constants/separation = 0
 
-[node name="ItemInfo0" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_bottom = 24.0
+[node name="ItemInfo0" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 
-[node name="ItemInfo1" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 24.0
-margin_right = 48.0
-margin_bottom = 24.0
+[node name="ItemInfo1" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 1
 
-[node name="ItemInfo2" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 48.0
-margin_right = 72.0
-margin_bottom = 24.0
+[node name="ItemInfo2" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 2
 
-[node name="ItemInfo3" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 72.0
-margin_right = 96.0
-margin_bottom = 24.0
+[node name="ItemInfo3" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 3
 
-[node name="ItemInfo4" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 96.0
-margin_right = 120.0
-margin_bottom = 24.0
+[node name="ItemInfo4" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 4
 
-[node name="ItemInfo5" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 120.0
-margin_right = 144.0
-margin_bottom = 24.0
+[node name="ItemInfo5" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 5
 
-[node name="ItemInfo6" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 144.0
-margin_right = 168.0
-margin_bottom = 24.0
+[node name="ItemInfo6" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 6
 
-[node name="ItemInfo7" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 168.0
-margin_right = 192.0
-margin_bottom = 24.0
+[node name="ItemInfo7" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 7
 
-[node name="ItemInfo8" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 192.0
-margin_right = 216.0
-margin_bottom = 24.0
+[node name="ItemInfo8" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 8
 
-[node name="ItemInfo9" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 216.0
-margin_right = 240.0
-margin_bottom = 24.0
+[node name="ItemInfo9" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 9
 
-[node name="ItemInfo10" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 240.0
-margin_right = 264.0
-margin_bottom = 24.0
+[node name="ItemInfo10" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 10
 
-[node name="ItemInfo11" parent="ItemContainer" instance=ExtResource( 2 )]
-margin_left = 264.0
-margin_right = 288.0
-margin_bottom = 24.0
+[node name="ItemInfo11" parent="ItemContainer" instance=ExtResource("2")]
+layout_mode = 2
 ItemID = 11

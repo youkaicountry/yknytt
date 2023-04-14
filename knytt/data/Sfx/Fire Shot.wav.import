@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Fire Shot.wav-80be09aa2560a835a309c4274a2edf3c.sample"
+type="AudioStreamWAV"
+uid="uid://ds42cfolbh8c2"
+path="res://.godot/imported/Fire Shot.wav-80be09aa2560a835a309c4274a2edf3c.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Fire Shot.wav"
-dest_files=[ "res://.import/Fire Shot.wav-80be09aa2560a835a309c4274a2edf3c.sample" ]
+dest_files=["res://.godot/imported/Fire Shot.wav-80be09aa2560a835a309c4274a2edf3c.sample"]
 
 [params]
 

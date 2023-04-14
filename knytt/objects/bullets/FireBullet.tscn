@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://knytt/objects/bullets/fire_bullet.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bullets/fire_bullet.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/data/Sfx/Fire Hit Lite.wav" type="AudioStream" id=4]
@@ -35,7 +35,7 @@ collision_mask = 6145
 position = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 5 )
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]

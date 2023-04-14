@@ -1,55 +1,70 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://cnv860s7mk7t2"]
 
-[ext_resource path="res://knytt/objects/banks/bank4/DropCrawler.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank4/drop_crawler_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank4/drop_crawler.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/banks/bank4/FloorDropCrawler.cs" type="Script" id=4]
+[ext_resource type="PackedScene" path="res://knytt/objects/banks/bank4/DropCrawler.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://0pndtsfisgdc" path="res://knytt/objects/banks/bank4/drop_crawler_stop.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bmrxh1dyhrie7" path="res://knytt/objects/banks/bank4/drop_crawler.png" id="3"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank4/FloorDropCrawler.cs" id="4"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(14, 14)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 24, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("3")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 3 )
-region = Rect2( 48, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("3")
+region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 3 )
-region = Rect2( 72, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("3")
+region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ SubResource( 2 ) ],
+[sub_resource type="SpriteFrames" id="7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 17.0
-} ]
+}]
 
-[node name="Crawler" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="Crawler" instance=ExtResource("1")]
+script = ExtResource("4")
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12, 16 )
-shape = SubResource( 1 )
+position = Vector2(12, 16)
+shape = SubResource("1")
 
-[node name="AnimatedSprite" parent="." index="1"]
-frames = SubResource( 7 )
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("7")
 
 [node name="DistanceMod" parent="." index="2"]
 openDistance = 200.0
@@ -59,3 +74,6 @@ method = 2
 [node name="ShotTimer" parent="." index="3"]
 wait_time = 1.88
 syncedRandomDelay = true
+
+[node name="ShotPlayer" parent="." index="4"]
+bus = &"SFX"

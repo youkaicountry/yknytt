@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank4/slow_side_crawler.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank4/slow_side_crawler.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/common/Crawler.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 8 )
+size = Vector2(14, 16)
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -47,12 +47,12 @@ speed = 33.0
 position = Vector2( 8, 12 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 7 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PoolVector2Array( 0, 6.892, 7.41827, 4.88989, 11.7565, 8.14356, 14.6765, 11.7309, 12.0068, 15.9023, 7.75198, 18.9057, 0, 16.903 )
+polygon = PackedVector2Array( 0, 6.892, 7.41827, 4.88989, 11.7565, 8.14356, 14.6765, 11.7309, 12.0068, 15.9023, 7.75198, 18.9057, 0, 16.903 )
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

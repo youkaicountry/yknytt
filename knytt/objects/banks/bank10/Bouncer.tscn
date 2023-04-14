@@ -8,7 +8,7 @@
 script = ExtResource( 2 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
 [node name="BouncePlayer" parent="." instance=ExtResource( 1 )]

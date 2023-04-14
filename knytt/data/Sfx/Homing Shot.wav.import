@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Homing Shot.wav-c899d49c753d645b7f6306738ef763fd.sample"
+type="AudioStreamWAV"
+uid="uid://25lwjhm84c85"
+path="res://.godot/imported/Homing Shot.wav-c899d49c753d645b7f6306738ef763fd.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Homing Shot.wav"
-dest_files=[ "res://.import/Homing Shot.wav-c899d49c753d645b7f6306738ef763fd.sample" ]
+dest_files=["res://.godot/imported/Homing Shot.wav-c899d49c753d645b7f6306738ef763fd.sample"]
 
 [params]
 

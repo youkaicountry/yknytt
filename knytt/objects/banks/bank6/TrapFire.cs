@@ -1,13 +1,13 @@
 using Godot;
 
-public class TrapFire : GDKnyttBaseObject
+public partial class TrapFire : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private Timer shotDelayTimer;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
         GDArea.Selector.Register(this);
@@ -23,7 +23,7 @@ public class TrapFire : GDKnyttBaseObject
 
     private float getDirection()
     {
-        return Mathf.Atan2(GlobalPosition.y - Juni.ApparentPosition.y + 10, GlobalPosition.x - Juni.ApparentPosition.x);
+        return Mathf.Atan2(GlobalPosition.Y - Juni.ApparentPosition.Y + 10, GlobalPosition.X - Juni.ApparentPosition.X);
     }
 
     private async void _on_ShotTimer_timeout_ext()

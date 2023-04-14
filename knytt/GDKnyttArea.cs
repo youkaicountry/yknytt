@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class GDKnyttArea : Node2D
+public partial class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
@@ -32,7 +32,7 @@ public class GDKnyttArea : Node2D
     public GDKnyttArea()
     {
         objects_scene = ResourceLoader.Load("res://knytt/objects/ObjectLayers.tscn") as PackedScene;
-        tiles_scene = ResourceLoader.Load("res://knytt/AreaTiles.tscn") as PackedScene;
+        tiles_scene = ResourceLoader.Load("res://knytt/GDAreaTiles.tscn") as PackedScene;
     }
 
     public Vector2 GlobalCenter
@@ -40,30 +40,30 @@ public class GDKnyttArea : Node2D
         get
         {
             var gp = GlobalPosition;
-            return new Vector2(gp.x + Width / 2f,
-                               gp.y + Height / 2f);
+            return new Vector2(gp.X + Width / 2f,
+                               gp.Y + Height / 2f);
         }
     }
 
     public Vector2 getTileLocation(KnyttPoint point)
     {
         var gp = GlobalPosition;
-        return new Vector2(gp.x + GDKnyttAssetManager.TILE_WIDTH * point.x + GDKnyttAssetManager.TILE_WIDTH / 2f,
-                       gp.y + GDKnyttAssetManager.TILE_HEIGHT * point.y + GDKnyttAssetManager.TILE_HEIGHT / 2f);
+        return new Vector2(gp.X + GDKnyttAssetManager.TILE_WIDTH * point.x + GDKnyttAssetManager.TILE_WIDTH / 2f,
+                       gp.Y + GDKnyttAssetManager.TILE_HEIGHT * point.y + GDKnyttAssetManager.TILE_HEIGHT / 2f);
     }
 
     public KnyttPoint getPosition(Vector2 p)
     {
         var gp = GlobalPosition;
-        return new KnyttPoint((int)((p.x - GlobalPosition.x) / ((float)GDKnyttAssetManager.TILE_WIDTH)),
-                              (int)((p.y - GlobalPosition.y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
+        return new KnyttPoint((int)((p.X - GlobalPosition.X) / ((float)GDKnyttAssetManager.TILE_WIDTH)),
+                              (int)((p.Y - GlobalPosition.Y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
     }
 
     public bool isIn(Vector2 global_pos, float x_border = 0, float y_border = 0)
     {
         var gp = GlobalPosition;
-        return (global_pos.x >= gp.x + x_border && global_pos.x <= gp.x + Width - x_border &&
-                global_pos.y >= gp.y + y_border && global_pos.y <= gp.y + Height - y_border);
+        return (global_pos.X >= gp.X + x_border && global_pos.X <= gp.X + Width - x_border &&
+                global_pos.Y >= gp.Y + y_border && global_pos.Y <= gp.Y + Height - y_border);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
@@ -83,7 +83,7 @@ public class GDKnyttArea : Node2D
         if (area.Empty) { return; }
 
         // Initialize the Layers
-        Tiles = tiles_scene.Instance() as GDAreaTiles;
+        Tiles = tiles_scene.Instantiate<GDAreaTiles>();
         this.Tiles.initTiles(this);
         AddChild(Tiles);
 
@@ -112,7 +112,7 @@ public class GDKnyttArea : Node2D
 
     private void createObjectLayers()
     {
-        Objects = objects_scene.Instance() as GDObjectLayers;
+        Objects = objects_scene.Instantiate<GDObjectLayers>();
         Objects.initLayers(this);
         AddChild(Objects);
     }
@@ -168,7 +168,7 @@ public class GDKnyttArea : Node2D
 
     public void playEffect(KnyttPoint point = default(KnyttPoint), Vector2 offset = default(Vector2))
     {
-        var sprite = GetNode<Sprite>("EffectSprite");
+        var sprite = GetNode<Sprite2D>("EffectSprite");
         var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         sprite.GlobalPosition = getTileLocation(point) + offset;
         player.Stop();

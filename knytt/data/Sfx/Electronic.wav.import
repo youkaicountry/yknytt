@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Electronic.wav-061c7c5d3c1f3eabb02010527050c39d.sample"
+type="AudioStreamWAV"
+uid="uid://cckk1dufp48v"
+path="res://.godot/imported/Electronic.wav-061c7c5d3c1f3eabb02010527050c39d.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Electronic.wav"
-dest_files=[ "res://.import/Electronic.wav-061c7c5d3c1f3eabb02010527050c39d.sample" ]
+dest_files=["res://.godot/imported/Electronic.wav-061c7c5d3c1f3eabb02010527050c39d.sample"]
 
 [params]
 

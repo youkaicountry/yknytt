@@ -13,7 +13,7 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 0 )
 
 [node name="PauseMenu" type="Control"]
-pause_mode = 2
+process_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -30,10 +30,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.0
-margin_top = -55.0
-margin_right = 120.0
-margin_bottom = 55.0
+offset_left = -120.0
+offset_top = -55.0
+offset_right = 120.0
+offset_bottom = 55.0
 script = ExtResource( 2 )
 
 [node name="BounceTimer" type="Timer" parent="PausePanel"]
@@ -45,38 +45,38 @@ position = Vector2( 119.575, 54.8762 )
 scale = Vector2( 0.55, 0.55 )
 
 [node name="ButtonContainer" type="HBoxContainer" parent="PausePanel"]
-margin_left = 27.0
-margin_top = 82.0
-margin_right = 215.0
-margin_bottom = 101.0
+offset_left = 27.0
+offset_top = 82.0
+offset_right = 215.0
+offset_bottom = 101.0
 
 [node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 19.2149
-rect_min_size = Vector2( 60, 0 )
-custom_styles/disabled = SubResource( 2 )
+offset_right = 60.0
+offset_bottom = 19.2149
+custom_minimum_size = Vector2( 60, 0 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "Resume"
 
 [node name="SettingsButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 64.0
-margin_right = 124.0
-margin_bottom = 19.2149
-rect_min_size = Vector2( 60, 0 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = 64.0
+offset_right = 124.0
+offset_bottom = 19.2149
+custom_minimum_size = Vector2( 60, 0 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "Settings"
 
 [node name="QuitButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 128.0
-margin_right = 188.0
-margin_bottom = 19.2149
-rect_min_size = Vector2( 60, 0 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = 128.0
+offset_right = 188.0
+offset_bottom = 19.2149
+custom_minimum_size = Vector2( 60, 0 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "Quit"
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 1 )]

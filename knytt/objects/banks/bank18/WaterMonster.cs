@@ -1,6 +1,6 @@
 using Godot;
 
-public class WaterMonster : BaseWaterMonster
+public partial class WaterMonster : BaseWaterMonster
 {
     public override void _Ready()
     {

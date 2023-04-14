@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class MapPanel : Panel
+public partial class MapPanel : Panel
 {
     private KnyttWorld world;
     private Juni juni;
@@ -31,7 +31,7 @@ public class MapPanel : Panel
         this.world = world;
         this.juni = juni;
 
-        this.RectSize = new Vector2(
+        this.Size = new Vector2(
             (world.MaxBounds.x - world.MinBounds.x + 1) * XSIZE,
             (world.MaxBounds.y - world.MinBounds.y + 1) * YSIZE);
 
@@ -95,7 +95,7 @@ public class MapPanel : Panel
 
     private Color makeGrey(Color c)
     {
-        return new Color(0.5f + (c.r - 0.5f) * 0.1f, 0.5f + (c.g - 0.5f) * 0.1f, 0.5f + (c.b - 0.5f) * 0.1f);
+        return new Color(0.5f + (c.R - 0.5f) * 0.1f, 0.5f + (c.G - 0.5f) * 0.1f, 0.5f + (c.B - 0.5f) * 0.1f);
     }
 
     public void ShowMap(bool show)
@@ -105,12 +105,12 @@ public class MapPanel : Panel
             KnyttPoint pos = juni.GDArea.Area.Position;
             if (spoofing.ContainsKey(pos)) { pos = spoofing[pos]; }
 
-            RectScale = new Vector2(1, 1);
-            RectPosition = new Vector2(
-                (world.MinBounds.x - pos.x) * XSIZE + (GetParentAreaSize().x - XSIZE) / 2,
-                (world.MinBounds.y - pos.y) * YSIZE + (GetParentAreaSize().y - YSIZE) / 2);
-            RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
-            Update();
+            Scale = new Vector2(1, 1);
+            Position = new Vector2(
+                (world.MinBounds.x - pos.x) * XSIZE + (GetParentAreaSize().X - XSIZE) / 2,
+                (world.MinBounds.y - pos.y) * YSIZE + (GetParentAreaSize().Y - YSIZE) / 2);
+            PivotOffset = -Position + GetParentAreaSize() / 2;
+            //Update();
         }
         GetParent<Panel>().Visible = show;
         GetTree().Paused = show;
@@ -122,45 +122,45 @@ public class MapPanel : Panel
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventScreenDrag drag_event) { drag(drag_event.Relative / RectScale); }
+        if (@event is InputEventScreenDrag drag_event) { drag(drag_event.Relative / Scale); }
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelDown) { scale(0.9f); }
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp) { scale(10 / 9f); }
+            if (mouse_event.ButtonIndex == MouseButton.WheelDown) { scale(0.9f); }
+            if (mouse_event.ButtonIndex == MouseButton.WheelUp) { scale(10 / 9f); }
         }
     }
 
     private void scale(float k)
     {
-        RectScale *= k;
+        Scale *= k;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         var new_offset = Vector2.Zero;
-        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta; }
+        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * (float)delta; }
+        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * (float)delta; }
+        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * (float)delta; }
+        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * (float)delta; }
         if (new_offset != Vector2.Zero) { drag(new_offset); }
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("map") || Input.IsActionJustPressed("pause")) { ShowMap(false); }
     }
 
     private void drag(Vector2 diff)
     {
-        var candidate = RectPosition + diff;
-        Vector2 up_left = new Vector2(20, 20) + RectPivotOffset * (RectScale - new Vector2(1, 1));
-        Vector2 bottom_right = -(new Vector2(20, 20) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - new Vector2(1, 1));
-        if (diff.x > 0 && candidate.x > up_left.x) { diff = new Vector2(0, diff.y); }
-        if (diff.y > 0 && candidate.y > up_left.y) { diff = new Vector2(diff.x, 0); }
-        if (diff.x < 0 && candidate.x < bottom_right.x)  { diff = new Vector2(0, diff.y); }
-        if (diff.y < 0 && candidate.y < bottom_right.y)  { diff = new Vector2(diff.x, 0); }
-        if (diff != Vector2.Zero) { RectPosition += diff; }
-        RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
+        var candidate = Position + diff;
+        Vector2 up_left = new Vector2(20, 20) + PivotOffset * (Scale - new Vector2(1, 1));
+        Vector2 bottom_right = -(new Vector2(20, 20) + Size - GetParentAreaSize()) - (Size - PivotOffset) * (Scale - new Vector2(1, 1));
+        if (diff.X > 0 && candidate.X > up_left.X) { diff = new Vector2(0, diff.Y); }
+        if (diff.Y > 0 && candidate.Y > up_left.Y) { diff = new Vector2(diff.X, 0); }
+        if (diff.X < 0 && candidate.X < bottom_right.X)  { diff = new Vector2(0, diff.Y); }
+        if (diff.Y < 0 && candidate.Y < bottom_right.Y)  { diff = new Vector2(diff.X, 0); }
+        if (diff != Vector2.Zero) { Position += diff; }
+        PivotOffset = -Position + GetParentAreaSize() / 2;
     }
 }

@@ -1,11 +1,11 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank4/6leg_baby_walk.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank4/6leg_baby_stop.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank4/6leg_baby_walk.png" type="Texture2D" id=1]
+[ext_resource path="res://knytt/objects/banks/bank4/6leg_baby_stop.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/banks/common/Crawler.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 3 )
+size = Vector2(8, 6)
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -57,7 +57,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 3, 3.5 )
+size = Vector2(6, 7)
 
 [node name="Crawler" instance=ExtResource( 3 )]
 radarBottom = 12
@@ -67,7 +67,7 @@ radarTop = 12
 position = Vector2( 12, 20 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 11 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]

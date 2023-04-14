@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Bubble : GDKnyttBaseObject
+public partial class Bubble : GDKnyttBaseObject
 {
     const float MIN_DELAY = 4f;
     const float MAX_DELAY = 10f;
@@ -14,7 +14,7 @@ public class Bubble : GDKnyttBaseObject
 
     public void _on_DelayTimer_timeout()
     {
-        GetNode<CPUParticles2D>("CPUParticles2D").Emitting = true;
+        GetNode<CpuParticles2D>("CPUParticles2D").Emitting = true;
         startTimer();
     }
 

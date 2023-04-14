@@ -1,82 +1,91 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://cf3nhq8xfp8nd"]
 
-[ext_resource path="res://knytt/ui/dialogue.png" type="Texture" id=1]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://knytt/objects/banks/bank0/Sign.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=4]
+[ext_resource type="Texture2D" uid="uid://dtf7xg1mhfljm" path="res://knytt/ui/dialogue.png" id="1"]
+[ext_resource type="FontFile" uid="uid://c8pvk1egdqlmd" path="res://knytt/ui/UIDynamicFont.tres" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank0/Sign.cs" id="3"]
+[ext_resource type="Texture2D" uid="uid://dgrn83u3ksr5q" path="res://knytt/ui/down_arrow.png" id="4"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 12 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(24, 24)
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "FadeIn"
 length = 0.25
 step = 0.25
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("SignRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sud3w"]
+_data = {
+"FadeIn": SubResource("2")
 }
 
 [node name="Sign" type="Node2D"]
 z_index = 16
 z_as_relative = false
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="SignRect" type="NinePatchRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = -75.0
-margin_top = -85.6637
-margin_right = 100.0
-margin_bottom = -15.6637
-texture = ExtResource( 1 )
+modulate = Color(1, 1, 1, 0)
+offset_left = -75.0
+offset_top = -85.6637
+offset_right = 100.0
+offset_bottom = -15.6637
+texture = ExtResource("1")
 patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 8
 patch_margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="SignRect"]
-margin_left = 9.0
-margin_top = 4.0
-margin_right = 166.0
-margin_bottom = 64.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 0
+offset_left = 9.0
+offset_top = 4.0
+offset_right = 166.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 12
 text = "Sign Text"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+autowrap_mode = 3
 
 [node name="DownArrow" type="TextureRect" parent="SignRect"]
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -15.0
-margin_top = -15.0
-margin_right = -5.0
-margin_bottom = -5.0
-texture = ExtResource( 4 )
+offset_left = -15.0
+offset_top = -15.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4")
+stretch_mode = 3
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 12, 12 )
+position = Vector2(12, 12)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 2 )
+libraries = {
+"": SubResource("AnimationLibrary_sud3w")
+}
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

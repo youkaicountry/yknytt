@@ -3,10 +3,10 @@
 [ext_resource path="res://knytt/objects/banks/bank16/OneWayPlatform.cs" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 1 )
+size = Vector2(24, 2)
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24, 8 )
+size = Vector2(48, 16)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )

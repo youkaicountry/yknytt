@@ -2,9 +2,9 @@ using Godot;
 using Godot.Collections;
 using System.Text;
 
-public class RateHTTPRequest : HTTPRequest
+public partial class RateHTTPRequest : HttpRequest
 {
-    [Signal] public delegate void RateAdded(int action);
+    [Signal] public delegate void RateAddedEventHandler(int action);
 
     public enum Action
     {
@@ -31,19 +31,20 @@ public class RateHTTPRequest : HTTPRequest
             ["platform"] = OS.GetName()
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
-        Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+        Request($"{serverURL}/rate/", method: HttpClient.Method.Post, requestData: Json.Stringify(dict));
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
+        if (result == (int)HttpRequest.Result.Success && response_code == 200) {; } else { return; }
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
-        if (json.Error != Error.Ok) { return; }
+        var jsonObject = new Json();
+        var error = jsonObject.Parse(response);
+        if (error != Error.Ok) { return; }
 
-        if (HTTPUtil.jsonInt(json.Result, "added") == 1)
+        if (HTTPUtil.jsonInt(jsonObject.Data, "added") == 1)
         {
-            EmitSignal(nameof(RateAdded), HTTPUtil.jsonInt(json.Result, "action"));
+            EmitSignal(SignalName.RateAdded, HTTPUtil.jsonInt(jsonObject.Data, "action"));
         }
     }
 }

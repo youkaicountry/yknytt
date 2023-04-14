@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Chomp.wav-29c2f68ce4630650fd2bd137a953829d.sample"
+type="AudioStreamWAV"
+uid="uid://b38jxmnrmgsyk"
+path="res://.godot/imported/Chomp.wav-29c2f68ce4630650fd2bd137a953829d.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Chomp.wav"
-dest_files=[ "res://.import/Chomp.wav-29c2f68ce4630650fd2bd137a953829d.sample" ]
+dest_files=["res://.godot/imported/Chomp.wav-29c2f68ce4630650fd2bd137a953829d.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Ninja.wav-a66bffb99650ba458e41d4e5eff79671.sample"
+type="AudioStreamWAV"
+uid="uid://bcrb3scl1qlad"
+path="res://.godot/imported/Ninja.wav-a66bffb99650ba458e41d4e5eff79671.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Ninja.wav"
-dest_files=[ "res://.import/Ninja.wav-a66bffb99650ba458e41d4e5eff79671.sample" ]
+dest_files=["res://.godot/imported/Ninja.wav-a66bffb99650ba458e41d4e5eff79671.sample"]
 
 [params]
 

@@ -1,9 +1,9 @@
 using Godot;
 using YKnyttLib;
 
-public class GDKnyttBackground : Sprite
+public partial class GDKnyttBackground : Sprite2D
 {
-    public void initialize(Texture t)
+    public void initialize(Texture2D t)
     {
         Texture = t;
 

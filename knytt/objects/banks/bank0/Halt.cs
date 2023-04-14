@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Halt : GDKnyttBaseObject
+public partial class Halt : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

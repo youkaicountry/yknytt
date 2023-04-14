@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Tiny Hit.wav-ccbff4f20446120f3ee3de0449b3787f.sample"
+type="AudioStreamWAV"
+uid="uid://dyejtxce0qbyo"
+path="res://.godot/imported/Tiny Hit.wav-ccbff4f20446120f3ee3de0449b3787f.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Tiny Hit.wav"
-dest_files=[ "res://.import/Tiny Hit.wav-ccbff4f20446120f3ee3de0449b3787f.sample" ]
+dest_files=["res://.godot/imported/Tiny Hit.wav-ccbff4f20446120f3ee3de0449b3787f.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Hologram B.wav-0dbde5a02a9159e5328fb9de91aa626f.sample"
+type="AudioStreamWAV"
+uid="uid://b2flaqx8c7dnw"
+path="res://.godot/imported/Hologram B.wav-0dbde5a02a9159e5328fb9de91aa626f.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Hologram B.wav"
-dest_files=[ "res://.import/Hologram B.wav-0dbde5a02a9159e5328fb9de91aa626f.sample" ]
+dest_files=["res://.godot/imported/Hologram B.wav-0dbde5a02a9159e5328fb9de91aa626f.sample"]
 
 [params]
 

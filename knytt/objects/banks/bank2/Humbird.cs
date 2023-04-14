@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public class Humbird : GDKnyttBaseObject
+public partial class Humbird : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private Timer runTimer;
     private float originY;
     private float time;
@@ -16,28 +16,28 @@ public class Humbird : GDKnyttBaseObject
     {
         base._Ready();
         runTimer = GetNode<Timer>("RunTimer");
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        originY = GlobalPosition.y;
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        originY = GlobalPosition.Y;
         runTimer.Start();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        if (Juni.ApparentPosition.x - 8 > Center.x) { sprite.FlipH = false; }
-        if (Juni.ApparentPosition.x + 8 < Center.x) { sprite.FlipH = true; }
+        if (Juni.ApparentPosition.X - 8 > Center.X) { sprite.FlipH = false; }
+        if (Juni.ApparentPosition.X + 8 < Center.X) { sprite.FlipH = true; }
 
         if (runTimer.TimeLeft > 0) { return; }
         
-        time += delta;
+        time += (float)delta;
         float new_y = originY - (1 - Mathf.Abs(Mathf.Pow(1 - time / T, POW))) * H;
         
         if (new_y < originY)
         {
-            GlobalPosition = new Vector2(GlobalPosition.x, new_y);
+            GlobalPosition = new Vector2(GlobalPosition.X, new_y);
         }
         else
         {
-            GlobalPosition = new Vector2(GlobalPosition.x, originY);
+            GlobalPosition = new Vector2(GlobalPosition.X, originY);
             runTimer.Start();
             sprite.Play("stop");
         }

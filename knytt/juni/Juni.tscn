@@ -1,364 +1,402 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=3 uid="uid://b1k24vtyvnwby"]
 
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
-[ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
-[ext_resource path="res://knytt/juni/ClimbCheckers.cs" type="Script" id=4]
-[ext_resource path="res://knytt/juni/particles/death-0.png" type="Texture" id=5]
-[ext_resource path="res://knytt/juni/particles/death-2.png" type="Texture" id=6]
-[ext_resource path="res://knytt/juni/particles/death-3.png" type="Texture" id=7]
-[ext_resource path="res://knytt/juni/particles/death-1.png" type="Texture" id=8]
-[ext_resource path="res://knytt/juni/DeathParticles.cs" type="Script" id=9]
-[ext_resource path="res://knytt/juni/umbrella_item.png" type="Texture" id=10]
-[ext_resource path="res://knytt/juni/Umbrella.cs" type="Script" id=11]
-[ext_resource path="res://knytt/juni/detector.png" type="Texture" id=12]
-[ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
-[ext_resource path="res://knytt/data/Sfx/Knytt Jump (troupe).wav" type="AudioStream" id=14]
-[ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
-[ext_resource path="res://knytt/juni/InsideDetector.cs" type="Script" id=16]
-[ext_resource path="res://knytt/juni/Juni.shader" type="Shader" id=17]
-[ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=18]
-[ext_resource path="res://knytt/data/Sfx/Umbrella A.wav" type="AudioStream" id=19]
-[ext_resource path="res://knytt/data/Sfx/Knytt Land (troupe).wav" type="AudioStream" id=20]
-[ext_resource path="res://knytt/data/Sfx/Umbrella B.wav" type="AudioStream" id=21]
-[ext_resource path="res://knytt/data/Sfx/Knytt Run (troupe).wav" type="AudioStream" id=22]
-[ext_resource path="res://knytt/data/Sfx/Knytt Slide.wav" type="AudioStream" id=23]
-[ext_resource path="res://knytt/data/Sfx/Hologram A.wav" type="AudioStream" id=24]
-[ext_resource path="res://knytt/data/Sfx/Hologram B.wav" type="AudioStream" id=25]
-[ext_resource path="res://knytt/data/Sfx/Into Smoke.ogg" type="AudioStream" id=26]
-[ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
-[ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://8dg7v58gudo0" path="res://knytt/juni/juni.png" id="2"]
+[ext_resource type="Script" path="res://knytt/juni/Juni.cs" id="3"]
+[ext_resource type="Script" path="res://knytt/juni/ClimbCheckers.cs" id="4"]
+[ext_resource type="Texture2D" uid="uid://bgimgo7agiim" path="res://knytt/juni/particles/death-0.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://nh76cycpmrhd" path="res://knytt/juni/particles/death-2.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bnpysvvr8m10u" path="res://knytt/juni/particles/death-3.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dfegkgvm4hkhh" path="res://knytt/juni/particles/death-1.png" id="8"]
+[ext_resource type="Script" path="res://knytt/juni/DeathParticles.cs" id="9"]
+[ext_resource type="Texture2D" uid="uid://b73pxrc3llvuk" path="res://knytt/juni/umbrella_item.png" id="10"]
+[ext_resource type="Script" path="res://knytt/juni/Umbrella.cs" id="11"]
+[ext_resource type="Texture2D" uid="uid://c00h4cn2t3s" path="res://knytt/juni/detector.png" id="12"]
+[ext_resource type="Script" path="res://knytt/juni/JuniAudio.cs" id="13"]
+[ext_resource type="AudioStream" uid="uid://deraook42n8hv" path="res://knytt/data/Sfx/Knytt Jump (troupe).wav" id="14"]
+[ext_resource type="Script" path="res://knytt/juni/JuniMotionParticles.cs" id="15"]
+[ext_resource type="Script" path="res://knytt/juni/InsideDetector.cs" id="16"]
+[ext_resource type="Shader" path="res://knytt/juni/Juni.gdshader" id="17"]
+[ext_resource type="PackedScene" path="res://knytt/juni/StandartSoundPlayer.tscn" id="18"]
+[ext_resource type="AudioStream" uid="uid://yo3updfoqllw" path="res://knytt/data/Sfx/Umbrella A.wav" id="19"]
+[ext_resource type="AudioStream" uid="uid://b2wlxwh74bjhy" path="res://knytt/data/Sfx/Knytt Land (troupe).wav" id="20"]
+[ext_resource type="AudioStream" uid="uid://x4cuiy3ip6yh" path="res://knytt/data/Sfx/Umbrella B.wav" id="21"]
+[ext_resource type="AudioStream" uid="uid://jwfsl6ntf3dq" path="res://knytt/data/Sfx/Knytt Run (troupe).wav" id="22"]
+[ext_resource type="AudioStream" uid="uid://by75l8riw5beh" path="res://knytt/data/Sfx/Knytt Slide.wav" id="23"]
+[ext_resource type="AudioStream" uid="uid://cgwbyixsjjo2b" path="res://knytt/data/Sfx/Hologram A.wav" id="24"]
+[ext_resource type="AudioStream" uid="uid://b2flaqx8c7dnw" path="res://knytt/data/Sfx/Hologram B.wav" id="25"]
+[ext_resource type="AudioStream" uid="uid://dw041a2so6k41" path="res://knytt/data/Sfx/Into Smoke.ogg" id="26"]
+[ext_resource type="AudioStream" uid="uid://bs7f1npaj7ynt" path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" id="27"]
+[ext_resource type="AudioStream" uid="uid://bcrwcmt6pr4kb" path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" id="28"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("10")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 24, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("10")
+region = Rect2(0, 24, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 48, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("10")
+region = Rect2(0, 48, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 72, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("10")
+region = Rect2(0, 72, 24, 24)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 96, 24, 24 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("10")
+region = Rect2(0, 96, 24, 24)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 120, 24, 24 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("10")
+region = Rect2(0, 120, 24, 24)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 144, 24, 24 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("10")
+region = Rect2(0, 144, 24, 24)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 168, 24, 24 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("10")
+region = Rect2(0, 168, 24, 24)
 
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+[sub_resource type="SpriteFrames" id="9"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
 "loop": false,
-"name": "Open",
+"name": &"Open",
 "speed": 40.0
-} ]
+}]
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = ExtResource( 17 )
-shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
-shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
+[sub_resource type="ShaderMaterial" id="10"]
+shader = ExtResource("17")
+shader_parameter/clothes_color = Plane(0.937, 0.937, 0.937, 1)
+shader_parameter/skin_color = Plane(0.839, 0.71, 0.612, 1)
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id="11"]
 length = 0.28
-loop = true
+loop_mode = 1
 step = 0.04
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 22, 23, 24, 25, 26, 27, 28 ]
+"values": [22, 23, 24, 25, 26, 27, 28]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id="12"]
 length = 0.2
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ 40, 41 ]
+"values": [40, 41]
 }
 
-[sub_resource type="Animation" id=13]
-loop = true
+[sub_resource type="Animation" id="13"]
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 47 ]
+"values": [47]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id="14"]
 length = 0.35
 step = 0.075
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.075, 0.15, 0.225, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 42, 43, 44, 45, 46 ]
+"values": [42, 43, 44, 45, 46]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id="15"]
 length = 0.39
-loop = true
+loop_mode = 1
 step = 0.03
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
+"values": [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id="16"]
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 29 ]
+"values": [29]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id="17"]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
+"values": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
 }
 tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "continueFall"
-} ]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"continueFall"
+}]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id="18"]
 length = 0.5
-loop = true
+loop_mode = 1
 step = 0.025
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
-[sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 0.56369, 5.09802 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cgpdp"]
+_data = {
+"Climbing": SubResource("11"),
+"Falling": SubResource("12"),
+"Idle": SubResource("13"),
+"Jump": SubResource("14"),
+"Run": SubResource("15"),
+"Sliding": SubResource("16"),
+"StartFall": SubResource("17"),
+"Walk": SubResource("18")
+}
 
-[sub_resource type="Gradient" id=20]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+[sub_resource type="RectangleShape2D" id="19"]
+size = Vector2(1.1274, 10.196)
 
-[sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 6.71, 5.05 )
+[sub_resource type="Gradient" id="20"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 4.6728, 2.11682 )
+[sub_resource type="RectangleShape2D" id="21"]
+size = Vector2(13.42, 10.1)
 
-[sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 2, 7 )
+[sub_resource type="RectangleShape2D" id="22"]
+size = Vector2(9.3456, 4.23364)
 
-[node name="Juni" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id="23"]
+size = Vector2(4, 14)
+
+[node name="Juni" type="CharacterBody2D"]
 process_priority = -1
 z_index = 8
 z_as_relative = false
 collision_mask = 2147491846
-collision/safe_margin = 0.25
-script = ExtResource( 3 )
-__meta__ = {
-"_editor_description_": ""
-}
+script = ExtResource("3")
 
 [node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5, -8, -2, -8, -2, 8.6, -5, 8.6 )
+polygon = PackedVector2Array(-5, -8, -2, -8, -2, 8.6, -5, 8.6)
 
 [node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -2, -8, 2, -8, 2, 8.6, -2, 8.6 )
+polygon = PackedVector2Array(-2, -8, 2, -8, 2, 8.6, -2, 8.6)
 
 [node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 2, -8, 5, -8, 5, 8.6, 2, 8.6 )
+polygon = PackedVector2Array(2, -8, 5, -8, 5, 8.6, 2, 8.6)
 
-[node name="Umbrella" type="AnimatedSprite" parent="."]
-position = Vector2( 3.7, -3.95 )
-frames = SubResource( 9 )
-animation = "Open"
+[node name="Umbrella" type="AnimatedSprite2D" parent="."]
+position = Vector2(3.7, -3.95)
+sprite_frames = SubResource("9")
+animation = &"Open"
 frame = 7
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="CloseTimer" type="Timer" parent="Umbrella"]
 wait_time = 0.175
 one_shot = true
 
 [node name="UmbrellaBody" type="StaticBody2D" parent="Umbrella"]
-position = Vector2( 0, 3.95 )
+position = Vector2(0, 3.95)
 collision_layer = 4096
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Umbrella/UmbrellaBody"]
-position = Vector2( -3.7, 0 )
-polygon = PoolVector2Array( -9, -4.198, -9, -11, -3.882, -15.5, 2.243, -15.5, 6.80907, -11.5475 )
+position = Vector2(-3.7, 0)
+polygon = PackedVector2Array(-9, -4.198, -9, -11, -3.882, -15.5, 2.243, -15.5, 6.80907, -11.5475)
 disabled = true
 
-[node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 10 )
-position = Vector2( 0, -3 )
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("10")
+position = Vector2(0, -3)
+texture = ExtResource("2")
 hframes = 10
 vframes = 5
-frame = 26
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Climbing = SubResource( 11 )
-anims/Falling = SubResource( 12 )
-anims/Idle = SubResource( 13 )
-anims/Jump = SubResource( 14 )
-anims/Run = SubResource( 15 )
-anims/Sliding = SubResource( 16 )
-anims/StartFall = SubResource( 17 )
-anims/Walk = SubResource( 18 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_cgpdp")
+}
 
 [node name="Audio" type="Node2D" parent="."]
-script = ExtResource( 13 )
+script = ExtResource("13")
 
-[node name="WalkPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 28 )
+[node name="WalkPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("28")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="ClimbPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 27 )
+[node name="ClimbPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("27")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="SlidePlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 23 )
+[node name="SlidePlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("23")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="RunPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 22 )
+[node name="RunPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("22")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="JumpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 14 )
+[node name="JumpPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("14")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="LandPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 20 )
+[node name="LandPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("20")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="DiePlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 26 )
+[node name="DiePlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("26")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="UmbrellaOpenPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 19 )
+[node name="UmbrellaOpenPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("19")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="UmbrellaClosePlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 21 )
+[node name="UmbrellaClosePlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("21")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="HoloDeployPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 24 )
+[node name="HoloDeployPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("24")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="HoloStopPlayer2D" parent="Audio" instance=ExtResource( 1 )]
-stream = ExtResource( 25 )
+[node name="HoloStopPlayer2D" parent="Audio" instance=ExtResource("1")]
+stream = ExtResource("25")
 max_distance = 1000.0
+bus = &"SFX"
 
-[node name="StandartSoundPlayer" parent="Audio" instance=ExtResource( 18 )]
+[node name="StandartSoundPlayer" parent="Audio" instance=ExtResource("18")]
 
 [node name="ClimbCheckers" type="Node2D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="RightChecker" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( 6.148, 0.285 )
+position = Vector2(6.148, 0.285)
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
-shape = SubResource( 19 )
+shape = SubResource("19")
 
 [node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( -6.141, 0.285 )
+position = Vector2(-6.141, 0.285)
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
-shape = SubResource( 19 )
+shape = SubResource("19")
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
@@ -367,7 +405,7 @@ one_shot = true
 [node name="DeathParticles" type="Node2D" parent="."]
 z_index = 16
 z_as_relative = false
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="DeathParticles1" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -376,14 +414,12 @@ lifetime = 1.8
 one_shot = true
 explosiveness = 0.91
 lifetime_randomness = 0.25
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
-gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+gravity = Vector2(0, -25)
+color_ramp = SubResource("20")
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -392,14 +428,12 @@ lifetime = 1.8
 one_shot = true
 explosiveness = 0.91
 lifetime_randomness = 0.25
-texture = ExtResource( 8 )
+texture = ExtResource("8")
 emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
-gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+gravity = Vector2(0, -25)
+color_ramp = SubResource("20")
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -408,14 +442,12 @@ lifetime = 1.8
 one_shot = true
 explosiveness = 0.91
 lifetime_randomness = 0.25
-texture = ExtResource( 6 )
+texture = ExtResource("6")
 emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
-gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+gravity = Vector2(0, -25)
+color_ramp = SubResource("20")
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
 emitting = false
@@ -424,20 +456,18 @@ lifetime = 1.8
 one_shot = true
 explosiveness = 0.91
 lifetime_randomness = 0.25
-texture = ExtResource( 7 )
+texture = ExtResource("7")
 emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
-gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
-color_ramp = SubResource( 20 )
+gravity = Vector2(0, -25)
+color_ramp = SubResource("20")
 
-[node name="Detector" type="Sprite" parent="."]
+[node name="Detector" type="Sprite2D" parent="."]
 visible = false
 z_index = 16
 z_as_relative = false
-texture = ExtResource( 12 )
+texture = ExtResource("12")
 
 [node name="HologramTimer" type="Timer" parent="."]
 wait_time = 0.25
@@ -448,7 +478,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="JuniMotionParticles" type="Node2D" parent="."]
-script = ExtResource( 15 )
+script = ExtResource("15")
 
 [node name="Timers" type="Node" parent="JuniMotionParticles"]
 
@@ -462,35 +492,35 @@ wait_time = 0.2
 wait_time = 0.1
 
 [node name="ClimbParticles" type="Area2D" parent="JuniMotionParticles"]
-position = Vector2( 0, 0.272835 )
+position = Vector2(0, 0.272835)
 collision_layer = 0
 collision_mask = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuniMotionParticles/ClimbParticles"]
-shape = SubResource( 21 )
+shape = SubResource("21")
 
 [node name="GroundParticles" type="Area2D" parent="JuniMotionParticles"]
-position = Vector2( -1, 7.42 )
+position = Vector2(-1, 7.42)
 collision_layer = 0
 collision_mask = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuniMotionParticles/GroundParticles"]
-shape = SubResource( 22 )
+shape = SubResource("22")
 
 [node name="Particles" type="Node" parent="JuniMotionParticles"]
 
 [node name="SpawnLocations" type="Node2D" parent="JuniMotionParticles"]
 
 [node name="LeftClimb" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
-position = Vector2( -2.7, 0 )
+position = Vector2(-2.7, 0)
 
 [node name="RightClimb" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
-position = Vector2( 2.7, 0 )
+position = Vector2(2.7, 0)
 
 [node name="Ground" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
-position = Vector2( 0, 8 )
+position = Vector2(0, 8)
 
-[node name="AttachmentSprite" type="Sprite" parent="."]
+[node name="AttachmentSprite" type="Sprite2D" parent="."]
 visible = false
 z_index = 13
 z_as_relative = false
@@ -498,10 +528,10 @@ z_as_relative = false
 [node name="InsideDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource( 16 )
+script = ExtResource("16")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InsideDetector"]
-shape = SubResource( 23 )
+shape = SubResource("23")
 
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

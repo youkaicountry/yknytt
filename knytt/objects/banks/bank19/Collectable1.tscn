@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/banks/bank19/CollectMod.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/banks/bank19/base/Creature1.tscn" type="PackedScene" id=2]
 
-[node name="KinematicBody2D" instance=ExtResource( 2 )]
+[node name="CharacterBody2D" instance=ExtResource( 2 )]
 
 [node name="CollectMod" parent="." index="3" instance=ExtResource( 1 )]
 collisionPath = NodePath("../CollisionShape2D")

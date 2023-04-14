@@ -1,6 +1,6 @@
 using Godot;
 
-public class StatPanel : Panel
+public partial class StatPanel : Panel
 {
     private static readonly string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram",
         "Red Key", "Yellow Key", "Blue Key", "Purple Key", "Map"};
@@ -20,8 +20,8 @@ public class StatPanel : Panel
 
     public void addLabel(string text)
     {
-        GetNodeOrNull<AnimatedSprite>("ScrollContainer/VBoxContainer/AnimatedSprite")?.QueueFree();
-        var label = labelScene.Instance() as Label;
+        GetNodeOrNull<AnimatedSprite2D>("ScrollContainer/VBoxContainer/AnimatedSprite2D")?.QueueFree();
+        var label = labelScene.Instantiate<Label>();
         label.Text = text;
         container.AddChild(label);
     }
@@ -43,11 +43,11 @@ public class StatPanel : Panel
 
     private void addItem(string texture, string label, int count, bool achieved)
     {
-        var node = itemScene.Instance() as Control;
-        node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture>(texture);
+        var node = itemScene.Instantiate<Control>();
+        node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture2D>(texture);
         node.GetNode<Label>("HBoxContainer/VBoxContainer/ItemLabel").Text = label;
         node.GetNode<Label>("HBoxContainer/VBoxContainer/CountLabel").Text = $"Achieved {count} times";
-        if (achieved) { node.AddStyleboxOverride("panel", achievedStyle); }
+        if (achieved) { node.AddThemeStyleboxOverride("panel", achievedStyle); }
         container.AddChild(node);
     }
 }

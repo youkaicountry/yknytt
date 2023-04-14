@@ -2,7 +2,7 @@ using Godot;
 using IniParser.Model;
 using IniParser.Parser;
 
-public class GDKnyttSettings : Node
+public partial class GDKnyttSettings : Node
 {
     //OS.set_window_maximized(true), and then OS.set_borderless_window(true)
     public static IniData ini { get; private set; }
@@ -24,8 +24,9 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
         set
         {
-            OS.WindowBorderless = value;
-            OS.WindowMaximized = value;
+            DisplayServer.WindowSetMode(value ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
+            //OS.WindowBorderless = value;
+            //OS.WindowMaximized = value;
             ini["Graphics"]["Fullscreen"] = value ? "1" : "0";
         }
     }
@@ -37,7 +38,7 @@ public class GDKnyttSettings : Node
         {
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
             setupViewport(for_ui: true);
-            (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
+            (tree.Root.FindChild("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
         }
     }
     
@@ -45,15 +46,16 @@ public class GDKnyttSettings : Node
     {
         if (!TouchSettings.EnablePanel)
         {
-            tree.SetScreenStretch(
-                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-                SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+            tree.Root.ContentScaleMode = SmoothScaling ? Window.ContentScaleModeEnum.CanvasItems : Window.ContentScaleModeEnum.Viewport;
+            tree.Root.ContentScaleAspect = Window.ContentScaleAspectEnum.Keep;
+            tree.Root.ContentScaleSize = new Vector2I(600, 240);
         }
         else
         {
             // Touch panel needs some screen space, so "Viewport" mode is not suitable here
-            tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
-                SceneTree.StretchAspect.KeepWidth, new Vector2(for_ui ? 600 : TouchSettings.ScreenWidth, 240));
+            tree.Root.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems;
+            tree.Root.ContentScaleAspect = Window.ContentScaleAspectEnum.KeepWidth;
+            tree.Root.ContentScaleSize = new Vector2I(for_ui ? 600 : TouchSettings.ScreenWidth, 240);
         }
     }
     
@@ -171,7 +173,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Environment Volume", "80");
 
-        modified |= ensureSetting("Server", "URL", "http://yknytt.herokuapp.com");
+        modified |= ensureSetting("Server", "URL", "http://yknytt.fly.dev");
 
         modified |= TouchSettings.ensureSettings();
 
@@ -193,20 +195,16 @@ public class GDKnyttSettings : Node
     public static void saveSettings()
     {
         var text = ini.ToString();
-        var f = new File();
-        f.Open("user://settings.ini", File.ModeFlags.Write);
+        using var f = FileAccess.Open("user://settings.ini", FileAccess.ModeFlags.Write);
         f.StoreString(text);
-        f.Close();
     }
 
     // returns true if error
     public static bool loadSettings()
     {
-        var f = new File();
-        var error = f.Open("user://settings.ini", File.ModeFlags.Read);
-        if (error != Error.Ok) { return true; }
+        using var f = FileAccess.Open("user://settings.ini", FileAccess.ModeFlags.Read);
+        if (f == null) { return true; }
         var ini_text = f.GetAsText();
-        f.Close();
         var parser = new IniDataParser();
         ini = parser.Parse(ini_text); // TODO: Handle malformed text (catch Exception, return true)
         return false;

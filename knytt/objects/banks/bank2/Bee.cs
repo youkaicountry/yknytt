@@ -1,6 +1,6 @@
 using Godot;
 
-public class Bee : Muff
+public partial class Bee : Muff
 {
     [Export] protected int chance = 0;
     [Export] protected Color bulletModulate = default(Color);
@@ -15,7 +15,7 @@ public class Bee : Muff
             {
                 p.Translate(new Vector2(12 + (i > 0 ? 5 : -5), 24));
                 p.Modulate = bulletModulate;
-                p.GetNode<AnimatedSprite>("AnimatedSprite").FlipH = i > 0;
+                p.GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = i > 0;
                 p.VelocityMMF2 = 30;
                 p.DirectionMMF2 = (i < 0 ? 19 : 27) + random.Next(3);
             });

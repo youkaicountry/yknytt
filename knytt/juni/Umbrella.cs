@@ -1,6 +1,6 @@
 using Godot;
 
-public class Umbrella : AnimatedSprite
+public partial class Umbrella : AnimatedSprite2D
 {
     public bool FacingRight
     {
@@ -9,7 +9,7 @@ public class Umbrella : AnimatedSprite
         {
             this.FlipH = !value;
             var pos = Position;
-            pos.x = value ? 3.7f : -4.32f;
+            pos.X = value ? 3.7f : -4.32f;
             this.Position = pos;
             umbrellaShape.Scale = new Vector2(value ? 1 : -1, 1);
             umbrellaShape.Position = new Vector2(value ? -3.7f : 3.7f, 0);
@@ -48,7 +48,7 @@ public class Umbrella : AnimatedSprite
     {
         _deployed = false;
         this.Frame = 7;
-        Play("Open", true);
+        PlayBackwards("Open");
         GetNode<AudioStreamPlayer2D>("../Audio/UmbrellaClosePlayer2D").Play();
         var timer = GetNode<Timer>("CloseTimer");
         timer.Start();

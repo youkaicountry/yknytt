@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class BuzzFlyer : GDKnyttBaseObject
+public partial class BuzzFlyer : GDKnyttBaseObject
 {
     [Export] protected float speed = 48;
     [Export] protected float buzzStrength = 66;
@@ -17,16 +17,16 @@ public class BuzzFlyer : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Play();
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play();
         changeDirection();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         var buzz = new Vector2(random.NextFloat(-buzzStrength, buzzStrength),
                                random.NextFloat(-buzzStrength, buzzStrength));
-        var movement = currentDirection * speed * delta + buzz * delta;
+        var movement = currentDirection * speed * (float)delta + buzz * (float)delta;
         var collision = moveAndCollide(movement, testOnly: true);
         var offscreen = !GDArea.isIn(Center + movement, x_border: border, y_border: border);
         if (collision == null && !offscreen) { Translate(movement); }

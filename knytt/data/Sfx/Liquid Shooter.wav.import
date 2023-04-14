@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Liquid Shooter.wav-ccf50dae01afe836b16e9856e991ac68.sample"
+type="AudioStreamWAV"
+uid="uid://nx55wigjk0df"
+path="res://.godot/imported/Liquid Shooter.wav-ccf50dae01afe836b16e9856e991ac68.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Liquid Shooter.wav"
-dest_files=[ "res://.import/Liquid Shooter.wav-ccf50dae01afe836b16e9856e991ac68.sample" ]
+dest_files=["res://.godot/imported/Liquid Shooter.wav-ccf50dae01afe836b16e9856e991ac68.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Switch.wav-61e031c5077831a6801e71f4c86a0968.sample"
+type="AudioStreamWAV"
+uid="uid://bqu8kqgdwog2v"
+path="res://.godot/imported/Switch.wav-61e031c5077831a6801e71f4c86a0968.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Switch.wav"
-dest_files=[ "res://.import/Switch.wav-61e031c5077831a6801e71f4c86a0968.sample" ]
+dest_files=["res://.godot/imported/Switch.wav-61e031c5077831a6801e71f4c86a0968.sample"]
 
 [params]
 

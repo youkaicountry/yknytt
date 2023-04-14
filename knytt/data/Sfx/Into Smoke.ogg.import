@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Into Smoke.ogg-09cf549b56515df7785aac90a3128aa9.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dw041a2so6k41"
+path="res://.godot/imported/Into Smoke.ogg-09cf549b56515df7785aac90a3128aa9.oggvorbisstr"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Into Smoke.ogg"
-dest_files=[ "res://.import/Into Smoke.ogg-09cf549b56515df7785aac90a3128aa9.oggstr" ]
+dest_files=["res://.godot/imported/Into Smoke.ogg-09cf549b56515df7785aac90a3128aa9.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

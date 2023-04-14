@@ -1,6 +1,6 @@
 using Godot;
 
-public class LocalAmbient : GDKnyttBaseObject
+public partial class LocalAmbient : GDKnyttBaseObject
 {
     private int bus;
 
@@ -22,7 +22,7 @@ public class LocalAmbient : GDKnyttBaseObject
         bus = AudioServer.GetBusIndex(channel.CurrentTrack.Bus);
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         AudioServer.SetBusVolumeDb(bus, -Mathf.Pow(40, Juni.distance(Center) / 240));
     }

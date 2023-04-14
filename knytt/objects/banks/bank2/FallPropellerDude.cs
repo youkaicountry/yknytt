@@ -1,15 +1,15 @@
 using Godot;
 using System.Linq;
 
-public class FallPropellerDude : BuzzFlyer
+public partial class FallPropellerDude : BuzzFlyer
 {
-    private static readonly Vector2[] directionsOverride = Directions.Where(d => d.y <= 0 && d != Vector2.Zero).ToArray();
+    private static readonly Vector2[] directionsOverride = Directions.Where(d => d.Y <= 0 && d != Vector2.Zero).ToArray();
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         base._Ready();
     }
 
@@ -21,10 +21,10 @@ public class FallPropellerDude : BuzzFlyer
 
     private void _on_AttackTimer_timeout()
     {
-        if (Mathf.Abs(Juni.ApparentPosition.x - Center.x) < 55 && Center.y < Juni.ApparentPosition.y - 24)
+        if (Mathf.Abs(Juni.ApparentPosition.X - Center.X) < 55 && Center.Y < Juni.ApparentPosition.Y - 24)
         {
             if (sprite.Animation != "attack") { sprite.Play("attack"); }
-            currentDirection = new Vector2(Juni.ApparentPosition.x < Center.x ? -2 : 2, 3);
+            currentDirection = new Vector2(Juni.ApparentPosition.X < Center.X ? -2 : 2, 3);
         }
     }
 }

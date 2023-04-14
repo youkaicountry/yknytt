@@ -12,7 +12,7 @@ public static class ConsoleCommands
         return cs;
     }
 
-    public class SpeedCommand : ICommand
+    public partial class SpeedCommand : ICommand
     {
         float? value;
         const float MIN_SPEED = 0.1f;
@@ -48,7 +48,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class HelpCommand : ICommand
+    public partial class HelpCommand : ICommand
     {
         string name;
 
@@ -85,7 +85,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ListCommand : ICommand
+    public partial class ListCommand : ICommand
     {
         public ListCommand(CommandParseResult result)
         {

@@ -1,6 +1,6 @@
 using Godot;
 
-public class SpikerMod : DistanceMod
+public partial class SpikerMod : DistanceMod
 {
     [Export] NodePath areaPath = null;
     [Export] bool playSound = true;
@@ -8,6 +8,7 @@ public class SpikerMod : DistanceMod
     private Area2D area;
     private AudioStreamPlayer2D openPlayer;
     private AudioStreamPlayer2D closePlayer;
+    private bool hologram_event_connected;
 
     public override void _Ready()
     {
@@ -15,8 +16,15 @@ public class SpikerMod : DistanceMod
         area = GetNode<Area2D>(areaPath);
         openPlayer = GetNode<AudioStreamPlayer2D>("OpenPlayer");
         closePlayer = GetNode<AudioStreamPlayer2D>("ClosePlayer");
-        area.Connect("body_entered", this, nameof(_body_entered));
-        area.Connect("body_exited", this, nameof(_body_exited));
+        area.BodyEntered  += _body_entered;
+        area.BodyExited += _body_exited;
+    }
+
+    private void _on_tree_exiting()
+    {
+        area.BodyEntered -= _body_entered;
+        area.BodyExited -= _body_exited;
+        if (hologram_event_connected) { globalJuni.HologramStopped -= hologramStopped; }
     }
 
     public void _body_entered(Node body)
@@ -28,16 +36,18 @@ public class SpikerMod : DistanceMod
         }
         else if (juni.Hologram != null)
         {
-            juni.Connect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
+            juni.HologramStopped += hologramStopped;
+            hologram_event_connected = true;
         }
     }
 
     public void _body_exited(Node body)
     {
         if (!(body is Juni juni)) { return; }
-        if (juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(hologramStopped)))
+        if (hologram_event_connected)
         {
-            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
+            juni.HologramStopped -= hologramStopped;
+            hologram_event_connected = false;
         }
     }
 

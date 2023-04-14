@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Door.wav-d4d8fbf8023eedfbac533fc001c563f8.sample"
+type="AudioStreamWAV"
+uid="uid://odx8ivb3ky1u"
+path="res://.godot/imported/Door.wav-d4d8fbf8023eedfbac533fc001c563f8.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Door.wav"
-dest_files=[ "res://.import/Door.wav-d4d8fbf8023eedfbac533fc001c563f8.sample" ]
+dest_files=["res://.godot/imported/Door.wav-d4d8fbf8023eedfbac533fc001c563f8.sample"]
 
 [params]
 

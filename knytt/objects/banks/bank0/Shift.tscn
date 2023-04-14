@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ctgmtkgdt8h50"]
 
-[ext_resource path="res://knytt/objects/banks/bank0/Switch.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank0/Shift.cs" type="Script" id=2]
+[ext_resource type="PackedScene" uid="uid://cdgo4cdquptg4" path="res://knytt/objects/banks/bank0/Switch.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank0/Shift.cs" id="2"]
 
-[node name="Shift" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="Shift2" instance=ExtResource("1")]
+script = ExtResource("2")
 
 [node name="DelayTimer" type="Timer" parent="." index="1"]
 one_shot = true

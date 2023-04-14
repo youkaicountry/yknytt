@@ -5,10 +5,10 @@ using YKnyttLib.Logging;
 using System.Collections.Generic;
 using YKnyttLib.Parser;
 
-public class Console : CanvasLayer, IKnyttLoggerTarget
+public partial class Console : CanvasLayer, IKnyttLoggerTarget
 {
-    [Signal] public delegate void ConsoleOpen();
-    [Signal] public delegate void ConsoleClosed();
+    [Signal] public delegate void ConsoleOpenEventHandler();
+    [Signal] public delegate void ConsoleClosedEventHandler();
 
     [Export] public int HistoryLength = 256;
     [Export] public float SlideSpeed = 5f;
@@ -41,14 +41,14 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         displayBuffer = new LinkedList<string>();
         backBuffer = new List<string>();
         var consoleContainer = GetNode<Control>("ConsoleContainer");
-        consoleContainer.MarginTop = -240;
-        consoleContainer.MarginBottom = -240;
+        consoleContainer.OffsetTop = -240;
+        consoleContainer.OffsetBottom = -240;
         lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/LineEdit");
         textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/RichTextLabel");
         AddMessage("[color=#cc00FF]Welcome to YKnytt![/color]");
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("debug_console"))
         {
@@ -57,7 +57,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             if (showing)
             {
                 lineEdit.ReleaseFocus();
-                EmitSignal(nameof(ConsoleClosed));
+                EmitSignal(SignalName.ConsoleClosed);
             }
         }
     }
@@ -79,13 +79,13 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = SlideSpeed * (1f/Godot.Engine.TimeScale);
+            anim.SpeedScale = SlideSpeed / (float)Godot.Engine.TimeScale;
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
         else
         {
-            anim.PlaybackSpeed *= -1f;
+            anim.SpeedScale *= -1f;
             sliding_out = !sliding_out;
         }
     }
@@ -93,7 +93,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         lineEdit.GrabFocus();
-        EmitSignal(nameof(ConsoleOpen));
+        EmitSignal(SignalName.ConsoleOpen);
         flushBuffer();
     }
 
@@ -121,7 +121,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void render()
     {
-        textLabel.BbcodeText = string.Join("\n", displayBuffer);
+        textLabel.Text = string.Join("\n", displayBuffer);
     }
 
     public void _on_AnimationPlayer_animation_finished(string name)
@@ -133,7 +133,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     public void _on_LineEdit_text_changed(string newText)
     {
-        var caretPosition = lineEdit.CaretPosition;
+        var caretPosition = lineEdit.CaretColumn;
 
         StringBuilder sb = new StringBuilder();
         foreach (var c in newText)
@@ -142,7 +142,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         }
 
         lineEdit.Text = sb.ToString();
-        lineEdit.CaretPosition = caretPosition;
+        lineEdit.CaretColumn = caretPosition;
     }
 
     public void RunCommand(string command)

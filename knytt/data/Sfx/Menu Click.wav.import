@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Menu Click.wav-8410692aa8e0b4072b084352821c588c.sample"
+type="AudioStreamWAV"
+uid="uid://ys6pxy7qdicg"
+path="res://.godot/imported/Menu Click.wav-8410692aa8e0b4072b084352821c588c.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Menu Click.wav"
-dest_files=[ "res://.import/Menu Click.wav-8410692aa8e0b4072b084352821c588c.sample" ]
+dest_files=["res://.godot/imported/Menu Click.wav-8410692aa8e0b4072b084352821c588c.sample"]
 
 [params]
 

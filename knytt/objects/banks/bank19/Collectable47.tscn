@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank19/CollectMod.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7 )
+size = Vector2(14, 14)
 
 [node name="Node2D" instance=ExtResource( 1 )]
 

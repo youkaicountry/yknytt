@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank10/bouncer2.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank10/bouncer2.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/bank10/Bouncer.tscn" type="PackedScene" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -41,10 +41,10 @@ radius = 9.5
 
 [node name="Bouncer" instance=ExtResource( 2 )]
 initialSpeed = 3.0
-speedValues = PoolIntArray( 2, 3, 4, 5, 6 )
+speedValues = PackedInt32Array( 2, 3, 4, 5, 6 )
 randomSpeed = true
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]

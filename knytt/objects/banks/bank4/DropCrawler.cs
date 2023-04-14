@@ -1,6 +1,6 @@
 using Godot;
 
-public class DropCrawler : Crawler
+public partial class DropCrawler : Crawler
 {
     private void _on_DistanceMod_EnterEvent()
     {

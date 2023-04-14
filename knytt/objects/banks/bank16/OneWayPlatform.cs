@@ -1,13 +1,13 @@
 using Godot;
 
-public class OneWayPlatform : GDKnyttBaseObject
+public partial class OneWayPlatform : GDKnyttBaseObject
 {
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node2D body)
     {
         disablePlatform(true);
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node2D body)
     {
         disablePlatform(false);
     }

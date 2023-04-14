@@ -6,7 +6,7 @@
 [ext_resource path="res://knytt/data/Sfx/Tiny Shot.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 9 )
+size = Vector2(20, 18)
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

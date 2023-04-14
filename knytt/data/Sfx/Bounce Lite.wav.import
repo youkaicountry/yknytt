@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Bounce Lite.wav-ec1936e7db16b3664759f4fcc331c432.sample"
+type="AudioStreamWAV"
+uid="uid://kt7uv2d0n031"
+path="res://.godot/imported/Bounce Lite.wav-ec1936e7db16b3664759f4fcc331c432.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Bounce Lite.wav"
-dest_files=[ "res://.import/Bounce Lite.wav-ec1936e7db16b3664759f4fcc331c432.sample" ]
+dest_files=["res://.godot/imported/Bounce Lite.wav-ec1936e7db16b3664759f4fcc331c432.sample"]
 
 [params]
 

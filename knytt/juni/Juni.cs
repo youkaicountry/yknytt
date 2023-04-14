@@ -6,7 +6,7 @@ using YUtil.Math;
 using YUtil.Random;
 using static YKnyttLib.JuniValues;
 
-public class Juni : KinematicBody2D
+public partial class Juni : CharacterBody2D
 {
     internal const float JUMP_SPEED = -250f,    // Speed of jump
     GRAVITY = 1125f,                            // Gravity exerted on Juni
@@ -36,10 +36,10 @@ public class Juni : KinematicBody2D
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f;                     // Speed at which Juni flies while in debug fly mode
 
-    [Signal] public delegate void Jumped();
-    [Signal] public delegate void PowerChanged();
-    [Signal] public delegate void HologramStopped(Juni juni);
-    [Signal] public delegate void DownEvent(Juni juni);
+    [Signal] public delegate void JumpedEventHandler(Juni juni);
+    [Signal] public delegate void PowerChangedEventHandler(int power_index, bool power_value);
+    [Signal] public delegate void HologramStoppedEventHandler(Juni juni);
+    [Signal] public delegate void DownEventEventHandler(Juni juni);
 
     PackedScene hologram_scene;
 
@@ -59,7 +59,7 @@ public class Juni : KinematicBody2D
 
     public GDKnyttGame Game { get; private set; }
     public GDKnyttArea GDArea { get { return Game.CurrentArea; } }
-    public Sprite Detector { get; private set; }
+    public Sprite2D Detector { get; private set; }
     public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
 
     public JuniValues Powers { get; }
@@ -106,7 +106,7 @@ public class Juni : KinematicBody2D
         get
         {
             var gp = GlobalPosition;
-            return new Godot.Vector2(gp.x, gp.y + 8.6f);
+            return new Godot.Vector2(gp.X, gp.Y + 8.6f);
         }
     }
 
@@ -117,33 +117,33 @@ public class Juni : KinematicBody2D
         set { _updrafts += (value ? 1 : -1); }
     }
 
-    public Color? JuniClothes
+    public Color JuniClothes
     {
         set
         {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            mat.SetShaderParam("clothes_color", value);
+            var mat = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+            mat.SetShaderParameter("clothes_color", (Color)value);
         }
 
         get
         {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            return mat.GetShaderParam("clothes_color") as Color?;
+            var mat = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+            return mat.GetShaderParameter("clothes_color").AsColor();
         }
     }
 
-    public Color? JuniSkin
+    public Color JuniSkin
     {
         set
         {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            mat.SetShaderParam("skin_color", value);
+            var mat = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+            mat.SetShaderParameter("skin_color", (Color)value);
         }
 
         get
         {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            return mat.GetShaderParam("skin_color") as Color?;
+            var mat = GetNode<Sprite2D>("Sprite2D").Material as ShaderMaterial;
+            return mat.GetShaderParameter("skin_color").AsColor();
         }
     }
 
@@ -156,8 +156,8 @@ public class Juni : KinematicBody2D
     public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
     public bool FacingRight
     {
-        set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
-        get { return !Sprite.FlipH; }
+        set { Sprite2D.FlipH = !value; Umbrella.FacingRight = value; }
+        get { return !Sprite2D.FlipH; }
     }
     public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
@@ -225,7 +225,7 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public Sprite Sprite { get; private set; }
+    public Sprite2D Sprite2D { get; private set; }
     public Umbrella Umbrella { get; private set; }
     public AnimationPlayer Anim { get; private set; }
 
@@ -297,23 +297,24 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
-        GetNode("/root/Console").Connect("ConsoleOpen", this, "OnConsoleOpen");
-        GetNode("/root/Console").Connect("ConsoleClosed", this, "OnConsoleClosed");
+        GetNode<Console>("/root/Console").ConsoleOpen += OnConsoleOpen;
+        GetNode<Console>("/root/Console").ConsoleClosed += OnConsoleClosed;
 
         _collision_polygons = new CollisionPolygon2D[] { GetNode<CollisionPolygon2D>("CollisionPolygonA"),
                                                          GetNode<CollisionPolygon2D>("CollisionPolygonB"),
                                                          GetNode<CollisionPolygon2D>("CollisionPolygonC") };
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
-        Detector = GetNode<Sprite>("Detector");
+        Detector = GetNode<Sprite2D>("Detector");
         Detector.Visible = true;
         InsideDetector = GetNode<InsideDetector>("InsideDetector");
         ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
-        Sprite = GetNode<Sprite>("Sprite");
+        Sprite2D = GetNode<Sprite2D>("Sprite2D");
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
-        Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
+        Anim = Sprite2D.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
+        //DebugFlyMode = true;
     }
 
     public void OnConsoleOpen()
@@ -332,8 +333,10 @@ public class Juni : KinematicBody2D
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
-        JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
-        JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
+        int clothes = Game.GDWorld.KWorld.Info.Clothes;
+        JuniClothes = new Color(KnyttUtil.R(clothes), KnyttUtil.G(clothes), KnyttUtil.B(clothes));
+        int skin = Game.GDWorld.KWorld.Info.Skin;
+        JuniSkin = new Color(KnyttUtil.R(skin), KnyttUtil.G(skin), KnyttUtil.B(skin));
     }
 
     public void setPower(PowerNames name, bool value)
@@ -341,7 +344,7 @@ public class Juni : KinematicBody2D
         if (name == PowerNames.Umbrella && !value && Umbrella.Deployed) { Umbrella.Deployed = false; }
         if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
         Powers.setPower(name, value);
-        EmitSignal(nameof(PowerChanged), name, value);
+        EmitSignal(SignalName.PowerChanged, (int)name, value);
     }
 
     public void setPower(int power, bool value)
@@ -351,7 +354,7 @@ public class Juni : KinematicBody2D
 
     public void updateCollectables()
     {
-        EmitSignal(nameof(PowerChanged), -1, true);
+        EmitSignal(SignalName.PowerChanged, -1, true);
     }
 
     public void transitionState(JuniState state)
@@ -359,7 +362,7 @@ public class Juni : KinematicBody2D
         this.next_state = state;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (dead) { return; }
 
@@ -367,7 +370,7 @@ public class Juni : KinematicBody2D
 
         this.checkDebugInput(); // TODO: Check the mode for debug
 
-        if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
+        if (DebugFlyMode) { processFlyMode((float)delta); } else { processMotion((float)delta); }
 
         if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
     }
@@ -389,14 +392,14 @@ public class Juni : KinematicBody2D
             if (just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
         }
 
-        if (juniInput.DownPressed) { EmitSignal(nameof(DownEvent), this); }
+        if (juniInput.DownPressed) { EmitSignal(SignalName.DownEvent, this); }
 
         // Organic Enemy Distance
         if (detector_reverse_distance > 0)
         {
             Detector.Visible = true;
             var m = detector_color;
-            m.a = GDKnyttDataStore.random.NextFloat(.25f, detector_reverse_distance * .65f);
+            m.A = GDKnyttDataStore.random.NextFloat(.25f, detector_reverse_distance * .65f);
             Detector.Modulate = m;
         }
         else { Detector.Visible = false; }
@@ -423,7 +426,7 @@ public class Juni : KinematicBody2D
         // Pull-over-edge
         if (JustClimbed)
         {
-            velocity.x += (FacingRight ? 1f : -1f) * PULL_OVER_FORCE;
+            velocity.X += (FacingRight ? 1f : -1f) * PULL_OVER_FORCE;
             _just_climbed -= delta;
             if (_can_free_jump <= 0f) { JustClimbed = false; }
         }
@@ -436,7 +439,7 @@ public class Juni : KinematicBody2D
         }
 
         // Limit falling speed to terminal velocity
-        velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
+        velocity.Y = Mathf.Min(TerminalVelocity, velocity.Y);
 
         if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
@@ -450,26 +453,32 @@ public class Juni : KinematicBody2D
                 // change the direction of gravity
                 normal = GetFloorNormal();
                 snap = -normal * 10f;
-                var gravity = velocity.y;
-                velocity.y = 0f;
+                var gravity = velocity.Y;
+                velocity.Y = 0f;
                 velocity -= gravity * normal;
             }
 
             // Do the movement in two steps to avoid hanging up on tile seams
-            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            Velocity = velocity;
+            FloorSnapLength = 10f;
+            FloorStopOnSlope = true;
+            FloorMaxAngle = SLOPE_MAX_ANGLE;
+            MoveAndSlide();
+
+            //velocity.X = MoveAndSlideWithSnap(new Godot.Vector2(velocity.X, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).X;
+            //velocity.Y = MoveAndSlide(new Godot.Vector2(0, velocity.Y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).Y;
         }
 
-        if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
+        if (GetSlideCollisionCount() > 0 && GetSlideCollision(0).GetCollider() is BaseBullet) { die(); }
     }
 
     private void processFlyMode(float delta)
     {
         var dir = new Godot.Vector2();
-        if (juniInput.UpHeld) { dir.y -= 1f; }
-        if (juniInput.DownHeld) { dir.y += 1f; }
-        if (juniInput.LeftHeld) { dir.x -= 1f; }
-        if (juniInput.RightHeld) { dir.x += 1f; }
+        if (juniInput.UpHeld) { dir.Y -= 1f; }
+        if (juniInput.DownHeld) { dir.Y += 1f; }
+        if (juniInput.LeftHeld) { dir.X -= 1f; }
+        if (juniInput.RightHeld) { dir.X += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta);
     }
@@ -480,18 +489,18 @@ public class Juni : KinematicBody2D
         // framerate independence
         if (InUpdraft && Umbrella.Deployed)
         {
-            velocity.y -= GRAVITY * delta * (juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
-            velocity.y = Mathf.Max(juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
+            velocity.Y -= GRAVITY * delta * (juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
+            velocity.Y = Mathf.Max(juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.Y);
         }
         else
         {
-            if (!Grounded) { velocity.y += GRAVITY * delta; }
-            else { velocity.y = GRAVITY * delta; }
+            if (!Grounded) { velocity.Y += GRAVITY * delta; }
+            else { velocity.Y = GRAVITY * delta; }
             if (juniInput.JumpHeld)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? HIGH_JUMP_HOLD_POWER : JUMP_HOLD_POWER;
                 if (Umbrella.Deployed) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
-                velocity.y -= jump_hold * delta;
+                velocity.Y -= jump_hold * delta;
             }
         }
     }
@@ -517,7 +526,7 @@ public class Juni : KinematicBody2D
             else
             {
                 stopHologram();
-                EmitSignal(nameof(HologramStopped), this);
+                EmitSignal(SignalName.HologramStopped, this);
             }
         }
     }
@@ -528,13 +537,13 @@ public class Juni : KinematicBody2D
         if (timer.TimeLeft > 0f) { return; }
         timer.Start();
         GetNode<AudioStreamPlayer2D>("Audio/HoloDeployPlayer2D").Play();
-        var node = hologram_scene.Instance() as Node2D;
+        var node = hologram_scene.Instantiate<Node2D>();
         GDArea.GDWorld.Game.AddChild(node);
         node.GlobalPosition = GlobalPosition;
-        node.GetNode<AnimatedSprite>("AnimatedSprite").FlipH = !FacingRight;
+        node.GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = !FacingRight;
         Hologram = node;
-        var m = Modulate; m.a = .45f; Modulate = m;
-        GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.a);
+        var m = Modulate; m.A = .45f; Modulate = m;
+        GetNode<Sprite2D>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.A);
     }
 
     public void stopHologram(bool cleanup = false)
@@ -551,13 +560,13 @@ public class Juni : KinematicBody2D
 
         Hologram.QueueFree();
         Hologram = null;
-        var m = Modulate; m.a = 1f; Modulate = m;
-        GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1);
+        var m = Modulate; m.A = 1f; Modulate = m;
+        GetNode<Sprite2D>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1);
     }
 
     public void doubleJumpEffect()
     {
-        var dj_node = double_jump_scene.Instance() as Node2D;
+        var dj_node = double_jump_scene.Instantiate<Node2D>();
         dj_node.GlobalPosition = GlobalPosition;
         GetParent().AddChild(dj_node);
     }
@@ -569,7 +578,7 @@ public class Juni : KinematicBody2D
 
     public void enableAttachment(string attachment)
     {
-        var torch_sprite = GetNode<Sprite>("AttachmentSprite");
+        var torch_sprite = GetNode<Sprite2D>("AttachmentSprite");
         switch (attachment?.ToLower())
         {
             case "true":
@@ -584,7 +593,7 @@ public class Juni : KinematicBody2D
                 Powers.Attachment = "false";
                 break;
             default:
-                torch_sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{attachment}") as Texture;
+                torch_sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{attachment}") as Texture2D;
                 torch_sprite.Visible = torch_sprite.Texture != null;
                 Powers.Attachment = attachment;
                 break;
@@ -615,7 +624,7 @@ public class Juni : KinematicBody2D
         GetNode<AudioStreamPlayer2D>("Audio/DiePlayer2D").Play();
         this.next_state = null;
         this.clearState();
-        Sprite.Visible = false;
+        Sprite2D.Visible = false;
         Umbrella.Visible = false;
         Detector.Visible = false;
         this.dead = true;
@@ -630,7 +639,7 @@ public class Juni : KinematicBody2D
 
     public void moveToPosition(GDKnyttArea area, KnyttPoint position)
     {
-        GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
+        GlobalPosition = (area.getTileLocation(position) + (velocity.Y < 0 ? -1 : 1) * BaseCorrection);
     }
 
     public void win(string ending)
@@ -643,8 +652,8 @@ public class Juni : KinematicBody2D
 
     public void reset()
     {
-        Sprite.FlipH = false;
-        GetNode<Sprite>("Sprite").Visible = true;
+        Sprite2D.FlipH = false;
+        GetNode<Sprite2D>("Sprite2D").Visible = true;
         this.dead = false;
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));
@@ -668,11 +677,11 @@ public class Juni : KinematicBody2D
         if (dir != 0)
         {
             var uspeed = Umbrella.Deployed ? (Mathf.Min(MaxSpeed, MAX_X_SPEED_UMBRELLA)) : MaxSpeed;
-            MathTools.MoveTowards(ref velocity.x, dir * uspeed, MAX_X_MOVING_DELTA * delta);
+            MathTools.MoveTowards(ref velocity.X, dir * uspeed, MAX_X_MOVING_DELTA * delta);
         }
         else
         {
-            MathTools.MoveTowards(ref velocity.x, 0f, MAX_X_DECAY_DELTA * delta); // deceleration
+            MathTools.MoveTowards(ref velocity.X, 0f, MAX_X_DECAY_DELTA * delta); // deceleration
         }
     }
 
@@ -694,7 +703,7 @@ public class Juni : KinematicBody2D
         transitionState(new JumpState(this));
         Anim.Play("Jump");
         if (sound) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
-        velocity.y = jump_speed;
+        velocity.Y = jump_speed;
 
         if (air_jump && jumps > 0) { doubleJumpEffect(); }
 
@@ -703,7 +712,7 @@ public class Juni : KinematicBody2D
         CanFreeJump = false;
 
         // Do not emit this event if the hologram is out, as it cannot jump
-        if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
+        if (Hologram == null) { EmitSignal(SignalName.Jumped, this); }
     }
 
     public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false)
@@ -719,7 +728,7 @@ public class Juni : KinematicBody2D
     public float manhattanDistance(Godot.Vector2 p, bool apparent = true)
     {
         var jp = apparent ? ApparentPosition : GlobalPosition;
-        return Math.Abs(p.x - jp.x) + Math.Abs(p.y - jp.y);
+        return Math.Abs(p.X - jp.X) + Math.Abs(p.Y - jp.Y);
     }
 
     public float distance(Godot.Vector2 p, bool apparent = true)

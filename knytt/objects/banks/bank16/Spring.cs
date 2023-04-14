@@ -1,31 +1,31 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Spring : GDKnyttBaseObject
+public partial class Spring : GDKnyttBaseObject
 {
     HashSet<Juni> junis;
 
     public override void _Ready()
     {
         junis = new HashSet<Juni>();
-        var sprite = GetNode<Sprite>("Sprite");
+        var sprite = GetNode<Sprite2D>("Sprite2D");
         var m = sprite.Modulate;
-        m.a = 0f;
+        m.A = 0f;
         sprite.Modulate = m;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         foreach (Juni juni in junis)
         {
             // Enforce one-way
             var jgp = juni.GlobalPosition;
             var gp = GlobalPosition;
-            if (juni.velocity.y <= 0 || jgp.y > gp.y + 10f) { return; }
+            if (juni.velocity.Y <= 0 || jgp.Y > gp.Y + 10f) { return; }
 
             // Restore Juni's position to the top of the spring for stability
             var jbottom = juni.Bottom;
-            jgp.y -= jbottom.y - gp.y;
+            jgp.Y -= jbottom.Y - gp.Y;
             juni.GlobalPosition = jgp;
 
             // Spring

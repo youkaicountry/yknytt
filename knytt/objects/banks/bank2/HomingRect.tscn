@@ -1,8 +1,8 @@
 [gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank2/HomingEnemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/homing_rect.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank2/homing_rect_wall.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank2/homing_rect.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/objects/banks/bank2/homing_rect_wall.png" type="Texture2D" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -90,14 +90,14 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 8, 5 )
+size = Vector2(16, 10)
 
 [node name="Node2D" instance=ExtResource( 1 )]
 initialSpeed = 10
 wallSpeed = 4
 airSpeed = 10
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 19 )
 offset = Vector2( 12, 12 )
 

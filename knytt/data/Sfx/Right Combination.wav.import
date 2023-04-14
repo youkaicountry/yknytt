@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Right Combination.wav-5bb98c9e1088190308ae544c9b17d26d.sample"
+type="AudioStreamWAV"
+uid="uid://qshjljphyg8j"
+path="res://.godot/imported/Right Combination.wav-5bb98c9e1088190308ae544c9b17d26d.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Right Combination.wav"
-dest_files=[ "res://.import/Right Combination.wav-5bb98c9e1088190308ae544c9b17d26d.sample" ]
+dest_files=["res://.godot/imported/Right Combination.wav-5bb98c9e1088190308ae544c9b17d26d.sample"]
 
 [params]
 

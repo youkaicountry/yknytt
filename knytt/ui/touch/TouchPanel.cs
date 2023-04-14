@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public class TouchPanel : Panel
+public partial class TouchPanel : Panel
 {
     private StyleBox normalStylebox;
     private StyleBox pressedStylebox;
@@ -60,8 +60,13 @@ public class TouchPanel : Panel
         };
         jumpActionNames = actionNames.Skip(4).ToArray();
 
-        GetTree().Root.Connect("size_changed", this, nameof(_on_viewport_size_changed));
+        GetTree().Root.SizeChanged += _on_viewport_size_changed;
         Configure();
+    }
+
+    private void _on_tree_exiting()
+    {
+        GetTree().Root.SizeChanged -= _on_viewport_size_changed;
     }
 
     // Manipulates anchors and margins to apply program settings
@@ -69,36 +74,36 @@ public class TouchPanel : Panel
     {
         Visible = TouchSettings.EnablePanel;
         SetProcessInput(TouchSettings.EnablePanel);
-        var curtain = GetTree().Root.FindNode("Curtain", owned: false) as Control;
+        var curtain = GetTree().Root.FindChild("Curtain", owned: false) as Control;
         curtain.Visible = Visible;
         if (!Visible) return;
         
-        Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, TouchSettings.Opacity);
+        Modulate = new Color(Modulate.R, Modulate.G, Modulate.B, TouchSettings.Opacity);
         
-        RectSize = new Vector2(TouchSettings.ScreenWidth + 4, RectSize.y);
+        Size = new Vector2(TouchSettings.ScreenWidth + 4, Size.Y);
     
         var anchor_top = TouchSettings.PanelAnchor;
-        var height = arrowsMainPanel.RectSize.y - 2; // correction to hide the border at the edge
+        var height = arrowsMainPanel.Size.Y - 2; // correction to hide the border at the edge
 
         AnchorTop = AnchorBottom = 1 - anchor_top;
-        MarginTop = (1 - anchor_top) * -height;
-        MarginBottom = anchor_top * height;
+        OffsetTop = (1 - anchor_top) * -height;
+        OffsetBottom = anchor_top * height;
 
         int jump_width_excess = (int)(120 * (TouchSettings.JumpScale - 1));
-        jumpMainPanel.MarginLeft = -240 - jump_width_excess;
-        down2Panel.MarginRight = jumpPanel.MarginRight = 240 + jump_width_excess;
-        jumpPanel.GetNode<Control>("Label").RectPivotOffset = jumpPanel.RectSize / 2;
-        down2Panel.GetNode<Control>("Label").RectPivotOffset = down2Panel.RectSize / 2;
+        jumpMainPanel.OffsetLeft = -240 - jump_width_excess;
+        down2Panel.OffsetRight = jumpPanel.OffsetRight = 240 + jump_width_excess;
+        jumpPanel.GetNode<Control>("Label").PivotOffset = jumpPanel.Size / 2;
+        down2Panel.GetNode<Control>("Label").PivotOffset = down2Panel.Size / 2;
 
-        arrowsMainPanel.RectPivotOffset = new Vector2(0, (1 - anchor_top) * height);
-        jumpMainPanel.RectPivotOffset = new Vector2(jumpMainPanel.RectSize.x, (1 - anchor_top) * height);
+        arrowsMainPanel.PivotOffset = new Vector2(0, (1 - anchor_top) * height);
+        jumpMainPanel.PivotOffset = new Vector2(jumpMainPanel.Size.X, (1 - anchor_top) * height);
         
         var swap = TouchSettings.SwapHands;
         arrowsMainPanel.AnchorLeft = arrowsMainPanel.AnchorRight = swap ? 1f : 0f;
         jumpMainPanel.AnchorLeft = jumpMainPanel.AnchorRight = swap ? 0f : 1f;
         foreach (var p in jumpPanels)
         {
-            p.GetNode<Control>("Label").RectScale = new Vector2(swap ? -1f : 1f, 1f);
+            p.GetNode<Control>("Label").Scale = new Vector2(swap ? -1f : 1f, 1f);
         }
 
         _on_viewport_size_changed();
@@ -106,7 +111,7 @@ public class TouchPanel : Panel
 
     private float getScale()
     {
-        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 100), 1.4f / TouchSettings.Viewport);
+        return Mathf.Min(DisplayServer.ScreenGetDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.X / (/*GetViewport().Size.X*/ 600 * 100), 1.4f / TouchSettings.Viewport);
     }
 
     // Returns rectangle for the button with excess space
@@ -117,11 +122,11 @@ public class TouchPanel : Panel
         // "Scale" doesn't affect RectSize, needs to calculate it manually
         // Also "flip_left" is a workaround when scale < 0
         var scale = getScale();
-        float x = c.RectGlobalPosition.x - (grow_left ? X_EXCESS * scale : 0);
-        float y = c.RectGlobalPosition.y - (grow_top ? TOP_EXCESS * scale : 0);
-        float x_size = c.RectSize.x * scale + (grow_left ? X_EXCESS * scale : 0)
+        float x = c.GlobalPosition.X - (grow_left ? X_EXCESS * scale : 0);
+        float y = c.GlobalPosition.Y - (grow_top ? TOP_EXCESS * scale : 0);
+        float x_size = c.Size.X * scale + (grow_left ? X_EXCESS * scale : 0)
                                             + (grow_right ? X_EXCESS * scale : 0);
-        float y_size = c.RectSize.y * scale + (grow_top ? TOP_EXCESS * scale : 0)
+        float y_size = c.Size.Y * scale + (grow_top ? TOP_EXCESS * scale : 0)
                                             + (grow_bottom ? BOTTOM_EXCESS * scale : 0);
         return new Rect2(x - (flip_left ? x_size : 0), y, x_size, y_size);
     }
@@ -134,18 +139,18 @@ public class TouchPanel : Panel
         var swap_hands = TouchSettings.SwapHands;
 
         // Finish button placements (they dynamically depends on scale)
-        arrowsMainPanel.MarginLeft = swap_hands ? -120 * scale : 0;
-        arrowsMainPanel.MarginRight = swap_hands ? 0 : 120 * scale;
-        arrowsMainPanel.RectScale = new Vector2(scale, scale);
-        jumpMainPanel.RectScale = new Vector2(swap_hands ? -scale : scale, scale);
+        arrowsMainPanel.OffsetLeft = swap_hands ? -120 * scale : 0;
+        arrowsMainPanel.OffsetRight = swap_hands ? 0 : 120 * scale;
+        arrowsMainPanel.Scale = new Vector2(scale, scale);
+        jumpMainPanel.Scale = new Vector2(swap_hands ? -scale : scale, scale);
         
         // Calculate rects for all the buttons
         leftRect = getPressRect(leftUpPanel, grow_left: true, grow_top: true)
-                        .GrowIndividual(0, 0, 0, leftPanel.RectSize.y * scale);
+                        .GrowIndividual(0, 0, 0, leftPanel.Size.Y * scale);
         rightRect = getPressRect(rightUpPanel, grow_right: true, grow_top: true)
-                        .GrowIndividual(0, 0, 0, rightPanel.RectSize.y * scale);
+                        .GrowIndividual(0, 0, 0, rightPanel.Size.Y * scale);
         upRect = getPressRect(leftUpPanel, grow_left: true, grow_right: true, grow_top: true)
-                        .GrowIndividual(0, 0, rightUpPanel.RectSize.y * scale, 0);
+                        .GrowIndividual(0, 0, rightUpPanel.Size.Y * scale, 0);
         downRect = getPressRect(downPanel, grow_left: true, grow_right: true, grow_bottom: true);
 
         infoRect = getPressRect(infoPanel, flip_left: swap_hands);
@@ -163,24 +168,24 @@ public class TouchPanel : Panel
         };
 
         // Some magic formula to stick visible area to the top, or bottom, or center
-        var camera = GetTree().Root.FindNode("GKnyttCamera", owned: false) as Camera2D;
-        camera.Offset = new Vector2(-TouchSettings.ScreenWidth / 2, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
+        var camera = GetTree().Root.FindChild("GKnyttCamera", owned: false) as Camera2D;
+        camera.Offset = new Vector2(-TouchSettings.ScreenWidth / 2, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.Y - 240) - 120);
 
-        var curtain = GetTree().Root.FindNode("Curtain", owned: false);
+        var curtain = GetTree().Root.FindChild("Curtain", owned: false);
         var horizontalCurtain = curtain.GetNode<ColorRect>("HorizontalRect");
         var leftCurtain = curtain.GetNode<ColorRect>("LeftRect");
         var rightCurtain = curtain.GetNode<ColorRect>("RightRect");
-        float curtainHeight = GetViewport().GetVisibleRect().Size.y - 240;
-        horizontalCurtain.RectSize = new Vector2(TouchSettings.ScreenWidth, curtainHeight);
-        horizontalCurtain.RectPosition = new Vector2(0, TouchSettings.AreaAnchor * 240);
-        leftCurtain.RectSize = rightCurtain.RectSize = 
-            new Vector2((TouchSettings.ScreenWidth - 600) / 2, GetViewport().GetVisibleRect().Size.y);
-        rightCurtain.RectPosition = new Vector2(TouchSettings.ScreenWidth - rightCurtain.RectSize.x, 0);
+        float curtainHeight = GetViewport().GetVisibleRect().Size.Y - 240;
+        horizontalCurtain.Size = new Vector2(TouchSettings.ScreenWidth, curtainHeight);
+        horizontalCurtain.Position = new Vector2(0, TouchSettings.AreaAnchor * 240);
+        leftCurtain.Size = rightCurtain.Size = 
+            new Vector2((TouchSettings.ScreenWidth - 600) / 2, GetViewport().GetVisibleRect().Size.Y);
+        rightCurtain.Position = new Vector2(TouchSettings.ScreenWidth - rightCurtain.Size.X, 0);
     }
 
     private void ChangeOpacity(Control c, bool pressed)
     {
-        c.AddStyleboxOverride("panel", pressed ? pressedStylebox : normalStylebox);
+        c.AddThemeStyleboxOverride("panel", pressed ? pressedStylebox : normalStylebox);
     }
 
     public override void _Input(InputEvent @event)
@@ -205,7 +210,7 @@ public class TouchPanel : Panel
             }
             else if (@event is InputEventScreenDrag drag_event)
             {
-                var speed = drag_event.Speed;
+                var speed = drag_event.Velocity;
                 var rel = drag_event.Relative;
                 var old_position = drag_event.Position - drag_event.Relative;
 
@@ -221,7 +226,7 @@ public class TouchPanel : Panel
                     if (p.Rect.HasPoint(old_position) && !p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
                 }
 
-                float adj_speed = speed.x / getScale();
+                float adj_speed = speed.X / getScale();
                 if (TouchSettings.Swipe)
                 {
                     // If user swipes left/right too fast, left/right action can be pressed in advance

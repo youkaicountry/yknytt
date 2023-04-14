@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Teleport.wav-f4fced5ea2e455c0097bebdc4b21c5a4.sample"
+type="AudioStreamWAV"
+uid="uid://d7mu0mxgggh3"
+path="res://.godot/imported/Teleport.wav-f4fced5ea2e455c0097bebdc4b21c5a4.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Teleport.wav"
-dest_files=[ "res://.import/Teleport.wav-f4fced5ea2e455c0097bebdc4b21c5a4.sample" ]
+dest_files=["res://.godot/imported/Teleport.wav-f4fced5ea2e455c0097bebdc4b21c5a4.sample"]
 
 [params]
 

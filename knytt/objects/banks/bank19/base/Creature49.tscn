@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank19/img/small_spider.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank19/img/small_spider.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/banks/bank17/SmallSpider.cs" type="Script" id=3]
 
@@ -83,10 +83,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 4, 4 )
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 4, 3 )
+size = Vector2(8, 6)
 
 [node name="Muff" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
@@ -94,9 +94,9 @@ OrganicEnemy = true
 directionChangeTime = 4.26
 speedChangeTime = 1.0
 initialSpeed = 8
-speedValues = PoolIntArray( 0, 0, 7, 12 )
+speedValues = PackedInt32Array( 0, 0, 7, 12 )
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 16 )
 
 [node name="CollisionShape2D" parent="." index="3"]

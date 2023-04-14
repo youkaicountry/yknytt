@@ -1,54 +1,66 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://do38p3hhcaklr"]
 
-[ext_resource path="res://knytt/objects/banks/bank10/smart_bouncer_jump.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank10/smart_bouncer_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Bounce Lite.wav" type="AudioStream" id=4]
-[ext_resource path="res://knytt/objects/banks/bank10/BouncerEnemy.cs" type="Script" id=5]
-[ext_resource path="res://knytt/data/Sfx/Bounce.wav" type="AudioStream" id=6]
+[ext_resource type="Texture2D" uid="uid://cho5s1cmgplae" path="res://knytt/objects/banks/bank10/smart_bouncer_jump.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://73le2xfomkl0" path="res://knytt/objects/banks/bank10/smart_bouncer_stop.png" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="AudioStream" uid="uid://kt7uv2d0n031" path="res://knytt/data/Sfx/Bounce Lite.wav" id="4"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank10/BouncerEnemy.cs" id="5"]
+[ext_resource type="AudioStream" uid="uid://bld12ptbhw6ip" path="res://knytt/data/Sfx/Bounce.wav" id="6"]
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ SubResource( 7 ) ],
-"loop": false,
-"name": "stop",
-"speed": 5.0
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
 }, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
 "loop": false,
-"name": "jump",
+"name": &"jump",
 "speed": 40.0
-} ]
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("7")
+}],
+"loop": false,
+"name": &"stop",
+"speed": 5.0
+}]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id="6"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 5 )
-OrganicEnemy = true
+script = ExtResource("5")
 gravity = 700.0
 jump_force = 160.0
 extra_gravity = 650.0
 extra_jump_force = 235.0
+OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 5 )
-animation = "stop"
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("5")
+animation = &"stop"
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -56,13 +68,16 @@ collision_layer = 2147483648
 collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 11, 14 )
-shape = SubResource( 6 )
+position = Vector2(11, 14)
+shape = SubResource("6")
 
-[node name="BouncePlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 6 )
+[node name="BouncePlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("6")
+bus = &"SFX"
 
-[node name="JumpPlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
+[node name="JumpPlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("4")
+bus = &"SFX"
 
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

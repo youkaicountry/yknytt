@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/banks/bank0/Automation.cs" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.5, 10.5 )
+size = Vector2(21, 21)
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 0

@@ -1,6 +1,6 @@
 using Godot;
 
-public class NoJump : GDKnyttBaseObject
+public partial class NoJump : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

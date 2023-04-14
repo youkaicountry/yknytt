@@ -1,13 +1,13 @@
 using Godot;
 using YUtil.Random;
 
-public class Explosion : GDKnyttBaseObject
+public partial class Explosion : GDKnyttBaseObject
 {
-    private Sprite sprite;
+    private Sprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<Sprite>("Sprite");
+        sprite = GetNode<Sprite2D>("Sprite2D");
         sprite.GetNode<AnimationPlayer>("AnimationPlayer").Play("Explode");
     }
 

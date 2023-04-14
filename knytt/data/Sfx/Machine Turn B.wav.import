@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Machine Turn B.wav-817d9460454f0fe48472197d3c703afe.sample"
+type="AudioStreamWAV"
+uid="uid://qv71xkfqlqyk"
+path="res://.godot/imported/Machine Turn B.wav-817d9460454f0fe48472197d3c703afe.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Machine Turn B.wav"
-dest_files=[ "res://.import/Machine Turn B.wav-817d9460454f0fe48472197d3c703afe.sample" ]
+dest_files=["res://.godot/imported/Machine Turn B.wav-817d9460454f0fe48472197d3c703afe.sample"]
 
 [params]
 

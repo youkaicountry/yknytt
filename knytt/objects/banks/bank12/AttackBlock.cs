@@ -1,8 +1,8 @@
 using Godot;
 
-public class AttackBlock : GDKnyttBaseObject
+public partial class AttackBlock : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private CollisionShape2D shape;
 
     private readonly float[] scales = { 1, 1.5f, 2, 3, 4, 6, 8, 10, 12, 15, 18, 21, 25, 30, 35, 36, 35 };
@@ -10,7 +10,7 @@ public class AttackBlock : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         shape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
     }
 

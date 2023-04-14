@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/DiscBullet.wav-f47aa6616587def6d8882004eb765678.sample"
+type="AudioStreamWAV"
+uid="uid://cc2ri2u5behgl"
+path="res://.godot/imported/DiscBullet.wav-f47aa6616587def6d8882004eb765678.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/DiscBullet.wav"
-dest_files=[ "res://.import/DiscBullet.wav-f47aa6616587def6d8882004eb765678.sample" ]
+dest_files=["res://.godot/imported/DiscBullet.wav-f47aa6616587def6d8882004eb765678.sample"]
 
 [params]
 

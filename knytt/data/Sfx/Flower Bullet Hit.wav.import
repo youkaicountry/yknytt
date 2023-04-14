@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Flower Bullet Hit.wav-3b2f525105363e283ef4ef6aee213852.sample"
+type="AudioStreamWAV"
+uid="uid://cdg5qyj6px2r6"
+path="res://.godot/imported/Flower Bullet Hit.wav-3b2f525105363e283ef4ef6aee213852.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Flower Bullet Hit.wav"
-dest_files=[ "res://.import/Flower Bullet Hit.wav-3b2f525105363e283ef4ef6aee213852.sample" ]
+dest_files=["res://.godot/imported/Flower Bullet Hit.wav-3b2f525105363e283ef4ef6aee213852.sample"]
 
 [params]
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using YKnyttLib;
 
-public class InfoScreen : CanvasLayer
+public partial class InfoScreen : CanvasLayer
 {
     [Export] string complainURL;
 
@@ -15,7 +15,7 @@ public class InfoScreen : CanvasLayer
     public void initialize(string path)
     {
         KWorld = new GDKnyttWorldImpl();
-        if (new Directory().DirExists(path))
+        if (DirAccess.DirExistsAbsolute(path))
         {
             KWorld.setDirectory(path, GDKnyttAssetManager.extractFilename(path));
         }
@@ -28,11 +28,11 @@ public class InfoScreen : CanvasLayer
         string ini = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
         KWorld.loadWorldConfig(ini);
 
-        Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
-                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
+        Texture2D info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
+                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture2D;
         if (info != null)
         {
-            info.Flags |= (uint)Texture.FlagsEnum.Filter;
+            //info.Flags |= (uint)Texture2D.FlagsEnum.Filter;
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 
@@ -67,9 +67,7 @@ public class InfoScreen : CanvasLayer
 
         string cache_dir = GDKnyttAssetManager.extractFilename(KWorld.WorldDirectory);
         GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
-        var f = new File();
-        f.Open($"user://Cache/{cache_dir}/LastPlayed.flag", File.ModeFlags.Write);
-        f.Close();
+        using var f = FileAccess.Open($"user://Cache/{cache_dir}/LastPlayed.flag", FileAccess.ModeFlags.Write);
 
         KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
@@ -85,16 +83,17 @@ public class InfoScreen : CanvasLayer
     private void _on_StatHTTPRequest_ready()
     {
         string serverURL = GDKnyttSettings.ServerURL;
-        GetNode<HTTPRequest>("StatHTTPRequest").Request(
+        GetNode<HttpRequest>("StatHTTPRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
     }
 
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
+        if (result == (int)HttpRequest.Result.Success && response_code == 200) {; } else { return; }
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
-        if (json.Error != Error.Ok) { return; }
+        var jsonObject = new Json();
+        var error = jsonObject.Parse(response);
+        if (error != Error.Ok) { return; }
 
         var my_powers = new HashSet<int>();
         var my_cutscenes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -102,7 +101,7 @@ public class InfoScreen : CanvasLayer
         for (int slot = 1; slot <= 3; slot++)
         {
             string savename = $"user://Saves/{KWorld.WorldDirectoryName} {slot}.ini";
-            if (new File().FileExists(savename))
+            if (FileAccess.FileExists(savename))
             {
                 KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);
                 for (int i = 0; i < 13; i++) { if (save.getPower(i)) { my_powers.Add(i); } }
@@ -111,16 +110,16 @@ public class InfoScreen : CanvasLayer
             }
         }
 
-        upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
-        downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
-        complains = HTTPUtil.jsonInt(json.Result, "complains");
+        upvotes = HTTPUtil.jsonInt(jsonObject.Data, "upvotes");
+        downvotes = HTTPUtil.jsonInt(jsonObject.Data, "downvotes");
+        complains = HTTPUtil.jsonInt(jsonObject.Data, "complains");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
         int[] powers_count = new int[13];
         for (int i = 0; i < 13; i++)
         {
-            powers_count[i] = HTTPUtil.jsonInt(json.Result, $"power{i}");
+            powers_count[i] = HTTPUtil.jsonInt(jsonObject.Data, $"power{i}");
         }
 
         if (powers_count.Any(c => c > 0))
@@ -140,11 +139,11 @@ public class InfoScreen : CanvasLayer
         List<string> endings = new List<string>();
         List<int> endings_count = new List<int>();
 
-        var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "cutscenes");
+        var cutscene_infos = HTTPUtil.jsonArray(jsonObject.Data, "cutscenes");
         foreach (Dictionary record in cutscene_infos)
         {
             bool is_ending = HTTPUtil.jsonBool(record, "ending");
-            (is_ending ? endings : cutscenes).Add(HTTPUtil.jsonValue<string>(record, "name"));
+            (is_ending ? endings : cutscenes).Add(HTTPUtil.jsonString(record, "name"));
             (is_ending ? endings_count : cutscenes_count).Add(HTTPUtil.jsonInt(record, "counter"));
         }
 
@@ -252,6 +251,6 @@ public class InfoScreen : CanvasLayer
     {
         ClickPlayer.Play();
         KWorld.uninstallWorld();
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        GetTree().ChangeSceneToFile("res://knytt/ui/MainMenu.tscn");
     }
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public class KeyDoor : Door
+public partial class KeyDoor : Door
 {
     [Export] YKnyttLib.JuniValues.PowerNames power = 0;
 
@@ -11,7 +11,7 @@ public class KeyDoor : Door
 
     protected override SignalAwaiter playAnimation()
     {
-        var player = GetNode<AnimatedSprite>("AnimatedSprite");
+        var player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         player.Play("open");
         return ToSignal(player, "animation_finished");
     }

@@ -1,10 +1,10 @@
 using Godot;
 
-public class Coin : CustomObject
+public partial class Coin : CustomObject
 {
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey("Coin")) { sprite.Play("default"); return; }
 

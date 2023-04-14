@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank19/img/green_worm_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank19/img/green_worm_start.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank19/img/green_worm_stop.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/objects/banks/bank19/img/green_worm_start.png" type="Texture2D" id=3]
 [ext_resource path="res://knytt/objects/banks/bank14/Jelly.cs" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -67,17 +67,17 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 7, 3 )
+size = Vector2(14, 6)
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 deceleration = 18.0
 jellySpeed = 6
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 13 )
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 21 )
 shape = SubResource( 14 )
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]

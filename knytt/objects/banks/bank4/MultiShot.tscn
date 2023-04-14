@@ -10,13 +10,13 @@
 script = ExtResource( 3 )
 OrganicEnemy = true
 initialSpeed = 8
-speedValues = PoolIntArray( 0, 10 )
+speedValues = PackedInt32Array( 0, 10 )
 
 [node name="DistanceMod" parent="." index="4" instance=ExtResource( 2 )]
 openDistance = 140.0
 closeDistance = 160.0
 method = 1
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 openAnimation = "launch"
 
 [node name="ShotTimer" type="Timer" parent="." index="5"]

@@ -2,9 +2,9 @@ using Godot;
 using IniParser.Model;
 using YKnyttLib;
 
-public class CustomObject : GDKnyttBaseObject
+public partial class CustomObject : GDKnyttBaseObject
 {
-    public class CustomObjectInfo
+    public partial class CustomObjectInfo
     {
         public string image;
         public int tile_width = 24;
@@ -19,7 +19,7 @@ public class CustomObject : GDKnyttBaseObject
     }
 
     protected CustomObjectInfo info;
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     private int counter = 0;
 
     // TODO: load textures in _Initialize and loadArea in a background thread, because loading may take a long time
@@ -37,7 +37,8 @@ public class CustomObject : GDKnyttBaseObject
         int bank = getInt(section, "Bank", -1);
         int obj = getInt(section, "Object", -1);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
-        Color color = new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
+        int bgr = KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF);
+        Color color = new Color(KnyttUtil.R(bgr), KnyttUtil.G(bgr), KnyttUtil.B(bgr));
         if (bank != -1 && obj != -1)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
@@ -64,7 +65,7 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_to = getInt(section, "Init AnimTo", info.anim_to);
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{ObjectID.y}");
         sprite.Play();
     }
@@ -81,24 +82,24 @@ public class CustomObject : GDKnyttBaseObject
 
     protected bool fillAnimation(string animation_name)
     {
-        bool has_alpha_animation = sprite.Frames.HasAnimation(animation_name);
-        bool has_replace_animation = sprite.Frames.HasAnimation(animation_name + " replace");
+        bool has_alpha_animation = sprite.SpriteFrames.HasAnimation(animation_name);
+        bool has_replace_animation = sprite.SpriteFrames.HasAnimation(animation_name + " replace");
         if (has_replace_animation) { animation_name += " replace"; }
 
         if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
             // TODO: some custom objects are loaded as black squares on Android. Check if it's true on every Android or not
-            var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
+            var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture2D;
             if (image_texture == null) { return false; }
 
             if (image_texture.HasAlpha()) { has_alpha_animation = true; }
             else { has_replace_animation = true; animation_name += " replace"; }
 
-            sprite.Frames.AddAnimation(animation_name);
+            sprite.SpriteFrames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
-            sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20);
-            sprite.Frames.SetAnimationLoop(animation_name, info.anim_repeat == 0 && info.anim_loopback == 0);
+            sprite.SpriteFrames.SetAnimationSpeed(animation_name, info.anim_speed / 20);
+            sprite.SpriteFrames.SetAnimationLoop(animation_name, info.anim_repeat == 0 && info.anim_loopback == 0);
         }
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);
         sprite.Animation = animation_name;
@@ -107,7 +108,7 @@ public class CustomObject : GDKnyttBaseObject
         return true;
     }
 
-    private void fillAnimationInternal(Texture image_texture, string animation_name)
+    private void fillAnimationInternal(Texture2D image_texture, string animation_name)
     {
         int pos = 0;
         if (image_texture.GetHeight() < info.tile_height) { info.tile_height = image_texture.GetHeight(); }
@@ -121,7 +122,7 @@ public class CustomObject : GDKnyttBaseObject
                 var tile = new AtlasTexture();
                 tile.Atlas = image_texture;
                 tile.Region = new Rect2(j * info.tile_width, i * info.tile_height, info.tile_width, info.tile_height);
-                sprite.Frames.AddFrame(animation_name, tile, pos++);
+                sprite.SpriteFrames.AddFrame(animation_name, tile, atPosition: pos++);
                 if (info.anim_to != -1 && pos > info.anim_to) { return; }
             }
         }
@@ -129,7 +130,7 @@ public class CustomObject : GDKnyttBaseObject
 
     private void _on_AnimatedSprite_animation_finished()
     {
-        if (sprite.Frames.GetAnimationLoop(sprite.Animation)) { return; }
+        if (sprite.SpriteFrames.GetAnimationLoop(sprite.Animation)) { return; }
         counter++;
         if (counter >= info.anim_repeat && info.anim_repeat > 0) { return; }
         sprite.Frame = info.anim_loopback;

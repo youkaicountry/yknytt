@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Dust : GDKnyttBaseObject
+public partial class Dust : GDKnyttBaseObject
 {
     SceneCPUParticles particles;
 

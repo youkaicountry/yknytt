@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/banks/bank19/CollectableWaterMonster.cs" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 21 )
+size = Vector2(16, 42)
 
 [node name="Node2D" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -16,4 +16,4 @@ script = ExtResource( 3 )
 position = Vector2( 12, 27 )
 shape = SubResource( 1 )
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]

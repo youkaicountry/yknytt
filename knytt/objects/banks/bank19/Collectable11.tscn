@@ -7,7 +7,7 @@
 
 [node name="Node2D" instance=ExtResource( 2 )]
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 animation = "chirp"
 
 [node name="CollectMod" parent="." index="2" instance=ExtResource( 1 )]

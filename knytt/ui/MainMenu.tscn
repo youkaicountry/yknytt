@@ -1,110 +1,83 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://vg3m28kvj0x3"]
 
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/MainMenu.cs" type="Script" id=2]
-[ext_resource path="res://knytt/data/Music/Song20.ogg" type="AudioStream" id=5]
-[ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=6]
-[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=11]
+[ext_resource type="PackedScene" uid="uid://crp5k3eycfjv7" path="res://knytt/ui/GDKnyttButton.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/ui/MainMenu.cs" id="2"]
+[ext_resource type="AudioStream" uid="uid://dt7s1y0je20ql" path="res://knytt/data/Music/Song20.ogg" id="5"]
+[ext_resource type="PackedScene" path="res://knytt/ui/MenuCloud.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://chlyugtky3llt" path="res://knytt/ui/FadeLayer.tscn" id="11"]
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource( 2 )
+texture_filter = 1
+script = ExtResource("2")
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="MenuLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ButtonRow" type="HBoxContainer" parent="MenuLayer"]
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -24.2233
-margin_bottom = -5.2233
-focus_neighbour_left = NodePath("PlayButton")
-focus_neighbour_top = NodePath("PlayButton")
-focus_neighbour_right = NodePath("PlayButton")
-focus_neighbour_bottom = NodePath("PlayButton")
+offset_top = -24.2233
+offset_bottom = -5.2233
+focus_neighbor_left = NodePath("PlayButton")
+focus_neighbor_top = NodePath("PlayButton")
+focus_neighbor_right = NodePath("PlayButton")
+focus_neighbor_bottom = NodePath("PlayButton")
 focus_next = NodePath("PlayButton")
 focus_previous = NodePath("PlayButton")
 focus_mode = 2
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TutorialButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 40.0
-margin_right = 120.0
-margin_bottom = 19.2149
+[node name="TutorialButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Tutorial"
 
-[node name="PlayButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 124.0
-margin_right = 204.0
-margin_bottom = 19.2149
+[node name="PlayButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 text = "Play"
 
-[node name="DownloadButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 208.0
-margin_right = 308.064
-margin_bottom = 19.2149
+[node name="DownloadButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 text = " Download Levels "
 
-[node name="CreditsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 312.0
-margin_right = 392.0
-margin_bottom = 19.2149
+[node name="CreditsButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 focus_mode = 0
 disabled = true
 text = "Credits"
 
-[node name="SettingsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 396.0
-margin_right = 476.0
-margin_bottom = 19.2149
+[node name="SettingsButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 text = "Settings"
 
-[node name="QuitButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 480.0
-margin_right = 560.0
-margin_bottom = 19.2149
+[node name="QuitButton" parent="MenuLayer/ButtonRow" instance=ExtResource("1")]
+layout_mode = 2
 text = "Quit"
 
-[node name="MenuCloud" parent="MenuLayer" instance=ExtResource( 6 )]
+[node name="MenuCloud" parent="MenuLayer" instance=ExtResource("6")]
 
-[node name="Fade" parent="MenuLayer" instance=ExtResource( 11 )]
-margin_left = 2.0
-margin_top = -0.8909
-margin_right = 2.0
-margin_bottom = -0.8909
+[node name="Fade" parent="MenuLayer" instance=ExtResource("11")]
+offset_left = 2.0
+offset_top = -0.8909
+offset_right = 2.0
+offset_bottom = -0.8909
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 autoplay = true
-bus = "Music"
+bus = &"Music"
 
 [connection signal="focus_entered" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_entered"]
 [connection signal="focus_exited" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_exited"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
-[connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [ true ]]
-[connection signal="pressed" from="MenuLayer/ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
+[connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [true]]
+[connection signal="pressed" from="MenuLayer/ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [false]]
 [connection signal="pressed" from="MenuLayer/ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]

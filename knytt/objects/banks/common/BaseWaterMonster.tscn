@@ -1,24 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://cto3uacpwh4f"]
 
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/common/BaseWaterMonster.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Homing Shot.wav" type="AudioStream" id=4]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="3"]
+[ext_resource type="AudioStream" uid="uid://25lwjhm84c85" path="res://knytt/data/Sfx/Homing Shot.wav" id="4"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 2 )
-OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
-[node name="ShotTimer" parent="." instance=ExtResource( 3 )]
+[node name="ShotTimer" parent="." instance=ExtResource("3")]
 wait_time = 3.0
 autostart = true
 firstDelay = 0.3
 pickOne = true
 
-[node name="ShotPlayer" parent="." instance=ExtResource( 1 )]
-stream = ExtResource( 4 )
+[node name="ShotPlayer" parent="." instance=ExtResource("1")]
+stream = ExtResource("4")
+bus = &"SFX"
 
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

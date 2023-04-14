@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/InputOption.cs" type="Script" id=2]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=3]
 
 [node name="InputOption" type="HBoxContainer"]
 anchor_right = 1.0
@@ -13,27 +13,28 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_top = 113.0
-margin_right = 80.0
-margin_bottom = 126.0
-rect_min_size = Vector2( 80, 0 )
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_top = 113.0
+offset_right = 80.0
+offset_bottom = 126.0
+custom_minimum_size = Vector2( 80, 0 )
+theme_override_fonts/font = ExtResource( 3 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_font_sizes/font_size = 12
 text = "Up"
 align = 2
 
 [node name="Button0" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 84.0
-margin_right = 164.0
-margin_bottom = 240.0
+offset_left = 84.0
+offset_right = 164.0
+offset_bottom = 240.0
 
 [node name="Button1" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 168.0
-margin_right = 248.0
-margin_bottom = 240.0
+offset_left = 168.0
+offset_right = 248.0
+offset_bottom = 240.0
 [connection signal="pressed" from="Button0" to="." method="_on_Button0_pressed"]
 [connection signal="pressed" from="Button1" to="." method="_on_Button1_pressed"]

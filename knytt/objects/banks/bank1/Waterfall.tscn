@@ -1,11 +1,11 @@
 [gd_scene load_steps=104 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall3.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall3.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/bank1/Waterfall.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall4.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall15.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall20.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall23.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall4.png" type="Texture2D" id=3]
+[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall15.png" type="Texture2D" id=4]
+[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall20.png" type="Texture2D" id=5]
+[ext_resource path="res://knytt/objects/banks/bank1/waterfalls/Waterfall23.png" type="Texture2D" id=6]
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 3 )
@@ -422,7 +422,7 @@ animations = [ {
 [node name="Waterfall" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color( 1, 1, 1, 0.501961 )
 frames = SubResource( 19 )
 animation = "Waterfall23"

@@ -5,13 +5,13 @@
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15.777, 1.5 )
+size = Vector2(31.554, 3)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( 0, -24 )
 centered = false
 

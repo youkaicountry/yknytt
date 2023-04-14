@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class TwoWayPlatform : OneWayPlatform
+public partial class TwoWayPlatform : OneWayPlatform
 {
     private HashSet<Juni> junis = new HashSet<Juni>();
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         foreach (Juni juni in junis)
         {

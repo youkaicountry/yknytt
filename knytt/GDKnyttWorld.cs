@@ -1,8 +1,10 @@
 using Godot;
 using YKnyttLib;
 using YKnyttLib.Paging;
+using System.IO.Compression;
+using System.IO;
 
-public class GDKnyttWorld : Node2D
+public partial class GDKnyttWorld : Node2D
 {
     PackedScene area_scene;
 
@@ -20,7 +22,7 @@ public class GDKnyttWorld : Node2D
     public GDKnyttWorld()
     {
         this.AssetManager = new GDKnyttAssetManager(this, tile_cache: 32, gradient_cache: 16, song_cache: 4, ambiance_cache: 8, object_cache: 64);
-        this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(1, 1));
+        this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(0, 0));
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => area?.destroyArea();
 
@@ -59,14 +61,14 @@ public class GDKnyttWorld : Node2D
 
     public static KnyttPoint getAreaCoords(Vector2 global_pos)
     {
-        return new KnyttPoint((int)(global_pos.x / (GDKnyttAssetManager.TILE_WIDTH * KnyttArea.AREA_WIDTH)),
-                              (int)(global_pos.y / (GDKnyttAssetManager.TILE_HEIGHT * KnyttArea.AREA_HEIGHT)));
+        return new KnyttPoint((int)(global_pos.X / (GDKnyttAssetManager.TILE_WIDTH * KnyttArea.AREA_WIDTH)),
+                              (int)(global_pos.Y / (GDKnyttAssetManager.TILE_HEIGHT * KnyttArea.AREA_HEIGHT)));
     }
 
     public GDKnyttArea instantiateArea(KnyttPoint point)
     {
         var area = this.KWorld.getArea(point) ?? new KnyttArea(point, KWorld);
-        var area_node = this.area_scene.Instance() as GDKnyttArea;
+        var area_node = this.area_scene.Instantiate<GDKnyttArea>();
         area_node.loadArea(this, area);
         this.GetNode("Areas").AddChild(area_node);
         return area_node;

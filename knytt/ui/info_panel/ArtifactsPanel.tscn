@@ -1,1132 +1,1175 @@
-[gd_scene load_steps=159 format=2]
+[gd_scene load_steps=160 format=3 uid="uid://rrodw1l4uu5w"]
 
-[ext_resource path="res://knytt/objects/banks/bank19/img/fly_spike20.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank19/img/birdie3.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank19/img/birdie1_stop.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/banks/bank19/img/snow_bird_stop.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/banks/bank19/img/buzz_flyer2.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/banks/bank19/img/bad_flything.png" type="Texture" id=6]
-[ext_resource path="res://knytt/objects/banks/bank19/img/cave_firefly_run.png" type="Texture" id=7]
-[ext_resource path="res://knytt/objects/banks/bank19/img/tentacle_flything.png" type="Texture" id=8]
-[ext_resource path="res://knytt/objects/banks/bank19/img/flything.png" type="Texture" id=9]
-[ext_resource path="res://knytt/objects/banks/bank19/img/bad_flything_3.png" type="Texture" id=10]
-[ext_resource path="res://knytt/ui/info_panel/ArtifactsPanel.cs" type="Script" id=11]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff7s.png" type="Texture" id=12]
-[ext_resource path="res://knytt/objects/banks/bank19/img/circle_bird.png" type="Texture" id=13]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff3s.png" type="Texture" id=14]
-[ext_resource path="res://knytt/objects/banks/bank19/img/yellow_dog.png" type="Texture" id=15]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff6s.png" type="Texture" id=16]
-[ext_resource path="res://knytt/ui/info_panel/Grayscale.tres" type="Shader" id=17]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff17s.png" type="Texture" id=18]
-[ext_resource path="res://knytt/objects/banks/bank19/img/left_stranger_climb.png" type="Texture" id=19]
-[ext_resource path="res://knytt/objects/banks/bank19/img/big_cat.png" type="Texture" id=20]
-[ext_resource path="res://knytt/objects/banks/bank19/img/6leg_child_stop.png" type="Texture" id=21]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff9s.png" type="Texture" id=22]
-[ext_resource path="res://knytt/objects/banks/bank19/img/drop_crawler_2_stop.png" type="Texture" id=23]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff25s.png" type="Texture" id=24]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff19s.png" type="Texture" id=25]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff24s.png" type="Texture" id=26]
-[ext_resource path="res://knytt/objects/banks/bank19/img/muff34s.png" type="Texture" id=27]
-[ext_resource path="res://knytt/objects/banks/bank19/img/toast_monster.png" type="Texture" id=28]
-[ext_resource path="res://knytt/objects/banks/bank19/img/right_super_stranger_climb.png" type="Texture" id=29]
-[ext_resource path="res://knytt/objects/banks/bank19/img/strange_runner.png" type="Texture" id=30]
-[ext_resource path="res://knytt/objects/banks/bank19/img/homing_bullet_runner.png" type="Texture" id=31]
-[ext_resource path="res://knytt/objects/banks/bank19/img/trishot_walk.png" type="Texture" id=32]
-[ext_resource path="res://knytt/objects/banks/bank19/img/self_dropper.png" type="Texture" id=33]
-[ext_resource path="res://knytt/objects/banks/bank19/img/trap_flower.png" type="Texture" id=34]
-[ext_resource path="res://knytt/objects/banks/bank19/img/small_timed_flower.png" type="Texture" id=35]
-[ext_resource path="res://knytt/objects/banks/bank19/img/eater.png" type="Texture" id=36]
-[ext_resource path="res://knytt/objects/banks/bank19/img/timed_flower.png" type="Texture" id=37]
-[ext_resource path="res://knytt/objects/banks/bank19/img/teenage_fluff.png" type="Texture" id=38]
-[ext_resource path="res://knytt/objects/banks/bank19/img/up_stuff_shooter.png" type="Texture" id=39]
-[ext_resource path="res://knytt/objects/banks/bank19/coin_icon.png" type="Texture" id=40]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_3.png" type="Texture" id=41]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_5.png" type="Texture" id=42]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_6.png" type="Texture" id=43]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_4.png" type="Texture" id=44]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_2.png" type="Texture" id=45]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_1.png" type="Texture" id=46]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_7.png" type="Texture" id=47]
-[ext_resource path="res://knytt/objects/banks/bank19/img/green_worm_stop.png" type="Texture" id=48]
-[ext_resource path="res://knytt/objects/banks/bank19/img/harmless_insect.png" type="Texture" id=49]
-[ext_resource path="res://knytt/objects/banks/bank19/img/smile_ball_smile.png" type="Texture" id=50]
-[ext_resource path="res://knytt/objects/banks/bank19/img/shock_disk_3_stop.png" type="Texture" id=51]
-[ext_resource path="res://knytt/objects/banks/bank19/img/shock_disk_2_walk.png" type="Texture" id=52]
-[ext_resource path="res://knytt/objects/banks/bank19/img/green_disk_stop.png" type="Texture" id=53]
-[ext_resource path="res://knytt/objects/banks/bank19/img/stationary_rock.png" type="Texture" id=54]
-[ext_resource path="res://knytt/objects/banks/bank19/img/small_spider.png" type="Texture" id=55]
-[ext_resource path="res://knytt/objects/banks/bank19/img/water_monster.png" type="Texture" id=56]
-[ext_resource path="res://knytt/objects/banks/bank19/img/spikeless_spiker.png" type="Texture" id=57]
-[ext_resource path="res://knytt/objects/banks/bank19/img/supershot_right_stop.png" type="Texture" id=58]
-[ext_resource path="res://knytt/objects/banks/bank19/img/dark_randomizer_ready.png" type="Texture" id=59]
-[ext_resource path="res://knytt/objects/banks/bank19/img/another_snail.png" type="Texture" id=60]
+[ext_resource type="Texture2D" uid="uid://cjye32xf54h37" path="res://knytt/objects/banks/bank19/img/fly_spike20.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cjcyl601i66q0" path="res://knytt/objects/banks/bank19/img/birdie3.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bs46moriencrs" path="res://knytt/objects/banks/bank19/img/birdie1_stop.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dqr3d4ntrj1ks" path="res://knytt/objects/banks/bank19/img/snow_bird_stop.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bbaxlxtow7ady" path="res://knytt/objects/banks/bank19/img/buzz_flyer2.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://db2mcvlu0huho" path="res://knytt/objects/banks/bank19/img/bad_flything.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://b0yyj4wep4k3w" path="res://knytt/objects/banks/bank19/img/cave_firefly_run.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://cx2h22dc1ah3f" path="res://knytt/objects/banks/bank19/img/tentacle_flything.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://b2t1ndvasfcu8" path="res://knytt/objects/banks/bank19/img/flything.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://cvf3c422mwrci" path="res://knytt/objects/banks/bank19/img/bad_flything_3.png" id="10"]
+[ext_resource type="Script" path="res://knytt/ui/info_panel/ArtifactsPanel.cs" id="11"]
+[ext_resource type="Texture2D" uid="uid://duyawi2cgi1bh" path="res://knytt/objects/banks/bank19/img/muff7s.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://bldfng83yd1px" path="res://knytt/objects/banks/bank19/img/circle_bird.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://dhrwt3uxova2d" path="res://knytt/objects/banks/bank19/img/muff3s.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://w1wchde7cmn3" path="res://knytt/objects/banks/bank19/img/yellow_dog.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://4fqdsd6exl1x" path="res://knytt/objects/banks/bank19/img/muff6s.png" id="16"]
+[ext_resource type="Shader" uid="uid://doaj5apkj3be2" path="res://knytt/ui/info_panel/Grayscale.tres" id="17"]
+[ext_resource type="Texture2D" uid="uid://vmfkd87x4sk3" path="res://knytt/objects/banks/bank19/img/muff17s.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://bf7wngavdxtyn" path="res://knytt/objects/banks/bank19/img/left_stranger_climb.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://c8m7kgtyywjui" path="res://knytt/objects/banks/bank19/img/big_cat.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://do3qmahr505mt" path="res://knytt/objects/banks/bank19/img/6leg_child_stop.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://d1nl846mxe8fk" path="res://knytt/objects/banks/bank19/img/muff9s.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://dhcs05xidgjn2" path="res://knytt/objects/banks/bank19/img/drop_crawler_2_stop.png" id="23"]
+[ext_resource type="Texture2D" uid="uid://s0lggiq20oxo" path="res://knytt/objects/banks/bank19/img/muff25s.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://c65f2jptjuuhe" path="res://knytt/objects/banks/bank19/img/muff19s.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://duums8vguoayi" path="res://knytt/objects/banks/bank19/img/muff24s.png" id="26"]
+[ext_resource type="Texture2D" uid="uid://yntqfufq2sur" path="res://knytt/objects/banks/bank19/img/muff34s.png" id="27"]
+[ext_resource type="Texture2D" uid="uid://c4biog017q8u0" path="res://knytt/objects/banks/bank19/img/toast_monster.png" id="28"]
+[ext_resource type="Texture2D" uid="uid://d4a22vxryfu85" path="res://knytt/objects/banks/bank19/img/right_super_stranger_climb.png" id="29"]
+[ext_resource type="Texture2D" uid="uid://dsi62mlqf7dlm" path="res://knytt/objects/banks/bank19/img/strange_runner.png" id="30"]
+[ext_resource type="Texture2D" uid="uid://t1rk0w4prk0n" path="res://knytt/objects/banks/bank19/img/homing_bullet_runner.png" id="31"]
+[ext_resource type="Texture2D" uid="uid://buhfx0fglgsha" path="res://knytt/objects/banks/bank19/img/trishot_walk.png" id="32"]
+[ext_resource type="Texture2D" uid="uid://d2uxmp35v4i62" path="res://knytt/objects/banks/bank19/img/self_dropper.png" id="33"]
+[ext_resource type="Texture2D" uid="uid://b77bd6773l02c" path="res://knytt/objects/banks/bank19/img/trap_flower.png" id="34"]
+[ext_resource type="Texture2D" uid="uid://crm313x0br2k2" path="res://knytt/objects/banks/bank19/img/small_timed_flower.png" id="35"]
+[ext_resource type="Texture2D" uid="uid://dlgvxxhv0p6qr" path="res://knytt/objects/banks/bank19/img/eater.png" id="36"]
+[ext_resource type="Texture2D" uid="uid://f23k5bhk21jq" path="res://knytt/objects/banks/bank19/img/timed_flower.png" id="37"]
+[ext_resource type="Texture2D" uid="uid://ctbgat0ft5tgr" path="res://knytt/objects/banks/bank19/img/teenage_fluff.png" id="38"]
+[ext_resource type="Texture2D" uid="uid://cqvninj8mwxlt" path="res://knytt/objects/banks/bank19/img/up_stuff_shooter.png" id="39"]
+[ext_resource type="Texture2D" uid="uid://djqm6iu10idbi" path="res://knytt/objects/banks/bank19/coin_icon.png" id="40"]
+[ext_resource type="Texture2D" uid="uid://dfyuid5uhb642" path="res://knytt/objects/banks/bank19/artifact_3.png" id="41"]
+[ext_resource type="Texture2D" uid="uid://dx27j8ll3ijwa" path="res://knytt/objects/banks/bank19/artifact_5.png" id="42"]
+[ext_resource type="Texture2D" uid="uid://mulboema4rvb" path="res://knytt/objects/banks/bank19/artifact_6.png" id="43"]
+[ext_resource type="Texture2D" uid="uid://coww4p0juarua" path="res://knytt/objects/banks/bank19/artifact_4.png" id="44"]
+[ext_resource type="Texture2D" uid="uid://8cshmdp3droi" path="res://knytt/objects/banks/bank19/artifact_2.png" id="45"]
+[ext_resource type="Texture2D" uid="uid://bq0wnx0g8mm2x" path="res://knytt/objects/banks/bank19/artifact_1.png" id="46"]
+[ext_resource type="Texture2D" uid="uid://bwhw5sq5amfma" path="res://knytt/objects/banks/bank19/artifact_7.png" id="47"]
+[ext_resource type="Texture2D" uid="uid://ca562dvex7qec" path="res://knytt/objects/banks/bank19/img/green_worm_stop.png" id="48"]
+[ext_resource type="Texture2D" uid="uid://cr6exytx55q14" path="res://knytt/objects/banks/bank19/img/harmless_insect.png" id="49"]
+[ext_resource type="Texture2D" uid="uid://bs8qluwmfpfp6" path="res://knytt/objects/banks/bank19/img/smile_ball_smile.png" id="50"]
+[ext_resource type="Texture2D" uid="uid://dfa3i3m1iq001" path="res://knytt/objects/banks/bank19/img/shock_disk_3_stop.png" id="51"]
+[ext_resource type="Texture2D" uid="uid://cbbrbwu7braen" path="res://knytt/objects/banks/bank19/img/shock_disk_2_walk.png" id="52"]
+[ext_resource type="Texture2D" uid="uid://ctm3mk25c8arw" path="res://knytt/objects/banks/bank19/img/green_disk_stop.png" id="53"]
+[ext_resource type="Texture2D" uid="uid://b8cd562lng7i1" path="res://knytt/objects/banks/bank19/img/stationary_rock.png" id="54"]
+[ext_resource type="Texture2D" uid="uid://dtg0muirjbp3a" path="res://knytt/objects/banks/bank19/img/small_spider.png" id="55"]
+[ext_resource type="Texture2D" uid="uid://bdpnmemldr4bl" path="res://knytt/objects/banks/bank19/img/water_monster.png" id="56"]
+[ext_resource type="Texture2D" uid="uid://brnc743stg0ke" path="res://knytt/objects/banks/bank19/img/spikeless_spiker.png" id="57"]
+[ext_resource type="Texture2D" uid="uid://bj8tiu1eowldl" path="res://knytt/objects/banks/bank19/img/supershot_right_stop.png" id="58"]
+[ext_resource type="Texture2D" uid="uid://vouah5i2c6n7" path="res://knytt/objects/banks/bank19/img/dark_randomizer_ready.png" id="59"]
+[ext_resource type="Texture2D" uid="uid://b31fdark5ovxo" path="res://knytt/objects/banks/bank19/img/another_snail.png" id="60"]
 
-[sub_resource type="StyleBoxFlat" id=100]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+[sub_resource type="StyleBoxFlat" id="100"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color( 0, 0, 0, 1 )
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=12]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=13]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=14]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=15]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=16]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 26 )
-
-[sub_resource type="ShaderMaterial" id=18]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=19]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=20]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=21]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=22]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=23]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 24, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=24]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=25]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=26]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=27]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=28]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 25 )
-region = Rect2( 72, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=30]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 26 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=32]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=33]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=34]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 20 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=36]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 21 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=38]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=39]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 19 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=41]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 30 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=43]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 31 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=45]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 28 )
-region = Rect2( 0, 192, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=47]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 32 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=49]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=58]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 36 )
-region = Rect2( 0, 240, 48, 48 )
-
-[sub_resource type="ShaderMaterial" id=59]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 33 )
-region = Rect2( 0, 120, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=60]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 39 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=61]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 34 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=62]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 37 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=63]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 35 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=64]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 38 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=81]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=72]
-atlas = ExtResource( 52 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=82]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="ShaderMaterial" id=83]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=73]
-atlas = ExtResource( 51 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=84]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=74]
-atlas = ExtResource( 48 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=85]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=75]
-atlas = ExtResource( 49 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=86]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=76]
-atlas = ExtResource( 54 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=87]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=77]
-atlas = ExtResource( 50 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=88]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=89]
-atlas = ExtResource( 60 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=90]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=91]
-atlas = ExtResource( 57 )
-region = Rect2( 96, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=92]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=93]
-atlas = ExtResource( 58 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=94]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=95]
-atlas = ExtResource( 59 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=96]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=97]
-atlas = ExtResource( 55 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="ShaderMaterial" id=98]
-shader = ExtResource( 17 )
-shader_param/grayscale = false
-
-[sub_resource type="AtlasTexture" id=99]
-atlas = ExtResource( 56 )
-region = Rect2( 0, 192, 24, 48 )
-
-[sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 46 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=66]
-atlas = ExtResource( 45 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=67]
-atlas = ExtResource( 41 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=68]
-atlas = ExtResource( 44 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=69]
-atlas = ExtResource( 42 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=70]
-atlas = ExtResource( 43 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=71]
-atlas = ExtResource( 47 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="Animation" id=78]
+[sub_resource type="ShaderMaterial" id="10"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("9")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="12"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("6")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="13"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("10")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="14"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="15"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("8")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="16"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="17"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 24, 26)
+
+[sub_resource type="ShaderMaterial" id="18"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="19"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="20"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="21"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("13")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="22"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="23"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("15")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="24"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="25"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="26"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="27"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="28"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="29"]
+atlas = ExtResource("25")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="30"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="31"]
+atlas = ExtResource("26")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="32"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="33"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="34"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="35"]
+atlas = ExtResource("20")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="36"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="37"]
+atlas = ExtResource("21")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="38"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="39"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="40"]
+atlas = ExtResource("19")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="41"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="42"]
+atlas = ExtResource("30")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="43"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="44"]
+atlas = ExtResource("31")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="45"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="46"]
+atlas = ExtResource("28")
+region = Rect2(0, 192, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="47"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="48"]
+atlas = ExtResource("32")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="49"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="50"]
+atlas = ExtResource("29")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="58"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="51"]
+atlas = ExtResource("36")
+region = Rect2(0, 240, 48, 48)
+
+[sub_resource type="ShaderMaterial" id="59"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="52"]
+atlas = ExtResource("33")
+region = Rect2(0, 120, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="60"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="53"]
+atlas = ExtResource("39")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="61"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="54"]
+atlas = ExtResource("34")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="62"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="55"]
+atlas = ExtResource("37")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="63"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="56"]
+atlas = ExtResource("35")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="64"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="57"]
+atlas = ExtResource("38")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="81"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="72"]
+atlas = ExtResource("52")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="82"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="83"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="73"]
+atlas = ExtResource("51")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="84"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="74"]
+atlas = ExtResource("48")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="85"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="75"]
+atlas = ExtResource("49")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="86"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="76"]
+atlas = ExtResource("54")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="87"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="77"]
+atlas = ExtResource("50")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="88"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="89"]
+atlas = ExtResource("60")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="90"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="91"]
+atlas = ExtResource("57")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="92"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="93"]
+atlas = ExtResource("58")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="94"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="95"]
+atlas = ExtResource("59")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="96"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="97"]
+atlas = ExtResource("55")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="ShaderMaterial" id="98"]
+shader = ExtResource("17")
+shader_parameter/grayscale = false
+
+[sub_resource type="AtlasTexture" id="99"]
+atlas = ExtResource("56")
+region = Rect2(0, 192, 24, 48)
+
+[sub_resource type="AtlasTexture" id="65"]
+atlas = ExtResource("46")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="66"]
+atlas = ExtResource("45")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="67"]
+atlas = ExtResource("41")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="68"]
+atlas = ExtResource("44")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="69"]
+atlas = ExtResource("42")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="70"]
+atlas = ExtResource("43")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="71"]
+atlas = ExtResource("47")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="Animation" id="78"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id=80]
+[sub_resource type="Animation" id="80"]
 resource_name = "SlideOut"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vstcg"]
+_data = {
+"RESET": SubResource("78"),
+"SlideOut": SubResource("80")
 }
 
 [node name="ArtifactsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -240.0
-margin_top = 45.0
-margin_right = 240.0
-margin_bottom = 225.0
+offset_left = -240.0
+offset_top = 45.0
+offset_right = 240.0
+offset_bottom = 225.0
 mouse_filter = 2
-script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("11")
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
-margin_right = 480.0
-margin_bottom = 180.0
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 180.0
 mouse_filter = 2
-color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
+color = Color(0.501961, 0.501961, 0.501961, 0.501961)
 
 [node name="CreaturesControl" type="Control" parent="."]
-margin_top = 25.0
-margin_right = 40.0
-margin_bottom = 65.0
+anchors_preset = 0
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
 mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="CreaturesControl"]
 visible = false
-margin_left = 27.0
-margin_top = 4.0
-margin_right = 299.0
-margin_bottom = 147.0
+offset_left = 27.0
+offset_top = 4.0
+offset_right = 299.0
+offset_bottom = 147.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 100 )
+theme_override_styles/panel = SubResource("100")
 
 [node name="Creature1" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 10 )
-margin_left = 74.0
-margin_top = 18.5
-margin_right = 98.0
-margin_bottom = 42.5
-texture = SubResource( 1 )
+material = SubResource("10")
+offset_left = 74.0
+offset_top = 18.5
+offset_right = 98.0
+offset_bottom = 42.5
+texture = SubResource("1")
 
 [node name="Creature2" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 12 )
-margin_left = 134.5
-margin_top = 90.5
-margin_right = 158.5
-margin_bottom = 114.5
-texture = SubResource( 2 )
+material = SubResource("12")
+offset_left = 134.5
+offset_top = 90.5
+offset_right = 158.5
+offset_bottom = 114.5
+texture = SubResource("2")
 
 [node name="Creature3" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 13 )
-margin_left = 38.0
-margin_top = 87.5
-margin_right = 62.0
-margin_bottom = 111.5
-texture = SubResource( 3 )
+material = SubResource("13")
+offset_left = 38.0
+offset_top = 87.5
+offset_right = 62.0
+offset_bottom = 111.5
+texture = SubResource("3")
 
 [node name="Creature4" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 14 )
-margin_left = 151.0
-margin_top = 9.5
-margin_right = 159.0
-margin_bottom = 15.5
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+material = SubResource("14")
+offset_left = 151.0
+offset_top = 9.5
+offset_right = 159.0
+offset_bottom = 15.5
+scale = Vector2(2, 2)
+texture = ExtResource("7")
 
 [node name="Creature5" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 15 )
-margin_left = 110.0
-margin_top = 3.0
-margin_right = 134.0
-margin_bottom = 27.0
-texture = SubResource( 4 )
+material = SubResource("15")
+offset_left = 110.0
+offset_top = 3.0
+offset_right = 134.0
+offset_bottom = 27.0
+texture = SubResource("4")
 
 [node name="Creature6" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 16 )
-margin_left = 172.0
-margin_top = 3.5
-margin_right = 196.0
-margin_bottom = 27.5
-texture = SubResource( 5 )
+material = SubResource("16")
+offset_left = 172.0
+offset_top = 3.5
+offset_right = 196.0
+offset_bottom = 27.5
+texture = SubResource("5")
 
 [node name="Creature7" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 17 )
-margin_left = 172.5
-margin_top = 62.0
-margin_right = 196.5
-margin_bottom = 88.0
-texture = SubResource( 6 )
+material = SubResource("17")
+offset_left = 172.5
+offset_top = 62.0
+offset_right = 196.5
+offset_bottom = 88.0
+texture = SubResource("6")
 
 [node name="Creature8" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 18 )
-margin_left = 266.0
-margin_top = 81.0
-margin_right = 290.0
-margin_bottom = 105.0
-texture = ExtResource( 3 )
+material = SubResource("18")
+offset_left = 266.0
+offset_top = 81.0
+offset_right = 290.0
+offset_bottom = 105.0
+texture = ExtResource("3")
 
 [node name="Creature9" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 19 )
-margin_left = 165.5
-margin_top = 81.0
-margin_right = 189.5
-margin_bottom = 105.0
-texture = SubResource( 7 )
+material = SubResource("19")
+offset_left = 165.5
+offset_top = 81.0
+offset_right = 189.5
+offset_bottom = 105.0
+texture = SubResource("7")
 
 [node name="Creature10" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 20 )
-margin_left = 47.0
-margin_top = 4.0
-margin_right = 71.0
-margin_bottom = 28.0
-texture = ExtResource( 4 )
+material = SubResource("20")
+offset_left = 47.0
+offset_top = 4.0
+offset_right = 71.0
+offset_bottom = 28.0
+texture = ExtResource("4")
 
 [node name="Creature11" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 21 )
-margin_left = 164.5
-margin_top = 37.0
-margin_right = 188.5
-margin_bottom = 61.0
-texture = SubResource( 8 )
+material = SubResource("21")
+offset_left = 164.5
+offset_top = 37.0
+offset_right = 188.5
+offset_bottom = 61.0
+texture = SubResource("8")
 
 [node name="Creature12" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 22 )
-margin_left = 197.0
-margin_top = 36.0
-margin_right = 221.0
-margin_bottom = 60.0
-texture = ExtResource( 14 )
+material = SubResource("22")
+offset_left = 197.0
+offset_top = 36.0
+offset_right = 221.0
+offset_bottom = 60.0
+texture = ExtResource("14")
 
 [node name="Creature13" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 23 )
-margin_left = 224.5
-margin_top = 116.0
-margin_right = 248.5
-margin_bottom = 140.0
-texture = SubResource( 9 )
+material = SubResource("23")
+offset_left = 224.5
+offset_top = 116.0
+offset_right = 248.5
+offset_bottom = 140.0
+texture = SubResource("9")
 
 [node name="Creature14" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 24 )
-margin_left = 233.0
-margin_top = 37.5
-margin_right = 257.0
-margin_bottom = 61.5
-texture = ExtResource( 16 )
+material = SubResource("24")
+offset_left = 233.0
+offset_top = 37.5
+offset_right = 257.0
+offset_bottom = 61.5
+texture = ExtResource("16")
 
 [node name="Creature15" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 25 )
-margin_left = 170.5
-margin_top = 13.5
-margin_right = 194.5
-margin_bottom = 37.5
-texture = ExtResource( 12 )
+material = SubResource("25")
+offset_left = 170.5
+offset_top = 13.5
+offset_right = 194.5
+offset_bottom = 37.5
+texture = ExtResource("12")
 
 [node name="Creature16" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 26 )
-margin_left = 203.5
-margin_top = 16.0
-margin_right = 227.5
-margin_bottom = 40.0
-texture = ExtResource( 22 )
+material = SubResource("26")
+offset_left = 203.5
+offset_top = 16.0
+offset_right = 227.5
+offset_bottom = 40.0
+texture = ExtResource("22")
 
 [node name="Creature17" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 27 )
-margin_left = 231.5
-margin_top = 19.5
-margin_right = 255.5
-margin_bottom = 43.5
-texture = ExtResource( 18 )
+material = SubResource("27")
+offset_left = 231.5
+offset_top = 19.5
+offset_right = 255.5
+offset_bottom = 43.5
+texture = ExtResource("18")
 
 [node name="Creature18" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 28 )
-margin_left = 33.5
-margin_top = 25.5
-margin_right = 57.5
-margin_bottom = 49.5
-texture = SubResource( 29 )
+material = SubResource("28")
+offset_left = 33.5
+offset_top = 25.5
+offset_right = 57.5
+offset_bottom = 49.5
+texture = SubResource("29")
 
 [node name="Creature19" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 30 )
-margin_left = 58.0
-margin_top = 29.0
-margin_right = 82.0
-margin_bottom = 53.0
-texture = SubResource( 31 )
+material = SubResource("30")
+offset_left = 58.0
+offset_top = 29.0
+offset_right = 82.0
+offset_bottom = 53.0
+texture = SubResource("31")
 
 [node name="Creature20" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 32 )
-margin_left = 202.5
-margin_top = -8.5
-margin_right = 226.5
-margin_bottom = 15.5
-texture = ExtResource( 24 )
+material = SubResource("32")
+offset_left = 202.5
+offset_top = -8.5
+offset_right = 226.5
+offset_bottom = 15.5
+texture = ExtResource("24")
 
 [node name="Creature21" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 33 )
-margin_left = 246.0
-margin_top = 63.0
-margin_right = 270.0
-margin_bottom = 87.0
-texture = ExtResource( 27 )
+material = SubResource("33")
+offset_left = 246.0
+offset_top = 63.0
+offset_right = 270.0
+offset_bottom = 87.0
+texture = ExtResource("27")
 
 [node name="Creature22" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 34 )
-margin_left = 208.5
-margin_top = 58.5
-margin_right = 232.5
-margin_bottom = 82.5
-texture = SubResource( 35 )
+material = SubResource("34")
+offset_left = 208.5
+offset_top = 58.5
+offset_right = 232.5
+offset_bottom = 82.5
+texture = SubResource("35")
 
 [node name="Creature23" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 36 )
-margin_left = 138.0
-margin_top = 31.0
-margin_right = 162.0
-margin_bottom = 57.0
-texture = SubResource( 37 )
+material = SubResource("36")
+offset_left = 138.0
+offset_top = 31.0
+offset_right = 162.0
+offset_bottom = 57.0
+texture = SubResource("37")
 
 [node name="Creature24" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 38 )
-margin_left = 139.5
-margin_top = 68.0
-margin_right = 163.5
-margin_bottom = 92.0
-texture = ExtResource( 23 )
+material = SubResource("38")
+offset_left = 139.5
+offset_top = 68.0
+offset_right = 163.5
+offset_bottom = 92.0
+texture = ExtResource("23")
 
 [node name="Creature25" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 39 )
-margin_left = 28.0
-margin_top = 57.5
-margin_right = 52.0
-margin_bottom = 81.5
-texture = SubResource( 40 )
+material = SubResource("39")
+offset_left = 28.0
+offset_top = 57.5
+offset_right = 52.0
+offset_bottom = 81.5
+texture = SubResource("40")
 
 [node name="Creature26" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 41 )
-margin_left = 109.0
-margin_top = 60.5
-margin_right = 133.0
-margin_bottom = 84.5
-texture = SubResource( 42 )
+material = SubResource("41")
+offset_left = 109.0
+offset_top = 60.5
+offset_right = 133.0
+offset_bottom = 84.5
+texture = SubResource("42")
 
 [node name="Creature27" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 43 )
-margin_left = 261.5
-margin_top = 22.5
-margin_right = 285.5
-margin_bottom = 46.5
-texture = SubResource( 44 )
+material = SubResource("43")
+offset_left = 261.5
+offset_top = 22.5
+offset_right = 285.5
+offset_bottom = 46.5
+texture = SubResource("44")
 
 [node name="Creature28" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 45 )
-margin_left = 50.5
-margin_top = 58.0
-margin_right = 74.5
-margin_bottom = 82.0
-texture = SubResource( 46 )
+material = SubResource("45")
+offset_left = 50.5
+offset_top = 58.0
+offset_right = 74.5
+offset_bottom = 82.0
+texture = SubResource("46")
 
 [node name="Creature29" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 47 )
-margin_left = 109.5
-margin_top = 27.5
-margin_right = 133.5
-margin_bottom = 51.5
-texture = SubResource( 48 )
+material = SubResource("47")
+offset_left = 109.5
+offset_top = 27.5
+offset_right = 133.5
+offset_bottom = 51.5
+texture = SubResource("48")
 
 [node name="Creature30" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 49 )
-margin_left = 272.0
-margin_top = 57.5
-margin_right = 296.0
-margin_bottom = 81.5
-texture = SubResource( 50 )
+material = SubResource("49")
+offset_left = 272.0
+offset_top = 57.5
+offset_right = 296.0
+offset_bottom = 81.5
+texture = SubResource("50")
 
 [node name="Creature31" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 58 )
-margin_left = 136.5
-margin_top = 97.0
-margin_right = 184.5
-margin_bottom = 145.0
-texture = SubResource( 51 )
+material = SubResource("58")
+offset_left = 136.5
+offset_top = 97.0
+offset_right = 184.5
+offset_bottom = 145.0
+texture = SubResource("51")
 
 [node name="Creature32" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 59 )
-margin_left = 221.0
-margin_top = 80.5
-margin_right = 245.0
-margin_bottom = 104.5
-texture = SubResource( 52 )
+material = SubResource("59")
+offset_left = 221.0
+offset_top = 80.5
+offset_right = 245.0
+offset_bottom = 104.5
+texture = SubResource("52")
 
 [node name="Creature33" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 60 )
-margin_left = 192.0
-margin_top = 83.0
-margin_right = 216.0
-margin_bottom = 107.0
-texture = SubResource( 53 )
+material = SubResource("60")
+offset_left = 192.0
+offset_top = 83.0
+offset_right = 216.0
+offset_bottom = 107.0
+texture = SubResource("53")
 
 [node name="Creature34" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 61 )
-margin_left = 80.5
-margin_top = 48.0
-margin_right = 104.5
-margin_bottom = 72.0
-texture = SubResource( 54 )
+material = SubResource("61")
+offset_left = 80.5
+offset_top = 48.0
+offset_right = 104.5
+offset_bottom = 72.0
+texture = SubResource("54")
 
 [node name="Creature35" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 62 )
-margin_left = 140.5
-margin_top = 16.0
-margin_right = 164.5
-margin_bottom = 40.0
-texture = SubResource( 55 )
+material = SubResource("62")
+offset_left = 140.5
+offset_top = 16.0
+offset_right = 164.5
+offset_bottom = 40.0
+texture = SubResource("55")
 
 [node name="Creature36" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 63 )
-margin_left = 111.0
-margin_top = 78.0
-margin_right = 135.0
-margin_bottom = 102.0
-texture = SubResource( 56 )
+material = SubResource("63")
+offset_left = 111.0
+offset_top = 78.0
+offset_right = 135.0
+offset_bottom = 102.0
+texture = SubResource("56")
 
 [node name="Creature37" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 64 )
-margin_left = 181.0
-margin_top = 98.0
-margin_right = 205.0
-margin_bottom = 122.0
-texture = SubResource( 57 )
+material = SubResource("64")
+offset_left = 181.0
+offset_top = 98.0
+offset_right = 205.0
+offset_bottom = 122.0
+texture = SubResource("57")
 
 [node name="Creature38" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 81 )
-margin_left = 71.0
-margin_top = 88.0
-margin_right = 95.0
-margin_bottom = 112.0
-texture = SubResource( 72 )
+material = SubResource("81")
+offset_left = 71.0
+offset_top = 88.0
+offset_right = 95.0
+offset_bottom = 112.0
+texture = SubResource("72")
 
 [node name="Creature39" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 82 )
-margin_left = 237.0
-margin_top = 100.5
-margin_right = 261.0
-margin_bottom = 124.5
-texture = ExtResource( 53 )
+material = SubResource("82")
+offset_left = 237.0
+offset_top = 100.5
+offset_right = 261.0
+offset_bottom = 124.5
+texture = ExtResource("53")
 
 [node name="Creature40" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 83 )
-margin_left = 239.0
-margin_top = -3.00003
-margin_right = 263.0
-margin_bottom = 21.0
-texture = SubResource( 73 )
+material = SubResource("83")
+offset_left = 239.0
+offset_top = -3.00003
+offset_right = 263.0
+offset_bottom = 21.0
+texture = SubResource("73")
 
 [node name="Creature41" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 84 )
-margin_left = 261.0
-margin_top = 94.5
-margin_right = 285.0
-margin_bottom = 118.5
-texture = SubResource( 74 )
+material = SubResource("84")
+offset_left = 261.0
+offset_top = 94.5
+offset_right = 285.0
+offset_bottom = 118.5
+texture = SubResource("74")
 
 [node name="Creature42" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 85 )
-margin_left = 106.0
-margin_top = 100.5
-margin_right = 130.0
-margin_bottom = 124.5
-texture = SubResource( 75 )
+material = SubResource("85")
+offset_left = 106.0
+offset_top = 100.5
+offset_right = 130.0
+offset_bottom = 124.5
+texture = SubResource("75")
 
 [node name="Creature43" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 86 )
-margin_left = 89.0
-margin_top = 25.0
-margin_right = 113.0
-margin_bottom = 49.0
-texture = SubResource( 76 )
+material = SubResource("86")
+offset_left = 89.0
+offset_top = 25.0
+offset_right = 113.0
+offset_bottom = 49.0
+texture = SubResource("76")
 
 [node name="Creature44" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 87 )
-margin_left = 188.5
-margin_top = 118.0
-margin_right = 212.5
-margin_bottom = 142.0
-texture = SubResource( 77 )
+material = SubResource("87")
+offset_left = 188.5
+offset_top = 118.0
+offset_right = 212.5
+offset_bottom = 142.0
+texture = SubResource("77")
 
 [node name="Creature45" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 88 )
-margin_left = 102.5
-margin_top = 118.5
-margin_right = 126.5
-margin_bottom = 142.5
-texture = SubResource( 89 )
+material = SubResource("88")
+offset_left = 102.5
+offset_top = 118.5
+offset_right = 126.5
+offset_bottom = 142.5
+texture = SubResource("89")
 
 [node name="Creature46" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 90 )
-margin_left = 76.5
-margin_top = -8.50002
-margin_right = 100.5
-margin_bottom = 15.5
-texture = SubResource( 91 )
+material = SubResource("90")
+offset_left = 76.5
+offset_top = -8.50002
+offset_right = 100.5
+offset_bottom = 15.5
+texture = SubResource("91")
 
 [node name="Creature47" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 92 )
-margin_left = 204.0
-margin_top = 108.0
-margin_right = 228.0
-margin_bottom = 132.0
-texture = SubResource( 93 )
+material = SubResource("92")
+offset_left = 204.0
+offset_top = 108.0
+offset_right = 228.0
+offset_bottom = 132.0
+texture = SubResource("93")
 
 [node name="Creature48" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 94 )
-margin_left = 72.5
-margin_top = 114.5
-margin_right = 96.5
-margin_bottom = 138.5
-texture = SubResource( 95 )
+material = SubResource("94")
+offset_left = 72.5
+offset_top = 114.5
+offset_right = 96.5
+offset_bottom = 138.5
+texture = SubResource("95")
 
 [node name="Creature49" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 96 )
-margin_left = 48.0
-margin_top = 102.0
-margin_right = 72.0
-margin_bottom = 126.0
-texture = SubResource( 97 )
+material = SubResource("96")
+offset_left = 48.0
+offset_top = 102.0
+offset_right = 72.0
+offset_bottom = 126.0
+texture = SubResource("97")
 
 [node name="Creature50" type="TextureRect" parent="CreaturesControl"]
-material = SubResource( 98 )
-margin_left = 88.5
-margin_top = 68.5
-margin_right = 112.5
-margin_bottom = 116.5
-texture = SubResource( 99 )
+material = SubResource("98")
+offset_left = 88.5
+offset_top = 68.5
+offset_right = 112.5
+offset_bottom = 116.5
+texture = SubResource("99")
 
 [node name="CoinControl" type="Control" parent="."]
-margin_left = 60.0
-margin_top = 15.0
-margin_right = 100.0
-margin_bottom = 55.0
+anchors_preset = 0
+offset_left = 60.0
+offset_top = 15.0
+offset_right = 100.0
+offset_bottom = 55.0
 mouse_filter = 2
 
 [node name="FullCoinProgress" type="ColorRect" parent="CoinControl"]
-margin_right = 400.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="CoinControl"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 1, 1, 0.12549, 1 )
+color = Color(1, 1, 0.12549, 1)
 
 [node name="CoinIcon" type="TextureRect" parent="CoinControl"]
-margin_left = -21.5
-margin_top = -17.0
-margin_right = 18.5
-margin_bottom = 23.0
-texture = ExtResource( 40 )
+layout_mode = 0
+offset_left = -21.5
+offset_top = -17.0
+offset_right = 18.5
+offset_bottom = 23.0
+texture = ExtResource("40")
+stretch_mode = 2
 
 [node name="SpentProgress" type="ColorRect" parent="CoinControl"]
-margin_left = 40.0
-margin_right = 80.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactsControl" type="Control" parent="."]
-margin_left = 340.0
-margin_top = 40.0
-margin_right = 380.0
-margin_bottom = 80.0
+anchors_preset = 0
+offset_left = 340.0
+offset_top = 40.0
+offset_right = 380.0
+offset_bottom = 80.0
 mouse_filter = 2
 
 [node name="Artifact1Control" type="Control" parent="ArtifactsControl"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact1Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact1Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact1Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 65 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("65")
 stretch_mode = 2
 
 [node name="Artifact2Control" type="Control" parent="ArtifactsControl"]
-margin_top = 20.0
-margin_right = 40.0
-margin_bottom = 60.0
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 60.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact2Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact2Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact2Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 66 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("66")
 
 [node name="Artifact3Control" type="Control" parent="ArtifactsControl"]
-margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 80.0
+anchors_preset = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact3Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact3Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact3Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 67 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("67")
 
 [node name="Artifact4Control" type="Control" parent="ArtifactsControl"]
-margin_top = 60.0
-margin_right = 40.0
-margin_bottom = 100.0
+anchors_preset = 0
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact4Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact4Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact4Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 68 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("68")
 
 [node name="Artifact5Control" type="Control" parent="ArtifactsControl"]
-margin_top = 80.0
-margin_right = 40.0
-margin_bottom = 120.0
+anchors_preset = 0
+offset_top = 80.0
+offset_right = 40.0
+offset_bottom = 120.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact5Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact5Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact5Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 69 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("69")
 
 [node name="Artifact6Control" type="Control" parent="ArtifactsControl"]
-margin_top = 100.0
-margin_right = 40.0
-margin_bottom = 140.0
+anchors_preset = 0
+offset_top = 100.0
+offset_right = 40.0
+offset_bottom = 140.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact6Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact6Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact6Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 70 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("70")
 
 [node name="Artifact7Control" type="Control" parent="ArtifactsControl"]
-margin_top = 120.0
-margin_right = 40.0
-margin_bottom = 160.0
+anchors_preset = 0
+offset_top = 120.0
+offset_right = 40.0
+offset_bottom = 160.0
 mouse_filter = 2
 
 [node name="FullProgress" type="ColorRect" parent="ArtifactsControl/Artifact7Control"]
-margin_right = 100.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.752941, 0.752941, 0.752941, 1 )
+color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="CurrentProgress" type="ColorRect" parent="ArtifactsControl/Artifact7Control"]
-margin_right = 40.0
-margin_bottom = 5.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
 mouse_filter = 2
-color = Color( 0.12549, 0.12549, 1, 1 )
+color = Color(0.12549, 0.12549, 1, 1)
 
 [node name="ArtifactIcon" type="TextureRect" parent="ArtifactsControl/Artifact7Control"]
-margin_left = -24.0
-margin_top = -12.0
-margin_bottom = 12.0
-texture = SubResource( 71 )
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+texture = SubResource("71")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 6.0
-anims/RESET = SubResource( 78 )
-anims/SlideOut = SubResource( 80 )
+speed_scale = 6.0
+libraries = {
+"": SubResource("AnimationLibrary_vstcg")
+}

@@ -439,13 +439,13 @@ public static class GDKnyttObjectFactory
     }
 }
 
-public class GDKnyttObjectBundle
+public partial class GDKnyttObjectBundle
 {
     public KnyttPoint object_id;
     PackedScene scene;
-    public Texture icon;
+    public Texture2D icon;
 
-    public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture icon = null)
+    public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture2D icon = null)
     {
         this.object_id = object_id;
         this.scene = scene;
@@ -454,7 +454,7 @@ public class GDKnyttObjectBundle
 
     public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer, KnyttPoint coords)
     {
-        var node = scene.Instance() as GDKnyttBaseObject;
+        var node = scene.Instantiate<GDKnyttBaseObject>();
         node.initialize(object_id, layer, coords);
         return node;
     }

@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingFlything : BuzzFlyer
+public partial class HomingFlything : BuzzFlyer
 {
     public override void _Ready()
     {

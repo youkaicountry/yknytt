@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class GDObjectLayers : Node2D
+public partial class GDObjectLayers : Node2D
 {
     public GDKnyttObjectLayer[] Layers { get; private set; }
     public GDKnyttArea GDArea { get; private set; }

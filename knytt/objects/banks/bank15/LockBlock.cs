@@ -1,4 +1,4 @@
-public class LockBlock : GDKnyttBaseObject
+public partial class LockBlock : GDKnyttBaseObject
 {
 
 }

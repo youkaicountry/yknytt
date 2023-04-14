@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Mega Split Bullet Shot.wav-9526812ea67822c38bf19bb8110d8461.sample"
+type="AudioStreamWAV"
+uid="uid://bel3tqk3bmtwi"
+path="res://.godot/imported/Mega Split Bullet Shot.wav-9526812ea67822c38bf19bb8110d8461.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Mega Split Bullet Shot.wav"
-dest_files=[ "res://.import/Mega Split Bullet Shot.wav-9526812ea67822c38bf19bb8110d8461.sample" ]
+dest_files=["res://.godot/imported/Mega Split Bullet Shot.wav-9526812ea67822c38bf19bb8110d8461.sample"]
 
 [params]
 

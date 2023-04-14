@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Land (troupe).wav-0d21bf7202416b91367490ef269f750c.sample"
+type="AudioStreamWAV"
+uid="uid://b2wlxwh74bjhy"
+path="res://.godot/imported/Knytt Land (troupe).wav-0d21bf7202416b91367490ef269f750c.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Land (troupe).wav"
-dest_files=[ "res://.import/Knytt Land (troupe).wav-0d21bf7202416b91367490ef269f750c.sample" ]
+dest_files=["res://.godot/imported/Knytt Land (troupe).wav-0d21bf7202416b91367490ef269f750c.sample"]
 
 [params]
 

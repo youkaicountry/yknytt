@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank12/bomb_walk.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank12/bomb_attack.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank12/bomb_walk.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/objects/banks/bank12/bomb_attack.png" type="Texture2D" id=3]
 [ext_resource path="res://knytt/objects/banks/bank12/FlyingBomb.cs" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -74,7 +74,7 @@ animations = [ {
 script = ExtResource( 4 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 13 )
 animation = "attack"
 centered = false

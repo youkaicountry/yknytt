@@ -1,6 +1,6 @@
 using Godot;
 
-public class WalkingShooter : Muff
+public partial class WalkingShooter : Muff
 {
     [Export] bool waitForTimer = false;
     [Export] int bulletsCount = 0;
@@ -47,7 +47,7 @@ public class WalkingShooter : Muff
                 }
             }
 
-            if (sprite.Frames.HasAnimation("aftershot")) { sprite.Play("aftershot"); }
+            if (sprite.SpriteFrames.HasAnimation("aftershot")) { sprite.Play("aftershot"); }
         }
         else
         {

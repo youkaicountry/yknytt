@@ -1,16 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cflabvonwewvu"]
 
-[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/common/SpikerMod.cs" type="Script" id=3]
-[ext_resource path="res://knytt/data/Sfx/Spike Down.wav" type="AudioStream" id=4]
-[ext_resource path="res://knytt/data/Sfx/Spike Up.wav" type="AudioStream" id=5]
+[ext_resource type="PackedScene" uid="uid://cv7bxj6ml33i1" path="res://knytt/objects/banks/common/DistanceMod.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/banks/common/SpikerMod.cs" id="3"]
+[ext_resource type="AudioStream" uid="uid://2pjipxw3qlj1" path="res://knytt/data/Sfx/Spike Down.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://bbaqxk8b0pm0s" path="res://knytt/data/Sfx/Spike Up.wav" id="5"]
 
-[node name="SpikerMod" instance=ExtResource( 1 )]
-script = ExtResource( 3 )
+[node name="SpikerMod" instance=ExtResource("1")]
+script = ExtResource("3")
+areaPath = null
+playSound = true
 
-[node name="ClosePlayer" parent="." index="0" instance=ExtResource( 2 )]
-stream = ExtResource( 4 )
+[node name="ClosePlayer" parent="." index="0" instance=ExtResource("2")]
+stream = ExtResource("4")
+bus = &"SFX"
 
-[node name="OpenPlayer" parent="." index="1" instance=ExtResource( 2 )]
-stream = ExtResource( 5 )
+[node name="OpenPlayer" parent="." index="1" instance=ExtResource("2")]
+stream = ExtResource("5")
+bus = &"SFX"
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

@@ -7,7 +7,7 @@ using YKnyttLib.Logging;
 using YUtil.Collections;
 using System.Linq;
 
-public class GDKnyttAssetManager
+public partial class GDKnyttAssetManager
 {
     public const int TILESET_WIDTH = 16;
     public const int TILESET_HEIGHT = 8;
@@ -18,7 +18,7 @@ public class GDKnyttAssetManager
     private Dictionary<string, string> Directories { get; }
 
     ObjectCache<int, TileSet> TileSetCache;
-    ObjectCache<int, Texture> GradientCache;
+    ObjectCache<int, Texture2D> GradientCache;
     ObjectCache<int, AudioStream> SongCache;
     ObjectCache<int, AudioStream> AmbianceCache;
     ObjectCache<KnyttPoint, GDKnyttObjectBundle> ObjectCache;
@@ -31,7 +31,7 @@ public class GDKnyttAssetManager
         TileSetCache = new ObjectCache<int, TileSet>(tile_cache);
         TileSetCache.OnCreate = (int num) => buildTileSet(num);
 
-        GradientCache = new ObjectCache<int, Texture>(gradient_cache);
+        GradientCache = new ObjectCache<int, Texture2D>(gradient_cache);
         GradientCache.OnCreate = (int num) => buildGradient(num);
 
         SongCache = new ObjectCache<int, AudioStream>(song_cache);
@@ -47,7 +47,7 @@ public class GDKnyttAssetManager
     public TileSet getTileSet(int num) { return TileSetCache.IncObject(num); }
     public void returnTileSet(int num) { TileSetCache.DecObject(num); }
 
-    public Texture getGradient(int num) { return GradientCache.IncObject(num); }
+    public Texture2D getGradient(int num) { return GradientCache.IncObject(num); }
     public void returnGradient(int num) { GradientCache.DecObject(num); }
 
     public AudioStream getSong(int num) { return SongCache.IncObject(num); }
@@ -62,25 +62,25 @@ public class GDKnyttAssetManager
     private TileSet buildTileSet(int num)
     {
         string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
-        if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
+        if (FileAccess.FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
         {
-            case Texture t:
+            case Texture2D t:
                 // Preprocess the texture if no alpha channel
                 TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t), true);
                 ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
-                ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
+                ResourceSaver.Save(new_tileset, cached_path, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
             case TileSet ts: return ts;
             default: return null;
         }
     }
 
-    private Texture buildGradient(int num)
+    private Texture2D buildGradient(int num)
     {
-        return (Texture)GDWorld.KWorld.getWorldTexture($"Gradients/Gradient{num}.png");
+        return (Texture2D)GDWorld.KWorld.getWorldTexture($"Gradients/Gradient{num}.png");
     }
 
     public AudioStream buildSong(int num)
@@ -100,21 +100,21 @@ public class GDKnyttAssetManager
         return (AudioStream)GDWorld.KWorld.getWorldSound($"Ambiance/Ambi{num}.ogg", loop: true);
     }
 
-    public static Texture loadExternalTexture(string path)
+    public static Texture2D loadExternalTexture(string path)
     {
-        if (!new File().FileExists(path)) { return null; }
+        if (!FileAccess.FileExists(path)) { return null; }
         var image = new Image();
         var error = image.Load(path);
         if (error != Error.Ok) { return null; }
         return image2Texture(image);
     }
 
-    public static Texture loadInternalTexture(string path)
+    public static Texture2D loadInternalTexture(string path)
     {
-        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture>(path) : null;
+        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture2D>(path) : null;
     }
 
-    public static Texture loadTexture(byte[] buffer)
+    public static Texture2D loadTexture(byte[] buffer)
     {
         if (buffer == null || buffer.Length == 0) { return null; }
         var image = new Image();
@@ -130,7 +130,7 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadInternalSound(string path, bool loop)
     {
-        var stream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStreamOGGVorbis>(path) : null;
+        var stream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStreamOggVorbis>(path) : null;
         if (stream != null) { stream.Loop = loop; }
         return stream;
     }
@@ -140,11 +140,12 @@ public class GDKnyttAssetManager
         return loadOGG(loadFile(path), loop);
     }
 
-    private static Texture image2Texture(Image image)
+    private static Texture2D image2Texture(Image image)
     {
-        var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
-        return texture;
+        /*var texture = new ImageTexture();
+        texture.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
+        return texture;*/
+        return ImageTexture.CreateFromImage(image);
     }
 
     public static string loadTextFile(byte[] buffer)
@@ -160,27 +161,25 @@ public class GDKnyttAssetManager
 
     public static byte[] loadFile(string path)
     {
-        if (!new File().FileExists(path)) { return null; }
-        var f = new File();
-        f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
-        var buffer = f.GetBuffer((int)f.GetLen());
-        f.Close();
+        if (!FileAccess.FileExists(path)) { return null; }
+        using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+        var buffer = f.GetBuffer((int)f.GetLength());
         return buffer;
     }
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
     {
-        var stream = new AudioStreamOGGVorbis();
+        GD.Print("Loading OGG in Godot 4 is not supported yet");
+        return null;
+        /*var stream = new AudioStreamOggVorbis();
         stream.Data = buffer;
         stream.Loop = loop;
-
-        return stream;
+        return stream;*/
     }
 
     public static void ensureDirExists(string dir_name)
     {
-        var dir = new Directory();
-        if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
+        if (!DirAccess.DirExistsAbsolute(dir_name)) { DirAccess.MakeDirRecursiveAbsolute(dir_name); }
     }
 
     public static string extractFilename(string full_path)
@@ -188,112 +187,119 @@ public class GDKnyttAssetManager
         return full_path.Substring(full_path.LastIndexOfAny("/\\".ToCharArray()) + 1);
     }
 
-    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
+    public static Texture2D preprocessTilesetTexture(Texture2D texture, Color? from = null)
     {
-        var image = texture.GetData();
+        var image = texture.GetImage();
         if (image == null) { return texture; }
 
         if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
 
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
-            var it = new ImageTexture();
-            it.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
-            texture = it;
+            texture = ImageTexture.CreateFromImage(image);
         }
 
         return texture;
     }
 
-    public static TileSet makeTileset(Texture texture, bool collisions)
+    public static TileSet makeTileset(Texture2D texture, bool collisions)
     {
-        BitMap original_bitmap = null;
-        BitMap bitmap = null;
+        Bitmap original_bitmap = null;
+        Bitmap bitmap = null;
+
+        var ts = new TileSet();
+        ts.TileSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
+        ts.AddPhysicsLayer();
+        ts.SetPhysicsLayerCollisionLayer(0, 2 | 2048);
+        var tsas_clear = new TileSetAtlasSource();
+        var tsas_physics = new TileSetAtlasSource();
+        tsas_clear.Texture           = tsas_physics.Texture           = texture;
+        tsas_clear.TextureRegionSize = tsas_physics.TextureRegionSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
+        tsas_clear.UseTexturePadding = tsas_physics.UseTexturePadding = false;
+        ts.AddSource(tsas_clear);
+        ts.AddSource(tsas_physics);
+
         if (collisions)
         {
-            var image = texture.GetData();
-            original_bitmap = new BitMap();
+            var image = texture.GetImage();
+            original_bitmap = new Bitmap();
             original_bitmap.CreateFromImageAlpha(image, .001f);
             
             // bitmap with borders is needed to shrink mask later
-            bitmap = new BitMap();
-            bitmap.Create(new Vector2((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
-            bitmap.SetBitRect(new Rect2(new Vector2(0, 0), bitmap.GetSize()), true);
+            bitmap = new Bitmap();
+            bitmap.Create(new Vector2I((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
+            bitmap.SetBitRect(new Rect2I(Vector2I.Zero, bitmap.GetSize()), true);
         }
 
-        var ts = new TileSet();
-
-        int i = 0;
         for (int y = 0; y < TILESET_HEIGHT; y++)
         {
             for (int x = 0; x < TILESET_WIDTH; x++)
             {
-                ts.CreateTile(i);
-                ts.TileSetTexture(i, texture);
-                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-                ts.TileSetRegion(i, region);
+                tsas_clear.CreateTile(new Vector2I(x, y));
+                tsas_physics.CreateTile(new Vector2I(x, y));
 
                 if (collisions)
                 {
+                    var tile_data = tsas_physics.GetTileData(new Vector2I(x, y), 0);
+                    
                     for (int m = 0; m < TILE_WIDTH; m++)
                     {
                         for (int n = 0; n < TILE_HEIGHT; n++)
                         {
-                            bitmap.SetBit(new Vector2(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1), 
-                                original_bitmap.GetBit(new Vector2(x * TILE_WIDTH + m, y * TILE_HEIGHT + n)));
+                            bitmap.SetBit(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1, 
+                                original_bitmap.GetBit(x * TILE_WIDTH + m, y * TILE_HEIGHT + n));
                         }
                     }
 
-                    var bitmap_region = new Rect2(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
+                    var bitmap_region = new Rect2I(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
                     var polygons = tilePolygons(bitmap, bitmap_region);
-                    int c = 0;
 
                     foreach (Vector2[] polygon in polygons)
                     {
                         if (isConvex(polygon))
                         {
-                            var collision = new ConvexPolygonShape2D();
-                            collision.SetPointCloud(polygon);
-                            ts.TileSetShape(i, c++, collision);
+                            tile_data.AddCollisionPolygon(0);
+                            tile_data.SetCollisionPolygonPoints(0, tile_data.GetCollisionPolygonsCount(0) - 1, polygon);
                         }
                         else
                         {
-                            int[] triangles = Geometry.TriangulatePolygon(polygon);
+                            int[] triangles = Geometry2D.TriangulatePolygon(polygon);
                             for (int t = 0; t < triangles.Length; t += 3)
                             {
                                 Vector2[] triangle = { polygon[triangles[t]], polygon[triangles[t + 1]], polygon[triangles[t + 2]] };
-                                var collision = new ConvexPolygonShape2D();
-                                collision.SetPointCloud(triangle);
-                                ts.TileSetShape(i, c++, collision);
+                                tile_data.AddCollisionPolygon(0);
+                                tile_data.SetCollisionPolygonPoints(0, tile_data.GetCollisionPolygonsCount(0) - 1, polygon);
                             }
                         }
                     }
                 }
-                i++;
             }
         }
         return ts;
     }
 
-    private static IEnumerable<Vector2[]> tilePolygons(BitMap bitmap, Rect2 region)
+    private static IEnumerable<Vector2[]> tilePolygons(Bitmap bitmap, Rect2I region)
     {
         /*if (debug) // Print bitmap mask: before
-        for (float n = region.Position.y; n < region.End.y; n++)
-        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));
+        for (float n = region.Position.Y; n < region.End.Y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.X, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));
         if (debug) GD.Print("");*/
 
         // Smooth mask a little: grow true bits, then shrink. This will fill inner void pixels and reduce number of polygons.
         // Also workaround for https://github.com/godotengine/godot/issues/31675
         bitmap.GrowMask(1, region);
-        bitmap.GrowMask(-1, new Rect2(region.Position.x - 1, region.Position.y - 1, TILE_WIDTH + 2, TILE_HEIGHT + 2));
+        bitmap.GrowMask(-1, new Rect2I(region.Position.X - 1, region.Position.Y - 1, TILE_WIDTH + 2, TILE_HEIGHT + 2));
 
         /*if (debug) // Print bitmap mask: after
-        for (float n = region.Position.y; n < region.End.y; n++)
-        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
+        for (float n = region.Position.Y; n < region.End.Y; n++)
+        GD.Print(String.Join("", Enumerable.Range((int)region.Position.X, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
 
-        var polygons = (bitmap.OpaqueToPolygons(region, 0.99f) as IEnumerable).Cast<Vector2[]>();
+        var polygons = bitmap.OpaqueToPolygons(region, 0.99f);// as IEnumerable).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
-        return polygons.Select(p => p.Select(v => new Vector2(v.x, v.y - (region.Position.y * 2))).ToArray());
+        return polygons.Select(p => p.Select(v => new Vector2(v.X - 12, v.Y - 12)).ToArray());
+        //GD.Print("polygons");
+        //foreach (var p in polygons) { GD.Print("p"); foreach (var v in p) GD.Print(v); }
+        //return polygons;
     }
 
     private static bool isConvex(Vector2[] vertices)
@@ -316,7 +322,7 @@ public class GDKnyttAssetManager
 
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {
-        return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
+        return (va.X - vb.X) * (vc.Y - vb.Y) - (va.Y - vb.Y) * (vc.X - vb.X);
     }
 
     public static bool replaceColor(Image image, Color old_color, Color new_color)
@@ -324,7 +330,7 @@ public class GDKnyttAssetManager
         if (old_color == new_color) { return false; }
         bool replaced = false;
 
-        image.Lock();
+        //image.Lock();
         for (int y = 0; y < image.GetHeight(); y++)
         {
             for (int x = 0; x < image.GetWidth(); x++)
@@ -336,7 +342,7 @@ public class GDKnyttAssetManager
                 }
             }
         }
-        image.Unlock();
+        //image.Unlock();
 
         return replaced;
     }
@@ -352,13 +358,13 @@ public class GDKnyttAssetManager
             if (!world.worldFileExists(tileset_path)) { continue; }
 
             string cached_path = $"user://Cache/{world.WorldDirectoryName}/Tileset{num}.res";
-            if (!recompile && new File().FileExists(cached_path)) { continue; }
+            if (!recompile && FileAccess.FileExists(cached_path)) { continue; }
 
             var texture = world.getWorldTexture(tileset_path);
-            if (texture is Texture t)
+            if (texture is Texture2D t)
             {
                 t = preprocessTilesetTexture(t);
-                ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
+                ResourceSaver.Save(makeTileset(t, true), cached_path, ResourceSaver.SaverFlags.Compress);
             }
         }
     }
@@ -371,7 +377,7 @@ public class GDKnyttAssetManager
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture, true);
-            GD.PrintErr(ResourceSaver.Save($"user://tilesets/Tileset{i}.png.res", tileset, ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save(tileset, $"user://tilesets/Tileset{i}.png.res", ResourceSaver.SaverFlags.Compress));
         }
     }
 }

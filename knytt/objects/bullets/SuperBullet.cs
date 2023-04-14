@@ -1,11 +1,11 @@
 using Godot;
 
-public class SuperBullet : BaseBullet
+public partial class SuperBullet : BaseBullet
 {
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        Translate(new Vector2(GDKnyttDataStore.random.Next(3) - 1, GDKnyttDataStore.random.Next(3) - 1) * delta * 30);
+        Translate(new Vector2(GDKnyttDataStore.random.Next(3) - 1, GDKnyttDataStore.random.Next(3) - 1) * (float)delta * 30);
     }
 
     private void onDisappear(int limit)

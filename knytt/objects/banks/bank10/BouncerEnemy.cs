@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class BouncerEnemy : GDKnyttBaseObject
+public partial class BouncerEnemy : GDKnyttBaseObject
 {
     [Export] float gravity;
     [Export] float jump_force;
@@ -12,27 +12,32 @@ public class BouncerEnemy : GDKnyttBaseObject
     bool in_air = false;
     float start_y;
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         base._Ready();
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        Juni.Jumped += juniJumped;
     }
 
-    public override void _PhysicsProcess(float delta)
+    private void _on_tree_exiting()
+    {
+        Juni.Jumped -= juniJumped;
+    }
+
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (!in_air) { return; }
 
-        vel += (Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_gravity : gravity) * delta;
-        Translate(new Vector2(0f, vel * delta));
+        vel += (Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_gravity : gravity) * (float)delta;
+        Translate(new Vector2(0f, vel * (float)delta));
     }
 
     public void launch()
     {
-        start_y = Position.y;
+        start_y = Position.Y;
         vel = -(Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_jump_force : jump_force);
         in_air = true;
         GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
@@ -44,7 +49,7 @@ public class BouncerEnemy : GDKnyttBaseObject
         if (in_air) { return; }
 
         // Calculate and test jump chance
-        if (!in_air && juni.Hologram == null && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
+        if (!in_air && juni.Hologram == null && Mathf.Abs(juni.ApparentPosition.X - Center.X) < 150 + random.Next(80))
         {
             launch();
         }
@@ -64,9 +69,9 @@ public class BouncerEnemy : GDKnyttBaseObject
 
         in_air = false;
 
-        Position = new Vector2(Position.x, start_y);
+        Position = new Vector2(Position.X, start_y);
 
         GetNodeOrNull<AudioStreamPlayer2D>("BouncePlayer")?.Play();
-        sprite.Play("stop", true);
+        sprite.PlayBackwards("stop");
     }
 }

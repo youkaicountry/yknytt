@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class LeafParticle : Node2D
+public partial class LeafParticle : Node2D
 {
     static Dictionary<string, Color> colors;
 
@@ -18,7 +18,7 @@ public class LeafParticle : Node2D
     {
         string p = GetParent<SceneCPUParticleInstance>().Params;
         Modulate = colors[p];
-        GetNode<AnimatedSprite>("AnimatedSprite").Animation = p;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = p;
     }
 
     public void _on_Area2D_body_entered(Node body)

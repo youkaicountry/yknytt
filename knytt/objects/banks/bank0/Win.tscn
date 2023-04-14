@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/banks/bank0/Win.cs" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 12 )
+size = Vector2(24, 24)
 
 [node name="Win" type="Node2D"]
 script = ExtResource( 1 )

@@ -1,6 +1,6 @@
 using Godot;
 
-public class Win : GDKnyttBaseObject
+public partial class Win : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

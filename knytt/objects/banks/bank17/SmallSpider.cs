@@ -1,8 +1,8 @@
 using Godot;
 
-public class SmallSpider : Muff
+public partial class SmallSpider : Muff
 {
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node2D body)
     {
         if (!(body is Juni juni)) { return; }
         juniDie(juni);

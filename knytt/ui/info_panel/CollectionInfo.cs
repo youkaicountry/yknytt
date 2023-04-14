@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class CollectionInfo : ItemInfo
+public abstract partial class CollectionInfo : ItemInfo
 {
     public abstract string IconFilename { get; }
 
@@ -9,8 +9,8 @@ public abstract class CollectionInfo : ItemInfo
         var world = (FindParent("GKnyttGame") as GDKnyttGame).GDWorld.KWorld;
         if (world.worldFileExists(IconFilename))
         {
-            GetNode<Sprite>("Sprite").Offset = new Vector2(0, 2);
-            GetNode<Sprite>("Sprite").Texture = world.getWorldTexture(IconFilename) as Texture;
+            GetNode<Sprite2D>("Sprite2D").Offset = new Vector2(0, 2);
+            GetNode<Sprite2D>("Sprite2D").Texture = world.getWorldTexture(IconFilename) as Texture2D;
         }
     }
 }

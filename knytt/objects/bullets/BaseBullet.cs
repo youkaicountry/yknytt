@@ -1,6 +1,6 @@
 using Godot;
 
-public class BaseBullet : KinematicBody2D
+public partial class BaseBullet : CharacterBody2D
 {
     private float _velocity;
     private float _velocity_x;
@@ -13,7 +13,7 @@ public class BaseBullet : KinematicBody2D
     private bool _enabled;
     private int _enable_countdown;
 
-    public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
+    public new float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
@@ -57,39 +57,39 @@ public class BaseBullet : KinematicBody2D
 
     public GDKnyttArea GDArea { protected get; set; }
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     protected CollisionShape2D collisionShape;
     protected AudioStreamPlayer2D hitPlayer;
     protected bool hasDisappear;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         hitPlayer = GetNodeOrNull<AudioStreamPlayer2D>("HitPlayer");
-        hasDisappear = sprite.Frames.HasAnimation("disappear");
+        hasDisappear = sprite.SpriteFrames.HasAnimation("disappear");
         sprite.Play("default");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!Enabled) { return; }
         // Workaround to make sure that Translate was made before actual enabling
         // Without this, player can move with a particle and re-enter an area that has been left!
         if (collisionShape.Disabled && --_enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
 
-        _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
+        _velocity_x -= _deceleration_x * (float)delta * DecelerationCorrectionX;
         if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
         if (_deceleration_x < 0 && _velocity_x > 0) { _velocity_x = 0; }
 
         if (_velocity_y > 0)
         {
-            _velocity_y -= _deceleration_y * delta * DecelerationCorrectionDown;
+            _velocity_y -= _deceleration_y * (float)delta * DecelerationCorrectionDown;
             if (_gravity == 0 && _velocity_y < 0) { _velocity_y = 0; }
         }
         else if (_velocity_y < 0)
         {
-            _velocity_y += _deceleration_y * delta * DecelerationCorrectionUp;
+            _velocity_y += _deceleration_y * (float)delta * DecelerationCorrectionUp;
             if (_gravity == 0 && _velocity_y > 0) { _velocity_y = 0; }
         }
 
@@ -98,20 +98,20 @@ public class BaseBullet : KinematicBody2D
             disappear(collide: false);
         }
 
-        _velocity_y += _gravity * delta;
+        _velocity_y += _gravity * (float)delta;
 
         if (EnableRotation) { Rotation = Mathf.Atan2(-_velocity_y, -_velocity_x); }
 
-        var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
+        var collision = MoveAndCollide(new Vector2((float)delta * _velocity_x, (float)delta * _velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
         {
             disappear(collide: false);
         }
         else if (collision != null)
         {
-            if (collision.Collider is Juni juni) { juni.die(); }
+            if (collision.GetCollider() is Juni juni) { juni.die(); }
             // TODO: turn off collisions for Juni's soul if a bullet should go through her (like in original game)
-            disappear(!(collision.Collider is Juni));
+            disappear(!(collision.GetCollider() is Juni));
         }
     }
 
@@ -138,7 +138,7 @@ public class BaseBullet : KinematicBody2D
         set
         {
             _enabled = value;
-            if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
+            if (value && hasDisappear) { GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default"); }
             if (!value) { collisionShape.SetDeferred("disabled", true); } else { _enable_countdown = 2; }
         }
     }

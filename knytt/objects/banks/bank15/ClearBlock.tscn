@@ -6,5 +6,5 @@
 [node name="Node2D" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 animation = "22"

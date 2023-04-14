@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Tri Bullet Hit.wav-8a16be7c9ea84e68e9d6e1424e3df528.sample"
+type="AudioStreamWAV"
+uid="uid://dpern0d3v6t7d"
+path="res://.godot/imported/Tri Bullet Hit.wav-8a16be7c9ea84e68e9d6e1424e3df528.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Tri Bullet Hit.wav"
-dest_files=[ "res://.import/Tri Bullet Hit.wav-8a16be7c9ea84e68e9d6e1424e3df528.sample" ]
+dest_files=["res://.godot/imported/Tri Bullet Hit.wav-8a16be7c9ea84e68e9d6e1424e3df528.sample"]
 
 [params]
 

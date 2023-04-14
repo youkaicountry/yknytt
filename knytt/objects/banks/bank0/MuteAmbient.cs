@@ -1,4 +1,4 @@
-public class MuteAmbient : GDKnyttBaseObject
+public partial class MuteAmbient : GDKnyttBaseObject
 {
     public override void _Ready()
     {

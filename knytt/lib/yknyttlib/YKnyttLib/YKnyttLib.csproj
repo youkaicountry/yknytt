@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{943E0270-0FE6-42D6-8A0F-219CC072EA02}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YKnyttLib</RootNamespace>
+    <AssemblyName>YKnyttLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="JuniValues.cs" />
+    <Compile Include="KnyttBinWorldLoader.cs" />
+    <Compile Include="KnyttSave.cs" />
+    <Compile Include="KnyttArea.cs" />
+    <Compile Include="KnyttSwitch.cs" />
+    <Compile Include="KnyttTrigger.cs" />
+    <Compile Include="KnyttUtil.cs" />
+    <Compile Include="KnyttWarp.cs" />
+    <Compile Include="Paging\KnyttPagingPolicy.cs" />
+    <Compile Include="KnyttPoint.cs" />
+    <Compile Include="Paging\KnyttRectPaging.cs" />
+    <Compile Include="KnyttWorld.cs" />
+    <Compile Include="KnyttWorldInfo.cs" />
+    <Compile Include="Parser\ICommand.cs" />
+    <Compile Include="Parser\CommandArg.cs" />
+    <Compile Include="Parser\CommandDeclaration.cs" />
+    <Compile Include="Parser\CommandParser.cs" />
+    <Compile Include="Parser\CommandParseResult.cs" />
+    <Compile Include="Parser\CommandSet.cs" />
+    <Compile Include="Parser\ParseResults.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="KnyttShift.cs" />
+    <Compile Include="Logging\IKnyttLoggerTarget.cs" />
+    <Compile Include="Logging\KnyttLogger.cs" />
+    <Compile Include="Logging\KnyttLogMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="IniParser">
+      <HintPath>lib\INIFileParser.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\YUtil.BinaryTools\YUtil.BinaryTools.csproj">
+      <Project>{a9fa2ec5-426a-4be9-a027-30127b3bb157}</Project>
+      <Name>YUtil.BinaryTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/InputScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/InputOption.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=5]
 
 [node name="InputScreen" type="Control"]
 anchor_right = 1.0
@@ -22,17 +22,17 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -25.0
-margin_right = -5.0
-margin_bottom = -6.0
+offset_left = -85.0
+offset_top = -25.0
+offset_right = -5.0
+offset_bottom = -6.0
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
-margin_left = 7.47669
-margin_top = 7.32177
-margin_right = 255.477
-margin_bottom = 233.322
+offset_left = 7.47669
+offset_top = 7.32177
+offset_right = 255.477
+offset_bottom = 233.322
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -40,97 +40,97 @@ __meta__ = {
 [node name="UpSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 248.0
-margin_bottom = 19.0
+offset_right = 248.0
+offset_bottom = 19.0
 Action = "up"
 ActionLabel = "Up"
 
 [node name="DownSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 23.0
-margin_right = 248.0
-margin_bottom = 42.0
+offset_top = 23.0
+offset_right = 248.0
+offset_bottom = 42.0
 Action = "down"
 ActionLabel = "Down"
 
 [node name="LeftSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 46.0
-margin_right = 248.0
-margin_bottom = 65.0
+offset_top = 46.0
+offset_right = 248.0
+offset_bottom = 65.0
 Action = "left"
 ActionLabel = "Left"
 
 [node name="RightSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 69.0
-margin_right = 248.0
-margin_bottom = 88.0
+offset_top = 69.0
+offset_right = 248.0
+offset_bottom = 88.0
 Action = "right"
 ActionLabel = "Right"
 
 [node name="JumpSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 92.0
-margin_right = 248.0
-margin_bottom = 111.0
+offset_top = 92.0
+offset_right = 248.0
+offset_bottom = 111.0
 Action = "jump"
 ActionLabel = "Jump"
 
 [node name="WalkSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 115.0
-margin_right = 248.0
-margin_bottom = 134.0
+offset_top = 115.0
+offset_right = 248.0
+offset_bottom = 134.0
 Action = "walk"
 ActionLabel = "Walk"
 
 [node name="UmbrellaSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 138.0
-margin_right = 248.0
-margin_bottom = 157.0
+offset_top = 138.0
+offset_right = 248.0
+offset_bottom = 157.0
 Action = "umbrella"
 ActionLabel = "Umbrella"
 
 [node name="HologramSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 161.0
-margin_right = 248.0
-margin_bottom = 180.0
+offset_top = 161.0
+offset_right = 248.0
+offset_bottom = 180.0
 Action = "hologram"
 ActionLabel = "Hologram"
 
 [node name="InfoSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 184.0
-margin_right = 248.0
-margin_bottom = 203.0
+offset_top = 184.0
+offset_right = 248.0
+offset_bottom = 203.0
 Action = "show_info"
 ActionLabel = "Info"
 
 [node name="PauseSetting" parent="SettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 207.0
-margin_right = 248.0
-margin_bottom = 226.0
+offset_top = 207.0
+offset_right = 248.0
+offset_bottom = 226.0
 Action = "pause"
 ActionLabel = "Pause / Cancel"
 
 [node name="KSSettingsContainer" type="VBoxContainer" parent="."]
-margin_left = 265.571
-margin_top = 7.0
-margin_right = 513.571
-margin_bottom = 233.0
+offset_left = 265.571
+offset_top = 7.0
+offset_right = 513.571
+offset_bottom = 233.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -138,39 +138,40 @@ __meta__ = {
 [node name="MapSetting" parent="KSSettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 248.0
-margin_bottom = 19.0
+offset_right = 248.0
+offset_bottom = 19.0
 Action = "map"
 ActionLabel = "Map"
 
 [node name="KeyPrompt" type="Control" parent="."]
 visible = false
-margin_left = 404.187
-margin_top = 101.813
-margin_right = 511.187
-margin_bottom = 165.813
+offset_left = 404.187
+offset_top = 101.813
+offset_right = 511.187
+offset_bottom = 165.813
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MessageLabel" type="Label" parent="KeyPrompt"]
-margin_left = 1.88837
-margin_top = 9.11884
-margin_right = 100.888
-margin_bottom = 23.1188
-custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_left = 1.88837
+offset_top = 9.11884
+offset_right = 100.888
+offset_bottom = 23.1188
+theme_override_fonts/font = ExtResource( 5 )
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Please press a key..."
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CancelButton" parent="KeyPrompt" instance=ExtResource( 1 )]
-margin_left = 16.6346
-margin_top = 31.3901
-margin_right = 73.9596
-margin_bottom = 46.8931
-rect_min_size = Vector2( 60, 0 )
+offset_left = 16.6346
+offset_top = 31.3901
+offset_right = 73.9596
+offset_bottom = 46.8931
+custom_minimum_size = Vector2( 60, 0 )
 text = "Cancel"
 
 [node name="BounceTimer" type="Timer" parent="."]

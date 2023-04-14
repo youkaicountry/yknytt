@@ -3,16 +3,16 @@
 [ext_resource path="res://knytt/objects/banks/bank2/FlySpike.cs" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 5 )
+size = Vector2(14, 10)
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7, 5.5 )
+size = Vector2(14, 11)
 
 [node name="FlySpike" type="Node2D"]
 script = ExtResource( 3 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
 [node name="WallHitArea" type="Area2D" parent="."]

@@ -1,4 +1,4 @@
-public class GroundBlob : Muff
+public partial class GroundBlob : Muff
 {
     protected override async void changeDirection(int dir)
     {

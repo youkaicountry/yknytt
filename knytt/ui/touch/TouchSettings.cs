@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class TouchSettings : Node
+public partial class TouchSettings : Node
 {
     public enum VerticalPosition
     {
@@ -51,9 +51,9 @@ public class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["Viewport"] = value.ToString(); }
     }
     
-    public static float ScreenWidth
+    public static int ScreenWidth
     {
-        get { return EnablePanel ? 600 / Viewport : 600; }
+        get { return EnablePanel ? (int)(600 / Viewport) : 600; }
     }
     
     public static float JumpScale
@@ -94,6 +94,6 @@ public class TouchSettings : Node
 
     public static void applyAllSettings(SceneTree tree)
     {
-        (tree.Root.FindNode("TouchPanel", owned: false) as TouchPanel)?.Configure();
+        (tree.Root.FindChild("TouchPanel", owned: false) as TouchPanel)?.Configure();
     }
 }

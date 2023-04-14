@@ -1,69 +1,96 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://crkoift14l4o6"]
 
-[ext_resource path="res://knytt/objects/banks/bank13/RollerGenerator.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank13/roller_generator.png" type="Texture" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/data/Sfx/Roller Shot B.wav" type="AudioStream" id=5]
-[ext_resource path="res://knytt/data/Sfx/Roller Shot A.wav" type="AudioStream" id=6]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank13/RollerGenerator.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://nhd33x34xfir" path="res://knytt/objects/banks/bank13/roller_generator.png" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="4"]
+[ext_resource type="AudioStream" uid="uid://b1i4p4qrq3or" path="res://knytt/data/Sfx/Roller Shot B.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://dteqq3w2go0jc" path="res://knytt/data/Sfx/Roller Shot A.wav" id="6"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("2")
+region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("2")
+region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("2")
+region = Rect2(96, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("2")
+region = Rect2(120, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("2")
+region = Rect2(144, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 168, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("2")
+region = Rect2(168, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("2")
+region = Rect2(192, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id=10]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+[sub_resource type="SpriteFrames" id="10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 25.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 12, 12 )
+[sub_resource type="RectangleShape2D" id="11"]
+size = Vector2(24, 24)
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 10 )
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("10")
+autoplay = "default"
 frame = 3
-playing = true
 centered = false
 
-[node name="TotalTimer" parent="." instance=ExtResource( 4 )]
+[node name="TotalTimer" parent="." instance=ExtResource("4")]
 wait_time = 2.4
 autostart = true
 firstDelay = 0.2
@@ -82,18 +109,20 @@ wait_time = 0.1
 one_shot = true
 autostart = true
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 12, 12 )
-shape = SubResource( 11 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(12, 12)
+shape = SubResource("11")
 
-[node name="PreparePlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 6 )
+[node name="PreparePlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("6")
+bus = &"SFX"
 
-[node name="ShotPlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 5 )
+[node name="ShotPlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("5")
+bus = &"SFX"
 
 [connection signal="timeout_ext" from="TotalTimer" to="." method="_on_TotalTimer_timeout_ext"]
 [connection signal="timeout" from="Sound1Timer" to="." method="_on_Sound1Timer_timeout"]

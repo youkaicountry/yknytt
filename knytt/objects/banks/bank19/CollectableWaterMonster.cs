@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectableWaterMonster : WaterMonster
+public partial class CollectableWaterMonster : WaterMonster
 {
     public override void _Ready()
     {
@@ -16,7 +16,7 @@ public class CollectableWaterMonster : WaterMonster
 
     private void _on_AnimatedSprite_animation_finished()
     {
-        if (GetNode<AnimatedSprite>("AnimatedSprite").Animation == "aftershot") { turn(false); }
+        if (GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation == "aftershot") { turn(false); }
     }
 
     private void turn(bool on)

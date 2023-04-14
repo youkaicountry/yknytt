@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/s_Nifflas_hurt.ogg-1fe78e9e4b9503bc9a16e44d246aec26.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dw5ekuxbl64uu"
+path="res://.godot/imported/s_Nifflas_hurt.ogg-1fe78e9e4b9503bc9a16e44d246aec26.oggvorbisstr"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/s_Nifflas_hurt.ogg"
-dest_files=[ "res://.import/s_Nifflas_hurt.ogg-1fe78e9e4b9503bc9a16e44d246aec26.oggstr" ]
+dest_files=["res://.godot/imported/s_Nifflas_hurt.ogg-1fe78e9e4b9503bc9a16e44d246aec26.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

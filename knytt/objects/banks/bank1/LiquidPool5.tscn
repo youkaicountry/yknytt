@@ -1,11 +1,11 @@
 [gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank1/LiquidPoolDeadly.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank1/pools/Pool5.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank1/pools/Halo0.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank1/pools/Pool5.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/objects/banks/bank1/pools/Halo0.png" type="Texture2D" id=3]
 
 [sub_resource type="RectangleShape2D" id=42]
-extents = Vector2( 12, 6 )
+size = Vector2(24, 12)
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -185,10 +185,10 @@ animations = [ {
 position = Vector2( 12, 18 )
 shape = SubResource( 42 )
 
-[node name="Halo" type="AnimatedSprite" parent="." index="1"]
+[node name="Halo" type="AnimatedSprite2D" parent="." index="1"]
 position = Vector2( 0, -72 )
 frames = SubResource( 1 )
 centered = false
 
-[node name="AnimatedSprite" parent="." index="2"]
+[node name="AnimatedSprite2D" parent="." index="2"]
 frames = SubResource( 41 )

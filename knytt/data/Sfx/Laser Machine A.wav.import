@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Laser Machine A.wav-1cb5720e692777422b063b34e581d316.sample"
+type="AudioStreamWAV"
+uid="uid://b7j6krbg05fpf"
+path="res://.godot/imported/Laser Machine A.wav-1cb5720e692777422b063b34e581d316.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Laser Machine A.wav"
-dest_files=[ "res://.import/Laser Machine A.wav-1cb5720e692777422b063b34e581d316.sample" ]
+dest_files=["res://.godot/imported/Laser Machine A.wav-1cb5720e692777422b063b34e581d316.sample"]
 
 [params]
 

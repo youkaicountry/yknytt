@@ -6,7 +6,7 @@
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Liquid Shooter.wav" type="AudioStream" id=5]
 
-[node name="KinematicBody2D" instance=ExtResource( 2 )]
+[node name="CharacterBody2D" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 OrganicEnemy = true
 

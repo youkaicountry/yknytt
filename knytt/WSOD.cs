@@ -1,8 +1,8 @@
 using Godot;
 
-public class WSOD : ColorRect
+public partial class WSOD : ColorRect
 {
-    [Signal] public delegate void WSODFinished();
+    [Signal] public delegate void WSODFinishedEventHandler();
 
     public void startWSOD()
     {
@@ -12,7 +12,7 @@ public class WSOD : ColorRect
 
     public async void _on_Timer_timeout()
     {
-        EmitSignal("WSODFinished");
+        EmitSignal(SignalName.WSODFinished);
         await ToSignal(GetTree().CreateTimer(.03f), "timeout");
         Visible = false;
     }

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Climb (troupe).wav-696805d3f6185c82f924fb928822bfef.sample"
+type="AudioStreamWAV"
+uid="uid://bs7f1npaj7ynt"
+path="res://.godot/imported/Knytt Climb (troupe).wav-696805d3f6185c82f924fb928822bfef.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Climb (troupe).wav"
-dest_files=[ "res://.import/Knytt Climb (troupe).wav-696805d3f6185c82f924fb928822bfef.sample" ]
+dest_files=["res://.godot/imported/Knytt Climb (troupe).wav-696805d3f6185c82f924fb928822bfef.sample"]
 
 [params]
 

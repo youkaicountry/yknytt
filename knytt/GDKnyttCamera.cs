@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Math;
 
-public class GDKnyttCamera : Camera2D
+public partial class GDKnyttCamera : Camera2D
 {
     public GDKnyttGame Game { get; private set; }
 
@@ -28,15 +28,15 @@ public class GDKnyttCamera : Camera2D
         this.Target = target;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (delta <= 0) { GD.Print("Invalid delta: ", delta); return; }
 
         if (this.Scrolling)
         {
             var gp = this.GlobalPosition;
-            var s = speed * delta;
-            this.Scrolling = !(MathTools.MoveTowards(ref gp.x, Target.x, s) & MathTools.MoveTowards(ref gp.y, Target.y, s));
+            var s = speed * (float)delta;
+            this.Scrolling = !(MathTools.MoveTowards(ref gp.X, Target.X, s) & MathTools.MoveTowards(ref gp.Y, Target.Y, s));
 
             this.GlobalPosition = gp;
         }

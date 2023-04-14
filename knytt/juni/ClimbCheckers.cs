@@ -1,6 +1,6 @@
 using Godot;
 
-public class ClimbCheckers : Node2D
+public partial class ClimbCheckers : Node2D
 {
     public Area2D RightChecker { get; private set; }
     public Area2D LeftChecker { get; private set; }

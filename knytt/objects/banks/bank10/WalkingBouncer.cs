@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class WalkingBouncer : Muff
+public abstract partial class WalkingBouncer : Muff
 {
     [Export] protected float initialJumpSpeed = 0;
     [Export] protected float jumpGravity = 0;
@@ -15,12 +15,12 @@ public abstract class WalkingBouncer : Muff
         base._Ready();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (inAir)
         {
-            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
+            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * (float)delta)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
@@ -30,7 +30,7 @@ public abstract class WalkingBouncer : Muff
             }
             else
             {
-                jumpSpeed += jumpGravity * JUMP_SCALE * delta;
+                jumpSpeed += jumpGravity * JUMP_SCALE * (float)delta;
             }
         }
     }

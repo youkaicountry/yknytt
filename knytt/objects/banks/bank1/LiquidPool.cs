@@ -1,26 +1,25 @@
 using Godot;
 using YUtil.Random;
 
-public class LiquidPool : GDKnyttBaseObject
+public partial class LiquidPool : GDKnyttBaseObject
 {
-    protected AnimatedSprite player;
-    bool ping = true;
+    protected AnimatedSprite2D player;
+    float ping = 1;
 
     public override void _Ready()
     {
         base._Ready();
-        GetNodeOrNull<AnimatedSprite>("Halo")?.Play();
+        GetNodeOrNull<AnimatedSprite2D>("Halo")?.Play();
         
-        player = GetNode<AnimatedSprite>("AnimatedSprite");
+        player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         player.SpeedScale = random.NextFloat(.6f, 1f);
         player.Play();
-        player.Frame = random.Next(player.Frames.GetFrameCount(player.Animation));
+        player.Frame = random.Next(player.SpriteFrames.GetFrameCount(player.Animation));
     }
 
     public void _on_AnimatedSprite_animation_finished()
     {
-        player.Stop();
-        player.Play(backwards: ping);
-        ping = !ping;
+        ping = -ping;
+        player.Play(customSpeed: ping, fromEnd: ping == -1);
     }
 }

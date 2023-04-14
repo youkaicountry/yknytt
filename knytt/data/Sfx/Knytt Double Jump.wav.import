@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample"
+type="AudioStreamWAV"
+uid="uid://dyj55lgjnmmae"
+path="res://.godot/imported/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Double Jump.wav"
-dest_files=[ "res://.import/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample" ]
+dest_files=["res://.godot/imported/Knytt Double Jump.wav-ddd867917fe81ebf1733d3d2945d9559.sample"]
 
 [params]
 

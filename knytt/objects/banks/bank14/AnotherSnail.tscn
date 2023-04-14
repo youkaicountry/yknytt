@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank14/another_snail.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank14/another_snail.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -45,15 +45,15 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 8, 6 )
+size = Vector2(16, 12)
 
 [node name="Muff" instance=ExtResource( 2 )]
 directionChangeTime = 20.0
 speedChangeTime = 2.2
 initialSpeed = 2
-speedValues = PoolIntArray( 0, 0, 0, 2 )
+speedValues = PackedInt32Array( 0, 0, 0, 2 )
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 8 )
 
 [node name="CollisionShape2D" parent="." index="3"]

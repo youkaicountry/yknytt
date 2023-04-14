@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputScreen : Control
+public partial class InputScreen : Control
 {
     InputOption collecting;
     int cnum;
@@ -17,7 +17,7 @@ public class InputScreen : Control
         {
             var io = child as InputOption;
             io.Screen = this;
-            io.Connect("GetActionInput", this, "_onPress");
+            io.GetActionInput += _onPress;
         }
     }
 

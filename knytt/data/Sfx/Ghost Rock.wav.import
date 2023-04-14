@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Ghost Rock.wav-d9223d0064ba93964aaaf29d0568d455.sample"
+type="AudioStreamWAV"
+uid="uid://cj0xhmk18duen"
+path="res://.godot/imported/Ghost Rock.wav-d9223d0064ba93964aaaf29d0568d455.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Ghost Rock.wav"
-dest_files=[ "res://.import/Ghost Rock.wav-d9223d0064ba93964aaaf29d0568d455.sample" ]
+dest_files=["res://.godot/imported/Ghost Rock.wav-d9223d0064ba93964aaaf29d0568d455.sample"]
 
 [params]
 

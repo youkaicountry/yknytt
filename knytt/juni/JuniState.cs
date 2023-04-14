@@ -1,6 +1,6 @@
 using Godot;
 
-public class IdleState : JuniState
+public partial class IdleState : JuniState
 {
     public override bool StickToGround { get { return true; } }
 
@@ -27,7 +27,7 @@ public class IdleState : JuniState
         // Do climb check first so jump will override it.
         if (juni.juniInput.UpHeld && juni.CanClimb)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -42,7 +42,7 @@ public class IdleState : JuniState
 }
 
 // TODO: Have a juni function that checks if walk or run
-public class WalkRunState : JuniState
+public partial class WalkRunState : JuniState
 {
     const float FALL_LEEWAY = .085f;
 
@@ -84,7 +84,7 @@ public class WalkRunState : JuniState
         // Do climb check first so jump will override it.
         if (juni.juniInput.UpHeld && juni.CanClimb)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -109,7 +109,7 @@ public class WalkRunState : JuniState
     }
 }
 
-public class ClimbState : JuniState
+public partial class ClimbState : JuniState
 {
     public ClimbState(Juni juni) : base(juni) { }
 
@@ -148,12 +148,12 @@ public class ClimbState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.juniInput.UpHeld) { juni.velocity.y = Juni.CLIMB_SPEED; }
-        else if (juni.velocity.y > 0f) { juni.transitionState(new SlideState(juni)); }
+        if (juni.juniInput.UpHeld) { juni.velocity.Y = Juni.CLIMB_SPEED; }
+        else if (juni.velocity.Y > 0f) { juni.transitionState(new SlideState(juni)); }
 
         if (juni.juniInput.JumpEdge)
         {
-            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
+            juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();
         }
     }
@@ -165,7 +165,7 @@ public class ClimbState : JuniState
     }
 }
 
-public class SlideState : ClimbState
+public partial class SlideState : ClimbState
 {
     private AudioStreamPlayer2D slide_sound;
 
@@ -195,12 +195,12 @@ public class SlideState : ClimbState
     {
         if (juni.juniInput.UpHeld)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
         else if (!juni.juniInput.DownHeld)
         {
-            juni.velocity.y = Juni.SLIDE_SPEED;
+            juni.velocity.Y = Juni.SLIDE_SPEED;
             if (slide_sound.Playing) { slide_sound.Stop(); }
             juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
         }
@@ -213,7 +213,7 @@ public class SlideState : ClimbState
 
         if (juni.juniInput.JumpEdge)
         {
-            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
+            juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump();
         }
     }
@@ -225,7 +225,7 @@ public class SlideState : ClimbState
     }
 }
 
-public class JumpState : JuniState
+public partial class JumpState : JuniState
 {
     public JumpState(Juni juni) : base(juni) { }
 
@@ -243,11 +243,11 @@ public class JumpState : JuniState
     public override void PostProcess(float delta)
     {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
-        else if (juni.velocity.y >= 0) { juni.transitionState(new FallState(juni)); }
+        else if (juni.velocity.Y >= 0) { juni.transitionState(new FallState(juni)); }
     }
 }
 
-public class FallState : JuniState
+public partial class FallState : JuniState
 {
     public FallState(Juni juni) : base(juni) { }
 
@@ -274,7 +274,7 @@ public class FallState : JuniState
     }
 }
 
-public class JuniState
+public partial class JuniState
 {
     protected Juni juni;
     public virtual bool StickToGround { get { return false; } }

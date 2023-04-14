@@ -1,1 +1,1 @@
-public class NoClimb : GDKnyttBaseObject { }
+public partial class NoClimb : GDKnyttBaseObject { }

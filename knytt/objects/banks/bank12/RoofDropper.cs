@@ -1,16 +1,16 @@
 using Godot;
 using YUtil.Random;
 
-public class RoofDropper : GDKnyttBaseObject
+public partial class RoofDropper : GDKnyttBaseObject
 {
     private Timer shotTimer;
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         base._Ready();
         shotTimer = GetNode<Timer>("ShotTimer");
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         GDArea.Bullets.RegisterEmitter(this, "GhostSlimeBullet",
             (p, i) =>

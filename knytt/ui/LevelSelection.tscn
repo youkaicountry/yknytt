@@ -1,253 +1,254 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://drrhqjsmcawxg"]
 
-[ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
-[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=3]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
-[ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
-[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=7]
+[ext_resource type="Script" path="res://knytt/ui/FileHTTPRequest.cs" id="1"]
+[ext_resource type="PackedScene" uid="uid://caf8l6kno8arw" path="res://knytt/ui/GDKnyttDropdown.tscn" id="2"]
+[ext_resource type="FontFile" uid="uid://c8pvk1egdqlmd" path="res://knytt/ui/UIDynamicFont.tres" id="3"]
+[ext_resource type="PackedScene" uid="uid://crp5k3eycfjv7" path="res://knytt/ui/GDKnyttButton.tscn" id="4"]
+[ext_resource type="Script" path="res://knytt/ui/LevelSelection.cs" id="5"]
+[ext_resource type="Script" path="res://knytt/ui/GameContainer.cs" id="6"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHTTPRequest.tscn" id="7"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 3.0
-bg_color = Color( 1, 1, 1, 0 )
+bg_color = Color(1, 1, 1, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
+border_color = Color(0.588235, 0.588235, 0.588235, 1)
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="LevelSelection" type="CanvasLayer"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
+anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -296.0
-margin_right = 294.0
-margin_bottom = -10.0
+offset_left = -296.0
+offset_right = 294.0
+offset_bottom = -10.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer"]
-margin_right = 590.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 0, 190 )
+custom_minimum_size = Vector2(0, 190)
+layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
-scroll_horizontal_enabled = false
 
 [node name="GameContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
-script = ExtResource( 6 )
+layout_mode = 2
+script = ExtResource("6")
 
 [node name="FilterContainer" type="HBoxContainer" parent="MainContainer"]
-margin_top = 194.0
-margin_right = 590.0
-margin_bottom = 230.0
+layout_mode = 2
 
 [node name="Category" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_right = 100.0
-margin_bottom = 36.0
+layout_mode = 2
 
 [node name="CategoryLabel" type="Label" parent="MainContainer/FilterContainer/Category"]
-margin_right = 100.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
 text = "Category:"
-align = 1
 
-[node name="CategoryDropdown" parent="MainContainer/FilterContainer/Category" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 100.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 100, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+[node name="CategoryDropdown" parent="MainContainer/FilterContainer/Category" instance=ExtResource("2")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+item_count = 8
 selected = 0
+popup/item_0/text = "[All]"
+popup/item_0/id = 0
+popup/item_1/text = "Tutorial"
+popup/item_1/id = 1
+popup/item_2/text = "Challenge"
+popup/item_2/id = 2
+popup/item_3/text = "Puzzle"
+popup/item_3/id = 3
+popup/item_4/text = "Maze"
+popup/item_4/id = 4
+popup/item_5/text = "Environmental"
+popup/item_5/id = 5
+popup/item_6/text = "Playground"
+popup/item_6/id = 6
+popup/item_7/text = "Misc"
+popup/item_7/id = 7
 
 [node name="Difficulty" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 104.0
-margin_right = 184.0
-margin_bottom = 36.0
+layout_mode = 2
 
 [node name="DifficultyLabel" type="Label" parent="MainContainer/FilterContainer/Difficulty"]
-margin_right = 80.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
 text = "Difficulty:"
-align = 1
 
-[node name="DifficultyDropdown" parent="MainContainer/FilterContainer/Difficulty" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 80.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 80, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+[node name="DifficultyDropdown" parent="MainContainer/FilterContainer/Difficulty" instance=ExtResource("2")]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+alignment = 1
+item_count = 6
 selected = 0
+popup/item_0/text = "[All]"
+popup/item_0/id = 0
+popup/item_1/text = "Easy"
+popup/item_1/id = 1
+popup/item_2/text = "Normal"
+popup/item_2/id = 2
+popup/item_3/text = "Hard"
+popup/item_3/id = 3
+popup/item_4/text = "Very Hard"
+popup/item_4/id = 4
+popup/item_5/text = "Lunatic"
+popup/item_5/id = 5
 
 [node name="Size" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 188.0
-margin_right = 268.0
-margin_bottom = 36.0
+layout_mode = 2
 
 [node name="SizeLabel" type="Label" parent="MainContainer/FilterContainer/Size"]
-margin_right = 80.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
 text = "Size:"
-align = 1
 
-[node name="SizeDropdown" parent="MainContainer/FilterContainer/Size" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 80.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 80, 0 )
-text = "[All]"
-items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
+[node name="SizeDropdown" parent="MainContainer/FilterContainer/Size" instance=ExtResource("2")]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+alignment = 1
+item_count = 4
 selected = 0
+popup/item_0/text = "[All]"
+popup/item_0/id = 0
+popup/item_1/text = "Small"
+popup/item_1/id = 1
+popup/item_2/text = "Medium"
+popup/item_2/id = 2
+popup/item_3/text = "Large"
+popup/item_3/id = 3
 
 [node name="Sort" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 272.0
-margin_right = 362.0
-margin_bottom = 36.0
+layout_mode = 2
 
 [node name="SortLabel" type="Label" parent="MainContainer/FilterContainer/Sort"]
-margin_right = 90.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
 text = "Sort by:"
-align = 1
 
-[node name="SortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource( 2 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 90.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 90, 0 )
-text = "[Default]"
-items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null ]
+[node name="SortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource("2")]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+alignment = 1
+item_count = 5
 selected = 0
+popup/item_0/text = "[Default]"
+popup/item_0/id = 0
+popup/item_1/text = "Last Played"
+popup/item_1/id = 1
+popup/item_2/text = "Last Installed"
+popup/item_2/id = 2
+popup/item_3/text = "Name"
+popup/item_3/id = 3
+popup/item_4/text = "Author"
+popup/item_4/id = 4
 
-[node name="RemoteSortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource( 2 )]
+[node name="RemoteSortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource("2")]
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 40.0
-margin_right = 90.0
-margin_bottom = 59.2149
-rect_min_size = Vector2( 90, 0 )
-text = "Downloads"
-items = [ "Downloads", null, false, 5, null, "Upvotes", null, false, 6, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+alignment = 1
+item_count = 5
 selected = 0
+popup/item_0/text = "Downloads"
+popup/item_0/id = 5
+popup/item_1/text = "Upvotes"
+popup/item_1/id = 6
+popup/item_2/text = "Name"
+popup/item_2/id = 3
+popup/item_3/text = "Author"
+popup/item_3/id = 4
+popup/item_4/text = "File Size"
+popup/item_4/id = 7
 
 [node name="Search" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 366.0
-margin_right = 486.0
-margin_bottom = 36.0
-custom_constants/separation = 6
+layout_mode = 2
+theme_override_constants/separation = 6
 
 [node name="SearchLabel" type="Label" parent="MainContainer/FilterContainer/Search"]
-margin_right = 120.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
 text = "Search:"
-align = 1
 
 [node name="SearchEdit" type="LineEdit" parent="MainContainer/FilterContainer/Search"]
-margin_top = 19.0
-margin_right = 120.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 120, 15 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = ExtResource( 3 )
-custom_colors/cursor_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_minimum_size = Vector2(120, 15)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("1")
 caret_blink = true
 
-[node name="BackButton" parent="." instance=ExtResource( 4 )]
+[node name="BackButton" parent="." instance=ExtResource("4")]
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.3687
-margin_top = -25.4749
-margin_right = -5.36865
-margin_bottom = -6.26004
+offset_left = -85.3687
+offset_top = -25.4749
+offset_right = -5.36865
+offset_bottom = -6.26004
 text = "Back"
 
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="FileHTTPRequest" type="HTTPRequest" parent="."]
-download_chunk_size = 65536
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="DownloadMonitor" type="Timer" parent="."]
 wait_time = 0.25
 
 [node name="ConnectionLostLabel" type="Label" parent="."]
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -50.0
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+offset_bottom = -50.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("2")
 text = "Cannot connect to the server"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
+[node name="RateHTTPRequest" parent="." instance=ExtResource("7")]
 
 [node name="SearchEditTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Sort/SortDropdown" to="." method="_on_SortDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Sort/RemoteSortDropdown" to="." method="_on_RemoteSortDropdown_item_selected"]
 [connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
-[connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
+[connection signal="text_submitted" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]

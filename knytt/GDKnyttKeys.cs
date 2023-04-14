@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 // TODO: Make a general version of this
 // It should have structs for each setting value that can produce / take events & strings
 
-public class GDKnyttKeys : Node
+public partial class GDKnyttKeys : Node
 {
     static IniData ini;
     static Regex key_rx;
@@ -48,11 +48,9 @@ public class GDKnyttKeys : Node
     // returns true if error
     public static bool loadSettings()
     {
-        var f = new File();
-        var error = f.Open("user://input.ini", File.ModeFlags.Read);
-        if (error != Error.Ok) { return true; }
+        using var f = FileAccess.Open("user://input.ini", FileAccess.ModeFlags.Read);
+        if (f == null) { return true; }
         var ini_text = f.GetAsText();
-        f.Close();
         var parser = new IniDataParser();
         ini = parser.Parse(ini_text); // TODO: Handle malformed text (catch Exception, return true)
         return false;
@@ -61,10 +59,8 @@ public class GDKnyttKeys : Node
     public static void saveSettings()
     {
         var text = ini.ToString();
-        var f = new File();
-        f.Open("user://input.ini", File.ModeFlags.Write);
+        using var f = FileAccess.Open("user://input.ini", FileAccess.ModeFlags.Write);
         f.StoreString(text);
-        f.Close();
     }
 
     public static string getValueString(string ini_name)
@@ -87,7 +83,7 @@ public class GDKnyttKeys : Node
         switch (ev)
         {
             case InputEventKey key:
-                var keyname = OS.GetScancodeString(key.Scancode);
+                var keyname = OS.GetKeycodeString(key.Keycode);
                 ini["Input"][ini_name] = $"Key({keyname})";
                 break;
 
@@ -139,9 +135,9 @@ public class GDKnyttKeys : Node
 
     private static void applyKey(string action_name, string key)
     {
-        int scancode = OS.FindScancodeFromString(key);
+        var scancode = OS.FindKeycodeFromString(key);
         var e = new InputEventKey();
-        e.Scancode = (uint)scancode;
+        e.Keycode = scancode;
         InputMap.ActionAddEvent(action_name, e);
     }
 
@@ -149,7 +145,7 @@ public class GDKnyttKeys : Node
     {
         var e = new InputEventJoypadButton();
         //e.Device
-        e.ButtonIndex = int.Parse(key);
+        e.ButtonIndex = JoyButton.Parse<JoyButton>(key);
         InputMap.ActionAddEvent(action_name, e);
     }
 

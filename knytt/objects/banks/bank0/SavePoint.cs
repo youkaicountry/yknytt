@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class SavePoint : GDKnyttBaseObject
+public partial class SavePoint : GDKnyttBaseObject
 {
     HashSet<Juni> junis;
     AnimationPlayer animation;
@@ -9,11 +9,11 @@ public class SavePoint : GDKnyttBaseObject
     public override void _Ready()
     {
         junis = new HashSet<Juni>();
-        animation = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
+        animation = GetNode<AnimationPlayer>("Sprite2D/AnimationPlayer");
         animation.Play("Idle");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (junis.Count == 0 || animation.CurrentAnimation.Equals("Save")) { return; }
         foreach (var juni in junis)

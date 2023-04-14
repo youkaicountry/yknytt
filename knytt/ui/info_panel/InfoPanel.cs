@@ -1,6 +1,6 @@
 using Godot;
 
-public class InfoPanel : Panel
+public partial class InfoPanel : Panel
 {
     bool hasCoins;
     bool hasCreatures;
@@ -21,8 +21,8 @@ public class InfoPanel : Panel
 
     public void addItem(string scene, int item_id = 0)
     {
-        MarginRight += 24;
-        var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instance() as ItemInfo;
+        OffsetRight += 24;
+        var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instantiate<ItemInfo>();
         item_node.ItemID = item_id;
         var item_container = GetNode<Container>("ItemContainer");
         item_container.AddChild(item_node);

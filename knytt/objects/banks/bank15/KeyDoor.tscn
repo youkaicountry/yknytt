@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b63qro5j1aidk"]
 
-[ext_resource path="res://knytt/objects/banks/bank15/Door.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank15/KeyDoor.cs" type="Script" id=2]
+[ext_resource type="PackedScene" uid="uid://clcjjuhgwnter" path="res://knytt/objects/banks/bank15/Door.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/banks/bank15/KeyDoor.cs" id="2"]
 
-[node name="Door" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="Door" instance=ExtResource("1")]
+script = ExtResource("2")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 centered = false

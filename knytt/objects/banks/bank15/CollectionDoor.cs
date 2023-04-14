@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectionDoor : Door
+public partial class CollectionDoor : Door
 {
     [Export] int creaturesRequired = 0;
 
@@ -11,8 +11,9 @@ public class CollectionDoor : Door
 
     protected override SignalAwaiter playAnimation()
     {
-        var player = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
+        var player = GetNode<AnimationPlayer>("Sprite2D/AnimationPlayer");
         player.Play("open");
         return ToSignal(player, "animation_finished");
     }
 }
+

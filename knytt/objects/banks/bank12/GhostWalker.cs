@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class GhostWalker : Muff
+public partial class GhostWalker : Muff
 {
     [Export] protected float wallSpeed = 5;
 
@@ -14,7 +14,7 @@ public class GhostWalker : Muff
         ghostMod = GetNode<GhostMod>("GhostMod");
     }
 
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node2D body)
     {
         inWall = true;
         changeSpeed(wallSpeed);
@@ -22,7 +22,7 @@ public class GhostWalker : Muff
         ghostMod.flickerMin = 0f;
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node2D body)
     {
         if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 1) { return; }
         inWall = false;

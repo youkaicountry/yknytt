@@ -1,312 +1,260 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://gk8jttyt44fh"]
 
-[ext_resource path="res://knytt/ui/slider_pip_hover.png" type="Texture" id=1]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
-[ext_resource path="res://knytt/ui/slider_pip.png" type="Texture" id=6]
-[ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
-[ext_resource path="res://knytt/ui/touch/TouchSettingsScreen.cs" type="Script" id=14]
+[ext_resource type="Texture2D" uid="uid://c1irqfxufrbgw" path="res://knytt/ui/slider_pip_hover.png" id="1"]
+[ext_resource type="PackedScene" uid="uid://crp5k3eycfjv7" path="res://knytt/ui/GDKnyttButton.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bar3mm462oa7k" path="res://knytt/ui/GDKnyttCheckBox.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://caf8l6kno8arw" path="res://knytt/ui/GDKnyttDropdown.tscn" id="4"]
+[ext_resource type="FontFile" uid="uid://c8pvk1egdqlmd" path="res://knytt/ui/UIDynamicFont.tres" id="5"]
+[ext_resource type="Texture2D" uid="uid://m1bjqp1j6mqn" path="res://knytt/ui/slider_pip.png" id="6"]
+[ext_resource type="StyleBox" uid="uid://dusdh656wlglr" path="res://knytt/ui/styles/SliderBar.tres" id="7"]
+[ext_resource type="Script" path="res://knytt/ui/touch/TouchSettingsScreen.cs" id="14"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0 )
+border_color = Color(0, 0, 0, 0)
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id="4"]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id="2"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0 )
+border_color = Color(0, 0, 0, 0)
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id="6"]
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id="5"]
 
 [node name="TouchSettingsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 14 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="BackButton" parent="." instance=ExtResource( 2 )]
+[node name="BackButton" parent="." instance=ExtResource("2")]
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -25.0
-margin_right = -5.0
-margin_bottom = -6.0
-custom_styles/disabled = SubResource( 1 )
+offset_left = -85.0
+offset_top = -25.0
+offset_right = -5.0
+offset_bottom = -6.0
+theme_override_styles/disabled = SubResource("1")
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
-margin_left = 33.0
-margin_top = 20.0
+layout_mode = 0
+offset_left = 33.0
+offset_top = 20.0
 
 [node name="EnableContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_right = 421.0
-margin_bottom = 24.0
+layout_mode = 2
 
-[node name="EnableButton" parent="SettingsContainer/EnableContainer" instance=ExtResource( 3 )]
-margin_right = 265.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 265, 0 )
+[node name="EnableButton" parent="SettingsContainer/EnableContainer" instance=ExtResource("3")]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
 text = "Enable touch panel"
 
 [node name="AnchorLabel" type="Label" parent="SettingsContainer/EnableContainer"]
-margin_left = 269.0
-margin_top = 5.0
-margin_right = 337.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "Locate panel:"
 
-[node name="AnchorDropdown" parent="SettingsContainer/EnableContainer" instance=ExtResource( 4 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 341.0
-margin_right = 421.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 80, 0 )
-text = "At top"
-items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
+[node name="AnchorDropdown" parent="SettingsContainer/EnableContainer" instance=ExtResource("4")]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+alignment = 1
+item_count = 4
 selected = 0
+popup/item_0/text = "At top"
+popup/item_0/id = 0
+popup/item_1/text = "Below top"
+popup/item_1/id = 1
+popup/item_2/text = "Above bottom"
+popup/item_2/id = 2
+popup/item_3/text = "At bottom"
+popup/item_3/id = 3
 
 [node name="SwapContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 28.0
-margin_right = 421.0
-margin_bottom = 52.0
+layout_mode = 2
 
-[node name="SwapButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
-margin_right = 265.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 265, 0 )
+[node name="SwapButton" parent="SettingsContainer/SwapContainer" instance=ExtResource("3")]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
 text = "Arrows on the right side"
 
 [node name="Label" type="Label" parent="SettingsContainer/SwapContainer"]
-margin_left = 269.0
-margin_top = 5.0
-margin_right = 269.0
-margin_bottom = 19.0
+layout_mode = 2
 
 [node name="SwipeContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 56.0
-margin_right = 421.0
-margin_bottom = 80.0
+layout_mode = 2
 
-[node name="SwipeButton" parent="SettingsContainer/SwipeContainer" instance=ExtResource( 3 )]
-margin_right = 265.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 265, 0 )
+[node name="SwipeButton" parent="SettingsContainer/SwipeContainer" instance=ExtResource("3")]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
 text = "Swipe to change direction quickly"
 
 [node name="Label" type="Label" parent="SettingsContainer/SwipeContainer"]
-margin_left = 269.0
-margin_top = 5.0
-margin_right = 269.0
-margin_bottom = 19.0
+layout_mode = 2
 
 [node name="ScaleContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 84.0
-margin_right = 421.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 0, 24 )
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="ScaleLabel" type="Label" parent="SettingsContainer/ScaleContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "Scale buttons:"
 
 [node name="ScaleSlider" type="HSlider" parent="SettingsContainer/ScaleContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 1 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 3 )
-custom_styles/grabber_area = SubResource( 4 )
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("6")
+theme_override_icons/grabber_highlight = ExtResource("1")
+theme_override_styles/slider = ExtResource("7")
+theme_override_styles/grabber_area = SubResource("4")
+theme_override_styles/grabber_area_highlight = SubResource("3")
 min_value = 0.5
 max_value = 2.0
 step = 0.01
 value = 1.0
 
 [node name="ValueLabel" type="Label" parent="SettingsContainer/ScaleContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(32, 8)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "100%"
-align = 1
 
-[node name="ScaleDefaultButton" parent="SettingsContainer/ScaleContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
-custom_styles/disabled = SubResource( 2 )
+[node name="ScaleDefaultButton" parent="SettingsContainer/ScaleContainer" instance=ExtResource("2")]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("2")
 text = "Set 100%"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ViewportContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 112.0
-margin_right = 421.0
-margin_bottom = 136.0
+layout_mode = 2
 
 [node name="ViewportLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "Game viewport:"
 
 [node name="ViewportSlider" type="HSlider" parent="SettingsContainer/ViewportContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 1 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 5 )
-custom_styles/grabber_area = SubResource( 6 )
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("6")
+theme_override_icons/grabber_highlight = ExtResource("1")
+theme_override_styles/slider = ExtResource("7")
+theme_override_styles/grabber_area = SubResource("6")
+theme_override_styles/grabber_area_highlight = SubResource("5")
 min_value = 0.5
 max_value = 1.0
 step = 0.01
 value = 0.8
 
 [node name="ValueLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "80%"
-align = 1
 
 [node name="JumpContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 140.0
-margin_right = 421.0
-margin_bottom = 164.0
-rect_min_size = Vector2( 0, 24 )
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="JumpLabel" type="Label" parent="SettingsContainer/JumpContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "Jump button width:"
 
 [node name="JumpSlider" type="HSlider" parent="SettingsContainer/JumpContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 1 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 3 )
-custom_styles/grabber_area = SubResource( 4 )
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("6")
+theme_override_icons/grabber_highlight = ExtResource("1")
+theme_override_styles/slider = ExtResource("7")
+theme_override_styles/grabber_area = SubResource("4")
+theme_override_styles/grabber_area_highlight = SubResource("3")
 min_value = 0.5
 max_value = 1.25
 step = 0.01
 value = 1.0
 
 [node name="ValueLabel" type="Label" parent="SettingsContainer/JumpContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(32, 8)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "100%"
-align = 1
 
-[node name="JumpDefaultButton" parent="SettingsContainer/JumpContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
-custom_styles/disabled = SubResource( 2 )
+[node name="JumpDefaultButton" parent="SettingsContainer/JumpContainer" instance=ExtResource("2")]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("2")
 text = "Set 100%"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="OpacityContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 168.0
-margin_right = 421.0
-margin_bottom = 192.0
-rect_min_size = Vector2( 0, 24 )
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="OpacityLabel" type="Label" parent="SettingsContainer/OpacityContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "Opacity:"
 
 [node name="OpacitySlider" type="HSlider" parent="SettingsContainer/OpacityContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 1 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 5 )
-custom_styles/grabber_area = SubResource( 6 )
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("6")
+theme_override_icons/grabber_highlight = ExtResource("1")
+theme_override_styles/slider = ExtResource("7")
+theme_override_styles/grabber_area = SubResource("6")
+theme_override_styles/grabber_area_highlight = SubResource("5")
 max_value = 1.0
 step = 0.01
 value = 0.5
 
 [node name="ValueLabel" type="Label" parent="SettingsContainer/OpacityContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 12
 text = "50%"
-align = 1
 
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="toggled" from="SettingsContainer/EnableContainer/EnableButton" to="." method="_on_EnableButton_toggled"]

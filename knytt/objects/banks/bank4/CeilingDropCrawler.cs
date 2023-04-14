@@ -1,6 +1,6 @@
 using Godot;
 
-public class CeilingDropCrawler : DropCrawler
+public partial class CeilingDropCrawler : DropCrawler
 {
     // TODO: original CeilingDropCrawler has different timer behavior, which shoots immediately after entering the radar area
     // Rewrite this object if current behavior is unacceptable

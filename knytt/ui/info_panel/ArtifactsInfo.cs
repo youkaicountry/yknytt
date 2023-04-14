@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class ArtifactsInfo : CollectionInfo
+public partial class ArtifactsInfo : CollectionInfo
 {
     public override string IconFilename { get; } = "Custom Objects/ArtifactIcon.png";
 

@@ -3,7 +3,7 @@ using YKnyttLib;
 using YKnyttLib.Logging;
 using static YKnyttLib.KnyttSwitch;
 
-public class Shift : Switch
+public partial class Shift : Switch
 {
     KnyttShift shift;
 
@@ -84,12 +84,12 @@ public class Shift : Switch
         {
             var jgp = juni.GlobalPosition;
             // Move Juni to the same spot in the new area
-            jgp.x += relative_area.x * GDKnyttArea.Width;
-            jgp.y += relative_area.y * GDKnyttArea.Height;
+            jgp.X += relative_area.x * GDKnyttArea.Width;
+            jgp.Y += relative_area.y * GDKnyttArea.Height;
 
             var relative_pos = shift.RelativePosition;
-            jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
-            jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
+            jgp.X += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
+            jgp.Y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
             juni.GlobalPosition = jgp;
         }
 

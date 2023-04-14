@@ -1,273 +1,261 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://cbbcng31i50ty"]
 
-[ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=1]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=6]
-[ext_resource path="res://knytt/ui/button_red.png" type="Texture" id=7]
-[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/InfoScreenPanel.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://crp5k3eycfjv7" path="res://knytt/ui/GDKnyttButton.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/InfoScreen.cs" id="3"]
+[ext_resource type="PackedScene" uid="uid://cfygdoyahxb4c" path="res://knytt/ui/SlotButton.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b6jxbnak1fgls" path="res://knytt/ui/stats/StatPanel.tscn" id="5"]
+[ext_resource type="FontFile" uid="uid://c8pvk1egdqlmd" path="res://knytt/ui/UIDynamicFont.tres" id="6_ap7ag"]
+[ext_resource type="Texture2D" uid="uid://4iip7wpp2k5j" path="res://knytt/ui/button_red.png" id="7"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHTTPRequest.tscn" id="11"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0 )
+border_color = Color(0, 0, 0, 0)
 
 [node name="InfoScreen" type="CanvasLayer"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 complainURL = "https://github.com/youkaicountry/yknytt/issues"
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0, 0, 0, 1)
 
 [node name="InfoRect" type="TextureRect" parent="."]
+texture_filter = 2
+anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -120.0
-margin_bottom = 120.0
-expand = true
+offset_top = -120.0
+offset_bottom = 120.0
+expand_mode = 1
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="BackButton" parent="InfoRect" instance=ExtResource( 2 )]
+[node name="BackButton" parent="InfoRect" instance=ExtResource("2")]
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -25.0
-margin_right = -5.0
-margin_bottom = -6.0
+offset_left = -85.0
+offset_top = -25.0
+offset_right = -5.0
+offset_bottom = -6.0
 text = "Back"
 
-[node name="Slot1Button" parent="InfoRect" instance=ExtResource( 4 )]
-margin_left = 2.93241
-margin_top = 123.18
-margin_right = 47.9324
-margin_bottom = 128.475
+[node name="Slot1Button" parent="InfoRect" instance=ExtResource("4")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2.93241
+offset_top = 123.18
+offset_right = 47.9324
+offset_bottom = 128.475
 
-[node name="Slot2Button" parent="InfoRect" instance=ExtResource( 4 )]
-margin_left = 2.5166
-margin_top = 147.404
-margin_right = 47.5166
-margin_bottom = 152.699
+[node name="Slot2Button" parent="InfoRect" instance=ExtResource("4")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2.5166
+offset_top = 147.404
+offset_right = 47.5166
+offset_bottom = 152.699
 slot = 2
 
-[node name="Slot3Button" parent="InfoRect" instance=ExtResource( 4 )]
-margin_left = 2.75257
-margin_top = 172.213
-margin_right = 47.7526
-margin_bottom = 177.508
+[node name="Slot3Button" parent="InfoRect" instance=ExtResource("4")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 2.75257
+offset_top = 172.213
+offset_right = 47.7526
+offset_bottom = 177.508
 slot = 3
 
-[node name="StatPanel" parent="InfoRect" instance=ExtResource( 5 )]
+[node name="StatPanel" parent="InfoRect" instance=ExtResource("5")]
 visible = false
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -310.0
-margin_top = 10.0
-margin_right = -160.0
-margin_bottom = 205.0
+offset_left = -310.0
+offset_top = 10.0
+offset_right = -160.0
+offset_bottom = 205.0
 
 [node name="RatePanel" type="Panel" parent="InfoRect"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -160.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = 205.0
-custom_styles/panel = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -160.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 205.0
+theme_override_styles/panel = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InfoRect/RatePanel"]
+layout_mode = 0
 anchor_right = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-custom_constants/separation = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+theme_override_constants/separation = 3
 
 [node name="TitleLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_right = 140.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_ap7ag")
+theme_override_font_sizes/font_size = 12
 text = "Rate this level:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Rates" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 16.0
-margin_right = 140.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 25, 30 )
+custom_minimum_size = Vector2(25, 30)
+layout_mode = 2
 
-[node name="UpvoteButton" parent="InfoRect/RatePanel/VBoxContainer/Rates" instance=ExtResource( 2 )]
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-custom_styles/disabled = SubResource( 1 )
+[node name="UpvoteButton" parent="InfoRect/RatePanel/VBoxContainer/Rates" instance=ExtResource("2")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 30.0
+offset_bottom = 30.0
+theme_override_styles/disabled = SubResource("1")
 text = "+"
 
 [node name="UpvoteLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer/Rates"]
-margin_left = 34.0
-margin_top = 8.0
-margin_right = 60.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 13, 13 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 1, 0, 1 )
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(13, 13)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 8.0
+offset_right = 60.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("6_ap7ag")
+theme_override_font_sizes/font_size = 12
 
 [node name="DownvoteLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer/Rates"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -60.0
-margin_top = 8.0
-margin_right = -35.0
-margin_bottom = 21.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -60.0
+offset_top = 8.0
+offset_right = -35.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_ap7ag")
+theme_override_font_sizes/font_size = 12
 
-[node name="DownvoteButton" parent="InfoRect/RatePanel/VBoxContainer/Rates" instance=ExtResource( 2 )]
+[node name="DownvoteButton" parent="InfoRect/RatePanel/VBoxContainer/Rates" instance=ExtResource("2")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -30.0
-margin_right = -1.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-custom_styles/disabled = SubResource( 1 )
+anchor_bottom = 0.0
+offset_left = -30.0
+offset_right = -1.0
+offset_bottom = 30.0
+theme_override_styles/disabled = SubResource("1")
 text = "-"
 
 [node name="Control2" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 49.0
-margin_right = 140.0
-margin_bottom = 74.0
-grow_horizontal = 2
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 
-[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/Control2" instance=ExtResource( 2 )]
+[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/Control2" instance=ExtResource("2")]
+layout_mode = 0
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_top = 5.0
-margin_right = -25.0
-margin_bottom = 25.0
-custom_styles/disabled = SubResource( 1 )
+offset_top = 5.0
+offset_right = -25.0
+offset_bottom = 25.0
+theme_override_styles/disabled = SubResource("1")
 text = "Mark as broken"
 
 [node name="Label" type="Label" parent="InfoRect/RatePanel/VBoxContainer/Control2"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -23.0
-margin_top = 8.0
-margin_bottom = 21.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_left = -23.0
+offset_top = 8.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_ap7ag")
+theme_override_font_sizes/font_size = 12
 text = "(999)"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Control" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 77.0
-margin_right = 140.0
-margin_bottom = 97.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
-[node name="VisitButton" parent="InfoRect/RatePanel/VBoxContainer/Control" instance=ExtResource( 2 )]
+[node name="VisitButton" parent="InfoRect/RatePanel/VBoxContainer/Control" instance=ExtResource("2")]
 visible = false
+layout_mode = 0
+anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 140.0
-margin_bottom = 19.2149
-custom_styles/disabled = SubResource( 1 )
+offset_right = 140.0
+offset_bottom = 19.2149
+theme_override_styles/disabled = SubResource("1")
 text = "Visit GitHub to report"
 
-[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 100.0
-margin_right = 140.0
-margin_bottom = 119.215
+[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("2")]
+layout_mode = 2
 text = "Optimize"
 
-[node name="UninstallButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 122.0
-margin_right = 140.0
-margin_bottom = 141.215
-custom_styles/disabled = SubResource( 1 )
+[node name="UninstallButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("2")]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("1")
 text = "Uninstall Level"
 
 [node name="Control3" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
-margin_top = 144.0
-margin_right = 140.0
-margin_bottom = 163.0
-rect_min_size = Vector2( 0, 19 )
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 2
 
-[node name="ConfirmUninstallButton" parent="InfoRect/RatePanel/VBoxContainer/Control3" instance=ExtResource( 2 )]
+[node name="ConfirmUninstallButton" parent="InfoRect/RatePanel/VBoxContainer/Control3" instance=ExtResource("2")]
 visible = false
+layout_mode = 0
+anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 140.0
-margin_bottom = 19.0
-custom_styles/disabled = SubResource( 1 )
+offset_right = 140.0
+offset_bottom = 19.0
+theme_override_styles/disabled = SubResource("1")
 text = "Confirm"
 
 [node name="RedLayer" type="NinePatchRect" parent="InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-texture = ExtResource( 7 )
-region_rect = Rect2( 2, 2, 8, 8 )
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+texture = ExtResource("7")
+region_rect = Rect2(2, 2, 8, 8)
 patch_margin_left = 1
 patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="StatsButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 166.0
-margin_right = 140.0
-margin_bottom = 185.215
+[node name="StatsButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("2")]
+layout_mode = 2
 text = "View Achievements"
 
 [node name="StatHTTPRequest" type="HTTPRequest" parent="."]
 
-[node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
+[node name="RateHTTPRequest" parent="." instance=ExtResource("11")]
 
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
@@ -283,4 +271,3 @@ text = "View Achievements"
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/StatsButton" to="." method="_on_StatsButton_pressed"]
 [connection signal="ready" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_ready"]
 [connection signal="request_completed" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_request_completed"]
-[connection signal="RateAdded" from="RateHTTPRequest" to="." method="_on_RateHTTPRequest_RateAdded"]

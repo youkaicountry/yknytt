@@ -10,4 +10,4 @@ collision_layer = 2050
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PoolVector2Array( 0, 24, 0, 0, 24, 24 )
+polygon = PackedVector2Array( 0, 24, 0, 0, 24, 24 )

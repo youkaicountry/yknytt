@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class GameContainer : VBoxContainer
+public partial class GameContainer : VBoxContainer
 {
     private PackedScene game_scene;
 
@@ -35,10 +35,10 @@ public class GameContainer : VBoxContainer
     public void addWorld(WorldEntry world_entry, bool focus = false, bool mark_completed = false)
     {
         bool replace_stub = stubs.Count != 0;
-        var game_node = replace_stub ? stubs.First.Value : this.game_scene.Instance() as GameButton;
+        var game_node = replace_stub ? stubs.First.Value : this.game_scene.Instantiate<GameButton>();
         if (replace_stub) { stubs.RemoveFirst(); }
         game_node.initialize(world_entry);
-        game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
+        game_node.GamePressed += GetNode<LevelSelection>("../../..")._on_GamePressed;
         if (!replace_stub) { addButton(game_node); }
         
         if (focus) { game_node.GrabFocus(); }
@@ -50,7 +50,7 @@ public class GameContainer : VBoxContainer
     {
         for (int i = GamesCount + stubs.Count; i < count; i++)
         {
-            var game_node = this.game_scene.Instance() as GameButton;
+            var game_node = this.game_scene.Instantiate<GameButton>();
             stubs.AddLast(game_node);
             addButton(game_node);
         }

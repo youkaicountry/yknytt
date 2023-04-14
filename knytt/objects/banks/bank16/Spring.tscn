@@ -2,24 +2,24 @@
 
 [ext_resource path="res://knytt/objects/banks/bank16/Spring.cs" type="Script" id=1]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank16/spring_effect.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/banks/bank16/spring_effect.png" type="Texture2D" id=3]
 [ext_resource path="res://knytt/data/Sfx/Bounce Platform.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 4 )
+size = Vector2(24, 8)
 
 [sub_resource type="Animation" id=2]
 resource_name = "Spring"
 length = 1.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1.1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
@@ -37,7 +37,7 @@ shape = SubResource( 1 )
 [node name="BouncePlayer2D" parent="." instance=ExtResource( 2 )]
 stream = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource( 3 )
 centered = false
 

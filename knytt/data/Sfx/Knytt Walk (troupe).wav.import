@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Walk (troupe).wav-005667ce3bb2a88a34f980540eebefb9.sample"
+type="AudioStreamWAV"
+uid="uid://bcrwcmt6pr4kb"
+path="res://.godot/imported/Knytt Walk (troupe).wav-005667ce3bb2a88a34f980540eebefb9.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Walk (troupe).wav"
-dest_files=[ "res://.import/Knytt Walk (troupe).wav-005667ce3bb2a88a34f980540eebefb9.sample" ]
+dest_files=["res://.godot/imported/Knytt Walk (troupe).wav-005667ce3bb2a88a34f980540eebefb9.sample"]
 
 [params]
 

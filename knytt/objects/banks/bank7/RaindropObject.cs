@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class RaindropObject : GDKnyttBaseObject
+public partial class RaindropObject : GDKnyttBaseObject
 {
     PackedScene drop_scene;
 
@@ -9,7 +9,7 @@ public class RaindropObject : GDKnyttBaseObject
     {
         drop_scene = ResourceLoader.Load("res://knytt/objects/banks/bank7/Raindrop.tscn") as PackedScene;
 
-        var raindrop = drop_scene.Instance() as Raindrop;
+        var raindrop = drop_scene.Instantiate<Raindrop>();
         raindrop.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
         AddChild(raindrop);
     }

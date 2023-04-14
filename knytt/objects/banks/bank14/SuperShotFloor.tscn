@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank14/supershot_floor_launch.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank14/supershot_floor_stop.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank14/supershot_floor_launch.png" type="Texture2D" id=1]
+[ext_resource path="res://knytt/objects/banks/bank14/supershot_floor_stop.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/banks/bank14/SuperShot.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -90,10 +90,10 @@ animations = [ {
 } ]
 
 [node name="Node2D" instance=ExtResource( 3 )]
-shotDirections = PoolIntArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 )
+shotDirections = PackedInt32Array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 )
 shotPosition = Vector2( 12, 11 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 19 )
 animation = "wink"
 

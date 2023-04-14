@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YUtil.Random;
 
-public class Leaf : GDKnyttBaseObject
+public partial class Leaf : GDKnyttBaseObject
 {
     SceneCPUParticles particles;
 

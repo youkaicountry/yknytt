@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 9 )
+size = Vector2(20, 18)
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 7.0
@@ -15,7 +15,7 @@ script = ExtResource( 2 )
 OrganicEnemy = true
 speedChangeTime = 1.1
 initialSpeed = 8
-speedValues = PoolIntArray( 5, 10 )
+speedValues = PackedInt32Array( 5, 10 )
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 16 )

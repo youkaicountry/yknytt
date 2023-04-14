@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class ProximityBlock : GDKnyttBaseObject
+public partial class ProximityBlock : GDKnyttBaseObject
 {
     private const float RADIUS = 132f;
 
@@ -14,7 +14,7 @@ public class ProximityBlock : GDKnyttBaseObject
         set
         {
             var m = Modulate;
-            m.a = real ? value : (1f - value);
+            m.A = real ? value : (1f - value);
             Modulate = m;
         }
     }
@@ -28,7 +28,7 @@ public class ProximityBlock : GDKnyttBaseObject
         Proximity = 0f;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (junis.Count == 0) { return; }
 

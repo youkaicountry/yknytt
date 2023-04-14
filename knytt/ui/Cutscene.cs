@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class Cutscene : Control
+public partial class Cutscene : CanvasLayer
 {
     private int current_scene = 0;
     private bool has_next;
@@ -26,8 +26,8 @@ public class Cutscene : Control
 
     public static Color getCutsceneColor(string name = null)
     {
-        return new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
-                GDKnyttDataStore.KWorld.INIData["Cutscene Color"][name ?? GDKnyttDataStore.CutsceneName], 0xFFFFFF)));
+        int bgr = KnyttUtil.parseBGRString(GDKnyttDataStore.KWorld.INIData["Cutscene Color"][name ?? GDKnyttDataStore.CutsceneName], 0xFFFFFF);
+        return new Color(KnyttUtil.R(bgr), KnyttUtil.G(bgr), KnyttUtil.B(bgr));
     }
 
     private void loadMusic()
@@ -54,8 +54,8 @@ public class Cutscene : Control
     private void changeScene(int delta)
     {
         current_scene += delta;
-        Texture t = GDKnyttDataStore.KWorld.getWorldTexture(makeScenePath(current_scene)) as Texture;
-        if (t != null) { t.Flags |= (uint)Texture.FlagsEnum.Filter; }
+        Texture2D t = GDKnyttDataStore.KWorld.getWorldTexture(makeScenePath(current_scene)) as Texture2D;
+        //if (t != null) { t.Flags |= (uint)Texture2D.FlagsEnum.Filter; }
         GetNode<TextureRect>("Image").Texture = t;
         setupBackButton();
         setupNextButton();
@@ -108,7 +108,7 @@ public class Cutscene : Control
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {
-            GetTree().ChangeScene(GDKnyttDataStore.CutsceneAfter);
+            GetTree().ChangeSceneToFile(GDKnyttDataStore.CutsceneAfter);
             releaseAll();
         }
         else
@@ -117,7 +117,7 @@ public class Cutscene : Control
             GetTree().Root.AddChild(GDKnyttDataStore.CutsceneReturn);
             GetTree().CurrentScene = GDKnyttDataStore.CutsceneReturn;
             GetTree().Paused = false;
-            (GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame).respawnJuni();
+            (GetTree().Root.FindChild("GKnyttGame", owned: false) as GDKnyttGame).respawnJuni();
             releaseAll();
         }
     }
@@ -130,7 +130,7 @@ public class Cutscene : Control
         foreach (string a in actions) { Input.ActionRelease(a); }
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("left") && current_scene > 1) { _on_PreviousButton_pressed(); }
         if (Input.IsActionJustPressed("right")) { _on_NextButton_pressed(); }

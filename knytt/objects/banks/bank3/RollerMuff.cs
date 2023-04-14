@@ -1,4 +1,4 @@
-public class RollerMuff : Muff
+public partial class RollerMuff : Muff
 {
     protected bool roll = false;
 

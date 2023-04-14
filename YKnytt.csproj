@@ -1,11 +1,11 @@
-<Project Sdk="Godot.NET.Sdk/3.3.0">
+<Project Sdk="Godot.NET.Sdk/4.0.2">
   <PropertyGroup>
     <ProjectGuid>{3C1342FF-AB51-45B0-9A34-113A71D4AE21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>YKnytt</RootNamespace>
     <AssemblyName>YKnytt</AssemblyName>
     <GodotProjectGeneratorVersion>1.0.0.0</GodotProjectGeneratorVersion>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <!--The following properties were overriden during migration to prevent errors.
     Enabling them may require other manual changes to the project and its files.-->
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -13,7 +13,6 @@
     <Deterministic>false</Deterministic>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="YUtil.Math">
       <HintPath>knytt\lib\YUtil.Math.dll</HintPath>
     </Reference>
@@ -218,7 +217,6 @@
     <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
     <Compile Include="knytt\objects\banks\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />
-    <Compile Include="knytt\GDAreaLayer.cs" />
     <Compile Include="knytt\GDAreaTiles.cs" />
     <Compile Include="knytt\GDKnyttArea.cs" />
     <Compile Include="knytt\GDKnyttAssetManager.cs" />
@@ -264,11 +262,35 @@
     <Compile Include="knytt\ui\WorldManager.cs" />
     <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\JuniValues.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttBinWorldLoader.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttSave.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttArea.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttSwitch.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttTrigger.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttUtil.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttWarp.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Paging\KnyttPagingPolicy.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttPoint.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Paging\KnyttRectPaging.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttWorld.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttWorldInfo.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\ICommand.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\CommandArg.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\CommandDeclaration.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\CommandParser.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\CommandParseResult.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\CommandSet.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Parser\ParseResults.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\KnyttShift.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Logging\IKnyttLoggerTarget.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Logging\KnyttLogger.cs" />
+    <Compile Include="knytt\lib\yknyttlib\YKnyttLib\Logging\KnyttLogMessage.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <!--ItemGroup>
     <ProjectReference Include="knytt\lib\yknyttlib\YKnyttLib\YKnyttLib.csproj">
       <Project>{943E0270-0FE6-42D6-8A0F-219CC072EA02}</Project>
       <Name>YKnyttLib</Name>
     </ProjectReference>
-  </ItemGroup>
+  </ItemGroup-->
 </Project>

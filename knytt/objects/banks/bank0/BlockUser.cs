@@ -1,4 +1,4 @@
-public class BlockUser : GDKnyttBaseObject
+public partial class BlockUser : GDKnyttBaseObject
 {
     public override void _Ready()
     {

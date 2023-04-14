@@ -1,8 +1,8 @@
 using Godot;
 
-public class FadeLayer : Control
+public partial class FadeLayer : Control
 {
-    [Signal] public delegate void FadeDone();
+    [Signal] public delegate void FadeDoneEventHandler();
 
     private bool reset;
 
@@ -13,9 +13,9 @@ public class FadeLayer : Control
         this.reset = reset;
     }
 
-    public async void _on_AnimationPlayer_animation_finished(string name)
+    public void _on_AnimationPlayer_animation_finished(string name)
     {
-        EmitSignal(nameof(FadeDone));
+        EmitSignal(SignalName.FadeDone);
         //var timer = GetNode<Timer>("ResetTimer");
         //timer.Start();
         //await ToSignal(timer, "timeout");

@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Ambi14.ogg-4bdf6fb0084f7a8acd8247608b830856.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ctddwra8xn1sn"
+path="res://.godot/imported/Ambi14.ogg-4bdf6fb0084f7a8acd8247608b830856.oggvorbisstr"
 
 [deps]
 
 source_file="res://knytt/data/Ambiance/Ambi14.ogg"
-dest_files=[ "res://.import/Ambi14.ogg-4bdf6fb0084f7a8acd8247608b830856.oggstr" ]
+dest_files=["res://.godot/imported/Ambi14.ogg-4bdf6fb0084f7a8acd8247608b830856.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

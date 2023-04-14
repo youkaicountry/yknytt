@@ -1,6 +1,6 @@
 using Godot;
 
-public class Title : GDKnyttBaseObject
+public partial class Title : GDKnyttBaseObject
 {
     public override void _Ready()
     {
@@ -20,18 +20,18 @@ public class Title : GDKnyttBaseObject
 
     private void adjustLabel(Label label)
     {
-        label.RectPosition = label.RectPosition; // Workaround to update label size
+        label.Position = label.Position; // Workaround to update label size
         if (Coords.x < 8)
         {
             ;
         }
         else if (Coords.x > 16)
         {
-            label.RectPosition = new Vector2(24 - label.RectSize.x, label.RectPosition.y); // right align
+            label.Position = new Vector2(24 - label.Size.X, label.Position.Y); // right align
         }
         else
         {
-            label.RectPosition = new Vector2(-Position.x + (600 - label.RectSize.x) / 2, label.RectPosition.y); // center align
+            label.Position = new Vector2(-Position.X + (600 - label.Size.X) / 2, label.Position.Y); // center align
         }
     }
 }

@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class SmallTimedFlower : GDKnyttBaseObject
+public partial class SmallTimedFlower : GDKnyttBaseObject
 {
     private const int SHOTS = 10;
 
@@ -23,7 +23,7 @@ public class SmallTimedFlower : GDKnyttBaseObject
 
     private void _on_AttackTimer_timeout_ext()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("open");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("open");
         shotsLeft = SHOTS;
         GetNode<TimerExt>("ShotPlayerTimer").RunTimer();
         GetNode<TimerExt>("ShotTimer").RunTimer();
@@ -35,7 +35,7 @@ public class SmallTimedFlower : GDKnyttBaseObject
         shotsLeft--;
         if (shotsLeft == 0)
         {
-            GetNode<AnimatedSprite>("AnimatedSprite").Play("open", backwards: true);
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").PlayBackwards("open");
             GetNode<Timer>("ShotTimer").Stop();
             GetNode<Timer>("ShotPlayerTimer").Stop();
         }

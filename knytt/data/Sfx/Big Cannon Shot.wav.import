@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Big Cannon Shot.wav-452b27a535c2be0f6cadc8384da2c3a2.sample"
+type="AudioStreamWAV"
+uid="uid://cjnq0hfbbx2n5"
+path="res://.godot/imported/Big Cannon Shot.wav-452b27a535c2be0f6cadc8384da2c3a2.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Big Cannon Shot.wav"
-dest_files=[ "res://.import/Big Cannon Shot.wav-452b27a535c2be0f6cadc8384da2c3a2.sample" ]
+dest_files=["res://.godot/imported/Big Cannon Shot.wav-452b27a535c2be0f6cadc8384da2c3a2.sample"]
 
 [params]
 

@@ -1,186 +1,208 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=3 uid="uid://brmbkbqh43rsj"]
 
-[ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/audio/GDKnyttMusicChannel.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/GDKnyttGame.cs" type="Script" id=4]
-[ext_resource path="res://knytt/GDKnyttCamera.cs" type="Script" id=5]
-[ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
-[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
-[ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
-[ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
-[ext_resource path="res://knytt/ui/MapPanel.cs" type="Script" id=14]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=15]
-[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
-[ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
+[ext_resource type="FontFile" uid="uid://b4cm8yqgv0kp1" path="res://knytt/fonts/magnificent/Magnificent.ttf" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/GDKnyttWorld.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/audio/GDKnyttMusicChannel.tscn" id="3"]
+[ext_resource type="Script" path="res://knytt/GDKnyttGame.cs" id="4"]
+[ext_resource type="Script" path="res://knytt/GDKnyttCamera.cs" id="5"]
+[ext_resource type="Script" path="res://knytt/ui/LocationLabel.cs" id="6"]
+[ext_resource type="PackedScene" uid="uid://chlyugtky3llt" path="res://knytt/ui/FadeLayer.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bcxxogd2axpqj" path="res://knytt/ui/info_panel/InfoPanel.tscn" id="8"]
+[ext_resource type="Script" path="res://knytt/ui/UICanvasLayer.cs" id="11"]
+[ext_resource type="PackedScene" uid="uid://xxo3ao1pujb6" path="res://knytt/ui/touch/TouchPanel.tscn" id="12"]
+[ext_resource type="Script" path="res://knytt/WSOD.cs" id="13"]
+[ext_resource type="Script" path="res://knytt/ui/MapPanel.cs" id="14"]
+[ext_resource type="PackedScene" uid="uid://crp5k3eycfjv7" path="res://knytt/ui/GDKnyttButton.tscn" id="15"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHTTPRequest.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://knytt/audio/GDKnyttAmbiChannel.tscn" id="17"]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "SlideIn"
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("InfoPanel:margin_top")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("InfoPanel:offset_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ -3.0, -32.2144 ]
+"values": [-3.0, -32.2144]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("InfoPanel:margin_bottom")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
+tracks/1/path = NodePath("InfoPanel:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ 30, 0 ]
+"values": [30, 0]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("InfoPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 3.03143, 3.03143 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(3.03143, 3.03143),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("InfoPanel:margin_top")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("InfoPanel:offset_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ -32.2144, -3.0 ]
+"values": [-32.2144, -3.0]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("InfoPanel:margin_bottom")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
+tracks/1/path = NodePath("InfoPanel:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ 0, 30 ]
+"values": [0, 30]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("InfoPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 3.03143, 3.03143 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(3.03143, 3.03143),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="DynamicFont" id=4]
-size = 22
-outline_size = 1
-outline_color = Color( 0.121569, 0.121569, 0.121569, 1 )
-font_data = ExtResource( 1 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_60d3b"]
+_data = {
+"SlideIn": SubResource("2"),
+"SlideOut": SubResource("3")
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="FontFile" id="4"]
+fallbacks = Array[Font]([ExtResource("1")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="Animation" id="5"]
 length = 2.0
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "startFadeOut"
-} ]
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"startFadeOut"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pe8n0"]
+_data = {
+"FadeOut": SubResource("5")
 }
 
 [node name="GKnyttGame" type="Node2D"]
-script = ExtResource( 4 )
+texture_filter = 1
+script = ExtResource("4")
 edgeScrollSpeed = 1400.0
 viewMode = false
 
-[node name="GKnyttWorld" parent="." instance=ExtResource( 2 )]
+[node name="GKnyttWorld" parent="." instance=ExtResource("2")]
 
 [node name="GKnyttCamera" type="Camera2D" parent="."]
-position = Vector2( 300, 120 )
-current = true
-script = ExtResource( 5 )
+position = Vector2(300, 120)
+script = ExtResource("5")
 
 [node name="ShaderCanvasLayer" type="CanvasLayer" parent="GKnyttCamera"]
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="Curtain" type="Control" parent="UICanvasLayer"]
 visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="HorizontalRect" type="ColorRect" parent="UICanvasLayer/Curtain"]
-margin_right = 600.0
-margin_bottom = 40.0
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 40.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0, 0, 0, 1)
 
 [node name="LeftRect" type="ColorRect" parent="UICanvasLayer/Curtain"]
-margin_right = 10.0
-margin_bottom = 240.0
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 240.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color(0, 0, 0, 1)
 
 [node name="RightRect" type="ColorRect" parent="UICanvasLayer/Curtain"]
-margin_left = 590.0
-margin_right = 600.0
-margin_bottom = 240.0
+layout_mode = 0
+offset_left = 590.0
+offset_right = 600.0
+offset_bottom = 240.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color(0, 0, 0, 1)
 
-[node name="InfoPanel" parent="UICanvasLayer" instance=ExtResource( 8 )]
+[node name="InfoPanel" parent="UICanvasLayer" instance=ExtResource("8")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer"]
-playback_speed = 6.0
-anims/SlideIn = SubResource( 2 )
-anims/SlideOut = SubResource( 3 )
+speed_scale = 6.0
+libraries = {
+"": SubResource("AnimationLibrary_60d3b")
+}
 
 [node name="StayTimer" type="Timer" parent="UICanvasLayer"]
 wait_time = 0.25
@@ -188,12 +210,10 @@ one_shot = true
 
 [node name="WSOD" type="ColorRect" parent="UICanvasLayer"]
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("13")
 
 [node name="Timer" type="Timer" parent="UICanvasLayer/WSOD"]
 wait_time = 0.5
@@ -201,106 +221,108 @@ one_shot = true
 
 [node name="LocationLabel" type="Label" parent="UICanvasLayer"]
 visible = false
-margin_left = 4.69768
-margin_top = 213.347
-margin_right = 115.698
-margin_bottom = 237.347
-custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
-custom_fonts/font = SubResource( 4 )
+offset_left = 4.69768
+offset_top = 213.347
+offset_right = 115.698
+offset_bottom = 237.347
+theme_override_colors/font_color = Color(0.772549, 0.772549, 0.772549, 1)
+theme_override_fonts/font = SubResource("4")
 text = "(1234, 5678)"
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer/LocationLabel"]
-anims/FadeOut = SubResource( 5 )
+libraries = {
+"": SubResource("AnimationLibrary_pe8n0")
+}
 
-[node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource( 12 )]
+[node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource("12")]
 visible = false
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -140.0
-margin_bottom = 0.0
+offset_top = -140.0
+offset_bottom = 0.0
 
 [node name="MapBackgroundPanel" type="Panel" parent="UICanvasLayer"]
-pause_mode = 2
+process_mode = 2
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MapPanel" type="Panel" parent="UICanvasLayer/MapBackgroundPanel"]
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+script = ExtResource("14")
 
-[node name="CloseButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
+[node name="CloseButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource("15")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -30.0
-margin_right = 0.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+offset_left = -30.0
+offset_right = 0.0
+offset_bottom = 30.0
 text = "X"
 
-[node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
+[node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource("15")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -65.0
-margin_right = -35.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+offset_left = -65.0
+offset_right = -35.0
+offset_bottom = 30.0
 text = "–"
 
-[node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
+[node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource("15")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+anchors_preset = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -100.0
-margin_right = -70.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+offset_left = -100.0
+offset_right = -70.0
+offset_bottom = 30.0
 text = "+"
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
-pause_mode = 2
+process_mode = 2
 
-[node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
+[node name="Fade" parent="FadeCanvasLayer" instance=ExtResource("7")]
 
-[node name="MusicChannel" parent="." instance=ExtResource( 3 )]
-bus = "Music"
+[node name="MusicChannel" parent="." instance=ExtResource("3")]
+bus = &"Music"
 fadeInTime = 0.1
 fadeOutTime = 4.5
 
-[node name="Ambi1Channel" parent="." instance=ExtResource( 17 )]
+[node name="Ambi1Channel" parent="." instance=ExtResource("17")]
 
 [node name="AmbiTrack1" parent="Ambi1Channel" index="0"]
-bus = "Ambiance1"
+bus = &"Ambiance1"
 
 [node name="AmbiTrack2" parent="Ambi1Channel" index="1"]
-bus = "Ambiance1"
+bus = &"Ambiance1"
 
-[node name="Ambi2Channel" parent="." instance=ExtResource( 17 )]
+[node name="Ambi2Channel" parent="." instance=ExtResource("17")]
 
 [node name="AmbiTrack1" parent="Ambi2Channel" index="0"]
-bus = "Ambiance2"
+bus = &"Ambiance2"
 
 [node name="AmbiTrack2" parent="Ambi2Channel" index="1"]
-bus = "Ambiance2"
+bus = &"Ambiance2"
 
-[node name="RateHTTPRequest" parent="." instance=ExtResource( 16 )]
+[node name="RateHTTPRequest" parent="." instance=ExtResource("16")]
 
 [connection signal="animation_finished" from="UICanvasLayer/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [ false ]]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 0.9 ]]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.111 ]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [false]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [0.9]]
+[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [1.111]]
 
 [editable path="Ambi1Channel"]
 [editable path="Ambi2Channel"]

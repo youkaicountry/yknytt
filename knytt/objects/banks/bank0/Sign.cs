@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YKnyttLib;
 
-public class Sign : GDKnyttBaseObject
+public partial class Sign : GDKnyttBaseObject
 {
     private List<string> texts = new List<string>();
     private int messageIndex;
@@ -47,17 +47,17 @@ public class Sign : GDKnyttBaseObject
     protected void adjustSign()
     {
         var sign_rect = GetNode<Control>("SignRect");
-        var x_pos = sign_rect.RectPosition.x;
-        var y_pos = sign_rect.RectPosition.y;
-        var size = sign_rect.RectSize;
+        var x_pos = sign_rect.Position.X;
+        var y_pos = sign_rect.Position.Y;
+        var size = sign_rect.Size;
 
         // TODO: original game doesn't overlap object area when showing sign
-        if (Position.x + x_pos < 0) { x_pos = -Position.x; }
-        if (Position.y + y_pos < 0) { y_pos = -Position.y; }
-        if (Position.x + x_pos + size.x > 600) { x_pos = 600 - Position.x - size.x; }
-        if (Position.y + y_pos + size.y > 240) { y_pos = 240 - Position.y - size.y; }
+        if (Position.X + x_pos < 0) { x_pos = -Position.X; }
+        if (Position.Y + y_pos < 0) { y_pos = -Position.Y; }
+        if (Position.X + x_pos + size.X > 600) { x_pos = 600 - Position.X - size.X; }
+        if (Position.Y + y_pos + size.Y > 240) { y_pos = 240 - Position.Y - size.Y; }
 
-        sign_rect.RectPosition = new Vector2(x_pos, y_pos);
+        sign_rect.Position = new Vector2(x_pos, y_pos);
     }
 
     public void nextMessage(Juni juni)
@@ -114,7 +114,7 @@ public class Sign : GDKnyttBaseObject
             if (refCounter.Count == 0) { messageIndex = -1; nextMessage(juni); }
             if (texts.Count > 1 || shiftMessageIndex > 0 || triggerMessageIndex > 0)
             {
-                juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage));
+                juni.DownEvent += nextMessage;
             }
             refCounter[juni] = 1;
         }
@@ -126,7 +126,7 @@ public class Sign : GDKnyttBaseObject
         refCounter[juni]--;
         if (refCounter[juni] == 0 || exit_all)
         {
-            if (texts.Count > 1) { juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
+            if (texts.Count > 1) { juni.DownEvent -= nextMessage; }
             refCounter.Remove(juni);
             if (refCounter.Count == 0) { messageIndex = -2; nextMessage(juni); }
         }

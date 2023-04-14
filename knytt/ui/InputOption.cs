@@ -1,11 +1,11 @@
 using Godot;
 
-public class InputOption : HBoxContainer
+public partial class InputOption : HBoxContainer
 {
     [Export] public string Action;
     [Export] public string ActionLabel;
 
-    [Signal] public delegate void GetActionInput();
+    [Signal] public delegate void GetActionInputEventHandler(InputOption io, int num);
 
     public InputScreen Screen { get; set; }
 
@@ -33,11 +33,11 @@ public class InputOption : HBoxContainer
 
     private void _on_Button0_pressed()
     {
-        EmitSignal(nameof(GetActionInput), this, 0);
+        EmitSignal(SignalName.GetActionInput, this, 0);
     }
 
     private void _on_Button1_pressed()
     {
-        EmitSignal(nameof(GetActionInput), this, 1);
+        EmitSignal(SignalName.GetActionInput, this, 1);
     }
 }

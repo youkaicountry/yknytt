@@ -1,8 +1,8 @@
 using Godot;
 
-public abstract class Door : GDKnyttBaseObject
+public abstract partial class Door : GDKnyttBaseObject
 {
-    private void _on_OpenArea_body_entered(object body)
+    protected void _on_OpenArea_body_entered(Node2D body)
     {
         if (body is Juni juni && checkKey(juni)) { open(); }
     }
@@ -19,3 +19,4 @@ public abstract class Door : GDKnyttBaseObject
 
     protected abstract SignalAwaiter playAnimation();
 }
+

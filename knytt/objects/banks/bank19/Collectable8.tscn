@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank19/base/Creature8.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 8 )
+size = Vector2(22, 16)
 
 [node name="Path2D" instance=ExtResource( 2 )]
 

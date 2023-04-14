@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Star : GesturesObject
+public partial class Star : GesturesObject
 {
     public override void _Ready()
     {

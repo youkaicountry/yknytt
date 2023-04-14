@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Jump (troupe).wav-6875c77227c64d062a11af94878287ad.sample"
+type="AudioStreamWAV"
+uid="uid://deraook42n8hv"
+path="res://.godot/imported/Knytt Jump (troupe).wav-6875c77227c64d062a11af94878287ad.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Jump (troupe).wav"
-dest_files=[ "res://.import/Knytt Jump (troupe).wav-6875c77227c64d062a11af94878287ad.sample" ]
+dest_files=["res://.godot/imported/Knytt Jump (troupe).wav-6875c77227c64d062a11af94878287ad.sample"]
 
 [params]
 

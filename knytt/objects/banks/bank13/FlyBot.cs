@@ -1,6 +1,6 @@
 using Godot;
 
-public class FlyBot : GDKnyttBaseObject
+public partial class FlyBot : GDKnyttBaseObject
 {
     PathFollow2D path;
 
@@ -10,8 +10,8 @@ public class FlyBot : GDKnyttBaseObject
         path = GetNode<PathFollow2D>("Path2D/PathFollow2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        path.Offset += 80f * delta;
+        path.Progress += 80f * (float)delta;
     }
 }

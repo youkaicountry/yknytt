@@ -2,10 +2,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class ParticleCircle : Node2D
+public partial class ParticleCircle : Node2D
 {
     [Export]
-    public Texture particleTexture;
+    public Texture2D particleTexture;
 
     [Export]
     public bool cloud;
@@ -70,7 +70,7 @@ public class ParticleCircle : Node2D
     private void addParticle(float radius, float angle)
     {
         Node2D arm = new Node2D();
-        Sprite s = new Sprite();
+        Sprite2D s = new Sprite2D();
         s.Texture = particleTexture;
         s.Position = new Vector2(radius, 0f);
         s.Scale = new Vector2(spriteScale, spriteScale);
@@ -79,9 +79,9 @@ public class ParticleCircle : Node2D
         AddChild(arm);
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
-        if (this.cloud) { cloudProcess(delta); } else { circleProcess(delta); }
+        if (this.cloud) { cloudProcess((float)delta); } else { circleProcess((float)delta); }
     }
 
     public void circleProcess(float delta)
@@ -100,6 +100,6 @@ public class ParticleCircle : Node2D
 
     private float getRangeValue(Vector2 range)
     {
-        return ((float)R.NextDouble()) * (range.y - range.x) + range.x;
+        return ((float)R.NextDouble()) * (range.Y - range.X) + range.X;
     }
 }

@@ -1,10 +1,10 @@
 using Godot;
 
-public class SimpleDecoration : GDKnyttBaseObject
+public partial class SimpleDecoration : GDKnyttBaseObject
 {
     public override void _Ready()
     {
         base._Ready();
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("" + ObjectID.y);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("" + ObjectID.y);
     }
 }

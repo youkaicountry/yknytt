@@ -1,67 +1,91 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://r5y03uj200ox"]
 
-[ext_resource path="res://knytt/objects/bullets/flything_bullet.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Tiny Hit.wav" type="AudioStream" id=4]
+[ext_resource type="Texture2D" uid="uid://dj4esry4qteeg" path="res://knytt/objects/bullets/flything_bullet.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bullets/BaseBullet.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="AudioStream" uid="uid://dyejtxce0qbyo" path="res://knytt/data/Sfx/Tiny Hit.wav" id="4"]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 radius = 2.0
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 4, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(4, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 8, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(8, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 12, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
+region = Rect2(12, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
+region = Rect2(16, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 20, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
+region = Rect2(20, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
+region = Rect2(24, 0, 4, 5)
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 28, 0, 4, 5 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
+region = Rect2(28, 0, 4, 5)
 
-[sub_resource type="SpriteFrames" id=10]
-animations = [ {
-"frames": [ SubResource( 2 ) ],
+[sub_resource type="SpriteFrames" id="10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "disappear",
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
+"loop": false,
+"name": &"disappear",
 "speed": 15.0
-} ]
+}]
 
-[node name="Particle" instance=ExtResource( 2 )]
+[node name="Particle" instance=ExtResource("2")]
 collision_mask = 6145
 
 [node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="AnimatedSprite" parent="." index="1"]
-frames = SubResource( 10 )
-animation = "disappear"
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("10")
 
-[node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
+[node name="HitPlayer" parent="." index="2" instance=ExtResource("3")]
+stream = ExtResource("4")
+bus = &"SFX"

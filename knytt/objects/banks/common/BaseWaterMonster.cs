@@ -1,12 +1,12 @@
 using Godot;
 
-public abstract class BaseWaterMonster : GDKnyttBaseObject
+public abstract partial class BaseWaterMonster : GDKnyttBaseObject
 {
     [Export] int bullets = 0;
 
     protected virtual async void _on_ShotTimer_timeout_ext()
     {
-        var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         sprite.Play("prepare");
         await ToSignal(sprite, "animation_finished");
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();

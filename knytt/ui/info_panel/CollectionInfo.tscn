@@ -1,24 +1,17 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://knytt/ui/info_panel/CollectionInfo.cs" type="Script" id=1]
+[gd_scene format=3 uid="uid://b61dduoj4ix2w"]
 
 [node name="Control" type="Control"]
-rect_min_size = Vector2( 24, 24 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 3
+anchors_preset = 0
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 centered = false
 
 [node name="Label" type="Label" parent="."]
-margin_top = 2.0
-margin_right = 22.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+layout_mode = 0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}

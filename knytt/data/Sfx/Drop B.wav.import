@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Drop B.wav-6468143c3c738e1d12d09fa7680c0f90.sample"
+type="AudioStreamWAV"
+uid="uid://bfgltd2k2rflw"
+path="res://.godot/imported/Drop B.wav-6468143c3c738e1d12d09fa7680c0f90.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Drop B.wav"
-dest_files=[ "res://.import/Drop B.wav-6468143c3c738e1d12d09fa7680c0f90.sample" ]
+dest_files=["res://.godot/imported/Drop B.wav-6468143c3c738e1d12d09fa7680c0f90.sample"]
 
 [params]
 

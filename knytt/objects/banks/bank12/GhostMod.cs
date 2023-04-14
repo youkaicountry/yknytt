@@ -1,6 +1,6 @@
 using Godot;
 
-public class GhostMod : Node2D
+public partial class GhostMod : Node2D
 {
     [Export] bool flickering = true;
 
@@ -22,9 +22,9 @@ public class GhostMod : Node2D
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        if (flickering) { handleFlicker(delta); }
+        if (flickering) { handleFlicker((float)delta); }
     }
 
     private void handleFlicker(float delta)
@@ -37,7 +37,7 @@ public class GhostMod : Node2D
         }
 
         var m = parent.Modulate;
-        m.a += (flip_target - m.a) * change_fraction * delta;
+        m.A += (flip_target - m.A) * change_fraction * delta;
         parent.Modulate = m;
     }
 }

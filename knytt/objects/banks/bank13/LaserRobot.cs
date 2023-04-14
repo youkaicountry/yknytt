@@ -1,27 +1,27 @@
 using Godot;
 
-public class LaserRobot : GDKnyttBaseObject
+public partial class LaserRobot : GDKnyttBaseObject
 {
     private bool isOn = false;
     private float speed = -100;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        var diff = new Vector2(speed * delta, 0);
+        var diff = new Vector2(speed * (float)delta, 0);
         Translate(diff);
 
         var new_pos = Center + diff;
-        if (new_pos.x < GDArea.GlobalPosition.x) { collide(null, true); }
-        if (new_pos.x > GDArea.GlobalPosition.x + GDKnyttArea.Width) { collide(null, false); }
+        if (new_pos.X < GDArea.GlobalPosition.X) { collide(null, true); }
+        if (new_pos.X > GDArea.GlobalPosition.X + GDKnyttArea.Width) { collide(null, false); }
     }
 
-    private void collide(object body, bool is_on)
+    private void collide(Node2D body, bool is_on)
     {
         speed = is_on ? 50 : -100;
         GetNode<CollisionShape2D>("LaserArea/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<CollisionShape2D>("LeftLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<CollisionShape2D>("RightLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(is_on ? "on" : "off");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play(is_on ? "on" : "off");
         GetNode<AudioStreamPlayer2D>(is_on ? "OnPlayer" : "OffPlayer").Play();
     }
 }

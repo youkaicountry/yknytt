@@ -2,7 +2,7 @@ using Godot;
 using System;
 using YKnyttLib;
 
-public class GDKnyttBaseObject : Node2D
+public partial class GDKnyttBaseObject : Node2D
 {
     [Export] public string objectName;
 
@@ -44,7 +44,7 @@ public class GDKnyttBaseObject : Node2D
 
     protected virtual void _Initialize() { }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         // TODO: Check mode ( edit should be paused )
         if (OrganicEnemy) { updateOrganicEnemy(); }
@@ -80,9 +80,8 @@ public class GDKnyttBaseObject : Node2D
         if (body is Juni juni) { juniDie(juni); }
     }
 
-    protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool infiniteInertia = true,
-        bool excludeRaycastShapes = true, bool testOnly = false)
+    protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool testOnly = false)
     {
-        return Call("move_and_collide", relVec, infiniteInertia, excludeRaycastShapes, testOnly) as KinematicCollision2D;
+        return Call("move_and_collide", new Variant[]{relVec, testOnly}).As<KinematicCollision2D>();
     }
 }

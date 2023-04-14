@@ -1,26 +1,18 @@
 using Godot;
-using System.Collections.Generic;
 using YKnyttLib;
 
-public class GDAreaTiles : Node2D
+public partial class GDAreaTiles : Node2D
 {
-    public GDAreaLayer[] Layers { get; private set; }
+    public TileMap tileMapA;
+    public TileMap tileMapB;
 
     public void initTiles(GDKnyttArea area)
     {
-        var llayers = new List<GDAreaLayer>();
+        tileMapA = GetNode<TileMap>("TileMapA");
+        tileMapB = GetNode<TileMap>("TileMapB");
 
-        TileSet ta = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetA);
-        TileSet tb = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetB);
-
-        foreach (GDAreaLayer c in this.GetChildren())
-        {
-            llayers.Add(c);
-            c.initLayer(ta, tb);
-        }
-
-        // Render map
-        this.Layers = llayers.ToArray();
+        tileMapA.TileSet = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetA);
+        tileMapB.TileSet = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetB);
 
         for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
         {
@@ -36,27 +28,45 @@ public class GDAreaTiles : Node2D
             }
         }
 
-        if (area.Area.getExtraData("Overlay")?.ToLower() == "true") { Layers[2].ZIndex = 12; }
+        if (area.Area.getExtraData("Overlay")?.ToLower() == "true")
+        {
+            tileMapA.SetLayerZIndex(2, 12);
+            tileMapB.SetLayerZIndex(2, 12);
+        }
     }
 
     public void setTile(int layer, int x, int y, int tilenum)
     {
-        this.Layers[layer].setTile(x, y, tilenum);
+        TileMap tm;
+        if (tilenum < 128)
+        {
+            tm = tileMapB;
+        }
+        else
+        {
+            tilenum -= 128;
+            tm = tileMapA;
+        }
+
+        tm.SetCell(layer, new Vector2I(x, y), layer == 3 ? 1 : 0, 
+            new Vector2I(tilenum % GDKnyttAssetManager.TILESET_WIDTH, tilenum / GDKnyttAssetManager.TILESET_WIDTH));
     }
 
     public void deactivate()
     {
-        foreach (var layer in Layers)
+        for (int i = 0; i < tileMapA.GetLayersCount(); i++)
         {
-            layer.deactivate();
+            tileMapA.SetLayerEnabled(i, false);
+            tileMapB.SetLayerEnabled(i, false);
         }
     }
 
     public void activate()
     {
-        foreach (var layer in Layers)
+        for (int i = 0; i < tileMapA.GetLayersCount(); i++)
         {
-            layer.activate();
+            tileMapA.SetLayerEnabled(i, true);
+            tileMapB.SetLayerEnabled(i, true);
         }
     }
 }

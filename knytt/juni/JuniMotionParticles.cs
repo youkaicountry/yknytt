@@ -1,6 +1,6 @@
 using Godot;
 
-public class JuniMotionParticles : Node2D
+public partial class JuniMotionParticles : Node2D
 {
     int _climb_particle;
     int _climb_areas;
@@ -99,29 +99,29 @@ public class JuniMotionParticles : Node2D
     public void emitParticles(int p, Vector2 global_pos)
     {
         if (p < 0) { return; }
-        var p_node = ParticleScenes[p].Instance() as Node2D;
+        var p_node = ParticleScenes[p].Instantiate<Node2D>();
         p_node.GlobalPosition = global_pos;
         GetNode("Particles").AddChild(p_node);
     }
 
-    public void _on_ClimbParticles_area_shape_entered(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_ClimbParticles_area_shape_entered(int area_id, Node2D area, int area_shape, int self_shape)
     {
         ClimbParticle = ((IParticleFetch)area).ParticleType;
         _climb_areas++;
     }
 
-    public void _on_ClimbParticles_area_shape_exited(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_ClimbParticles_area_shape_exited(int area_id, Node2D area, int area_shape, int self_shape)
     {
         _climb_areas--;
     }
 
-    public void _on_GroundParticles_area_shape_entered(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_GroundParticles_area_shape_entered(int area_id, Node2D area, int area_shape, int self_shape)
     {
         GroundParticle = ((IParticleFetch)area).ParticleType;
         _ground_areas++;
     }
 
-    public void _on_GroundParticles_area_shape_exited(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_GroundParticles_area_shape_exited(int area_id, Node2D area, int area_shape, int self_shape)
     {
         _ground_areas--;
     }

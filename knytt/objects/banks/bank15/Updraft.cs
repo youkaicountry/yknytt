@@ -1,10 +1,10 @@
 using Godot;
 
-public class Updraft : GDKnyttBaseObject
+public partial class Updraft : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Frame = random.Next(12);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Frame = random.Next(12);
     }
 
     public void _on_Area2D_body_entered(Node body)

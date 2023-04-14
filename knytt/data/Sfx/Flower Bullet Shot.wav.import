@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Flower Bullet Shot.wav-0741b0367b1c947afe86d1a05dcf8bff.sample"
+type="AudioStreamWAV"
+uid="uid://ur8kla1jbecx"
+path="res://.godot/imported/Flower Bullet Shot.wav-0741b0367b1c947afe86d1a05dcf8bff.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Flower Bullet Shot.wav"
-dest_files=[ "res://.import/Flower Bullet Shot.wav-0741b0367b1c947afe86d1a05dcf8bff.sample" ]
+dest_files=["res://.godot/imported/Flower Bullet Shot.wav-0741b0367b1c947afe86d1a05dcf8bff.sample"]
 
 [params]
 

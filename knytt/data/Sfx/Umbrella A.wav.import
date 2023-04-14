@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Umbrella A.wav-4f8346608b7ca32204db526f4f65683d.sample"
+type="AudioStreamWAV"
+uid="uid://yo3updfoqllw"
+path="res://.godot/imported/Umbrella A.wav-4f8346608b7ca32204db526f4f65683d.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Umbrella A.wav"
-dest_files=[ "res://.import/Umbrella A.wav-4f8346608b7ca32204db526f4f65683d.sample" ]
+dest_files=["res://.godot/imported/Umbrella A.wav-4f8346608b7ca32204db526f4f65683d.sample"]
 
 [params]
 

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class LevelSelection : CanvasLayer
+public partial class LevelSelection : CanvasLayer
 {
     private WorldManager Manager { get; }
 
@@ -33,7 +33,7 @@ public class LevelSelection : CanvasLayer
     GameContainer game_container;
     ScrollBar games_scrollbar;
     FileHTTPRequest http_node;
-    HTTPRequest http_levels_node;
+    HttpRequest http_levels_node;
     GameButton download_button;
 
     public bool localLoad = false;
@@ -58,10 +58,10 @@ public class LevelSelection : CanvasLayer
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
-        games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
-        if (!localLoad) { games_scrollbar.Connect("value_changed", this, nameof(_on_GameContainter_scrolling)); }
+        games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollBar();
+        if (!localLoad) { games_scrollbar.ValueChanged += _on_GameContainter_scrolling; }
         http_node = GetNode<FileHTTPRequest>("FileHTTPRequest");
-        http_levels_node = GetNode<HTTPRequest>("RestHTTPRequest");
+        http_levels_node = GetNode<HttpRequest>("RestHTTPRequest");
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
@@ -150,14 +150,16 @@ public class LevelSelection : CanvasLayer
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; }
+        GD.Print($"{result} {response_code}");
+        if (result == (int)HttpRequest.Result.Success && response_code == 200) {; }
         else { connectionLost(); return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
-        if (json.Error != Error.Ok) { connectionLost(); return; }
+        var jsonObject = new Json();
+        var error = jsonObject.Parse(response);
+        if (error != Error.Ok) { connectionLost(); return; }
 
-        var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "results");
+        var world_infos = HTTPUtil.jsonArray(jsonObject.Data, "results");
         if (world_infos == null) { connectionLost(); return; }
         connectionLost(lost: false);
 
@@ -166,13 +168,13 @@ public class LevelSelection : CanvasLayer
             if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
         }
 
-        var worlds_total = HTTPUtil.jsonInt(json.Result, "count");
+        var worlds_total = HTTPUtil.jsonInt(jsonObject.Data, "count");
         game_container.fillStubs(worlds_total);
 
         requested_level = Math.Max(requested_level,
-            2 * (((int)games_scrollbar.RectSize.y) / GameContainer.BUTTON_HEIGHT) + 2);
+            2 * (((int)games_scrollbar.Size.Y) / GameContainer.BUTTON_HEIGHT) + 2);
 
-        next_page = HTTPUtil.jsonValue<string>(json.Result, "next");
+        next_page = HTTPUtil.jsonString(jsonObject.Data, "next");
         if (next_page != null && requested_level > game_container.GamesCount + world_infos.Count)
         {
             http_levels_node.Request(next_page);
@@ -180,9 +182,9 @@ public class LevelSelection : CanvasLayer
         }
     }
 
-    private void _on_GameContainter_scrolling(float value)
+    private void _on_GameContainter_scrolling(double value)
     {
-        requested_level = 2 * (((int)(value + games_scrollbar.RectSize.y)) / GameContainer.BUTTON_HEIGHT) + 2;
+        requested_level = 2 * (((int)(value + games_scrollbar.Size.Y)) / GameContainer.BUTTON_HEIGHT) + 2;
         if (next_page != null && requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
         {
             http_levels_node.Request(next_page);
@@ -199,7 +201,7 @@ public class LevelSelection : CanvasLayer
         return null;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
@@ -235,12 +237,11 @@ public class LevelSelection : CanvasLayer
     // Search the given directory for worlds
     private void discoverWorlds(string path, bool single_threaded)
     {
-        var wd = new Directory();
-        if (!wd.DirExists(path)) { discovery_over = true; return; }
-        var error = wd.Open(path);
-        if (error != Error.Ok) { discovery_over = true; return; }
+        var wd = DirAccess.Open(path);
+        if (wd == null) { discovery_over = true; return; }
 
-        wd.ListDirBegin(skipNavigational: true);
+        wd.IncludeNavigational = false;
+        wd.ListDirBegin();
         while (true)
         {
             string name = wd.GetNext();
@@ -296,7 +297,7 @@ public class LevelSelection : CanvasLayer
         string cache_dir = "user://Cache/" + GDKnyttAssetManager.extractFilename(world_dir);
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
-        if (new File().FileExists(ini_cache_name))
+        if (FileAccess.FileExists(ini_cache_name))
         {
             world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
         }
@@ -306,14 +307,12 @@ public class LevelSelection : CanvasLayer
             var ini_data = new IniData();
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
             GDKnyttAssetManager.ensureDirExists(cache_dir);
-            var f = new File();
-            f.Open(ini_cache_name, File.ModeFlags.Write);
+            using var f = FileAccess.Open(ini_cache_name, FileAccess.ModeFlags.Write);
             f.StoreString(ini_data.ToString());
-            f.Close();
         }
 
-        Texture icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");
-        var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
+        Texture2D icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");
+        var last_played = FileAccess.FileExists(played_flag_name) ? FileAccess.GetModifiedTime(played_flag_name) : 0;
 
         return new WorldEntry(icon, world_info, world_dir, last_played);
     }
@@ -327,7 +326,7 @@ public class LevelSelection : CanvasLayer
         string icon_cache_name = cache_dir + "/Icon.png";
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
-        if (new Directory().DirExists(cache_dir))
+        if (DirAccess.DirExistsAbsolute(cache_dir))
         {
             icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
             world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
@@ -348,21 +347,18 @@ public class LevelSelection : CanvasLayer
             ini_bin = binloader.GetFile("World.ini");
 
             GDKnyttAssetManager.ensureDirExists("user://Cache");
-            new Directory().MakeDir(cache_dir);
-            var f = new File();
-            f.Open(icon_cache_name, File.ModeFlags.Write);
-            f.StoreBuffer(icon_bin);
-            f.Close();
+            DirAccess.MakeDirAbsolute(cache_dir);
+            using var icon_file = FileAccess.Open(icon_cache_name, FileAccess.ModeFlags.Write);
+            icon_file.StoreBuffer(icon_bin);
 
             var ini_data = new IniData();
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
-            f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreString(ini_data.ToString());
-            f.Close();
+            using var ini_cache_file = FileAccess.Open(ini_cache_name, FileAccess.ModeFlags.Write);
+            ini_cache_file.StoreString(ini_data.ToString());
         }
 
-        Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
-        var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
+        Texture2D icon = GDKnyttAssetManager.loadTexture(icon_bin);
+        var last_played = FileAccess.FileExists(played_flag_name) ? FileAccess.GetModifiedTime(played_flag_name) : 0;
 
         return new WorldEntry(icon, world_info, world_dir, last_played);
     }
@@ -380,13 +376,13 @@ public class LevelSelection : CanvasLayer
     {
         WorldEntry world_info = new WorldEntry();
         world_info.HasServerInfo = true;
-        world_info.Name = HTTPUtil.jsonValue<string>(json_item, "name");
-        world_info.Author = HTTPUtil.jsonValue<string>(json_item, "author");
-        world_info.Description = HTTPUtil.jsonValue<string>(json_item, "description");
-        var base64_icon = HTTPUtil.jsonValue<string>(json_item, "icon");
+        world_info.Name = HTTPUtil.jsonString(json_item, "name");
+        world_info.Author = HTTPUtil.jsonString(json_item, "author");
+        world_info.Description = HTTPUtil.jsonString(json_item, "description");
+        var base64_icon = HTTPUtil.jsonString(json_item, "icon");
         world_info.Icon = base64_icon != null && base64_icon.Length > 0 ?
             GDKnyttAssetManager.loadTexture(decompress(Convert.FromBase64String(base64_icon))) : null;
-        world_info.Link = HTTPUtil.jsonValue<string>(json_item, "link");
+        world_info.Link = HTTPUtil.jsonString(json_item, "link");
         world_info.FileSize = HTTPUtil.jsonInt(json_item, "file_size");
         world_info.Upvotes = HTTPUtil.jsonInt(json_item, "upvotes");
         world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
@@ -408,7 +404,7 @@ public class LevelSelection : CanvasLayer
         return output.ToArray();
     }
 
-    private bool verifyDirWorld(Directory dir, string name)
+    private bool verifyDirWorld(DirAccess dir, string name)
     {
         if (name.Equals(".") || name.Equals("..")) { return false; }
         if (dir.FileExists($"{name}/_do_not_load_")) { return false; }
@@ -464,7 +460,7 @@ public class LevelSelection : CanvasLayer
         else
         {
             ClickPlayer.Play();
-            var info_screen = info_scene.Instance() as InfoScreen;
+            var info_screen = info_scene.Instantiate<InfoScreen>();
             info_screen.initialize(button.worldEntry.Path);
             info_screen.worldEntry = button.worldEntry;
             this.GetParent().AddChild(info_screen);
@@ -478,10 +474,10 @@ public class LevelSelection : CanvasLayer
 
     private void _on_FileHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200)
+        if (result == (int)HttpRequest.Result.Success && response_code == 200)
         {
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
-            new Directory().Rename(http_node.DownloadFile, final_filename);
+            DirAccess.RenameAbsolute(http_node.DownloadFile, final_filename);
             var entry = generateBinWorld(final_filename);
 
             if (entry != null)
@@ -494,7 +490,7 @@ public class LevelSelection : CanvasLayer
             }
             else
             {
-                new Directory().Remove(final_filename);
+                DirAccess.RemoveAbsolute(final_filename);
                 download_button.markFailed();
             }
         }

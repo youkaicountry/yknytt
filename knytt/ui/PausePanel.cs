@@ -1,6 +1,6 @@
 using Godot;
 
-public class PausePanel : Control
+public partial class PausePanel : Control
 {
     PackedScene settings_scene;
     bool bounce = true;
@@ -20,7 +20,7 @@ public class PausePanel : Control
         bounce = false;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("pause")) { unpause(); }
     }
@@ -28,7 +28,7 @@ public class PausePanel : Control
     public override void _Notification(int what)
     {
         if (bounce) { return; }
-        if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
+        if (what == NotificationWMGoBackRequest) { unpause(); }
     }
 
     private void pause()
@@ -52,7 +52,7 @@ public class PausePanel : Control
     {
         ClickPlayer.Play();
         GDKnyttSettings.setupViewport(for_ui: true);
-        var settings_node = this.settings_scene.Instance() as SettingsScreen;
+        var settings_node = this.settings_scene.Instantiate<SettingsScreen>();
         settings_node.CleanupViewport = true;
         GetParent().AddChild(settings_node);
     }
@@ -73,6 +73,6 @@ public class PausePanel : Control
         await ToSignal(fade, "FadeDone");
 
         GetTree().Paused = false;
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        GetTree().ChangeSceneToFile("res://knytt/ui/MainMenu.tscn");
     }
 }

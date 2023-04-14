@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Spike Down.wav-802da8958f11d3f9e5f67e2ad02d006f.sample"
+type="AudioStreamWAV"
+uid="uid://2pjipxw3qlj1"
+path="res://.godot/imported/Spike Down.wav-802da8958f11d3f9e5f67e2ad02d006f.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Spike Down.wav"
-dest_files=[ "res://.import/Spike Down.wav-802da8958f11d3f9e5f67e2ad02d006f.sample" ]
+dest_files=["res://.godot/imported/Spike Down.wav-802da8958f11d3f9e5f67e2ad02d006f.sample"]
 
 [params]
 

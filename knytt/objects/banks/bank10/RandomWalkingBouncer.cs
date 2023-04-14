@@ -1,4 +1,4 @@
-public class RandomWalkingBouncer : WalkingBouncer
+public partial class RandomWalkingBouncer : WalkingBouncer
 {
     private void _on_JumpTimer_timeout()
     {

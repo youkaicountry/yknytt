@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Self Dropper Land.wav-4c582d08da129e4bcada06a6c7a97611.sample"
+type="AudioStreamWAV"
+uid="uid://bltrxlxa5kuk2"
+path="res://.godot/imported/Self Dropper Land.wav-4c582d08da129e4bcada06a6c7a97611.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Self Dropper Land.wav"
-dest_files=[ "res://.import/Self Dropper Land.wav-4c582d08da129e4bcada06a6c7a97611.sample" ]
+dest_files=["res://.godot/imported/Self Dropper Land.wav-4c582d08da129e4bcada06a6c7a97611.sample"]
 
 [params]
 

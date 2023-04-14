@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank5/shadow_girl.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/banks/bank5/shadow_girl.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/banks/bank5/ShadowGirl.cs" type="Script" id=3]
 
@@ -79,8 +79,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1.4 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.219608 ) ]
 }
@@ -95,28 +95,28 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1.4 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0.219608 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 11, 22 )
+size = Vector2(22, 44)
 
 [node name="Muff" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 directionChangeTime = 5.12
 speedChangeTime = 2.36
 initialSpeed = 3
-speedValues = PoolIntArray( 0, 3 )
+speedValues = PackedInt32Array( 0, 3 )
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 modulate = Color( 1, 1, 1, 0.219608 )
 frames = SubResource( 14 )
 animation = "walk"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" index="0"]
 anims/appear = SubResource( 15 )
 anims/disappear = SubResource( 16 )
 

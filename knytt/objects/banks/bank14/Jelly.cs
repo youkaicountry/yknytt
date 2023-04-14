@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Jelly : Muff
+public partial class Jelly : Muff
 {
     [Export] int jellySpeed = 0;
 

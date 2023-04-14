@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank4/Spider.cs" type="Script" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
 
-[node name="Spider" type="KinematicBody2D"]
+[node name="Spider" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2560
 script = ExtResource( 4 )
@@ -12,7 +12,7 @@ OrganicEnemy = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -1,6 +1,6 @@
 using Godot;
 
-public class InsideDetector : Area2D
+public partial class InsideDetector : Area2D
 {
     int inside = 0; // Number of sticky zones covering Juni
     public bool IsInside

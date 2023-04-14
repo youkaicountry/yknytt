@@ -1,6 +1,8 @@
-public class LiquidPoolDeadly : LiquidPool
+using Godot;
+
+public partial class LiquidPoolDeadly : LiquidPool
 {
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node2D body)
     {
         switch (body)
         {
@@ -10,3 +12,4 @@ public class LiquidPoolDeadly : LiquidPool
         }
     }
 }
+

@@ -1,6 +1,6 @@
 using Godot;
 
-public class BigSpiker : GesturesObject
+public partial class BigSpiker : GesturesObject
 {
     [Export] Vector2 openOffset = Vector2.Zero;
 

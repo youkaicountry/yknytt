@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Knytt Run (troupe).wav-3e53a1c4083db1287f77103c6e2bf073.sample"
+type="AudioStreamWAV"
+uid="uid://jwfsl6ntf3dq"
+path="res://.godot/imported/Knytt Run (troupe).wav-3e53a1c4083db1287f77103c6e2bf073.sample"
 
 [deps]
 
 source_file="res://knytt/data/Sfx/Knytt Run (troupe).wav"
-dest_files=[ "res://.import/Knytt Run (troupe).wav-3e53a1c4083db1287f77103c6e2bf073.sample" ]
+dest_files=["res://.godot/imported/Knytt Run (troupe).wav-3e53a1c4083db1287f77103c6e2bf073.sample"]
 
 [params]
 

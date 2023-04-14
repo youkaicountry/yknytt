@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GDKnyttDataStore : Node
+public partial class GDKnyttDataStore : Node
 {
     public static Random random = new Random();
     public static GDKnyttWorldImpl KWorld { get; set; }
@@ -20,14 +20,14 @@ public class GDKnyttDataStore : Node
     public static string CutsceneSound { get; private set; }
 
     const int BaseIterations = 60;
-    public static float CurrentSpeed
+    public static double CurrentSpeed
     {
         get { return Godot.Engine.TimeScale; }
         set
         {
             int iterations = (int)(BaseIterations * value);
             Godot.Engine.TimeScale = value;
-            Godot.Engine.IterationsPerSecond = iterations;
+            Godot.Engine.PhysicsTicksPerSecond = iterations;
         }
     }
 
@@ -44,7 +44,7 @@ public class GDKnyttDataStore : Node
             CutsceneFadeIn = true;
             startCutscene("Intro", "res://knytt/GDKnyttGame.tscn");
         }
-        else { Tree.ChangeScene("res://knytt/GDKnyttGame.tscn"); }
+        else { Tree.ChangeSceneToFile("res://knytt/GDKnyttGame.tscn"); }
     }
 
     public static void winGame(string ending = "Ending")
@@ -60,8 +60,8 @@ public class GDKnyttDataStore : Node
         CutsceneAfter = after;
         CutsceneReturn = null;
         CutsceneSound = null;
-        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
-        Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
+        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeSceneToFile(after); return; }
+        Tree.ChangeSceneToFile("res://knytt/ui/Cutscene.tscn");
     }
 
     public static void playCutscene(string cutscene, string sound)
@@ -79,7 +79,7 @@ public class GDKnyttDataStore : Node
         }
         Tree.Paused = true;
         Tree.Root.RemoveChild(Tree.CurrentScene);
-        Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
+        Tree.ChangeSceneToFile("res://knytt/ui/Cutscene.tscn");
     }
 }
 
