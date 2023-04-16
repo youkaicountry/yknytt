@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/banks/bank4/Spider.cs" type="Script" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
 
-[node name="Spider" type="CharacterBody2D"]
+[node name="Spider" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 2560
 script = ExtResource( 4 )

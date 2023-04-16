@@ -66,7 +66,7 @@ size = Vector2(22, 2)
 [sub_resource type="RectangleShape2D" id="9"]
 size = Vector2(22, 2)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 2048
 script = ExtResource("1")

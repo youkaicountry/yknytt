@@ -54,7 +54,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=11]
 size = Vector2(24, 10)
 
-[node name="CharacterBody2D" instance=ExtResource( 2 )]
+[node name="StaticBody2D" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 OrganicEnemy = true
 directions = PackedInt32Array( 4, 12, 20, 28 )

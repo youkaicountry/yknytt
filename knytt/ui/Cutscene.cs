@@ -55,7 +55,6 @@ public partial class Cutscene : CanvasLayer
     {
         current_scene += delta;
         Texture2D t = GDKnyttDataStore.KWorld.getWorldTexture(makeScenePath(current_scene)) as Texture2D;
-        //if (t != null) { t.Flags |= (uint)Texture2D.FlagsEnum.Filter; }
         GetNode<TextureRect>("Image").Texture = t;
         setupBackButton();
         setupNextButton();

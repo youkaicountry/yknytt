@@ -32,7 +32,6 @@ public partial class InfoScreen : CanvasLayer
                         KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture2D;
         if (info != null)
         {
-            //info.Flags |= (uint)Texture2D.FlagsEnum.Filter;
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 

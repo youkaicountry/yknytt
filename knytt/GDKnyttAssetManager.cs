@@ -106,7 +106,7 @@ public partial class GDKnyttAssetManager
         var image = new Image();
         var error = image.Load(path);
         if (error != Error.Ok) { return null; }
-        return image2Texture(image);
+        return ImageTexture.CreateFromImage(image);
     }
 
     public static Texture2D loadInternalTexture(string path)
@@ -120,7 +120,7 @@ public partial class GDKnyttAssetManager
         var image = new Image();
         var error = image.LoadPngFromBuffer(buffer);
         if (error != Error.Ok) { return null; }
-        return image2Texture(image);
+        return ImageTexture.CreateFromImage(image);
     }
 
     public static TileSet loadInternalTileset(string path)
@@ -138,14 +138,6 @@ public partial class GDKnyttAssetManager
     public static AudioStream loadExternalSound(string path, bool loop)
     {
         return loadOGG(loadFile(path), loop);
-    }
-
-    private static Texture2D image2Texture(Image image)
-    {
-        /*var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
-        return texture;*/
-        return ImageTexture.CreateFromImage(image);
     }
 
     public static string loadTextFile(byte[] buffer)

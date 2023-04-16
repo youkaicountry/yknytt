@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.cs" type="Script" id=1]
 
-[node name="Particle" type="CharacterBody2D"]
+[node name="Particle" type="StaticBody2D"]
 collision_layer = 8192
 collision_mask = 2049
 script = ExtResource( 1 )

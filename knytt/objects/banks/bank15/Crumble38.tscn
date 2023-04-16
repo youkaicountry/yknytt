@@ -158,7 +158,7 @@ size = Vector2(22, 2)
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("18")
-animation = &"disappear"
+animation = &"default"
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(12, -1)

@@ -91,7 +91,7 @@ public partial class GDObjectLayers : Node2D
                     case CollisionShape2D shape: shape.SetDeferred("disabled", true); break;
                     case CollisionPolygon2D polygon: polygon.SetDeferred("disabled", true); break;
                     case Area2D area: area.CollisionLayer = 0; area.CollisionMask = 0; break;
-                    case PhysicsBody2D body: body.CollisionLayer = 0; body.CollisionMask = 0; break;
+                    case CollisionObject2D body: body.CollisionLayer = 0; body.CollisionMask = 0; break;
                 }
             }
         }

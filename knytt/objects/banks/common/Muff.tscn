@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://knytt/objects/banks/common/Muff.cs" id="1"]
 
-[node name="Muff" type="CharacterBody2D"]
+[node name="Muff" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 2560
 script = ExtResource("1")

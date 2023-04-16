@@ -13,9 +13,9 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 12, 12 )
 shape = SubResource( 1 )

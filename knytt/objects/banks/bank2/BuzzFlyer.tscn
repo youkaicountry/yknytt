@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/banks/bank2/BuzzFlyer.cs" type="Script" id=1]
 
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 3072
 script = ExtResource( 1 )

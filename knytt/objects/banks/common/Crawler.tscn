@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/objects/banks/common/Crawler.cs" type="Script" id=1]
 
-[node name="Crawler" type="CharacterBody2D"]
+[node name="Crawler" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 2560
 script = ExtResource( 1 )

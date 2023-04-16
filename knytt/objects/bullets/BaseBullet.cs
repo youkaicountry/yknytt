@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class BaseBullet : CharacterBody2D
+public partial class BaseBullet : StaticBody2D
 {
     private float _velocity;
     private float _velocity_x;
@@ -13,7 +13,7 @@ public partial class BaseBullet : CharacterBody2D
     private bool _enabled;
     private int _enable_countdown;
 
-    public new float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
+    public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return _gravity; } set { _gravity = value; } }
     public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
     public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }

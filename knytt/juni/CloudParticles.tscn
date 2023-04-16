@@ -1,31 +1,31 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://dobir3vtjk1xc"]
 
-[ext_resource path="res://knytt/juni/circle.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/juni/CloudParticles.cs" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://dotvwqbgfgr1i" path="res://knytt/juni/circle.png" id="1"]
+[ext_resource type="Script" path="res://knytt/juni/CloudParticles.cs" id="2"]
 
-[sub_resource type="Gradient" id=1]
-colors = PackedColorArray( 1, 1, 1, 0.607843, 1, 1, 1, 0 )
+[sub_resource type="Gradient" id="1"]
+colors = PackedColorArray(1, 1, 1, 0.607843, 1, 1, 1, 0)
 
 [node name="CloudParticle" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 1
 lifetime = 0.6
 one_shot = true
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 emission_shape = 1
 emission_sphere_radius = 3.0
-direction = Vector2( 0, -1 )
+direction = Vector2(0, -1)
 spread = 20.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 33.33
-initial_velocity_random = 0.5
-linear_accel = 38.1
-linear_accel_random = 0.2
-tangential_accel = -30.48
-tangential_accel_random = 0.55
-scale_amount = 0.13
-scale_amount_random = 0.22
-color_ramp = SubResource( 1 )
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 41.0
+linear_accel_min = 35.0
+linear_accel_max = 42.0
+tangential_accel_min = -37.0
+tangential_accel_max = -22.0
+scale_amount_min = 0.13
+scale_amount_max = 0.35
+color_ramp = SubResource("1")

@@ -127,7 +127,6 @@ _data = {
 }
 
 [node name="Console" type="CanvasLayer"]
-process_mode = 2
 layer = 20
 script = ExtResource("1")
 
@@ -137,6 +136,7 @@ layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 240.0
+grow_horizontal = 2
 
 [node name="Panel" type="Panel" parent="ConsoleContainer"]
 layout_mode = 0
@@ -150,6 +150,11 @@ anchor_top = 0.005
 anchor_right = 0.995
 anchor_bottom = 0.995
 offset_bottom = -34.0
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
 scroll_following = true
 
@@ -160,7 +165,7 @@ offset_top = 213.0
 offset_right = 598.0
 offset_bottom = 238.0
 theme_override_font_sizes/font_size = 12
-text = "Te"
+placeholder_text = "Text"
 caret_blink = true
 caret_blink_interval = 0.5
 

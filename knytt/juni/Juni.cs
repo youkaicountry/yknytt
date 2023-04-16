@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using YKnyttLib;
 using YKnyttLib.Logging;
 using YUtil.Math;
@@ -209,6 +210,9 @@ public partial class Juni : CharacterBody2D
             if (Sticky) { return 0; }
             if (juniInput.RightHeld) { d = 1; FacingRight = true; }
             else if (juniInput.LeftHeld) { d = -1; FacingRight = false; }
+            //if (juniInput.RightHeld || juniInput.LeftHeld) {GD.Print($"{Velocity} (attempt {velocity}) {CurrentState} {GetFloorNormal()} {IsOnFloor()} && !{juniInput.JumpEdge} && !{CanClimb}");}
+            // bug with (-160, 11.250002) (attempt (-160, 11.250002)) WalkRunState (-0.8, -0.6) True && !False && !False
+            // (-175, 0) (attempt (-175, 18.750002)) WalkRunState (0, -1) True && !False && !False
             return d;
         }
     }
@@ -314,7 +318,6 @@ public partial class Juni : CharacterBody2D
         Umbrella.reset();
         Anim = Sprite2D.GetNode<AnimationPlayer>("AnimationPlayer");
         transitionState(new IdleState(this));
-        //DebugFlyMode = true;
     }
 
     public void OnConsoleOpen()
@@ -445,14 +448,12 @@ public partial class Juni : CharacterBody2D
         else
         {
             var normal = Godot.Vector2.Up;
-            var snap = Godot.Vector2.Zero;
 
             // If on the floor, and not about to jump / climb
             if (IsOnFloor() && !juniInput.JumpEdge && !CanClimb)
             {
                 // change the direction of gravity
                 normal = GetFloorNormal();
-                snap = -normal * 10f;
                 var gravity = velocity.Y;
                 velocity.Y = 0f;
                 velocity -= gravity * normal;
@@ -460,16 +461,12 @@ public partial class Juni : CharacterBody2D
 
             // Do the movement in two steps to avoid hanging up on tile seams
             Velocity = velocity;
-            FloorSnapLength = 10f;
-            FloorStopOnSlope = true;
-            FloorMaxAngle = SLOPE_MAX_ANGLE;
+            UpDirection = normal;
             MoveAndSlide();
-
-            //velocity.X = MoveAndSlideWithSnap(new Godot.Vector2(velocity.X, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).X;
-            //velocity.Y = MoveAndSlide(new Godot.Vector2(0, velocity.Y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).Y;
         }
 
-        if (GetSlideCollisionCount() > 0 && GetSlideCollision(0).GetCollider() is BaseBullet) { die(); }
+        //if (GetSlideCollisionCount() > 0 && GetSlideCollision(0).GetCollider() is BaseBullet) { die(); }
+        if (Enumerable.Range(0, GetSlideCollisionCount()).Any(i => GetSlideCollision(i).GetCollider() is BaseBullet)) { die(); }
     }
 
     private void processFlyMode(float delta)

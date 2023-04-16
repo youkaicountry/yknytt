@@ -253,7 +253,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="19"]
-size = Vector2(1.1274, 10.196)
+size = Vector2(1.127, 16.5)
 
 [sub_resource type="Gradient" id="20"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -271,17 +271,22 @@ size = Vector2(4, 14)
 process_priority = -1
 z_index = 8
 z_as_relative = false
+position = Vector2(-1, 0)
 collision_mask = 2147491846
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_max_angle = 3.14159
+floor_snap_length = 10.0
 script = ExtResource("3")
 
 [node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-5, -8, -2, -8, -2, 8.6, -5, 8.6)
+polygon = PackedVector2Array(-5, -8, -2, -8, -2, 8.6, -5, 7)
 
 [node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-2, -8, 2, -8, 2, 8.6, -2, 8.6)
 
 [node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(2, -8, 5, -8, 5, 8.6, 2, 8.6)
+polygon = PackedVector2Array(2, -8, 5, -8, 5, 7, 2, 8.6)
 
 [node name="Umbrella" type="AnimatedSprite2D" parent="."]
 position = Vector2(3.7, -3.95)
@@ -419,6 +424,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2(0, -25)
+initial_velocity_min = 12.0
+initial_velocity_max = 20.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
@@ -433,6 +440,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2(0, -25)
+initial_velocity_min = 12.0
+initial_velocity_max = 20.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
@@ -447,6 +456,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2(0, -25)
+initial_velocity_min = 12.0
+initial_velocity_max = 20.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
@@ -461,6 +472,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2(0, -25)
+initial_velocity_min = 12.0
+initial_velocity_max = 20.0
 color_ramp = SubResource("20")
 
 [node name="Detector" type="Sprite2D" parent="."]

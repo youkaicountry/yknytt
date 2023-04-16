@@ -50,7 +50,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=11]
 size = Vector2(24, 14)
 
-[node name="CharacterBody2D" instance=ExtResource( 2 )]
+[node name="StaticBody2D" instance=ExtResource( 2 )]
 directions = PackedInt32Array( 11, 5 )
 bulletsCount = 15
 

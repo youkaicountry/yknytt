@@ -33,7 +33,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=7]
 radius = 9.0
 
-[node name="CharacterBody2D" instance=ExtResource( 1 )]
+[node name="StaticBody2D" instance=ExtResource( 1 )]
 OrganicEnemy = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
