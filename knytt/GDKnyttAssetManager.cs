@@ -71,7 +71,7 @@ public partial class GDKnyttAssetManager
                 // Preprocess the texture if no alpha channel
                 TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t), true);
                 ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
-                ResourceSaver.Save(new_tileset, cached_path, ResourceSaver.SaverFlags.Compress);
+                //ResourceSaver.Save(new_tileset, cached_path, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
             case TileSet ts: return ts;
             default: return null;
@@ -248,21 +248,9 @@ public partial class GDKnyttAssetManager
 
                     foreach (Vector2[] polygon in polygons)
                     {
-                        if (isConvex(polygon))
-                        {
-                            tile_data.AddCollisionPolygon(0);
-                            tile_data.SetCollisionPolygonPoints(0, tile_data.GetCollisionPolygonsCount(0) - 1, polygon);
-                        }
-                        else
-                        {
-                            int[] triangles = Geometry2D.TriangulatePolygon(polygon);
-                            for (int t = 0; t < triangles.Length; t += 3)
-                            {
-                                Vector2[] triangle = { polygon[triangles[t]], polygon[triangles[t + 1]], polygon[triangles[t + 2]] };
-                                tile_data.AddCollisionPolygon(0);
-                                tile_data.SetCollisionPolygonPoints(0, tile_data.GetCollisionPolygonsCount(0) - 1, polygon);
-                            }
-                        }
+                        (bool convex, bool clockwise) = isConvex(polygon);
+                        tile_data.AddCollisionPolygon(0);
+                        tile_data.SetCollisionPolygonPoints(0, tile_data.GetCollisionPolygonsCount(0) - 1, convex ? polygon : smoothPolygon(polygon, clockwise));
                     }
                 }
             }
@@ -294,7 +282,43 @@ public partial class GDKnyttAssetManager
         //return polygons;
     }
 
-    private static bool isConvex(Vector2[] vertices)
+    private static (bool, bool) isConvex(Vector2[] vertices)
+    {
+        int got_negative = 0;
+        int got_positive = 0;
+		float sum = 0;
+        for (int a = 0; a < vertices.Length; a++)
+        {
+            int b = (a + 1) % vertices.Length;
+            int c = (a + 2) % vertices.Length;
+            float cross_product = crossProduct(vertices[a], vertices[b], vertices[c]);
+            if (cross_product < 0) { got_negative += 1; }
+            if (cross_product > 0) { got_positive += 1; }
+			sum += (vertices[b].X - vertices[a].X) * (vertices[b].Y + vertices[a].Y);
+            //if (got_negative && got_positive) { return false; }
+        }
+		//GD.Print($"{sum} {got_negative} {got_positive}");
+		return (got_negative == 0 || got_positive == 0, sum > 0);
+    }
+
+    private static Vector2[] smoothPolygon(Vector2[] vertices, bool clockwise)
+    {
+        var result = new List<Vector2>();
+        for (int b = 0; b < vertices.Length; b++)
+        {
+            Vector2 valid_a = result.Count > 0 ? result.Last() : vertices.Last();
+            int c = (b + 1) % vertices.Length;
+            float cross_product = crossProduct(valid_a, vertices[b], vertices[c]);
+            if ((cross_product < 0 && clockwise) || (cross_product > 0 && !clockwise))
+            {
+                if (valid_a.DistanceTo(vertices[c]) < 10) { continue; }
+            }
+            result.Add(vertices[b]);
+        }
+        return result.ToArray();
+    }
+
+    /*private static bool isConvex(Vector2[] vertices)
     {
         // TODO: return true for polygons which are almost convex, or their recesses are too small
         //  (because unnecessary triangles inflate tilesets)
@@ -310,7 +334,7 @@ public partial class GDKnyttAssetManager
             if (got_negative && got_positive) { return false; }
         }
         return true;
-    }
+    }*/
 
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {

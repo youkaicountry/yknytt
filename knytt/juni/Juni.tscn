@@ -253,7 +253,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="19"]
-size = Vector2(1.127, 16.5)
+size = Vector2(1.127, 14)
 
 [sub_resource type="Gradient" id="20"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -275,7 +275,7 @@ position = Vector2(-1, 0)
 collision_mask = 2147491846
 slide_on_ceiling = false
 floor_constant_speed = true
-floor_max_angle = 3.14159
+floor_max_angle = 1.309
 floor_snap_length = 10.0
 script = ExtResource("3")
 
