@@ -188,6 +188,10 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_15="ParticleMapping"
 2d_physics/windows_native_icon="res://knytt/icons/winicon.ico"
 
+[mono]
+
+project/assembly_name="YKnytt"
+
 [physics]
 
 common/physics_jitter_fix=0.25
