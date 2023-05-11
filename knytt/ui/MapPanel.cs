@@ -154,8 +154,8 @@ public class MapPanel : Panel
     private void drag(Vector2 diff)
     {
         var candidate = RectPosition + diff;
-        Vector2 up_left = new Vector2(20, 20) + RectPivotOffset * (RectScale - new Vector2(1, 1));
-        Vector2 bottom_right = -(new Vector2(20, 20) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - new Vector2(1, 1));
+        Vector2 up_left = new Vector2(BORDER, BORDER) + RectPivotOffset * (RectScale - new Vector2(1, 1));
+        Vector2 bottom_right = -(new Vector2(BORDER, BORDER) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - new Vector2(1, 1));
         if (diff.x > 0 && candidate.x > up_left.x) { diff = new Vector2(0, diff.y); }
         if (diff.y > 0 && candidate.y > up_left.y) { diff = new Vector2(diff.x, 0); }
         if (diff.x < 0 && candidate.x < bottom_right.x)  { diff = new Vector2(0, diff.y); }
