@@ -83,16 +83,27 @@ namespace YKnyttLib
         {
             GZipStream gz = new GZipStream(map, CompressionMode.Decompress);
 
+            // Beginning of a map might be empty
+            int start_byte = gz.ReadByte();
+            if (start_byte == 0)
+            {
+                uint offset = (uint)gz.ReadByte() + ((uint)gz.ReadByte() << 8) + ((uint)gz.ReadByte() << 16) + ((uint)gz.ReadByte() << 24);
+                KnyttArea.skipBytes(gz, offset);
+                start_byte = gz.ReadByte();
+            }
+
             var areas = new List<KnyttArea>();
 
             // Area definition starts with an 'x' character
-            while (gz.ReadByte() == 'x')
+            while (start_byte == 'x')
             {
                 var area = new KnyttArea(gz, this);
                 areas.Add(area);
 
                 this.MinBounds = this.MinBounds.min(area.Position);
                 this.MaxBounds = this.MaxBounds.max(area.Position);
+
+                start_byte = gz.ReadByte();
             }
 
             // Set the map

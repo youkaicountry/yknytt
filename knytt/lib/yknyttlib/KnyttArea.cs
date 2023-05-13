@@ -230,9 +230,19 @@ namespace YKnyttLib
             return int.Parse(sb.ToString());
         }
 
-        private static void skipBytes(Stream map, int size)
+        private static byte[] buf = new byte[64];
+
+        public static void skipBytes(Stream map, uint size)
         {
-            for (int i = 0; i < size; i++)
+            int total_bytes_read = 0;
+            while (size - total_bytes_read >= buf.Length)
+            {
+                int bytes_read = map.Read(buf, 0, buf.Length);
+                total_bytes_read += bytes_read;
+                if (bytes_read == 0) { return; }
+            }
+
+            for (int i = total_bytes_read; i < size; i++)
             {
                 map.ReadByte();
             }
