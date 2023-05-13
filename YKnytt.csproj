@@ -289,10 +289,4 @@
     <Compile Include="knytt\lib\yknyttlib\Logging\KnyttLogger.cs" />
     <Compile Include="knytt\lib\yknyttlib\Logging\KnyttLogMessage.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="knytt\lib\yknyttlib\YKnyttLib\YKnyttLib.csproj">
-      <Project>{943E0270-0FE6-42D6-8A0F-219CC072EA02}</Project>
-      <Name>YKnyttLib</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
