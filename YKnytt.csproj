@@ -264,6 +264,30 @@
     <Compile Include="knytt\ui\WorldManager.cs" />
     <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="knytt\lib\yknyttlib\JuniValues.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttBinWorldLoader.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttSave.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttArea.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttSwitch.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttTrigger.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttUtil.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttWarp.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttPoint.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttWorld.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttWorldInfo.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttShift.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Paging\KnyttPagingPolicy.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Paging\KnyttRectPaging.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\ICommand.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\CommandArg.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\CommandDeclaration.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\CommandParser.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\CommandParseResult.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\CommandSet.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Parser\ParseResults.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Logging\IKnyttLoggerTarget.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Logging\KnyttLogger.cs" />
+    <Compile Include="knytt\lib\yknyttlib\Logging\KnyttLogMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="knytt\lib\yknyttlib\YKnyttLib\YKnyttLib.csproj">

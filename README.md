@@ -18,15 +18,13 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ### Building
 
-Requires Godot 3.4.4.stable.mono
+Requires Godot 3.5.2.stable.mono and .NET Framework 4.7.2 Developer Pack for Windows (or mono-devel for Linux)
 
-Make sure to fetch / update submodules:
-
-`git submodule update --init --recursive`
+Also has Godot 4 branch in development: this one requires Godot 4.0.2.stable.mono and .NET SDK >= 6.0
 
 #### Export settings
 
-To properly export, `*.raw, knytt/worlds/*` must be included in the export filters
+To properly export, `knytt/worlds/*` must be included in the export filters
 
 To build a proper Android APK, activate the "Internet" permission.
 
