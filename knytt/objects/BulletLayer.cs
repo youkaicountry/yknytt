@@ -14,7 +14,7 @@ public class BulletLayer : Node2D
     private readonly Dictionary<string, int> bulletsLimit = new Dictionary<string, int>()
     {
         ["CauldronSpike"] = 20,
-        ["ShockWave"] = 40,
+        ["ShockWave"] = 100,
         ["DropStuff"] = 500,
         ["RollBullet"] = 15,
         ["BlueBullet"] = 2,

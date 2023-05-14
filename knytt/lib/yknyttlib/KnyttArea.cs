@@ -244,7 +244,7 @@ namespace YKnyttLib
 
             for (int i = total_bytes_read; i < size; i++)
             {
-                map.ReadByte();
+                if (map.ReadByte() == -1) { return; }
             }
         }
 
