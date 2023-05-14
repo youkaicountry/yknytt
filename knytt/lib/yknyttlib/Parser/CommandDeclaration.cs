@@ -5,7 +5,7 @@ namespace YKnyttLib.Parser
 {
     public class CommandDeclaration
     {
-		public delegate ICommand CommandInstantiation(CommandParseResult result);
+        public delegate ICommand CommandInstantiation(CommandParseResult result);
 
         public string Name { get; }
         public string Description { get; }
@@ -15,26 +15,26 @@ namespace YKnyttLib.Parser
 
         public CommandDeclaration(string name, string description, bool hidden, CommandInstantiation instantiation, params CommandArg[] args)
         {
-			var req = true;
-			foreach (var arg in args)
+            var req = true;
+            foreach (var arg in args)
             {
-				if (!arg.Optional)
+                if (!arg.Optional)
                 {
-					if (!req)
-					{
-						string m = "cannot have a non-optional argument following an optional";
-						KnyttLogger.Error(m);
-						throw new System.Exception(m);
-					}
+                    if (!req)
+                    {
+                        string m = "cannot have a non-optional argument following an optional";
+                        KnyttLogger.Error(m);
+                        throw new System.Exception(m);
+                    }
                 }
-				else { req = false; }
+                else { req = false; }
             }
 
-			Name = name;
-			Description = description;
-			Hidden = hidden;
-			Instantiation = instantiation;
-			Args = args;
+            Name = name;
+            Description = description;
+            Hidden = hidden;
+            Instantiation = instantiation;
+            Args = args;
         }
 
         public override string ToString()
