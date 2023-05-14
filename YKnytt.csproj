@@ -101,6 +101,7 @@
     <Compile Include="knytt\objects\banks\bank4\StrangeRunner.cs" />
     <Compile Include="knytt\objects\banks\bank8\Explosion.cs" />
     <Compile Include="knytt\objects\banks\bank8\MachinePart4.cs" />
+    <Compile Include="knytt\objects\banks\bank8\WhiteExplosion.cs" />
     <Compile Include="knytt\objects\banks\common\Crawler.cs" />
     <Compile Include="knytt\objects\banks\common\WalkingShooter.cs" />
     <Compile Include="knytt\objects\banks\common\WallNinja.cs" />

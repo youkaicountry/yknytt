@@ -216,7 +216,7 @@ Bank 8 (Decoration):
 [x] - 14 Machine Part 4
 [x] - 15 Explosion
 [ ] - 16
-[ ] - 17
+[x] - 17 White Explosion
 
 Bank 9 (Flowers):
 [x] -  1 Red Trap Flower
