@@ -59,6 +59,7 @@
     <Compile Include="knytt\objects\banks\bank2\BuzzFlyer.cs" />
     <Compile Include="knytt\objects\banks\bank2\FallPropellerDude.cs" />
     <Compile Include="knytt\objects\banks\bank2\Firefly.cs" />
+    <Compile Include="knytt\objects\banks\bank2\Fly.cs" />
     <Compile Include="knytt\objects\banks\bank2\HomingEnemy.cs" />
     <Compile Include="knytt\objects\banks\bank2\HomingFlything.cs" />
     <Compile Include="knytt\objects\banks\bank2\Humbird.cs" />
