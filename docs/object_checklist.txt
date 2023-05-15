@@ -60,8 +60,8 @@ Bank 1 (Liquids):
 Bank 2 (Flyers):
 [x] -  1 Flything
 [x] -  2 Bad Flything
-[ ] -  3
-[ ] -  4
+[x] -  3 Fly
+[x] -  4 Fly
 [x] -  5 Bad Flything 2
 [x] -  6 Homing Flything
 [x] -  7 Flything 2
