@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/objects/banks/bank7/Leaf.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.tscn" type="PackedScene" id=3]
+
+[node name="Node2D" instance=ExtResource( 1 )]
+yGenegrator = 1
+ySingle = 2
+
+[node name="SceneCPUParticles" parent="." index="0"]
+position = Vector2( 12, 12 )
+Lifetime = 25.0
+ParticleScene = ExtResource( 3 )
+Direction = 1.571
+DirectionVariation = 0.15
+Velocity = 20.0
+VelocityVariation = 10.0
+Gravity = 4.5
+GravityVariation = 0.5
+Drag = 0.08
+ParticleParams = "1"
+BrownianMotion = true
+BrownianX = 7.0
+BrownianXSpeed = 800.0
+BrownianY = 6.0
+BrownianYSpeed = 600.0
+BrownianExponent = 2.8

@@ -62,6 +62,7 @@ public class SceneCPUParticles : Node2D
 
     private void spawnParticle()
     {
+        // TODO: destroy if out of area and reuse it later
         var p = pinstance_scene.Instance() as SceneCPUParticleInstance;
         p.Lifetime = CalcVariation(Lifetime, LifetimeVariation);
         p.Velocity = MagnitudeVector(Direction, DirectionVariation, Velocity, VelocityVariation);

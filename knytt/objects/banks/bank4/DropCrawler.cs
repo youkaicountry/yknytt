@@ -2,7 +2,7 @@ using Godot;
 
 public class DropCrawler : Crawler
 {
-    private void _on_DistanceMod_EnterEvent()
+    private void _on_DistanceMod_EnterEvent() // TODO: check this, IsObjectSelected and timer.firstDelay / syncedRandomDelay
     {
         GDArea.Selector.Register(this);
     }

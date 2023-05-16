@@ -1,82 +1,18 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/SceneCPUParticles.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank7/Leaf.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/banks/bank7/Leaf.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/banks/common/SceneCPUParticles.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
 
-[node name="Leaf" type="Node2D"]
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+OrganicEnemy = null
+
+[node name="SceneCPUParticles" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="SceneCPUParticles1" parent="." instance=ExtResource( 1 )]
-position = Vector2( 12, 12 )
-Lifetime = 25.0
-ParticleScene = ExtResource( 3 )
-Direction = 2.94
-DirectionVariation = 0.15
-VelocityVariation = 10.0
-Gravity = 4.5
-GravityVariation = 0.5
-Drag = 0.08
-BrownianMotion = true
-BrownianX = 7.0
-BrownianXSpeed = 800.0
-BrownianY = 6.0
-BrownianYSpeed = 600.0
-BrownianExponent = 2.8
+[node name="SpawnTimer" parent="." instance=ExtResource( 3 )]
+syncedRandomDelay = true
+pickOne = true
 
-[node name="SceneCPUParticles6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 12, 12 )
-Lifetime = 25.0
-ParticleScene = ExtResource( 3 )
-Direction = 2.94
-DirectionVariation = 0.15
-Velocity = 20.0
-VelocityVariation = 10.0
-Gravity = 2.0
-GravityVariation = 0.5
-BrownianMotion = true
-BrownianX = 6.0
-BrownianXSpeed = 600.0
-BrownianY = 8.0
-BrownianYSpeed = 800.0
-BrownianExponent = 3.0
-
-[node name="SceneCPUParticles10" parent="." instance=ExtResource( 1 )]
-position = Vector2( 12, 12 )
-Lifetime = 25.0
-ParticleScene = ExtResource( 3 )
-Direction = 2.94
-DirectionVariation = 0.15
-Velocity = 30.0
-VelocityVariation = 10.0
-Gravity = 2.0
-GravityVariation = 0.5
-BrownianMotion = true
-BrownianX = 6.0
-BrownianXSpeed = 600.0
-BrownianY = 8.0
-BrownianYSpeed = 800.0
-BrownianExponent = 3.0
-
-[node name="SceneCPUParticles12" parent="." instance=ExtResource( 1 )]
-position = Vector2( 12, 12 )
-Lifetime = 25.0
-ParticleScene = ExtResource( 3 )
-Direction = 2.94
-DirectionVariation = 0.15
-Velocity = 8.0
-VelocityVariation = 2.0
-Gravity = 4.5
-GravityVariation = 0.5
-Drag = 0.08
-BrownianMotion = true
-BrownianX = 7.0
-BrownianXSpeed = 800.0
-BrownianY = 6.0
-BrownianYSpeed = 600.0
-BrownianExponent = 2.8
-
-[node name="SpawnTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout_ext" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout_ext"]
