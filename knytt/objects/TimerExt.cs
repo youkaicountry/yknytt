@@ -4,7 +4,7 @@ public class TimerExt : Timer
 {
     [Signal] public delegate void timeout_ext();
 
-    // Delay before firing first timeout_ext event. Set firstDelay = 0 to fire first timeout_ext immediately.
+    // Delay before firing first timeout_ext event. Set firstDelay = 0 to start main timer instead.
     [Export] float firstDelay = 0;
 
     // Set firstDelay to random value [0..WaitTime], shared for all objects of the same type
@@ -46,7 +46,7 @@ public class TimerExt : Timer
         }
         else
         {
-            _on_FirstDelayTimer_timeout();
+            base.Start();
         }
     }
 

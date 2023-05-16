@@ -47,13 +47,12 @@ public class ObjectSelector
             selections[type] = GDKnyttDataStore.random.NextElement(allObjects[type]);
         }
 
-        counters[type]++;
         bool is_selected = selections[type] == obj;
 
+        counters[type]++;
         if (counters[type] >= allObjects[type].Count)
         {
-            counters[type] = 0;
-            selections[type] = GDKnyttDataStore.random.NextElement(allObjects[type]);
+            selections[type] = null;
         }
 
         return is_selected;

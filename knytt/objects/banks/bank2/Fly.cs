@@ -44,7 +44,7 @@ public class Fly : GDKnyttBaseObject
             player.Play($"stop{ObjectID.y}");
             flying = false;
         }
-    }
+    } // TODO: destroy if touch water
 
     private void _on_FlyUpTimer_timeout()
     {
