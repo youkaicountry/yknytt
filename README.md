@@ -18,7 +18,7 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ### Building
 
-Requires Godot 3.5.2.stable.mono and .NET Framework 4.8.1 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.5.2.stable.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
 
 Also has Godot 4 branch in development: this one requires Godot 4.0.2.stable.mono and .NET SDK 6 or 7
 
