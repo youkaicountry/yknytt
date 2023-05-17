@@ -4,8 +4,8 @@ public class Raindrop : Node2D
 {
     [Export] float baseFallspeed = 420f;
     [Export] float variance = 60f;
+    [Export] public float max_distance = 100f;
     float speed;
-    public float max_distance = 100f;
     float distance = 0f;
     Sprite sprite;
     Rain rain;
@@ -67,10 +67,10 @@ public class Raindrop : Node2D
     {
         speed = 0f;
         sprite.Visible = false;
-        GetNode<CPUParticles2D>("Splash").Emitting = true;
-        var timer = GetNode<Timer>("SplashTimer");
-        timer.Start();
-        await ToSignal(timer, "timeout");
+        var splash = GetNode<AnimatedSprite>("Splash");
+        splash.Frame = 0;
+        splash.Play();
+        await ToSignal(splash, "animation_finished");
         retire();
     }
 }

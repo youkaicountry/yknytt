@@ -215,7 +215,6 @@
     <Compile Include="knytt\objects\banks\bank15\Door.cs" />
     <Compile Include="knytt\objects\banks\bank1\WaterBlock.cs" />
     <Compile Include="knytt\objects\banks\bank1\Waterfall.cs" />
-    <Compile Include="knytt\objects\banks\bank7\RaindropObject.cs" />
     <Compile Include="knytt\objects\banks\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />
     <Compile Include="knytt\GDAreaLayer.cs" />

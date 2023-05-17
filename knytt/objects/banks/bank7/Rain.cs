@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
+using YUtil.Random;
 
 public class Rain : GDKnyttBaseObject
 {
@@ -15,20 +16,21 @@ public class Rain : GDKnyttBaseObject
     {
         drop_scene = ResourceLoader.Load("res://knytt/objects/banks/bank7/Raindrop.tscn") as PackedScene;
         _drop_q = new Queue<Raindrop>();
+        GDArea.Selector.Register(this);
     }
 
     public override void _PhysicsProcess(float delta)
     {
         if (add_next != null && add_next.GetParent() == null && GetChildCount() < MAX_DROPS)
         {
-            add_next.Position = new Vector2((float)random.NextDouble() * GDKnyttAssetManager.TILE_WIDTH, 12f);
+            add_next.Position = new Vector2(random.NextFloat() * GDKnyttAssetManager.TILE_WIDTH, 12f);
             add_next.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
             add_next.reset(this);
             CallDeferred("add_child", add_next);
             add_next = null;
         }
 
-        if (add_next == null && ((float)random.NextDouble()) * .4f < delta)
+        if (GDArea.Selector.IsObjectSelected(this) && add_next == null && random.NextFloat(.025f) < delta)
         {
             add_next = nextRaindrop();
         }
