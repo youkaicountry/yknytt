@@ -131,9 +131,10 @@ public class GDKnyttArea : Node2D
     public void scheduleDeactivation(float delay = .5f)
     {
         Selector.IsOpen = false;
-        var timer = GetNode<Timer>("DeactivateTimer");
+        /*var timer = GetNode<Timer>("DeactivateTimer");
         timer.WaitTime = delay;
-        timer.Start();
+        timer.Start();*/ // Experimental, revert if buggy
+        deactivateArea();
     }
 
     public void regenerateArea(bool regenerate_same = false)
