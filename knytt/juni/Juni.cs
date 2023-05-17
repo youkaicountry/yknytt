@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using YKnyttLib;
 using YKnyttLib.Logging;
 using YUtil.Math;
@@ -15,7 +16,7 @@ public class Juni : KinematicBody2D
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
     MAX_SPEED_RUN = 175f,                       // Max speed while running
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
-    SLOPE_MAX_ANGLE = .81f,                     // The Maximum angle a floor can be before becoming a wall (TODO: This number is made up, research required)
+    SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
     UPDRAFT_FORCE = .15f,                       // The base updraft force exerted
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
@@ -32,6 +33,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
+    BUMP_Y_SPEED = -220f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f;                     // Speed at which Juni flies while in debug fly mode
@@ -64,8 +66,7 @@ public class Juni : KinematicBody2D
 
     public JuniValues Powers { get; }
 
-    public InsideDetector InsideDetector { get; private set; }
-    public ClimbCheckers ClimbCheckers { get; private set; }
+    public Checkers Checkers { get; private set; }
 
     public JuniMotionParticles MotionParticles { get; private set; }
 
@@ -150,7 +151,8 @@ public class Juni : KinematicBody2D
     public float TerminalVelocity { get { return Umbrella.Deployed ? (InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB) : TERM_VEL; } }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
-    public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? ClimbCheckers.RightColliding : ClimbCheckers.LeftColliding); } }
+    public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? Checkers.RightColliding : Checkers.LeftColliding); } }
+    public bool HasBump { get { return FacingRight ? Checkers.RightBump : Checkers.LeftBump; } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     public bool Grounded { get { return IsOnFloor(); } }
     public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
@@ -253,9 +255,8 @@ public class Juni : KinematicBody2D
         set
         {
             if (DebugFlyMode && !value) { return; }
+            GetNode<Checkers>("Checkers").Disabled = value;
             _collisions_disabled = value;
-            GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
-            GetNode<ClimbCheckers>("ClimbCheckers").Disabled = value;
             enforceCollisionMap();
         }
     }
@@ -268,24 +269,14 @@ public class Juni : KinematicBody2D
         _collision_map[0] = a;
         _collision_map[1] = b;
         _collision_map[2] = c;
-
         enforceCollisionMap();
     }
 
     private void enforceCollisionMap()
     {
-        if (CollisionsDisabled)
-        {
-            _collision_polygons[0].Disabled = true;
-            _collision_polygons[1].Disabled = true;
-            _collision_polygons[2].Disabled = true;
-        }
-        else
-        {
-            _collision_polygons[0].Disabled = !_collision_map[0];
-            _collision_polygons[1].Disabled = !_collision_map[1];
-            _collision_polygons[2].Disabled = !_collision_map[2];
-        }
+        _collision_polygons[0].Disabled = CollisionsDisabled || !_collision_map[0];
+        _collision_polygons[1].Disabled = CollisionsDisabled || !_collision_map[1];
+        _collision_polygons[2].Disabled = CollisionsDisabled || !_collision_map[2];
     }
 
     public Juni()
@@ -307,8 +298,7 @@ public class Juni : KinematicBody2D
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite>("Detector");
         Detector.Visible = true;
-        InsideDetector = GetNode<InsideDetector>("InsideDetector");
-        ClimbCheckers = GetNode<ClimbCheckers>("ClimbCheckers");
+        Checkers = GetNode<Checkers>("Checkers");
         Sprite = GetNode<Sprite>("Sprite");
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
@@ -417,6 +407,7 @@ public class Juni : KinematicBody2D
         handleHologram();
         handleXMovement(delta);
         handleGravity(delta);
+        handleBumps(delta);
 
         this.CurrentState.PostProcess(delta);
 
@@ -438,7 +429,7 @@ public class Juni : KinematicBody2D
         // Limit falling speed to terminal velocity
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
 
-        if (InsideDetector.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
+        if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
             var normal = Godot.Vector2.Up;
@@ -460,7 +451,7 @@ public class Juni : KinematicBody2D
             velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
         }
 
-        if (GetSlideCount() > 0 && GetSlideCollision(0).Collider is BaseBullet) { die(); }
+        if (Enumerable.Range(0, GetSlideCount()).Any(i => GetSlideCollision(i).Collider is BaseBullet)) { die(); }
     }
 
     private void processFlyMode(float delta)
@@ -472,6 +463,11 @@ public class Juni : KinematicBody2D
         if (juniInput.RightHeld) { dir.x += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta);
+    }
+
+    private void handleBumps(float delta)
+    {
+        if (HasBump && CurrentState is WalkRunState) { Translate(new Godot.Vector2(0, BUMP_Y_SPEED * delta)); }
     }
 
     private void handleGravity(float delta)

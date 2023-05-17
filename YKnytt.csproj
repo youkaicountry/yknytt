@@ -30,7 +30,6 @@
   <ItemGroup>
     <Compile Include="knytt\audio\GDKnyttAmbiChannel.cs" />
     <Compile Include="knytt\audio\GDKnyttAmbiTrack.cs" />
-    <Compile Include="knytt\juni\InsideDetector.cs" />
     <Compile Include="knytt\objects\banks\bank0\GhostMusic.cs" />
     <Compile Include="knytt\objects\banks\bank0\Halt.cs" />
     <Compile Include="knytt\objects\banks\bank0\LocalAmbient.cs" />
@@ -203,7 +202,7 @@
     <Compile Include="knytt\objects\banks\bank0\NoJump.cs" />
     <Compile Include="knytt\objects\banks\bank0\Win.cs" />
     <Compile Include="knytt\GDKnyttSettings.cs" />
-    <Compile Include="knytt\juni\ClimbCheckers.cs" />
+    <Compile Include="knytt\juni\Checkers.cs" />
     <Compile Include="knytt\juni\DeathParticles.cs" />
     <Compile Include="knytt\juni\DoubleJump.cs" />
     <Compile Include="knytt\juni\Umbrella.cs" />

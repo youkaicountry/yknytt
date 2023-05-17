@@ -1,9 +1,9 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
 [ext_resource path="res://knytt/juni/Juni.cs" type="Script" id=3]
-[ext_resource path="res://knytt/juni/ClimbCheckers.cs" type="Script" id=4]
+[ext_resource path="res://knytt/juni/Checkers.cs" type="Script" id=4]
 [ext_resource path="res://knytt/juni/particles/death-0.png" type="Texture" id=5]
 [ext_resource path="res://knytt/juni/particles/death-2.png" type="Texture" id=6]
 [ext_resource path="res://knytt/juni/particles/death-3.png" type="Texture" id=7]
@@ -15,7 +15,6 @@
 [ext_resource path="res://knytt/juni/JuniAudio.cs" type="Script" id=13]
 [ext_resource path="res://knytt/data/Sfx/Knytt Jump (troupe).wav" type="AudioStream" id=14]
 [ext_resource path="res://knytt/juni/JuniMotionParticles.cs" type="Script" id=15]
-[ext_resource path="res://knytt/juni/InsideDetector.cs" type="Script" id=16]
 [ext_resource path="res://knytt/juni/Juni.shader" type="Shader" id=17]
 [ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=18]
 [ext_resource path="res://knytt/data/Sfx/Umbrella A.wav" type="AudioStream" id=19]
@@ -217,19 +216,25 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 0.56369, 5.09802 )
+extents = Vector2( 0.5, 4 )
+
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 0.5, 1.5 )
+
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 0.5, 0.65 )
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 2, 7 )
 
 [sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 6.71, 5.05 )
+extents = Vector2( 6, 4 )
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 4.6728, 2.11682 )
-
-[sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 2, 7 )
 
 [node name="Juni" type="KinematicBody2D"]
 process_priority = -1
@@ -278,7 +283,7 @@ position = Vector2( 0, -3 )
 texture = ExtResource( 2 )
 hframes = 10
 vframes = 5
-frame = 26
+frame = 47
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Climbing = SubResource( 11 )
@@ -339,26 +344,66 @@ max_distance = 1000.0
 
 [node name="StandartSoundPlayer" parent="Audio" instance=ExtResource( 18 )]
 
-[node name="ClimbCheckers" type="Node2D" parent="."]
+[node name="Checkers" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="RightChecker" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( 6.148, 0.285 )
+[node name="RightClimb" type="Area2D" parent="Checkers"]
+position = Vector2( 5.5, 0.5 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/RightChecker"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/RightClimb"]
 shape = SubResource( 19 )
 
-[node name="LeftChecker" type="Area2D" parent="ClimbCheckers"]
-position = Vector2( -6.141, 0.285 )
+[node name="LeftClimb" type="Area2D" parent="Checkers"]
+position = Vector2( -5.5, 0.5 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbCheckers/LeftChecker"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/LeftClimb"]
 shape = SubResource( 19 )
+
+[node name="RightBump" type="Area2D" parent="Checkers"]
+position = Vector2( 5.5, 7 )
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/RightBump"]
+shape = SubResource( 24 )
+
+[node name="LeftBump" type="Area2D" parent="Checkers"]
+position = Vector2( -5.5, 7 )
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/LeftBump"]
+shape = SubResource( 24 )
+
+[node name="RightStopper" type="Area2D" parent="Checkers"]
+position = Vector2( 5.5, 5 )
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/RightStopper"]
+shape = SubResource( 25 )
+
+[node name="LeftStopper" type="Area2D" parent="Checkers"]
+position = Vector2( -5.5, 5 )
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/LeftStopper"]
+shape = SubResource( 25 )
+
+[node name="InsideDetector" type="Area2D" parent="Checkers"]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/InsideDetector"]
+shape = SubResource( 23 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 1.5
@@ -462,7 +507,7 @@ wait_time = 0.2
 wait_time = 0.1
 
 [node name="ClimbParticles" type="Area2D" parent="JuniMotionParticles"]
-position = Vector2( 0, 0.272835 )
+position = Vector2( 0, 0.5 )
 collision_layer = 0
 collision_mask = 16384
 
@@ -470,7 +515,7 @@ collision_mask = 16384
 shape = SubResource( 21 )
 
 [node name="GroundParticles" type="Area2D" parent="JuniMotionParticles"]
-position = Vector2( -1, 7.42 )
+position = Vector2( 0, 7.42 )
 collision_layer = 0
 collision_mask = 16384
 
@@ -495,14 +540,8 @@ visible = false
 z_index = 13
 z_as_relative = false
 
-[node name="InsideDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource( 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InsideDetector"]
-shape = SubResource( 23 )
-
+[connection signal="body_entered" from="Checkers/InsideDetector" to="Checkers" method="_on_InsideDetector_body_entered"]
+[connection signal="body_exited" from="Checkers/InsideDetector" to="Checkers" method="_on_InsideDetector_body_exited"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/WalkTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/ClimbTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]
@@ -510,5 +549,3 @@ shape = SubResource( 23 )
 [connection signal="area_shape_exited" from="JuniMotionParticles/ClimbParticles" to="JuniMotionParticles" method="_on_ClimbParticles_area_shape_exited"]
 [connection signal="area_shape_entered" from="JuniMotionParticles/GroundParticles" to="JuniMotionParticles" method="_on_GroundParticles_area_shape_entered"]
 [connection signal="area_shape_exited" from="JuniMotionParticles/GroundParticles" to="JuniMotionParticles" method="_on_GroundParticles_area_shape_exited"]
-[connection signal="body_entered" from="InsideDetector" to="InsideDetector" method="_on_InsideDetector_body_entered"]
-[connection signal="body_exited" from="InsideDetector" to="InsideDetector" method="_on_InsideDetector_body_exited"]
