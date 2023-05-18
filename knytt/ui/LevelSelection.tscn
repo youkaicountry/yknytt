@@ -66,8 +66,8 @@ margin_bottom = 36.0
 [node name="CategoryLabel" type="Label" parent="MainContainer/FilterContainer/Category"]
 margin_right = 100.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Category:"
 align = 1
 
@@ -92,8 +92,8 @@ margin_bottom = 36.0
 [node name="DifficultyLabel" type="Label" parent="MainContainer/FilterContainer/Difficulty"]
 margin_right = 80.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Difficulty:"
 align = 1
 
@@ -118,8 +118,8 @@ margin_bottom = 36.0
 [node name="SizeLabel" type="Label" parent="MainContainer/FilterContainer/Size"]
 margin_right = 80.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Size:"
 align = 1
 
@@ -144,8 +144,8 @@ margin_bottom = 36.0
 [node name="SortLabel" type="Label" parent="MainContainer/FilterContainer/Sort"]
 margin_right = 90.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Sort by:"
 align = 1
 
@@ -185,8 +185,8 @@ custom_constants/separation = 6
 [node name="SearchLabel" type="Label" parent="MainContainer/FilterContainer/Search"]
 margin_right = 120.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Search:"
 align = 1
 
@@ -195,10 +195,10 @@ margin_top = 19.0
 margin_right = 120.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 120, 15 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = SubResource( 1 )
 caret_blink = true
 
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
@@ -215,7 +215,6 @@ text = "Back"
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="FileHTTPRequest" type="HTTPRequest" parent="."]
-download_chunk_size = 65536
 script = ExtResource( 1 )
 
 [node name="DownloadMonitor" type="Timer" parent="."]
@@ -226,9 +225,9 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -50.0
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = SubResource( 2 )
 text = "Cannot connect to the server"
 align = 1
 valign = 1
@@ -241,11 +240,14 @@ __meta__ = {
 [node name="SearchEditTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Sort/SortDropdown" to="." method="_on_SortDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Sort/RemoteSortDropdown" to="." method="_on_RemoteSortDropdown_item_selected"]
+[connection signal="focus_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_entered"]
+[connection signal="focus_exited" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_exited"]
 [connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
 [connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
