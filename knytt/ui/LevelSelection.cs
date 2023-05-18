@@ -569,4 +569,16 @@ public class LevelSelection : CanvasLayer
         filter_text = new_text;
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
+
+    private void _on_SearchEdit_focus_entered()
+    {
+        if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
+        GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/FilterContainer"), 0);
+    }
+
+    private void _on_SearchEdit_focus_exited()
+    {
+        if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
+        GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/ScrollContainer"), 0);
+    }
 }
