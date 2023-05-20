@@ -8,7 +8,7 @@ public class GDKnyttDataStore : Node
     public static Random random = new Random();
     public static GDKnyttWorldImpl KWorld { get; set; }
 
-    private static SceneTree Tree { get; set; }
+    public static SceneTree Tree { get; set; }
 
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }

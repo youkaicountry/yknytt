@@ -9,11 +9,12 @@ namespace YKnyttLib.Parser
 
         public string Name { get; }
         public string Description { get; }
+        public string DetailedDescription { get; }
         public CommandInstantiation Instantiation { get; }
         public CommandArg[] Args { get; }
         public bool Hidden { get; }
 
-        public CommandDeclaration(string name, string description, bool hidden, CommandInstantiation instantiation, params CommandArg[] args)
+        public CommandDeclaration(string name, string description, string detailed_description, bool hidden, CommandInstantiation instantiation, params CommandArg[] args)
         {
             var req = true;
             foreach (var arg in args)
@@ -32,6 +33,7 @@ namespace YKnyttLib.Parser
 
             Name = name;
             Description = description;
+            DetailedDescription = detailed_description;
             Hidden = hidden;
             Instantiation = instantiation;
             Args = args;
