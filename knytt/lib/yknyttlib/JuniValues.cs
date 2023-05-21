@@ -91,7 +91,7 @@ namespace YKnyttLib
         public void setVisited(KnyttArea area)
         {
             if (area.Position.x < area.World.MinBounds.x || area.Position.x > area.World.MaxBounds.x ||
-                area.Position.y < area.World.MinBounds.y || area.Position.x > area.World.MaxBounds.y) { return; }
+                area.Position.y < area.World.MinBounds.y || area.Position.y > area.World.MaxBounds.y) { return; }
             if (VisitedAreas == null) { VisitedAreas = new BitArray(area.World.Map.Length, false); }
             VisitedAreas.Set(area.World.getMapIndex(area.Position), true);
         }

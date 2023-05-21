@@ -9,26 +9,30 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    internal const float JUMP_SPEED = -250f,    // Speed of jump
-    GRAVITY = 1125f,                            // Gravity exerted on Juni
+    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -231f,    // Speed of jump with high jump power
+    JUMP_SPEED_NORMAL = -223f,                  // Speed of jump with no high jump power
+    GRAVITY = 1500f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
     FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
-    MAX_SPEED_WALK = 90f,                       // Max speed while walking
-    MAX_SPEED_RUN = 175f,                       // Max speed while running
+    MAX_SPEED_WALK = 88.5f,                     // Max speed while walking
+    MAX_SPEED_RUN = 172f,                       // Max speed while running
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
     SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
     UPDRAFT_FORCE = .15f,                       // The base updraft force exerted
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
     MAX_UPDRAFT_SPEED_HOLD = -240f,             // Maximum Y speed in an updraft while holding jump
-    JUMP_HOLD_POWER = 125f,                     // Y Force exerted while holding jump
-    HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power
-    UMBRELLA_JUMP_HOLD_PENALTY = .82f,          // Penalty on jump hold when Juni has the umbrella deployed
+    JUMP_HOLD_POWER = 550f,                     // Y Force exerted while holding jump
+    HIGH_JUMP_HOLD_POWER = 962f,                // Y Force exerted while holding jump when Juni has high jump power
+    HIGH_JUMP_DEFAULT_POWER = 400f,             // Y Force exerted in air when Juni has high jump power
+    UMBRELLA_JUMP_HOLD_PENALTY = .91f,          // Penalty on jump hold when Juni has the umbrella deployed
     MAX_X_MOVING_DELTA = 2500f,                 // Maximum rate of change of X velocity when moving
     MAX_X_DECAY_DELTA = 1500f,                  // Maximum rate of change of X velocity when stopped
-    MAX_X_SPEED_UMBRELLA = 120f,                // Maximum X speed when Juni has the umbrella deployed
-    TERM_VEL = 350f,                            // Maximum +Y velocity
-    TERM_VEL_UMB = 60f,                         // Maximum +Y velocity when Juni has the umbrella deployed
+    MAX_X_SPEED_UMBRELLA = 124f,                // Maximum X speed when Juni has the umbrella deployed
+    TERM_VEL = 340f,                            // Maximum +Y velocity
+    TERM_VEL_UMB = 59.5f,                       // Maximum +Y velocity when Juni has the umbrella deployed
+    TERM_VEL_UMB_JUMP_HIGHJUMP = 49f,           // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with high jump power 
+    TERM_VEL_UMB_JUMP_NOHIGH = 56f,             // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with no high jump power
     TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
@@ -148,7 +152,17 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public float TerminalVelocity { get { return Umbrella.Deployed ? (InUpdraft ? TERM_VEL_UP : TERM_VEL_UMB) : TERM_VEL; } }
+    public float TerminalVelocity
+    {
+        get
+        {
+            return !Umbrella.Deployed ? TERM_VEL :
+                   InUpdraft ? TERM_VEL_UP : 
+                   !juniInput.JumpHeld ? TERM_VEL_UMB :
+                   Powers.getPower(PowerNames.HighJump) ? TERM_VEL_UMB_JUMP_HIGHJUMP : TERM_VEL_UMB_JUMP_NOHIGH;
+            // TODO: different terminal velocities when Juni has no run power. Can reach unreachable areas, but almost impossible situation
+        }
+    }
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && (FacingRight ? Checkers.RightColliding : Checkers.LeftColliding); } }
@@ -486,8 +500,12 @@ public class Juni : KinematicBody2D
             if (juniInput.JumpHeld)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? HIGH_JUMP_HOLD_POWER : JUMP_HOLD_POWER;
-                if (Umbrella.Deployed) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
+                if (Umbrella.Deployed && velocity.y < 0) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
                 velocity.y -= jump_hold * delta;
+            }
+            else if (Powers.getPower(PowerNames.HighJump))
+            {
+                velocity.y -= HIGH_JUMP_DEFAULT_POWER * delta;
             }
         }
     }
@@ -704,7 +722,7 @@ public class Juni : KinematicBody2D
 
     public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false)
     {
-        executeJump(JUMP_SPEED, air_jump, sound, reset_jumps);
+        executeJump(Powers.getPower(PowerNames.HighJump) ? JUMP_SPEED_HIGH : JUMP_SPEED_NORMAL, air_jump, sound, reset_jumps);
     }
 
     public void continueFall()
