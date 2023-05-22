@@ -223,6 +223,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(7, 14)] = "DustLeaf";
         ObjectLookup[new KnyttPoint(7, 15)] = "DustLeaf";
         ObjectLookup[new KnyttPoint(7, 16)] = "Cloud";
+        ObjectLookup[new KnyttPoint(7, 17)] = "Muffle";
         ObjectLookup[new KnyttPoint(8, 1)] = "HorizontalConnection";
         ObjectLookup[new KnyttPoint(8, 2)] = "VerticalConnection";
         ObjectLookup[new KnyttPoint(8, 3)] = "LampLeft";
