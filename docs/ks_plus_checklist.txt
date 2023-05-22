@@ -39,7 +39,7 @@ Bank 6 (Traps):
 [x] - 17 Right Permanent Spikes
 
 Bank 7 (Nature FX):
-[ ] - 17 ?? Muffle
+[x] - 17 Muffle
 
 Bank 15 (Objects & Areas):
 [x] - 31 Collection Door

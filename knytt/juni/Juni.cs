@@ -193,6 +193,30 @@ public class Juni : KinematicBody2D
         set { stickies += (value ? 1 : -1); }
     }
 
+    int muffles = 0;
+    public bool Muffle
+    {
+        get { return muffles > 0; }
+        set
+        {
+            muffles += (value ? 1 : -1);
+            if (value && muffles == 1) { doMuffle(true); }
+            if (!value && muffles == 0) { doMuffle(false); }
+        }
+    }
+
+    private void doMuffle(bool on)
+    {
+        string[] audio_nodes = {
+            "Audio/WalkPlayer2D", "Audio/ClimbPlayer2D", "Audio/SlidePlayer2D",
+            "Audio/RunPlayer2D", "Audio/JumpPlayer2D", "Audio/LandPlayer2D"
+        };
+        foreach (var audio_node in audio_nodes)
+        {
+            GetNode<AudioStreamPlayer2D>(audio_node).VolumeDb = on ? -10 : 5;
+        }
+    }
+
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
     public bool CanDeployHologram { get { return ((CurrentState is IdleState) || (CurrentState is WalkRunState)); } }
     public Node2D Hologram { get; private set; }
