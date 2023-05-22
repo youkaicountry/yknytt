@@ -22,6 +22,12 @@ public static class ConsoleCommands
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
             false, SetCommand.NewSetCommand, new CommandArg("variable", CommandArg.Type.StringArg, optional: false), 
             new CommandArg("value", CommandArg.Type.StringArg, optional: false)));
+        cs.AddCommand(new CommandDeclaration("monitor", "Monitors current area position. Also can monitor Juni's flags.", 
+            "monitor: turn on monitor, display always on top\n" +
+            "monitor flash: display only when value changes (like '-' on keyboard)\n" +
+            "monitor flags: display also Juni's flags\n" +
+            "monitor off: turn off monitor", 
+            false, MonitorCommand.NewMonitorCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         return cs;
     }
 
@@ -138,6 +144,8 @@ public static class ConsoleCommands
         {
             var env = (ConsoleExecutionEnvironment)environment;
             GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            if (game == null) { return "No game is loaded"; }
+
             switch (subcmd)
             {
                 case null:
@@ -164,6 +172,8 @@ public static class ConsoleCommands
                     game.saveGame(save);
                     game.Juni.die();
                     break;
+                default:
+                    return "Can't recognize your command";
             }
             return null;
         }
@@ -190,6 +200,7 @@ public static class ConsoleCommands
         {
             var env = (ConsoleExecutionEnvironment)environment;
             GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            if (game == null) { return "No game is loaded"; }
 
             bool? bvalue = null;
             if (value == "on" || value == "1") { bvalue = true; }
@@ -205,12 +216,62 @@ public static class ConsoleCommands
                      int.TryParse(variable.Substring(4), out var flag_index) && flag_index >= 0 && flag_index < 10)
             {
                 game.Juni.Powers.setFlag(flag_index, bvalue ?? true);
+                game.UI.Location.updateFlags(game.Juni.Powers.Flags);
                 env.Console.AddMessage($"Flag {flag_index} set to {value}");
             }
             else
             {
                 return "Can't recognize variable or value";
             }
+            return null;
+        }
+    }
+
+    public class MonitorCommand : ICommand
+    {
+        string subcmd;
+
+        public MonitorCommand(CommandParseResult result)
+        {
+            subcmd = result.Args["subcmd"];
+        }
+
+        public static ICommand NewMonitorCommand(CommandParseResult result)
+        {
+            return new MonitorCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            if (game == null) { return "No game is loaded"; }
+
+            switch (subcmd)
+            {
+                case null:
+                case "on":
+                    game.UI.Location.Visible = true;
+                    game.UI.Location.Flash = false;
+                    game.UI.Location.showLabel();
+                    break;
+                case "flash":
+                    game.UI.Location.Visible = true;
+                    game.UI.Location.Flash = true;
+                    game.UI.Location.showLabel();
+                    break;
+                case "flags":
+                    game.UI.Location.ShowFlags = true;
+                    game.UI.Location.Visible = true;
+                    game.UI.Location.updateFlags(game.Juni.Powers.Flags);
+                    break;
+                case "off":
+                    game.UI.Location.Visible = false;
+                    break;
+                default:
+                    return "Can't recognize your command";
+            }
+            env.Console.AddMessage("Monitor parameters have been changed.");
             return null;
         }
     }

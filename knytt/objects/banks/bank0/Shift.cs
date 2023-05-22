@@ -51,6 +51,7 @@ public class Shift : Switch
             else
             {
                 juni.Powers.setFlag(shift.FlagOn.number, true);
+                game.UI.Location.updateFlags(juni.Powers.Flags);
             }
         }
 
@@ -63,6 +64,7 @@ public class Shift : Switch
             else
             {
                 juni.Powers.setFlag(shift.FlagOff.number, false);
+                game.UI.Location.updateFlags(juni.Powers.Flags);
             }
         }
 
