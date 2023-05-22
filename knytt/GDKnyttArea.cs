@@ -12,6 +12,7 @@ public class GDKnyttArea : Node2D
 
     public bool HasAltInput { get; set; }
     public bool BlockInput { get; set; }
+    public bool BlockHologram { get; set; }
 
     public bool PlayNoMusic { get; set; }
     public bool PlayNoAmbiance1 { get; set; }
