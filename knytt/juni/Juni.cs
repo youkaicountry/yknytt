@@ -217,8 +217,22 @@ public class Juni : KinematicBody2D
         }
     }
 
+    int holo_places = 0;
+    public bool InHologramPlace
+    {
+        get { return holo_places > 0; }
+        set { holo_places += (value ? 1 : -1); }
+    }
+
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
-    public bool CanDeployHologram { get { return ((CurrentState is IdleState) || (CurrentState is WalkRunState)); } }
+    public bool CanDeployHologram
+    {
+        get
+        {
+            return ((CurrentState is IdleState) || (CurrentState is WalkRunState)) && 
+                   !(GDArea.BlockHologram && !InHologramPlace);
+        }
+    }
     public Node2D Hologram { get; private set; }
 
     public float detector_reverse_distance = 0;

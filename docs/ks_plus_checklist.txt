@@ -15,7 +15,7 @@ Bank 0 (System):
 [x] - 45 Delete Point
 [x] - 46 Delete Point
 [x] - 47 Delete Point
-[ ] - 48 Allow Hologram (see demo)
+[x] - 48 Allow Hologram
 [x] - 49 Halt
 [x] - 247 Block User
 [x] - 248 Automation W
