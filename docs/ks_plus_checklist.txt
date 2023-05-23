@@ -28,9 +28,9 @@ Bank 0 (System):
 [x] - 255 Automation Right
 
 Bank 1 (Liquids):
-[ ] - 25 Swim
-[ ] - 26 Swim Area
-[ ] - 27 Swim Area
+[x] - 25 Swim Screen
+[x] - 26 Swim Zone
+[x] - 27 Swim Zone
 
 Bank 6 (Traps):
 [x] - 14 Up Permanent Spikes
