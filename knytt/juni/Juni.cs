@@ -10,7 +10,7 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     /*[Export] public*/internal const float JUMP_SPEED_HIGH = -231f,    // Speed of jump with high jump power
-    JUMP_SPEED_NORMAL = -223f,                  // Speed of jump with no high jump power
+    JUMP_SPEED_LOW = -223f,                     // Speed of jump with no high jump power
     GRAVITY = 1500f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
     FREE_JUMP_TIME = .085f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
@@ -22,7 +22,7 @@ public class Juni : KinematicBody2D
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
     MAX_UPDRAFT_SPEED_HOLD = -240f,             // Maximum Y speed in an updraft while holding jump
-    JUMP_HOLD_POWER = 550f,                     // Y Force exerted while holding jump
+    LOW_JUMP_HOLD_POWER = 550f,                     // Y Force exerted while holding jump
     HIGH_JUMP_HOLD_POWER = 962f,                // Y Force exerted while holding jump when Juni has high jump power
     HIGH_JUMP_DEFAULT_POWER = 400f,             // Y Force exerted in air when Juni has high jump power
     UMBRELLA_JUMP_HOLD_PENALTY = .91f,          // Penalty on jump hold when Juni has the umbrella deployed
@@ -31,8 +31,8 @@ public class Juni : KinematicBody2D
     MAX_X_SPEED_UMBRELLA = 124f,                // Maximum X speed when Juni has the umbrella deployed
     TERM_VEL = 340f,                            // Maximum +Y velocity
     TERM_VEL_UMB = 59.5f,                       // Maximum +Y velocity when Juni has the umbrella deployed
-    TERM_VEL_UMB_JUMP_HIGHJUMP = 49f,           // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with high jump power 
-    TERM_VEL_UMB_JUMP_NOHIGH = 56f,             // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with no high jump power
+    TERM_VEL_UMB_HIGHJUMP_HOLD = 49f,           // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with high jump power 
+    TERM_VEL_UMB_LOWJUMP_HOLD = 56f,             // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with no high jump power
     TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
@@ -40,7 +40,18 @@ public class Juni : KinematicBody2D
     BUMP_Y_SPEED = -220f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
-    DEBUG_FLY_SPEED = 300f;                     // Speed at which Juni flies while in debug fly mode
+    DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
+    SWIM_JUMP_SPEED_HIGH = -101f,               // Replacements for swimming
+    SWIM_JUMP_SPEED_LOW = -101f,
+    SWIM_MAX_SPEED_WALK = 51f,
+    SWIM_MAX_SPEED_RUN = 100f,
+    SWIM_LOW_JUMP_HOLD_POWER = 1325f,
+    SWIM_HIGH_JUMP_HOLD_POWER = 1398f,
+    SWIM_MAX_X_SPEED_UMBRELLA = 55f,
+    SWIM_TERM_VEL = 94.5f,
+    SWIM_TERM_VEL_UMB = 22.5f,
+    SWIM_TERM_VEL_UMB_HIGHJUMP_HOLD = 9.84f,
+    SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f;
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -156,10 +167,20 @@ public class Juni : KinematicBody2D
     {
         get
         {
-            return !Umbrella.Deployed ? TERM_VEL :
-                   InUpdraft ? TERM_VEL_UP : 
-                   !juniInput.JumpHeld ? TERM_VEL_UMB :
-                   Powers.getPower(PowerNames.HighJump) ? TERM_VEL_UMB_JUMP_HIGHJUMP : TERM_VEL_UMB_JUMP_NOHIGH;
+            if (Swim)
+            {
+                return !Umbrella.Deployed ? SWIM_TERM_VEL :
+                    InUpdraft ? TERM_VEL_UP : 
+                    !juniInput.JumpHeld ? SWIM_TERM_VEL_UMB :
+                    Powers.getPower(PowerNames.HighJump) ? SWIM_TERM_VEL_UMB_HIGHJUMP_HOLD : SWIM_TERM_VEL_UMB_LOWJUMP_HOLD;
+            }
+            else
+            {
+                return !Umbrella.Deployed ? TERM_VEL :
+                    InUpdraft ? TERM_VEL_UP : 
+                    !juniInput.JumpHeld ? TERM_VEL_UMB :
+                    Powers.getPower(PowerNames.HighJump) ? TERM_VEL_UMB_HIGHJUMP_HOLD : TERM_VEL_UMB_LOWJUMP_HOLD;
+            }
             // TODO: different terminal velocities when Juni has no run power. Can reach unreachable areas, but almost impossible situation
         }
     }
@@ -207,13 +228,10 @@ public class Juni : KinematicBody2D
 
     private void doMuffle(bool on)
     {
-        string[] audio_nodes = {
-            "Audio/WalkPlayer2D", "Audio/ClimbPlayer2D", "Audio/SlidePlayer2D",
-            "Audio/RunPlayer2D", "Audio/JumpPlayer2D", "Audio/LandPlayer2D"
-        };
+        string[] audio_nodes = { "Walk", "Climb", "Slide", "Run", "Jump", "Land" };
         foreach (var audio_node in audio_nodes)
         {
-            GetNode<AudioStreamPlayer2D>(audio_node).VolumeDb = on ? -10 : 5;
+            GetNode<AudioStreamPlayer2D>($"Audio/{audio_node}Player2D").VolumeDb = on ? -10 : 5;
         }
     }
 
@@ -222,6 +240,13 @@ public class Juni : KinematicBody2D
     {
         get { return holo_places > 0; }
         set { holo_places += (value ? 1 : -1); }
+    }
+
+    int swim_zones = 0;
+    public bool Swim
+    {
+        get { return swim_zones > 0 || GDArea.Swim; }
+        set { swim_zones += (value ? 1 : -1); }
     }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
@@ -251,7 +276,8 @@ public class Juni : KinematicBody2D
     {
         get
         {
-            return WalkRun ? MAX_SPEED_RUN : MAX_SPEED_WALK;
+            return Swim ? (WalkRun ? SWIM_MAX_SPEED_RUN : SWIM_MAX_SPEED_WALK) 
+                        : (WalkRun ? MAX_SPEED_RUN : MAX_SPEED_WALK);
         }
     }
 
@@ -537,8 +563,10 @@ public class Juni : KinematicBody2D
             else { velocity.y = GRAVITY * delta; }
             if (juniInput.JumpHeld)
             {
-                var jump_hold = Powers.getPower(PowerNames.HighJump) ? HIGH_JUMP_HOLD_POWER : JUMP_HOLD_POWER;
-                if (Umbrella.Deployed && velocity.y < 0) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
+                var jump_hold = Powers.getPower(PowerNames.HighJump) ? 
+                    (Swim ? SWIM_HIGH_JUMP_HOLD_POWER : HIGH_JUMP_HOLD_POWER) : 
+                    (Swim ? SWIM_LOW_JUMP_HOLD_POWER : LOW_JUMP_HOLD_POWER);
+                if (Umbrella.Deployed && velocity.y < 0 && !Swim) { jump_hold *= UMBRELLA_JUMP_HOLD_PENALTY; }
                 velocity.y -= jump_hold * delta;
             }
             else if (Powers.getPower(PowerNames.HighJump))
@@ -719,7 +747,8 @@ public class Juni : KinematicBody2D
         // Move, then clamp
         if (dir != 0)
         {
-            var uspeed = Umbrella.Deployed ? (Mathf.Min(MaxSpeed, MAX_X_SPEED_UMBRELLA)) : MaxSpeed;
+            var uspeed = Umbrella.Deployed ? 
+                (Mathf.Min(MaxSpeed, (Swim ? SWIM_MAX_X_SPEED_UMBRELLA : MAX_X_SPEED_UMBRELLA))) : MaxSpeed;
             MathTools.MoveTowards(ref velocity.x, dir * uspeed, MAX_X_MOVING_DELTA * delta);
         }
         else
@@ -760,7 +789,10 @@ public class Juni : KinematicBody2D
 
     public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false)
     {
-        executeJump(Powers.getPower(PowerNames.HighJump) ? JUMP_SPEED_HIGH : JUMP_SPEED_NORMAL, air_jump, sound, reset_jumps);
+        float jump_speed = Powers.getPower(PowerNames.HighJump) ? 
+            (Swim ? SWIM_JUMP_SPEED_HIGH : JUMP_SPEED_HIGH) : 
+            (Swim ? SWIM_JUMP_SPEED_LOW : JUMP_SPEED_LOW);
+        executeJump(jump_speed, air_jump, sound, reset_jumps);
     }
 
     public void continueFall()
