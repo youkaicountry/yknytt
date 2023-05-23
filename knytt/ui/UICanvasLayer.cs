@@ -10,12 +10,42 @@ public class UICanvasLayer : CanvasLayer
     public WSOD WSOD { get; private set; }
     public LocationLabel Location { get; private set; }
     private ArtifactsPanel artifactsPanel;
+    private MapPanel mapPanel;
+
+    private bool _force_map;
+    public bool ForceMap
+    {
+        get { return _force_map; } 
+        set
+        {
+            _force_map = value;
+            if (value)
+            {
+                mapPanel.init(Game.GDWorld.KWorld, Game.Juni);
+                Game.Juni.Powers.setVisited(Game.CurrentArea.Area);
+            }
+            else
+            {
+                mapPanel.init(null, null);
+            }
+        }
+    }
 
     public void initialize(GDKnyttGame game)
     {
         Game = game;
 
-        if (game.hasMap()) { GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map); }
+        mapPanel = GetNode<MapPanel>("MapBackgroundPanel/MapPanel");
+        if (game.hasMap())
+        {
+            mapPanel.init(game.GDWorld.KWorld, game.Juni);
+            GetNode<TouchPanel>("TouchPanel").InstallMap();
+            GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
+        }
+        else
+        {
+            mapPanel.init(null, null);
+        }
     }
 
     public override void _Ready()
@@ -36,6 +66,11 @@ public class UICanvasLayer : CanvasLayer
             if (!showing || GetNode<Timer>("StayTimer").TimeLeft > 0f) { return; }
             togglePanel();
         }
+    }
+
+    public override void _Process(float delta)
+    {
+        if (Input.IsActionJustPressed("map") && Game.hasMap()) { mapPanel.ShowMap(true); }
     }
 
     private void togglePanel()

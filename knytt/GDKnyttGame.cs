@@ -9,7 +9,6 @@ public class GDKnyttGame : Node2D
     public Juni Juni { get; private set; }
 
     public UICanvasLayer UI { get; private set; }
-    private MapPanel mapPanel;
 
     // TODO: This is per-player stuff, and should eventually be abstracted
     public GDKnyttArea CurrentArea { get; private set; }
@@ -71,17 +70,6 @@ public class GDKnyttGame : Node2D
 
         UI.initialize(this);
         UI.updatePowers();
-
-        mapPanel = GetNode<MapPanel>("UICanvasLayer/MapBackgroundPanel/MapPanel");
-        if (hasMap())
-        {
-            mapPanel.init(GDWorld.KWorld, Juni);
-            GetNode<TouchPanel>("UICanvasLayer/TouchPanel").InstallMap();
-        }
-        else
-        {
-            mapPanel.init(null, null);
-        }
 
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
             (int)RateHTTPRequest.Action.Enter);
@@ -207,6 +195,7 @@ public class GDKnyttGame : Node2D
 
     public bool hasMap()
     {
+        if (UI.ForceMap) { return true; }
         var world_section = GDWorld.KWorld.INIData["World"];
         return world_section["Format"] == "4" && world_section["Map"]?.ToLower() != "false";
     }
@@ -216,8 +205,6 @@ public class GDKnyttGame : Node2D
         if (this.viewMode) { this.editorControls(); }
 
         if (Input.IsActionJustPressed("pause")) { pause(); }
-
-        if (Input.IsActionJustPressed("map") && hasMap()) { mapPanel.ShowMap(true); }
     }
 
     // TODO: Difference between Paged areas, active areas, and current area.

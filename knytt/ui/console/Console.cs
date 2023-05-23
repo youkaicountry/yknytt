@@ -73,7 +73,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (showing) { flushBuffer(); }
     }
 
-    private void toggleConsole()
+    public void toggleConsole()
     {
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");
 

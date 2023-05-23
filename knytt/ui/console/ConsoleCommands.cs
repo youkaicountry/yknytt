@@ -28,6 +28,11 @@ public static class ConsoleCommands
             "monitor flags: display also Juni's flags\n" +
             "monitor off: turn off monitor", 
             false, MonitorCommand.NewMonitorCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
+        cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
     }
 
@@ -273,6 +278,103 @@ public static class ConsoleCommands
             }
             env.Console.AddMessage("Monitor parameters have been changed.");
             return null;
+        }
+    }
+
+    public class ExitCommand : ICommand
+    {
+        public ExitCommand(CommandParseResult result) { }
+
+        public static ICommand NewExitCommand(CommandParseResult result)
+        {
+            return new ExitCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            GDKnyttDataStore.Tree.Root.GetNode<Console>("Console").toggleConsole();
+            return null;
+        }
+    }
+
+    public abstract class OnOffCommand : ICommand
+    {
+        string subcmd;
+
+        public OnOffCommand(CommandParseResult result)
+        {
+            subcmd = result.Args["on"];
+        }
+
+        protected abstract void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env);
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            if (game == null) { return "No game is loaded"; }
+
+            if (subcmd == null || subcmd == "on")
+            {
+                enable(true, game, env);
+            }
+            else if (subcmd == "off")
+            {
+                enable(false, game, env);
+            }
+            else
+            {
+                return "Can't recognize your command";
+            }
+            return null;
+        }
+    }
+
+    public class FlyCommand : OnOffCommand
+    {
+        public FlyCommand(CommandParseResult result) : base(result) { }
+
+        public static ICommand NewFlyCommand(CommandParseResult result)
+        {
+            return new FlyCommand(result);
+        }
+
+        protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            game.Juni.DebugFlyMode = on;
+            env.Console.AddMessage(on ? "Now you can move Juni with arrow keys freely." : "Now Juni is in normal mode.");
+        }
+    }
+
+    public class ImmuneCommand : OnOffCommand
+    {
+        public ImmuneCommand(CommandParseResult result) : base(result) { }
+
+        public static ICommand NewImmuneCommand(CommandParseResult result)
+        {
+            return new ImmuneCommand(result);
+        }
+
+        protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            game.Juni.Immune = on;
+            env.Console.AddMessage(on ? "Now Juni is invulnerable." : "Now Juni is in normal mode.");
+        }
+    }
+
+    public class MapCommand : OnOffCommand
+    {
+        public MapCommand(CommandParseResult result) : base(result) { }
+
+        public static ICommand NewMapCommand(CommandParseResult result)
+        {
+            return new MapCommand(result);
+        }
+
+        protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            game.UI.ForceMap = on;
+            env.Console.AddMessage(on ? "Map is enabled. set map on: opens the whole map" : "Map is disabled (if level had no map).");
         }
     }
 }
