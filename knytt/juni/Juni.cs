@@ -268,7 +268,7 @@ public class Juni : KinematicBody2D
     }
 
     private bool _immune;
-    private bool Immune
+    public bool Immune
     {
         get { return _immune; }
         set
@@ -657,7 +657,7 @@ public class Juni : KinematicBody2D
             return;
         }
 
-        if (Immune)
+        if (Immune || DebugFlyMode)
         {
             KnyttLogger.Debug("Juni is immune to death");
             return;
