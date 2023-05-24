@@ -18,11 +18,11 @@ public class Juni : KinematicBody2D
     MAX_SPEED_RUN = 172f,                       // Max speed while running
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
     SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
-    UPDRAFT_FORCE = .15f,                       // The base updraft force exerted
+    UPDRAFT_FORCE = .08f,                       // The base updraft force exerted
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
-    MAX_UPDRAFT_SPEED = -225f,                  // Maximum Y speed in an updraft
-    MAX_UPDRAFT_SPEED_HOLD = -240f,             // Maximum Y speed in an updraft while holding jump
-    LOW_JUMP_HOLD_POWER = 550f,                     // Y Force exerted while holding jump
+    MAX_UPDRAFT_SPEED = -214f,                  // Maximum Y speed in an updraft
+    MAX_UPDRAFT_SPEED_HOLD = -222f,             // Maximum Y speed in an updraft while holding jump
+    LOW_JUMP_HOLD_POWER = 550f,                 // Y Force exerted while holding jump
     HIGH_JUMP_HOLD_POWER = 962f,                // Y Force exerted while holding jump when Juni has high jump power
     HIGH_JUMP_DEFAULT_POWER = 400f,             // Y Force exerted in air when Juni has high jump power
     UMBRELLA_JUMP_HOLD_PENALTY = .91f,          // Penalty on jump hold when Juni has the umbrella deployed
@@ -32,7 +32,7 @@ public class Juni : KinematicBody2D
     TERM_VEL = 340f,                            // Maximum +Y velocity
     TERM_VEL_UMB = 59.5f,                       // Maximum +Y velocity when Juni has the umbrella deployed
     TERM_VEL_UMB_HIGHJUMP_HOLD = 49f,           // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with high jump power 
-    TERM_VEL_UMB_LOWJUMP_HOLD = 56f,             // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with no high jump power
+    TERM_VEL_UMB_LOWJUMP_HOLD = 56f,            // Maximum +Y velocity when Juni has the umbrella deployed while holding jump with no high jump power
     TERM_VEL_UP = 20f,                          // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
@@ -51,7 +51,9 @@ public class Juni : KinematicBody2D
     SWIM_TERM_VEL = 94.5f,
     SWIM_TERM_VEL_UMB = 22.5f,
     SWIM_TERM_VEL_UMB_HIGHJUMP_HOLD = 9.84f,
-    SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f;
+    SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f,
+    SWIM_UPDRAFT_FORCE = .3f,
+    SWIM_MAX_UPDRAFT_SPEED = -103f;
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -366,8 +368,8 @@ public class Juni : KinematicBody2D
 
     public override void _Ready()
     {
-        GetNode("/root/Console").Connect("ConsoleOpen", this, "OnConsoleOpen");
-        GetNode("/root/Console").Connect("ConsoleClosed", this, "OnConsoleClosed");
+        GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
+        GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
 
         _collision_polygons = new CollisionPolygon2D[] { GetNode<CollisionPolygon2D>("CollisionPolygonA"),
                                                          GetNode<CollisionPolygon2D>("CollisionPolygonB"),
@@ -554,8 +556,10 @@ public class Juni : KinematicBody2D
         // framerate independence
         if (InUpdraft && Umbrella.Deployed)
         {
-            velocity.y -= GRAVITY * delta * (juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
-            velocity.y = Mathf.Max(juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
+            velocity.y -= GRAVITY * delta * (Swim ? SWIM_UPDRAFT_FORCE : 
+                                             juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
+            velocity.y = Mathf.Max(Swim ? SWIM_MAX_UPDRAFT_SPEED : 
+                                   juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
         }
         else
         {
