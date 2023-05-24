@@ -184,8 +184,8 @@ Bank 6 (Traps):
 Bank 7 (Nature FX):
 [x] -  1 Black Leaf
 [x] -  2 Black Leaf
-[ ] -  3
-[ ] -  4
+[x] -  3 Snowflake
+[x] -  4 Snowflake
 [x] -  5 Sun Ray
 [x] -  6 Purple Leaf
 [x] -  7 Purple Leaf
@@ -215,7 +215,7 @@ Bank 8 (Decoration):
 [x] - 13 Machine Part 3
 [x] - 14 Machine Part 4
 [x] - 15 Explosion
-[ ] - 16
+[x] - 16 Falling Stuff
 [x] - 17 White Explosion
 
 Bank 9 (Flowers):

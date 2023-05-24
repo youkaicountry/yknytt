@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/banks/bank7/leaf.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/banks/bank7/snowflake.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/banks/bank7/leaf2.png" type="Texture" id=4]
 [ext_resource path="res://knytt/objects/banks/bank7/dust.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/banks/bank8/firefall.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 4 )
@@ -57,6 +59,70 @@ region = Rect2( 0, 88, 16, 8 )
 atlas = ExtResource( 4 )
 region = Rect2( 0, 96, 16, 8 )
 
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 6 )
+region = Rect2( 5, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 6 )
+region = Rect2( 10, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 6 )
+region = Rect2( 15, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 6 )
+region = Rect2( 20, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 6 )
+region = Rect2( 25, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 6 )
+region = Rect2( 30, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 6 )
+region = Rect2( 35, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 6 )
+region = Rect2( 40, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 6 )
+region = Rect2( 45, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 6 )
+region = Rect2( 50, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 6 )
+region = Rect2( 55, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 6 )
+region = Rect2( 60, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 6 )
+region = Rect2( 65, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 6 )
+region = Rect2( 70, 0, 5, 24 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 6 )
+region = Rect2( 75, 0, 5, 24 )
+
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 8, 8 )
@@ -103,6 +169,16 @@ animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": false,
 "name": "14",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ) ],
+"loop": true,
+"name": "16",
+"speed": 25.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "3",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
