@@ -201,10 +201,12 @@ one_shot = true
 
 [node name="LocationLabel" type="Label" parent="UICanvasLayer"]
 visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
 margin_left = 4.69768
-margin_top = 213.347
+margin_top = -27.0
 margin_right = 115.698
-margin_bottom = 237.347
+margin_bottom = -3.0
 custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "(1234, 5678)"
