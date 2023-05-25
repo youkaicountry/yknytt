@@ -268,7 +268,10 @@ public class TouchPanel : Panel
                 
                 if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
                 {
-                    Input.ActionPress("debug_console");
+                    Input.ActionRelease("show_info");
+                    Input.ActionRelease("jump");
+                    Input.ActionRelease("down");
+                    GetNode<Console>("/root/Console").toggleConsole();
                 }
             }
 
