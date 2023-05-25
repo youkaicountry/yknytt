@@ -61,6 +61,9 @@ public class TouchPanel : Panel
         jumpActionNames = actionNames.Skip(4).ToArray();
 
         GetTree().Root.Connect("size_changed", this, nameof(_on_viewport_size_changed));
+        GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
+        GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
+
         Configure();
     }
 
@@ -265,7 +268,7 @@ public class TouchPanel : Panel
                 
                 if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
                 {
-                    Input.ActionPress("debug_console"); // TODO: close button in console
+                    Input.ActionPress("debug_console");
                 }
             }
 
@@ -288,5 +291,15 @@ public class TouchPanel : Panel
         actionNames[8] = "map";
         jumpActionNames[4] = "map";
         walkPanel.GetNode<Label>("Label").Text = "Map";
+    }
+
+    public void OnConsoleOpen()
+    {
+        SetProcessInput(false);
+    }
+
+    public void OnConsoleClosed()
+    {
+        SetProcessInput(TouchSettings.EnablePanel);
     }
 }

@@ -54,8 +54,12 @@ public class UICanvasLayer : CanvasLayer
         Location = GetNode<LocationLabel>("LocationLabel");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _Process(float delta)
     {
+        if (GetNode<Console>("/root/Console").IsOpen) { return; }
+
+        if (Input.IsActionJustPressed("map") && Game.hasMap()) { mapPanel.ShowMap(true); }
+
         if (Input.IsActionJustPressed("show_info"))
         {
             togglePanel();
@@ -66,11 +70,6 @@ public class UICanvasLayer : CanvasLayer
             if (!showing || GetNode<Timer>("StayTimer").TimeLeft > 0f) { return; }
             togglePanel();
         }
-    }
-
-    public override void _Process(float delta)
-    {
-        if (Input.IsActionJustPressed("map") && Game.hasMap()) { mapPanel.ShowMap(true); }
     }
 
     private void togglePanel()
