@@ -36,9 +36,6 @@ margin_top = -120.0
 margin_bottom = 120.0
 expand = true
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackButton" parent="InfoRect" instance=ExtResource( 2 )]
 anchor_left = 1.0
@@ -80,6 +77,19 @@ margin_top = 10.0
 margin_right = -160.0
 margin_bottom = 205.0
 
+[node name="HintLabel" type="Label" parent="InfoRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_top = -15.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
+align = 1
+
 [node name="RatePanel" type="Panel" parent="InfoRect"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -105,8 +115,8 @@ __meta__ = {
 [node name="TitleLabel" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
 margin_right = 140.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 text = "Rate this level:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -131,8 +141,8 @@ margin_top = 8.0
 margin_right = 60.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 13, 13 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 1, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -145,8 +155,8 @@ margin_left = -60.0
 margin_top = 8.0
 margin_right = -35.0
 margin_bottom = 21.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 align = 2
 valign = 1
 __meta__ = {
@@ -185,8 +195,8 @@ anchor_right = 1.0
 margin_left = -23.0
 margin_top = 8.0
 margin_bottom = 21.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 text = "(999)"
 align = 1
 __meta__ = {
@@ -269,6 +279,9 @@ text = "View Achievements"
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
 
+[node name="HintTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]
@@ -284,3 +297,4 @@ text = "View Achievements"
 [connection signal="ready" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_ready"]
 [connection signal="request_completed" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_request_completed"]
 [connection signal="RateAdded" from="RateHTTPRequest" to="." method="_on_RateHTTPRequest_RateAdded"]
+[connection signal="timeout" from="HintTimer" to="." method="_on_HintTimer_timeout"]
