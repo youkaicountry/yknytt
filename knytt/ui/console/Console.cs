@@ -13,6 +13,8 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     [Export] public int HistoryLength = 256;
     [Export] public float SlideSpeed = 5f;
 
+    public bool IsOpen { get; private set; }
+
     bool showing = false;
     bool sliding_out = false;
     HashSet<char> disallowed = new HashSet<char>(new char[] {'`'});
@@ -43,8 +45,12 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         var consoleContainer = GetNode<Control>("ConsoleContainer");
         consoleContainer.MarginTop = -240;
         consoleContainer.MarginBottom = -240;
-        lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/LineEdit");
-        textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/RichTextLabel");
+        if (OS.GetName() == "Android" || OS.GetName() == "iOS")
+        {
+            GetNode<Control>("ConsoleContainer/Panel/VBox").MoveChild(GetNode<Control>("ConsoleContainer/Panel/VBox/HBox"), 0);
+        }
+        lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/VBox/HBox/LineEdit");
+        textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/VBox/RichTextLabel");
         AddMessage("[color=#cc00FF]Welcome to YKnytt![/color]");
     }
 
@@ -57,6 +63,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             if (showing)
             {
                 lineEdit.ReleaseFocus();
+                IsOpen = false;
                 EmitSignal(nameof(ConsoleClosed));
             }
         }
@@ -93,6 +100,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         lineEdit.GrabFocus();
+        IsOpen = true;
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
     }

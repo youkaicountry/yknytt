@@ -133,29 +133,45 @@ margin_bottom = 240.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ConsoleContainer/Panel"]
-anchor_left = 0.005
-anchor_top = 0.005
-anchor_right = 0.995
-anchor_bottom = 0.995
-margin_bottom = -34.0
+[node name="VBox" type="VBoxContainer" parent="ConsoleContainer/Panel"]
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = 234.0
+rect_min_size = Vector2( 594, 0 )
+custom_constants/separation = 5
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ConsoleContainer/Panel/VBox"]
+margin_right = 594.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 0, 205 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 bbcode_enabled = true
 scroll_following = true
 
-[node name="LineEdit" type="LineEdit" parent="ConsoleContainer/Panel"]
-margin_left = 17.0
-margin_top = 214.0
-margin_right = 598.0
-margin_bottom = 238.0
+[node name="HBox" type="HBoxContainer" parent="ConsoleContainer/Panel/VBox"]
+margin_top = 210.0
+margin_right = 594.0
+margin_bottom = 234.0
+rect_min_size = Vector2( 594, 0 )
+alignment = 1
+
+[node name="Label" type="Label" parent="ConsoleContainer/Panel/VBox/HBox"]
+margin_top = 5.0
+margin_right = 8.0
+margin_bottom = 19.0
+text = ">"
+
+[node name="LineEdit" type="LineEdit" parent="ConsoleContainer/Panel/VBox/HBox"]
+margin_left = 12.0
+margin_right = 594.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
-
-[node name="Label" type="Label" parent="ConsoleContainer/Panel"]
-margin_left = 4.0
-margin_top = 219.0
-margin_right = 12.0
-margin_bottom = 233.0
-text = ">"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 5.0
@@ -163,6 +179,6 @@ anims/RESET = SubResource( 2 )
 anims/SlideIn = SubResource( 3 )
 anims/SlideOut = SubResource( 1 )
 
-[connection signal="text_changed" from="ConsoleContainer/Panel/LineEdit" to="." method="_on_LineEdit_text_changed"]
-[connection signal="text_entered" from="ConsoleContainer/Panel/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_changed" from="ConsoleContainer/Panel/VBox/HBox/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="ConsoleContainer/Panel/VBox/HBox/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
