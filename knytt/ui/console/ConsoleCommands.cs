@@ -374,6 +374,9 @@ public static class ConsoleCommands
         protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
         {
             game.UI.ForceMap = on;
+            game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap();
+            game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map);
+            game.UI.updatePowers();
             env.Console.AddMessage(on ? "Map is enabled. set map on: opens the whole map" : "Map is disabled (if level had no map).");
         }
     }
