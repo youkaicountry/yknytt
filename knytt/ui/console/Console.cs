@@ -13,7 +13,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     [Export] public int HistoryLength = 256;
     [Export] public float SlideSpeed = 5f;
 
-    public bool IsOpen { get; private set; }
+    public bool IsOpen { get { return showing; } }
 
     bool showing = false;
     bool sliding_out = false;
@@ -59,13 +59,6 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (Input.IsActionJustPressed("debug_console"))
         {
             toggleConsole();
-            flushBuffer();
-            if (showing)
-            {
-                lineEdit.ReleaseFocus();
-                IsOpen = false;
-                EmitSignal(nameof(ConsoleClosed));
-            }
         }
     }
 
@@ -100,13 +93,13 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         lineEdit.GrabFocus();
-        IsOpen = true;
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
     }
 
     private void handleClose()
     {
+        EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
     }
 
