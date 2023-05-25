@@ -346,10 +346,12 @@ public class GDKnyttAssetManager
     // Call this in any level-optimizing procedure (level load screen, post-download processing, special button).
     public static void compileInternalTileset(KnyttWorld world, bool recompile)
     {
+        GDKnyttDataStore.ProgressHint = "Compiling tilesets...";
         ensureDirExists($"user://Cache/{world.WorldDirectoryName}");
 
         for (int num = 0; num < 256; num++)
         {
+            GDKnyttDataStore.ProgressHint = $"Compiling tileset #{num}...";
             string tileset_path = $"Tilesets/Tileset{num}.png";
             if (!world.worldFileExists(tileset_path)) { continue; }
 
@@ -363,6 +365,7 @@ public class GDKnyttAssetManager
                 ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
             }
         }
+        GDKnyttDataStore.ProgressHint = "Compiling finished.";
     }
 
     // Create "user://tilesets" directory and call this function at start to compile default tilesets

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using YKnyttLib;
 
 public class InfoScreen : CanvasLayer
@@ -232,9 +233,31 @@ public class InfoScreen : CanvasLayer
 
     private void _on_OptimizeButton_pressed()
     {
-        // TODO: waiting animation
+        Task.Run(optimize);
+        GetNode<Timer>("HintTimer").Start();
+    }
+
+    private void optimize()
+    {
+        string[] nodes_to_disable = { "InfoRect/BackButton", 
+            "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button", 
+            "InfoRect/RatePanel/VBoxContainer/OptimizeButton", "InfoRect/RatePanel/VBoxContainer/UninstallButton", 
+            "InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton" };
+        foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
+        closeOtherSlots(-1);
+
         if (KWorld.BinMode) { KWorld.unpackWorld(); }
-        GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true); // To fix errors if chromakey and alpha channel used together
+        GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true);
+
+        GetNode<Timer>("HintTimer").Stop();
+        GDKnyttDataStore.ProgressHint = "Level was unpacked and compiled.";
+        _on_HintTimer_timeout();
+        foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = false; }
+    }
+
+    private void _on_HintTimer_timeout()
+    {
+        GetNode<Label>("InfoRect/HintLabel").Text = GDKnyttDataStore.ProgressHint;
     }
 
     private void _on_VisitButton_pressed()

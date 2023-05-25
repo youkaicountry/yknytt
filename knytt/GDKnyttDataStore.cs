@@ -10,6 +10,8 @@ public class GDKnyttDataStore : Node
 
     public static SceneTree Tree { get; set; }
 
+    public static string ProgressHint { get; set; }
+
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }
     public static Node CutsceneReturn { get; private set; }
