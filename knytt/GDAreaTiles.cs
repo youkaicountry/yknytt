@@ -41,7 +41,7 @@ public class GDAreaTiles : Node2D
 
     public void setTile(int layer, int x, int y, int tilenum)
     {
-        this.Layers[layer].setTile(x, y, tilenum);
+        this.Layers[layer].setTile(x, y, tilenum, layer >= 3);
     }
 
     public void deactivate()

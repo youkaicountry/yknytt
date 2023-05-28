@@ -17,7 +17,7 @@ public class GDAreaLayer : Node2D
         this.B.TileSet = B;
     }
 
-    public void setTile(int x, int y, int tilenum)
+    public void setTile(int x, int y, int tilenum, bool collisions)
     {
         TileMap umap;
         if (tilenum < 128) { umap = this.B; }
@@ -27,7 +27,7 @@ public class GDAreaLayer : Node2D
             umap = this.A;
         }
 
-        umap.SetCell(x, y, tilenum);
+        umap.SetCell(x, y, tilenum + (collisions ? 0 : 128));
     }
 
     public void deactivate()

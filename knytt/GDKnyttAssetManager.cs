@@ -1,11 +1,11 @@
 using Godot;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using YKnyttLib;
 using YKnyttLib.Logging;
 using YUtil.Collections;
 using System.Linq;
+using System;
 
 public class GDKnyttAssetManager
 {
@@ -69,7 +69,7 @@ public class GDKnyttAssetManager
         {
             case Texture t:
                 // Preprocess the texture if no alpha channel
-                TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t), true);
+                TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t));
                 ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
                 ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
@@ -207,21 +207,16 @@ public class GDKnyttAssetManager
         return texture;
     }
 
-    public static TileSet makeTileset(Texture texture, bool collisions)
+    public static TileSet makeTileset(Texture texture)
     {
-        BitMap original_bitmap = null;
-        BitMap bitmap = null;
-        if (collisions)
-        {
-            var image = texture.GetData();
-            original_bitmap = new BitMap();
-            original_bitmap.CreateFromImageAlpha(image, .001f);
-            
-            // bitmap with borders is needed to shrink mask later
-            bitmap = new BitMap();
-            bitmap.Create(new Vector2((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
-            bitmap.SetBitRect(new Rect2(new Vector2(0, 0), bitmap.GetSize()), true);
-        }
+        var image = texture.GetData();
+        BitMap original_bitmap = new BitMap();
+        original_bitmap.CreateFromImageAlpha(image, .001f);
+        
+        // bitmap with borders is needed to shrink mask later
+        BitMap bitmap = new BitMap();
+        bitmap.Create(new Vector2((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
+        bitmap.SetBitRect(new Rect2(new Vector2(0, 0), bitmap.GetSize()), true);
 
         var ts = new TileSet();
 
@@ -235,45 +230,67 @@ public class GDKnyttAssetManager
                 var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
 
-                if (collisions)
+                for (int m = 0; m < TILE_WIDTH; m++)
                 {
-                    for (int m = 0; m < TILE_WIDTH; m++)
+                    for (int n = 0; n < TILE_HEIGHT; n++)
                     {
-                        for (int n = 0; n < TILE_HEIGHT; n++)
-                        {
-                            bitmap.SetBit(new Vector2(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1), 
-                                original_bitmap.GetBit(new Vector2(x * TILE_WIDTH + m, y * TILE_HEIGHT + n)));
-                        }
+                        bitmap.SetBit(new Vector2(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1), 
+                            original_bitmap.GetBit(new Vector2(x * TILE_WIDTH + m, y * TILE_HEIGHT + n)));
+                    }
+                }
+
+                var bitmap_region = new Rect2(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
+                var polygons = tilePolygons(bitmap, bitmap_region);
+                //var bitmap_region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+                //var polygons = tilePolygons(original_bitmap, bitmap_region);
+                int c = 0;
+
+                foreach (Vector2[] polygon in polygons)
+                {
+                    Vector2[] p = polygon;
+                    bool convex = isConvex(p);
+                    if (!convex)
+                    {
+                        if (!Geometry.IsPolygonClockwise(p)) { Array.Reverse(p); }
+                        p = smoothPolygon(p);
+                        if (p == null) { GD.Print($"Error in smoothing {x}, {y}"); continue; } // should never happen
+                        convex = isConvex(p);
                     }
 
-                    var bitmap_region = new Rect2(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
-                    var polygons = tilePolygons(bitmap, bitmap_region);
-                    int c = 0;
-
-                    foreach (Vector2[] polygon in polygons)
+                    if (convex)
                     {
-                        if (isConvex(polygon))
+                        var collision = new ConvexPolygonShape2D();
+                        collision.SetPointCloud(p);
+                        ts.TileSetShape(i, c++, collision);
+                    }
+                    else
+                    {
+                        int[] triangles = Geometry.TriangulatePolygon(p);
+                        for (int t = 0; t < triangles.Length; t += 3)
                         {
+                            Vector2[] triangle = { p[triangles[t]], p[triangles[t + 1]], p[triangles[t + 2]] };
                             var collision = new ConvexPolygonShape2D();
-                            collision.SetPointCloud(polygon);
+                            collision.SetPointCloud(triangle);
                             ts.TileSetShape(i, c++, collision);
-                        }
-                        else
-                        {
-                            int[] triangles = Geometry.TriangulatePolygon(polygon);
-                            for (int t = 0; t < triangles.Length; t += 3)
-                            {
-                                Vector2[] triangle = { polygon[triangles[t]], polygon[triangles[t + 1]], polygon[triangles[t + 2]] };
-                                var collision = new ConvexPolygonShape2D();
-                                collision.SetPointCloud(triangle);
-                                ts.TileSetShape(i, c++, collision);
-                            }
                         }
                     }
                 }
                 i++;
             }
         }
+
+        for (int y = 0; y < TILESET_HEIGHT; y++)
+        {
+            for (int x = 0; x < TILESET_WIDTH; x++)
+            {
+                ts.CreateTile(i);
+                ts.TileSetTexture(i, texture);
+                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+                ts.TileSetRegion(i, region);
+                i++;
+            }
+        }
+
         return ts;
     }
 
@@ -293,7 +310,7 @@ public class GDKnyttAssetManager
         for (float n = region.Position.y; n < region.End.y; n++)
         GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
 
-        var polygons = (bitmap.OpaqueToPolygons(region, 0.99f) as IEnumerable).Cast<Vector2[]>();
+        var polygons = bitmap.OpaqueToPolygons(region, 0.99f).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
         return polygons.Select(p => p.Select(v => new Vector2(v.x, v.y - (region.Position.y * 2))).ToArray());
     }
@@ -316,9 +333,71 @@ public class GDKnyttAssetManager
         return true;
     }
 
+    private const float MIN_RECESS_WIDTH = 8;
+    private const float MAX_RECESS_DEPTH = -2;
+    private const float MIN_HILL_HEIGHT = 2;
+
+    private static Vector2[] smoothPolygon(Vector2[] full_polygon)
+    {
+        var convex_hull = Geometry.ConvexHull2d(full_polygon).Reverse().ToList();
+
+        int result_size = 0;
+        while (result_size != convex_hull.Count)
+        {
+            result_size = convex_hull.Count;
+
+            int fpi = Array.IndexOf(full_polygon, convex_hull[0]);
+            for (int chi = 0; chi < convex_hull.Count - 1; chi++)
+            {
+                if (convex_hull.Count - 1 > full_polygon.Count()) { return null; } // should never happen
+
+                Vector2 ch_from = convex_hull[chi], ch_to = convex_hull[chi + 1];
+                Vector2? before_recess = null, recess = null, after_recess = null;
+                float recess_depth = -24;
+
+                for (fpi++; ; fpi++) // iterate between convex hull points
+                {
+                    Vector2 fpp = full_polygon[fpi % full_polygon.Count()];
+                    if (fpp == ch_to)
+                    {
+                        if (recess != null && (before_recess ?? ch_from).DistanceTo(after_recess ?? ch_to) > MIN_RECESS_WIDTH)
+                        {
+                            convex_hull.Insert(++chi, recess.Value); // add selected recess (if it's wide enough)
+                        }
+                        break;
+                    }
+
+                    float height = distanceToLine(fpp, ch_from, ch_to);
+                    if (height > MIN_HILL_HEIGHT) // additional convex vertex - just add it
+                    {
+                        convex_hull.Insert(chi + 1, fpp);
+                        break;
+                    }
+                    
+                    if (height < MAX_RECESS_DEPTH)
+                    {
+                        if (height > recess_depth) { recess_depth = height; recess = fpp; } // select shallowest recess
+                        after_recess = null;
+                    }
+                    else
+                    {
+                        if (recess == null) { before_recess = fpp; }
+                        if (recess != null && after_recess == null) { after_recess = fpp; }
+                    }
+                }
+            }
+        }
+        return convex_hull.ToArray();
+    }
+
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {
         return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
+    }
+
+    public static float distanceToLine(Vector2 p, Vector2 lp1, Vector2 lp2)
+    {
+        return crossProduct(lp2, lp1, p) / lp1.DistanceTo(lp2);
     }
 
     public static bool replaceColor(Image image, Color old_color, Color new_color)
@@ -362,7 +441,7 @@ public class GDKnyttAssetManager
             if (texture is Texture t)
             {
                 t = preprocessTilesetTexture(t);
-                ResourceSaver.Save(cached_path, makeTileset(t, true), ResourceSaver.SaverFlags.Compress);
+                ResourceSaver.Save(cached_path, makeTileset(t), ResourceSaver.SaverFlags.Compress);
             }
         }
         GDKnyttDataStore.ProgressHint = "Compiling finished.";
@@ -375,7 +454,7 @@ public class GDKnyttAssetManager
         {
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
-            var tileset = makeTileset(texture, true);
+            var tileset = makeTileset(texture);
             GD.PrintErr(ResourceSaver.Save($"user://tilesets/Tileset{i}.png.res", tileset, ResourceSaver.SaverFlags.Compress));
         }
     }
