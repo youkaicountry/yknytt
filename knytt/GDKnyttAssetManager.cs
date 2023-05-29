@@ -62,7 +62,8 @@ public class GDKnyttAssetManager
     private TileSet buildTileSet(int num)
     {
         string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
-        if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
+        // temporary, until recompiling tilesets
+        //if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
@@ -209,15 +210,9 @@ public class GDKnyttAssetManager
 
     public static TileSet makeTileset(Texture texture)
     {
-        var image = texture.GetData();
-        BitMap original_bitmap = new BitMap();
-        original_bitmap.CreateFromImageAlpha(image, .001f);
-        
-        // bitmap with borders is needed to shrink mask later
         BitMap bitmap = new BitMap();
-        bitmap.Create(new Vector2((TILE_WIDTH + 2) * TILESET_WIDTH, (TILE_HEIGHT + 2) * TILESET_HEIGHT));
-        bitmap.SetBitRect(new Rect2(new Vector2(0, 0), bitmap.GetSize()), true);
-
+        bitmap.CreateFromImageAlpha(texture.GetData(), .001f);
+        
         var ts = new TileSet();
 
         int i = 0;
@@ -230,19 +225,7 @@ public class GDKnyttAssetManager
                 var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
 
-                for (int m = 0; m < TILE_WIDTH; m++)
-                {
-                    for (int n = 0; n < TILE_HEIGHT; n++)
-                    {
-                        bitmap.SetBit(new Vector2(x * (TILE_WIDTH + 2) + m + 1, y * (TILE_HEIGHT + 2) + n + 1), 
-                            original_bitmap.GetBit(new Vector2(x * TILE_WIDTH + m, y * TILE_HEIGHT + n)));
-                    }
-                }
-
-                var bitmap_region = new Rect2(x * (TILE_WIDTH + 2) + 1, y * (TILE_HEIGHT + 2) + 1, TILE_WIDTH, TILE_HEIGHT);
-                var polygons = tilePolygons(bitmap, bitmap_region);
-                //var bitmap_region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-                //var polygons = tilePolygons(original_bitmap, bitmap_region);
+                var polygons = tilePolygons(bitmap, region);
                 int c = 0;
 
                 foreach (Vector2[] polygon in polygons)
@@ -296,19 +279,24 @@ public class GDKnyttAssetManager
 
     private static IEnumerable<Vector2[]> tilePolygons(BitMap bitmap, Rect2 region)
     {
-        /*if (debug) // Print bitmap mask: before
-        for (float n = region.Position.y; n < region.End.y; n++)
-        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));
-        if (debug) GD.Print("");*/
-
-        // Smooth mask a little: grow true bits, then shrink. This will fill inner void pixels and reduce number of polygons.
-        // Also workaround for https://github.com/godotengine/godot/issues/31675
-        bitmap.GrowMask(1, region);
-        bitmap.GrowMask(-1, new Rect2(region.Position.x - 1, region.Position.y - 1, TILE_WIDTH + 2, TILE_HEIGHT + 2));
-
-        /*if (debug) // Print bitmap mask: after
-        for (float n = region.Position.y; n < region.End.y; n++)
-        GD.Print(String.Join("", Enumerable.Range((int)region.Position.x, TILE_WIDTH).Select(m => bitmap.GetBit(new Vector2(m, n)) ? "1" : "0")));*/
+        // Makes walls thicker if they are 1px wide. Some polygons disappear without this (Godot bug).
+        for (float i = region.Position.y; i < region.End.y; i++)
+        {
+            bool ppbit = false;
+            bool pbit = bitmap.GetBit(new Vector2(region.Position.x, i));
+            for (float j = region.Position.x + 1; j <= region.End.x; j++)
+            {
+                bool bit = (j == region.End.x) ? false : bitmap.GetBit(new Vector2(j, i));
+                if (!ppbit && pbit && !bit)
+                {
+                    if (j - 2 >= region.Position.x) { bitmap.SetBit(new Vector2(j - 2, i), true); }
+                    bitmap.SetBit(new Vector2(j - 1, i), true);
+                    if (j < region.End.x) { bitmap.SetBit(new Vector2(j, i), true); }
+                }
+                ppbit = pbit;
+                pbit = bit;
+            }
+        }
 
         var polygons = bitmap.OpaqueToPolygons(region, 0.99f).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
@@ -317,8 +305,6 @@ public class GDKnyttAssetManager
 
     private static bool isConvex(Vector2[] vertices)
     {
-        // TODO: return true for polygons which are almost convex, or their recesses are too small
-        //  (because unnecessary triangles inflate tilesets)
         bool got_negative = false;
         bool got_positive = false;
         for (int a = 0; a < vertices.Length; a++)
