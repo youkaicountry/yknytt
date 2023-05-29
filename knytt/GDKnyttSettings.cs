@@ -163,7 +163,7 @@ public class GDKnyttSettings : Node
         modified |= loadSettings();
 
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
-        modified |= ensureSetting("Graphics", "Smooth Scaling", "0");
+        modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Smooth");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
@@ -236,5 +236,24 @@ public class GDKnyttSettings : Node
         if (oval.Equals(value)) { return false; }
         ini[section][setting] = value;
         return true;
+    }
+
+    public override void _Process(float delta)
+    {
+        if (Input.IsActionJustPressed("fullscreen")) { Fullscreen = !Fullscreen; }
+
+        if (Input.IsActionJustPressed("zoom") && ! Fullscreen)
+        {
+            Vector2 max_size = OS.GetScreenSize(), cur_size = OS.WindowSize,
+                min_size = new Vector2((int)ProjectSettings.GetSetting("display/window/size/width"), 
+                                       (int)ProjectSettings.GetSetting("display/window/size/height"));
+            int scale = (int)Mathf.Min(cur_size.x / min_size.x, cur_size.y / min_size.y);
+            int max_scale = (int)Mathf.Min(max_size.x / min_size.x, max_size.y / min_size.y);
+            
+            scale++;
+            if (scale > max_scale) { scale = 1; }
+            OS.WindowSize = min_size * scale;
+            OS.WindowPosition = (max_size - OS.WindowSize) / 2;
+        }
     }
 }
