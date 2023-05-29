@@ -225,7 +225,7 @@ extents = Vector2( 0.5, 1.5 )
 extents = Vector2( 0.5, 0.65 )
 
 [sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 2, 7 )
+extents = Vector2( 1.9, 6.5 )
 
 [sub_resource type="Gradient" id=20]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -248,13 +248,13 @@ __meta__ = {
 }
 
 [node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5, -8, -2, -8, -2, 8.6, -5, 8.6 )
+polygon = PoolVector2Array( -5, -7, -2, -7, -2, 8.6, -5, 8.6 )
 
 [node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -2, -8, 2, -8, 2, 8.6, -2, 8.6 )
+polygon = PoolVector2Array( -2, -7, 2, -7, 2, 8.6, -2, 8.6 )
 
 [node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 2, -8, 5, -8, 5, 8.6, 2, 8.6 )
+polygon = PoolVector2Array( 2, -7, 5, -7, 5, 8.6, 2, 8.6 )
 
 [node name="Umbrella" type="AnimatedSprite" parent="."]
 position = Vector2( 3.7, -3.95 )
@@ -398,11 +398,11 @@ collision_mask = 6
 shape = SubResource( 25 )
 
 [node name="InsideDetector" type="Area2D" parent="Checkers"]
-visible = false
 collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/InsideDetector"]
+position = Vector2( 0, 0.5 )
 shape = SubResource( 23 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
