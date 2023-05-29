@@ -25,6 +25,7 @@ public class SettingsScreen : CanvasLayer
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
         GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
+        GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = OS.GetName() != "Android" && OS.GetName() != "iOS";
     }
 
     public void _on_BackButton_pressed()
