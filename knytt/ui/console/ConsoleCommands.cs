@@ -31,6 +31,12 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("shift", "Shifts Juni (relative to current position)", null, false, ShiftCommand.NewShiftCommand, 
+            new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
+            new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("goto", "Shifts Juni (absolute map+area coordinates)", null, false, ShiftCommand.NewGotoCommand, 
+            new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
+            new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -378,6 +384,49 @@ public static class ConsoleCommands
             game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map);
             game.UI.updatePowers();
             env.Console.AddMessage(on ? "Map is enabled. set map on: opens the whole map" : "Map is disabled (if level had no map).");
+        }
+    }
+
+    public class ShiftCommand : ICommand
+    {
+        bool absolute;
+        int x_map, y_map;
+        int? x_pos, y_pos;
+
+        public ShiftCommand(CommandParseResult result, bool absolute)
+        {
+            this.absolute = absolute;
+            x_map = int.Parse(result.Args["xMap"]);
+            y_map = int.Parse(result.Args["yMap"]);
+            x_pos = result.Args.TryGetValue("xPos", out var i) && i != null ? (int?)int.Parse(i) : null;
+            y_pos = result.Args.TryGetValue("yPos", out var j) && j != null ? (int?)int.Parse(j) : null;
+        }
+
+        public static ICommand NewShiftCommand(CommandParseResult result)
+        {
+            return new ShiftCommand(result, absolute: false);
+        }
+
+        public static ICommand NewGotoCommand(CommandParseResult result)
+        {
+            return new ShiftCommand(result, absolute: true);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            if (game == null) { return "No game is loaded"; }
+
+            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            shift.AbsoluteTarget = absolute;
+            shift.FormattedArea = new KnyttPoint(x_map, y_map);
+            if (x_pos != null && y_pos != null) { shift.FormattedPosition = new KnyttPoint(x_pos.Value, y_pos.Value); }
+            else { shift.RelativePosition = KnyttPoint.Zero; }
+
+            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
+            game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            return null;
         }
     }
 }
