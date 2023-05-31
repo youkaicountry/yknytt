@@ -64,8 +64,6 @@ public class InfoScreen : CanvasLayer
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        GetNode<LevelSelection>("../LevelSelection").killConsumers();
-
         string cache_dir = GDKnyttAssetManager.extractFilename(KWorld.WorldDirectory);
         GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
         var f = new File();
