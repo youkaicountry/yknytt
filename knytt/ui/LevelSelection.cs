@@ -3,10 +3,8 @@ using Godot.Collections;
 using IniParser.Model;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO.Compression;
 using System.Text;
-using System.Threading.Tasks;
 using YKnyttLib;
 
 public class LevelSelection : CanvasLayer
@@ -14,8 +12,6 @@ public class LevelSelection : CanvasLayer
     private WorldManager Manager { get; }
 
     private PackedScene info_scene;
-
-    [Export] public int loadThreads = 4;
 
     string filter_category;
     string filter_difficulty;
@@ -25,10 +21,6 @@ public class LevelSelection : CanvasLayer
     int filter_difficulty_int;
     int filter_size_int;
     int filter_order_int = 5; // Downloads by default
-
-    bool halt_consumers = false;
-    bool discovery_over = false;
-    List<Task> consumers;
 
     GameContainer game_container;
     ScrollBar games_scrollbar;
@@ -42,15 +34,12 @@ public class LevelSelection : CanvasLayer
 
     ConcurrentQueue<WorldEntry> finished_entries;
     ConcurrentQueue<WorldEntry> remote_finished_entries; // TODO: process all found entries at once?
-    ConcurrentQueue<Action> load_hopper;
 
     public LevelSelection()
     {
         Manager = new WorldManager();
         finished_entries = new ConcurrentQueue<WorldEntry>();
         remote_finished_entries = new ConcurrentQueue<WorldEntry>();
-        load_hopper = new ConcurrentQueue<Action>();
-        consumers = new List<Task>();
     }
 
     public override void _Ready()
@@ -66,61 +55,10 @@ public class LevelSelection : CanvasLayer
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
-        var sys = OS.GetName();
-        //if (sys.Equals("Android") || sys.Equals("HTML5") || sys.Equals("iOS")) { singleThreadedLoad(); }
-        //else { multiThreadedLoad(); }
-        singleThreadedLoad();
-    }
-
-    private void singleThreadedLoad()
-    {
-        loadDefaultWorlds(true);
-        discoverWorlds("./worlds", true);
-        discoverWorlds("user://Worlds", true);
+        loadDefaultWorlds();
+        discoverWorlds("./worlds");
+        discoverWorlds("user://Worlds");
         if (!localLoad) { HttpLoad(); }
-    }
-
-    private void multiThreadedLoad()
-    {
-        startHopperConsumers();
-
-        Task.Run(() => this.loadDefaultWorlds(false));
-        Task.Run(() => this.discoverWorlds("./worlds", false));
-    }
-
-    private void startHopperConsumers()
-    {
-        Action consumer = () =>
-        {
-            while (true)
-            {
-                Action action;
-                if (load_hopper.Count > 0 && load_hopper.TryDequeue(out action))
-                {
-                    var t = Task.Run(action);
-                    t.Wait();
-                }
-                else
-                {
-                    var t = Task.Delay(5);
-                    t.Wait();
-                    if (discovery_over) { break; }
-                }
-
-                if (halt_consumers) { break; }
-            }
-        };
-
-        for (int i = 0; i < loadThreads; i++)
-        {
-            consumers.Add(Task.Run(consumer));
-        }
-    }
-
-    public void killConsumers()
-    {
-        halt_consumers = true;
-        Task.WaitAll(consumers.ToArray());
     }
 
     private void HttpLoad()
@@ -222,23 +160,23 @@ public class LevelSelection : CanvasLayer
         }
     }
 
-    private void loadDefaultWorlds(bool single_threaded)
+    private void loadDefaultWorlds()
     {
-        startBinLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin", single_threaded);
-        startBinLoad("res://knytt/worlds/Nifflas - Gustav's Daughter.knytt.bin", single_threaded);
-        startBinLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin", single_threaded);
-        startBinLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin", single_threaded);
-        startBinLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin", single_threaded);
-        startBinLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin", single_threaded);
+        binLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin");
+        binLoad("res://knytt/worlds/Nifflas - Gustav's Daughter.knytt.bin");
+        binLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin");
+        binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
+        binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
+        binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
     }
 
     // Search the given directory for worlds
-    private void discoverWorlds(string path, bool single_threaded)
+    private void discoverWorlds(string path)
     {
         var wd = new Directory();
-        if (!wd.DirExists(path)) { discovery_over = true; return; }
+        if (!wd.DirExists(path)) { return; }
         var error = wd.Open(path);
-        if (error != Error.Ok) { discovery_over = true; return; }
+        if (error != Error.Ok) { return; }
 
         wd.ListDirBegin(skipNavigational: true);
         while (true)
@@ -249,38 +187,21 @@ public class LevelSelection : CanvasLayer
             if (wd.CurrentIsDir())
             {
                 if (!verifyDirWorld(wd, name)) { continue; }
-                startDirectoryLoad(wd.GetCurrentDir() + "/" + name, single_threaded);
+                directoryLoad(wd.GetCurrentDir() + "/" + name);
             }
             else
             {
                 if (!name.EndsWith(".knytt.bin")) { continue; }
-                startBinLoad(wd.GetCurrentDir() + "/" + name, single_threaded);
+                binLoad(wd.GetCurrentDir() + "/" + name);
             }
         }
         wd.ListDirEnd();
-        discovery_over = true;
-    }
-
-    private void startDirectoryLoad(string world_dir, bool single_threaded)
-    {
-        if (single_threaded) { directoryLoad(world_dir); return; }
-
-        Action action = () => { directoryLoad(world_dir); };
-        load_hopper.Enqueue(action);
     }
 
     private void directoryLoad(string world_dir)
     {
         var entry = generateDirectoryWorld(world_dir);
         finished_entries.Enqueue(entry);
-    }
-
-    private void startBinLoad(string world_dir, bool single_threaded)
-    {
-        if (single_threaded) { binLoad(world_dir); return; }
-
-        Action action = () => { binLoad(world_dir); };
-        load_hopper.Enqueue(action);
     }
 
     private void binLoad(string world_dir)
@@ -432,7 +353,6 @@ public class LevelSelection : CanvasLayer
 
     public void _on_BackButton_pressed()
     {
-        killConsumers();
         ClickPlayer.Play();
         this.QueueFree();
     }
