@@ -173,14 +173,14 @@ public class Juni : KinematicBody2D
             {
                 return !Umbrella.Deployed ? SWIM_TERM_VEL :
                     InUpdraft ? TERM_VEL_UP : 
-                    !juniInput.JumpHeld ? SWIM_TERM_VEL_UMB :
+                    !juniInput.JumpHeld && !juniInput.UmbrellaHeld ? SWIM_TERM_VEL_UMB :
                     Powers.getPower(PowerNames.HighJump) ? SWIM_TERM_VEL_UMB_HIGHJUMP_HOLD : SWIM_TERM_VEL_UMB_LOWJUMP_HOLD;
             }
             else
             {
                 return !Umbrella.Deployed ? TERM_VEL :
                     InUpdraft ? TERM_VEL_UP : 
-                    !juniInput.JumpHeld ? TERM_VEL_UMB :
+                    !juniInput.JumpHeld && !juniInput.UmbrellaHeld ? TERM_VEL_UMB :
                     Powers.getPower(PowerNames.HighJump) ? TERM_VEL_UMB_HIGHJUMP_HOLD : TERM_VEL_UMB_LOWJUMP_HOLD;
             }
             // TODO: different terminal velocities when Juni has no run power. Can reach unreachable areas, but almost impossible situation
@@ -554,18 +554,19 @@ public class Juni : KinematicBody2D
     {
         // This particular value needs to be multiplied by delta to ensure
         // framerate independence
+        bool jump_held = juniInput.JumpHeld || (Umbrella.Deployed && juniInput.UmbrellaHeld);
         if (InUpdraft && Umbrella.Deployed)
         {
             velocity.y -= GRAVITY * delta * (Swim ? SWIM_UPDRAFT_FORCE : 
-                                             juniInput.JumpHeld ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
+                                             jump_held ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
             velocity.y = Mathf.Max(Swim ? SWIM_MAX_UPDRAFT_SPEED : 
-                                   juniInput.JumpHeld ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
+                                   jump_held ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
         }
         else
         {
             if (!Grounded) { velocity.y += GRAVITY * delta; }
             else { velocity.y = GRAVITY * delta; }
-            if (juniInput.JumpHeld)
+            if (jump_held)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ? 
                     (Swim ? SWIM_HIGH_JUMP_HOLD_POWER : HIGH_JUMP_HOLD_POWER) : 

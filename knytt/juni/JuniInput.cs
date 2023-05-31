@@ -63,6 +63,7 @@ public class JuniInput
     public bool JumpEdge { get { return checkJustPressed("jump"); } }
     public bool JumpHeld { get { return checkPressed("jump"); } }
     public bool WalkHeld { get { return checkPressed("walk"); } }
+    public bool UmbrellaHeld { get { return checkPressed("umbrella"); } }
 
     public void Update()
     {
