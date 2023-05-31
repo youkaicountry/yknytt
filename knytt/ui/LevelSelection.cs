@@ -445,6 +445,7 @@ public class LevelSelection : CanvasLayer
             if (!timer.IsStopped()) { return; }
 
             GDKnyttAssetManager.ensureDirExists("user://Worlds");
+            cleanUnfinished();
 
             string filename = button.worldEntry.Link;
             filename = filename.Substring(filename.LastIndexOf('/') + 1);
@@ -513,6 +514,17 @@ public class LevelSelection : CanvasLayer
     {
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
             download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHTTPRequest.Action.Download);
+    }
+
+    private void cleanUnfinished()
+    {
+        var dir = new Directory();
+        dir.Open("user://Worlds");
+        dir.ListDirBegin(skipNavigational: true);
+        for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
+        {
+            if (filename.EndsWith(".part") && dir.FileExists(filename)) { dir.Remove(filename); }
+        }
     }
 
     public void _on_CategoryDropdown_item_selected(int index)
