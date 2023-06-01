@@ -145,10 +145,10 @@ Bank 19 (Collectables):
 
 [x] Overlay
 
-[ ] Tint
-[ ] 	Tint=#
-[ ] 	TintTrans=46
-[ ] 	TintInk=Add
+[x] Tint
+[x] 	Tint=#
+[x] 	TintTrans=46
+[x] 	TintInk=Add
 
 [x] Title
 [x] 	Title=YourMessageHere

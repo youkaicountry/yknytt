@@ -1,0 +1,38 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform int r: hint_range(0, 255);
+uniform int g: hint_range(0, 255);
+uniform int b: hint_range(0, 255);
+uniform float a: hint_range(0, 1);
+uniform int mode : hint_range(0, 5);
+
+const int blend = 0, add = 1, sub = 2, and = 3, or = 4, xor = 5;
+
+void fragment()
+{
+    vec3 base = vec3(float(r) / 255., float(g) / 255., float(b) / 255.);
+    vec3 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+    if (mode == blend)
+        COLOR = vec4(base, a);
+    else if (mode == add)
+        COLOR.rgb = c + base;
+    else if (mode == sub)
+        COLOR.rgb = c - base;
+    else if (mode == and)
+        COLOR.rgb = vec3(float(int(c.r * 255.) & r) / 255., float(int(c.g * 255.) & g) / 255., float(int(c.b * 255.) & b) / 255.);
+    else if (mode == or)
+        COLOR.rgb = vec3(float(int(c.r * 255.) | r) / 255., float(int(c.g * 255.) | g) / 255., float(int(c.b * 255.) | b) / 255.);
+    else if (mode == xor)
+        COLOR.rgb = vec3(float(int(c.r * 255.) ^ r) / 255., float(int(c.g * 255.) ^ g) / 255., float(int(c.b * 255.) ^ b) / 255.);
+}"
+
+[resource]
+shader = SubResource( 6 )
+shader_param/r = 0
+shader_param/g = 0
+shader_param/b = 0
+shader_param/a = 0.63
+shader_param/mode = 0
