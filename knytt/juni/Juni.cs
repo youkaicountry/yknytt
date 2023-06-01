@@ -137,32 +137,14 @@ public class Juni : KinematicBody2D
 
     public Color? JuniClothes
     {
-        set
-        {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            mat.SetShaderParam("clothes_color", value);
-        }
-
-        get
-        {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            return mat.GetShaderParam("clothes_color") as Color?;
-        }
+        set { (Sprite.Material as ShaderMaterial).SetShaderParam("clothes_color", value); }
+        get { return (Sprite.Material as ShaderMaterial).GetShaderParam("clothes_color") as Color?; }
     }
 
     public Color? JuniSkin
     {
-        set
-        {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            mat.SetShaderParam("skin_color", value);
-        }
-
-        get
-        {
-            var mat = GetNode<Sprite>("Sprite").Material as ShaderMaterial;
-            return mat.GetShaderParam("skin_color") as Color?;
-        }
+        set { (Sprite.Material as ShaderMaterial).SetShaderParam("skin_color", value); }
+        get { return (Sprite.Material as ShaderMaterial).GetShaderParam("skin_color") as Color?; }
     }
 
     public float TerminalVelocity
@@ -335,7 +317,7 @@ public class Juni : KinematicBody2D
         set
         {
             if (DebugFlyMode && !value) { return; }
-            GetNode<Checkers>("Checkers").Disabled = value;
+            Checkers.Disabled = value;
             _collisions_disabled = value;
             enforceCollisionMap();
         }
@@ -401,6 +383,7 @@ public class Juni : KinematicBody2D
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
+        changeCharacter(this.Powers.Character ?? Game.GDWorld.KWorld.Info.Character, force_change: true);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
         JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
         JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
@@ -676,6 +659,28 @@ public class Juni : KinematicBody2D
         }
     }
 
+    public void changeCharacter(string name, bool force_change = false)
+    {
+        if (name == null || name == "" || name.ToLower() == "juni")
+        {
+            if (Powers.Character != "juni" || force_change)
+            {
+                Sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/juni.png");
+                Sprite.Vframes = 5;
+                Powers.Character = "juni";
+            }
+        }
+        else
+        {
+            if (Powers.Character != name || force_change)
+            {
+                Sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{name}.png") as Texture;
+                Sprite.Vframes = 10;
+                Powers.Character = name;
+            }
+        }
+    }
+
     // This kills the Juni
     public void die()
     {
@@ -729,7 +734,7 @@ public class Juni : KinematicBody2D
     public void reset()
     {
         Sprite.FlipH = false;
-        GetNode<Sprite>("Sprite").Visible = true;
+        Sprite.Visible = true;
         this.dead = false;
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));
@@ -745,6 +750,7 @@ public class Juni : KinematicBody2D
         Umbrella.reset();
         stopHologram(cleanup: true);
         enableAttachment(Powers.Attachment);
+        changeCharacter(Powers.Character);
     }
 
     private void handleXMovement(float delta)

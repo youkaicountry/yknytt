@@ -72,6 +72,8 @@ Bank 19 (Collectables):
 [x] - 51-150 Coins
 [x] - 151-199 Artifacts
 
+[ ] Bank 254 (Custom Objects B)
+
 [x] Info Panel with golden creatures and artifacts
 
 [ ] Override Custom Objects
@@ -82,7 +84,7 @@ Bank 19 (Collectables):
 [x] 	Hurts=False
 [/]     Color=
 
-[ ] Custom Characters
+[x] Custom Characters
 
 [ ] Custom Umbrella
 
@@ -113,7 +115,7 @@ Bank 19 (Collectables):
 
 [ ] Shift
 [x] 	ShiftSound(A) custom sounds
-[ ] 	ShiftCharacter(A)
+[x] 	ShiftCharacter(A)
 [x] 	ShiftTime(A)
 [ ] 	ShiftHide(A)
 [x] 	ShiftCoin(A)
