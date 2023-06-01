@@ -378,6 +378,7 @@ public class LevelSelection : CanvasLayer
             if (error != Error.Ok) { download_button.markFailed(); return; }
 
             timer.Start();
+            enableFilter(false);
 
             download_button = button;
             button.setDownloaded(0);
@@ -426,6 +427,7 @@ public class LevelSelection : CanvasLayer
         }
 
         GetNode<Timer>("DownloadMonitor").Stop();
+        enableFilter(true);
         http_node.DownloadFile = null;
         download_button = null;
     }
@@ -512,5 +514,13 @@ public class LevelSelection : CanvasLayer
     {
         if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
         GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/ScrollContainer"), 0);
+    }
+
+    private void enableFilter(bool enable)
+    {
+        var parent = GetNode<Control>("MainContainer/FilterContainer");
+        string[] childs = {"Category/CategoryDropdown", "Difficulty/DifficultyDropdown", "Size/SizeDropdown", "Sort/SortDropdown", "Sort/RemoteSortDropdown"};
+        foreach (var child in childs) { parent.GetNode<OptionButton>(child).Disabled = !enable; }
+        parent.GetNode<LineEdit>("Search/SearchEdit").Visible = enable;
     }
 }
