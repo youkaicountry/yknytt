@@ -117,6 +117,11 @@ public class Shift : Switch
             }
         }
 
+        if (shift.Character != null)
+        {
+            juni.changeCharacter(shift.Character);
+        }
+
         if (shift.Cutscene != null)
         {
             var list = shift.Cutscene.ToLower() != "ending" ? juni.Powers.Cutscenes : juni.Powers.Endings;

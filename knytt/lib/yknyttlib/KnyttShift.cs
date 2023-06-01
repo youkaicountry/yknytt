@@ -13,6 +13,7 @@ namespace YKnyttLib
         public JuniValues.Flag FlagOff { get; private set; }
         public int Coin { get; private set; }
         public int Delay { get; protected set; }
+        public string Character { get; private set; }
 
         public KnyttPoint AbsoluteArea { get; set; }
 
@@ -74,6 +75,7 @@ namespace YKnyttLib
             FlagOff = JuniValues.Flag.Parse(getStringINIValue(data, "FlagOff"));
             Coin = getIntINIValue(data, "Coin");
             Delay = getIntINIValue(data, "Time");
+            Character = getStringINIValue(data, "Character");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace YKnyttLib
 
         public int Clothes { get; }
         public int Skin { get; }
+        public string Character { get; }
 
         public KnyttWorldInfo(KeyDataCollection world_data)
         {
@@ -29,6 +30,7 @@ namespace YKnyttLib
 
             this.Clothes = KnyttUtil.parseBGRString(world_data["Clothes"], 0xEFEFEF);
             this.Skin = KnyttUtil.parseBGRString(world_data["Skin"], 0x9CB5D6);
+            this.Character = world_data["Character"];
 
             parseMultiCategory(world_data, "Category", Categories, new string[] { "A", "B" });
             parseMultiCategory(world_data, "Difficulty", Difficulties, new string[] { "A", "B", "C" });

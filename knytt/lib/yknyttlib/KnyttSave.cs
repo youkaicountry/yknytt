@@ -128,6 +128,12 @@ namespace YKnyttLib
             set { setValue("Extras", "Attach", value); }
         }
 
+        public string Character
+        {
+            get { return getValue("Extras", "Character"); }
+            set { setValue("Extras", "Character", value); }
+        }
+
         public HashSet<string> Cutscenes
         {
             get { return getValue("Extras", "Cutscenes")?.Split(',').Where(s => s != "").ToHashSet() ?? new HashSet<string>(); }

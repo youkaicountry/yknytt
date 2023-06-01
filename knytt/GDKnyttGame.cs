@@ -84,8 +84,8 @@ public class GDKnyttGame : Node2D
     public void createJuni()
     {
         Juni = juni_scene.Instance() as Juni;
-        Juni.initialize(this);
         this.AddChild(Juni);
+        Juni.initialize(this);
         Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
         Juni.Connect(nameof(Juni.PowerChanged), this, nameof(sendPowerUpdate));
     }
