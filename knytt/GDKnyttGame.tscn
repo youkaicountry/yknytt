@@ -275,6 +275,12 @@ pause_mode = 2
 
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
 
+[node name="Tint" type="ColorRect" parent="FadeCanvasLayer"]
+visible = false
+margin_right = 600.0
+margin_bottom = 240.0
+mouse_filter = 2
+
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
 bus = "Music"
 fadeInTime = 0.1

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using YKnyttLib;
 using YKnyttLib.Logging;
@@ -19,6 +20,8 @@ public class GDKnyttGame : Node2D
     public GDKnyttMusicChannel MusicChannel { get; private set; }
     public GDKnyttAmbiChannel AmbianceChannel1 { get; private set; }
     public GDKnyttAmbiChannel AmbianceChannel2 { get; private set; }
+
+    private ShaderMaterial tint;
 
     [Export]
     public float edgeScrollSpeed = 1500f;
@@ -51,6 +54,8 @@ public class GDKnyttGame : Node2D
 
         UI = GetNode<UICanvasLayer>("UICanvasLayer");
         this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
+
+        tint = ResourceLoader.Load<ShaderMaterial>("res://knytt/AreaTint.tres");
 
         GDKnyttSettings.setupViewport(for_ui: false);
         this.setupCamera();
@@ -277,6 +282,7 @@ public class GDKnyttGame : Node2D
 
         Juni.stopHologram(cleanup: true);
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
+        checkTint(area);
         if (hasMap()) { Juni.Powers.setVisited(CurrentArea.Area); }
     }
 
@@ -340,5 +346,39 @@ public class GDKnyttGame : Node2D
     {
         if (power < 0 || !value) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
+    }
+
+    enum TintInk { TRANS, ADD, SUB, AND, OR, XOR };
+
+    private void checkTint(GDKnyttArea area)
+    {
+        if (!(area.Area.ExtraData?.ContainsKey("Tint") ?? false)) { return; }
+
+        var glass = GetNode<Control>("FadeCanvasLayer/Tint");
+
+        int bgr = KnyttUtil.parseBGRString(area.Area.ExtraData["Tint"], 0);
+        int r = 0xFF & bgr, g = (0xFF00 & bgr) >> 8, b = (0xFF0000 & bgr) >> 16;
+
+        if (bgr == 0)
+        {
+            glass.Material = null;
+            glass.Visible = false;
+            return;
+        }
+
+        TintInk mode = area.Area.ExtraData.ContainsKey("TintInk") && 
+            Enum.TryParse<TintInk>(area.Area.ExtraData["TintInk"].ToUpper(), out var i) ? i : TintInk.TRANS;
+
+        int trans = area.Area.ExtraData.ContainsKey("TintTrans") && 
+            int.TryParse(area.Area.ExtraData["TintTrans"], out var t) ? t : 46;
+        float a = 1.0f - trans / 127.0f;
+
+        tint.SetShaderParam("mode", mode);
+        tint.SetShaderParam("r", r);
+        tint.SetShaderParam("g", g);
+        tint.SetShaderParam("b", b);
+        tint.SetShaderParam("a", a);
+        glass.Material = tint;
+        glass.Visible = true;
     }
 }
