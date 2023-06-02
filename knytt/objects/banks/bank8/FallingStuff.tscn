@@ -9,7 +9,7 @@ yGenegrator = 16
 
 [node name="SceneCPUParticles" parent="." index="0"]
 position = Vector2( 12, 12 )
-Lifetime = 25.0
+Lifetime = 3.0
 ParticleScene = ExtResource( 2 )
 Direction = 1.571
 Velocity = 25.0

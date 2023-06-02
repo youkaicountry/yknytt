@@ -4,6 +4,8 @@
 [ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" instance=ExtResource( 1 )]
+modulate = Color( 0, 0, 0, 1 )
+OrganicEnemy = false
 yGenegrator = 1
 ySingle = 2
 

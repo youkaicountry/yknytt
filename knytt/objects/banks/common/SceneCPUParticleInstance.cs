@@ -10,6 +10,8 @@ public class SceneCPUParticleInstance : Node2D
 
     public OpenSimplexNoise _noise;
 
+    public SceneCPUParticles parent;
+
     bool stopped = false;
 
     bool _brownian;
@@ -53,7 +55,7 @@ public class SceneCPUParticleInstance : Node2D
 
         base._PhysicsProcess(delta);
         _time += delta;
-        if (_time >= Lifetime) { QueueFree(); }
+        if (_time >= Lifetime) { parent?.returnParticle(this); }
 
         if (_brownian) { calcBrownianForces(delta); }
 
@@ -70,7 +72,6 @@ public class SceneCPUParticleInstance : Node2D
     {
         _brownian_t += BrownianSpeed * delta;
 
-
         var bm = new Vector2(_noise.GetNoise1d(_brownian_t.x), _noise.GetNoise1d(_brownian_t.y)) * BrownianForce;
         bm.x = Mathf.Pow(Mathf.Abs(bm.x), BrownianExponent) * Mathf.Sign(bm.x);
         bm.y = Mathf.Pow(Mathf.Abs(bm.y), BrownianExponent) * Mathf.Sign(bm.y);
@@ -80,5 +81,23 @@ public class SceneCPUParticleInstance : Node2D
     public void stop()
     {
         stopped = true;
+    }
+
+    public void hide()
+    {
+        Visible = false;
+        stopped = true;
+        _time = 0;
+        _acceleration = Vector2.Zero;
+        Velocity = Vector2.Zero;
+        Force = Vector2.Zero;
+        _brownian_t = new Vector2(0f, 999999f);
+    }
+
+    public void renew()
+    {
+        Visible = true;
+        Position = Vector2.Zero;
+        stopped = false;
     }
 }

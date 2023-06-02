@@ -45,7 +45,6 @@ public class CustomObject : GDKnyttBaseObject
             {
                 var node = bundle.getNode(Layer, Coords);
                 if (safe) { node.makeSafe(); }
-                // TODO: make all images from bank 7 white (modulate can't be applied to black color)
                 if (bank == 7) { node.Modulate = color; }
                 AddChild(node);
             }
