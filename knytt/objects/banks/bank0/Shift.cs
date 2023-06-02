@@ -24,7 +24,23 @@ public class Shift : Switch
             var delay_timer = GetNode<Timer>("DelayTimer");
             if (!delay_timer.IsStopped()) { return; }
             delay_timer.Start(shift.Delay / 1000f);
+
+            if (shift.Hide)
+            {
+                juni.Visible = false;
+                GDArea.BlockInput = true;
+                Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 18)) as Trigger;
+                trigger?.executeAnyway(juni);
+            }
+
             await ToSignal(delay_timer, "timeout");
+
+            if (shift.Hide)
+            {
+                juni.Visible = true;
+                GDArea.BlockInput = false;
+            }
+
             if (GDArea != game.CurrentArea) { return; }
         }
 

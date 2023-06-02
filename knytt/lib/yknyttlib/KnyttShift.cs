@@ -14,6 +14,7 @@ namespace YKnyttLib
         public int Coin { get; private set; }
         public int Delay { get; protected set; }
         public string Character { get; private set; }
+        public bool Hide { get; private set; }
 
         public KnyttPoint AbsoluteArea { get; set; }
 
@@ -76,6 +77,7 @@ namespace YKnyttLib
             Coin = getIntINIValue(data, "Coin");
             Delay = getIntINIValue(data, "Time");
             Character = getStringINIValue(data, "Character");
+            Hide = getBoolINIValue(data, "Hide", false);
         }
     }
 }
