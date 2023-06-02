@@ -190,6 +190,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_2="JuniCollides"
 2d_physics/layer_3="Object"
 2d_physics/layer_5="NoClimb"
+2d_physics/layer_6="Water"
 2d_physics/layer_10="WalkersCollide"
 2d_physics/layer_11="FlyersCollide"
 2d_physics/layer_12="ObjectsCollide"

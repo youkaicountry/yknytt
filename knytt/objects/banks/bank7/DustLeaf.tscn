@@ -4,12 +4,14 @@
 [ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.tscn" type="PackedScene" id=2]
 
 [node name="Node2D" instance=ExtResource( 1 )]
+modulate = Color( 0, 0, 0, 1 )
+OrganicEnemy = false
 yGenegrator = 14
 ySingle = 15
 
 [node name="SceneCPUParticles" parent="." index="0"]
 position = Vector2( 12, 12 )
-Lifetime = 25.0
+Lifetime = 5.0
 ParticleScene = ExtResource( 2 )
 Direction = 3.3
 DirectionVariation = 0.15

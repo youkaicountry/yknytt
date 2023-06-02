@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using YUtil.Random;
 
@@ -45,12 +46,7 @@ public class SceneCPUParticles : Node2D
 
     [Export] public float BrownianExponent = 1.5f;
 
-    PackedScene pinstance_scene;
-
-    public override void _Ready()
-    {
-        pinstance_scene = ResourceLoader.Load("res://knytt/objects/banks/common/SceneCPUParticleInstance.tscn") as PackedScene;
-    }
+    private Stack<SceneCPUParticleInstance> pcache = new Stack<SceneCPUParticleInstance>();
 
     public void spawnParticles()
     {
@@ -63,25 +59,36 @@ public class SceneCPUParticles : Node2D
     private void spawnParticle()
     {
         // TODO: destroy if out of area and reuse it later
-        var p = pinstance_scene.Instance() as SceneCPUParticleInstance;
+        SceneCPUParticleInstance p;
+        if (pcache.Count > 0)
+        {
+            p = pcache.Pop();
+            p.renew();
+        }
+        else
+        {
+            p = ParticleScene.Instance() as SceneCPUParticleInstance;
+            p.parent = this;
+            p.Params = this.ParticleParams;
+            AddChild(p);
+        }
+
         p.Lifetime = CalcVariation(Lifetime, LifetimeVariation);
         p.Velocity = MagnitudeVector(Direction, DirectionVariation, Velocity, VelocityVariation);
         p.Gravity = MagnitudeVector(GravityDirection, GravityDirectionVariation, Gravity, GravityVariation);
         p.Mass = CalcVariation(Mass, MassVariation);
-        p.Params = this.ParticleParams;
         p.Drag = CalcVariation(Drag, DragVariation);
 
         p.BrownianMotion = BrownianMotion;
         p.BrownianForce = new Vector2(CalcVariation(BrownianX, BrownianXVariation), CalcVariation(BrownianY, BrownianYVariation));
         p.BrownianSpeed = new Vector2(CalcVariation(BrownianXSpeed, BrownianXSpeedVariation), CalcVariation(BrownianYSpeed, BrownianYSpeedVariation));
         p.BrownianExponent = BrownianExponent;
+    }
 
-        var ps = ParticleScene.Instance() as Node2D;
-        p.AddChild(ps);
-        ps.Position = Vector2.Zero;
-
-        AddChild(p);
-        p.Position = Vector2.Zero;
+    public void returnParticle(SceneCPUParticleInstance p)
+    {
+        p.hide();
+        pcache.Push(p);
     }
 
     private Vector2 MagnitudeVector(float angle, float angle_var, float mag, float mag_var)

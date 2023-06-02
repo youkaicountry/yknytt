@@ -4,6 +4,8 @@
 [ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" instance=ExtResource( 1 )]
+modulate = Color( 0.2, 0.341176, 0.160784, 1 )
+OrganicEnemy = false
 yGenegrator = 10
 ySingle = 11
 
@@ -17,7 +19,7 @@ Velocity = 15.0
 VelocityVariation = 5.0
 Gravity = 2.0
 GravityVariation = 0.5
-ParticleParams = "10"
+ParticleParams = "default"
 BrownianMotion = true
 BrownianX = 6.0
 BrownianXSpeed = 600.0
