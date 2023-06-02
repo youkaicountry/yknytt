@@ -596,10 +596,12 @@ public class Juni : KinematicBody2D
         if (timer.TimeLeft > 0f) { return; }
         timer.Start();
         GetNode<AudioStreamPlayer2D>("Audio/HoloDeployPlayer2D").Play();
-        var node = hologram_scene.Instance() as Node2D;
+        var node = hologram_scene.Instance() as Sprite;
         GDArea.GDWorld.Game.AddChild(node);
-        node.GlobalPosition = GlobalPosition;
-        node.GetNode<AnimatedSprite>("AnimatedSprite").FlipH = !FacingRight;
+        node.GlobalPosition += GlobalPosition;
+        node.FlipH = !FacingRight;
+        node.Texture = Sprite.Texture;
+        node.Vframes = Sprite.Vframes;
         Hologram = node;
         var m = Modulate; m.a = .45f; Modulate = m;
         GetNode<Sprite>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.a);

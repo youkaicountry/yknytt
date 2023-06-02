@@ -1,29 +1,40 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=1]
+[ext_resource path="res://knytt/juni/Juni.shader" type="Shader" id=2]
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 192, 96, 24, 24 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 2 )
+shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
+shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 216, 96, 24, 24 )
+[sub_resource type="Animation" id=6]
+resource_name = "Stay"
+length = 0.08
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.04 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 48, 49 ]
+}
 
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 2 ) ],
-"loop": true,
-"name": "default",
-"speed": 25.0
-} ]
-
-[node name="Hologram" type="Node2D"]
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.3, -3 )
+[node name="Hologram" type="Sprite"]
+material = SubResource( 5 )
+position = Vector2( 0, -3 )
 z_index = 8
 z_as_relative = false
-frames = SubResource( 4 )
-frame = 1
-playing = true
+texture = ExtResource( 1 )
+hframes = 10
+vframes = 5
+frame = 48
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Stay"
+anims/Stay = SubResource( 6 )
