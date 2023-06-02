@@ -113,13 +113,13 @@ Bank 19 (Collectables):
 [x] 	TrigAsOne(A)
 [x] 	TrigRepeat(A)
 
-[ ] Shift
+[x] Shift
 [x] 	ShiftSound(A) custom sounds
 [x] 	ShiftCharacter(A)
 [x] 	ShiftTime(A)
 [x] 	ShiftHide(A)
 [x] 	ShiftCoin(A)
-[ ] 	ShiftSave(A)
+[x] 	ShiftSave(A)
 
 [x]     Sign2(A)
 [x] 	SignShift(A)

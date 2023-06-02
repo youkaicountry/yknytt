@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using YKnyttLib;
 using YKnyttLib.Logging;
@@ -147,6 +148,19 @@ public class Shift : Switch
         if (shift.Save)
         {
             game.saveGame(shift.AbsoluteArea, shift.AbsolutePosition, true);
+        }
+
+        if (shift.SaveFile != null && shift.SaveFile != "true" && shift.SaveFile != "false" && 
+            game.GDWorld.KWorld.worldFileExists($"savegame{shift.SaveFile}.ini"))
+        {
+            try
+            {
+                string savefile = GDKnyttAssetManager.loadTextFile(game.GDWorld.KWorld.getWorldData($"savegame{shift.SaveFile}.ini"));
+                KnyttSave save = new KnyttSave(game.GDWorld.KWorld, savefile, game.GDWorld.KWorld.CurrentSave.Slot);
+                game.GDWorld.KWorld.CurrentSave = save;
+                game.saveGame(save);
+            }
+            catch (Exception) {}
         }
 
         if (shift.Cutscene != null)
