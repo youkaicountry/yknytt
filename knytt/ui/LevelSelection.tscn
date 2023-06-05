@@ -21,6 +21,7 @@ border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
 bg_color = Color( 1, 1, 1, 1 )
 
 [node name="LevelSelection" type="CanvasLayer"]
+layer = 2
 script = ExtResource( 5 )
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
@@ -52,6 +53,7 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="GameContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
+focus_mode = 2
 script = ExtResource( 6 )
 
 [node name="FilterContainer" type="HBoxContainer" parent="MainContainer"]
@@ -195,6 +197,8 @@ margin_top = 19.0
 margin_right = 120.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 120, 15 )
+focus_neighbour_right = NodePath("../../../../BackButton")
+focus_next = NodePath("../../../../BackButton")
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -206,10 +210,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.3687
-margin_top = -25.4749
-margin_right = -5.36865
-margin_bottom = -6.26004
+margin_left = -85.369
+margin_top = -40.0
+margin_right = -5.36902
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
+focus_neighbour_top = NodePath("../MainContainer/ScrollContainer/GameContainer")
+focus_next = NodePath("../MainContainer/ScrollContainer/GameContainer")
+focus_previous = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
 text = "Back"
 
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
@@ -241,6 +249,7 @@ __meta__ = {
 wait_time = 0.5
 one_shot = true
 
+[connection signal="focus_entered" from="MainContainer/ScrollContainer/GameContainer" to="." method="_on_GameContainer_focus_entered"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Size/SizeDropdown" to="." method="_on_SizeDropdown_item_selected"]
@@ -250,7 +259,7 @@ one_shot = true
 [connection signal="focus_exited" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_exited"]
 [connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
 [connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]
 [connection signal="timeout" from="DownloadMonitor" to="." method="_on_DownloadMonitor_timeout"]

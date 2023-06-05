@@ -328,9 +328,9 @@ public class GDKnyttGame : Node2D
         }
     }
 
-    public void setupCamera()
+    public void setupCamera(bool force_fullscreen = false)
     {
-        if (!TouchSettings.EnablePanel)
+        if (!TouchSettings.EnablePanel || force_fullscreen)
         {
             Camera.AnchorMode = Camera2D.AnchorModeEnum.DragCenter;
             Camera.Offset = new Vector2(0, 0);

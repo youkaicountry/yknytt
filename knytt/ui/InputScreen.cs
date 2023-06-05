@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputScreen : Control
+public class InputScreen : BasicScreeen
 {
     InputOption collecting;
     int cnum;
@@ -9,6 +9,12 @@ public class InputScreen : Control
     {
         connectSettings(GetNode<Node>("SettingsContainer"));
         connectSettings(GetNode<Node>("KSSettingsContainer"));
+        initFocus();
+    }
+
+    public override void initFocus()
+    {
+        GetNode<Control>("SettingsContainer/UpSetting/Button0").GrabFocus();
     }
 
     private void connectSettings(Node node)
@@ -21,12 +27,11 @@ public class InputScreen : Control
         }
     }
 
-    public void _on_GDKnyttButton_pressed()
+    public override void goBack()
     {
         GDKnyttKeys.applyAllSettings();
         GDKnyttKeys.saveSettings();
-        ClickPlayer.Play();
-        QueueFree();
+        base.goBack();
     }
 
     public void _onPress(InputOption io, int num)
@@ -52,7 +57,7 @@ public class InputScreen : Control
         io.setCollecting(num);
         GetNode<Control>("KeyPrompt").Visible = true;
         GetNode<Button>("BackButton").Disabled = true;
-        GetNode<Button>("BackButton").FocusMode = FocusModeEnum.None;
+        GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.None;
     }
 
     private void finishCollecting()
@@ -62,7 +67,7 @@ public class InputScreen : Control
         collecting = null;
         GetNode<Control>("KeyPrompt").Visible = false;
         GetNode<Button>("BackButton").Disabled = false;
-        GetNode<Button>("BackButton").FocusMode = FocusModeEnum.All;
+        GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.All;
     }
 
     public void _on_CancelButton_pressed()

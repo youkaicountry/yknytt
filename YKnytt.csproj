@@ -239,6 +239,7 @@
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
     <Compile Include="knytt\ui\MapPanel.cs" />
+    <Compile Include="knytt\ui\PauseLayer.cs" />
     <Compile Include="knytt\ui\PausePanel.cs" />
     <Compile Include="knytt\ui\ClickPlayer.cs" />
     <Compile Include="knytt\ui\Cutscene.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="knytt\ui\UICanvasLayer.cs" />
     <Compile Include="knytt\ui\WorldEntry.cs" />
     <Compile Include="knytt\ui\WorldManager.cs" />
+    <Compile Include="knytt\ui\BasicScreen.cs" />
     <Compile Include="knytt\WSOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="knytt\lib\yknyttlib\JuniValues.cs" />

@@ -53,4 +53,9 @@ public class WorldManager
         if (text != null && !entry.Name.ToLower().Contains(text) && !entry.Author.ToLower().Contains(text)) { return false; }
         return true;
     }
+
+    public void clearAll()
+    {
+        this.Entries.Clear();
+    }
 }

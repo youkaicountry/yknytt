@@ -1,19 +1,17 @@
 using Godot;
 
-public class SettingsScreen : CanvasLayer
+public class SettingsScreen : BasicScreeen
 {
     PackedScene input_scene;
     PackedScene touch_scene;
     
-    public bool CleanupViewport { set; get; } = false;
-
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
         this.touch_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/touch/TouchSettingsScreen.tscn");
         fillControls();
+        initFocus();
     }
 
     public void fillControls()
@@ -28,13 +26,17 @@ public class SettingsScreen : CanvasLayer
         GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = OS.GetName() != "Android" && OS.GetName() != "iOS";
     }
 
-    public void _on_BackButton_pressed()
+    public override void initFocus()
+    {
+        bool desktop = GetNode<CheckBox>("SettingsContainer/FullScreen").Visible;
+        GetNode<CheckBox>("SettingsContainer/" + (desktop ? "FullScreen": "SmoothScale")).GrabFocus();
+    }
+
+    public override void goBack()
     {
         GDKnyttSettings.saveSettings();
         TouchSettings.applyAllSettings(GetTree());
-        if (CleanupViewport) { GDKnyttSettings.setupViewport(for_ui: false); }
-        ClickPlayer.Play();
-        this.QueueFree();
+        base.goBack();
     }
 
     public void _on_FullScreen_pressed()
@@ -54,16 +56,12 @@ public class SettingsScreen : CanvasLayer
 
     public void _on_KeyRemapButton_pressed()
     {
-        ClickPlayer.Play();
-        var inp = input_scene.Instance();
-        AddChild(inp);
+        loadScreen(input_scene.Instance() as BasicScreeen);
     }
 
     private void _on_TouchPanelButton_pressed()
     {
-        ClickPlayer.Play();
-        var inp = touch_scene.Instance();
-        AddChild(inp);
+        loadScreen(touch_scene.Instance() as BasicScreeen);
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

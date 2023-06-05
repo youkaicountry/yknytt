@@ -22,6 +22,7 @@ public class Cutscene : Control
         changeScene(1);
         loadMusic();
         releaseAll();
+        GetNode<Button>("NextButton").GrabFocus();
     }
 
     public static Color getCutsceneColor(string name = null)

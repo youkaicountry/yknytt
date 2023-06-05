@@ -31,9 +31,8 @@ border_color = Color( 0, 0, 0, 0 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
-[node name="TouchSettingsScreen" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TouchSettingsScreen" type="CanvasLayer"]
+layer = 3
 script = ExtResource( 14 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -46,9 +45,15 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -85.0
-margin_top = -25.0
+margin_top = -40.0
 margin_right = -5.0
-margin_bottom = -6.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
+focus_neighbour_top = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
+focus_neighbour_right = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_neighbour_bottom = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_next = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_previous = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
 custom_styles/disabled = SubResource( 1 )
 text = "Back"
 
@@ -64,6 +69,10 @@ margin_bottom = 24.0
 margin_right = 265.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
+focus_neighbour_left = NodePath("../../../BackButton")
+focus_neighbour_top = NodePath("../../../BackButton")
+focus_neighbour_right = NodePath("../AnchorDropdown")
+focus_previous = NodePath("../../../BackButton")
 text = "Enable touch panel"
 
 [node name="AnchorLabel" type="Label" parent="SettingsContainer/EnableContainer"]
@@ -84,6 +93,7 @@ margin_left = 341.0
 margin_right = 421.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 80, 0 )
+focus_neighbour_left = NodePath("../EnableButton")
 text = "At top"
 items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
 selected = 0
@@ -215,6 +225,14 @@ custom_fonts/font = ExtResource( 5 )
 text = "80%"
 align = 1
 
+[node name="ViewportMaxButton" parent="SettingsContainer/ViewportContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 309.0
+margin_right = 389.0
+margin_bottom = 24.0
+text = "Set 100%"
+
 [node name="JumpContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 140.0
 margin_right = 421.0
@@ -288,6 +306,7 @@ margin_left = 109.0
 margin_right = 269.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 160, 24 )
+focus_neighbour_bottom = NodePath("../../../BackButton")
 custom_icons/grabber_highlight = ExtResource( 1 )
 custom_icons/grabber = ExtResource( 6 )
 custom_styles/slider = ExtResource( 7 )
@@ -308,7 +327,18 @@ custom_fonts/font = ExtResource( 5 )
 text = "50%"
 align = 1
 
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[node name="OpacityMaxButton" parent="SettingsContainer/OpacityContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 309.0
+margin_right = 389.0
+margin_bottom = 24.0
+focus_neighbour_right = NodePath("../../../BackButton")
+focus_neighbour_bottom = NodePath("../../../BackButton")
+focus_next = NodePath("../../../BackButton")
+text = "Set 100%"
+
+[connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="toggled" from="SettingsContainer/EnableContainer/EnableButton" to="." method="_on_EnableButton_toggled"]
 [connection signal="item_selected" from="SettingsContainer/EnableContainer/AnchorDropdown" to="." method="_on_AnchorDropdown_item_selected"]
 [connection signal="toggled" from="SettingsContainer/SwapContainer/SwapButton" to="." method="_on_SwapButton_toggled"]
@@ -316,6 +346,8 @@ align = 1
 [connection signal="value_changed" from="SettingsContainer/ScaleContainer/ScaleSlider" to="." method="_on_ScaleSlider_value_changed"]
 [connection signal="pressed" from="SettingsContainer/ScaleContainer/ScaleDefaultButton" to="." method="_on_ScaleDefaultButton_pressed"]
 [connection signal="value_changed" from="SettingsContainer/ViewportContainer/ViewportSlider" to="." method="_on_ViewportSlider_value_changed"]
+[connection signal="pressed" from="SettingsContainer/ViewportContainer/ViewportMaxButton" to="." method="_on_ViewportMaxButton_pressed"]
 [connection signal="value_changed" from="SettingsContainer/JumpContainer/JumpSlider" to="." method="_on_JumpSlider_value_changed"]
 [connection signal="pressed" from="SettingsContainer/JumpContainer/JumpDefaultButton" to="." method="_on_JumpDefaultButton_pressed"]
 [connection signal="value_changed" from="SettingsContainer/OpacityContainer/OpacitySlider" to="." method="_on_OpacitySlider_value_changed"]
+[connection signal="pressed" from="SettingsContainer/OpacityContainer/OpacityMaxButton" to="." method="_on_OpacityMaxButton_pressed"]

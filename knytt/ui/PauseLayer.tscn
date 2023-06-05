@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/PausePanel.cs" type="Script" id=2]
+[ext_resource path="res://knytt/ui/PauseLayer.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=5]
 
@@ -12,10 +13,9 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 0 )
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="CanvasLayer"]
 pause_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
+script = ExtResource( 3 )
 
 [node name="DarkenRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -34,27 +34,36 @@ margin_left = -120.0
 margin_top = -55.0
 margin_right = 120.0
 margin_bottom = 55.0
+rect_pivot_offset = Vector2( 120, 55 )
 script = ExtResource( 2 )
 
 [node name="BounceTimer" type="Timer" parent="PausePanel"]
 wait_time = 0.3
 one_shot = true
 
-[node name="MenuCloud" parent="PausePanel" instance=ExtResource( 5 )]
-position = Vector2( 119.575, 54.8762 )
+[node name="PositionControl" type="Control" parent="PausePanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="MenuCloud" parent="PausePanel/PositionControl" instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
 scale = Vector2( 0.55, 0.55 )
 
 [node name="ButtonContainer" type="HBoxContainer" parent="PausePanel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
 margin_left = 27.0
-margin_top = 82.0
+margin_top = -40.0
 margin_right = 215.0
-margin_bottom = 101.0
+margin_bottom = -5.0
 
 [node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 60.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 custom_styles/disabled = SubResource( 2 )
 text = "Resume"
@@ -64,7 +73,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 64.0
 margin_right = 124.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 custom_styles/disabled = SubResource( 2 )
 text = "Settings"
@@ -74,7 +83,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 128.0
 margin_right = 188.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 custom_styles/disabled = SubResource( 2 )
 text = "Quit"

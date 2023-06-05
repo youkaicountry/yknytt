@@ -40,4 +40,10 @@ public class InputOption : HBoxContainer
     {
         EmitSignal(nameof(GetActionInput), this, 1);
     }
+
+    private void _on_Label_focus_entered()
+    {
+        var node = GetNodeOrNull<Control>(FocusNeighbourLeft)?.GetNodeOrNull<Button>("Button0");
+        (node ?? GetNodeOrNull<Control>(FocusNeighbourLeft))?.GrabFocus();
+    }
 }

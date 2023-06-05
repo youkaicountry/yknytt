@@ -23,7 +23,11 @@ public class SlotButton : Button
     public bool StartLoadActive
     {
         get { return GetNode<TextureRect>("StartLoadArrow").Visible; }
-        set { GetNode<TextureRect>("StartLoadArrow").Visible = value; }
+        set
+        {
+            GetNode<TextureRect>("StartLoadArrow").Visible = value;
+            if (value) { GetNode<Button>("StartLoadArrow/StartLoadButton").GrabFocus(); }
+        }
     }
 
     // Dir/filename without slot # or .ini
