@@ -26,15 +26,12 @@
 [sub_resource type="StyleBoxEmpty" id=9]
 
 [node name="SettingsScreen" type="CanvasLayer"]
-layer = 3
+layer = 2
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackButton" parent="." instance=ExtResource( 1 )]
 anchor_left = 1.0
@@ -42,31 +39,43 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -85.0
-margin_top = -25.0
+margin_top = -40.0
 margin_right = -5.0
-margin_bottom = -6.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../SettingsContainer/ScrollContainer/ScrollDropdown")
+focus_neighbour_top = NodePath("../VolumeContainer/EnvironmentVolumeSlider")
+focus_neighbour_right = NodePath("../VolumeContainer/MasterVolumeSlider")
+focus_neighbour_bottom = NodePath("../SettingsContainer/FullScreen")
+focus_next = NodePath("../SettingsContainer/FullScreen")
+focus_previous = NodePath("../VolumeContainer/EnvironmentVolumeSlider")
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
 margin_left = 33.3879
 margin_top = 20.1587
-margin_right = 113.388
-margin_bottom = 60.1587
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_right = 183.388
+margin_bottom = 141.159
 
 [node name="FullScreen" parent="SettingsContainer" instance=ExtResource( 6 )]
+margin_right = 150.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_top = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../ButtonContainer/KeyRemapButton")
+focus_previous = NodePath("../../BackButton")
 
 [node name="SmoothScale" parent="SettingsContainer" instance=ExtResource( 6 )]
-margin_top = 25.0
-margin_bottom = 46.0
+margin_top = 37.0
+margin_right = 150.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_right = NodePath("../../ButtonContainer/TouchPanelButton")
 text = "Smooth Scale"
 
 [node name="ScrollContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 50.0
-margin_right = 121.0
-margin_bottom = 69.0
+margin_top = 74.0
+margin_right = 150.0
+margin_bottom = 107.0
 hint_tooltip = "Test test test!!!!"
 
 [node name="ScrollDropdown" parent="SettingsContainer/ScrollContainer" instance=ExtResource( 5 )]
@@ -74,34 +83,55 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 62.0641
-margin_bottom = 19.2149
-hint_tooltip = "Test test test!!!!"
+margin_right = 80.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 80, 33 )
+focus_neighbour_right = NodePath("../../../ButtonContainer/TouchPanelButton")
+focus_neighbour_bottom = NodePath("../../../BackButton")
+focus_next = NodePath("../../../ButtonContainer/KeyRemapButton")
 text = "Smooth"
 items = [ "Smooth", null, false, 0, null, "Original", null, false, 1, null ]
 selected = 0
 
 [node name="ScrollLabel" type="Label" parent="SettingsContainer/ScrollContainer"]
-margin_left = 66.0
-margin_top = 3.0
-margin_right = 121.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 4 )
+margin_left = 84.0
+margin_top = 10.0
+margin_right = 139.0
+margin_bottom = 23.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Scroll Type"
 
-[node name="KeyRemapButton" parent="." instance=ExtResource( 1 )]
-margin_left = 198.0
-margin_top = 21.0
-margin_right = 277.0
-margin_bottom = 26.2949
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+margin_left = 190.0
+margin_top = 20.0
+margin_right = 340.0
+margin_bottom = 90.0
+custom_constants/separation = 8
+
+[node name="KeyRemapButton" parent="ButtonContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 150.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 80, 33 )
+focus_neighbour_left = NodePath("../../SettingsContainer/FullScreen")
+focus_neighbour_top = NodePath("../../SettingsContainer/ScrollContainer/ScrollDropdown")
+focus_neighbour_right = NodePath("../../VolumeContainer/MasterVolumeSlider")
+focus_previous = NodePath("../../SettingsContainer/ScrollContainer/ScrollDropdown")
 text = "Key Configure"
 
-[node name="TouchPanelButton" parent="." instance=ExtResource( 1 )]
-margin_left = 198.0
-margin_top = 50.0
-margin_right = 310.0
-margin_bottom = 26.2949
+[node name="TouchPanelButton" parent="ButtonContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 41.0
+margin_right = 150.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 80, 33 )
+focus_neighbour_left = NodePath("../../SettingsContainer/SmoothScale")
+focus_neighbour_right = NodePath("../../VolumeContainer/MusicVolumeSlider")
+focus_neighbour_bottom = NodePath("../../BackButton")
+focus_next = NodePath("../../VolumeContainer/MasterVolumeSlider")
 text = "Touch Panel Settings"
 
 [node name="VolumeContainer" type="VBoxContainer" parent="."]
@@ -109,111 +139,97 @@ margin_left = 353.408
 margin_top = 18.2689
 margin_right = 503.408
 margin_bottom = 125.269
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MasterVolumeLabel" type="Label" parent="VolumeContainer"]
 margin_right = 150.0
 margin_bottom = 13.0
-custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Master Volume"
 
 [node name="MasterVolumeSlider" type="HSlider" parent="VolumeContainer"]
 margin_top = 17.0
 margin_right = 150.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 41.0
+rect_min_size = Vector2( 150, 24 )
+focus_neighbour_left = NodePath("../../ButtonContainer/KeyRemapButton")
+focus_neighbour_top = NodePath("../../ButtonContainer/TouchPanelButton")
+focus_previous = NodePath("../../ButtonContainer/TouchPanelButton")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 2 )
 custom_styles/grabber_area = SubResource( 3 )
 
-[node name="Spacer1" type="Control" parent="VolumeContainer"]
-margin_top = 33.0
-margin_right = 150.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 0, 3 )
-
 [node name="MusicVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 40.0
+margin_top = 45.0
 margin_right = 150.0
-margin_bottom = 53.0
-custom_fonts/font = ExtResource( 4 )
+margin_bottom = 58.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Music Volume"
 
 [node name="MusicVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 57.0
+margin_top = 62.0
 margin_right = 150.0
-margin_bottom = 69.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 86.0
+rect_min_size = Vector2( 150, 24 )
+focus_neighbour_left = NodePath("../../ButtonContainer/TouchPanelButton")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 4 )
 custom_styles/grabber_area = SubResource( 5 )
 
-[node name="Spacer2" type="Control" parent="VolumeContainer"]
-margin_top = 73.0
-margin_right = 150.0
-margin_bottom = 76.0
-rect_min_size = Vector2( 0, 3 )
-
 [node name="EffectsVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 80.0
+margin_top = 90.0
 margin_right = 150.0
-margin_bottom = 93.0
-custom_fonts/font = ExtResource( 4 )
+margin_bottom = 103.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Effects Volume"
 
 [node name="EffectsVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 97.0
+margin_top = 107.0
 margin_right = 150.0
-margin_bottom = 109.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 131.0
+rect_min_size = Vector2( 150, 24 )
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 6 )
 custom_styles/grabber_area = SubResource( 7 )
 
-[node name="Spacer3" type="Control" parent="VolumeContainer"]
-margin_top = 113.0
-margin_right = 150.0
-margin_bottom = 116.0
-rect_min_size = Vector2( 0, 3 )
-
 [node name="EnvironmentVolumeLabel" type="Label" parent="VolumeContainer"]
-margin_top = 120.0
+margin_top = 135.0
 margin_right = 150.0
-margin_bottom = 133.0
-custom_fonts/font = ExtResource( 4 )
+margin_bottom = 148.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Environment Volume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EnvironmentVolumeSlider" type="HSlider" parent="VolumeContainer"]
-margin_top = 137.0
+margin_top = 152.0
 margin_right = 150.0
-margin_bottom = 149.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 176.0
+rect_min_size = Vector2( 150, 24 )
+focus_neighbour_bottom = NodePath("../../BackButton")
+focus_next = NodePath("../../BackButton")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 8 )
 custom_styles/grabber_area = SubResource( 9 )
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+
+[connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
 [connection signal="item_selected" from="SettingsContainer/ScrollContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
-[connection signal="pressed" from="KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]
-[connection signal="pressed" from="TouchPanelButton" to="." method="_on_TouchPanelButton_pressed"]
+[connection signal="pressed" from="ButtonContainer/KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]
+[connection signal="pressed" from="ButtonContainer/TouchPanelButton" to="." method="_on_TouchPanelButton_pressed"]
 [connection signal="value_changed" from="VolumeContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/EffectsVolumeSlider" to="." method="_on_EffectsVolumeSlider_value_changed"]

@@ -68,10 +68,10 @@ public class TouchPanel : Panel
     }
 
     // Manipulates anchors and margins to apply program settings
-    public void Configure()
+    public void Configure(bool force_off = false)
     {
-        Visible = TouchSettings.EnablePanel;
-        SetProcessInput(TouchSettings.EnablePanel);
+        Visible = TouchSettings.EnablePanel && !force_off;
+        SetProcessInput(Visible);
         var curtain = GetTree().Root.FindNode("Curtain", owned: false) as Control;
         curtain.Visible = Visible;
         if (!Visible) return;

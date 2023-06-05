@@ -7,11 +7,27 @@ using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class InfoScreen : CanvasLayer
+public class InfoScreen : BasicScreeen
 {
     [Export] string complainURL;
 
     public GDKnyttWorldImpl KWorld { get; private set; }
+
+    public override void _Ready()
+    {
+        initFocus();
+    }
+
+    public override void initFocus()
+    {
+        GetNode<SlotButton>("InfoRect/Slot1Button").GrabFocus();
+    }
+
+    public override void goBack()
+    {
+        KWorld.purgeBinFile();
+        base.goBack();
+    }
 
     public void initialize(string path)
     {
@@ -40,14 +56,7 @@ public class InfoScreen : CanvasLayer
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/UninstallButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
-    }
-
-    public void _on_BackButton_pressed()
-    {
-        ClickPlayer.Play();
-        KWorld.purgeBinFile();
-        this.QueueFree();
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
     }
 
     public void closeOtherSlots(int slot)
@@ -202,10 +211,20 @@ public class InfoScreen : CanvasLayer
         sendRating((int)RateHTTPRequest.Action.Downvote);
     }
 
+    private bool complain_visit;
+
     private void _on_ComplainButton_pressed()
     {
-        sendRating((int)RateHTTPRequest.Action.Complain);
-        GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Control/VisitButton").Visible = true;
+        if (complain_visit)
+        {
+            OS.ShellOpen(complainURL);
+        }
+        else
+        {
+            sendRating((int)RateHTTPRequest.Action.Complain);
+            complain_visit = true;
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = "Visit GitHub to report";
+        }
     }
 
     private void sendRating(int action)
@@ -223,10 +242,10 @@ public class InfoScreen : CanvasLayer
 
     public void updateRates()
     {
-        var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates");
+        var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates/TextContainer/RatesContainer");
         rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{upvotes}";
         rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{downvotes}";
-        GetNode<Label>("InfoRect/RatePanel/VBoxContainer/Control2/Label").Text = $"({complains})";
+        if (!complain_visit) { GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = $"Mark as broken ({complains})"; }
     }
 
     private void _on_OptimizeButton_pressed()
@@ -239,8 +258,8 @@ public class InfoScreen : CanvasLayer
     {
         string[] nodes_to_disable = { "InfoRect/BackButton", 
             "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button", 
-            "InfoRect/RatePanel/VBoxContainer/OptimizeButton", "InfoRect/RatePanel/VBoxContainer/UninstallButton", 
-            "InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton" };
+            "InfoRect/RatePanel/VBoxContainer/OptimizeButton", "InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton", 
+            "InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
 
@@ -258,21 +277,18 @@ public class InfoScreen : CanvasLayer
         GetNode<Label>("InfoRect/HintLabel").Text = GDKnyttDataStore.ProgressHint;
     }
 
-    private void _on_VisitButton_pressed()
+    private void _on_UninstallButton_pressed(bool show_confirm)
     {
-        OS.ShellOpen(complainURL);
+        var un_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Uninstall");
+        un_root.GetNode<Button>("MainButton").Visible = !show_confirm;
+        un_root.GetNode<Button>("ConfirmButton").Visible = show_confirm;
+        un_root.GetNode<Button>("CancelButton").Visible = show_confirm;
     }
 
-    private void _on_UninstallButton_pressed()
+    private void _on_ConfirmButton_pressed()
     {
-        var button = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Control3/ConfirmUninstallButton");
-        button.Visible = !button.Visible;
-    }
-
-    private void _on_ConfirmUninstallButton_pressed()
-    {
-        ClickPlayer.Play();
         KWorld.uninstallWorld();
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        goBack();
+        GetParent<LevelSelection>().reload();
     }
 }

@@ -7,18 +7,17 @@
 [node name="InputOption" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 25 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_top = 113.0
 margin_right = 80.0
 margin_bottom = 126.0
 rect_min_size = Vector2( 80, 0 )
-custom_fonts/font = ExtResource( 3 )
+focus_mode = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Up"
 align = 2
 
@@ -35,5 +34,8 @@ anchor_bottom = 0.0
 margin_left = 168.0
 margin_right = 248.0
 margin_bottom = 240.0
+focus_neighbour_right = NodePath("../Label")
+
+[connection signal="focus_entered" from="Label" to="." method="_on_Label_focus_entered"]
 [connection signal="pressed" from="Button0" to="." method="_on_Button0_pressed"]
 [connection signal="pressed" from="Button1" to="." method="_on_Button1_pressed"]

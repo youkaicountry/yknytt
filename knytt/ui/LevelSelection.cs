@@ -7,7 +7,7 @@ using System.IO.Compression;
 using System.Text;
 using YKnyttLib;
 
-public class LevelSelection : CanvasLayer
+public class LevelSelection : BasicScreeen
 {
     private WorldManager Manager { get; }
 
@@ -61,6 +61,11 @@ public class LevelSelection : CanvasLayer
         if (!localLoad) { HttpLoad(); }
     }
 
+    public override void initFocus()
+    {
+        game_container.GrabFocus();
+    }
+
     private void HttpLoad()
     {
         game_container.clearWorlds();
@@ -84,6 +89,7 @@ public class LevelSelection : CanvasLayer
     private void connectionLost(bool lost = true)
     {
         GetNode<Label>("ConnectionLostLabel").Visible = lost;
+        GetNode<Button>("BackButton").GrabFocus();
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
@@ -351,12 +357,6 @@ public class LevelSelection : CanvasLayer
         }
     }
 
-    public void _on_BackButton_pressed()
-    {
-        ClickPlayer.Play();
-        this.QueueFree();
-    }
-
     public void _on_GamePressed(GameButton button)
     {
         if (button.worldEntry.Path == null)
@@ -385,11 +385,10 @@ public class LevelSelection : CanvasLayer
         }
         else
         {
-            ClickPlayer.Play();
             var info_screen = info_scene.Instance() as InfoScreen;
             info_screen.initialize(button.worldEntry.Path);
             info_screen.worldEntry = button.worldEntry;
-            this.GetParent().AddChild(info_screen);
+            loadScreen(info_screen);
         }
     }
 
@@ -449,6 +448,15 @@ public class LevelSelection : CanvasLayer
         }
     }
 
+    public void reload()
+    {
+        game_container.clearWorlds();
+        Manager.clearAll();
+        loadDefaultWorlds();
+        discoverWorlds("./worlds");
+        discoverWorlds("user://Worlds");
+    }
+
     public void _on_CategoryDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
@@ -502,6 +510,7 @@ public class LevelSelection : CanvasLayer
     {
         filter_text = new_text;
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
+        game_container.GrabFocus(); // TODO: no focus!
     }
 
     private void _on_SearchEdit_focus_entered()
@@ -514,6 +523,17 @@ public class LevelSelection : CanvasLayer
     {
         if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
         GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/ScrollContainer"), 0);
+    }
+
+    private void _on_GameContainer_focus_entered()
+    {
+        if (game_container.GamesCount == 0)
+        {
+            GetNode<Button>("MainContainer/FilterContainer/Category/CategoryDropdown").GrabFocus();
+            return;
+        }
+        game_container.GetChild(0).GetChild<GameButton>(0).GrabFocus();
+        GetNode<ScrollContainer>("MainContainer/ScrollContainer").ScrollVertical = 0;
     }
 
     private void enableFilter(bool enable)

@@ -6,24 +6,19 @@
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=11]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MenuLayer" type="CanvasLayer"]
 script = ExtResource( 2 )
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="MenuLayer"]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ButtonRow" type="HBoxContainer" parent="MenuLayer"]
+[node name="ButtonRow" type="HBoxContainer" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -24.2233
-margin_bottom = -5.2233
+margin_top = -45.0
+margin_bottom = -10.0
 focus_neighbour_left = NodePath("PlayButton")
 focus_neighbour_top = NodePath("PlayButton")
 focus_neighbour_right = NodePath("PlayButton")
@@ -32,65 +27,61 @@ focus_next = NodePath("PlayButton")
 focus_previous = NodePath("PlayButton")
 focus_mode = 2
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TutorialButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="TutorialButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 40.0
 margin_right = 120.0
-margin_bottom = 19.2149
-size_flags_horizontal = 0
-size_flags_vertical = 0
+margin_bottom = 35.0
 text = "Tutorial"
 
-[node name="PlayButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="PlayButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 124.0
 margin_right = 204.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 text = "Play"
 
-[node name="DownloadButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="DownloadButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 208.0
 margin_right = 308.064
-margin_bottom = 19.2149
+margin_bottom = 35.0
 text = " Download Levels "
 
-[node name="CreditsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="CreditsButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 312.0
 margin_right = 392.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 focus_mode = 0
 disabled = true
 text = "Credits"
 
-[node name="SettingsButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="SettingsButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 396.0
 margin_right = 476.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 text = "Settings"
 
-[node name="QuitButton" parent="MenuLayer/ButtonRow" instance=ExtResource( 1 )]
+[node name="QuitButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 480.0
 margin_right = 560.0
-margin_bottom = 19.2149
+margin_bottom = 35.0
 text = "Quit"
 
-[node name="MenuCloud" parent="MenuLayer" instance=ExtResource( 6 )]
+[node name="MenuCloud" parent="." instance=ExtResource( 6 )]
+position = Vector2( 300, 98 )
 
-[node name="Fade" parent="MenuLayer" instance=ExtResource( 11 )]
+[node name="Fade" parent="." instance=ExtResource( 11 )]
 margin_left = 2.0
 margin_top = -0.8909
 margin_right = 2.0
@@ -101,10 +92,8 @@ stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
 
-[connection signal="focus_entered" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_entered"]
-[connection signal="focus_exited" from="MenuLayer/ButtonRow" to="." method="_on_ButtonRow_focus_exited"]
-[connection signal="pressed" from="MenuLayer/ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
-[connection signal="pressed" from="MenuLayer/ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [ true ]]
-[connection signal="pressed" from="MenuLayer/ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
-[connection signal="pressed" from="MenuLayer/ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
-[connection signal="pressed" from="MenuLayer/ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
+[connection signal="pressed" from="ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [ true ]]
+[connection signal="pressed" from="ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
+[connection signal="pressed" from="ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]

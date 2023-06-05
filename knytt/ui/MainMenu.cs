@@ -2,7 +2,7 @@ using Godot;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class MainMenu : Node2D
+public class MainMenu : BasicScreeen
 {
     PackedScene level_select_scene;
     PackedScene settings_scene;
@@ -14,10 +14,15 @@ public class MainMenu : Node2D
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
-        fade = GetNode<FadeLayer>("MenuLayer/Fade");
-        GetNode<HBoxContainer>("MenuLayer/ButtonRow").GrabFocus();
+        fade = GetNode<FadeLayer>("Fade");
+        initFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
+    }
+
+    public override void initFocus()
+    {
+        GetNode<HBoxContainer>("ButtonRow").GrabFocus();
     }
 
     public override void _Notification(int what)
@@ -53,10 +58,9 @@ public class MainMenu : Node2D
 
     public void _on_PlayButton_pressed(bool local_load)
     {
-        ClickPlayer.Play();
         var level_node = this.level_select_scene.Instance() as LevelSelection;
         level_node.localLoad = local_load;
-        this.AddChild(level_node);
+        loadScreen(level_node);
     }
 
     public void _on_SettingsButton_pressed()
@@ -79,15 +83,5 @@ public class MainMenu : Node2D
         fade.startFade(reset:false);
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
-    }
-
-    public void _on_ButtonRow_focus_entered()
-    {
-
-    }
-
-    public void _on_ButtonRow_focus_exited()
-    {
-
     }
 }

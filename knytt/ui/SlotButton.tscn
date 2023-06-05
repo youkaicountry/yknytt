@@ -9,15 +9,15 @@
 
 [node name="SlotButton" instance=ExtResource( 1 )]
 margin_right = 45.0
-margin_bottom = 5.29488
+margin_bottom = 21.08
 rect_min_size = Vector2( 60, 0 )
 text = "Slot"
 script = ExtResource( 3 )
 
 [node name="GreenLayer" type="NinePatchRect" parent="." index="0"]
 visible = false
-margin_right = 60.0
-margin_bottom = 19.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 6 )
 patch_margin_left = 3
 patch_margin_top = 3
@@ -29,75 +29,65 @@ __meta__ = {
 
 [node name="StartLoadArrow" type="TextureRect" parent="." index="1"]
 visible = false
-margin_left = 57.9917
-margin_top = 6.26014
+margin_left = 57.992
+margin_top = 14.0
 margin_right = 101.992
-margin_bottom = 14.2601
+margin_bottom = 22.0
 texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartLoadButton" parent="StartLoadArrow" index="0" instance=ExtResource( 1 )]
 margin_left = 41.75
-margin_top = -6.25
-margin_right = 132.65
-margin_bottom = 12.501
+margin_top = -14.0
+margin_right = 136.714
+margin_bottom = 20.536
 rect_min_size = Vector2( 92, 0 )
-text = "Start New Game"
+text = " Start New Game "
 
 [node name="EraseArrow" type="TextureRect" parent="." index="2"]
 visible = false
-margin_left = 79.0673
-margin_top = 10.9135
+margin_left = 79.067
+margin_top = 18.0
 margin_right = 102.067
-margin_bottom = 37.9135
+margin_bottom = 45.0
 texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EraseButton" parent="EraseArrow" index="0" instance=ExtResource( 1 )]
 margin_left = 20.961
-margin_top = 13.4695
+margin_top = 17.0
 margin_right = 80.386
-margin_bottom = 31.1185
+margin_bottom = 50.434
 rect_min_size = Vector2( 60, 0 )
 text = "Erase"
 
 [node name="ConfirmArrow" type="TextureRect" parent="." index="3"]
 visible = false
 margin_left = 158.286
-margin_top = 30.3425
+margin_top = 48.0
 margin_right = 202.286
-margin_bottom = 38.3425
+margin_bottom = 56.0
 texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ConfirmButton" parent="ConfirmArrow" index="0" instance=ExtResource( 1 )]
-margin_left = 41.6883
-margin_top = -6.12535
+margin_left = 41.688
+margin_top = -13.0
 margin_right = 100.588
-margin_bottom = 12.6257
+margin_bottom = 21.536
 rect_min_size = Vector2( 60, 0 )
 text = "Confirm"
 
-[node name="RedLayer" type="NinePatchRect" parent="ConfirmArrow" index="1"]
-margin_left = 44.0
-margin_top = -4.0
-margin_right = 100.0
-margin_bottom = 11.0
+[node name="RedLayer" type="NinePatchRect" parent="ConfirmArrow/ConfirmButton" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 5 )
 region_rect = Rect2( 2, 2, 8, 8 )
 patch_margin_left = 1
 patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="." to="." method="_on_SlotButton_pressed"]
 [connection signal="pressed" from="StartLoadArrow/StartLoadButton" to="." method="_on_StartLoadButton_pressed"]

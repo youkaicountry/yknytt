@@ -1,6 +1,6 @@
 using Godot;
 
-public class TouchSettingsScreen : Control
+public class TouchSettingsScreen : BasicScreeen
 {
     public override void _Ready()
     {
@@ -17,6 +17,12 @@ public class TouchSettingsScreen : Control
         GetNode<HSlider>("SettingsContainer/ViewportContainer/ViewportSlider").Value = TouchSettings.Viewport;
         GetNode<HSlider>("SettingsContainer/JumpContainer/JumpSlider").Value = TouchSettings.JumpScale;
         GetNode<HSlider>("SettingsContainer/OpacityContainer/OpacitySlider").Value = TouchSettings.Opacity;
+        initFocus();
+    }
+
+    public override void initFocus()
+    {
+        GetNode<CheckBox>("SettingsContainer/EnableContainer/EnableButton").GrabFocus();
     }
 
     private void _on_EnableButton_toggled(bool button_pressed)
@@ -56,6 +62,11 @@ public class TouchSettingsScreen : Control
         GetNode<Label>("SettingsContainer/ViewportContainer/ValueLabel").Text = $"{value * 100}%";
     }
 
+    private void _on_ViewportMaxButton_pressed()
+    {
+        GetNode<HSlider>("SettingsContainer/ViewportContainer/ViewportSlider").Value = 1;
+    }
+
     private void _on_JumpSlider_value_changed(float value)
     {
         TouchSettings.JumpScale = value;
@@ -73,9 +84,8 @@ public class TouchSettingsScreen : Control
         GetNode<Label>("SettingsContainer/OpacityContainer/ValueLabel").Text = $"{value * 100}%";
     }
 
-    private void _on_BackButton_pressed()
+    private void _on_OpacityMaxButton_pressed()
     {
-        ClickPlayer.Play();
-        QueueFree();
+        GetNode<HSlider>("SettingsContainer/OpacityContainer/OpacitySlider").Value = 1;
     }
 }
