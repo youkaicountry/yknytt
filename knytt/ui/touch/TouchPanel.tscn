@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://knytt/ui/touch/NormalStyleBox.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/touch/up-right-arrow.png" type="Texture" id=2]
@@ -7,8 +7,13 @@
 [ext_resource path="res://knytt/ui/touch/die.png" type="Texture" id=5]
 [ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture" id=6]
 [ext_resource path="res://knytt/ui/touch/right-arrow.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/touch/jump.png" type="Texture" id=8]
 [ext_resource path="res://knytt/ui/touch/up-left-arrow.png" type="Texture" id=9]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.cs" type="Script" id=10]
+[ext_resource path="res://knytt/ui/touch/info.png" type="Texture" id=11]
+[ext_resource path="res://knytt/ui/touch/pause.png" type="Texture" id=12]
+[ext_resource path="res://knytt/ui/touch/map.png" type="Texture" id=13]
+[ext_resource path="res://knytt/ui/touch/walk.png" type="Texture" id=14]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -117,20 +122,13 @@ custom_styles/panel = SubResource( 3 )
 margin_right = 60.0
 margin_bottom = 50.0
 custom_styles/panel = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label" type="Label" parent="JumpPanel/InfoPanel"]
+[node name="Label" type="TextureRect" parent="JumpPanel/InfoPanel"]
 margin_right = 60.0
 margin_bottom = 50.0
 rect_pivot_offset = Vector2( 30, 0 )
-text = "Info"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 11 )
+stretch_mode = 4
 
 [node name="ResetPanel" type="Panel" parent="JumpPanel"]
 margin_top = 50.0
@@ -153,20 +151,13 @@ margin_top = 100.0
 margin_right = 60.0
 margin_bottom = 140.0
 custom_styles/panel = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label" type="Label" parent="JumpPanel/PausePanel"]
+[node name="Label" type="TextureRect" parent="JumpPanel/PausePanel"]
 margin_right = 60.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( 30, 0 )
-text = "Pause"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 12 )
+stretch_mode = 4
 
 [node name="UmbrellaPanel" type="Panel" parent="JumpPanel"]
 margin_left = 60.0
@@ -194,16 +185,20 @@ margin_right = 120.0
 margin_bottom = 140.0
 custom_styles/panel = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="JumpPanel/WalkPanel"]
+[node name="MapLabel" type="TextureRect" parent="JumpPanel/WalkPanel"]
+visible = false
 margin_right = 60.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( 30, 0 )
-text = "Walk"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 13 )
+stretch_mode = 4
+
+[node name="Label" type="TextureRect" parent="JumpPanel/WalkPanel"]
+margin_right = 60.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 30, 0 )
+texture = ExtResource( 14 )
+stretch_mode = 4
 
 [node name="JumpPanel" type="Panel" parent="JumpPanel"]
 margin_left = 120.0
@@ -211,13 +206,12 @@ margin_right = 240.0
 margin_bottom = 100.0
 custom_styles/panel = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="JumpPanel/JumpPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Label" type="TextureRect" parent="JumpPanel/JumpPanel"]
+margin_right = 120.0
+margin_bottom = 100.0
 rect_pivot_offset = Vector2( 60, 0 )
-text = "Jump"
-align = 1
-valign = 1
+texture = ExtResource( 8 )
+stretch_mode = 4
 
 [node name="DownPanel" type="Panel" parent="JumpPanel"]
 margin_left = 120.0

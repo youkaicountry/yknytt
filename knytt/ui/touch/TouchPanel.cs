@@ -293,7 +293,7 @@ public class TouchPanel : Panel
     {
         actionNames[8] = "map";
         jumpActionNames[4] = "map";
-        walkPanel.GetNode<Label>("Label").Text = "Map";
+        walkPanel.GetNode<TextureRect>("Label").Texture = walkPanel.GetNode<TextureRect>("MapLabel").Texture;
     }
 
     public void OnConsoleOpen()
