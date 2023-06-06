@@ -21,15 +21,16 @@ public class InputScreen : BasicScreeen
     {
         foreach (var child in node.GetChildren())
         {
-            var io = child as InputOption;
-            io.Screen = this;
-            io.Connect("GetActionInput", this, "_onPress");
+            if (child is InputOption io)
+            {
+                io.Screen = this;
+                io.Connect("GetActionInput", this, "_onPress");
+            }
         }
     }
 
     public override void goBack()
     {
-        GDKnyttKeys.applyAllSettings();
         GDKnyttKeys.saveSettings();
         base.goBack();
     }
@@ -63,6 +64,7 @@ public class InputScreen : BasicScreeen
     private void finishCollecting()
     {
         GetNode<Timer>("BounceTimer").Start();
+        GDKnyttKeys.applyAllSettings();
         collecting.refreshButtons();
         collecting = null;
         GetNode<Control>("KeyPrompt").Visible = false;
@@ -74,5 +76,27 @@ public class InputScreen : BasicScreeen
     {
         ClickPlayer.Play();
         finishCollecting();
+    }
+
+    private void _on_ClearButton_pressed()
+    {
+        ClickPlayer.Play();
+        GDKnyttKeys.setAction(collecting.Action + cnum, null);
+        finishCollecting();
+    }
+
+    private void _on_ToBack_focus_entered()
+    {
+        GetNode<Button>("BackButton").GrabFocus();
+    }
+
+    private void _on_FromBack_focus_entered()
+    {
+        GetNode<Button>("KSSettingsContainer/DieSetting/Button0").GrabFocus();
+    }
+
+    private void _on_FromBackLeft_focus_entered()
+    {
+        GetNode<Button>("SettingsContainer/WalkSetting/Button1").GrabFocus();
     }
 }

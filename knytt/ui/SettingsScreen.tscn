@@ -76,7 +76,6 @@ text = "Smooth Scale"
 margin_top = 74.0
 margin_right = 150.0
 margin_bottom = 107.0
-hint_tooltip = "Test test test!!!!"
 
 [node name="ScrollDropdown" parent="SettingsContainer/ScrollContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0

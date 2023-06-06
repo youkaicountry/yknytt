@@ -22,6 +22,9 @@ margin_left = -85.0
 margin_top = -40.0
 margin_right = -5.0
 margin_bottom = -5.0
+focus_neighbour_left = NodePath("../KSSettingsContainer/FromBackLeft")
+focus_neighbour_top = NodePath("../KSSettingsContainer/FromBack")
+focus_previous = NodePath("../KSSettingsContainer/FromBack")
 text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
@@ -65,7 +68,7 @@ anchor_bottom = 0.0
 margin_top = 87.0
 margin_right = 248.0
 margin_bottom = 112.0
-focus_neighbour_left = NodePath("../../KSSettingsContainer/PauseSetting")
+focus_neighbour_left = NodePath("../../KSSettingsContainer/DieSetting")
 Action = "right"
 ActionLabel = "Right"
 
@@ -75,7 +78,7 @@ anchor_bottom = 0.0
 margin_top = 116.0
 margin_right = 248.0
 margin_bottom = 141.0
-focus_neighbour_left = NodePath("../../KSSettingsContainer/PauseSetting")
+focus_neighbour_left = NodePath("../../KSSettingsContainer/DieSetting")
 Action = "jump"
 ActionLabel = "Jump"
 
@@ -114,9 +117,6 @@ margin_left = 265.571
 margin_top = 7.0
 margin_right = 513.571
 margin_bottom = 233.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="InfoSetting" parent="KSSettingsContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -147,6 +147,34 @@ focus_neighbour_left = NodePath("../../SettingsContainer/LeftSetting")
 Action = "pause"
 ActionLabel = "Pause / Cancel"
 
+[node name="DieSetting" parent="KSSettingsContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 87.0
+margin_right = 248.0
+margin_bottom = 112.0
+focus_neighbour_left = NodePath("../../SettingsContainer/RightSetting")
+Action = "debug_die"
+ActionLabel = "Die"
+
+[node name="ToBack" type="Label" parent="KSSettingsContainer"]
+margin_top = 116.0
+margin_right = 248.0
+margin_bottom = 130.0
+focus_mode = 2
+
+[node name="FromBack" type="Label" parent="KSSettingsContainer"]
+margin_top = 134.0
+margin_right = 248.0
+margin_bottom = 148.0
+focus_mode = 2
+
+[node name="FromBackLeft" type="Label" parent="KSSettingsContainer"]
+margin_top = 152.0
+margin_right = 248.0
+margin_bottom = 166.0
+focus_mode = 2
+
 [node name="KeyPrompt" type="Control" parent="."]
 visible = false
 margin_left = 390.0
@@ -164,16 +192,28 @@ custom_fonts/font = ExtResource( 5 )
 text = "Please press a key..."
 
 [node name="CancelButton" parent="KeyPrompt" instance=ExtResource( 1 )]
-margin_left = 16.6346
-margin_top = 31.3901
-margin_right = 73.9596
-margin_bottom = 62.6781
+margin_left = -19.0
+margin_top = 32.0
+margin_right = 37.9703
+margin_bottom = 64.3428
 rect_min_size = Vector2( 60, 0 )
 text = "Cancel"
+
+[node name="ClearButton" parent="KeyPrompt" instance=ExtResource( 1 )]
+margin_left = 45.0
+margin_top = 32.0
+margin_right = 101.97
+margin_bottom = 64.3428
+rect_min_size = Vector2( 60, 35 )
+text = "Clear"
 
 [node name="BounceTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
+[connection signal="focus_entered" from="KSSettingsContainer/ToBack" to="." method="_on_ToBack_focus_entered"]
+[connection signal="focus_entered" from="KSSettingsContainer/FromBack" to="." method="_on_FromBack_focus_entered"]
+[connection signal="focus_entered" from="KSSettingsContainer/FromBackLeft" to="." method="_on_FromBackLeft_focus_entered"]
 [connection signal="pressed" from="KeyPrompt/CancelButton" to="." method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="KeyPrompt/ClearButton" to="." method="_on_ClearButton_pressed"]
