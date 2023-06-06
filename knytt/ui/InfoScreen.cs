@@ -13,6 +13,8 @@ public class InfoScreen : BasicScreeen
 
     public GDKnyttWorldImpl KWorld { get; private set; }
 
+    private WorldEntry world_entry;
+
     public override void _Ready()
     {
         initFocus();
@@ -29,18 +31,19 @@ public class InfoScreen : BasicScreeen
         base.goBack();
     }
 
-    public void initialize(string path)
+    public void initialize(WorldEntry world_entry)
     {
         KWorld = new GDKnyttWorldImpl();
-        if (new Directory().DirExists(path))
+        this.world_entry = world_entry;
+        if (new Directory().DirExists(world_entry.Path))
         {
-            KWorld.setDirectory(path, GDKnyttAssetManager.extractFilename(path));
+            KWorld.setDirectory(world_entry.Path, GDKnyttAssetManager.extractFilename(world_entry.Path));
         }
         else
         {
-            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
+            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path));
             KWorld.setBinMode(loader);
-            KWorld.setDirectory(path, loader.RootDirectory);
+            KWorld.setDirectory(world_entry.Path, loader.RootDirectory);
         }
         string ini = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
         KWorld.loadWorldConfig(ini);
@@ -57,6 +60,7 @@ public class InfoScreen : BasicScreeen
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
+        updateRates();
     }
 
     public void closeOtherSlots(int slot)
@@ -119,9 +123,9 @@ public class InfoScreen : BasicScreeen
             }
         }
 
-        upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
-        downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
-        complains = HTTPUtil.jsonInt(json.Result, "complains");
+        world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
+        world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
+        world_entry.Complains = HTTPUtil.jsonInt(json.Result, "complains");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -186,21 +190,6 @@ public class InfoScreen : BasicScreeen
         panel.Visible = !panel.Visible;
     }
 
-    private int upvotes;
-    private int downvotes;
-    private int complains;
-
-    public WorldEntry worldEntry
-    {
-        set
-        {
-            upvotes = value.Upvotes;
-            downvotes = value.Downvotes;
-            complains = value.Complains;
-            updateRates();
-        }
-    }
-
     private void _on_UpvoteButton_pressed()
     {
         sendRating((int)RateHTTPRequest.Action.Upvote);
@@ -234,18 +223,18 @@ public class InfoScreen : BasicScreeen
 
     private void _on_RateHTTPRequest_RateAdded(int action)
     {
-        if (action == (int)RateHTTPRequest.Action.Upvote) { upvotes++; }
-        if (action == (int)RateHTTPRequest.Action.Downvote) { downvotes++; }
-        if (action == (int)RateHTTPRequest.Action.Complain) { complains++; }
+        if (action == (int)RateHTTPRequest.Action.Upvote) { world_entry.Upvotes++; }
+        if (action == (int)RateHTTPRequest.Action.Downvote) { world_entry.Downvotes++; }
+        if (action == (int)RateHTTPRequest.Action.Complain) { world_entry.Complains++; }
         updateRates();
     }
 
     public void updateRates()
     {
         var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates/TextContainer/RatesContainer");
-        rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{upvotes}";
-        rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{downvotes}";
-        if (!complain_visit) { GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = $"Mark as broken ({complains})"; }
+        rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{world_entry.Upvotes}";
+        rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{world_entry.Downvotes}";
+        if (!complain_visit) { GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = $"Mark as broken ({world_entry.Complains})"; }
     }
 
     private void _on_OptimizeButton_pressed()
@@ -263,7 +252,11 @@ public class InfoScreen : BasicScreeen
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
 
-        if (KWorld.BinMode) { KWorld.unpackWorld(); }
+        if (KWorld.BinMode)
+        {
+            KWorld.unpackWorld();
+            world_entry.Path = KWorld.WorldDirectory;
+        }
         GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true);
 
         GetNode<Timer>("HintTimer").Stop();
@@ -283,6 +276,7 @@ public class InfoScreen : BasicScreeen
         un_root.GetNode<Button>("MainButton").Visible = !show_confirm;
         un_root.GetNode<Button>("ConfirmButton").Visible = show_confirm;
         un_root.GetNode<Button>("CancelButton").Visible = show_confirm;
+        un_root.GetNode<Button>(show_confirm ? "CancelButton" : "MainButton").GrabFocus();
     }
 
     private void _on_ConfirmButton_pressed()
