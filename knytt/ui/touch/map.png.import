@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/umbrella.png-36fe09e774fb915727252a2233fc2aee.stex"
+path="res://.import/map.png-9753d0c06a3feb9cecf2bfec3f3e27de.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/touch/umbrella.png"
-dest_files=[ "res://.import/umbrella.png-36fe09e774fb915727252a2233fc2aee.stex" ]
+source_file="res://knytt/ui/touch/map.png"
+dest_files=[ "res://.import/map.png-9753d0c06a3feb9cecf2bfec3f3e27de.stex" ]
 
 [params]
 
