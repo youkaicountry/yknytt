@@ -272,6 +272,7 @@ text = "+"
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
 pause_mode = 2
+layer = 2
 
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
 

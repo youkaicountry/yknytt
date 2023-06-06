@@ -26,6 +26,12 @@ public class GDKnyttSettings : Node
         {
             OS.WindowBorderless = value;
             OS.WindowMaximized = value;
+            if (!value && OS.GetName() == "Windows")
+            {
+                OS.WindowSize = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"), 
+                                            (int)ProjectSettings.GetSetting("display/window/size/test_height"));
+                OS.WindowPosition = (OS.GetScreenSize() - OS.WindowSize) / 2;
+            }
             ini["Graphics"]["Fullscreen"] = value ? "1" : "0";
         }
     }

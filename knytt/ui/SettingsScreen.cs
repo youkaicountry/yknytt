@@ -28,6 +28,9 @@ public class SettingsScreen : BasicScreeen
 
     public override void initFocus()
     {
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling || TouchSettings.EnablePanel;
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").Disabled = TouchSettings.EnablePanel;
+        
         bool desktop = GetNode<CheckBox>("SettingsContainer/FullScreen").Visible;
         GetNode<CheckBox>("SettingsContainer/" + (desktop ? "FullScreen": "SmoothScale")).GrabFocus();
     }

@@ -145,6 +145,8 @@ public class LevelSelection : BasicScreeen
 
     public override void _PhysicsProcess(float delta)
     {
+        if (GetNode<Control>("MainContainer").GetFocusOwner() == null) { game_container.GrabFocus(); }
+        
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
             (!localLoad && remote_finished_entries.Count == 0)) { return; }
@@ -509,7 +511,7 @@ public class LevelSelection : BasicScreeen
     {
         filter_text = new_text;
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
-        game_container.GrabFocus(); // TODO: no focus!
+        game_container.GrabFocus(); // no focus, but workaround in _PhysicsProcess fixes it
     }
 
     private void _on_SearchEdit_focus_entered()
