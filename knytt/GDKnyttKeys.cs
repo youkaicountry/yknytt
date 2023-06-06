@@ -40,6 +40,20 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "hologram0", "Key(W)");
         modified |= ensureSetting("Input", "pause0", "Key(Escape)");
         modified |= ensureSetting("Input", "map0", "Key(M)");
+        modified |= ensureSetting("Input", "debug_die0", "Key(F2)");
+
+        modified |= ensureSetting("Input", "up1", "Joy(12)");
+        modified |= ensureSetting("Input", "down1", "Joy(13)");
+        modified |= ensureSetting("Input", "left1", "Joy(14)");
+        modified |= ensureSetting("Input", "right1", "Joy(15)");
+        modified |= ensureSetting("Input", "show_info1", "Joy(4)");
+        modified |= ensureSetting("Input", "jump1", "Joy(2)");
+        modified |= ensureSetting("Input", "walk1", "Joy(3)");
+        modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
+        modified |= ensureSetting("Input", "hologram1", "Joy(0)");
+        modified |= ensureSetting("Input", "pause1", "Joy(6)");
+        modified |= ensureSetting("Input", "map1", "Joy(5)");
+        modified |= ensureSetting("Input", "debug_die1", "Joy(11)");
 
         if (modified) { saveSettings(); }
         applyAllSettings();
@@ -67,6 +81,12 @@ public class GDKnyttKeys : Node
         f.Close();
     }
 
+    private static string[] XBOX_BUTTONS = {
+        "XBox A", "XBox B", "XBox X", "XBox Y", "L Shoulder", "R Shoulder", "L Stick", "R Stick", "L3", "R3", 
+        "Select", "Start", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right",
+        "Home", "XBox Share", "Paddle 1", "Paddle 2", "Paddle 3", "Paddle 4", "Touchpad"
+    };
+
     public static string getValueString(string ini_name)
     {
         if (!ini["Input"].ContainsKey(ini_name)) { return ""; }
@@ -76,7 +96,8 @@ public class GDKnyttKeys : Node
         switch (groups["type"].Value)
         {
             case "Key": return groups["value"].Value;
-            case "Joy": return $"Joy {groups["value"]}";
+            case "Joy": return int.TryParse(groups["value"].Value, out var i) && i < XBOX_BUTTONS.Length ? 
+                            /*Input.GetJoyButtonString(i)*/ XBOX_BUTTONS[i] : $"Joy {groups["value"]}";
         }
 
         return "";
@@ -93,6 +114,10 @@ public class GDKnyttKeys : Node
 
             case InputEventJoypadButton jb:
                 ini["Input"][ini_name] = $"Joy({jb.ButtonIndex})";
+                break;
+
+            case null:
+                ini["Input"].RemoveKey(ini_name);
                 break;
 
             default: return false;
