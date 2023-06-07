@@ -177,7 +177,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Environment Volume", "80");
 
-        modified |= ensureSetting("Server", "URL", "http://yknytt.fly.dev");
+        modified |= ensureSetting("Server", "URL", "https://yknytt.onrender.com");
 
         modified |= TouchSettings.ensureSettings();
 
