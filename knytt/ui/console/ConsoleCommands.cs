@@ -154,7 +154,7 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
             switch (subcmd)
@@ -210,7 +210,7 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
             bool? bvalue = null;
@@ -255,7 +255,7 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
             switch (subcmd)
@@ -317,7 +317,7 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
             if (subcmd == null || subcmd == "on")
@@ -415,7 +415,7 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            GDKnyttGame game = GDKnyttDataStore.Tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
             var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);

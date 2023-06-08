@@ -176,6 +176,7 @@ public class LevelSelection : BasicScreeen
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
+        if (OS.GetName() != "Android" && OS.GetName() != "iOS") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
     }
 
     // Search the given directory for worlds
