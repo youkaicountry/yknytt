@@ -43,7 +43,7 @@ public class GDKnyttSettings : Node
         {
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
             setupViewport(for_ui: true);
-            (tree.Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera();
+            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
         }
     }
     

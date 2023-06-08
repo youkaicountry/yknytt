@@ -40,16 +40,16 @@ public class PausePanel : Control
         GetTree().Paused = true;
         // second option: instead of ugly stretching of fonts, disable touch panel, and show game area without borders
         //GDKnyttSettings.setupViewport(for_ui: true);
-        //(GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera(force_fullscreen: true);
-        //(GetTree().Root.FindNode("TouchPanel", owned: false) as TouchPanel)?.Configure(force_off: true);
+        //GetTree().Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera(force_fullscreen: true);
+        //GetTree().Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure(force_off: true);
     }
 
     private void unpause()
     {
         GetTree().Paused = false;
         //GDKnyttSettings.setupViewport(for_ui: false);
-        //(GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame)?.setupCamera(force_fullscreen: false);
-        //(GetTree().Root.FindNode("TouchPanel", owned: false) as TouchPanel)?.Configure(force_off: false);
+        //GetTree().Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera(force_fullscreen: false);
+        //GetTree().Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure(force_off: false);
         GetParent().QueueFree();
     }
 

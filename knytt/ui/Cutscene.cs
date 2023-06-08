@@ -109,16 +109,16 @@ public class Cutscene : Control
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {
-            GetTree().ChangeScene(GDKnyttDataStore.CutsceneAfter);
+            GDKnyttDataStore.Tree.ChangeScene(GDKnyttDataStore.CutsceneAfter);
             releaseAll();
         }
         else
         {
-            GetTree().CurrentScene.QueueFree();
-            GetTree().Root.AddChild(GDKnyttDataStore.CutsceneReturn);
-            GetTree().CurrentScene = GDKnyttDataStore.CutsceneReturn;
-            GetTree().Paused = false;
-            (GetTree().Root.FindNode("GKnyttGame", owned: false) as GDKnyttGame).respawnJuni();
+            GDKnyttDataStore.Tree.CurrentScene.QueueFree();
+            GDKnyttDataStore.Tree.Root.AddChild(GDKnyttDataStore.CutsceneReturn);
+            GDKnyttDataStore.Tree.CurrentScene = GDKnyttDataStore.CutsceneReturn;
+            GDKnyttDataStore.Tree.Paused = false;
+            GDKnyttDataStore.Tree.Root.GetNode<GDKnyttGame>("GKnyttGame").respawnJuni();
             releaseAll();
         }
     }

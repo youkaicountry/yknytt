@@ -72,7 +72,7 @@ public class TouchPanel : Panel
     {
         Visible = TouchSettings.EnablePanel && !force_off;
         SetProcessInput(Visible);
-        var curtain = GetTree().Root.FindNode("Curtain", owned: false) as Control;
+        var curtain = GetTree().Root.GetNode<Control>("GKnyttGame/UICanvasLayer/Curtain");
         curtain.Visible = Visible;
         if (!Visible) return;
         
@@ -166,10 +166,10 @@ public class TouchPanel : Panel
         };
 
         // Some magic formula to stick visible area to the top, or bottom, or center
-        var camera = GetTree().Root.FindNode("GKnyttCamera", owned: false) as Camera2D;
+        var camera = GetTree().Root.GetNode<Camera2D>("GKnyttGame/GKnyttCamera");
         camera.Offset = new Vector2(-TouchSettings.ScreenWidth / 2, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
 
-        var curtain = GetTree().Root.FindNode("Curtain", owned: false);
+        var curtain = GetTree().Root.GetNode("GKnyttGame/UICanvasLayer/Curtain");
         var horizontalCurtain = curtain.GetNode<ColorRect>("HorizontalRect");
         var leftCurtain = curtain.GetNode<ColorRect>("LeftRect");
         var rightCurtain = curtain.GetNode<ColorRect>("RightRect");

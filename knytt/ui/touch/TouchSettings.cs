@@ -94,6 +94,6 @@ public class TouchSettings : Node
 
     public static void applyAllSettings(SceneTree tree)
     {
-        (tree.Root.FindNode("TouchPanel", owned: false) as TouchPanel)?.Configure();
+        tree.Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure();
     }
 }
