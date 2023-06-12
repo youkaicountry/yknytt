@@ -19,7 +19,10 @@ public class GDKnyttMusicChannel : AudioStreamPlayer
     // Queued track
     bool track_queued = false;
     private int q_track;
+    private AudioStream q_intro;
     private AudioStream q_stream;
+    private AudioStream cur_intro;
+    private AudioStream cur_stream;
 
     private AnimationPlayer player;
     private bool no_fade_in;
@@ -45,17 +48,14 @@ public class GDKnyttMusicChannel : AudioStreamPlayer
         }
 
         // Track is different
-        var next_stream = this.OnFetch?.Invoke(num);
-
-        this.changeTrack(num, next_stream);
+        this.changeTrack(num, this.OnFetch?.Invoke(num), this.OnFetch?.Invoke(-num));
     }
 
-    private void changeTrack(int track, AudioStream stream)
+    private void changeTrack(int track, AudioStream stream, AudioStream intro_stream)
     {
         // Queue gets changed no matter what
-        this.setQ(track, stream);
+        this.setQ(track, stream, intro_stream);
 
-        //GD.Print(player.IsPlaying(), " ", this.Playing);
         // If already fading out, simply change the queue
         if (player.IsPlaying() && player.CurrentAnimation.Equals("FadeOut"))
         {
@@ -81,31 +81,46 @@ public class GDKnyttMusicChannel : AudioStreamPlayer
 
     private void clearQ()
     {
+        if (track_queued && q_track != 0 && q_stream != null) { OnClose?.Invoke(q_track); }
+        if (track_queued && q_track != 0 && q_intro != null) { OnClose?.Invoke(-q_track); }
         this.track_queued = false;
     }
 
-    private void setQ(int track, AudioStream stream)
+    private void setQ(int track, AudioStream stream, AudioStream intro_stream)
     {
         this.track_queued = true;
         this.q_track = track;
         this.q_stream = stream;
+        this.q_intro = intro_stream;
     }
 
-    private void playQueued()
+    public void playQueued()
     {
-        if (!track_queued) { return; } // If not track queued, get out of here
-        this.track_queued = false;
+        bool intro_playing = this.Stream == cur_intro;
+        if (!track_queued && !intro_playing) { return; } // If not track queued, get out of here
+
         this.resetAnimation();
         this.Stop();
 
-        this.Stream = null;
-        if (TrackNumber != 0) { OnClose?.Invoke(TrackNumber); }
-        this.TrackNumber = this.q_track;
+        if (track_queued)
+        {
+            if (TrackNumber != 0) { OnClose?.Invoke(TrackNumber); }
+            cur_intro = q_intro;
+            cur_stream = q_stream;
+            TrackNumber = q_track;
+            this.Stream = cur_intro != null ? cur_intro : cur_stream;
+        }
+        else if (intro_playing)
+        {
+            OnClose?.Invoke(-TrackNumber);
+            this.Stream = cur_stream;
+        }
+        
+        track_queued = false;
 
         // If null track, keep the player stopped
-        if (this.q_stream == null) { return; }
+        if (this.Stream == null) { return; }
 
-        this.Stream = this.q_stream;
         AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(this.Bus), 0f);
         this.Play();
 

@@ -436,6 +436,10 @@ public static class GDKnyttObjectFactory
         }
         for (int i = 1; i <= 255; i++)
         {
+            ObjectLookup[new KnyttPoint(254, i)] = "CustomObjectB";
+        }
+        for (int i = 1; i <= 255; i++)
+        {
             ObjectLookup[new KnyttPoint(255, i)] = "CustomObject";
         }
     }

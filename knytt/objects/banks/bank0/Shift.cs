@@ -124,14 +124,11 @@ public class Shift : Switch
 
         if (shift.StopMusic)
         {
-            if (relative_area.isZero())
+            if (!relative_area.isZero())
             {
-                game.MusicChannel.fadeIn(3);
+                game.MusicChannel.playQueued();
             }
-            else
-            {
-                game.MusicChannel.Stop();
-            }
+            game.MusicChannel.fadeIn(3);
         }
 
         if (shift.Character != null)

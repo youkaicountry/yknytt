@@ -87,6 +87,7 @@ public class GDKnyttAssetManager
     public AudioStream buildSong(int num)
     {
         if (num == 0) { return null; }
+        if (num < 0) { return (AudioStream)GDWorld.KWorld.getWorldSound($"Music/Intro{-num}.ogg", loop: false); }
         return (AudioStream)GDWorld.KWorld.getWorldSound($"Music/Song{num}.ogg", loop: isSongLooped(num));
     }
 

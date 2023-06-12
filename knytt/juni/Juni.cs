@@ -37,7 +37,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
-    BUMP_Y_SPEED = -220f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
+    BUMP_Y_SPEED = -140f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
@@ -65,14 +65,7 @@ public class Juni : KinematicBody2D
     public Godot.Vector2 velocity = Godot.Vector2.Zero;
     public int dir = 0;
 
-    //const float BaseHeightCorrection = 3.4f;
-    public Godot.Vector2 BaseCorrection
-    {
-        get
-        {
-            return new Godot.Vector2(0f, 3.4f);
-        }
-    }
+    public Godot.Vector2 BaseCorrection = new Godot.Vector2(0f, 3.4f);
 
     PackedScene double_jump_scene;
 
@@ -530,7 +523,10 @@ public class Juni : KinematicBody2D
 
     private void handleBumps(float delta)
     {
-        if (HasBump && CurrentState is WalkRunState) { Translate(new Godot.Vector2(0, BUMP_Y_SPEED * delta)); }
+        if (HasBump && CurrentState is WalkRunState && (juniInput.LeftHeld || juniInput.RightHeld))
+        {
+            Translate(new Godot.Vector2(0, BUMP_Y_SPEED * delta));
+        }
     }
 
     private void handleGravity(float delta)
@@ -601,6 +597,7 @@ public class Juni : KinematicBody2D
         node.GlobalPosition += GlobalPosition;
         node.FlipH = !FacingRight;
         node.Texture = Sprite.Texture;
+        node.Hframes = Sprite.Hframes;
         node.Vframes = Sprite.Vframes;
         Hologram = node;
         var m = Modulate; m.a = .45f; Modulate = m;
@@ -668,7 +665,8 @@ public class Juni : KinematicBody2D
             if (Powers.Character != "juni" || force_change)
             {
                 Sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/juni.png");
-                Sprite.Vframes = 5;
+                Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png");
+                Umbrella.Custom = false;
                 Powers.Character = "juni";
             }
         }
@@ -677,10 +675,19 @@ public class Juni : KinematicBody2D
             if (Powers.Character != name || force_change)
             {
                 Sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{name}.png") as Texture;
-                Sprite.Vframes = 10;
+                Umbrella.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/u{name}.png") as Texture;
+                Umbrella.Custom = Umbrella.Texture != null;
+                if (Umbrella.Texture == null) { Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png"); }
                 Powers.Character = name;
             }
         }
+        var frames = Sprite.Texture.GetSize() / 24;
+        Sprite.Hframes = (int)frames.x;
+        Sprite.Vframes = (int)frames.y;
+
+        var uframes = Umbrella.Texture.GetSize() / 24;
+        Umbrella.Hframes = (int)uframes.x;
+        Umbrella.Vframes = (int)uframes.y;
     }
 
     // This kills the Juni
@@ -723,6 +730,8 @@ public class Juni : KinematicBody2D
     public void moveToPosition(GDKnyttArea area, KnyttPoint position)
     {
         GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
+        // update IsOnFloor to avoid unnecessary transitions
+        MoveAndSlideWithSnap(Godot.Vector2.Zero, Godot.Vector2.Down, Godot.Vector2.Up, true); 
     }
 
     public void win(string ending)
