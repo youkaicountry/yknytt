@@ -1,6 +1,6 @@
 using Godot;
 
-public class Umbrella : AnimatedSprite
+public class Umbrella : Sprite
 {
     public bool FacingRight
     {
@@ -8,11 +8,8 @@ public class Umbrella : AnimatedSprite
         set
         {
             this.FlipH = !value;
-            var pos = Position;
-            pos.x = value ? 3.7f : -4.32f;
-            this.Position = pos;
+            this.Offset = new Vector2(value ? 1 : -1, 0);
             umbrellaShape.Scale = new Vector2(value ? 1 : -1, 1);
-            umbrellaShape.Position = new Vector2(value ? -3.7f : 3.7f, 0);
         }
     }
 
@@ -27,6 +24,17 @@ public class Umbrella : AnimatedSprite
         }
     }
 
+    bool _custom;
+    public bool Custom
+    {
+        get { return _custom; }
+        set
+        {
+            _custom = value;
+            if (Deployed) { umbrellaShape.SetDeferred("disabled", _custom); }
+        }
+    }
+
     private CollisionPolygon2D umbrellaShape;
 
     public override void _Ready()
@@ -37,18 +45,16 @@ public class Umbrella : AnimatedSprite
     private void deploy()
     {
         this.Visible = true;
-        this.Frame = 0;
         _deployed = true;
-        Play("Open");
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("deploy");
         GetNode<AudioStreamPlayer2D>("../Audio/UmbrellaOpenPlayer2D").Play();
-        umbrellaShape.SetDeferred("disabled", false);
+        umbrellaShape.SetDeferred("disabled", _custom);
     }
 
     private async void stow()
     {
         _deployed = false;
-        this.Frame = 7;
-        Play("Open", true);
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("stow");
         GetNode<AudioStreamPlayer2D>("../Audio/UmbrellaClosePlayer2D").Play();
         var timer = GetNode<Timer>("CloseTimer");
         timer.Start();

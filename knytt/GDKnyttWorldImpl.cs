@@ -53,7 +53,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture(string filepath)
     {
-        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
+        return //(object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ?? // temporary!!!!
             GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
     }
 

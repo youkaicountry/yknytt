@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -28,45 +28,38 @@
 [ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="Animation" id=30]
+resource_name = "deploy"
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 72, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 120, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 144, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 168, 24, 24 )
-
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": false,
-"name": "Open",
-"speed": 40.0
-} ]
+[sub_resource type="Animation" id=31]
+resource_name = "stow"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
+}
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = ExtResource( 17 )
@@ -256,25 +249,29 @@ polygon = PoolVector2Array( -2, -7, 2, -7, 2, 8.6, -2, 8.6 )
 [node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 2, -7, 5, -7, 5, 8.6, 2, 8.6 )
 
-[node name="Umbrella" type="AnimatedSprite" parent="."]
-position = Vector2( 3.7, -3.95 )
-frames = SubResource( 9 )
-animation = "Open"
+[node name="Umbrella" type="Sprite" parent="."]
+position = Vector2( 0, -3.95 )
+texture = ExtResource( 10 )
+offset = Vector2( 1, 0 )
+hframes = 16
 frame = 7
 script = ExtResource( 11 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Umbrella"]
+anims/deploy = SubResource( 30 )
+anims/stow = SubResource( 31 )
+
 [node name="CloseTimer" type="Timer" parent="Umbrella"]
-wait_time = 0.175
+wait_time = 0.2
 one_shot = true
 
 [node name="UmbrellaBody" type="StaticBody2D" parent="Umbrella"]
-position = Vector2( 0, 3.95 )
+position = Vector2( 0, 4 )
 collision_layer = 4096
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Umbrella/UmbrellaBody"]
-position = Vector2( -3.7, 0 )
-polygon = PoolVector2Array( -9, -4.198, -9, -11, -3.882, -15.5, 2.243, -15.5, 6.80907, -11.5475 )
+polygon = PoolVector2Array( -8, -5, -8, -11, -4, -15, 2, -15, 5, -13, 5, -11 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -493,6 +490,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="JuniMotionParticles" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 15 )
 
 [node name="Timers" type="Node" parent="JuniMotionParticles"]

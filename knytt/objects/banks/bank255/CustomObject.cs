@@ -30,7 +30,8 @@ public class CustomObject : GDKnyttBaseObject
     // (and only first time, because cache is implemented)
     public override void _Ready()
     {
-        string key = $"Custom Object {ObjectID.y}";
+        string mod = ObjectID.x == 254 ? "B" : "";
+        string key = $"Custom Object {mod}{ObjectID.y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); return; }
 
@@ -64,7 +65,7 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{ObjectID.y}");
+        fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{mod}{ObjectID.y}");
         sprite.Play();
     }
 

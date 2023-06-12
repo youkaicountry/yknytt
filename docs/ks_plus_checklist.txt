@@ -72,7 +72,7 @@ Bank 19 (Collectables):
 [x] - 51-150 Coins
 [x] - 151-199 Artifacts
 
-[ ] Bank 254 (Custom Objects B)
+[x] Bank 254 (Custom Objects B)
 
 [x] Info Panel with golden creatures and artifacts
 
@@ -86,7 +86,7 @@ Bank 19 (Collectables):
 
 [x] Custom Characters
 
-[ ] Custom Umbrella
+[x] Custom Umbrella
 
 [ ] Custom Powers
 
@@ -162,6 +162,6 @@ Bank 19 (Collectables):
 
 [x] Loop Music
 
-[ ] Intro Music
+[x] Intro Music
 
 [x] Info Images
