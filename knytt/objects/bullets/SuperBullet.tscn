@@ -102,7 +102,7 @@ animations = [ {
 } ]
 
 [node name="Particle" instance=ExtResource( 1 )]
-collision_mask = 6145
+collision_mask = 6176
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]
@@ -119,5 +119,6 @@ autostart = true
 [node name="FastDisappearTimer" type="Timer" parent="." index="3"]
 wait_time = 0.06
 autostart = true
+
 [connection signal="timeout" from="SlowDisappearTimer" to="." method="onDisappear" binds= [ 0 ]]
 [connection signal="timeout" from="FastDisappearTimer" to="." method="onDisappear" binds= [ 18 ]]

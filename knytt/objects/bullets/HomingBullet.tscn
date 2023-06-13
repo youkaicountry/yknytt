@@ -44,7 +44,7 @@ animations = [ {
 } ]
 
 [node name="Particle" instance=ExtResource( 1 )]
-collision_mask = 6145
+collision_mask = 6176
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -27,6 +27,24 @@
 [ext_resource path="res://knytt/data/Sfx/Into Smoke.ogg" type="AudioStream" id=26]
 [ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 1.5, 7.8 )
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 2, 7.8 )
+
+[sub_resource type="RectangleShape2D" id=34]
+extents = Vector2( 1.5, 7.8 )
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 4, 7.5 )
+
+[sub_resource type="RectangleShape2D" id=26]
+extents = Vector2( 3, 8.3 )
+
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 4, 7.5 )
 
 [sub_resource type="Animation" id=30]
 resource_name = "deploy"
@@ -233,21 +251,43 @@ extents = Vector2( 4.6728, 2.11682 )
 process_priority = -1
 z_index = 8
 z_as_relative = false
-collision_mask = 2147491846
+collision_mask = 6
 collision/safe_margin = 0.25
 script = ExtResource( 3 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollisionPolygonA" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -5, -7, -2, -7, -2, 8.6, -5, 8.6 )
+[node name="CollisionShapeA" type="CollisionShape2D" parent="."]
+position = Vector2( -3.5, 0.8 )
+shape = SubResource( 32 )
 
-[node name="CollisionPolygonB" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -2, -7, 2, -7, 2, 8.6, -2, 8.6 )
+[node name="CollisionShapeB" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.8 )
+shape = SubResource( 33 )
 
-[node name="CollisionPolygonC" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 2, -7, 5, -7, 5, 8.6, 2, 8.6 )
+[node name="CollisionShapeC" type="CollisionShape2D" parent="."]
+position = Vector2( 3.5, 0.8 )
+shape = SubResource( 34 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="ClimbLeftShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -2, -1.5 )
+shape = SubResource( 28 )
+disabled = true
+
+[node name="UsualShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, 0.3 )
+shape = SubResource( 26 )
+disabled = true
+
+[node name="ClimbRightShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 2, -1.5 )
+shape = SubResource( 27 )
+disabled = true
 
 [node name="Umbrella" type="Sprite" parent="."]
 position = Vector2( 0, -3.95 )
@@ -538,6 +578,7 @@ visible = false
 z_index = 13
 z_as_relative = false
 
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="body_entered" from="Checkers/InsideDetector" to="Checkers" method="_on_InsideDetector_body_entered"]
 [connection signal="body_exited" from="Checkers/InsideDetector" to="Checkers" method="_on_InsideDetector_body_exited"]
 [connection signal="timeout" from="JuniMotionParticles/Timers/RunTimer" to="JuniMotionParticles" method="_on_Timer_timeout"]

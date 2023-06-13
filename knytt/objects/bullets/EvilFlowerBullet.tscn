@@ -21,7 +21,7 @@ animations = [ {
 } ]
 
 [node name="Particle" instance=ExtResource( 1 )]
-collision_mask = 6145
+collision_mask = 6176
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0.5, 0.5 )
