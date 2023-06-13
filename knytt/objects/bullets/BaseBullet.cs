@@ -109,9 +109,7 @@ public class BaseBullet : KinematicBody2D
         }
         else if (collision != null)
         {
-            if (collision.Collider is Juni juni) { juni.die(); }
-            // TODO: turn off collisions for Juni's soul if a bullet should go through her (like in original game)
-            disappear(!(collision.Collider is Juni));
+            disappear(collide: true);
         }
     }
 

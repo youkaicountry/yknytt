@@ -278,7 +278,6 @@ public class Juni : KinematicBody2D
         {
             _immune = value;
             CollisionLayer = value ? (uint)0 : 1;
-            CollisionMask = value ? 2147483654 : 2147491846;
         }
     }
 
@@ -317,21 +316,20 @@ public class Juni : KinematicBody2D
     }
 
     // Toggle the collision shapes
-    CollisionPolygon2D[] _collision_polygons = {null, null, null};
-    bool[] _collision_map = { true, true, true };
-    public void setCollisionMap(bool a, bool b, bool c)
+    CollisionShape2D[] _collision_polygons = { null, null, null, null, null, null };
+    bool[] _collision_map = { true, true, true, false, true, false };
+    public void setCollisionMap(bool a, bool b, bool c, bool small_a, bool small_b, bool small_c)
     {
-        _collision_map[0] = a;
-        _collision_map[1] = b;
-        _collision_map[2] = c;
+        _collision_map = new bool[] { a, b, c, small_a, small_b, small_c };
         enforceCollisionMap();
     }
 
     private void enforceCollisionMap()
     {
-        _collision_polygons[0].Disabled = CollisionsDisabled || !_collision_map[0];
-        _collision_polygons[1].Disabled = CollisionsDisabled || !_collision_map[1];
-        _collision_polygons[2].Disabled = CollisionsDisabled || !_collision_map[2];
+        for (int i = 0; i < 6; i++)
+        {
+            _collision_polygons[i].Disabled = CollisionsDisabled || !_collision_map[i];
+        }
     }
 
     public Juni()
@@ -346,9 +344,15 @@ public class Juni : KinematicBody2D
         GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
         GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
 
-        _collision_polygons = new CollisionPolygon2D[] { GetNode<CollisionPolygon2D>("CollisionPolygonA"),
-                                                         GetNode<CollisionPolygon2D>("CollisionPolygonB"),
-                                                         GetNode<CollisionPolygon2D>("CollisionPolygonC") };
+        _collision_polygons = new CollisionShape2D[]
+        { 
+            GetNode<CollisionShape2D>("CollisionShapeA"),
+            GetNode<CollisionShape2D>("CollisionShapeB"),
+            GetNode<CollisionShape2D>("CollisionShapeC"),
+            GetNode<CollisionShape2D>("Hitbox/ClimbLeftShape"),
+            GetNode<CollisionShape2D>("Hitbox/UsualShape"),
+            GetNode<CollisionShape2D>("Hitbox/ClimbRightShape"),
+        };
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite>("Detector");
@@ -506,8 +510,6 @@ public class Juni : KinematicBody2D
             velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
             velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
         }
-
-        if (Enumerable.Range(0, GetSlideCount()).Any(i => GetSlideCollision(i).Collider is BaseBullet)) { die(); }
     }
 
     private void processFlyMode(float delta)
@@ -688,6 +690,11 @@ public class Juni : KinematicBody2D
         var uframes = Umbrella.Texture.GetSize() / 24;
         Umbrella.Hframes = (int)uframes.x;
         Umbrella.Vframes = (int)uframes.y;
+    }
+
+    private void _on_Hitbox_body_entered(BaseBullet bullet)
+    {
+        if (!Immune && !DebugFlyMode) { die(); }
     }
 
     // This kills the Juni
