@@ -5,7 +5,6 @@ public class FloorDropCrawler : DropCrawler
     public override void _Ready()
     {
         base._Ready();
-        // TODO: play "Fire Hit" in FireBullet, not "Fire Hit Lite": for MultiShots and DropCrawlers
         GDArea.Bullets.RegisterEmitter(this, "FireBullet",
             (p, i) =>
             {
