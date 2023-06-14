@@ -2,8 +2,6 @@ using Godot;
 
 public class CeilingDropCrawler : DropCrawler
 {
-    // TODO: original CeilingDropCrawler has different timer behavior, which shoots immediately after entering the radar area
-    // Rewrite this object if current behavior is unacceptable
     public override void _Ready()
     {
         base._Ready();
@@ -19,5 +17,14 @@ public class CeilingDropCrawler : DropCrawler
                 p.DecelerationMMF2 = 10;
                 p.ApllyPinballCorrections();
             });
+    }
+
+    private void _on_shoot_event()
+    {
+        if (GetNode<Timer>("ShotTimer").IsStopped() && GetNode<DistanceMod>("DistanceMod").IsEntered)
+        {
+            shoot();
+            GetNode<Timer>("ShotTimer").Start(1.6f);
+        }
     }
 }
