@@ -5,7 +5,7 @@ public class AgressiveTrapFlower : TrapFlower
 {
     public override void _Ready()
     {
-        GDArea.Bullets.RegisterEmitter(this, "FireBullet",
+        GDArea.Bullets.RegisterEmitter(this, "FireBulletLite",
             (p, i) =>
             {
                 p.Translate(new Vector2(11, 12));

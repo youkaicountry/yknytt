@@ -23,6 +23,7 @@ public class BulletLayer : Node2D
         ["BigGlowingBullet"] = 10,
         ["FireBullet2"] = 15,
         ["FireBullet"] = 150,
+        ["FireBulletLite"] = 150,
         ["EvilFlowerBullet"] = 150,
         ["SmallGlowingBullet"] = 200,
         ["BlueBulletExplosion"] = 100,
