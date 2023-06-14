@@ -56,6 +56,10 @@ openDistance = 100.0
 closeDistance = 100.0
 method = 2
 
-[node name="ShotTimer" parent="." index="3"]
-wait_time = 1.6
-firstDelay = 0.5
+[node name="ShotTimer" type="Timer" parent="." index="4"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="EnterEvent" from="DistanceMod" to="." method="_on_shoot_event"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shoot_event"]

@@ -19,4 +19,14 @@ public class FloorDropCrawler : DropCrawler
                 p.ApllyPinballCorrections();
             });
     }
+
+    private void _on_DistanceMod_EnterEvent()
+    {
+        GDArea.Selector.Register(this);
+    }
+
+    private void _on_DistanceMod_ExitEvent()
+    {
+        GDArea.Selector.Unregister(this);
+    }
 }

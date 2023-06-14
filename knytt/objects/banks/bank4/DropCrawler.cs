@@ -2,17 +2,7 @@ using Godot;
 
 public class DropCrawler : Crawler
 {
-    private void _on_DistanceMod_EnterEvent() // TODO: check this, IsObjectSelected and timer.firstDelay / syncedRandomDelay
-    {
-        GDArea.Selector.Register(this);
-    }
-
-    private void _on_DistanceMod_ExitEvent()
-    {
-        GDArea.Selector.Unregister(this);
-    }
-
-    private void _on_ShotTimer_timeout_ext()
+    protected void shoot()
     {
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
         if (moveAndCollide(new Vector2(-5, 0), testOnly: true) == null) { GDArea.Bullets.Emit(this, -1); }
