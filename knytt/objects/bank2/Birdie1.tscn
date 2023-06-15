@@ -1,8 +1,9 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/birdie1_stop.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/birdie1_fly.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/common/PathCreature.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/bank2/birdie1_stop.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank2/birdie1_fly.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/common/PathCreature.cs" type="Script" id=3]
+
 
 [sub_resource type="Curve2D" id=1]
 _data = {

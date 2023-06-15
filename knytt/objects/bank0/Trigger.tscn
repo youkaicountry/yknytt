@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank0/Switch.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank0/Trigger.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/bank0/Switch.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank0/Trigger.cs" type="Script" id=2]
+
 
 [node name="Shift" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

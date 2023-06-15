@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank14/Insect.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/bank14/Insect.cs" type="Script" id=3]
+
 
 [node name="Muff" instance=ExtResource( 2 )]
 script = ExtResource( 3 )

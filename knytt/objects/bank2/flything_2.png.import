@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flything_2.png-9468242ca2c11ddb521ce0eb4bfa2cf3.stex"
+path="res://.import/flything_2.png-8046f7aef1cc640aad951cfdd9a4b1f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/flything_2.png"
-dest_files=[ "res://.import/flything_2.png-9468242ca2c11ddb521ce0eb4bfa2cf3.stex" ]
+source_file="res://knytt/objects/bank2/flything_2.png"
+dest_files=[ "res://.import/flything_2.png-8046f7aef1cc640aad951cfdd9a4b1f9.stex" ]
 
 [params]
 

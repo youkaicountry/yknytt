@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/homing_rect_wall.png-f7d7220c9010e78212937f3302e8d415.stex"
+path="res://.import/homing_rect_wall.png-aa3939afc0f746806a0af5d537cc7561.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/homing_rect_wall.png"
-dest_files=[ "res://.import/homing_rect_wall.png-f7d7220c9010e78212937f3302e8d415.stex" ]
+source_file="res://knytt/objects/bank2/homing_rect_wall.png"
+dest_files=[ "res://.import/homing_rect_wall.png-aa3939afc0f746806a0af5d537cc7561.stex" ]
 
 [params]
 

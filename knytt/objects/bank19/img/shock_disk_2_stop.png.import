@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shock_disk_2_stop.png-8153831429f8cb3cf77195cbc9ff4cbd.stex"
+path="res://.import/shock_disk_2_stop.png-cd9ab95cf4116d1216fdffce9a18168f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/shock_disk_2_stop.png"
-dest_files=[ "res://.import/shock_disk_2_stop.png-8153831429f8cb3cf77195cbc9ff4cbd.stex" ]
+source_file="res://knytt/objects/bank19/img/shock_disk_2_stop.png"
+dest_files=[ "res://.import/shock_disk_2_stop.png-cd9ab95cf4116d1216fdffce9a18168f.stex" ]
 
 [params]
 

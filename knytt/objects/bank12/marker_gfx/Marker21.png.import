@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Marker21.png-16cb0eabb098b651922145f2186bc148.stex"
+path="res://.import/Marker21.png-ef6f27b99c6bb1e94d226bee40c48cfe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank12/marker_gfx/Marker21.png"
-dest_files=[ "res://.import/Marker21.png-16cb0eabb098b651922145f2186bc148.stex" ]
+source_file="res://knytt/objects/bank12/marker_gfx/Marker21.png"
+dest_files=[ "res://.import/Marker21.png-ef6f27b99c6bb1e94d226bee40c48cfe.stex" ]
 
 [params]
 

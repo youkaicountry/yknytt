@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank14/spikeless_spiker.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/common/DistanceMod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank14/spikeless_spiker.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=3]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

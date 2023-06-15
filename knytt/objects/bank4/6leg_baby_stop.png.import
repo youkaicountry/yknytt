@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/6leg_baby_stop.png-2aba0bedecc60589ab602656fec7876e.stex"
+path="res://.import/6leg_baby_stop.png-e4825c199a2284b1582d88949d19b849.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank4/6leg_baby_stop.png"
-dest_files=[ "res://.import/6leg_baby_stop.png-2aba0bedecc60589ab602656fec7876e.stex" ]
+source_file="res://knytt/objects/bank4/6leg_baby_stop.png"
+dest_files=[ "res://.import/6leg_baby_stop.png-e4825c199a2284b1582d88949d19b849.stex" ]
 
 [params]
 

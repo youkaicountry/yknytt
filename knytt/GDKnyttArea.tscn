@@ -3,7 +3,8 @@
 [ext_resource path="res://knytt/objects/BulletLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
-[ext_resource path="res://knytt/objects/banks/bank0/power_gfx/pickup.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank0/power_gfx/pickup.png" type="Texture" id=4]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "collect"

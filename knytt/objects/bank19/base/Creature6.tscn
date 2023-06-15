@@ -1,7 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/BuzzFlyer.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank19/img/buzz_flyer2.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank2/BuzzFlyer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank19/img/buzz_flyer2.png" type="Texture" id=2]
+
 
 
 [sub_resource type="AtlasTexture" id=1]

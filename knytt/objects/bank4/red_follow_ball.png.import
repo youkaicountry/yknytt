@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red_follow_ball.png-83c69b338dd8ccacdfbf190a7a0f3479.stex"
+path="res://.import/red_follow_ball.png-4e4c09c37396f55c77e942a4d2e8a730.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank4/red_follow_ball.png"
-dest_files=[ "res://.import/red_follow_ball.png-83c69b338dd8ccacdfbf190a7a0f3479.stex" ]
+source_file="res://knytt/objects/bank4/red_follow_ball.png"
+dest_files=[ "res://.import/red_follow_ball.png-4e4c09c37396f55c77e942a4d2e8a730.stex" ]
 
 [params]
 

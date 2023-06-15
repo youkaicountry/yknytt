@@ -1,11 +1,12 @@
 [gd_scene load_steps=49 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank7/LeafParticle.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank7/leaf.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank7/snowflake.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/banks/bank7/leaf2.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/banks/bank7/dust.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/banks/bank8/firefall.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank7/LeafParticle.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank7/leaf.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank7/snowflake.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank7/leaf2.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank7/dust.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank8/firefall.png" type="Texture" id=6]
+
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 4 )

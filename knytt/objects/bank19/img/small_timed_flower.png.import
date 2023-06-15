@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/small_timed_flower.png-ea71e3f840a0d4aaa0d23e5fe83c0e0f.stex"
+path="res://.import/small_timed_flower.png-f10535ec7adc280359d182f8a7864bb0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/small_timed_flower.png"
-dest_files=[ "res://.import/small_timed_flower.png-ea71e3f840a0d4aaa0d23e5fe83c0e0f.stex" ]
+source_file="res://knytt/objects/bank19/img/small_timed_flower.png"
+dest_files=[ "res://.import/small_timed_flower.png-f10535ec7adc280359d182f8a7864bb0.stex" ]
 
 [params]
 

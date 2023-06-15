@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mad_spider.png-bedfb632ee8fe6a960b35c83b5eb6c99.stex"
+path="res://.import/mad_spider.png-6ab05fefcf367e060ccd0715ca970797.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank17/mad_spider.png"
-dest_files=[ "res://.import/mad_spider.png-bedfb632ee8fe6a960b35c83b5eb6c99.stex" ]
+source_file="res://knytt/objects/bank17/mad_spider.png"
+dest_files=[ "res://.import/mad_spider.png-6ab05fefcf367e060ccd0715ca970797.stex" ]
 
 [params]
 

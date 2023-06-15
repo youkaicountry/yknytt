@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/smile_ball_walk.png-f17990acb1da4d5758c175a8114b1b85.stex"
+path="res://.import/smile_ball_walk.png-b06f0ddc275d57362fc323ff2ab6032c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/smile_ball_walk.png"
-dest_files=[ "res://.import/smile_ball_walk.png-f17990acb1da4d5758c175a8114b1b85.stex" ]
+source_file="res://knytt/objects/bank19/img/smile_ball_walk.png"
+dest_files=[ "res://.import/smile_ball_walk.png-b06f0ddc275d57362fc323ff2ab6032c.stex" ]
 
 [params]
 

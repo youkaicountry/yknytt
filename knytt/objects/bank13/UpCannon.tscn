@@ -1,10 +1,11 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank13/UpCannon.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank13/UpCannon.cs" type="Script" id=1]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank13/up_cannon.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank13/up_cannon.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Big Cannon Shot.wav" type="AudioStream" id=5]
+
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )

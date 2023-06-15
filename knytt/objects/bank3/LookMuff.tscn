@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank3/LookMuff.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank3/LookMuff.cs" type="Script" id=1]
+
 
 [node name="LookMuff" type="Node2D"]
 script = ExtResource( 1 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/humbird_fly.png-5362257c6d44cd2fa5fd52b457393a38.stex"
+path="res://.import/humbird_fly.png-80702c439ef82b979e56afd6e0e9977d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/humbird_fly.png"
-dest_files=[ "res://.import/humbird_fly.png-5362257c6d44cd2fa5fd52b457393a38.stex" ]
+source_file="res://knytt/objects/bank2/humbird_fly.png"
+dest_files=[ "res://.import/humbird_fly.png-80702c439ef82b979e56afd6e0e9977d.stex" ]
 
 [params]
 

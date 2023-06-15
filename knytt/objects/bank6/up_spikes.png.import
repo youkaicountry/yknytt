@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/up_spikes.png-f417d521ea7f55ed8eea5b93f0ce2ff5.stex"
+path="res://.import/up_spikes.png-fa0372c8ff987a4471d4ba12aa1fb5cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank6/up_spikes.png"
-dest_files=[ "res://.import/up_spikes.png-f417d521ea7f55ed8eea5b93f0ce2ff5.stex" ]
+source_file="res://knytt/objects/bank6/up_spikes.png"
+dest_files=[ "res://.import/up_spikes.png-fa0372c8ff987a4471d4ba12aa1fb5cb.stex" ]
 
 [params]
 

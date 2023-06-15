@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/strange_runner.png-c6e4a46c38476d91c45c9899082ef417.stex"
+path="res://.import/strange_runner.png-9dad54ff8f8065fb621c60239d765b3a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/strange_runner.png"
-dest_files=[ "res://.import/strange_runner.png-c6e4a46c38476d91c45c9899082ef417.stex" ]
+source_file="res://knytt/objects/bank19/img/strange_runner.png"
+dest_files=[ "res://.import/strange_runner.png-9dad54ff8f8065fb621c60239d765b3a.stex" ]
 
 [params]
 

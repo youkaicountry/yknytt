@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/green_firefly_run.png-b1bc14a1a90f3c3a2a79a6eea43420d2.stex"
+path="res://.import/green_firefly_run.png-45ef363ec5d6fae02c0c1093e977207e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/green_firefly_run.png"
-dest_files=[ "res://.import/green_firefly_run.png-b1bc14a1a90f3c3a2a79a6eea43420d2.stex" ]
+source_file="res://knytt/objects/bank2/green_firefly_run.png"
+dest_files=[ "res://.import/green_firefly_run.png-45ef363ec5d6fae02c0c1093e977207e.stex" ]
 
 [params]
 

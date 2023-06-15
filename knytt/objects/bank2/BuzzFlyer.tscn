@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/BuzzFlyer.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank2/BuzzFlyer.cs" type="Script" id=1]
+
 
 
 [node name="KinematicBody2D" type="KinematicBody2D"]

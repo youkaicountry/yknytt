@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/supershot_ceiling_stop.png-ec0b18e8bd913126291d9b5d91c101f0.stex"
+path="res://.import/supershot_ceiling_stop.png-dcb947c969bc790607a4d4cf92d959db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/supershot_ceiling_stop.png"
-dest_files=[ "res://.import/supershot_ceiling_stop.png-ec0b18e8bd913126291d9b5d91c101f0.stex" ]
+source_file="res://knytt/objects/bank14/supershot_ceiling_stop.png"
+dest_files=[ "res://.import/supershot_ceiling_stop.png-dcb947c969bc790607a4d4cf92d959db.stex" ]
 
 [params]
 

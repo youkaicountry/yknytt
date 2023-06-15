@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank7/Leaf.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/common/SceneCPUParticles.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/bank7/Leaf.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/common/SceneCPUParticles.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
+
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )

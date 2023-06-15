@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cauldron.png-af9194171aaeaaf9a90be876f467578b.stex"
+path="res://.import/cauldron.png-31b625ca414357779d1029365527edfa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank10/cauldron.png"
-dest_files=[ "res://.import/cauldron.png-af9194171aaeaaf9a90be876f467578b.stex" ]
+source_file="res://knytt/objects/bank10/cauldron.png"
+dest_files=[ "res://.import/cauldron.png-31b625ca414357779d1029365527edfa.stex" ]
 
 [params]
 

@@ -1,8 +1,9 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank17/small_spider.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank17/SmallSpider.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/bank17/small_spider.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/bank17/SmallSpider.cs" type="Script" id=3]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

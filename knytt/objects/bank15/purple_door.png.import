@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/purple_door.png-c162e26b5378fd75ce773ee0a05f8a85.stex"
+path="res://.import/purple_door.png-d10775385a009cd158ffeecc398a524f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank15/purple_door.png"
-dest_files=[ "res://.import/purple_door.png-c162e26b5378fd75ce773ee0a05f8a85.stex" ]
+source_file="res://knytt/objects/bank15/purple_door.png"
+dest_files=[ "res://.import/purple_door.png-d10775385a009cd158ffeecc398a524f.stex" ]
 
 [params]
 

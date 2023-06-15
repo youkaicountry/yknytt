@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bomb_walk.png-7a0f4e7be14a063dc21920161a590889.stex"
+path="res://.import/bomb_walk.png-605769e6c0add99616e4b7880cf121e1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank12/bomb_walk.png"
-dest_files=[ "res://.import/bomb_walk.png-7a0f4e7be14a063dc21920161a590889.stex" ]
+source_file="res://knytt/objects/bank12/bomb_walk.png"
+dest_files=[ "res://.import/bomb_walk.png-605769e6c0add99616e4b7880cf121e1.stex" ]
 
 [params]
 

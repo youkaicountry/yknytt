@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/up_stuff_shooter.png-15dbd9d8f028d87d3b1d98cc6608710c.stex"
+path="res://.import/up_stuff_shooter.png-dc171431a3aafaa8068e8357198a6587.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/up_stuff_shooter.png"
-dest_files=[ "res://.import/up_stuff_shooter.png-15dbd9d8f028d87d3b1d98cc6608710c.stex" ]
+source_file="res://knytt/objects/bank19/img/up_stuff_shooter.png"
+dest_files=[ "res://.import/up_stuff_shooter.png-dc171431a3aafaa8068e8357198a6587.stex" ]
 
 [params]
 

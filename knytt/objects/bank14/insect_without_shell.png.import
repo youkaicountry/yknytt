@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/insect_without_shell.png-f3eb4e90eb45bf34c0be15ac810c0221.stex"
+path="res://.import/insect_without_shell.png-f35a76426ce24c0f4f5054b0597efc89.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/insect_without_shell.png"
-dest_files=[ "res://.import/insect_without_shell.png-f3eb4e90eb45bf34c0be15ac810c0221.stex" ]
+source_file="res://knytt/objects/bank14/insect_without_shell.png"
+dest_files=[ "res://.import/insect_without_shell.png-f35a76426ce24c0f4f5054b0597efc89.stex" ]
 
 [params]
 

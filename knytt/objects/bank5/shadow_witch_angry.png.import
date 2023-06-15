@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shadow_witch_angry.png-d8a5b70f676e81100d521c93da454378.stex"
+path="res://.import/shadow_witch_angry.png-ebca79d0a8f826db613b53078557b98d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank5/shadow_witch_angry.png"
-dest_files=[ "res://.import/shadow_witch_angry.png-d8a5b70f676e81100d521c93da454378.stex" ]
+source_file="res://knytt/objects/bank5/shadow_witch_angry.png"
+dest_files=[ "res://.import/shadow_witch_angry.png-ebca79d0a8f826db613b53078557b98d.stex" ]
 
 [params]
 

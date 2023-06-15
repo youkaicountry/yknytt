@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://knytt/data/Sfx/Door.wav" type="AudioStream" id=1]
-[ext_resource path="res://knytt/objects/banks/bank15/Door.cs" type="Script" id=5]
+[ext_resource path="res://knytt/objects/bank15/Door.cs" type="Script" id=5]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=6]
+
 
 [sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 12, 12 )

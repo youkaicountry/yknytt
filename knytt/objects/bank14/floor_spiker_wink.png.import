@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/floor_spiker_wink.png-796b5b2ebae5a82d64182641d6bd83ad.stex"
+path="res://.import/floor_spiker_wink.png-bd7c6934733633d572f18632e35a6805.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/floor_spiker_wink.png"
-dest_files=[ "res://.import/floor_spiker_wink.png-796b5b2ebae5a82d64182641d6bd83ad.stex" ]
+source_file="res://knytt/objects/bank14/floor_spiker_wink.png"
+dest_files=[ "res://.import/floor_spiker_wink.png-bd7c6934733633d572f18632e35a6805.stex" ]
 
 [params]
 

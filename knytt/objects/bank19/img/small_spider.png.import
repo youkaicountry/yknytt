@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/small_spider.png-b7d4762ff36a2893724b48894711da0e.stex"
+path="res://.import/small_spider.png-f8b8016c72e7ddb8e75192b93af49958.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/small_spider.png"
-dest_files=[ "res://.import/small_spider.png-b7d4762ff36a2893724b48894711da0e.stex" ]
+source_file="res://knytt/objects/bank19/img/small_spider.png"
+dest_files=[ "res://.import/small_spider.png-f8b8016c72e7ddb8e75192b93af49958.stex" ]
 
 [params]
 

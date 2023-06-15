@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/leaf.png-93b6607760c7c1f1adec144838e5456c.stex"
+path="res://.import/leaf.png-4ce444e51d64094ab5121c2561eeb1fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank7/leaf.png"
-dest_files=[ "res://.import/leaf.png-93b6607760c7c1f1adec144838e5456c.stex" ]
+source_file="res://knytt/objects/bank7/leaf.png"
+dest_files=[ "res://.import/leaf.png-4ce444e51d64094ab5121c2561eeb1fd.stex" ]
 
 [params]
 

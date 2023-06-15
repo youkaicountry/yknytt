@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/water_monster.png-bec764ee78b310e03d33c7fe284b05d0.stex"
+path="res://.import/water_monster.png-b042675a067d7ec5548e332f90fcb483.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/water_monster.png"
-dest_files=[ "res://.import/water_monster.png-bec764ee78b310e03d33c7fe284b05d0.stex" ]
+source_file="res://knytt/objects/bank19/img/water_monster.png"
+dest_files=[ "res://.import/water_monster.png-b042675a067d7ec5548e332f90fcb483.stex" ]
 
 [params]
 

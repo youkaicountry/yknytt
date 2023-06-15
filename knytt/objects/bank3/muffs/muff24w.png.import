@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/muff24w.png-cb8166e3b9396916c9deba581fdfdeb0.stex"
+path="res://.import/muff24w.png-3db54b9cd0ab43625c9f300367538a5d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank3/muffs/muff24w.png"
-dest_files=[ "res://.import/muff24w.png-cb8166e3b9396916c9deba581fdfdeb0.stex" ]
+source_file="res://knytt/objects/bank3/muffs/muff24w.png"
+dest_files=[ "res://.import/muff24w.png-3db54b9cd0ab43625c9f300367538a5d.stex" ]
 
 [params]
 

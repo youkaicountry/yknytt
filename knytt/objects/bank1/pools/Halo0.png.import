@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Halo0.png-68b20a62f41d43cf84edfec06bb22c2f.stex"
+path="res://.import/Halo0.png-65185d8903224bfdc4a0de330069c9bf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank1/pools/Halo0.png"
-dest_files=[ "res://.import/Halo0.png-68b20a62f41d43cf84edfec06bb22c2f.stex" ]
+source_file="res://knytt/objects/bank1/pools/Halo0.png"
+dest_files=[ "res://.import/Halo0.png-65185d8903224bfdc4a0de330069c9bf.stex" ]
 
 [params]
 

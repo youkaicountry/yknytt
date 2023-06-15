@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/left_spikes.png-78228aff4c792ef22d2c889c508b605b.stex"
+path="res://.import/left_spikes.png-099675f8e503db08f063208ff3565767.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank6/left_spikes.png"
-dest_files=[ "res://.import/left_spikes.png-78228aff4c792ef22d2c889c508b605b.stex" ]
+source_file="res://knytt/objects/bank6/left_spikes.png"
+dest_files=[ "res://.import/left_spikes.png-099675f8e503db08f063208ff3565767.stex" ]
 
 [params]
 

@@ -1,8 +1,9 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/birdie2_fly.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank2/birdie2_fly.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=2]
 [ext_resource path="res://knytt/ui/stats/StatPanel.cs" type="Script" id=4]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

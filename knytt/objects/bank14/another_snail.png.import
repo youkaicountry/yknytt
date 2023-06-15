@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/another_snail.png-23704acf8b60d2bee34519c460ace96a.stex"
+path="res://.import/another_snail.png-c485f5b8354dd4e7e2f7a76b0413d9d4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/another_snail.png"
-dest_files=[ "res://.import/another_snail.png-23704acf8b60d2bee34519c460ace96a.stex" ]
+source_file="res://knytt/objects/bank14/another_snail.png"
+dest_files=[ "res://.import/another_snail.png-c485f5b8354dd4e7e2f7a76b0413d9d4.stex" ]
 
 [params]
 

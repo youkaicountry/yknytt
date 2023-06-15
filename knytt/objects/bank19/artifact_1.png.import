@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/artifact_1.png-503ad4ba64f6705899c66dbea9179937.stex"
+path="res://.import/artifact_1.png-3556820dccca25c6522d2273f00e1449.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/artifact_1.png"
-dest_files=[ "res://.import/artifact_1.png-503ad4ba64f6705899c66dbea9179937.stex" ]
+source_file="res://knytt/objects/bank19/artifact_1.png"
+dest_files=[ "res://.import/artifact_1.png-3556820dccca25c6522d2273f00e1449.stex" ]
 
 [params]
 

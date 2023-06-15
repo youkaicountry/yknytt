@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background_bird_2.png-6dd56998826a3cfeccb45661ef12438a.stex"
+path="res://.import/background_bird_2.png-2b9483069b9a43f3ac96f5e9b6d66912.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/background_bird_2.png"
-dest_files=[ "res://.import/background_bird_2.png-6dd56998826a3cfeccb45661ef12438a.stex" ]
+source_file="res://knytt/objects/bank2/background_bird_2.png"
+dest_files=[ "res://.import/background_bird_2.png-2b9483069b9a43f3ac96f5e9b6d66912.stex" ]
 
 [params]
 

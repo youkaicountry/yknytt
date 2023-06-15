@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/snowflake.png-5f69294f29ed0c81905be8c8a7d7fc45.stex"
+path="res://.import/snowflake.png-67753e1d41d08ea9cf6f4a538ce83c62.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank7/snowflake.png"
-dest_files=[ "res://.import/snowflake.png-5f69294f29ed0c81905be8c8a7d7fc45.stex" ]
+source_file="res://knytt/objects/bank7/snowflake.png"
+dest_files=[ "res://.import/snowflake.png-67753e1d41d08ea9cf6f4a538ce83c62.stex" ]
 
 [params]
 

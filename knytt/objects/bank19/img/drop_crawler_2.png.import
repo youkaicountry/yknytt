@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/drop_crawler_2.png-25f070dd13ad6fd2e85da83f1345079e.stex"
+path="res://.import/drop_crawler_2.png-0ef6887960b826396d60b3906066ff3f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/drop_crawler_2.png"
-dest_files=[ "res://.import/drop_crawler_2.png-25f070dd13ad6fd2e85da83f1345079e.stex" ]
+source_file="res://knytt/objects/bank19/img/drop_crawler_2.png"
+dest_files=[ "res://.import/drop_crawler_2.png-0ef6887960b826396d60b3906066ff3f.stex" ]
 
 [params]
 

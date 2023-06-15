@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/DropFlything.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/BuzzFlyer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/bank2/DropFlything.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank2/BuzzFlyer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Liquid Shooter.wav" type="AudioStream" id=5]
+
 
 [node name="KinematicBody2D" instance=ExtResource( 2 )]
 script = ExtResource( 1 )

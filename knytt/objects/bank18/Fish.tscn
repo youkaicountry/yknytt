@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/PathCreature.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/common/PathCreature.cs" type="Script" id=1]
+
 
 [sub_resource type="Curve2D" id=1]
 _data = {

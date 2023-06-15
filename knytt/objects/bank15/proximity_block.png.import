@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/proximity_block.png-b956123c5e365c51d89085cb62d87632.stex"
+path="res://.import/proximity_block.png-9482a657efaf4ee97cf538e32b48751a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank15/proximity_block.png"
-dest_files=[ "res://.import/proximity_block.png-b956123c5e365c51d89085cb62d87632.stex" ]
+source_file="res://knytt/objects/bank15/proximity_block.png"
+dest_files=[ "res://.import/proximity_block.png-9482a657efaf4ee97cf538e32b48751a.stex" ]
 
 [params]
 

@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank15/fade_block.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank15/FadeBlock.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/bank15/fade_block.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank15/FadeBlock.cs" type="Script" id=2]
+
 
 [node name="Sprite" type="Sprite"]
 texture = ExtResource( 1 )

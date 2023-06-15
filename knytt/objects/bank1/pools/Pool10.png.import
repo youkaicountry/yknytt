@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pool10.png-e706dea5a11f14f246a617c6d81f040f.stex"
+path="res://.import/Pool10.png-c0cbe8749fc3e6100271fa6a4a7ece63.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank1/pools/Pool10.png"
-dest_files=[ "res://.import/Pool10.png-e706dea5a11f14f246a617c6d81f040f.stex" ]
+source_file="res://knytt/objects/bank1/pools/Pool10.png"
+dest_files=[ "res://.import/Pool10.png-c0cbe8749fc3e6100271fa6a4a7ece63.stex" ]
 
 [params]
 

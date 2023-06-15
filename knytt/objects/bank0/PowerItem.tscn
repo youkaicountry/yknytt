@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank0/PowerItem.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank0/PowerItemFrames.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://knytt/objects/bank0/PowerItem.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank0/PowerItemFrames.tres" type="SpriteFrames" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=71]
 extents = Vector2( 11, 11 )

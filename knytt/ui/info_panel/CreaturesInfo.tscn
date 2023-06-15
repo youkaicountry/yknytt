@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank19/creature_icon.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank19/creature_icon.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/info_panel/CollectionInfo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/info_panel/CreaturesInfo.cs" type="Script" id=3]
+
 
 [node name="Control" instance=ExtResource( 2 )]
 script = ExtResource( 3 )

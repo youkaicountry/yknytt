@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flybot.png-063f8e453887503e0f9595a198f78f24.stex"
+path="res://.import/flybot.png-6e178684b076ff902072197911c17e50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank13/flybot.png"
-dest_files=[ "res://.import/flybot.png-063f8e453887503e0f9595a198f78f24.stex" ]
+source_file="res://knytt/objects/bank13/flybot.png"
+dest_files=[ "res://.import/flybot.png-6e178684b076ff902072197911c17e50.stex" ]
 
 [params]
 

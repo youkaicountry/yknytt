@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/super_mario.png-72a37ad2859d19fb7ac6e00b7e4e0bca.stex"
+path="res://.import/super_mario.png-5f888295adf01b2d9ef293a80ac39162.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/super_mario.png"
-dest_files=[ "res://.import/super_mario.png-72a37ad2859d19fb7ac6e00b7e4e0bca.stex" ]
+source_file="res://knytt/objects/bank14/super_mario.png"
+dest_files=[ "res://.import/super_mario.png-5f888295adf01b2d9ef293a80ac39162.stex" ]
 
 [params]
 
