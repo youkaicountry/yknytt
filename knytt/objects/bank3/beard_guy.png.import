@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/beard_guy.png-3dc5a4e4a12780b1d22fb0ca09ef43db.stex"
+path="res://.import/beard_guy.png-29acbf818ab0f49d5888554f639d414b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank3/beard_guy.png"
-dest_files=[ "res://.import/beard_guy.png-3dc5a4e4a12780b1d22fb0ca09ef43db.stex" ]
+source_file="res://knytt/objects/bank3/beard_guy.png"
+dest_files=[ "res://.import/beard_guy.png-29acbf818ab0f49d5888554f639d414b.stex" ]
 
 [params]
 

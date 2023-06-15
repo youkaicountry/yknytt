@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/another_ghost_2.png-40be3cdcdc4128b050e379a8c57cf72f.stex"
+path="res://.import/another_ghost_2.png-701b4e90a06dc3c82983a8301728b4b0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank12/another_ghost_2.png"
-dest_files=[ "res://.import/another_ghost_2.png-40be3cdcdc4128b050e379a8c57cf72f.stex" ]
+source_file="res://knytt/objects/bank12/another_ghost_2.png"
+dest_files=[ "res://.import/another_ghost_2.png-701b4e90a06dc3c82983a8301728b4b0.stex" ]
 
 [params]
 

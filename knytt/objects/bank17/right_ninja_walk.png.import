@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/right_ninja_walk.png-4dc50ae28354acd9a8ad01b887ef3469.stex"
+path="res://.import/right_ninja_walk.png-9c7657f66cdeb8f328c4bf1418f7384c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank17/right_ninja_walk.png"
-dest_files=[ "res://.import/right_ninja_walk.png-4dc50ae28354acd9a8ad01b887ef3469.stex" ]
+source_file="res://knytt/objects/bank17/right_ninja_walk.png"
+dest_files=[ "res://.import/right_ninja_walk.png-9c7657f66cdeb8f328c4bf1418f7384c.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ceil_mad_spider.png-ee0a9573bc3ba6c634e37191aafe5d1c.stex"
+path="res://.import/ceil_mad_spider.png-2750f7c397d37c64f8bb9703d2ee068d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank17/ceil_mad_spider.png"
-dest_files=[ "res://.import/ceil_mad_spider.png-ee0a9573bc3ba6c634e37191aafe5d1c.stex" ]
+source_file="res://knytt/objects/bank17/ceil_mad_spider.png"
+dest_files=[ "res://.import/ceil_mad_spider.png-2750f7c397d37c64f8bb9703d2ee068d.stex" ]
 
 [params]
 

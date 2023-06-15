@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/data/Sfx/Chomp.wav" type="AudioStream" id=1]
-[ext_resource path="res://knytt/objects/banks/common/BaseEater.cs" type="Script" id=2]
+[ext_resource path="res://knytt/objects/common/BaseEater.cs" type="Script" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.777, 1.5 )

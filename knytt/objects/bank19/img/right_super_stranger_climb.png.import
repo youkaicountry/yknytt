@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/right_super_stranger_climb.png-7746689db8f112c32ababacfb3bfe083.stex"
+path="res://.import/right_super_stranger_climb.png-2c80f77adcdf0510b0d273fb339a1004.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/right_super_stranger_climb.png"
-dest_files=[ "res://.import/right_super_stranger_climb.png-7746689db8f112c32ababacfb3bfe083.stex" ]
+source_file="res://knytt/objects/bank19/img/right_super_stranger_climb.png"
+dest_files=[ "res://.import/right_super_stranger_climb.png-2c80f77adcdf0510b0d273fb339a1004.stex" ]
 
 [params]
 

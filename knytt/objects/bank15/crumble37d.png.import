@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crumble37d.png-d052d961902f8634871285eb3ef8bb42.stex"
+path="res://.import/crumble37d.png-a0a16577e873150cf8379de37cf4168f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank15/crumble37d.png"
-dest_files=[ "res://.import/crumble37d.png-d052d961902f8634871285eb3ef8bb42.stex" ]
+source_file="res://knytt/objects/bank15/crumble37d.png"
+dest_files=[ "res://.import/crumble37d.png-a0a16577e873150cf8379de37cf4168f.stex" ]
 
 [params]
 

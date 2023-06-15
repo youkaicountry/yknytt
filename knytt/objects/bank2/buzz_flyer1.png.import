@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/buzz_flyer1.png-6ac81ea264692091f1d4b030ce18914e.stex"
+path="res://.import/buzz_flyer1.png-0b78da2ae18bd773327eae327bdb0747.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/buzz_flyer1.png"
-dest_files=[ "res://.import/buzz_flyer1.png-6ac81ea264692091f1d4b030ce18914e.stex" ]
+source_file="res://knytt/objects/bank2/buzz_flyer1.png"
+dest_files=[ "res://.import/buzz_flyer1.png-0b78da2ae18bd773327eae327bdb0747.stex" ]
 
 [params]
 

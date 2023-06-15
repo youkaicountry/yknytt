@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lightning_stopped_3.png-f604a1f440f35d8d9fa3c9ff732c68d8.stex"
+path="res://.import/lightning_stopped_3.png-8af02a7601fdfd544752e115a2e7359e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/lightning_stopped_3.png"
-dest_files=[ "res://.import/lightning_stopped_3.png-f604a1f440f35d8d9fa3c9ff732c68d8.stex" ]
+source_file="res://knytt/objects/bank2/lightning_stopped_3.png"
+dest_files=[ "res://.import/lightning_stopped_3.png-8af02a7601fdfd544752e115a2e7359e.stex" ]
 
 [params]
 

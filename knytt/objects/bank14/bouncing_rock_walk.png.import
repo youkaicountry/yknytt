@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bouncing_rock_walk.png-d40fbf205aa38991186b2a7107476d02.stex"
+path="res://.import/bouncing_rock_walk.png-e9784b842f5e4ade532c7848b74fa750.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/bouncing_rock_walk.png"
-dest_files=[ "res://.import/bouncing_rock_walk.png-d40fbf205aa38991186b2a7107476d02.stex" ]
+source_file="res://knytt/objects/bank14/bouncing_rock_walk.png"
+dest_files=[ "res://.import/bouncing_rock_walk.png-e9784b842f5e4ade532c7848b74fa750.stex" ]
 
 [params]
 

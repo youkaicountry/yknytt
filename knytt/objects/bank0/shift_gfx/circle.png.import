@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circle.png-8420f177cc2f7587b15a838876bafc9d.stex"
+path="res://.import/circle.png-f3bd15ebaca0503cd85bcfa04f5980dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank0/shift_gfx/circle.png"
-dest_files=[ "res://.import/circle.png-8420f177cc2f7587b15a838876bafc9d.stex" ]
+source_file="res://knytt/objects/bank0/shift_gfx/circle.png"
+dest_files=[ "res://.import/circle.png-f3bd15ebaca0503cd85bcfa04f5980dd.stex" ]
 
 [params]
 

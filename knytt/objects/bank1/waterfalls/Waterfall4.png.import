@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Waterfall4.png-e3f3746c77460c7147259467e94d9bd3.stex"
+path="res://.import/Waterfall4.png-08b9b3529117f50a1bb70651e6192ee4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank1/waterfalls/Waterfall4.png"
-dest_files=[ "res://.import/Waterfall4.png-e3f3746c77460c7147259467e94d9bd3.stex" ]
+source_file="res://knytt/objects/bank1/waterfalls/Waterfall4.png"
+dest_files=[ "res://.import/Waterfall4.png-08b9b3529117f50a1bb70651e6192ee4.stex" ]
 
 [params]
 

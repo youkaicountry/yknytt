@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/3leg_spider_walk.png-034c437b5337b2494f38ee01514471d2.stex"
+path="res://.import/3leg_spider_walk.png-10f9f36af117c88d76a83b823498244c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank4/3leg_spider_walk.png"
-dest_files=[ "res://.import/3leg_spider_walk.png-034c437b5337b2494f38ee01514471d2.stex" ]
+source_file="res://knytt/objects/bank4/3leg_spider_walk.png"
+dest_files=[ "res://.import/3leg_spider_walk.png-10f9f36af117c88d76a83b823498244c.stex" ]
 
 [params]
 

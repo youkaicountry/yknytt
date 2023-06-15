@@ -1,9 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank6/labyrinth_spike.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank6/LabyrinthSpike.cs" type="Script" id=3]
+[ext_resource path="res://knytt/objects/bank6/labyrinth_spike.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank6/LabyrinthSpike.cs" type="Script" id=3]
 [ext_resource path="res://knytt/data/Sfx/Machine Turn A.wav" type="AudioStream" id=4]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.0

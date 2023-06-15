@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/birdie1_fly.png-27d9ba93edb1be25207f9c9cf47ebb68.stex"
+path="res://.import/birdie1_fly.png-5044c49cd97036c575fac2b2b8bed3b1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/birdie1_fly.png"
-dest_files=[ "res://.import/birdie1_fly.png-27d9ba93edb1be25207f9c9cf47ebb68.stex" ]
+source_file="res://knytt/objects/bank19/img/birdie1_fly.png"
+dest_files=[ "res://.import/birdie1_fly.png-5044c49cd97036c575fac2b2b8bed3b1.stex" ]
 
 [params]
 

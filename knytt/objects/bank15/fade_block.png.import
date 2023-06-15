@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fade_block.png-15834f0620c133d27a750de7e95946c2.stex"
+path="res://.import/fade_block.png-8dc21c20842cd8459753ad6fc148645d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank15/fade_block.png"
-dest_files=[ "res://.import/fade_block.png-15834f0620c133d27a750de7e95946c2.stex" ]
+source_file="res://knytt/objects/bank15/fade_block.png"
+dest_files=[ "res://.import/fade_block.png-8dc21c20842cd8459753ad6fc148645d.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/labyrinth_spike.png-9522cfab88399edd8e840538280702fd.stex"
+path="res://.import/labyrinth_spike.png-406b1d9bbfaeac59427dc20df7688905.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank6/labyrinth_spike.png"
-dest_files=[ "res://.import/labyrinth_spike.png-9522cfab88399edd8e840538280702fd.stex" ]
+source_file="res://knytt/objects/bank6/labyrinth_spike.png"
+dest_files=[ "res://.import/labyrinth_spike.png-406b1d9bbfaeac59427dc20df7688905.stex" ]
 
 [params]
 

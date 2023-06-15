@@ -1,8 +1,9 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank14/large_bouncing_rock_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank14/large_bouncing_rock.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank14/large_bouncing_rock_stop.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank14/large_bouncing_rock.png" type="Texture" id=3]
+
 
 
 

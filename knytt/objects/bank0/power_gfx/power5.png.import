@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/power5.png-60d6cb833466c51db581c578457915f2.stex"
+path="res://.import/power5.png-16b191782a013349b81de57bebab0d46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank0/power_gfx/power5.png"
-dest_files=[ "res://.import/power5.png-60d6cb833466c51db581c578457915f2.stex" ]
+source_file="res://knytt/objects/bank0/power_gfx/power5.png"
+dest_files=[ "res://.import/power5.png-16b191782a013349b81de57bebab0d46.stex" ]
 
 [params]
 

@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank15/Block1.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank15/block2.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank15/Block1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank15/block2.png" type="Texture" id=2]
+
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 

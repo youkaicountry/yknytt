@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/toast_monster.png-71a4e72ff1fdb9ba1dad8753f55f08b6.stex"
+path="res://.import/toast_monster.png-88134bed70f6078d6d959ca25ad1ad2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/toast_monster.png"
-dest_files=[ "res://.import/toast_monster.png-71a4e72ff1fdb9ba1dad8753f55f08b6.stex" ]
+source_file="res://knytt/objects/bank19/img/toast_monster.png"
+dest_files=[ "res://.import/toast_monster.png-88134bed70f6078d6d959ca25ad1ad2f.stex" ]
 
 [params]
 

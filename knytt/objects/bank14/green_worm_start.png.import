@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/green_worm_start.png-3f751049537892ca4686ba1013b3175e.stex"
+path="res://.import/green_worm_start.png-bb4f8055656ce3e133efd07019f2a323.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/green_worm_start.png"
-dest_files=[ "res://.import/green_worm_start.png-3f751049537892ca4686ba1013b3175e.stex" ]
+source_file="res://knytt/objects/bank14/green_worm_start.png"
+dest_files=[ "res://.import/green_worm_start.png-bb4f8055656ce3e133efd07019f2a323.stex" ]
 
 [params]
 

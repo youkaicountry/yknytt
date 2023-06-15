@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dark_homing_cannon.png-1e1a3eea68b4003a14b6ac61c9a028b9.stex"
+path="res://.import/dark_homing_cannon.png-3206627eb180b3e3fd53095f4d5c555f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank13/dark_homing_cannon.png"
-dest_files=[ "res://.import/dark_homing_cannon.png-1e1a3eea68b4003a14b6ac61c9a028b9.stex" ]
+source_file="res://knytt/objects/bank13/dark_homing_cannon.png"
+dest_files=[ "res://.import/dark_homing_cannon.png-3206627eb180b3e3fd53095f4d5c555f.stex" ]
 
 [params]
 

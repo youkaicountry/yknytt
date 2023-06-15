@@ -14,7 +14,7 @@ public class Rain : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        drop_scene = ResourceLoader.Load("res://knytt/objects/banks/bank7/Raindrop.tscn") as PackedScene;
+        drop_scene = ResourceLoader.Load("res://knytt/objects/bank7/Raindrop.tscn") as PackedScene;
         _drop_q = new Queue<Raindrop>();
         GDArea.Selector.Register(this);
     }

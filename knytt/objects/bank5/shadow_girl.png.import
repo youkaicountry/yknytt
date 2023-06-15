@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shadow_girl.png-b5229d53e7db5d921723822b0c361ece.stex"
+path="res://.import/shadow_girl.png-ee280b1795ff9fd80b1f18e0100acaf2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank5/shadow_girl.png"
-dest_files=[ "res://.import/shadow_girl.png-b5229d53e7db5d921723822b0c361ece.stex" ]
+source_file="res://knytt/objects/bank5/shadow_girl.png"
+dest_files=[ "res://.import/shadow_girl.png-ee280b1795ff9fd80b1f18e0100acaf2.stex" ]
 
 [params]
 

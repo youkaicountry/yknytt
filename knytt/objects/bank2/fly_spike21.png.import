@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fly_spike21.png-f01fb1ce77d9080941ebc8c0c444ec47.stex"
+path="res://.import/fly_spike21.png-0888ab97ce54e12b0e4f64e43788c88b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/fly_spike21.png"
-dest_files=[ "res://.import/fly_spike21.png-f01fb1ce77d9080941ebc8c0c444ec47.stex" ]
+source_file="res://knytt/objects/bank2/fly_spike21.png"
+dest_files=[ "res://.import/fly_spike21.png-0888ab97ce54e12b0e4f64e43788c88b.stex" ]
 
 [params]
 

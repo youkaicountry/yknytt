@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://knytt/data/Sfx/Spider Run.wav" type="AudioStream" id=1]
-[ext_resource path="res://knytt/objects/banks/bank4/Spider.cs" type="Script" id=4]
+[ext_resource path="res://knytt/objects/bank4/Spider.cs" type="Script" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
+
 
 [node name="Spider" type="KinematicBody2D"]
 collision_layer = 0

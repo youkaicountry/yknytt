@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trishot_launch.png-cf241c45d0a6d17d9c30194badf5c95b.stex"
+path="res://.import/trishot_launch.png-80dcea291c78afcac505b2cc0726647f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank4/trishot_launch.png"
-dest_files=[ "res://.import/trishot_launch.png-cf241c45d0a6d17d9c30194badf5c95b.stex" ]
+source_file="res://knytt/objects/bank4/trishot_launch.png"
+dest_files=[ "res://.import/trishot_launch.png-80dcea291c78afcac505b2cc0726647f.stex" ]
 
 [params]
 

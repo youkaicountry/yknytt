@@ -1,9 +1,10 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank2/BuzzFlyer.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank2/fall_dude.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank2/fall_dude_attack.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/banks/bank2/FallPropellerDude.cs" type="Script" id=4]
+[ext_resource path="res://knytt/objects/bank2/BuzzFlyer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank2/fall_dude.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank2/fall_dude_attack.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank2/FallPropellerDude.cs" type="Script" id=4]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

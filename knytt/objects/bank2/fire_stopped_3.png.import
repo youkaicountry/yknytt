@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_stopped_3.png-2e50cdee52eb78ebb33cc0478dc953ac.stex"
+path="res://.import/fire_stopped_3.png-03e72646d719d474874cd9f141f1fc36.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/fire_stopped_3.png"
-dest_files=[ "res://.import/fire_stopped_3.png-2e50cdee52eb78ebb33cc0478dc953ac.stex" ]
+source_file="res://knytt/objects/bank2/fire_stopped_3.png"
+dest_files=[ "res://.import/fire_stopped_3.png-03e72646d719d474874cd9f141f1fc36.stex" ]
 
 [params]
 

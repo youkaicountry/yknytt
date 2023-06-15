@@ -1,7 +1,8 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank14/Insect.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank14/insect_without_shell.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank14/Insect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank14/insect_without_shell.png" type="Texture" id=2]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

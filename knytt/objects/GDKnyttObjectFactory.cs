@@ -452,7 +452,7 @@ public static class GDKnyttObjectFactory
             return null;
         }
 
-        string fname = $"res://knytt/objects/banks/bank{object_id.x}/{ObjectLookup[object_id]}.tscn";
+        string fname = $"res://knytt/objects/bank{object_id.x}/{ObjectLookup[object_id]}.tscn";
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }

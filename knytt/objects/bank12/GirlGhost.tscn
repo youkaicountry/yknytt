@@ -1,7 +1,8 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank12/girl_ghost.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank12/GhostWalker.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/bank12/girl_ghost.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank12/GhostWalker.tscn" type="PackedScene" id=2]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

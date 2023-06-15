@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/homing_bullet_runner.png-3787c589d599fc9bb8402b77c6600aff.stex"
+path="res://.import/homing_bullet_runner.png-51890286c94ceec2c6186035dde0944e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/homing_bullet_runner.png"
-dest_files=[ "res://.import/homing_bullet_runner.png-3787c589d599fc9bb8402b77c6600aff.stex" ]
+source_file="res://knytt/objects/bank19/img/homing_bullet_runner.png"
+dest_files=[ "res://.import/homing_bullet_runner.png-51890286c94ceec2c6186035dde0944e.stex" ]
 
 [params]
 

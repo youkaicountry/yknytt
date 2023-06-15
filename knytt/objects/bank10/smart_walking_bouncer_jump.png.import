@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/smart_walking_bouncer_jump.png-9b8df3d5753d7b0872812dbbc1e6d4db.stex"
+path="res://.import/smart_walking_bouncer_jump.png-02d1222f5a8dc0d1f3144020fc83e5db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank10/smart_walking_bouncer_jump.png"
-dest_files=[ "res://.import/smart_walking_bouncer_jump.png-9b8df3d5753d7b0872812dbbc1e6d4db.stex" ]
+source_file="res://knytt/objects/bank10/smart_walking_bouncer_jump.png"
+dest_files=[ "res://.import/smart_walking_bouncer_jump.png-02d1222f5a8dc0d1f3144020fc83e5db.stex" ]
 
 [params]
 

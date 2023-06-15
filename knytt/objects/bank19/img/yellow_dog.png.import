@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yellow_dog.png-80bdb3c1544d9d4499c939282603045c.stex"
+path="res://.import/yellow_dog.png-a3eda4a5dbcc26a79a41f66b2e2855d5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/yellow_dog.png"
-dest_files=[ "res://.import/yellow_dog.png-80bdb3c1544d9d4499c939282603045c.stex" ]
+source_file="res://knytt/objects/bank19/img/yellow_dog.png"
+dest_files=[ "res://.import/yellow_dog.png-a3eda4a5dbcc26a79a41f66b2e2855d5.stex" ]
 
 [params]
 

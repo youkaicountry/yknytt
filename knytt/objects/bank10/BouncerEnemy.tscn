@@ -1,7 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank10/BouncerEnemy.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank10/bouncer_sprites/Bouncer5.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank10/BouncerEnemy.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/bank10/bouncer_sprites/Bouncer5.png" type="Texture" id=2]
+
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )

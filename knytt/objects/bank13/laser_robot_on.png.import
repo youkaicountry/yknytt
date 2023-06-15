@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laser_robot_on.png-955b36c4a27c1f8f475eb83df2dcc7d9.stex"
+path="res://.import/laser_robot_on.png-1e286195f60d9c1041f2d9ff274dbd7a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank13/laser_robot_on.png"
-dest_files=[ "res://.import/laser_robot_on.png-955b36c4a27c1f8f475eb83df2dcc7d9.stex" ]
+source_file="res://knytt/objects/bank13/laser_robot_on.png"
+dest_files=[ "res://.import/laser_robot_on.png-1e286195f60d9c1041f2d9ff274dbd7a.stex" ]
 
 [params]
 

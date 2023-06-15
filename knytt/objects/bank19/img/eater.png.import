@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/eater.png-0120cc14a95399841ff52618759fe264.stex"
+path="res://.import/eater.png-1cb417dcb7d3b89d41e8ef6a411d8cd0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank19/img/eater.png"
-dest_files=[ "res://.import/eater.png-0120cc14a95399841ff52618759fe264.stex" ]
+source_file="res://knytt/objects/bank19/img/eater.png"
+dest_files=[ "res://.import/eater.png-1cb417dcb7d3b89d41e8ef6a411d8cd0.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fiveshot_walk.png-adf91cd81bd4dfe9233fd479b127749b.stex"
+path="res://.import/fiveshot_walk.png-d5efa4acd9da82b56e0f4add244aec50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank4/fiveshot_walk.png"
-dest_files=[ "res://.import/fiveshot_walk.png-adf91cd81bd4dfe9233fd479b127749b.stex" ]
+source_file="res://knytt/objects/bank4/fiveshot_walk.png"
+dest_files=[ "res://.import/fiveshot_walk.png-d5efa4acd9da82b56e0f4add244aec50.stex" ]
 
 [params]
 

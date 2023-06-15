@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/DistanceMod.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/common/Crawler.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/objects/banks/bank4/DropCrawler.cs" type="Script" id=4]
+[ext_resource path="res://knytt/objects/common/DistanceMod.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/bank4/DropCrawler.cs" type="Script" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=6]
+
 
 [node name="Crawler" instance=ExtResource( 3 )]
 script = ExtResource( 4 )

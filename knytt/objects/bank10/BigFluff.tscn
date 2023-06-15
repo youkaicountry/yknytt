@@ -1,7 +1,8 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank10/big_fluff.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank10/big_fluff.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=2]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

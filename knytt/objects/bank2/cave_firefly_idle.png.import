@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cave_firefly_idle.png-6bdfc088709ab36adb15f3e60d4c4b33.stex"
+path="res://.import/cave_firefly_idle.png-d9cb101f1b509c84817bf1c2b913a5d2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/cave_firefly_idle.png"
-dest_files=[ "res://.import/cave_firefly_idle.png-6bdfc088709ab36adb15f3e60d4c4b33.stex" ]
+source_file="res://knytt/objects/bank2/cave_firefly_idle.png"
+dest_files=[ "res://.import/cave_firefly_idle.png-d9cb101f1b509c84817bf1c2b913a5d2.stex" ]
 
 [params]
 

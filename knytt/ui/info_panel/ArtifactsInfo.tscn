@@ -2,7 +2,8 @@
 
 [ext_resource path="res://knytt/ui/info_panel/ArtifactsInfo.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/info_panel/CollectionInfo.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/banks/bank19/artifact_icon.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank19/artifact_icon.png" type="Texture" id=3]
+
 
 [node name="Control" instance=ExtResource( 2 )]
 script = ExtResource( 1 )

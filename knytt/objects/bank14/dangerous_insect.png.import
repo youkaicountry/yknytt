@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dangerous_insect.png-07e19454d4dcd2e93d1ba2597ff35d33.stex"
+path="res://.import/dangerous_insect.png-97b2372f367a2dade834847dea24ff2e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/dangerous_insect.png"
-dest_files=[ "res://.import/dangerous_insect.png-07e19454d4dcd2e93d1ba2597ff35d33.stex" ]
+source_file="res://knytt/objects/bank14/dangerous_insect.png"
+dest_files=[ "res://.import/dangerous_insect.png-97b2372f367a2dade834847dea24ff2e.stex" ]
 
 [params]
 

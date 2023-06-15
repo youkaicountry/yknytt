@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lock_block_horizontal.png-b165e6b551a539df3d046781df36d65c.stex"
+path="res://.import/lock_block_horizontal.png-5d875433f697900d510fd90c8d6fc14f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank15/password/lock_block_horizontal.png"
-dest_files=[ "res://.import/lock_block_horizontal.png-b165e6b551a539df3d046781df36d65c.stex" ]
+source_file="res://knytt/objects/bank15/password/lock_block_horizontal.png"
+dest_files=[ "res://.import/lock_block_horizontal.png-5d875433f697900d510fd90c8d6fc14f.stex" ]
 
 [params]
 

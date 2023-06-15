@@ -1,9 +1,10 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank19/img/drop_crawler_2.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/banks/bank19/img/drop_crawler_2_stop.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank4/DropCrawler.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/objects/banks/bank4/CeilingDropCrawler.cs" type="Script" id=4]
+[ext_resource path="res://knytt/objects/bank19/img/drop_crawler_2.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank19/img/drop_crawler_2_stop.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank4/DropCrawler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/bank4/CeilingDropCrawler.cs" type="Script" id=4]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 7 )
@@ -56,6 +57,10 @@ openDistance = 100.0
 closeDistance = 100.0
 method = 2
 
-[node name="ShotTimer" parent="." index="3"]
-wait_time = 1.6
-firstDelay = 0.5
+[node name="ShotTimer" type="Timer" parent="." index="4"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="EnterEvent" from="DistanceMod" to="." method="_on_shoot_event"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shoot_event"]

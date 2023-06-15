@@ -1,7 +1,8 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://knytt/objects/banks/bank1/LiquidPool.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank1/pools/Pool13.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank1/LiquidPool.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank1/pools/Pool13.png" type="Texture" id=2]
+
 
 
 [sub_resource type="AtlasTexture" id=1]

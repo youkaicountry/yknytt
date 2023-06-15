@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/simple8.png-d51360cc97ef5360459149c7943968ec.stex"
+path="res://.import/simple8.png-170475206fdb8ee95e8f411f4002d6ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank8/simple8.png"
-dest_files=[ "res://.import/simple8.png-d51360cc97ef5360459149c7943968ec.stex" ]
+source_file="res://knytt/objects/bank8/simple8.png"
+dest_files=[ "res://.import/simple8.png-170475206fdb8ee95e8f411f4002d6ef.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sun_ray.png-cda328cde75c415aea9ad5ca4b1318f7.stex"
+path="res://.import/sun_ray.png-67965cabe1dad12e8468811d221af234.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank7/sun_ray.png"
-dest_files=[ "res://.import/sun_ray.png-cda328cde75c415aea9ad5ca4b1318f7.stex" ]
+source_file="res://knytt/objects/bank7/sun_ray.png"
+dest_files=[ "res://.import/sun_ray.png-67965cabe1dad12e8468811d221af234.stex" ]
 
 [params]
 

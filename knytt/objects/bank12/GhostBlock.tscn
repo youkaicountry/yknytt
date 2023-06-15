@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/banks/bank12/Object5.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/banks/bank12/GhostMod.tscn" type="PackedScene" id=3]
+[ext_resource path="res://knytt/objects/bank12/Object5.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )

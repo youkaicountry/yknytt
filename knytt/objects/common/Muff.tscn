@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/Muff.cs" type="Script" id=1]
+[ext_resource path="res://knytt/objects/common/Muff.cs" type="Script" id=1]
+
 
 [node name="Muff" type="KinematicBody2D"]
 collision_layer = 0

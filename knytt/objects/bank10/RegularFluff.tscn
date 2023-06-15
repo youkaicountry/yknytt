@@ -1,7 +1,8 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://knytt/objects/banks/common/GesturesObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/banks/bank10/regular_fluff.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank10/regular_fluff.png" type="Texture" id=2]
+
 
 
 [sub_resource type="AtlasTexture" id=1]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hidden_spiker.png-de7345a864f0ece6cec43823c236bf24.stex"
+path="res://.import/hidden_spiker.png-c4d83af610995d79e9d752c9c8a39cac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/hidden_spiker.png"
-dest_files=[ "res://.import/hidden_spiker.png-de7345a864f0ece6cec43823c236bf24.stex" ]
+source_file="res://knytt/objects/bank14/hidden_spiker.png"
+dest_files=[ "res://.import/hidden_spiker.png-c4d83af610995d79e9d752c9c8a39cac.stex" ]
 
 [params]
 

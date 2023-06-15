@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red_jelly_stop.png-12b6c59753fb288df22796c65e8830fb.stex"
+path="res://.import/red_jelly_stop.png-0f67e40628d587c92ab5ed2b033e49d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank14/red_jelly_stop.png"
-dest_files=[ "res://.import/red_jelly_stop.png-12b6c59753fb288df22796c65e8830fb.stex" ]
+source_file="res://knytt/objects/bank14/red_jelly_stop.png"
+dest_files=[ "res://.import/red_jelly_stop.png-0f67e40628d587c92ab5ed2b033e49d3.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_walking.png-ed0cd9f4d6594c7308c5dcb8b0e53121.stex"
+path="res://.import/fire_walking.png-fac3a54b6b8c1c01c5d519238586c31d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank2/fire_walking.png"
-dest_files=[ "res://.import/fire_walking.png-ed0cd9f4d6594c7308c5dcb8b0e53121.stex" ]
+source_file="res://knytt/objects/bank2/fire_walking.png"
+dest_files=[ "res://.import/fire_walking.png-fac3a54b6b8c1c01c5d519238586c31d.stex" ]
 
 [params]
 

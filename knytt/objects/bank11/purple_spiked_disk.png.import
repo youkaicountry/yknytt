@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/purple_spiked_disk.png-98d8066a2c46ec6e7494c84fd0253573.stex"
+path="res://.import/purple_spiked_disk.png-4ba97fd58447a277e32fac43ac68c33e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/banks/bank11/purple_spiked_disk.png"
-dest_files=[ "res://.import/purple_spiked_disk.png-98d8066a2c46ec6e7494c84fd0253573.stex" ]
+source_file="res://knytt/objects/bank11/purple_spiked_disk.png"
+dest_files=[ "res://.import/purple_spiked_disk.png-4ba97fd58447a277e32fac43ac68c33e.stex" ]
 
 [params]
 
