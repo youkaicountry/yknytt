@@ -65,6 +65,7 @@ anchor_bottom = 0.0
 margin_right = 60.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
+focus_neighbour_left = NodePath("../QuitButton")
 custom_styles/disabled = SubResource( 2 )
 text = "Resume"
 
@@ -85,6 +86,7 @@ margin_left = 128.0
 margin_right = 188.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
+focus_neighbour_right = NodePath("../ResumeButton")
 custom_styles/disabled = SubResource( 2 )
 text = "Quit"
 

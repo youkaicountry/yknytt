@@ -92,8 +92,9 @@ anchor_bottom = 0.0
 margin_left = 341.0
 margin_right = 421.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 80, 0 )
+rect_min_size = Vector2( 80, 24 )
 focus_neighbour_left = NodePath("../EnableButton")
+focus_neighbour_right = NodePath("../../SwapContainer/SwapButton")
 text = "At top"
 items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
 selected = 0
@@ -101,41 +102,39 @@ selected = 0
 [node name="SwapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 28.0
 margin_right = 421.0
-margin_bottom = 52.0
+margin_bottom = 49.0
 
 [node name="SwapButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
 margin_right = 265.0
-margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
 text = "Arrows on the right side"
 
 [node name="Label" type="Label" parent="SettingsContainer/SwapContainer"]
 margin_left = 269.0
-margin_top = 5.0
+margin_top = 3.0
 margin_right = 269.0
-margin_bottom = 19.0
+margin_bottom = 17.0
 
 [node name="SwipeContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 56.0
+margin_top = 53.0
 margin_right = 421.0
-margin_bottom = 80.0
+margin_bottom = 74.0
 
 [node name="SwipeButton" parent="SettingsContainer/SwipeContainer" instance=ExtResource( 3 )]
 margin_right = 265.0
-margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
 text = "Swipe to change direction quickly"
 
 [node name="Label" type="Label" parent="SettingsContainer/SwipeContainer"]
 margin_left = 269.0
-margin_top = 5.0
+margin_top = 3.0
 margin_right = 269.0
-margin_bottom = 19.0
+margin_bottom = 17.0
 
 [node name="ScaleContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 84.0
+margin_top = 78.0
 margin_right = 421.0
-margin_bottom = 108.0
+margin_bottom = 102.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="ScaleLabel" type="Label" parent="SettingsContainer/ScaleContainer"]
@@ -186,9 +185,9 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 112.0
+margin_top = 106.0
 margin_right = 421.0
-margin_bottom = 136.0
+margin_bottom = 130.0
 
 [node name="ViewportLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
 margin_top = 5.0
@@ -234,9 +233,9 @@ margin_bottom = 24.0
 text = "Set 100%"
 
 [node name="JumpContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 140.0
+margin_top = 134.0
 margin_right = 421.0
-margin_bottom = 164.0
+margin_bottom = 158.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="JumpLabel" type="Label" parent="SettingsContainer/JumpContainer"]
@@ -287,9 +286,9 @@ __meta__ = {
 }
 
 [node name="OpacityContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 168.0
+margin_top = 162.0
 margin_right = 421.0
-margin_bottom = 192.0
+margin_bottom = 186.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="OpacityLabel" type="Label" parent="SettingsContainer/OpacityContainer"]
