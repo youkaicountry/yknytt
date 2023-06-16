@@ -139,6 +139,8 @@ public class GDKnyttKeys : Node
         applyAction("hologram");
         applyAction("pause");
         applyAction("map");
+        applyAction("debug_die");
+        applyKey("debug_die", "r", ctrl: true);
     }
 
     private static void applyAction(string name)
@@ -162,11 +164,12 @@ public class GDKnyttKeys : Node
         }
     }
 
-    private static void applyKey(string action_name, string key)
+    private static void applyKey(string action_name, string key, bool ctrl = false)
     {
         int scancode = OS.FindScancodeFromString(key);
         var e = new InputEventKey();
         e.Scancode = (uint)scancode;
+        e.Control = ctrl;
         InputMap.ActionAddEvent(action_name, e);
     }
 
