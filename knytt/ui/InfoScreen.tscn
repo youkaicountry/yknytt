@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://knytt/ui/button_red.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -84,18 +85,15 @@ margin_top = 10.0
 margin_right = -160.0
 margin_bottom = 195.0
 
-[node name="HintLabel" type="Label" parent="InfoRect"]
+[node name="HintLabel" parent="InfoRect" instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_top = -15.0
+margin_top = -24.0
 grow_horizontal = 2
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 6 )
-align = 1
+text = ""
 
 [node name="RatePanel" type="Panel" parent="InfoRect"]
 anchor_left = 1.0
