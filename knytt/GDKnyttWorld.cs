@@ -20,7 +20,8 @@ public class GDKnyttWorld : Node2D
     public GDKnyttWorld()
     {
         this.AssetManager = new GDKnyttAssetManager(this, tile_cache: 32, gradient_cache: 16, song_cache: 4, ambiance_cache: 8, object_cache: 64);
-        this.Areas = new KnyttRectPaging<GDKnyttArea>(new KnyttPoint(1, 1));
+        var border_size = (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Original) ? new KnyttPoint(0, 0) : new KnyttPoint(1, 1);
+        this.Areas = new KnyttRectPaging<GDKnyttArea>(border_size);
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => area?.destroyArea();
 
@@ -46,10 +47,6 @@ public class GDKnyttWorld : Node2D
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
 
         this.KWorld.loadWorldMap(map_stream);
-
-        // Enable this if there will be level load screen
-        //if (KWorld.BinMode) { KWorld.unpackWorld(); }
-        //AssetManager.compileInternalTileset();
     }
 
     public GDKnyttArea getArea(KnyttPoint area)
