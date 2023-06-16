@@ -31,6 +31,7 @@ public class LevelSelection : BasicScreeen
     public bool localLoad = false;
     private int requested_level = 0;
     private string next_page = null;
+    private bool remotes_grab_focus = false;
 
     ConcurrentQueue<WorldEntry> finished_entries;
     ConcurrentQueue<WorldEntry> remote_finished_entries; // TODO: process all found entries at once?
@@ -58,7 +59,7 @@ public class LevelSelection : BasicScreeen
         loadDefaultWorlds();
         discoverWorlds("./worlds");
         discoverWorlds("user://Worlds");
-        if (!localLoad) { HttpLoad(); }
+        if (!localLoad) { HttpLoad(grab_focus: true); }
     }
 
     public override void initFocus()
@@ -66,13 +67,14 @@ public class LevelSelection : BasicScreeen
         game_container.GrabFocus();
     }
 
-    private void HttpLoad()
+    private void HttpLoad(bool grab_focus = false)
     {
         game_container.clearWorlds();
         requested_level = 0;
         game_container.fillStubs(4);
         GetNode<ScrollContainer>("MainContainer/ScrollContainer").ScrollVertical = 0;
         connectionLost(lost: false);
+        remotes_grab_focus = grab_focus;
 
         string url = GDKnyttSettings.ServerURL + "/levels/?";
         if (filter_category_int != 0) { url += $"category={filter_category_int}&"; }
@@ -89,7 +91,7 @@ public class LevelSelection : BasicScreeen
     private void connectionLost(bool lost = true)
     {
         GetNode<Label>("ConnectionLostLabel").Visible = lost;
-        GetNode<Button>("BackButton").GrabFocus();
+        if (lost) { GetNode<Button>("BackButton").GrabFocus(); }
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
@@ -164,7 +166,9 @@ public class LevelSelection : BasicScreeen
             if (!remote_finished_entries.TryDequeue(out var world_entry)) { return; }
             var entry = findLocal(world_entry); // TODO: with multithreading local level can be added later than remote, and it won't be shown as downloaded
             if (entry != null) { world_entry.MergeLocal(entry); }
-            game_container.addWorld(world_entry, focus: game_container.Count == 0, mark_completed: entry != null);
+            bool focus = remotes_grab_focus && game_container.GamesCount == 0;
+            remotes_grab_focus = false;
+            game_container.addWorld(world_entry, focus: focus, mark_completed: entry != null);
         }
     }
 
@@ -455,9 +459,13 @@ public class LevelSelection : BasicScreeen
     {
         game_container.clearWorlds();
         Manager.clearAll();
+        finished_entries = new ConcurrentQueue<WorldEntry>();
+        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
+        
         loadDefaultWorlds();
         discoverWorlds("./worlds");
         discoverWorlds("user://Worlds");
+        if (!localLoad) { this.HttpLoad(grab_focus: true); }
     }
 
     public void _on_CategoryDropdown_item_selected(int index)
@@ -512,7 +520,7 @@ public class LevelSelection : BasicScreeen
     private void _on_SearchEdit_text_entered(string new_text)
     {
         filter_text = new_text;
-        if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
+        if (localLoad) { this.listWorlds(); } else { this.HttpLoad(grab_focus: true); }
         game_container.GrabFocus(); // no focus, but workaround in _PhysicsProcess fixes it
     }
 
