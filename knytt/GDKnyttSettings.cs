@@ -1,6 +1,7 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
+using YKnyttLib;
 
 public class GDKnyttSettings : Node
 {
@@ -66,7 +67,15 @@ public class GDKnyttSettings : Node
     public static ScrollTypes ScrollType
     {
         get { return String2ScrollTypes(ini["Graphics"]["Scroll Type"]); }
-        set { ini["Graphics"]["Scroll Type"] = ScrollTypes2String(value); }
+        set
+        {
+            var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game != null)
+            {
+                game.GDWorld.Areas.BorderSize = (value == ScrollTypes.Original ? new KnyttPoint(0, 0) : new KnyttPoint(1, 1));
+            }
+            ini["Graphics"]["Scroll Type"] = ScrollTypes2String(value);
+        }
     }
 
     // Calculate the volume in dB from the config value
@@ -170,7 +179,7 @@ public class GDKnyttSettings : Node
 
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
-        modified |= ensureSetting("Graphics", "Scroll Type", "Smooth");
+        modified |= ensureSetting("Graphics", "Scroll Type", "Original");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");

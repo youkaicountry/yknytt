@@ -4,7 +4,7 @@ namespace YKnyttLib.Paging
 {
     public class KnyttRectPaging<T> : KnyttPagingPolicy<T>
     {
-        public KnyttPoint BorderSize { get; private set; }
+        public KnyttPoint BorderSize { get; set; }
 
         public KnyttRectPaging(KnyttPoint border_size)
         {
