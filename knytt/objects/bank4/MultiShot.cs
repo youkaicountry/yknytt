@@ -21,7 +21,7 @@ public class MultiShot : DistanceMuff
                 p.DirectionMMF2 = i == -1 ? 7 + random.Next(3) : additionalDirections[i];
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 

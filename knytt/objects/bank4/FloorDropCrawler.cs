@@ -15,7 +15,7 @@ public class FloorDropCrawler : DropCrawler
                                             3 + random.Next(3);
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 
