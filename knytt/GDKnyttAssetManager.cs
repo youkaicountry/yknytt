@@ -339,20 +339,14 @@ public class GDKnyttAssetManager
                 if (convex_hull.Count - 1 > full_polygon.Count()) { return null; } // should never happen
 
                 Vector2 ch_from = convex_hull[chi], ch_to = convex_hull[chi + 1];
-                Vector2? before_recess = null, recess = null, after_recess = null;
+                Vector2 before_recess = ch_from, last_shallow = ch_from;
+                Vector2? recess = null;
                 float recess_depth = -24;
 
                 for (fpi++; ; fpi++) // iterate between convex hull points
                 {
                     Vector2 fpp = full_polygon[fpi % full_polygon.Count()];
-                    if (fpp == ch_to)
-                    {
-                        if (recess != null && (before_recess ?? ch_from).DistanceTo(after_recess ?? ch_to) > MIN_RECESS_WIDTH)
-                        {
-                            convex_hull.Insert(++chi, recess.Value); // add selected recess (if it's wide enough)
-                        }
-                        break;
-                    }
+                    if (fpp == ch_to && recess == null) { break; }
 
                     float height = distanceToLine(fpp, ch_from, ch_to);
                     if (height > MIN_HILL_HEIGHT) // additional convex vertex - just add it
@@ -363,13 +357,28 @@ public class GDKnyttAssetManager
                     
                     if (height < MAX_RECESS_DEPTH)
                     {
-                        if (height > recess_depth) { recess_depth = height; recess = fpp; } // select shallowest recess
-                        after_recess = null;
+                        if (height > recess_depth) // select shallowest recess
+                        {
+                            recess_depth = height;
+                            recess = fpp;
+                            before_recess = last_shallow;
+                        }
                     }
                     else
                     {
-                        if (recess == null) { before_recess = fpp; }
-                        if (recess != null && after_recess == null) { after_recess = fpp; }
+                        if (recess != null)
+                        {
+                            if (before_recess.DistanceTo(fpp) > MIN_RECESS_WIDTH)
+                            {
+                                convex_hull.Insert(++chi, recess.Value); // add selected recess (if it's wide enough)
+                                for (; full_polygon[fpi % full_polygon.Count()] != ch_to; fpi++);
+                                break;
+                            }
+                            if (fpp == ch_to) { break; }
+                            recess = null;
+                            recess_depth = -24;
+                        }
+                        last_shallow = fpp;
                     }
                 }
             }
@@ -434,9 +443,10 @@ public class GDKnyttAssetManager
         GDKnyttDataStore.ProgressHint = "Compiling finished.";
     }
 
-    // Create "user://tilesets" directory and call this function at start to compile default tilesets
+    // Call this function at start to compile default tilesets
     public static void compileTileset()
     {
+        ensureDirExists($"user://tilesets");
         for (int i = 0; i < 256; i++)
         {
             KnyttLogger.Info($"Compiling tileset #{i}");
