@@ -12,7 +12,7 @@ public class RedTrapFlower : TrapFlower
                 p.DirectionMMF2 = 7 + random.Next(2) * 2;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 }

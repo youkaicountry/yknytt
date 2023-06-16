@@ -13,7 +13,7 @@ public class AgressiveTrapFlower : TrapFlower
                 p.DirectionMMF2 = 8 + random.Next(1, 5) * (random.NextBoolean() ? 1 : -1);
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 }

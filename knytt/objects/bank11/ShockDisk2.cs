@@ -9,9 +9,9 @@ public class ShockDisk2 : ShockDisk
             (p, i) =>
             {
                 p.Translate(new Vector2(12, 12));
-                p.VelocityMMF2 = 20 + random.Next(35);
+                p.VelocityMMF2 = 15 + random.Next(35); // 20 + random(35) in original
                 p.DirectionMMF2 = i;
-                p.DecelerationMMF2 = 20;
+                p.DecelerationMMF2 = 12; // 20 in original
                 p.DisappearWhenStopped = true;
             });
     }

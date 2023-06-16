@@ -14,7 +14,7 @@ public class TimedFlower : GDKnyttBaseObject
                 p.DirectionMMF2 = 7 + random.Next(2) * 2;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 20;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 

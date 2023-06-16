@@ -15,7 +15,7 @@ public class RoofBlob : Muff
                 p.DirectionMMF2 = 24;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
     }
 

@@ -2,27 +2,27 @@ using Godot;
 
 public class BaseBullet : KinematicBody2D
 {
-    private float _velocity;
-    private float _velocity_x;
-    private float _velocity_y;
-    private float _deceleration;
-    private float _deceleration_x;
-    private float _deceleration_y;
-    private float _direction;
-    private float _gravity;
-    private bool _enabled;
-    private int _enable_countdown;
+    private float velocity;
+    private float velocity_x;
+    private float velocity_y;
+    private float deceleration;
+    private float deceleration_x;
+    private float deceleration_y;
+    private float direction;
+    private float gravity;
+    private bool enabled;
+    private int enable_countdown;
 
-    public float Velocity { get { return _velocity; } set { _velocity = value; updateAxisVelocity(); } }
-    public float Gravity { get { return _gravity; } set { _gravity = value; } }
-    public float Direction { get { return _direction; } set { _direction = value; updateAxisVelocity(); } }
-    public float Deceleration { get { return _deceleration; } set { _deceleration = value; updateAxisVelocity(); } }
+    public float Velocity { get { return velocity; } set { velocity = value; updateAxisVelocity(); } }
+    public float Gravity { get { return gravity; } set { gravity = value; } }
+    public float Direction { get { return direction; } set { direction = value; updateAxisVelocity(); } }
+    public float Deceleration { get { return deceleration; } set { deceleration = value; updateAxisVelocity(); } }
     public bool EnableRotation { get; set; } = false;
     public bool DisappearWhenStopped { get; set; } = false;
 
-    public float DecelerationCorrectionX { get; set; } = 1;
-    public float DecelerationCorrectionUp { get; set; } = 1;
-    public float DecelerationCorrectionDown { get; set; } = 1;
+    private float deceleration_correction_x = 1;
+    private float deceleration_correction_up = 1;
+    private float deceleration_correction_down = 1;
 
     private const float VELOCITY_SCALE = 50f / 8;
     private const float GRAVITY_SCALE = VELOCITY_SCALE * VELOCITY_SCALE;
@@ -35,23 +35,26 @@ public class BaseBullet : KinematicBody2D
     public float DecelerationMMF2 { get { return Deceleration / DECELERATION_SCALE; } set { Deceleration = value * DECELERATION_SCALE; } }
 
     // Be careful! Doesn't support deceleration, total velocity and direction change
-    public float VelocityX { get { return _velocity_x; } set { _velocity_x = value; } }
-    public float VelocityY { get { return _velocity_y; } set { _velocity_y = value; } }
+    public float VelocityX { get { return velocity_x; } set { velocity_x = value; } }
+    public float VelocityY { get { return velocity_y; } set { velocity_y = value; } }
 
     protected void updateAxisVelocity()
     {
-        _velocity_x = _velocity * -Mathf.Cos(_direction);
-        _velocity_y = _velocity * -Mathf.Sin(_direction);
-        _deceleration_x = _velocity_x * _deceleration;
-        _deceleration_y = Mathf.Abs(_velocity_y * _deceleration);
+        velocity_x = velocity * -Mathf.Cos(direction);
+        velocity_y = velocity * -Mathf.Sin(direction);
+        deceleration_x = velocity_x * deceleration;
+        deceleration_y = Mathf.Abs(velocity_y * deceleration);
     }
 
-    public void ApllyPinballCorrections()
+    public bool PinballCorrection
     {
-        // TODO: more accurate values
-        DecelerationCorrectionX = 0.75f;
-        DecelerationCorrectionUp = 0.5f;
-        DecelerationCorrectionDown = 0.5f;
+        set
+        {
+            // TODO: more accurate values
+            deceleration_correction_x = value ? 0.78f : 1;
+            deceleration_correction_up = value ? 0.5f : 1;
+            deceleration_correction_down = value ? 0.5f : 1;
+        }
     }
 
 
@@ -76,33 +79,33 @@ public class BaseBullet : KinematicBody2D
         if (!Enabled) { return; }
         // Workaround to make sure that Translate was made before actual enabling
         // Without this, player can move with a particle and re-enter an area that has been left!
-        if (collisionShape.Disabled && --_enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
+        if (collisionShape.Disabled && --enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
 
-        _velocity_x -= _deceleration_x * delta * DecelerationCorrectionX;
-        if (_deceleration_x > 0 && _velocity_x < 0) { _velocity_x = 0; }
-        if (_deceleration_x < 0 && _velocity_x > 0) { _velocity_x = 0; }
+        velocity_x -= deceleration_x * delta * deceleration_correction_x;
+        if (deceleration_x > 0 && velocity_x < 0) { velocity_x = 0; }
+        if (deceleration_x < 0 && velocity_x > 0) { velocity_x = 0; }
 
-        if (_velocity_y > 0)
+        if (velocity_y > 0)
         {
-            _velocity_y -= _deceleration_y * delta * DecelerationCorrectionDown;
-            if (_gravity == 0 && _velocity_y < 0) { _velocity_y = 0; }
+            velocity_y -= deceleration_y * delta * deceleration_correction_down;
+            if (gravity == 0 && velocity_y < 0) { velocity_y = 0; }
         }
-        else if (_velocity_y < 0)
+        else if (velocity_y < 0)
         {
-            _velocity_y += _deceleration_y * delta * DecelerationCorrectionUp;
-            if (_gravity == 0 && _velocity_y > 0) { _velocity_y = 0; }
+            velocity_y += deceleration_y * delta * deceleration_correction_up;
+            if (gravity == 0 && velocity_y > 0) { velocity_y = 0; }
         }
 
-        if (DisappearWhenStopped && _gravity == 0 && _velocity_x == 0 && _velocity_y == 0)
+        if (DisappearWhenStopped && gravity == 0 && velocity_x == 0 && velocity_y == 0)
         {
             disappear(collide: false);
         }
 
-        _velocity_y += _gravity * delta;
+        velocity_y += gravity * delta;
 
-        if (EnableRotation) { Rotation = Mathf.Atan2(-_velocity_y, -_velocity_x); }
+        if (EnableRotation) { Rotation = Mathf.Atan2(-velocity_y, -velocity_x); }
 
-        var collision = MoveAndCollide(new Vector2(delta * _velocity_x, delta * _velocity_y));
+        var collision = MoveAndCollide(new Vector2(delta * velocity_x, delta * velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
         {
             disappear(collide: false);
@@ -116,7 +119,7 @@ public class BaseBullet : KinematicBody2D
     public virtual async void disappear(bool collide)
     {
         Enabled = false;
-        _velocity_x = _velocity_y = _gravity = 0;
+        velocity_x = velocity_y = gravity = 0;
         if (collide)
         {
             hitPlayer?.Play();
@@ -132,12 +135,12 @@ public class BaseBullet : KinematicBody2D
 
     public bool Enabled
     {
-        get { return _enabled; }
+        get { return enabled; }
         set
         {
-            _enabled = value;
+            enabled = value;
             if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
-            if (!value) { collisionShape.SetDeferred("disabled", true); } else { _enable_countdown = 2; }
+            if (!value) { collisionShape.SetDeferred("disabled", true); } else { enable_countdown = 2; }
         }
     }
 }

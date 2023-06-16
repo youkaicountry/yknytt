@@ -20,7 +20,7 @@ public class RoofDropper : GDKnyttBaseObject
                 p.DirectionMMF2 = 24;
                 p.GravityMMF2 = 10;
                 p.DecelerationMMF2 = 10;
-                p.ApllyPinballCorrections();
+                p.PinballCorrection = true;
             });
 
         shotTimer.Start(0.8f + random.NextFloat(0.8f));
