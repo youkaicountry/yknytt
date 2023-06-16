@@ -51,7 +51,7 @@ public static class ConsoleCommands
         public SpeedCommand(CommandParseResult result)
         {
             if (result.Args["value"] == null) { value = null; return; }
-            value = float.Parse(result.Args["value"]);
+            value = float.Parse(result.Args["value"], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
         }
 
         public static ICommand NewSpeedCommand(CommandParseResult result)

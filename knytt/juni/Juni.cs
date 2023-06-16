@@ -437,6 +437,7 @@ public class Juni : KinematicBody2D
         {
             just_reset--;
             if (just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
+            return;
         }
 
         if (juniInput.DownPressed) { EmitSignal(nameof(DownEvent), this); }
@@ -504,6 +505,14 @@ public class Juni : KinematicBody2D
                 var gravity = velocity.y;
                 velocity.y = 0f;
                 velocity -= gravity * normal;
+            }
+
+            // workaround to avoid jitter (when Juni can spontaneously move across a surface or be pushed into the air)
+            if (CurrentState is IdleState && next_state == null && 
+                MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null)
+            {
+                velocity = Godot.Vector2.Zero;
+                return;
             }
 
             // Do the movement in two steps to avoid hanging up on tile seams
@@ -738,7 +747,7 @@ public class Juni : KinematicBody2D
     {
         GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
         // update IsOnFloor to avoid unnecessary transitions
-        MoveAndSlideWithSnap(Godot.Vector2.Zero, Godot.Vector2.Down, Godot.Vector2.Up, true); 
+        MoveAndSlideWithSnap(Godot.Vector2.Zero, Godot.Vector2.Down, Godot.Vector2.Up, true);
     }
 
     public void win(string ending)

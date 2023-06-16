@@ -44,11 +44,7 @@ public class IdleState : JuniState
 // TODO: Have a juni function that checks if walk or run
 public class WalkRunState : JuniState
 {
-    const float FALL_LEEWAY = .085f;
-
     bool walk_run;
-    int fall_frames;
-    int current_fall;
 
     string WalkRunString { get { return walk_run ? "Run" : "Walk"; } }
 
@@ -58,10 +54,6 @@ public class WalkRunState : JuniState
     {
         this.walk_run = walk_run;
         juni.MotionParticles.CurrentMotion = walk_run ? JuniMotionParticles.JuniMotion.RUN : JuniMotionParticles.JuniMotion.WALK;
-
-        // Calculate the leeway frames to fall in a frame independent manner
-        fall_frames = Mathf.FloorToInt(FALL_LEEWAY / (1f / ((int)ProjectSettings.GetSetting("physics/common/physics_fps"))));
-        current_fall = fall_frames;
     }
 
     public override void onEnter()
@@ -88,18 +80,17 @@ public class WalkRunState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.juniInput.JumpEdge && juni.CanJump && current_fall > 0) { juni.executeJump(reset_jumps: true); }
-        else if (!juni.Grounded) // Juni Walks off Ledge / ground falls out from under
+        if (juni.Grounded) { juni.CanFreeJump = true; }
+
+        if (juni.juniInput.JumpEdge && juni.CanJump && juni.CanFreeJump)
         {
-            if (current_fall <= 0)
-            {
-                juni.CanFreeJump = false;
-                juni.jumps = 1; // Transition as if Juni has jumped once
-                juni.transitionState(new FallState(juni));
-            }
-            current_fall--;
+            juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
         }
-        else { current_fall = fall_frames; }
+        else if (!juni.CanFreeJump) // Juni Walks off Ledge / ground falls out from under
+        {
+            juni.jumps = 1; // Transition as if Juni has jumped once
+            juni.transitionState(new FallState(juni));
+        }
     }
 
     public override void onExit()

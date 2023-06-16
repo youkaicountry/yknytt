@@ -114,6 +114,7 @@ public class SlotButton : Button
         var dir = new Directory();
         dir.Remove(FullFilename);
         checkSlot();
+        GrabFocus();
     }
 
     public void _on_StartLoadButton_pressed()
