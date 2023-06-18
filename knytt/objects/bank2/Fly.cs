@@ -39,7 +39,7 @@ public class Fly : GDKnyttBaseObject
             moveAndCollide(diff);
         }
 
-        if (moveAndCollide(new Vector2(0, 1), testOnly: true) != null)
+        if (moveAndCollide(Vector2.Down, testOnly: true) != null)
         {
             player.Play($"stop{ObjectID.y}");
             flying = false;

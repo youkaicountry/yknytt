@@ -191,19 +191,7 @@ public class Juni : KinematicBody2D
         set { stickies += (value ? 1 : -1); }
     }
 
-    int muffles = 0;
-    public bool Muffle
-    {
-        get { return muffles > 0; }
-        set
-        {
-            muffles += (value ? 1 : -1);
-            if (value && muffles == 1) { doMuffle(true); }
-            if (!value && muffles == 0) { doMuffle(false); }
-        }
-    }
-
-    private void doMuffle(bool on)
+    public void doMuffle(bool on)
     {
         string[] audio_nodes = { "Walk", "Climb", "Slide", "Run", "Jump", "Land" };
         foreach (var audio_node in audio_nodes)
@@ -212,12 +200,7 @@ public class Juni : KinematicBody2D
         }
     }
 
-    int holo_places = 0;
-    public bool InHologramPlace
-    {
-        get { return holo_places > 0; }
-        set { holo_places += (value ? 1 : -1); }
-    }
+    public bool InHologramPlace { get; set; }
 
     int swim_zones = 0;
     public bool Swim
@@ -429,6 +412,8 @@ public class Juni : KinematicBody2D
         if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
         if (Input.IsActionJustPressed("debug_ui")) { Game.UI.Location.toggle(); }
         if (Input.IsActionJustPressed("debug_idclip")) { DebugFlyMode = !DebugFlyMode; }
+        if (Input.IsActionJustPressed("debug_slow")) { GDKnyttDataStore.CurrentSpeed /= 1.2f; }
+        if (Input.IsActionJustPressed("debug_fast")) { GDKnyttDataStore.CurrentSpeed *= 1.2f; }
     }
 
     public void processMotion(float delta)
@@ -508,6 +493,7 @@ public class Juni : KinematicBody2D
             }
 
             // workaround to avoid jitter (when Juni can spontaneously move across a surface or be pushed into the air)
+            // disables Juni's little inertia
             if (CurrentState is IdleState && next_state == null && 
                 MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null)
             {

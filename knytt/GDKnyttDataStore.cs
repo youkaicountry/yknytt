@@ -52,6 +52,7 @@ public class GDKnyttDataStore : Node
     public static void winGame(string ending = "Ending")
     {
         Mode = CutsceneMode.Ending;
+        CurrentSpeed = 1;
         CutsceneFadeIn = false;
         startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
     }

@@ -58,7 +58,6 @@ public class SceneCPUParticles : Node2D
 
     private void spawnParticle()
     {
-        // TODO: destroy if out of area and reuse it later
         SceneCPUParticleInstance p;
         if (pcache.Count > 0)
         {

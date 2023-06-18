@@ -133,7 +133,7 @@ public class BaseBullet : KinematicBody2D
         Visible = false;
     }
 
-    public bool Enabled
+    public virtual bool Enabled
     {
         get { return enabled; }
         set
