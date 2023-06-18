@@ -8,13 +8,13 @@ public class ObjectSelector
     private Dictionary<object, object> selections = new Dictionary<object, object>();
     public bool IsOpen { get; set; }
 
-    private object getKey(GDKnyttBaseObject obj, bool by_type)
+    private object getKey(object obj, bool by_type)
     {
-        return by_type ? (object)obj.GetType() : obj.ObjectID;
+        return by_type ? (object)obj.GetType() : (obj as GDKnyttBaseObject).ObjectID;
     }
 
     // Do not call Register and Unregister in IsObjectSelected series!
-    public void Register(GDKnyttBaseObject obj, bool by_type = false)
+    public void Register(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type))
@@ -26,7 +26,7 @@ public class ObjectSelector
         allObjects[type].Add(obj);
     }
 
-    public void Unregister(GDKnyttBaseObject obj, bool by_type = false)
+    public void Unregister(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return; }
@@ -35,7 +35,7 @@ public class ObjectSelector
         selections[type] = null;
     }
 
-    public bool IsObjectSelected(GDKnyttBaseObject obj, bool by_type = false)
+    public bool IsObjectSelected(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         // Reset might be called sooner than an object is disposed, or object may be not registered
@@ -58,14 +58,14 @@ public class ObjectSelector
         return is_selected;
     }
 
-    public int GetIndex(GDKnyttBaseObject obj, bool by_type = false)
+    public int GetIndex(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         if (!allObjects.ContainsKey(type)) { return 0; }
         return allObjects[type].IndexOf(obj);
     }
 
-    public int GetSize(GDKnyttBaseObject obj, bool by_type = false)
+    public int GetSize(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         return allObjects.ContainsKey(type) ? allObjects[type].Count : 0;
@@ -73,7 +73,7 @@ public class ObjectSelector
 
     private Dictionary<object, float> randomValues = new Dictionary<object, float>();
 
-    public float GetRandomValue(GDKnyttBaseObject obj, float maxValue, bool by_type = false)
+    public float GetRandomValue(object obj, float maxValue, bool by_type = false)
     {
         var type = getKey(obj, by_type);
         if (!randomValues.ContainsKey(type))

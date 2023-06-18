@@ -14,7 +14,6 @@ public class Win : GDKnyttBaseObject
         save.Endings = endings; // to write to ini
         GDArea.GDWorld.Game.saveGame(save);
 
-        // TODO: send signal to server if no cutscene is shown?
         juni.win(ending);
     }
 }

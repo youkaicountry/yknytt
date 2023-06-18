@@ -16,7 +16,8 @@ public class RateHTTPRequest : HTTPRequest
         Cutscene = 5,
         Ending = 6,
         Enter = 7,
-        Exit = 8
+        Exit = 8,
+        WinExit = 9
     }
 
     public void send(string level_name, string level_author, int action, string cutscene = null)

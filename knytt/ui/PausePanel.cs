@@ -83,6 +83,8 @@ public class PausePanel : Control
         var worldInfo = GetNode<GDKnyttGame>("../../..").GDWorld.KWorld.Info;
         GetNode<RateHTTPRequest>("../RateHTTPRequest").send(worldInfo.Name, worldInfo.Author, (int)RateHTTPRequest.Action.Exit);
 
+        GDKnyttDataStore.CurrentSpeed = 1;
+
         var fade = GetNode<FadeLayer>("../../../FadeCanvasLayer/Fade");
         fade.startFade();
         await ToSignal(fade, "FadeDone");

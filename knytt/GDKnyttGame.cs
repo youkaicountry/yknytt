@@ -92,7 +92,6 @@ public class GDKnyttGame : Node2D
 
     public async void respawnJuniWithWSOD()
     {
-        // TODO: if enter an area just after respawn, objects may stay at old positions, not at starting positions
         // TODO: if respawn executes during save, Juni may save position, but not area coordinates (check again, hard to reproduce)
         UI.WSOD.startWSOD();
         await ToSignal(UI.WSOD, "WSODFinished");
@@ -289,7 +288,7 @@ public class GDKnyttGame : Node2D
     public async void win(string ending)
     {
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-            (int)RateHTTPRequest.Action.Exit);
+            (int)RateHTTPRequest.Action.WinExit);
         await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
         GDKnyttDataStore.winGame(ending);
     }
