@@ -22,7 +22,7 @@ namespace YKnyttLib
         public KnyttPoint Pos { get; protected set; }
         public SwitchID ID { get; protected set; }
         public SwitchShape Shape { get; private set; }
-        public bool Visible { get; private set; }
+        public bool Visible { get; set; }
         public bool Effect { get; private set; }
         public bool OnTouch { get; private set; }
         public bool DenyHologram { get; private set; }

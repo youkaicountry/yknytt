@@ -173,6 +173,7 @@ public class Juni : KinematicBody2D
         set { Sprite.FlipH = !value; Umbrella.FacingRight = value; }
         get { return !Sprite.FlipH; }
     }
+    public bool ApparentFacingRight { get { return Hologram != null ? !(Hologram as Sprite).FlipH : FacingRight; } }
     public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
 
     // Whether or not Juni is in a NoJump situation
@@ -364,6 +365,7 @@ public class Juni : KinematicBody2D
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
         changeCharacter(this.Powers.Character ?? Game.GDWorld.KWorld.Info.Character, force_change: true);
+        game.applyTint(this.Powers.Tint.Item1, this.Powers.Tint.Item2, this.Powers.Tint.Item3);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
         JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
         JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
@@ -764,6 +766,7 @@ public class Juni : KinematicBody2D
         stopHologram(cleanup: true);
         enableAttachment(Powers.Attachment);
         changeCharacter(Powers.Character);
+        Game.applyTint(Powers.Tint.Item1, Powers.Tint.Item2, Powers.Tint.Item3);
     }
 
     private void handleXMovement(float delta)

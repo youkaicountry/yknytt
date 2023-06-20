@@ -10,8 +10,9 @@ public class Shift : Switch
 
     public override void _Ready()
     {
-        if (GDArea.Area.ExtraData == null) { return; }
-        @switch = shift = new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y - 14));
+        @switch = shift = GDArea.Area.ExtraData != null ? 
+            new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y - 14)) :
+            new KnyttShift(GDArea.Area.Position, Coords, (SwitchID)(ObjectID.y - 14)); // just show shift spot (original game has also effect)
         base._Ready();
     }
 

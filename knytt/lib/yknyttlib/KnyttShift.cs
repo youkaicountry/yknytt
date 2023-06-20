@@ -53,6 +53,7 @@ namespace YKnyttLib
             AbsoluteTarget = false; // Relative by default
             AsOne = true;
             Repeat = true;
+            Visible = true;
             prefix = "Shift";
         }
 

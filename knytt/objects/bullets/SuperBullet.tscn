@@ -114,6 +114,7 @@ frames = SubResource( 22 )
 animation = "disappear"
 
 [node name="SlowDisappearTimer" type="Timer" parent="." index="2"]
+wait_time = 2.0
 autostart = true
 
 [node name="FastDisappearTimer" type="Timer" parent="." index="3"]

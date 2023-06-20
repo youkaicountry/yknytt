@@ -13,7 +13,7 @@ public class SuperShot : GesturesObject
             (p, i) =>
             {
                 p.Translate(shotPosition);
-                p.VelocityMMF2 = 4 + random.Next(8); //5 + random.Next(6); -- original formula
+                p.VelocityMMF2 = 3 + random.Next(8); //5 + random.Next(6); //-- original formula
                 p.DirectionMMF2 = random.NextElement(shotDirections);
                 p.DecelerationMMF2 = 3;
             });

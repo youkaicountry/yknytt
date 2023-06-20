@@ -353,10 +353,21 @@ public class GDKnyttGame : Node2D
     {
         if (!(area.Area.ExtraData?.ContainsKey("Tint") ?? false)) { return; }
 
+        string color = area.Area.ExtraData["Tint"];
+        string ink = area.Area.ExtraData.ContainsKey("TintInk") ? area.Area.ExtraData["TintInk"] : "Trans";
+        string trans = area.Area.ExtraData.ContainsKey("TintTrans") ? area.Area.ExtraData["TintTrans"] : "46";
+
+        Juni.Powers.Tint = (color, ink, trans);
+        applyTint(color, ink, trans);
+    }
+
+    public void applyTint(string color_str, string ink_str, string trans_str)
+    {
         var glass = GetNode<Control>("FadeCanvasLayer/Tint");
 
-        int bgr = KnyttUtil.parseBGRString(area.Area.ExtraData["Tint"], 0);
-        int r = 0xFF & bgr, g = (0xFF00 & bgr) >> 8, b = (0xFF0000 & bgr) >> 16;
+        int bgr = KnyttUtil.parseBGRString(color_str, 0);
+        TintInk mode = Enum.TryParse<TintInk>(ink_str.ToUpper(), out var i) ? i : TintInk.TRANS;
+        int trans = int.TryParse(trans_str, out var t) ? t : 46;
 
         if (bgr == 0)
         {
@@ -365,11 +376,7 @@ public class GDKnyttGame : Node2D
             return;
         }
 
-        TintInk mode = area.Area.ExtraData.ContainsKey("TintInk") && 
-            Enum.TryParse<TintInk>(area.Area.ExtraData["TintInk"].ToUpper(), out var i) ? i : TintInk.TRANS;
-
-        int trans = area.Area.ExtraData.ContainsKey("TintTrans") && 
-            int.TryParse(area.Area.ExtraData["TintTrans"], out var t) ? t : 46;
+        int r = 0xFF & bgr, g = (0xFF00 & bgr) >> 8, b = (0xFF0000 & bgr) >> 16;
         float a = 1.0f - trans / 127.0f;
 
         tint.SetShaderParam("mode", mode);

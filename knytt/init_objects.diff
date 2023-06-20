@@ -1,0 +1,180 @@
+diff --git a/knytt/GDKnyttArea.cs b/knytt/GDKnyttArea.cs
+index 01c4646..bf5a793 100644
+--- a/knytt/GDKnyttArea.cs
++++ b/knytt/GDKnyttArea.cs
+@@ -89,6 +89,10 @@ public class GDKnyttArea : Node2D
+         this.Tiles.initTiles(this);
+         AddChild(Tiles);
+ 
++        Objects = objects_scene.Instance() as GDObjectLayers;
++        Objects.initLayers(this);
++        AddChild(Objects);
++
+         // Area should start deactivated
+         this.deactivateArea();
+     }
+@@ -98,8 +102,8 @@ public class GDKnyttArea : Node2D
+         GetNode<Timer>("DeactivateTimer").Stop();
+         Selector.IsOpen = true;
+         if ((!regenerate_same && this.active) || this.Area.Empty) { return; }
+-        this.createObjectLayers();
+         this.active = true;
++        Objects.createObjects(this);
+         Tiles.activate();
+     }
+ 
+@@ -107,27 +111,11 @@ public class GDKnyttArea : Node2D
+     {
+         Bullets.Reset();
+         Selector.Reset();
+-        this.removeObjectLayers();
++        Objects?.removeObjects();
+         this.active = false;
+         Tiles?.deactivate();
+     }
+ 
+-    private void createObjectLayers()
+-    {
+-        Objects = objects_scene.Instance() as GDObjectLayers;
+-        Objects.initLayers(this);
+-        AddChild(Objects);
+-    }
+-
+-    private void removeObjectLayers()
+-    {
+-        if (Objects != null)
+-        {
+-            this.Objects.returnObjects();
+-            this.Objects.QueueFree();
+-        }
+-    }
+-
+     // We don't want this to be async, because it can be cancelled
+     // A whooole bunch of threads could queue up waiting for an event that never occurs if async
+     public void scheduleDeactivation(float delay = .5f)
+@@ -144,7 +132,7 @@ public class GDKnyttArea : Node2D
+         if (this.Area.Empty) { return; }
+         Bullets.Reset();
+         Selector.Reset();
+-        this.removeObjectLayers();
++        Objects.removeObjects();
+         this.activateArea(regenerate_same: regenerate_same);
+     }
+ 
+@@ -162,7 +150,7 @@ public class GDKnyttArea : Node2D
+         destroy_timer.Start();
+         await ToSignal(destroy_timer, "timeout");
+ 
+-        if (active && this.Objects != null) { Objects.returnObjects(); }
++        Objects.returnObjects();
+         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
+         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
+         GDWorld.AssetManager.returnGradient(Area.Background);
+diff --git a/knytt/GDKnyttAssetManager.cs b/knytt/GDKnyttAssetManager.cs
+index cdf59e2..1ac2df1 100644
+--- a/knytt/GDKnyttAssetManager.cs
++++ b/knytt/GDKnyttAssetManager.cs
+@@ -57,7 +57,7 @@ public class GDKnyttAssetManager
+     public void returnAmbiance(int num) { AmbianceCache.DecObject(num); }
+ 
+     public GDKnyttObjectBundle GetObject(KnyttPoint object_id) { return ObjectCache.IncObject(object_id); }
+-    public void returnObject(KnyttPoint object_id) { ObjectCache.DecObject(object_id); }
++    public void returnObject(KnyttPoint object_id) { if (ObjectCache.getObjectCount(object_id) > 0) ObjectCache.DecObject(object_id); }
+ 
+     private TileSet buildTileSet(int num)
+     {
+diff --git a/knytt/objects/GDKnyttObjectLayer.cs b/knytt/objects/GDKnyttObjectLayer.cs
+index c0170af..316e406 100644
+--- a/knytt/objects/GDKnyttObjectLayer.cs
++++ b/knytt/objects/GDKnyttObjectLayer.cs
+@@ -17,4 +17,12 @@ public class GDKnyttObjectLayer : Node2D
+         node.Position = new Vector2(coords.x * GDKnyttAssetManager.TILE_WIDTH, coords.y * GDKnyttAssetManager.TILE_HEIGHT);
+         this.AddChild(node);
+     }
++
++    public void removeObjects()
++    {
++        foreach (Node2D child in GetChildren())
++        {
++            child.QueueFree();
++        }
++    }
+ }
+diff --git a/knytt/objects/GDObjectLayers.cs b/knytt/objects/GDObjectLayers.cs
+index 235cbe8..dae29d7 100644
+--- a/knytt/objects/GDObjectLayers.cs
++++ b/knytt/objects/GDObjectLayers.cs
+@@ -7,12 +7,7 @@ public class GDObjectLayers : Node2D
+     public GDKnyttObjectLayer[] Layers { get; private set; }
+     public GDKnyttArea GDArea { get; private set; }
+ 
+-    public List<KnyttPoint> UsedAssets { get; }
+-
+-    public GDObjectLayers()
+-    {
+-        this.UsedAssets = new List<KnyttPoint>(64);
+-    }
++    private Dictionary<KnyttPoint, GDKnyttObjectBundle> UsedAssets = new Dictionary<KnyttPoint, GDKnyttObjectBundle>();
+ 
+     public void initLayers(GDKnyttArea area)
+     {
+@@ -27,7 +22,7 @@ public class GDObjectLayers : Node2D
+ 
+         this.Layers = llayers.ToArray();
+ 
+-        //Load objects
++        // Load object scenes
+         for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
+         {
+             var data = area.Area.ObjectLayers[layer];
+@@ -36,10 +31,29 @@ public class GDObjectLayers : Node2D
+                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
+                 {
+                     var oid = data.getObjectID(x, y);
+-                    if (oid.isZero()) { continue; }
++                    if (oid.isZero() || this.UsedAssets.ContainsKey(oid)) { continue; }
+ 
+                     var bundle = GDArea.GDWorld.AssetManager.GetObject(oid);
+-                    this.UsedAssets.Add(oid);
++                    this.UsedAssets.Add(oid, bundle);
++                }
++            }
++        }
++    }
++
++    public void createObjects(GDKnyttArea area)
++    {
++        // Load objects
++        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
++        {
++            var data = area.Area.ObjectLayers[layer];
++            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
++            {
++                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
++                {
++                    var oid = data.getObjectID(x, y);
++                    if (oid.isZero()) { continue; }
++
++                    var bundle = this.UsedAssets[oid];
+                     if (bundle == null) { continue; }
+ 
+                     this.Layers[layer].addObject(new KnyttPoint(x, y), bundle);
+@@ -72,9 +86,17 @@ public class GDObjectLayers : Node2D
+         }
+     }
+ 
++    public void removeObjects()
++    {
++        foreach (var layer in Layers)
++        {
++            layer.removeObjects();
++        }
++    }
++
+     public void returnObjects()
+     {
+-        foreach (KnyttPoint id in UsedAssets)
++        foreach (KnyttPoint id in UsedAssets.Keys)
+         {
+             GDArea.GDWorld.AssetManager.returnObject(id);
+         }
