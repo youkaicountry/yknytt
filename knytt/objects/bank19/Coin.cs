@@ -13,6 +13,7 @@ public class Coin : CustomObject
         info.image = GDArea.GDWorld.KWorld.INIData["World"]["Coin"];
         info.anim_to = 8;
         info.anim_speed = 250;
-        if (fillAnimation("custom")) { sprite.Play(); } else { sprite.Play("default"); }
+        if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom")) { sprite.Play(); }
+        else { sprite.Play("default"); }
     }
 }

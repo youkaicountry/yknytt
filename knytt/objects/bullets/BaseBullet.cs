@@ -12,6 +12,8 @@ public class BaseBullet : KinematicBody2D
     private float gravity;
     private bool enabled;
     private int enable_countdown;
+    private int disappear_countdown;
+    private bool delayed_collide;
 
     public float Velocity { get { return velocity; } set { velocity = value; updateAxisVelocity(); } }
     public float Gravity { get { return gravity; } set { gravity = value; } }
@@ -80,6 +82,12 @@ public class BaseBullet : KinematicBody2D
         // Workaround to make sure that Translate was made before actual enabling
         // Without this, player can move with a particle and re-enter an area that has been left!
         if (collisionShape.Disabled && --enable_countdown <= 0) { collisionShape.SetDeferred("disabled", false); }
+        // Without delay, floor collision can happen before collision with Juni
+        if (disappear_countdown > 0)
+        {
+            if (--disappear_countdown == 0) { disappear(collide: delayed_collide); }
+            return;
+        }
 
         velocity_x -= deceleration_x * delta * deceleration_correction_x;
         if (deceleration_x > 0 && velocity_x < 0) { velocity_x = 0; }
@@ -108,11 +116,13 @@ public class BaseBullet : KinematicBody2D
         var collision = MoveAndCollide(new Vector2(delta * velocity_x, delta * velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
         {
-            disappear(collide: false);
+            disappear_countdown = 1;
+            delayed_collide = false;
         }
         else if (collision != null)
         {
-            disappear(collide: true);
+            disappear_countdown = 1;
+            delayed_collide = true;
         }
     }
 

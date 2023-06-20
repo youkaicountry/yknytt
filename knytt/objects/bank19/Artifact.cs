@@ -16,6 +16,7 @@ public class Artifact : CustomObject
         info.anim_loopback = 1;
         info.anim_to = 14;
         info.anim_speed = 250;
-        if (fillAnimation($"custom{artifact_number}")) { sprite.Play(); } else { sprite.Play($"default{artifact_number}"); }
+        if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{artifact_number}")) { sprite.Play(); }
+        else { sprite.Play($"default{artifact_number}"); }
     }
 }

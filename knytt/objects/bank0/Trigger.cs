@@ -7,8 +7,9 @@ public class Trigger : Switch
 
     public override void _Ready()
     {
-        if (GDArea.Area.ExtraData == null) { return; }
-        @switch = trigger = new KnyttTrigger(GDArea.Area, Coords, (KnyttSwitch.SwitchID)(ObjectID.y - 32));
+        @switch = trigger = GDArea.Area.ExtraData != null ? 
+            new KnyttTrigger(GDArea.Area, Coords, (KnyttSwitch.SwitchID)(ObjectID.y - 32)) :
+            new KnyttTrigger(GDArea.Area.Position, (KnyttSwitch.SwitchID)(ObjectID.y - 32));
         base._Ready();
     }
 

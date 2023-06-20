@@ -31,6 +31,7 @@ namespace YKnyttLib
         public BitArray VisitedAreas { get; private set; }
         public string Attachment { get; set; }
         public string Character { get; set; }
+        public (string, string, string) Tint { get; set; }
         public HashSet<string> Cutscenes { get; private set; }
         public HashSet<string> Endings { get; private set; }
 
@@ -110,6 +111,7 @@ namespace YKnyttLib
             save.VisitedAreas = VisitedAreas;
             save.Attachment = Attachment;
             save.Character = Character;
+            save.Tint = Tint;
             save.Cutscenes = Cutscenes;
             save.Endings = Endings;
         }
@@ -124,6 +126,7 @@ namespace YKnyttLib
             VisitedAreas = save.VisitedAreas;
             Attachment = save.Attachment;
             Character = save.Character;
+            Tint = save.Tint;
             Cutscenes = save.Cutscenes;
             Endings = save.Endings;
         }

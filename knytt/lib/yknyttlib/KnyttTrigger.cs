@@ -12,6 +12,7 @@ namespace YKnyttLib
             Pos = trigger_pos;
             ID = id;
             AbsoluteTarget = true;
+            Visible = true;
             prefix = "Trig";
         }
 

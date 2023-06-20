@@ -23,7 +23,7 @@ public class ObjectSelector
             counters[type] = 0;
             selections[type] = null;
         }
-        allObjects[type].Add(obj);
+        if (!allObjects[type].Contains(obj)) { allObjects[type].Add(obj); }
     }
 
     public void Unregister(object obj, bool by_type = false)

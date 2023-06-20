@@ -134,6 +134,17 @@ namespace YKnyttLib
             set { setValue("Extras", "Character", value); }
         }
 
+        public (string, string, string) Tint
+        {
+            get { return (getValue("Extras", "Tint"), getValue("Extras", "TintInk"), getValue("Extras", "TintTrans")); }
+            set
+            {
+                setValue("Extras", "Tint", value.Item1);
+                setValue("Extras", "TintInk", value.Item2);
+                setValue("Extras", "TintTrans", value.Item3);
+            }
+        }
+
         public HashSet<string> Cutscenes
         {
             get { return getValue("Extras", "Cutscenes")?.Split(',').Where(s => s != "").ToHashSet() ?? new HashSet<string>(); }
