@@ -366,7 +366,7 @@ public class GDKnyttGame : Node2D
         var glass = GetNode<Control>("FadeCanvasLayer/Tint");
 
         int bgr = KnyttUtil.parseBGRString(color_str, 0);
-        TintInk mode = Enum.TryParse<TintInk>(ink_str.ToUpper(), out var i) ? i : TintInk.TRANS;
+        TintInk mode = Enum.TryParse<TintInk>(ink_str?.ToUpper(), out var i) ? i : TintInk.TRANS;
         int trans = int.TryParse(trans_str, out var t) ? t : 46;
 
         if (bgr == 0)
