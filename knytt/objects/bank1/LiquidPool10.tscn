@@ -4,9 +4,8 @@
 [ext_resource path="res://knytt/objects/bank1/pools/Pool10.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank1/pools/Halo1.png" type="Texture" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 12, 8 )
+extents = Vector2( 12, 6 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
@@ -95,7 +94,7 @@ animations = [ {
 [node name="Node2D" instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2( 12, 16 )
+position = Vector2( 12, 18 )
 shape = SubResource( 20 )
 
 [node name="Halo" type="AnimatedSprite" parent="." index="1"]
