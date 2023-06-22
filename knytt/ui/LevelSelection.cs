@@ -31,7 +31,10 @@ public class LevelSelection : BasicScreeen
     public bool localLoad = false;
     private int requested_level = 0;
     private string next_page = null;
+    
     private bool remotes_grab_focus = false;
+    private Control prev_focus_owner;
+    private double prev_scroll;
 
     ConcurrentQueue<WorldEntry> finished_entries;
     ConcurrentQueue<WorldEntry> remote_finished_entries; // TODO: process all found entries at once?
@@ -72,7 +75,7 @@ public class LevelSelection : BasicScreeen
         game_container.clearWorlds();
         requested_level = 0;
         game_container.fillStubs(4);
-        GetNode<ScrollContainer>("MainContainer/ScrollContainer").ScrollVertical = 0;
+        games_scrollbar.Value = 0;
         connectionLost(lost: false);
         remotes_grab_focus = grab_focus;
 
@@ -147,7 +150,9 @@ public class LevelSelection : BasicScreeen
 
     public override void _PhysicsProcess(float delta)
     {
-        if (GetNode<Control>("MainContainer").GetFocusOwner() == null) { game_container.GrabFocus(); }
+        prev_scroll = games_scrollbar.Value;
+        prev_focus_owner = game_container.GetFocusOwner();
+        if (prev_focus_owner == null) { game_container.GrabFocus(); }
         
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
@@ -543,8 +548,14 @@ public class LevelSelection : BasicScreeen
             GetNode<Button>("MainContainer/FilterContainer/Category/CategoryDropdown").GrabFocus();
             return;
         }
+        if (prev_focus_owner != null && game_container.IsAParentOf(prev_focus_owner)) // to prevent scrolling to top
+        {
+            prev_focus_owner.GrabFocus();
+            games_scrollbar.Value = prev_scroll;
+            return;
+        }
         game_container.GetChild(0).GetChild<GameButton>(0).GrabFocus();
-        GetNode<ScrollContainer>("MainContainer/ScrollContainer").ScrollVertical = 0;
+        games_scrollbar.Value = 0;
     }
 
     private void enableFilter(bool enable)

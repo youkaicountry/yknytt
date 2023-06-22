@@ -199,7 +199,7 @@ public class GDKnyttGame : Node2D
 
     public bool hasMap()
     {
-        if (UI.ForceMap) { return true; }
+        if (UI.ForceMap || Juni.Powers.getPower(JuniValues.PowerNames.Map)) { return true; }
         var world_section = GDWorld.KWorld.INIData["World"];
         return world_section["Format"] == "4" && world_section["Map"]?.ToLower() != "false";
     }
@@ -344,6 +344,7 @@ public class GDKnyttGame : Node2D
     public void sendPowerUpdate(int power, bool value)
     {
         if (power < 0 || !value) { return; }
+        if (GetNode<Console>("/root/Console").IsOpen) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
     }
 

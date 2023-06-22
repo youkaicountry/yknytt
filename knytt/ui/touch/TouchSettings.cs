@@ -86,9 +86,9 @@ public class TouchSettings : Node
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (0.8).ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (0.85).ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Opacity", (0.5).ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Opacity", (0.4).ToString());
         return modified;
     }
 

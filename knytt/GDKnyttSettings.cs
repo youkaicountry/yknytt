@@ -269,6 +269,7 @@ public class GDKnyttSettings : Node
             if (scale > max_scale) { scale = 1; }
             OS.WindowSize = min_size * scale;
             OS.WindowPosition = (max_size - OS.WindowSize) / 2;
+            OS.WindowMaximized = false;
         }
     }
 }

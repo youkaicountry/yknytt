@@ -78,8 +78,18 @@ margin_right = 560.0
 margin_bottom = 35.0
 text = "Quit"
 
-[node name="MenuCloud" parent="." instance=ExtResource( 6 )]
-position = Vector2( 300, 98 )
+[node name="CloudControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_bottom = -45.0
+
+[node name="Control2" type="Control" parent="CloudControl"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+
+[node name="MenuCloud" parent="CloudControl/Control2" instance=ExtResource( 6 )]
+position = Vector2( 0, 0 )
 
 [node name="Fade" parent="." instance=ExtResource( 11 )]
 margin_left = 2.0
@@ -97,3 +107,4 @@ bus = "Music"
 [connection signal="pressed" from="ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
 [connection signal="pressed" from="ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="resized" from="CloudControl" to="." method="_on_CloudControl_resized"]
