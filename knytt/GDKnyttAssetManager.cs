@@ -51,7 +51,7 @@ public class GDKnyttAssetManager
     public void returnGradient(int num) { GradientCache.DecObject(num); }
 
     public AudioStream getSong(int num) { return SongCache.IncObject(num); }
-    public void returnSong(int num) { SongCache.DecObject(num); }
+    public void returnSong(int num) { if (SongCache.getObjectCount(num) > 0) SongCache.DecObject(num); } // TODO: disbalanced sometimes
 
     public AudioStream getAmbiance(int num) { return AmbianceCache.IncObject(num); }
     public void returnAmbiance(int num) { AmbianceCache.DecObject(num); }

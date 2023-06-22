@@ -244,30 +244,30 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -30.0
+margin_left = -45.0
 margin_right = 0.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+margin_bottom = 45.0
+rect_min_size = Vector2( 45, 45 )
 text = "X"
 
 [node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -65.0
-margin_right = -35.0
+margin_left = -90.0
+margin_right = -45.0
 margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+rect_min_size = Vector2( 45, 45 )
 text = "–"
 
 [node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -100.0
-margin_right = -70.0
+margin_left = -135.0
+margin_right = -90.0
 margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+rect_min_size = Vector2( 45, 45 )
 text = "+"
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]

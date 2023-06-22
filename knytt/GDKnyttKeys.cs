@@ -46,12 +46,12 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "down1", "Joy(13)");
         modified |= ensureSetting("Input", "left1", "Joy(14)");
         modified |= ensureSetting("Input", "right1", "Joy(15)");
-        modified |= ensureSetting("Input", "show_info1", "Joy(4)");
+        modified |= ensureSetting("Input", "show_info1", "Joy(3)");
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
-        modified |= ensureSetting("Input", "walk1", "Joy(3)");
+        modified |= ensureSetting("Input", "walk1", "Joy(6)");
         modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
         modified |= ensureSetting("Input", "hologram1", "Joy(0)");
-        modified |= ensureSetting("Input", "pause1", "Joy(6)");
+        modified |= ensureSetting("Input", "pause1", "Joy(4)");
         modified |= ensureSetting("Input", "map1", "Joy(5)");
         modified |= ensureSetting("Input", "debug_die1", "Joy(11)");
 

@@ -84,4 +84,10 @@ public class MainMenu : BasicScreeen
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
     }
+
+    private void _on_CloudControl_resized()
+    {
+        GetNode<MenuCloud>("CloudControl/Control2/MenuCloud").Scale = 
+            Vector2.One * GetNode<Control>("CloudControl").RectSize.y / (240 + GetNode<Control>("CloudControl").MarginBottom);
+    }
 }

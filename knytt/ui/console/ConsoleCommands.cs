@@ -382,8 +382,8 @@ public static class ConsoleCommands
             game.UI.ForceMap = on;
             game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap();
             game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map);
-            game.UI.updatePowers();
-            env.Console.AddMessage(on ? "Map is enabled. set map on: opens the whole map" : "Map is disabled (if level had no map).");
+            game.Juni.setPower(JuniValues.PowerNames.Map, true);
+            env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled (if level had no map).");
         }
     }
 

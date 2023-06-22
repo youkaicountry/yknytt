@@ -303,6 +303,9 @@ public class TouchPanel : Panel
 
     public void OnConsoleClosed()
     {
+        Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
+        Input.ActionRelease("jump");
+        Input.ActionRelease("down");
         SetProcessInput(TouchSettings.EnablePanel);
     }
 }
