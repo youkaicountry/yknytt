@@ -84,16 +84,10 @@ public class Juni : KinematicBody2D
     public JuniState CurrentState { get; private set; }
     private JuniState next_state = null;
 
-    public float air_time = 0f;
-
     public bool dead = false;
     public int just_reset = 0;
 
     public int jumps = 0;
-
-    // Speed
-    int speed_step = 0;
-    const float speed_step_size = .33f;
 
     // Input
     public JuniInput juniInput;
@@ -128,17 +122,10 @@ public class Juni : KinematicBody2D
         set { _updrafts += (value ? 1 : -1); }
     }
 
-    public Color? JuniClothes
-    {
-        set { (Sprite.Material as ShaderMaterial).SetShaderParam("clothes_color", value); }
-        get { return (Sprite.Material as ShaderMaterial).GetShaderParam("clothes_color") as Color?; }
-    }
-
-    public Color? JuniSkin
-    {
-        set { (Sprite.Material as ShaderMaterial).SetShaderParam("skin_color", value); }
-        get { return (Sprite.Material as ShaderMaterial).GetShaderParam("skin_color") as Color?; }
-    }
+    public Color JuniClothes     { set { material.SetShaderParam("clothes_color", value); } }
+    private bool JuniClothesSkip { set { material.SetShaderParam("clothes_skip", value); } }
+    public Color JuniSkin        { set { material.SetShaderParam("skin_color", value); } }
+    private bool JuniSkinSkip    { set { material.SetShaderParam("skin_skip", value); } }
 
     public float TerminalVelocity
     {
@@ -268,6 +255,7 @@ public class Juni : KinematicBody2D
     public Sprite Sprite { get; private set; }
     public Umbrella Umbrella { get; private set; }
     public AnimationPlayer Anim { get; private set; }
+    private ShaderMaterial material;
 
     bool _debug_fly = false;
     public bool DebugFlyMode
@@ -343,6 +331,7 @@ public class Juni : KinematicBody2D
         Detector.Visible = true;
         Checkers = GetNode<Checkers>("Checkers");
         Sprite = GetNode<Sprite>("Sprite");
+        material = Sprite.Material as ShaderMaterial;
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
         Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -364,11 +353,13 @@ public class Juni : KinematicBody2D
         this.Game = game;
         this.Powers.readFromSave(Game.GDWorld.KWorld.CurrentSave);
         enableAttachment(this.Powers.Attachment);
-        changeCharacter(this.Powers.Character ?? Game.GDWorld.KWorld.Info.Character, force_change: true);
+        changeCharacter(this.Powers.Character ?? Game.GDWorld.KWorld.Info.Character);
         game.applyTint(this.Powers.Tint.Item1, this.Powers.Tint.Item2, this.Powers.Tint.Item3);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
-        JuniClothes = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Clothes));
-        JuniSkin = new Color(KnyttUtil.BGRToRGBA(Game.GDWorld.KWorld.Info.Skin));
+        int clothes = Game.GDWorld.KWorld.Info.Clothes;
+        if (clothes == -1) { JuniClothesSkip = true; } else { JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
+        int skin = Game.GDWorld.KWorld.Info.Skin;
+        if (skin == -1) { JuniSkinSkip = true; } else { JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
     }
 
     public void setPower(PowerNames name, bool value)
@@ -657,27 +648,33 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public void changeCharacter(string name, bool force_change = false)
+    private string character = "juni";
+
+    public void changeCharacter(string name)
     {
         if (name == null || name == "" || name.ToLower() == "juni")
         {
-            if (Powers.Character != "juni" || force_change)
+            if (character != "juni")
             {
                 Sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/juni.png");
                 Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png");
                 Umbrella.Custom = false;
-                Powers.Character = "juni";
+                JuniClothesSkip = Game.GDWorld.KWorld.Info.Clothes != -1;
+                JuniSkinSkip = Game.GDWorld.KWorld.Info.Skin != -1;
+                Powers.Character = character = "juni";
             }
         }
         else
         {
-            if (Powers.Character != name || force_change)
+            if (character != name)
             {
                 Sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{name}.png") as Texture;
                 Umbrella.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/u{name}.png") as Texture;
                 Umbrella.Custom = Umbrella.Texture != null;
                 if (Umbrella.Texture == null) { Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png"); }
-                Powers.Character = name;
+                JuniClothesSkip = true;
+                JuniSkinSkip = true;
+                Powers.Character = character = name;
             }
         }
         var frames = Sprite.Texture.GetSize() / 24;

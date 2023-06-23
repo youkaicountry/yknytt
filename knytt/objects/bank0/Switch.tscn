@@ -6,7 +6,6 @@
 [ext_resource path="res://knytt/objects/bank0/shift_gfx/circle.png" type="Texture" id=4]
 [ext_resource path="res://knytt/objects/bank0/shift_gfx/spot1.png" type="Texture" id=7]
 
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 24, 24 )
@@ -94,7 +93,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=21]
-radius = 5.66427
+radius = 8.0
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 12, 12 )
@@ -166,6 +165,7 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Square/Area2D"]
 position = Vector2( 12, 12 )
 shape = SubResource( 22 )
+
 [connection signal="body_entered" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Shapes/Floor/Area2D" to="." method="_on_Area2D_body_entered"]
