@@ -83,6 +83,8 @@ tracks/0/keys = {
 shader = ExtResource( 17 )
 shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
 shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
+shader_param/clothes_skip = true
+shader_param/skin_skip = true
 
 [sub_resource type="Animation" id=11]
 length = 0.28
