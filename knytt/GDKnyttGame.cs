@@ -70,7 +70,7 @@ public class GDKnyttGame : Node2D
         createJuni();
 
         this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
-        Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
+        Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition(), update_on_floor: true);
         saveGame(Juni, false);
 
         UI.initialize(this);

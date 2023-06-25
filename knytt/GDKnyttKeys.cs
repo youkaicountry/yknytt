@@ -82,7 +82,7 @@ public class GDKnyttKeys : Node
     }
 
     private static string[] XBOX_BUTTONS = {
-        "XBox A", "XBox B", "XBox X", "XBox Y", "L Shoulder", "R Shoulder", "L Stick", "R Stick", "L3", "R3", 
+        "XBox A", "XBox B", "XBox X", "XBox Y", "L Bumper", "R Bumper", "L Trigger", "R Trigger", "L3", "R3", 
         "Select", "Start", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right",
         "Home", "XBox Share", "Paddle 1", "Paddle 2", "Paddle 3", "Paddle 4", "Touchpad"
     };

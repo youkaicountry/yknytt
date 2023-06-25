@@ -13,7 +13,7 @@ public class FadeLayer : Control
         this.reset = reset;
     }
 
-    public async void _on_AnimationPlayer_animation_finished(string name)
+    public void _on_AnimationPlayer_animation_finished(string name)
     {
         EmitSignal(nameof(FadeDone));
         //var timer = GetNode<Timer>("ResetTimer");

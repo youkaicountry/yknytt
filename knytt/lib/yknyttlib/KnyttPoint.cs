@@ -55,6 +55,11 @@ namespace YKnyttLib
             return ((KnyttPoint)obj).x == this.x && ((KnyttPoint)obj).y == this.y;
         }
 
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode();
+        }
+
         public override string ToString()
         {
             return string.Format("({0}, {1})", this.x, this.y);

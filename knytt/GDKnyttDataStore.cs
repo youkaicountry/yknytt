@@ -63,6 +63,7 @@ public class GDKnyttDataStore : Node
         CutsceneAfter = after;
         CutsceneReturn = null;
         CutsceneSound = null;
+        GDKnyttSettings.setupViewport(for_ui: true);
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }
@@ -75,6 +76,7 @@ public class GDKnyttDataStore : Node
         CutsceneAfter = null;
         CutsceneReturn = Tree.CurrentScene;
         CutsceneSound = sound;
+        GDKnyttSettings.setupViewport(for_ui: true);
         if (!KWorld.worldFileExists(Cutscene.makeScenePath(1)))
         {
             if (Tree.Paused) { Tree.Paused = false; Cutscene.releaseAll(); }
