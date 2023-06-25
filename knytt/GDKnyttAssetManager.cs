@@ -147,7 +147,8 @@ public class GDKnyttAssetManager
         var texture = new ImageTexture();
         texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
         var image_back = texture.GetData();
-        if (texture.GetWidth() != image_back.GetWidth() || texture.GetHeight() != image_back.GetHeight()) { return null; }
+        if (image_back == null || texture.GetWidth() != image_back.GetWidth() || 
+            texture.GetHeight() != image_back.GetHeight()) { return null; }
         return texture;
     }
 

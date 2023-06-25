@@ -13,7 +13,7 @@ public class Juni : KinematicBody2D
     JUMP_SPEED_LOW = -223f,                     // Speed of jump with no high jump power
     GRAVITY = 1500f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
-    FREE_JUMP_TIME = .1f,                       // Amount of time after leaving a wall that Juni gets a "free" jump
+    FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
     MAX_SPEED_WALK = 88.5f,                     // Max speed while walking
     MAX_SPEED_RUN = 172f,                       // Max speed while running
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
@@ -37,7 +37,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
-    BUMP_Y_SPEED = -140f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
+    BUMP_Y_SPEED = -200f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
@@ -284,6 +284,7 @@ public class Juni : KinematicBody2D
             Checkers.Disabled = value;
             _collisions_disabled = value;
             enforceCollisionMap();
+            MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); // update IsOnFloor()
         }
     }
 
@@ -357,9 +358,9 @@ public class Juni : KinematicBody2D
         game.applyTint(this.Powers.Tint.Item1, this.Powers.Tint.Item2, this.Powers.Tint.Item3);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
         int clothes = Game.GDWorld.KWorld.Info.Clothes;
-        if (clothes == -1) { JuniClothesSkip = true; } else { JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
+        if (clothes != -1) { JuniClothesSkip = false; JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
         int skin = Game.GDWorld.KWorld.Info.Skin;
-        if (skin == -1) { JuniSkinSkip = true; } else { JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
+        if (skin != -1) { JuniSkinSkip = false; JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
     }
 
     public void setPower(PowerNames name, bool value)
@@ -479,6 +480,7 @@ public class Juni : KinematicBody2D
             {
                 // change the direction of gravity
                 normal = GetFloorNormal();
+                if (Mathf.Abs(normal.AngleTo(Godot.Vector2.Up)) > SLOPE_MAX_ANGLE) { normal = Godot.Vector2.Up; }
                 snap = -normal * 10f;
                 var gravity = velocity.y;
                 velocity.y = 0f;
@@ -728,11 +730,11 @@ public class Juni : KinematicBody2D
         Game.respawnJuniWithWSOD();
     }
 
-    public void moveToPosition(GDKnyttArea area, KnyttPoint position)
+    public void moveToPosition(GDKnyttArea area, KnyttPoint position, bool update_on_floor = false)
     {
         GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
-        // update IsOnFloor to avoid unnecessary transitions
-        MoveAndSlideWithSnap(Godot.Vector2.Zero, Godot.Vector2.Down, Godot.Vector2.Up, true);
+        // update IsOnFloor to avoid unnecessary transitions (very carefully, can break shifts, inside checker, etc)
+        if (update_on_floor) { MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); }
     }
 
     public void win(string ending)

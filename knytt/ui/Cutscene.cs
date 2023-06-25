@@ -118,6 +118,7 @@ public class Cutscene : Control
             GDKnyttDataStore.Tree.Root.AddChild(GDKnyttDataStore.CutsceneReturn);
             GDKnyttDataStore.Tree.CurrentScene = GDKnyttDataStore.CutsceneReturn;
             GDKnyttDataStore.Tree.Paused = false;
+            GDKnyttSettings.setupViewport(for_ui: false);
             GDKnyttDataStore.Tree.Root.GetNode<GDKnyttGame>("GKnyttGame").respawnJuni();
             releaseAll();
         }
