@@ -332,8 +332,8 @@ public class LevelSelection : BasicScreeen
         world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
         world_info.Downloads = HTTPUtil.jsonInt(json_item, "downloads");
         world_info.Complains = HTTPUtil.jsonInt(json_item, "complains");
-        world_info.Verified = HTTPUtil.jsonBool(json_item, "verified");
-        world_info.Approved = HTTPUtil.jsonBool(json_item, "approved");
+        world_info.AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified");
+        world_info.Status = HTTPUtil.jsonInt(json_item, "status");
         return world_info;
     }
 
