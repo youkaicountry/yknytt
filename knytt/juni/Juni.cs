@@ -17,7 +17,7 @@ public class Juni : KinematicBody2D
     MAX_SPEED_WALK = 88.5f,                     // Max speed while walking
     MAX_SPEED_RUN = 172f,                       // Max speed while running
     PULL_OVER_FORCE = 30f,                      // X Force exerted when reaching the top of a climb
-    SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
+    SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (in original 2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
     UPDRAFT_FORCE = .08f,                       // The base updraft force exerted
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED = -214f,                  // Maximum Y speed in an updraft
@@ -37,7 +37,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
-    BUMP_Y_SPEED = -200f,                       // Speed Juni goes up when running over a bump (-166..-120 is the interval for 2-pixel obstacles; with more speed height is restricted with stopper checkers)
+    BUMP_Y_SPEED = -245f,                       // Speed Juni goes up when running over a bump. value / fps is max height of obstacle (currently 4px)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
@@ -284,7 +284,7 @@ public class Juni : KinematicBody2D
             Checkers.Disabled = value;
             _collisions_disabled = value;
             enforceCollisionMap();
-            MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); // update IsOnFloor()
+            if (value) { MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); } // update IsOnFloor()
         }
     }
 
@@ -357,10 +357,13 @@ public class Juni : KinematicBody2D
         changeCharacter(this.Powers.Character ?? Game.GDWorld.KWorld.Info.Character);
         game.applyTint(this.Powers.Tint.Item1, this.Powers.Tint.Item2, this.Powers.Tint.Item3);
         GetNode<StandartSoundPlayer>("Audio/StandartSoundPlayer").KWorld = game.GDWorld.KWorld;
+
         int clothes = Game.GDWorld.KWorld.Info.Clothes;
-        if (clothes != -1) { JuniClothesSkip = false; JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
+        JuniClothesSkip = clothes == -1;
+        if (clothes != -1) { JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
         int skin = Game.GDWorld.KWorld.Info.Skin;
-        if (skin != -1) { JuniSkinSkip = false; JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
+        JuniSkinSkip = skin == -1;
+        if (skin != -1) { JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
     }
 
     public void setPower(PowerNames name, bool value)
@@ -472,33 +475,11 @@ public class Juni : KinematicBody2D
         if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
         else
         {
-            var normal = Godot.Vector2.Up;
-            var snap = Godot.Vector2.Zero;
-
-            // If on the floor, and not about to jump / climb
-            if (IsOnFloor() && !juniInput.JumpEdge && !CanClimb)
-            {
-                // change the direction of gravity
-                normal = GetFloorNormal();
-                if (Mathf.Abs(normal.AngleTo(Godot.Vector2.Up)) > SLOPE_MAX_ANGLE) { normal = Godot.Vector2.Up; }
-                snap = -normal * 10f;
-                var gravity = velocity.y;
-                velocity.y = 0f;
-                velocity -= gravity * normal;
-            }
-
-            // workaround to avoid jitter (when Juni can spontaneously move across a surface or be pushed into the air)
-            // disables Juni's little inertia
-            if (CurrentState is IdleState && next_state == null && 
-                MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null)
-            {
-                velocity = Godot.Vector2.Zero;
-                return;
-            }
-
             // Do the movement in two steps to avoid hanging up on tile seams
-            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), snap, normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), normal, stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), 10 * Godot.Vector2.Down, Godot.Vector2.Up, 
+                                              stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
+            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, 
+                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
         }
     }
 
