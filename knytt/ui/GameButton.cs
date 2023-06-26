@@ -41,10 +41,8 @@ public class GameButton : Button
             rating_control.GetNode<Label>("UpvotesLabel").Text = $"+{worldEntry.Upvotes}";
             rating_control.GetNode<Label>("DownvotesLabel").Text = $"-{worldEntry.Downvotes}";
             rating_control.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
-            rating_control.GetNode<Label>("VerifiedLabel").Text =
-                worldEntry.Approved ? "Approved" : worldEntry.Verified ? "Auto-verified" : "Not Verified";
-            rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color",
-                worldEntry.Approved || worldEntry.Verified ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0));
+            rating_control.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
+            rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
         }
     }
 

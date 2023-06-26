@@ -21,8 +21,8 @@ public class WorldEntry
     public int Downvotes;
     public int Downloads;
     public int Complains;
-    public bool Verified;
-    public bool Approved;
+    public bool AutoVerified;
+    public int Status;
 
     public WorldEntry() { }
 
@@ -49,5 +49,29 @@ public class WorldEntry
         Path = info.Path;
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
+    }
+
+    private static string[] statuses = {"Not Verified", "Hard to Verify", "Broken", 
+        "Almost Broken", "Partially Playable", "Almost Playable", "Playable"};
+
+    public string StatusDescription
+    {
+        get
+        {
+            return Status == 0 && AutoVerified ? "Auto-verified" : 
+                   Status >= statuses.Length ? "Undefined" : statuses[Status];
+        }
+    }
+
+    private static Color[] status_colors = {new Color(0.5f, 0, 0), new Color(0, 0, 0.5f), new Color(0.5f, 0, 0), 
+        new Color(0.5f, 0, 0), new Color(0, 0, 0.5f), new Color(0, 0, 0.5f), new Color(0, 0.5f, 0)};
+
+    public Color StatusColor
+    {
+        get
+        {
+            return Status == 0 && AutoVerified ? new Color(0, 0.5f, 0) : 
+                   Status >= status_colors.Length ? new Color(0, 0, 0) : status_colors[Status];
+        }
     }
 }
