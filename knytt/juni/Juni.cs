@@ -53,7 +53,8 @@ public class Juni : KinematicBody2D
     SWIM_TERM_VEL_UMB_HIGHJUMP_HOLD = 9.84f,
     SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f,
     SWIM_UPDRAFT_FORCE = .3f,
-    SWIM_MAX_UPDRAFT_SPEED = -103f;
+    SWIM_MAX_UPDRAFT_SPEED = -103f,
+    SWIM_EXIT_BOOST = 2.1f;
 
     [Signal] public delegate void Jumped();
     [Signal] public delegate void PowerChanged();
@@ -194,7 +195,15 @@ public class Juni : KinematicBody2D
     public bool Swim
     {
         get { return swim_zones > 0 || GDArea.Swim; }
-        set { swim_zones += (value ? 1 : -1); }
+        set
+        { 
+            swim_zones += (value ? 1 : -1);
+            if (!value && swim_zones == 0 && !GDArea.Swim && velocity.y < 0 && CurrentState is JumpState)
+            {
+                float speed_limit = Powers.getPower(PowerNames.HighJump) ? JUMP_SPEED_HIGH : JUMP_SPEED_LOW;
+                velocity.y = Mathf.Max(speed_limit, velocity.y * SWIM_EXIT_BOOST);
+            }
+        }
     }
 
     public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
@@ -284,7 +293,7 @@ public class Juni : KinematicBody2D
             Checkers.Disabled = value;
             _collisions_disabled = value;
             enforceCollisionMap();
-            if (value) { MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); } // update IsOnFloor()
+            if (!value && !Checkers.IsInside) { MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); } // update IsOnFloor()
         }
     }
 
@@ -336,6 +345,7 @@ public class Juni : KinematicBody2D
         Umbrella = GetNode<Umbrella>("Umbrella");
         Umbrella.reset();
         Anim = Sprite.GetNode<AnimationPlayer>("AnimationPlayer");
+        just_reset = 1; // skip first frame just to update IsOnFloor()
         transitionState(new IdleState(this));
     }
 
@@ -476,7 +486,8 @@ public class Juni : KinematicBody2D
         else
         {
             // Do the movement in two steps to avoid hanging up on tile seams
-            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), 10 * Godot.Vector2.Down, Godot.Vector2.Up, 
+            //var snap = IsOnFloor() && !juniInput.JumpEdge && !CanClimb ? 10 * Godot.Vector2.Down : Godot.Vector2.Zero; // previous version
+            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), 5 * Godot.Vector2.Down, Godot.Vector2.Up, 
                                               stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
             velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up, 
                                       stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
@@ -711,11 +722,9 @@ public class Juni : KinematicBody2D
         Game.respawnJuniWithWSOD();
     }
 
-    public void moveToPosition(GDKnyttArea area, KnyttPoint position, bool update_on_floor = false)
+    public void moveToPosition(GDKnyttArea area, KnyttPoint position)
     {
         GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
-        // update IsOnFloor to avoid unnecessary transitions (very carefully, can break shifts, inside checker, etc)
-        if (update_on_floor) { MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); }
     }
 
     public void win(string ending)

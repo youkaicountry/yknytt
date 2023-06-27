@@ -2,14 +2,6 @@
 
 [ext_resource path="res://knytt/objects/bank0/Title.cs" type="Script" id=2]
 
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 6.0
-content_margin_right = 6.0
-content_margin_top = 2.0
-content_margin_bottom = 2.0
-bg_color = Color( 0, 0, 0, 1 )
-
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
@@ -18,7 +10,7 @@ size = 21
 extra_spacing_char = 1
 font_data = SubResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 2.0
@@ -26,11 +18,19 @@ content_margin_bottom = 2.0
 bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="DynamicFontData" id=5]
-font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
+font_path = "res://knytt/fonts/magnificent/Magnificent.ttf"
 
 [sub_resource type="DynamicFont" id=6]
+size = 13
 extra_spacing_char = 1
 font_data = SubResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "subtitle"
@@ -93,7 +93,7 @@ tracks/1/keys = {
 }
 
 [node name="Node2D" type="Node2D"]
-z_index = 16
+z_index = 17
 z_as_relative = false
 script = ExtResource( 2 )
 
@@ -103,8 +103,8 @@ margin_right = 12.0
 margin_bottom = 6.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -113,11 +113,8 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 12.0
 margin_bottom = 6.0
-custom_styles/normal = SubResource( 4 )
 custom_fonts/font = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/normal = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/subtitle = SubResource( 7 )

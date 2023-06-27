@@ -144,6 +144,18 @@ script = ExtResource( 5 )
 
 [node name="ShaderCanvasLayer" type="CanvasLayer" parent="GKnyttCamera"]
 
+[node name="TintNode" type="Node2D" parent="GKnyttCamera"]
+z_index = 16
+z_as_relative = false
+
+[node name="Tint" type="ColorRect" parent="GKnyttCamera/TintNode"]
+visible = false
+margin_left = -300.0
+margin_top = -120.0
+margin_right = 300.0
+margin_bottom = 120.0
+mouse_filter = 2
+
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 11 )
 
@@ -248,6 +260,7 @@ margin_left = -45.0
 margin_right = 0.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 45, 45 )
+action_mode = 0
 text = "X"
 
 [node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
@@ -258,6 +271,7 @@ margin_left = -90.0
 margin_right = -45.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 45, 45 )
+action_mode = 0
 text = "–"
 
 [node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
@@ -268,6 +282,7 @@ margin_left = -135.0
 margin_right = -90.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 45, 45 )
+action_mode = 0
 text = "+"
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
@@ -275,12 +290,6 @@ pause_mode = 2
 layer = 2
 
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
-
-[node name="Tint" type="ColorRect" parent="FadeCanvasLayer"]
-visible = false
-margin_right = 600.0
-margin_bottom = 240.0
-mouse_filter = 2
 
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
 bus = "Music"

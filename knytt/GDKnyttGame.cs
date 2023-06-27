@@ -70,7 +70,7 @@ public class GDKnyttGame : Node2D
         createJuni();
 
         this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
-        Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition(), update_on_floor: true);
+        Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
         saveGame(Juni, false);
 
         UI.initialize(this);
@@ -364,7 +364,7 @@ public class GDKnyttGame : Node2D
 
     public void applyTint(string color_str, string ink_str, string trans_str)
     {
-        var glass = GetNode<Control>("FadeCanvasLayer/Tint");
+        var glass = GetNode<Control>("GKnyttCamera/TintNode/Tint");
 
         int bgr = KnyttUtil.parseBGRString(color_str, 0);
         TintInk mode = Enum.TryParse<TintInk>(ink_str?.ToUpper(), out var i) ? i : TintInk.TRANS;

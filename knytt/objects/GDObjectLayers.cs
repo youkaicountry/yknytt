@@ -63,7 +63,8 @@ public class GDObjectLayers : Node2D
         13  Juni's attachment   Juni's attachment
         14  Objects 7 bullets
         15  Objects 7
-        16  Signs and titles    Signs and titles
+        16  Tint                Tint
+        17  Signs and titles    Signs and titles
         */
         if (GDArea.Area.getExtraData("Overlay")?.ToLower() == "true")
         {

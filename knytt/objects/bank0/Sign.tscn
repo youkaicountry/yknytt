@@ -5,7 +5,6 @@
 [ext_resource path="res://knytt/objects/bank0/Sign.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
@@ -27,7 +26,7 @@ tracks/0/keys = {
 }
 
 [node name="Sign" type="Node2D"]
-z_index = 16
+z_index = 17
 z_as_relative = false
 script = ExtResource( 3 )
 
@@ -42,17 +41,14 @@ patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 8
 patch_margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="SignRect"]
 margin_left = 9.0
 margin_top = 4.0
 margin_right = 166.0
 margin_bottom = 64.0
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Sign Text"
 autowrap = true
 __meta__ = {
@@ -79,5 +75,6 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
