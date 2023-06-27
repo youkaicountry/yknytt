@@ -65,8 +65,7 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{mod}{ObjectID.y}");
-        sprite.Play();
+        if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{mod}{ObjectID.y}")) { sprite.Play(); }
     }
 
     private static string getString(KeyDataCollection section, string key)
@@ -89,7 +88,13 @@ public class CustomObject : GDKnyttBaseObject
         {
             if (info.image == null) { return false; }
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
-            if (image_texture == null) { return false; }
+    
+            // If texture wasn't loaded, create empty animation, don't try to load it every time
+            if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)
+            {
+                sprite.Frames.AddAnimation(animation_name);
+                return false;
+            }
 
             if (image_texture.HasAlpha()) { has_alpha_animation = true; }
             else { has_replace_animation = true; animation_name += " replace"; }
@@ -111,8 +116,6 @@ public class CustomObject : GDKnyttBaseObject
         int pos = 0;
         if (image_texture.GetHeight() < info.tile_height) { info.tile_height = image_texture.GetHeight(); }
         if (image_texture.GetWidth() < info.tile_width) { info.tile_width = image_texture.GetWidth(); }
-        // Workaround: if texture wasn't loaded, create empty animation, don't try to load it every time
-        if (image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { info.tile_width = info.tile_height = 1; }
         for (int i = 0; i < image_texture.GetHeight() / info.tile_height; i++)
         {
             for (int j = 0; j < image_texture.GetWidth() / info.tile_width; j++)
