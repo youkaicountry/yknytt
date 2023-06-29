@@ -4,7 +4,6 @@ using YKnyttLib;
 public class Cutscene : Control
 {
     private int current_scene = 0;
-    private bool has_next;
     private bool last_page;
 
     public override void _Ready()

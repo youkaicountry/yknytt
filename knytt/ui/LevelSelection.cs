@@ -32,12 +32,15 @@ public class LevelSelection : BasicScreeen
     private int requested_level = 0;
     private string next_page = null;
     
+    private int request_retry;
+    private string request_url;
+    
     private bool remotes_grab_focus = false;
     private Control prev_focus_owner;
     private double prev_scroll;
 
     ConcurrentQueue<WorldEntry> finished_entries;
-    ConcurrentQueue<WorldEntry> remote_finished_entries; // TODO: process all found entries at once?
+    ConcurrentQueue<WorldEntry> remote_finished_entries;
 
     public LevelSelection()
     {
@@ -79,15 +82,16 @@ public class LevelSelection : BasicScreeen
         connectionLost(lost: false);
         remotes_grab_focus = grab_focus;
 
-        string url = GDKnyttSettings.ServerURL + "/levels/?";
-        if (filter_category_int != 0) { url += $"category={filter_category_int}&"; }
-        if (filter_difficulty_int != 0) { url += $"difficulty={filter_difficulty_int}&"; }
-        if (filter_size_int != 0) { url += $"size={filter_size_int}&"; }
-        if (filter_text != null && filter_text != "") { url += $"text={Uri.EscapeDataString(filter_text)}&"; }
-        url += $"order={filter_order_int}";
+        request_url = GDKnyttSettings.ServerURL + "/levels/?";
+        if (filter_category_int != 0) { request_url += $"category={filter_category_int}&"; }
+        if (filter_difficulty_int != 0) { request_url += $"difficulty={filter_difficulty_int}&"; }
+        if (filter_size_int != 0) { request_url += $"size={filter_size_int}&"; }
+        if (filter_text != null && filter_text != "") { request_url += $"text={Uri.EscapeDataString(filter_text)}&"; }
+        request_url += $"order={filter_order_int}";
 
         http_levels_node.CancelRequest();
-        var error = http_levels_node.Request(url);
+        request_retry = 1;
+        var error = http_levels_node.Request(request_url);
         if (error != Error.Ok) { connectionLost(); }
     }
 
@@ -99,8 +103,15 @@ public class LevelSelection : BasicScreeen
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; }
-        else { connectionLost(); return; }
+        if (result != (int)HTTPRequest.Result.Success)
+        {
+            if (request_retry-- <= 0) { connectionLost(); return; }
+            GD.Print("retry ", request_url);
+            http_levels_node.CancelRequest();
+            http_levels_node.Request(request_url);
+            return;
+        }
+        if (response_code != 200) { connectionLost(); return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
