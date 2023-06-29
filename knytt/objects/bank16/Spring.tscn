@@ -1,10 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/objects/bank16/Spring.cs" type="Script" id=1]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/bank16/spring_effect.png" type="Texture" id=3]
-[ext_resource path="res://knytt/data/Sfx/Bounce Platform.wav" type="AudioStream" id=4]
-
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 4 )
@@ -34,9 +31,6 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
-
-[node name="BouncePlayer2D" parent="." instance=ExtResource( 2 )]
-stream = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/StandartSoundPlayer.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://knytt/data/Sfx/Electronic.wav" type="AudioStream" id=5]
 [ext_resource path="res://knytt/data/Sfx/Teleport.wav" type="AudioStream" id=6]
 [ext_resource path="res://knytt/data/Sfx/Switch.wav" type="AudioStream" id=7]
+[ext_resource path="res://knytt/data/Sfx/Bounce Platform.wav" type="AudioStream" id=8]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -28,3 +29,6 @@ stream = ExtResource( 7 )
 
 [node name="TeleportPlayer2D" parent="." instance=ExtResource( 1 )]
 stream = ExtResource( 6 )
+
+[node name="BouncePlayer2D" parent="." instance=ExtResource( 1 )]
+stream = ExtResource( 8 )
