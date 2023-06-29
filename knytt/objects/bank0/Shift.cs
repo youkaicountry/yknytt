@@ -113,6 +113,11 @@ public class Shift : Switch
             juni.GlobalPosition = jgp;
         }
 
+        if (!(shift.RelativeArea.isZero() && shift.RelativePosition.isZero()))
+        {
+            _on_Area2D_body_exited(juni); // sometimes exit signal is late
+        }
+
         if (shift.Effect)
         {
             game.CurrentArea.playEffect(juni.AreaPosition);

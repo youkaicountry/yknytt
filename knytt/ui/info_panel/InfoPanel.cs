@@ -12,15 +12,18 @@ public class InfoPanel : Panel
         if (!hasCoins && juni.Powers.getCoinCount() > 0) { addItem("CoinsInfo"); hasCoins = true; }
         if (!hasArtifacts && juni.Powers.getArtifactsCount() > 0) { addItem("ArtifactsInfo"); hasArtifacts = true; }
 
-        foreach (var child in GetNode<Node>("ItemContainer").GetChildren())
+        foreach (ItemInfo child in GetNode<Node>("ItemContainer").GetChildren())
         {
-            ItemInfo ii = child as ItemInfo;
-            ii.updateItem(juni.Powers);
+            child.updateItem(juni.Powers);
         }
     }
 
     public void addItem(string scene, int item_id = 0)
     {
+        foreach (ItemInfo child in GetNode<Node>("ItemContainer").GetChildren())
+        {
+            if (child.ItemID == item_id && item_id != 0) { return; }
+        }
         MarginRight += 24;
         var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instance() as ItemInfo;
         item_node.ItemID = item_id;

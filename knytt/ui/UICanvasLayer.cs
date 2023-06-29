@@ -95,6 +95,7 @@ public class UICanvasLayer : CanvasLayer
     public void _on_AnimationPlayer_animation_finished(string name)
     {
         showing = sliding_out;
+        if (Game.hasMap()) { GetNode<TouchPanel>("TouchPanel").InstallMap(!showing); }
     }
 
     public void powerUpdate(PowerNames names, bool value)

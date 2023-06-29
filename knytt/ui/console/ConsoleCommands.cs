@@ -380,10 +380,10 @@ public static class ConsoleCommands
         protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
         {
             game.UI.ForceMap = on;
-            game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap();
-            game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map);
-            game.Juni.setPower(JuniValues.PowerNames.Map, true);
-            env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled (if level had no map).");
+            game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap(on);
+            if (on) { game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map); }
+            game.Juni.setPower(JuniValues.PowerNames.Map, on);
+            env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled.");
         }
     }
 

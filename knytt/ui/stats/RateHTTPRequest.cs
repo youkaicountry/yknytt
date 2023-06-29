@@ -20,10 +20,13 @@ public class RateHTTPRequest : HTTPRequest
         WinExit = 9
     }
 
+    private int retry;
+    private Dictionary dict;
+
     public void send(string level_name, string level_author, int action, string cutscene = null)
     {
         string serverURL = GDKnyttSettings.ServerURL;
-        var dict = new Dictionary()
+        dict = new Dictionary()
         {
             ["name"] = level_name,
             ["author"] = level_author,
@@ -32,12 +35,22 @@ public class RateHTTPRequest : HTTPRequest
             ["platform"] = OS.GetName()
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
+        retry = 1;
         Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
+        if (result != (int)HTTPRequest.Result.Success)
+        {
+            if (retry-- <= 0) { return; }
+            GD.Print("retry ", dict["action"]);
+            CancelRequest();
+            Request($"{GDKnyttSettings.ServerURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+            return;
+        }
+        if (response_code != 200) { return; }
+
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
