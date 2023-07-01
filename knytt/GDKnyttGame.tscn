@@ -22,6 +22,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color( 0.8, 0.8, 0.8, 0.219608 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "SlideIn"

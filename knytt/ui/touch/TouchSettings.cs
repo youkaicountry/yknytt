@@ -81,12 +81,13 @@ public class TouchSettings : Node
     public static bool ensureSettings()
     {
         bool modified = false;
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", OS.GetName() == "Android" || OS.GetName() == "iOS" ? "1" : "0");
+        var mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", mobile ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (0.85).ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (mobile && !isHandsOverlapping() ? 1 : 0.85).ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Opacity", (0.4).ToString());
         return modified;
@@ -95,5 +96,13 @@ public class TouchSettings : Node
     public static void applyAllSettings(SceneTree tree)
     {
         tree.Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure();
+    }
+
+    // tries to determine tablets or any other device with enough space for touch panel
+    public static bool isHandsOverlapping()
+    {
+        var curtain_height = 600 * OS.GetScreenSize().y / OS.GetScreenSize().x - 240;
+        var scale = Mathf.Min(6 * OS.GetScreenDpi() / OS.GetScreenSize().x, 1.4f);
+        return 120 * scale > curtain_height;
     }
 }
