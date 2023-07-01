@@ -19,6 +19,7 @@ public class GDKnyttCamera : Camera2D
     public void jumpTo(Godot.Vector2 position)
     {
         this.GlobalPosition = position;
+        this.Scrolling = false;
     }
 
     public void scrollTo(Godot.Vector2 target, float speed)

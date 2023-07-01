@@ -10,7 +10,7 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     /*[Export] public*/internal const float JUMP_SPEED_HIGH = -231f,    // Speed of jump with high jump power
-    JUMP_SPEED_LOW = -223f,                     // Speed of jump with no high jump power
+    JUMP_SPEED_LOW = -231f,                     // Speed of jump with no high jump power (-223 = old value, but not enough for some platforms)
     GRAVITY = 1500f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
     FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump
@@ -22,7 +22,7 @@ public class Juni : KinematicBody2D
     UPDRAFT_FORCE_HOLD = .3f,                   // The updraft force exterted when holding jump
     MAX_UPDRAFT_SPEED = -214f,                  // Maximum Y speed in an updraft
     MAX_UPDRAFT_SPEED_HOLD = -222f,             // Maximum Y speed in an updraft while holding jump
-    LOW_JUMP_HOLD_POWER = 580f,                 // Y Force exerted while holding jump (550 = tuned value, but not enough for some platforms)
+    LOW_JUMP_HOLD_POWER = 550f,                 // Y Force exerted while holding jump (550 = tuned value, but not enough for some platforms)
     HIGH_JUMP_HOLD_POWER = 962f,                // Y Force exerted while holding jump when Juni has high jump power
     HIGH_JUMP_DEFAULT_POWER = 400f,             // Y Force exerted in air when Juni has high jump power
     UMBRELLA_JUMP_HOLD_PENALTY = .91f,          // Penalty on jump hold when Juni has the umbrella deployed
@@ -378,8 +378,11 @@ public class Juni : KinematicBody2D
 
     public void setPower(PowerNames name, bool value)
     {
-        if (name == PowerNames.Umbrella && !value && Umbrella.Deployed) { Umbrella.Deployed = false; }
-        if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
+        if (Game.GDWorld.KWorld.INIData["World"]["Format"] == "4")
+        {
+            if (name == PowerNames.Umbrella && !value && Umbrella.Deployed) { Umbrella.Deployed = false; }
+            if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
+        }
         Powers.setPower(name, value);
         EmitSignal(nameof(PowerChanged), name, value);
     }
@@ -716,7 +719,7 @@ public class Juni : KinematicBody2D
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();
 
-        KnyttLogger.Info("Juni has died");
+        KnyttLogger.Debug("Juni has died");
 
         await ToSignal(timer, "timeout");
         Game.respawnJuniWithWSOD();
