@@ -19,6 +19,7 @@ public class SettingsScreen : BasicScreeen
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
+        GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
         GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
@@ -55,6 +56,11 @@ public class SettingsScreen : BasicScreeen
     public void _on_ScollDropdown_item_selected(int index)
     {
         GDKnyttSettings.ScrollType = (GDKnyttSettings.ScrollTypes)index;
+    }
+
+    private void _on_Border_pressed()
+    {
+        GDKnyttSettings.Border = GetNode<CheckBox>("SettingsContainer/Border").Pressed;
     }
 
     public void _on_KeyRemapButton_pressed()

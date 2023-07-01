@@ -74,6 +74,7 @@ public class TouchPanel : Panel
         SetProcessInput(Visible);
         var curtain = GetTree().Root.GetNode<Control>("GKnyttGame/UICanvasLayer/Curtain");
         curtain.Visible = Visible;
+        SetupBorder();
         if (!Visible) return;
         
         Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, TouchSettings.Opacity);
@@ -289,11 +290,17 @@ public class TouchPanel : Panel
     }
 
     // TODO: temporary solution. Maybe take some space from "down" button?
-    public void InstallMap()
+    public void InstallMap(bool on = true)
     {
-        actionNames[8] = "map";
-        jumpActionNames[4] = "map";
-        walkPanel.GetNode<TextureRect>("Label").Texture = walkPanel.GetNode<TextureRect>("MapLabel").Texture;
+        actionNames[8] = jumpActionNames[4] = on ? "map" : "walk";
+        walkPanel.GetNode<TextureRect>("Label").Texture = walkPanel.GetNode<TextureRect>(on ? "MapLabel" : "WalkLabel").Texture;
+    }
+
+    public void SetupBorder()
+    {
+        var border = GetTree().Root.GetNode<Control>("GKnyttGame/GKnyttCamera/TintNode/Border");
+        border.MarginTop = TouchSettings.EnablePanel && TouchSettings.AreaAnchor == 1 ? -121 : -120;
+        border.MarginBottom = TouchSettings.EnablePanel && TouchSettings.AreaAnchor == 0 ? 121 : 120;
     }
 
     public void OnConsoleOpen()

@@ -193,6 +193,14 @@ rect_pivot_offset = Vector2( 30, 0 )
 texture = ExtResource( 13 )
 stretch_mode = 4
 
+[node name="WalkLabel" type="TextureRect" parent="JumpPanel/WalkPanel"]
+visible = false
+margin_right = 60.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 30, 0 )
+texture = ExtResource( 14 )
+stretch_mode = 4
+
 [node name="Label" type="TextureRect" parent="JumpPanel/WalkPanel"]
 margin_right = 60.0
 margin_bottom = 40.0

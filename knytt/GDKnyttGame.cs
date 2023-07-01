@@ -59,6 +59,7 @@ public class GDKnyttGame : Node2D
 
         GDKnyttSettings.setupViewport(for_ui: false);
         this.setupCamera();
+        this.setupBorder();
         this.setupWorld();
     }
 
@@ -387,5 +388,12 @@ public class GDKnyttGame : Node2D
         tint.SetShaderParam("a", a);
         glass.Material = tint;
         glass.Visible = true;
+    }
+
+    public void setupBorder()
+    {
+        var border = GetNode<Control>("GKnyttCamera/TintNode/Border");
+        border.Visible = GDKnyttSettings.Border;
+        GetNode<TouchPanel>("UICanvasLayer/TouchPanel").SetupBorder();
     }
 }
