@@ -78,6 +78,16 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static bool Border
+    {
+        get { return ini["Graphics"]["Border"].Equals("1") ? true : false; }
+        set
+        {
+            ini["Graphics"]["Border"] = value ? "1" : "0";
+            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupBorder();
+        }
+    }
+
     // Calculate the volume in dB from the config value
     private static float calcVolume(int v)
     {
@@ -180,6 +190,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Original");
+        modified |= ensureSetting("Graphics", "Border", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");
@@ -199,6 +210,7 @@ public class GDKnyttSettings : Node
         Fullscreen = ini["Graphics"]["Fullscreen"].Equals("1") ? true : false;
         SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
         ScrollType = String2ScrollTypes(ini["Graphics"]["Scroll Type"]);
+        Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
@@ -256,6 +268,7 @@ public class GDKnyttSettings : Node
     public override void _Process(float delta)
     {
         if (Input.IsActionJustPressed("fullscreen")) { Fullscreen = !Fullscreen; }
+        if (Input.IsActionJustPressed("border")) { Border = !Border; }
 
         if (Input.IsActionJustPressed("zoom") && ! Fullscreen)
         {
