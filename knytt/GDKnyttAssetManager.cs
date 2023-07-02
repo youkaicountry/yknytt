@@ -62,8 +62,7 @@ public class GDKnyttAssetManager
     private TileSet buildTileSet(int num)
     {
         string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
-        // temporary, until recompiling tilesets
-        //if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
+        if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
         switch (texture)
