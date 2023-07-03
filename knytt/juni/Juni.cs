@@ -745,6 +745,7 @@ public class Juni : KinematicBody2D
         this.dead = false;
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));
+        this.executeStateTransition();
 
         SetDeferred("CollisionsDisabled", true);
         this.just_reset = 2;

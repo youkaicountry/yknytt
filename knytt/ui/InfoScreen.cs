@@ -59,7 +59,9 @@ public class InfoScreen : BasicScreeen
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = 
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = 
+            KWorld.WorldDirectory.StartsWith("res://");
         updateRates();
     }
 

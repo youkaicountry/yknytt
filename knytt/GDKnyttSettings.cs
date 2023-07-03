@@ -183,6 +183,7 @@ public class GDKnyttSettings : Node
     private static void initialize()
     {
         bool modified = false;
+        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
 
         // Try to load the settings file
         modified |= loadSettings();
@@ -190,7 +191,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Original");
-        modified |= ensureSetting("Graphics", "Border", "0");
+        modified |= ensureSetting("Graphics", "Border", mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");

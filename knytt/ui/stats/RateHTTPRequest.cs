@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System.Text;
+using System.Collections.Generic;
 
 public class RateHTTPRequest : HTTPRequest
 {
@@ -22,9 +23,11 @@ public class RateHTTPRequest : HTTPRequest
 
     private int retry;
     private Dictionary dict;
+    private HashSet<int> sent_actions = new HashSet<int>();
 
-    public void send(string level_name, string level_author, int action, string cutscene = null)
+    public void send(string level_name, string level_author, int action, string cutscene = null, bool once = true)
     {
+        if (once && sent_actions.Contains(action)) { return; }
         string serverURL = GDKnyttSettings.ServerURL;
         dict = new Dictionary()
         {
@@ -55,9 +58,11 @@ public class RateHTTPRequest : HTTPRequest
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
 
+        int action = HTTPUtil.jsonInt(json.Result, "action");
+        sent_actions.Add(action);
         if (HTTPUtil.jsonInt(json.Result, "added") == 1)
         {
-            EmitSignal(nameof(RateAdded), HTTPUtil.jsonInt(json.Result, "action"));
+            EmitSignal(nameof(RateAdded), action);
         }
     }
 }

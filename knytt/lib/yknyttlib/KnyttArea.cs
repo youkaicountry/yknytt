@@ -1,4 +1,4 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 using System.IO;
 using System.Text;
 using System;
@@ -221,7 +221,7 @@ namespace YKnyttLib
         {
             var sb = new StringBuilder();
             char c = (char)map.ReadByte();
-            while (c >= 48 && c < 58)
+            while ((c >= 48 && c < 58) || (c == 45))
             {
                 sb.Append(c);
                 c = (char)map.ReadByte();

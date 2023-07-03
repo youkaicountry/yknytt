@@ -1,4 +1,5 @@
 using Godot;
+using static YKnyttLib.JuniValues;
 
 public class Spring : GDKnyttBaseObject
 {
@@ -19,8 +20,8 @@ public class Spring : GDKnyttBaseObject
         juni.MoveAndSlide(Godot.Vector2.Zero, Godot.Vector2.Up, true); // workaround to prevent landing
 
         // Spring
-        // TODO: not accurate for highjump+hold and lowjump+nohold. maybe try to get rid of HIGH_JUMP_DEFAULT_POWER?
-        juni.executeJump(juni.Swim ? -101f : -340f, sound: false, reset_jumps: true);
+        bool highjump_hold = juni.Powers.getPower(PowerNames.HighJump) && juni.juniInput.JumpHeld;
+        juni.executeJump(juni.Swim ? -101f : highjump_hold ? -315f : -340f, sound: false, reset_jumps: true);
         juni.playSound("bounce");
 
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");
