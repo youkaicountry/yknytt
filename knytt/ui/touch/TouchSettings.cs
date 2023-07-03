@@ -81,7 +81,7 @@ public class TouchSettings : Node
     public static bool ensureSettings()
     {
         bool modified = false;
-        var mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
+        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", mobile ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());

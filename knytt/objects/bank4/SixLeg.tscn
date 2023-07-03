@@ -4,7 +4,6 @@
 [ext_resource path="res://knytt/objects/bank4/6leg_walk.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 9 )
 
@@ -75,6 +74,7 @@ animations = [ {
 
 [node name="Crawler" instance=ExtResource( 3 )]
 speed = 150.0
+keepDistance = 14
 radarBottom = 12
 radarTop = 36
 
@@ -90,4 +90,5 @@ collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
 polygon = PoolVector2Array( 6.768, 24, 0.874603, 14.5367, 1.85676, 7.66158, 11.3977, 5.13604, 21.3595, 7.52127, 23.0432, 13.9754, 16.87, 24 )
+
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

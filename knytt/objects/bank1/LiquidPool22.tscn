@@ -4,7 +4,6 @@
 [ext_resource path="res://knytt/objects/bank1/pools/Halo2.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank1/pools/Pool22.png" type="Texture" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 5 )
 
@@ -67,6 +66,7 @@ position = Vector2( 12, 19 )
 shape = SubResource( 12 )
 
 [node name="Halo" type="AnimatedSprite" parent="." index="1"]
+modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( 0, -72 )
 frames = SubResource( 11 )
 centered = false

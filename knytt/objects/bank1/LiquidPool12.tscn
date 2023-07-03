@@ -4,7 +4,6 @@
 [ext_resource path="res://knytt/objects/bank1/pools/Halo1.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank1/pools/Pool12.png" type="Texture" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 5 )
 
@@ -61,6 +60,7 @@ animations = [ {
 } ]
 
 [node name="Node2D" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.5 )
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 19 )

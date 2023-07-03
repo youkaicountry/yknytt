@@ -457,7 +457,7 @@ public class LevelSelection : BasicScreeen
     private void sendDownload()
     {
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
-            download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHTTPRequest.Action.Download);
+            download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHTTPRequest.Action.Download, once: false);
     }
 
     private void cleanUnfinished()
