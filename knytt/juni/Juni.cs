@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Linq;
 using YKnyttLib;
 using YKnyttLib.Logging;
 using YUtil.Math;
@@ -163,6 +162,7 @@ public class Juni : KinematicBody2D
     }
     public bool ApparentFacingRight { get { return Hologram != null ? !(Hologram as Sprite).FlipH : FacingRight; } }
     public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
+    public bool CanAnyJump => Grounded ? CanJump : (CanFreeJump || jumps < JumpLimit);
 
     // Whether or not Juni is in a NoJump situation
     int no_jumps = 0; // Number of no jump zones conditions covering Juni
@@ -790,7 +790,7 @@ public class Juni : KinematicBody2D
         if (this.CurrentState != null) { this.CurrentState.onExit(); }
     }
 
-    public void executeJump(float jump_speed, bool air_jump = false, bool sound = true, bool reset_jumps = false)
+    public void executeJump(float jump_speed, bool air_jump = false, bool sound = true, bool reset_jumps = false, bool check_stow = true)
     {
         transitionState(new JumpState(this));
         Anim.Play("Jump");
@@ -803,16 +803,22 @@ public class Juni : KinematicBody2D
         JustClimbed = false;
         CanFreeJump = false;
 
+        if (TouchSettings.UmbrellaCheat && check_stow && Umbrella.Deployed)
+        {
+            Umbrella.Deployed = false;
+            Umbrella.DeployOnFall = true;
+        }
+
         // Do not emit this event if the hologram is out, as it cannot jump
         if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
     }
 
-    public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false)
+    public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false, bool check_stow = true)
     {
         float jump_speed = Powers.getPower(PowerNames.HighJump) ? 
             (Swim ? SWIM_JUMP_SPEED_HIGH : JUMP_SPEED_HIGH) : 
             (Swim ? SWIM_JUMP_SPEED_LOW : JUMP_SPEED_LOW);
-        executeJump(jump_speed, air_jump, sound, reset_jumps);
+        executeJump(jump_speed, air_jump, sound, reset_jumps, check_stow);
     }
 
     public void continueFall()

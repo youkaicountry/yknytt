@@ -145,7 +145,7 @@ public class ClimbState : JuniState
         if (juni.juniInput.JumpEdge)
         {
             juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
-            juni.executeJump();
+            juni.executeJump(check_stow: false);
         }
     }
 
@@ -205,7 +205,7 @@ public class SlideState : ClimbState
         if (juni.juniInput.JumpEdge)
         {
             juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
-            juni.executeJump();
+            juni.executeJump(check_stow: false);
         }
     }
 
@@ -228,13 +228,19 @@ public class JumpState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true); }
+        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true, check_stow: false); }
     }
 
     public override void PostProcess(float delta)
     {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
         else if (juni.velocity.y >= 0) { juni.transitionState(new FallState(juni)); }
+
+        if ((juni.CanClimb || juni.velocity.y >= 0) && juni.Umbrella.DeployOnFall)
+        {
+            juni.Umbrella.Deployed = true;
+            juni.Umbrella.DeployOnFall = false;
+        }
     }
 }
 
@@ -251,7 +257,7 @@ public class FallState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true); }
+        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true, check_stow: !juni.JustClimbed); }
     }
 
     public override void PostProcess(float delta)
