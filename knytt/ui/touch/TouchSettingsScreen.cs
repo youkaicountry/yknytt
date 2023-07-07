@@ -45,6 +45,11 @@ public class TouchSettingsScreen : BasicScreeen
         TouchSettings.Swipe = button_pressed;
     }
 
+    private void _on_UmbrellaButton_toggled(bool button_pressed)
+    {
+        TouchSettings.UmbrellaCheat = button_pressed;
+    }
+
     private void _on_ScaleSlider_value_changed(float value)
     {
         TouchSettings.Scale = value;

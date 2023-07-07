@@ -62,7 +62,7 @@ margin_left = 33.0
 margin_top = 20.0
 
 [node name="EnableContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 24.0
 
 [node name="EnableButton" parent="SettingsContainer/EnableContainer" instance=ExtResource( 3 )]
@@ -94,6 +94,7 @@ margin_right = 421.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 80, 24 )
 focus_neighbour_left = NodePath("../EnableButton")
+focus_neighbour_top = NodePath("../../../BackButton")
 focus_neighbour_right = NodePath("../../SwapContainer/SwapButton")
 text = "At top"
 items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
@@ -101,7 +102,7 @@ selected = 0
 
 [node name="SwapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 28.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 49.0
 
 [node name="SwapButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
@@ -109,15 +110,16 @@ margin_right = 265.0
 rect_min_size = Vector2( 265, 0 )
 text = "Arrows on the right side"
 
-[node name="Label" type="Label" parent="SettingsContainer/SwapContainer"]
+[node name="UmbrellaButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
 margin_left = 269.0
-margin_top = 3.0
-margin_right = 269.0
-margin_bottom = 17.0
+margin_right = 534.0
+rect_min_size = Vector2( 265, 0 )
+focus_neighbour_right = NodePath("../../SwipeContainer/SwipeButton")
+text = "Stow umbrella when jumping"
 
 [node name="SwipeContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 53.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 74.0
 
 [node name="SwipeButton" parent="SettingsContainer/SwipeContainer" instance=ExtResource( 3 )]
@@ -133,7 +135,7 @@ margin_bottom = 17.0
 
 [node name="ScaleContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 78.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -186,7 +188,7 @@ __meta__ = {
 
 [node name="ViewportContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 106.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 130.0
 
 [node name="ViewportLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
@@ -234,7 +236,7 @@ text = "Set 100%"
 
 [node name="JumpContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 134.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -287,7 +289,7 @@ __meta__ = {
 
 [node name="OpacityContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 162.0
-margin_right = 421.0
+margin_right = 534.0
 margin_bottom = 186.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -341,6 +343,7 @@ text = "Set 100%"
 [connection signal="toggled" from="SettingsContainer/EnableContainer/EnableButton" to="." method="_on_EnableButton_toggled"]
 [connection signal="item_selected" from="SettingsContainer/EnableContainer/AnchorDropdown" to="." method="_on_AnchorDropdown_item_selected"]
 [connection signal="toggled" from="SettingsContainer/SwapContainer/SwapButton" to="." method="_on_SwapButton_toggled"]
+[connection signal="toggled" from="SettingsContainer/SwapContainer/UmbrellaButton" to="." method="_on_UmbrellaButton_toggled"]
 [connection signal="toggled" from="SettingsContainer/SwipeContainer/SwipeButton" to="." method="_on_SwipeButton_toggled"]
 [connection signal="value_changed" from="SettingsContainer/ScaleContainer/ScaleSlider" to="." method="_on_ScaleSlider_value_changed"]
 [connection signal="pressed" from="SettingsContainer/ScaleContainer/ScaleDefaultButton" to="." method="_on_ScaleDefaultButton_pressed"]

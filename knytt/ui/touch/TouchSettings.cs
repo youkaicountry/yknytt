@@ -39,6 +39,12 @@ public class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value ? "1" : "0"; }
     }
 
+    public static bool UmbrellaCheat
+    {
+        get { return GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"].Equals("1"); }
+        set { GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"] = value ? "1" : "0"; }
+    }
+
     public static float Scale
     {
         get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
@@ -86,6 +92,7 @@ public class TouchSettings : Node
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", "1");
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "UmbrellaCheat", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (mobile && !isHandsOverlapping() ? 1 : 0.85).ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");

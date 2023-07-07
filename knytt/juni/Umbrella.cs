@@ -19,10 +19,12 @@ public class Umbrella : Sprite
         get { return _deployed; }
         set
         {
-            if (_deployed) { stow(); }
-            else { deploy(); }
+            if (_deployed && !value) { stow(); }
+            if (!_deployed && value) { deploy(); }
         }
     }
+
+    public bool DeployOnFall;
 
     bool _custom;
     public bool Custom
