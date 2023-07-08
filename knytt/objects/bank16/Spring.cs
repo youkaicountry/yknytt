@@ -14,6 +14,7 @@ public class Spring : GDKnyttBaseObject
     {
         if (juni == null) { return; }
         if (juni.GlobalPosition.y > GlobalPosition.y + 10f) { return; }
+        if (juni.velocity.y < 0 && juni.CurrentState is JumpState) { return; }
 
         // Restore Juni's position to the top of the spring for stability
         juni.GlobalPosition -= new Vector2(0, juni.Bottom.y - GlobalPosition.y);
