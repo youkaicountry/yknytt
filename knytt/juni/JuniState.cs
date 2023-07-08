@@ -228,7 +228,7 @@ public class JumpState : JuniState
     public override void PreProcess(float delta)
     {
         juni.dir = juni.MoveDirection;
-        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true, check_stow: false); }
+        if (juni.DidAirJump) { juni.executeJump(air_jump: true, sound: true); }
     }
 
     public override void PostProcess(float delta)

@@ -60,13 +60,13 @@ animations = [ {
 } ]
 
 [node name="Node2D" instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 0.5 )
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 19 )
 shape = SubResource( 12 )
 
 [node name="Halo" type="AnimatedSprite" parent="." index="1"]
+modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 0, -72 )
 frames = SubResource( 11 )
 centered = false

@@ -188,17 +188,20 @@ public class InfoScreen : BasicScreeen
 
     private void _on_StatsButton_pressed()
     {
+        ClickPlayer.Play();
         var panel = GetNode<Panel>("InfoRect/StatPanel");
         panel.Visible = !panel.Visible;
     }
 
     private void _on_UpvoteButton_pressed()
     {
+        ClickPlayer.Play();
         sendRating((int)RateHTTPRequest.Action.Upvote);
     }
 
     private void _on_DownvoteButton_pressed()
     {
+        ClickPlayer.Play();
         sendRating((int)RateHTTPRequest.Action.Downvote);
     }
 
@@ -206,6 +209,7 @@ public class InfoScreen : BasicScreeen
 
     private void _on_ComplainButton_pressed()
     {
+        ClickPlayer.Play();
         if (complain_visit)
         {
             OS.ShellOpen(complainURL);
@@ -241,6 +245,7 @@ public class InfoScreen : BasicScreeen
 
     private void _on_OptimizeButton_pressed()
     {
+        ClickPlayer.Play();
         Task.Run(optimize);
         GetNode<Timer>("HintTimer").Start();
     }
@@ -274,6 +279,7 @@ public class InfoScreen : BasicScreeen
 
     private void _on_UninstallButton_pressed(bool show_confirm)
     {
+        ClickPlayer.Play();
         var un_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Uninstall");
         un_root.GetNode<Button>("MainButton").Visible = !show_confirm;
         un_root.GetNode<Button>("ConfirmButton").Visible = show_confirm;

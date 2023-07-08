@@ -196,7 +196,7 @@ public class LevelSelection : BasicScreeen
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
-        //if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
+        if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
         //if (OS.GetName() != "Android") {directoryLoad(@"c:\apps\Knytt Stories\Worlds\test - test");}
     }
 
@@ -477,7 +477,14 @@ public class LevelSelection : BasicScreeen
         Manager.clearAll();
         finished_entries = new ConcurrentQueue<WorldEntry>();
         remote_finished_entries = new ConcurrentQueue<WorldEntry>();
-        
+
+        GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown").Selected = 0;
+        GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown").Selected = 0;
+        GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown").Selected = 0;
+        GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Selected = 0;
+        GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Selected = 0;
+        GetNode<LineEdit>("MainContainer/FilterContainer/Search/SearchEdit").Text = "";
+
         loadDefaultWorlds();
         discoverWorlds("./worlds");
         discoverWorlds("user://Worlds");

@@ -8,7 +8,7 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -231f,    // Speed of jump with high jump power
+    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -235f,    // Speed of jump with high jump power
     JUMP_SPEED_LOW = -231f,                     // Speed of jump with no high jump power (-223 = old value, but not enough for some platforms)
     GRAVITY = 1500f,                            // Gravity exerted on Juni
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)

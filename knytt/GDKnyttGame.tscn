@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=9]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
@@ -272,33 +273,42 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -45.0
-margin_right = 0.0
+margin_left = -47.0
+margin_top = -2.0
+margin_right = 2.0
 margin_bottom = 45.0
-rect_min_size = Vector2( 45, 45 )
-action_mode = 0
+rect_min_size = Vector2( 49, 49 )
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 9 )
 text = "X"
 
 [node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -90.0
-margin_right = -45.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 45, 45 )
-action_mode = 0
+margin_left = -92.0
+margin_top = -2.0
+margin_right = -43.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 49 )
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 9 )
 text = "–"
 
 [node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -135.0
-margin_right = -90.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 45, 45 )
-action_mode = 0
+margin_left = -137.0
+margin_top = -2.0
+margin_right = -88.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 49 )
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 9 )
 text = "+"
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
