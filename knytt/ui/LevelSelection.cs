@@ -31,10 +31,10 @@ public class LevelSelection : BasicScreeen
     public bool localLoad = false;
     private int requested_level = 0;
     private string next_page = null;
-    
+
     private int request_retry;
     private string request_url;
-    
+
     private bool remotes_grab_focus = false;
     private Control prev_focus_owner;
     private double prev_scroll;
@@ -164,7 +164,7 @@ public class LevelSelection : BasicScreeen
         prev_scroll = games_scrollbar.Value;
         prev_focus_owner = game_container.GetFocusOwner();
         if (prev_focus_owner == null) { game_container.GrabFocus(); }
-        
+
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
             (!localLoad && remote_finished_entries.Count == 0)) { return; }
@@ -196,7 +196,7 @@ public class LevelSelection : BasicScreeen
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
-        if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
+        //if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
         //if (OS.GetName() != "Android") {directoryLoad(@"c:\apps\Knytt Stories\Worlds\test - test");}
     }
 
