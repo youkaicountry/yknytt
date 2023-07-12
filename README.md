@@ -4,6 +4,14 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
+[Download YKnytt v0.5 beta for Android](/releases/download/0.5.0/YKnytt.apk)
+
+[Download YKnytt v0.5 beta for Windows](/releases/download/0.5.0/YKnytt_v0.5.0_win.zip)
+
+[Download YKnytt v0.5 beta for Linux/X11](/releases/download/0.5.0/YKnytt_v0.5.0_linux.zip)
+
+YKnytt for Web: coming soon
+
 ### Screenshots
 
 ![image](screenshots/screen6.png)
@@ -14,13 +22,25 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 ![image](screenshots/screen4.png)
 
-![image](screenshots/screen1.png)
+![image](screenshots/screen7.png)
+
+### Reporting a broken level
+
+Feel free to report any bug you found in levels on the issues page. It would be great if you provide us a brief description and attach a save file.
+
+<details>
+<summary>Where to find save files</summary>
+
+On Windows: `Users/[User]/AppData/Roaming/Godot/app_userdata/YKnytt/Saves/`
+
+On Linux: `~/.local/share/godot/app_userdata/YKnytt/Saves/`
+
+On mobiles: open the console by pressing [down] + [info] + [jump] simultaneously, and type `save copy`. You will get a save file in your clipboard.
+</details>
 
 ### Building
 
 Requires Godot 3.5.2.stable.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
-
-Also has Godot 4 branch in development: this one requires Godot 4.0.2.stable.mono and .NET SDK 6 or 7
 
 #### Export settings
 
@@ -30,8 +50,8 @@ To build a proper Android APK, activate the "Internet" permission.
 
 ### Playing
 
-There must be a worlds directory in the project root (or next to the binary if you have exported).
+You can download additional levels from the built-in level downloader (if our server is running).
 
-Place packed (.knytt.bin) or unpacked worlds in that directory.
+Or you can place packed (.knytt.bin) or unpacked levels in `worlds` directory.
 
-You can also download additional levels from the in-game level downloader (if our server is running)
+That directory must be next to the binary file (or in the project root).
