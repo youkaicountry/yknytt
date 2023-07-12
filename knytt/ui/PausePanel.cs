@@ -13,7 +13,7 @@ public class PausePanel : Control
         bounceWait();
         RectScale = Vector2.One;
         if (TouchSettings.EnablePanel) { RectScale /= TouchSettings.Viewport; }
-        GetParent<BasicScreeen>().initFocus();
+        GetParent<BasicScreen>().initFocus();
     }
 
     public async void bounceWait()
@@ -63,7 +63,7 @@ public class PausePanel : Control
     {
         in_settings = true;
         GDKnyttSettings.setupViewport(for_ui: true);
-        GetParent<BasicScreeen>().loadScreen(settings_scene.Instance() as SettingsScreen);
+        GetParent<BasicScreen>().loadScreen(settings_scene.Instance() as SettingsScreen);
     }
 
     public void backEvent()

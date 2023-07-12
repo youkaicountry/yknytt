@@ -1,0 +1,515 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://knytt/ui/CreditsScreen.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture" id=5]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 4 )
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+LinkButton/colors/font_color = Color( 0.25098, 0.25098, 1, 1 )
+LinkButton/colors/font_color_focus = Color( 0, 0, 0.501961, 1 )
+LinkButton/colors/font_color_hover = Color( 0, 0, 0.501961, 1 )
+LinkButton/colors/font_color_pressed = Color( 0, 0, 0.501961, 1 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 580, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "collapse"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 580, 349 ), Vector2( 580, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "expand"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 580, 0 ), Vector2( 580, 349 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -90.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 580, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "collapse"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 580, 157 ), Vector2( 580, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "expand"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 580, 0 ), Vector2( 580, 157 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -90.0, 0.0 ]
+}
+
+[node name="CreditsScreen" type="CanvasLayer"]
+layer = 2
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CloudControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="MenuCloud" parent="CloudControl" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, 0 )
+scale = Vector2( 3, 3 )
+
+[node name="BackButton" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -85.0
+margin_top = -40.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "Back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -45.0
+theme = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 580.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+custom_constants/separation = 6
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+margin_right = 580.0
+margin_bottom = 13.0
+text = "YKnytt Developers:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 19.0
+margin_right = 580.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_right = 288.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+text = "Nathaniel Caldwell (youkaicountry)"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+text = "Mike Rodionov (up-left)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 38.0
+margin_right = 580.0
+margin_bottom = 51.0
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 58.0
+margin_bottom = 13.0
+text = "Repository:"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 62.0
+margin_right = 234.0
+margin_bottom = 13.0
+text = "github.com/youkaicountry/yknytt"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 57.0
+margin_right = 580.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 123.0
+margin_bottom = 13.0
+text = "C# .knytt.bin file reader:"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 127.0
+margin_right = 316.0
+margin_bottom = 13.0
+text = "github.com/andrewmd5/KnyttSharp"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 76.0
+margin_right = 580.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 288.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+text = "Knytt Stories Main Developer:"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+text = "Knytt Stories Plus Mod Developer:"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 95.0
+margin_right = 580.0
+margin_bottom = 108.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+margin_right = 288.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+margin_right = 123.0
+margin_bottom = 13.0
+text = "Nicklas Nygren (Nifflas),"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
+margin_left = 127.0
+margin_right = 192.0
+margin_bottom = 13.0
+text = "nifflas.ni2.se"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+margin_right = 146.0
+margin_bottom = 13.0
+text = "Tim McDowell (egomassive),"
+
+[node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+margin_left = 150.0
+margin_right = 256.0
+margin_bottom = 13.0
+text = "egomassive.com/ks/"
+
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 114.0
+margin_right = 580.0
+margin_bottom = 114.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 580.0
+margin_bottom = 133.0
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
+modulate = Color( 0.25098, 0.25098, 1, 1 )
+margin_right = 13.0
+margin_bottom = 13.0
+rect_rotation = -90.0
+rect_pivot_offset = Vector2( 6, 6 )
+mouse_filter = 0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
+margin_left = 17.0
+margin_right = 55.0
+margin_bottom = 13.0
+text = "Tilesets"
+
+[node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 139.0
+margin_right = 580.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 580, 0 )
+rect_clip_content = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/TilesetsPanel"]
+anims/RESET = SubResource( 2 )
+anims/collapse = SubResource( 3 )
+anims/expand = SubResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TilesetsPanel"]
+margin_right = 580.0
+margin_bottom = 349.0
+rect_clip_content = true
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TilesetsPanel/HBoxContainer"]
+margin_right = 288.0
+margin_bottom = 349.0
+size_flags_horizontal = 3
+text = "Adam
+Arvi Teikari (Hempuli)
+Chironex
+David K Newton
+Drakkan
+Fastrecords, www.yaaay.net/niffpage
+Fraser Mills (Fredulom), www.i-horse.co.uk
+Gorfinhofin'
+HaPK PerCar, hapk.deviantart.com
+Hauke Petersen
+Jackson Potter (Squee)
+Johanna Kanon
+Joshua Green
+Julian Winter, music.radio-werkstatt.com
+Karl-Johan Nilsson
+Kevin (Echograph)
+Lars A. Doucet, www.fadupinator.com
+Lennard Sprong (X_Sheep)
+LIJI, neatwares.co.nr
+LimeLemon, www.homebutton.net
+LPChip, www.lpchip.com
+Markham Carroll, www.boogatech.com"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TilesetsPanel/HBoxContainer"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 349.0
+size_flags_horizontal = 3
+text = "Michael Vendittelli, s2.freeshell.org
+Moto,ex,Fan
+Movie Man 12
+Mr. Monkey
+Mylveri
+Nate E
+Nicklas Nygren (Nifflas), nifflas.ni2.se
+Olli Ström (Jace), jace.ath.cx
+Paula (Girl from mars)
+Richard Dunn (Arcturus), arciebox.lazyilluminati.com
+Robin O'Connell (Pie_Sniper), mould.dyndns.org
+Sara Sandberg
+Sergio Cornaga
+Sherman (sma)
+Simon Jonsson
+Tanner Hendrickson (frodo091)
+Theo Swartz (TheoX)
+wthndPfrst
+Yann van der Cruyssen (Nurykabe), nurykabe.com
+Zenth
+Zonhin
+Zé Pedro Quintanilha (PONTO)"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 145.0
+margin_right = 580.0
+margin_bottom = 158.0
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+modulate = Color( 0.25098, 0.25098, 1, 1 )
+margin_right = 13.0
+margin_bottom = 13.0
+rect_rotation = -90.0
+rect_pivot_offset = Vector2( 6, 6 )
+mouse_filter = 0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+margin_left = 17.0
+margin_right = 133.0
+margin_bottom = 13.0
+focus_mode = 2
+text = "Music & Sound Effects"
+
+[node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 164.0
+margin_right = 580.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 580, 0 )
+rect_clip_content = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/MusicPanel"]
+anims/RESET = SubResource( 5 )
+anims/collapse = SubResource( 6 )
+anims/expand = SubResource( 7 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MusicPanel"]
+margin_right = 592.0
+margin_bottom = 157.0
+rect_clip_content = true
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MusicPanel/HBoxContainer"]
+margin_right = 294.0
+margin_bottom = 93.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Music Library
+d fast, www.dfastmusic.net
+Kevin Chow (Gopher), www.dragonslay.co.uk
+Nicklas Nygren (Nifflas), nifflas.ni2.se
+trompkins, trompkins.awardspace.com
+Yann van der Cruyssen (Nurykabe), www.nurykabe.com"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/MusicPanel/HBoxContainer"]
+margin_left = 298.0
+margin_right = 592.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+text = "Sound Effects
+Fastrecords, www.yaaay.net/niffpage/
+Nicklas Nygren (Nifflas), nifflas.ni2.se
+Troupe Gammage (troupe), troupe.actionsketch.com
+Tim McDowell (egomassive), egomassive.com
+
+Sample Libraries Used
+all in one (sample arena), www.samplearena.com
+iFX Games (Zero-G), www.zero-g.co.uk4
+Studio Box Nature (Best Service), www.bestservice.de"
+
+[connection signal="pressed" from="BackButton" to="." method="goBack"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer3/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/andrewmd5/KnyttSharp" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.ni2.se/" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/LinkButton2" to="." method="_on_LinkButton_pressed" binds= [ "http://egomassive.com/ks/" ]]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6" to="." method="_on_Tilesets_gui_input"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6/TextureRect" to="." method="_on_Tilesets_gui_input"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6/Label" to="." method="_on_Tilesets_gui_input"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7" to="." method="_on_Music_gui_input"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7/TextureRect" to="." method="_on_Music_gui_input"]
+[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7/Label" to="." method="_on_Music_gui_input"]

@@ -1,10 +1,10 @@
 using Godot;
 
-public abstract class BasicScreeen : CanvasLayer
+public abstract class BasicScreen : CanvasLayer
 {
     public abstract void initFocus();
 
-    public void loadScreen(BasicScreeen screen)
+    public void loadScreen(BasicScreen screen)
     {
         ClickPlayer.Play();
         AddChild(screen);
@@ -14,8 +14,8 @@ public abstract class BasicScreeen : CanvasLayer
     {
         ClickPlayer.Play();
         QueueFree();
-        GetParent<BasicScreeen>().backEvent();
-        GetParent<BasicScreeen>().initFocus();
+        GetParent<BasicScreen>().backEvent();
+        GetParent<BasicScreen>().initFocus();
     }
 
     protected virtual void backEvent() {}

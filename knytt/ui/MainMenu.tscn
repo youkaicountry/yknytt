@@ -58,8 +58,6 @@ anchor_bottom = 0.0
 margin_left = 312.0
 margin_right = 392.0
 margin_bottom = 35.0
-focus_mode = 0
-disabled = true
 text = "Credits"
 
 [node name="SettingsButton" parent="ButtonRow" instance=ExtResource( 1 )]
@@ -105,6 +103,7 @@ bus = "Music"
 [connection signal="pressed" from="ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
 [connection signal="pressed" from="ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [ true ]]
 [connection signal="pressed" from="ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
+[connection signal="pressed" from="ButtonRow/CreditsButton" to="." method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="resized" from="CloudControl" to="." method="_on_CloudControl_resized"]

@@ -1,6 +1,6 @@
 using Godot;
 
-public class PauseLayer : BasicScreeen
+public class PauseLayer : BasicScreen
 {
     public override void initFocus()
     {
