@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red_hi.png-52e54b3d2516a792f92b09c09ca7cced.stex"
+path="res://.import/gray.svg-faa6e70baa29142bac1af850875a18be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/particles/red_hi.png"
-dest_files=[ "res://.import/red_hi.png-52e54b3d2516a792f92b09c09ca7cced.stex" ]
+source_file="res://knytt/ui/particles/gray.svg"
+dest_files=[ "res://.import/gray.svg-faa6e70baa29142bac1af850875a18be.stex" ]
 
 [params]
 
