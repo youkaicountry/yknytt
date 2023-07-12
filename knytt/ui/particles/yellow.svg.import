@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yellow.png-f45754bf9e9175db731690062f6d68df.stex"
+path="res://.import/yellow.svg-1c3080dd1992006012c4dc01ddb5c369.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/particles/yellow.png"
-dest_files=[ "res://.import/yellow.png-f45754bf9e9175db731690062f6d68df.stex" ]
+source_file="res://knytt/ui/particles/yellow.svg"
+dest_files=[ "res://.import/yellow.svg-1c3080dd1992006012c4dc01ddb5c369.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true
