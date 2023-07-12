@@ -2,10 +2,11 @@ using Godot;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class MainMenu : BasicScreeen
+public class MainMenu : BasicScreen
 {
     PackedScene level_select_scene;
     PackedScene settings_scene;
+    PackedScene credits_scene;
     FadeLayer fade;
 
     bool quitting = false;
@@ -14,6 +15,7 @@ public class MainMenu : BasicScreeen
     {
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
+        this.credits_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/CreditsScreen.tscn");
         fade = GetNode<FadeLayer>("Fade");
         initFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
@@ -68,6 +70,13 @@ public class MainMenu : BasicScreeen
         ClickPlayer.Play();
         var settings_node = this.settings_scene.Instance() as SettingsScreen;
         this.AddChild(settings_node);
+    }
+
+    private void _on_CreditsButton_pressed()
+    {
+        ClickPlayer.Play();
+        var credits_node = this.credits_scene.Instance() as CreditsScreen;
+        this.AddChild(credits_node);
     }
 
     public void _on_QuitButton_pressed()

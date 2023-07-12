@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class InfoScreen : BasicScreeen
+public class InfoScreen : BasicScreen
 {
     [Export] string complainURL;
 

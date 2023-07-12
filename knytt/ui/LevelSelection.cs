@@ -7,7 +7,7 @@ using System.IO.Compression;
 using System.Text;
 using YKnyttLib;
 
-public class LevelSelection : BasicScreeen
+public class LevelSelection : BasicScreen
 {
     private WorldManager Manager { get; }
 

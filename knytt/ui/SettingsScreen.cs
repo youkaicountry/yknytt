@@ -1,6 +1,6 @@
 using Godot;
 
-public class SettingsScreen : BasicScreeen
+public class SettingsScreen : BasicScreen
 {
     PackedScene input_scene;
     PackedScene touch_scene;
@@ -65,12 +65,12 @@ public class SettingsScreen : BasicScreeen
 
     public void _on_KeyRemapButton_pressed()
     {
-        loadScreen(input_scene.Instance() as BasicScreeen);
+        loadScreen(input_scene.Instance() as BasicScreen);
     }
 
     private void _on_TouchPanelButton_pressed()
     {
-        loadScreen(touch_scene.Instance() as BasicScreeen);
+        loadScreen(touch_scene.Instance() as BasicScreen);
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputScreen : BasicScreeen
+public class InputScreen : BasicScreen
 {
     InputOption collecting;
     int cnum;
