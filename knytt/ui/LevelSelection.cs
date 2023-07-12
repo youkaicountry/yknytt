@@ -63,7 +63,8 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
         loadDefaultWorlds();
-        discoverWorlds("./worlds");
+        discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
+        if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");
         if (!localLoad) { HttpLoad(grab_focus: true); }
     }

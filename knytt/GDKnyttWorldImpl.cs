@@ -97,7 +97,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         GDKnyttDataStore.ProgressHint = "Unpacking completed.";
     }
 
-    private void removeDirectory(string dir_name)
+    public static void removeDirectory(string dir_name)
     {
         var dir = new Directory();
         if (!dir.DirExists(dir_name)) { return; }
