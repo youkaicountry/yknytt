@@ -354,6 +354,7 @@ margin_bottom = 13.0
 rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
 mouse_filter = 0
+mouse_default_cursor_shape = 2
 texture = ExtResource( 5 )
 stretch_mode = 4
 
@@ -369,6 +370,7 @@ margin_right = 580.0
 margin_bottom = 139.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
+mouse_filter = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/TilesetsPanel"]
 anims/RESET = SubResource( 2 )
@@ -447,6 +449,7 @@ margin_bottom = 13.0
 rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
 mouse_filter = 0
+mouse_default_cursor_shape = 2
 texture = ExtResource( 5 )
 stretch_mode = 4
 
@@ -463,6 +466,7 @@ margin_right = 580.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
+mouse_filter = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/MusicPanel"]
 anims/RESET = SubResource( 5 )

@@ -188,6 +188,8 @@ public class GDKnyttSettings : Node
         // Try to load the settings file
         modified |= loadSettings();
 
+        modified |= checkVersion();
+
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Original");
@@ -264,6 +266,20 @@ public class GDKnyttSettings : Node
         if (oval.Equals(value)) { return false; }
         ini[section][setting] = value;
         return true;
+    }
+
+    private static bool checkVersion()
+    {
+        if (!ini.Sections.ContainsSection("Misc")) { ini.Sections.AddSection("Misc"); }
+
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.5")
+        {
+            ini["Misc"]["Version"] = "0.5";
+            ini["Server"]?.RemoveKey("URL");
+            GDKnyttWorldImpl.removeDirectory("user://Cache");
+            return true;
+        }
+        return false;
     }
 
     public override void _Process(float delta)
