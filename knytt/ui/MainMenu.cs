@@ -20,6 +20,11 @@ public class MainMenu : BasicScreen
         initFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
+        if (OS.GetName() == "HTML5")
+        {
+            GetNode<Button>("ButtonRow/DownloadButton").Visible = false;
+            GetNode<Button>("ButtonRow/QuitButton").Visible = false;
+        }
     }
 
     public override void initFocus()
@@ -33,21 +38,24 @@ public class MainMenu : BasicScreen
         if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
     }
 
+    private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
+    private const string WEB_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Original Tutorial.knytt.bin";
+
     public async void _on_TutorialButton_pressed()
     {
         ClickPlayer.Play();
-        var task = Task.Run(() => loadTutorial());
+        Task task = null;
+        if (OS.GetName() != "HTML5") { task = Task.Run(() => loadTutorial(TUTORIAL_PATH)); }
+        else { loadTutorial(WEB_TUTORIAL_PATH); }
         fade.startFade();
         await ToSignal(fade, "FadeDone");
-        task.Wait();
+        if (task != null) { task.Wait(); }
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
 
-    private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
-
-    public void loadTutorial()
+    public void loadTutorial(string path)
     {
-        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(TUTORIAL_PATH));
+        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
         var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         world.setDirectory(TUTORIAL_PATH, binloader.RootDirectory);
