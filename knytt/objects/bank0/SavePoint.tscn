@@ -5,7 +5,6 @@
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/data/Sfx/Save Spot.wav" type="AudioStream" id=4]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
 length = 0.9
