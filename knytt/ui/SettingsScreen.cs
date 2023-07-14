@@ -24,7 +24,8 @@ public class SettingsScreen : BasicScreen
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
         GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
-        GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = OS.GetName() != "Android" && OS.GetName() != "iOS";
+        GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = 
+            OS.GetName() != "Android" && OS.GetName() != "iOS" && OS.GetName() != "HTML5";
     }
 
     public override void initFocus()
