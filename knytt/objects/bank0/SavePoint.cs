@@ -18,7 +18,7 @@ public class SavePoint : GDKnyttBaseObject
         if (junis.Count == 0 || animation.CurrentAnimation.Equals("Save")) { return; }
         foreach (var juni in junis)
         {
-            if (juni.juniInput.DownPressed) { save(juni); }
+            if (juni.juniInput.DownHeld) { save(juni); }
         }
     }
 
