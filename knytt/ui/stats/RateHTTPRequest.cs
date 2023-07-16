@@ -18,7 +18,8 @@ public class RateHTTPRequest : HTTPRequest
         Ending = 6,
         Enter = 7,
         Exit = 8,
-        WinExit = 9
+        WinExit = 9,
+        Cheat = 10
     }
 
     private int retry;
@@ -44,7 +45,7 @@ public class RateHTTPRequest : HTTPRequest
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result != (int)HTTPRequest.Result.Success)
+        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
         {
             if (retry-- <= 0) { return; }
             GD.Print("retry ", dict["action"]);

@@ -349,6 +349,12 @@ public class GDKnyttGame : Node2D
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
     }
 
+    public void sendCheat()
+    {
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+            (int)RateHTTPRequest.Action.Cheat);
+    }
+
     enum TintInk { TRANS, ADD, SUB, AND, OR, XOR };
 
     private void checkTint(GDKnyttArea area)
