@@ -258,6 +258,7 @@ public class Juni : KinematicBody2D
         {
             _immune = value;
             CollisionLayer = value ? (uint)0 : 1;
+            if (value) { Game.sendCheat(); }
         }
     }
 
@@ -279,6 +280,7 @@ public class Juni : KinematicBody2D
             {
                 transitionState(new IdleState(this));
                 executeStateTransition();
+                Game.sendCheat();
             }
         }
     }

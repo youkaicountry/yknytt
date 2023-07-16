@@ -12,14 +12,13 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("speed", "View or set the speed of the game", null, false, SpeedCommand.NewSpeedCommand, new CommandArg("value", CommandArg.Type.FloatArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("help", "View help for a given command", null, false, HelpCommand.NewHelpCommand, new CommandArg("name", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("list", "View the list of commands", null, false, ListCommand.NewListCommand));
-        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard.", 
+        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard and makes backups.", 
             "save: saves game at current position\n" +
             "save print: prints save file\n" +
             "save copy: copies save to clipboard\n" +
-            "save paste: pastes save from clipboard", 
+            "save paste: pastes save from clipboard\n" +
+            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip"), 
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("backup", $"Zips all save files. Default destination: {OS.GetSystemDir(OS.SystemDir.Documents)}", null,
-            false, BackupCommand.NewBackupCommand, new CommandArg("directory", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("set", "Sets Juni's power or flag",
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
@@ -158,21 +157,27 @@ public static class ConsoleCommands
         {
             var env = (ConsoleExecutionEnvironment)environment;
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
-            if (game == null) { return "No game is loaded"; }
 
             switch (subcmd)
             {
                 case null:
+                    if (game == null) { return "No game is loaded"; }
                     game.saveGame(game.Juni, write: true);
                     break;
+
                 case "print":
+                    if (game == null) { return "No game is loaded"; }
                     env.Console.AddMessage(game.GDWorld.KWorld.CurrentSave.ToString());
                     break;
+
                 case "copy":
+                    if (game == null) { return "No game is loaded"; }
                     OS.Clipboard = game.GDWorld.KWorld.CurrentSave.ToString();
                     env.Console.AddMessage("Save file was copied to clipboard.");
                     break;
+
                 case "paste":
+                    if (game == null) { return "No game is loaded"; }
                     KnyttSave save;
                     try
                     {
@@ -186,6 +191,26 @@ public static class ConsoleCommands
                     game.saveGame(save);
                     game.Juni.die();
                     break;
+
+                case "backup":
+                    string src_dir = OS.GetUserDataDir().PlusFile("Saves");
+                    string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
+                    string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
+                    if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
+                    if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
+
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(src_dir, dest_zip);
+                    }
+                    catch (Exception)
+                    {
+                        return $"Cannot create zip. Please check that you have access to {dest_path}." + 
+                        (OS.GetName() == "Android" ? " Grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : "");
+                    }
+                    env.Console.AddMessage($"{dest_zip} was successfully created.");
+                    break;
+
                 default:
                     return "Can't recognize your command";
             }
@@ -224,6 +249,7 @@ public static class ConsoleCommands
             if (power_index != -1 && bvalue != null)
             {
                 game.Juni.setPower(power_index, bvalue ?? true);
+                game.sendCheat();
                 env.Console.AddMessage($"{((JuniValues.PowerNames)power_index).ToString()} set to {value}");
             }
             else if (variable.StartsWith("flag") && bvalue != null && 
@@ -231,6 +257,7 @@ public static class ConsoleCommands
             {
                 game.Juni.Powers.setFlag(flag_index, bvalue ?? true);
                 game.UI.Location.updateFlags(game.Juni.Powers.Flags);
+                game.sendCheat();
                 env.Console.AddMessage($"Flag {flag_index} set to {value}");
             }
             else
@@ -429,42 +456,6 @@ public static class ConsoleCommands
 
             if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
             game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
-            return null;
-        }
-    }
-
-    public class BackupCommand : ICommand
-    {
-        string path;
-
-        public BackupCommand(CommandParseResult result)
-        {
-            path = result.Args.TryGetValue("directory", out var p) && p != null ? p : OS.GetSystemDir(OS.SystemDir.Documents);
-        }
-
-        public static ICommand NewBackupCommand(CommandParseResult result)
-        {
-            return new BackupCommand(result);
-        }
-
-        public string Execute(object environment)
-        {
-            string src_dir = OS.GetUserDataDir().PlusFile("Saves");
-            string dest_zip = path.PlusFile("yknytt-saves.zip");
-            if (!new Directory().DirExists(path)) { return $"Directory {path} does not exist."; }
-            if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
-
-            try
-            {
-                ZipFile.CreateFromDirectory(src_dir, dest_zip);
-            }
-            catch (Exception)
-            {
-                return $"Cannot create zip. Please check that you have access to {path}." + 
-                (OS.GetName() == "Android" ? " Grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : "");
-            }
-            var env = (ConsoleExecutionEnvironment)environment;
-            env.Console.AddMessage($"{dest_zip} was successfully created.");
             return null;
         }
     }

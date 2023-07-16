@@ -104,7 +104,7 @@ public class LevelSelection : BasicScreen
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result != (int)HTTPRequest.Result.Success)
+        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
         {
             if (request_retry-- <= 0) { connectionLost(); return; }
             GD.Print("retry ", request_url);
