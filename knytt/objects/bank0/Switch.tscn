@@ -109,7 +109,7 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Spot"]
 frames = SubResource( 10 )
 animation = "Spot"
-frame = 7
+frame = 2
 playing = true
 centered = false
 
@@ -141,7 +141,7 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Circle"]
 frames = SubResource( 20 )
 animation = "Circle"
-frame = 5
+frame = 4
 playing = true
 centered = false
 

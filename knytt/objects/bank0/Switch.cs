@@ -39,6 +39,7 @@ public abstract class Switch : GDKnyttBaseObject
         }
         else
         {
+            if (juni.juniInput.DownHeld) { execute(juni); }
             juni.Connect(nameof(Juni.DownEvent), this, nameof(execute));
         }
     }
@@ -63,8 +64,11 @@ public abstract class Switch : GDKnyttBaseObject
 
     public void execute(Juni juni)
     {
+        if (!@switch.OnTouch && juni.juniInput.SwitchHeld) { return; }
+
         if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this))
         {
+            juni.juniInput.SwitchHeld = true;
             executeAnyway(juni);
         }
     }

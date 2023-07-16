@@ -70,11 +70,10 @@ extents = Vector2( 12, 6 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.639216 )
+modulate = Color( 1, 1, 1, 0.666667 )
 texture = ExtResource( 1 )
 centered = false
 vframes = 18
-frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Idle = SubResource( 1 )
