@@ -58,6 +58,8 @@ public class JuniInput
     public bool UpHeld { get { return checkPressed("up"); } }
     public bool DownHeld { get { return checkPressed("down"); } }
     public bool DownPressed { get { return checkJustPressed("down"); } }
+    public bool DownReleased { get { return checkJustReleased("down"); } }
+    public bool SwitchHeld { get; internal set; }
     public bool UmbrellaPressed { get { return checkJustPressed("umbrella"); } }
     public bool HologramPressed { get { return checkJustPressed("hologram"); } }
     public bool JumpEdge { get { return checkJustPressed("jump"); } }
@@ -71,6 +73,12 @@ public class JuniInput
         pressEdges["umbrella"].Update();
         pressEdges["hologram"].Update();
         pressEdges["jump"].Update();
+
+        // Handle Switch
+        if (SwitchHeld)
+        {
+            if (Juni.GDArea.BlockInput || DownReleased || !DownHeld || (Juni.GDArea.HasAltInput && altInput.IsActionJustReleased("down"))) { SwitchHeld = false; }
+        }
     }
 
     public void FinishFrame()
