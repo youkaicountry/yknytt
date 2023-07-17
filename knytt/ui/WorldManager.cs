@@ -54,6 +54,11 @@ public class WorldManager
         return true;
     }
 
+    public void removeWorld(WorldEntry entry)
+    {
+        this.Entries.Remove(entry);
+    }
+
     public void clearAll()
     {
         this.Entries.Clear();

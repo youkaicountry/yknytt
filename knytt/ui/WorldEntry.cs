@@ -23,6 +23,7 @@ public class WorldEntry
     public int Complains;
     public bool AutoVerified;
     public int Status;
+    public bool Disabled;
 
     public WorldEntry() { }
 
