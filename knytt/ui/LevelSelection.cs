@@ -155,7 +155,7 @@ public class LevelSelection : BasicScreen
     {
         foreach (var entry in finished_entries)
         {
-            if (entry.Name == world_entry.Name && entry.Author == world_entry.Author) { return entry; }
+            if (entry.Name == world_entry.Name && entry.Author == world_entry.Author && !entry.Disabled) { return entry; }
         }
         return null;
     }
@@ -472,24 +472,23 @@ public class LevelSelection : BasicScreen
         }
     }
 
-    public void reload()
+    public void disableButton(WorldEntry entry)
     {
-        game_container.clearWorlds();
-        Manager.clearAll();
-        finished_entries = new ConcurrentQueue<WorldEntry>();
-        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
-
-        GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown").Selected = 0;
-        GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown").Selected = 0;
-        GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown").Selected = 0;
-        GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Selected = 0;
-        GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Selected = 0;
-        GetNode<LineEdit>("MainContainer/FilterContainer/Search/SearchEdit").Text = "";
-
-        loadDefaultWorlds();
-        discoverWorlds("./worlds");
-        discoverWorlds("user://Worlds");
-        if (!localLoad) { this.HttpLoad(grab_focus: true); }
+        Manager.removeWorld(entry);
+        var local = findLocal(entry);
+        if (local != null) { local.Disabled = true; }
+        foreach (var hbox in game_container.GetChildren())
+        {
+            foreach (GameButton button in (hbox as Control).GetChildren())
+            {
+                if (button.worldEntry == entry)
+                {
+                    button.Disabled = true;
+                    button.markDisabled();
+                    return;
+                }
+            }
+        }
     }
 
     public void _on_CategoryDropdown_item_selected(int index)

@@ -73,6 +73,11 @@ public class GameButton : Button
         setProgress(1, new Color(1, 0.375f, 0.375f, 0.5f));
     }
 
+    public void markDisabled()
+    {
+        setProgress(1, new Color(0.375f, 0.375f, 0.375f, 0.5f));
+    }
+
     public void incDownloads()
     {
         var label = GetNode<Label>("RatingControl/DownloadsLabel");

@@ -291,6 +291,6 @@ public class InfoScreen : BasicScreen
     {
         KWorld.uninstallWorld();
         goBack();
-        GetParent<LevelSelection>().reload();
+        GetParent<LevelSelection>().disableButton(world_entry);
     }
 }
