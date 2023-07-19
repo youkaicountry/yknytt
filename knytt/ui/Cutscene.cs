@@ -75,10 +75,11 @@ public class Cutscene : Control
     {
         var next_button = GetNode<Button>("NextButton");
         var arrow = GetNode<TextureRect>("NextButton/Arrow");
+        var label = GetNode<Label>("NextButton/OKLabel");
 
         last_page = !GDKnyttDataStore.KWorld.worldFileExists(makeScenePath(current_scene + 1));
-        next_button.Text = last_page ? "OK" : "";
         arrow.Visible = !last_page;
+        label.Visible = last_page;
     }
 
     public static string makeScenePath(int scene)
