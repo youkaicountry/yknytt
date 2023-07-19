@@ -23,9 +23,17 @@ public class StandartSoundPlayer : Node2D
 
     public void stopAll()
     {
-        foreach (var child in GetChildren())
+        foreach (AudioStreamPlayer2D child in GetChildren())
         {
-            ((AudioStreamPlayer2D)child).Stop();
+            child.Stop();
+        }
+    }
+
+    public void workaroundPanning(float value)
+    {
+        foreach (AudioStreamPlayer2D child in GetChildren())
+        {
+            child.PanningStrength *= value;
         }
     }
 }
