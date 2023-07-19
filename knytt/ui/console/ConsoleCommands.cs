@@ -456,6 +456,7 @@ public static class ConsoleCommands
 
             if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
             game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            game.sendCheat();
             return null;
         }
     }
