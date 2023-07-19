@@ -33,7 +33,7 @@ namespace YKnyttLib
         public TileLayer[] TileLayers { get; protected set; }
         public ObjectLayer[] ObjectLayers { get; protected set; }
 
-        public KnyttWarp Warp { get; protected set; }
+        public KnyttWarp Warp { get; set; }
         
         public FlagWarp[] FlagWarps { get; protected set; } = new FlagWarp[4];
 
