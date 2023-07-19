@@ -2,6 +2,7 @@
 
 [ext_resource path="res://knytt/objects/bank0/Warp.cs" type="Script" id=1]
 
-
 [node name="Warp" type="Node2D"]
 script = ExtResource( 1 )
+
+[connection signal="tree_exiting" from="." to="." method="_on_Warp_tree_exiting"]
