@@ -472,7 +472,10 @@ public class Juni : KinematicBody2D
         // Pull-over-edge
         if (JustClimbed)
         {
-            velocity.x += (FacingRight ? 1f : -1f) * PULL_OVER_FORCE;
+            if (velocity.y < 0)
+            {
+                velocity.x += (FacingRight ? 1f : -1f) * PULL_OVER_FORCE;
+            }
             _just_climbed -= delta;
             if (_can_free_jump <= 0f) { JustClimbed = false; }
         }
