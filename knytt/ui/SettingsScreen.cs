@@ -22,8 +22,9 @@ public class SettingsScreen : BasicScreen
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
-        GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
+        GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
+        GetNode<Slider>("VolumeContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
         GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = 
             OS.GetName() != "Android" && OS.GetName() != "iOS" && OS.GetName() != "HTML5";
     }
@@ -87,6 +88,11 @@ public class SettingsScreen : BasicScreen
     private void _on_EffectsVolumeSlider_value_changed(float value)
     {
         GDKnyttSettings.EffectsVolume = (int)value;
+    }
+
+    private void _on_EffectsPanningSlider_value_changed(float value)
+    {
+        GDKnyttSettings.EffectsPanning = value;
     }
 
     private void _on_EnvironmentVolumeSlider_value_changed(float value)

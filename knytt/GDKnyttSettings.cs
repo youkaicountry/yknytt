@@ -125,6 +125,20 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static float EffectsPanning
+    {
+        get { return float.Parse(ini["Audio"]["Effects Panning"]); }
+        set
+        {
+            ini["Audio"]["Effects Panning"] = $"{value}";
+            float old_strength = (float)ProjectSettings.GetSetting("audio/2d_panning_strength");
+            ProjectSettings.SetSetting("audio/2d_panning_strength", value);
+            // AudioStreamPlayer2D caches that project setting and never updates it
+            // So for existing objects, we need to compensate for this by multiplying PanningStrength by the difference
+            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.Juni.GetNode<JuniAudio>("Audio").workaroundPanning(value / old_strength);
+        }
+    }
+
     public static int EnvironmentVolume
     {
         get { return int.Parse(ini["Audio"]["Environment Volume"]); }
@@ -197,8 +211,9 @@ public class GDKnyttSettings : Node
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");
-        modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Environment Volume", "80");
+        modified |= ensureSetting("Audio", "Effects Volume", "70");
+        modified |= ensureSetting("Audio", "Effects Panning", "1");
 
         modified |= ensureSetting("Server", "URL", "http://yknytt.pythonanywhere.com");
 
@@ -216,8 +231,9 @@ public class GDKnyttSettings : Node
         Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
-        EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
+        EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
+        EffectsPanning = float.Parse(ini["Audio"]["Effects Panning"]);
     }
 
     public static void saveSettings()

@@ -40,7 +40,7 @@ On mobiles: open the console by pressing [down] + [info] + [jump] simultaneously
 
 ### Building
 
-Requires Godot 3.5.2.stable.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.6.beta2.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
 
 #### Export settings
 
