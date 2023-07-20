@@ -254,16 +254,38 @@ margin_top = 38.0
 margin_right = 580.0
 margin_bottom = 51.0
 
-[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 288.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 margin_right = 58.0
 margin_bottom = 13.0
 text = "Repository:"
 
-[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 margin_left = 62.0
 margin_right = 234.0
 margin_bottom = 13.0
 text = "github.com/youkaicountry/yknytt"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+margin_right = 64.0
+margin_bottom = 13.0
+text = "Itch.io page:"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+margin_left = 68.0
+margin_right = 210.0
+margin_bottom = 13.0
+text = "youkaicountry.itch.io/yknytt"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 57.0
@@ -507,7 +529,8 @@ iFX Games (Zero-G), www.zero-g.co.uk4
 Studio Box Nature (Best Service), www.bestservice.de"
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://youkaicountry.itch.io/yknytt" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer3/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/andrewmd5/KnyttSharp" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.ni2.se/" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/LinkButton2" to="." method="_on_LinkButton_pressed" binds= [ "http://egomassive.com/ks/" ]]

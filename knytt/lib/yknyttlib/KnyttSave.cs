@@ -66,6 +66,7 @@ namespace YKnyttLib
 
         public void setCollectables(bool[] collection, int coinsSpent)
         {
+            if (!collection.Contains(true) && coinsSpent == 0) { return; }
             int[] packed = new int[keyNames.Length];
             for (int i = 0; i < collection.Length - 1; i++)
             {
@@ -125,13 +126,13 @@ namespace YKnyttLib
         public string Attachment
         {
             get { return getValue("Extras", "Attach"); }
-            set { setValue("Extras", "Attach", value); }
+            set { setValue("Extras", "Attach", value, "false"); }
         }
 
         public string Character
         {
             get { return getValue("Extras", "Character"); }
-            set { setValue("Extras", "Character", value?.ToLower() ?? "juni"); }
+            set { setValue("Extras", "Character", value?.ToLower() ?? "juni", "juni"); }
         }
 
         public (string, string, string) Tint
@@ -148,13 +149,13 @@ namespace YKnyttLib
         public HashSet<string> Cutscenes
         {
             get { return getValue("Extras", "Cutscenes")?.Split(',').Where(s => s != "").ToHashSet() ?? new HashSet<string>(); }
-            set { setValue("Extras", "Cutscenes", String.Join(",", value)); }
+            set { setValue("Extras", "Cutscenes", String.Join(",", value), ""); }
         }
 
         public HashSet<string> Endings
         {
             get { return getValue("Extras", "Endings")?.Split(',').Where(s => s != "").ToHashSet() ?? new HashSet<string>(); }
-            set { setValue("Extras", "Endings", String.Join(",", value)); }
+            set { setValue("Extras", "Endings", String.Join(",", value), ""); }
         }
 
         public KnyttPoint getArea()
@@ -194,9 +195,10 @@ namespace YKnyttLib
             return data[section][key];
         }
 
-        private void setValue(string section, string key, string value)
+        private void setValue(string section, string key, string value, string empty_value = null)
         {
             if (!data.Sections.ContainsSection(section)) { data.Sections.AddSection(section); }
+            if (value == empty_value) { data[section].RemoveKey(key); return; }
             data[section][key] = value;
         }
 
