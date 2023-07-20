@@ -28,12 +28,4 @@ public class StandartSoundPlayer : Node2D
             child.Stop();
         }
     }
-
-    public void workaroundPanning(float value)
-    {
-        foreach (AudioStreamPlayer2D child in GetChildren())
-        {
-            child.PanningStrength *= value;
-        }
-    }
 }
