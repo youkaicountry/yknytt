@@ -131,11 +131,9 @@ public class GDKnyttSettings : Node
         set
         {
             ini["Audio"]["Effects Panning"] = $"{value}";
-            float old_strength = (float)ProjectSettings.GetSetting("audio/2d_panning_strength");
-            ProjectSettings.SetSetting("audio/2d_panning_strength", value);
-            // AudioStreamPlayer2D caches that project setting and never updates it
-            // So for existing objects, we need to compensate for this by multiplying PanningStrength by the difference
-            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.Juni.GetNode<JuniAudio>("Audio").workaroundPanning(value / old_strength);
+            // AudioStreamPlayer2D caches global project setting and never updates it
+            // As a workaround, we need to set PanningStrength before Play() for every Player
+            SFXAudioPlayer2D.GlobalPanningStrength = value;
         }
     }
 

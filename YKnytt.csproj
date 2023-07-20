@@ -189,6 +189,7 @@
     <Compile Include="knytt\objects\bullets\SmallGlowingBullet.cs" />
     <Compile Include="knytt\objects\common\GesturesObject.cs" />
     <Compile Include="knytt\objects\IParticleFetch.cs" />
+    <Compile Include="knytt\SFXAudioPlayer2D.cs" />
     <Compile Include="knytt\ui\console\Console.cs" />
     <Compile Include="knytt\ui\console\ConsoleCommands.cs" />
     <Compile Include="knytt\ui\console\ConsoleExecutionEnvironment.cs" />

@@ -1,5 +1,8 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/SFXAudioPlayer2D.cs" type="Script" id=1]
 
 [node name="RawAudioPlayer2D" type="AudioStreamPlayer2D"]
 volume_db = 5.0
 bus = "SFX"
+script = ExtResource( 1 )
