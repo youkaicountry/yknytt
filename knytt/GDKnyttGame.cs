@@ -134,7 +134,7 @@ public class GDKnyttGame : Node2D
         f.StoreString(save.ToString());
         f.Close();
 
-        KnyttLogger.Info($"Game saved to {fname}");
+        KnyttLogger.Debug($"Game saved to {fname}");
     }
 
     public void warpJuni(Juni juni)
