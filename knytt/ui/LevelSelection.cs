@@ -197,6 +197,15 @@ public class LevelSelection : BasicScreen
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
+        if (OS.GetName() == "HTML5")
+        {
+            //binLoad("res://knytt/worlds/html5/Ble - Timecraft 1.1.knytt.bin");
+            binLoad("res://knytt/worlds/html5/Chironex - Afar.knytt.bin");
+            binLoad("res://knytt/worlds/html5/dessgeega-TheLighthouse.knytt.bin");
+            binLoad("res://knytt/worlds/html5/dessgeega-Fossil.knytt.bin");
+            binLoad("res://knytt/worlds/html5/dessgeega-Torchlight.knytt.bin");
+            binLoad("res://knytt/worlds/html5/dessgeega-UndertheCrack.knytt.bin");
+        }
         //if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
         //if (OS.GetName() != "Android") {directoryLoad(@"c:\apps\Knytt Stories\Worlds\test - test");}
     }
