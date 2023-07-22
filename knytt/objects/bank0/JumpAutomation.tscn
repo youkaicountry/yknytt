@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://knytt/objects/bank0/Automation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/objects/bank0/JumpAutomation.cs" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19, 19 )
+
+[node name="Area2D" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="ExitArea2D" type="Area2D" parent="." index="1"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea2D" index="0"]
+position = Vector2( 12, 12 )
+shape = SubResource( 1 )
+
+[connection signal="body_exited" from="ExitArea2D" to="." method="_on_ExitArea2D_body_exited"]
