@@ -69,6 +69,8 @@ public class GDKnyttBaseObject : Node2D
         OrganicEnemy = false;
     }
 
+    public virtual void customDeletion() { }
+
     public void juniDie(Juni juni)
     {
         if (!safe && juni.GDArea == GDArea) { juni.die(); }

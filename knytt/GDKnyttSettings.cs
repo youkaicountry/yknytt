@@ -45,6 +45,9 @@ public class GDKnyttSettings : Node
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
             setupViewport(for_ui: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
+            ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres").FontData =
+                ResourceLoader.Load<DynamicFontData>(
+                    "res://knytt/fonts/" + (value ? "segan/Segan-Light.ttf" : "magnificent/Magnificent.ttf"));
         }
     }
     

@@ -113,6 +113,8 @@ public class Shift : Switch
             juni.GlobalPosition = jgp;
         }
 
+        juni.just_reset = 2; // sometimes inside checker needs time to start working
+
         if (!(shift.RelativeArea.isZero() && shift.RelativePosition.isZero()))
         {
             _on_Area2D_body_exited(juni); // sometimes exit signal is late

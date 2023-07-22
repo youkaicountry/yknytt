@@ -8,7 +8,7 @@ public class Warp : GDKnyttBaseObject
         GDArea.Area.Warp.loadWarpData();
     }
 
-    private void _on_Warp_tree_exiting()
+    public override void customDeletion()
     {
         GDArea.Area.Warp = new KnyttWarp(GDArea.Area);
     }

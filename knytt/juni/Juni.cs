@@ -505,10 +505,10 @@ public class Juni : KinematicBody2D
     private void processFlyMode(float delta)
     {
         var dir = new Godot.Vector2();
-        if (juniInput.UpHeld) { dir.y -= 1f; }
-        if (juniInput.DownHeld) { dir.y += 1f; }
-        if (juniInput.LeftHeld) { dir.x -= 1f; }
-        if (juniInput.RightHeld) { dir.x += 1f; }
+        if (Input.IsActionPressed("up")) { dir.y -= 1f; }
+        if (Input.IsActionPressed("down")) { dir.y += 1f; }
+        if (Input.IsActionPressed("left")) { dir.x -= 1f; }
+        if (Input.IsActionPressed("right")) { dir.x += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta);
     }
