@@ -124,7 +124,7 @@ public class CustomObject : GDKnyttBaseObject
                 tile.Atlas = image_texture;
                 tile.Region = new Rect2(j * info.tile_width, i * info.tile_height, info.tile_width, info.tile_height);
                 sprite.Frames.AddFrame(animation_name, tile, pos++);
-                if (info.anim_to != -1 && pos > info.anim_to) { return; }
+                if (pos > info.anim_to) { return; }
             }
         }
     }
