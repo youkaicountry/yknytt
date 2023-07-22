@@ -33,6 +33,7 @@
     <Compile Include="knytt\objects\bank0\AllowHologram.cs" />
     <Compile Include="knytt\objects\bank0\GhostMusic.cs" />
     <Compile Include="knytt\objects\bank0\Halt.cs" />
+    <Compile Include="knytt\objects\bank0\JumpAutomation.cs" />
     <Compile Include="knytt\objects\bank0\LocalAmbient.cs" />
     <Compile Include="knytt\objects\bank1\SwimScreen.cs" />
     <Compile Include="knytt\objects\bank1\SwimZone.cs" />

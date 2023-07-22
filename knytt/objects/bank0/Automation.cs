@@ -17,6 +17,8 @@ public class Automation : GDKnyttBaseObject
 
     private string action;
 
+    protected Juni juni;
+
     public override void _Ready()
     {
         GDArea.HasAltInput = true;
@@ -33,15 +35,27 @@ public class Automation : GDKnyttBaseObject
         }
 
         GDArea.Selector.Register(this);
+        this.juni = juni;
     }
 
-    private void _on_Area2D_body_exited(Juni juni)
+    protected virtual void _on_Area2D_body_exited(Juni juni)
     {
         GDArea.Selector.Unregister(this);
+        this.juni = null;
 
         if (GDArea.Selector.GetSize(this) == 0 && GDArea.Selector.IsOpen)
         {
             juni.juniInput.altInput.ActionRelease(action);
+        }
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        if (juni != null && (action == "left" || action == "right") && 
+            !juni.juniInput.altInput.IsActionPressed("left") && 
+            !juni.juniInput.altInput.IsActionPressed("right"))
+        {
+            juni.juniInput.altInput.ActionPress(action);
         }
     }
 }
