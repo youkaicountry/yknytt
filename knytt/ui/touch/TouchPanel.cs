@@ -111,7 +111,8 @@ public class TouchPanel : Panel
 
     private float getScale()
     {
-        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (GetViewport().Size.x * 100), 1.4f / TouchSettings.Viewport);
+        float window_x = GDKnyttSettings.SmoothScalingReal ? GetViewport().Size.x : OS.WindowSize.x;
+        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (window_x * 100), 1.4f / TouchSettings.Viewport);
     }
 
     // Returns rectangle for the button with excess space

@@ -52,7 +52,7 @@ public class InfoScreen : BasicScreen
                         KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
         if (info != null)
         {
-            info.Flags |= (uint)Texture.FlagsEnum.Filter;
+            //info.Flags |= (uint)Texture.FlagsEnum.Filter;
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 
