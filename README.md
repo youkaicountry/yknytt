@@ -4,11 +4,11 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.5 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.5.0/YKnytt.apk)
+[Download YKnytt v0.5 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1.apk)
 
-[Download YKnytt v0.5 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.5.0/YKnytt_v0.5.0_win.zip)
+[Download YKnytt v0.5 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1_win.zip)
 
-[Download YKnytt v0.5 beta for Linux/X11](https://github.com/youkaicountry/yknytt/releases/download/0.5.0/YKnytt_v0.5.0_linux.zip)
+[Download YKnytt v0.5 beta for Linux/X11](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1_linux.zip)
 
 YKnytt for Web: coming soon
 
@@ -35,7 +35,7 @@ On Windows: `Users/[User]/AppData/Roaming/Godot/app_userdata/YKnytt/Saves/`
 
 On Linux: `~/.local/share/godot/app_userdata/YKnytt/Saves/`
 
-On mobiles: open the console by pressing [down] + [info] + [jump] simultaneously, and type `save copy`. You will get a save file in your clipboard.
+On mobiles: open the console by pressing [down] + [info] + [jump] simultaneously, and type `save copy`. You will get a save file in your clipboard. In a similar way you can paste a file from the clipboard by `save paste`.
 </details>
 
 ### Building
