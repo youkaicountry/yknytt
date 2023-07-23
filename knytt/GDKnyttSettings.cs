@@ -47,23 +47,42 @@ public class GDKnyttSettings : Node
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
             ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres").FontData =
                 ResourceLoader.Load<DynamicFontData>(
-                    "res://knytt/fonts/" + (value ? "segan/Segan-Light.ttf" : "magnificent/Magnificent.ttf"));
+                    "res://knytt/fonts/" + (SmoothScalingReal ? "segan/Segan-Light.ttf" : "magnificent/Magnificent.ttf"));
+        }
+    }
+
+    public static bool SmoothScalingReal
+    {
+        get
+        {
+            bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
+            return SmoothScaling || (TouchSettings.EnablePanel && !mobile);
         }
     }
     
     public static void setupViewport(bool for_ui = false)
     {
+        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
+        float screen_width = for_ui ? 600 : TouchSettings.ScreenWidth;
+        float y_to_x = OS.GetScreenSize().y / OS.GetScreenSize().x;
+
         if (!TouchSettings.EnablePanel)
         {
             tree.SetScreenStretch(
                 SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
                 SceneTree.StretchAspect.Keep, new Vector2(600, 240));
         }
+        else if (mobile) // expect fullscreen
+        {
+            tree.SetScreenStretch(
+                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+                SceneTree.StretchAspect.Keep, new Vector2(screen_width, screen_width * y_to_x));
+        }
         else
         {
             // Touch panel needs some screen space, so "Viewport" mode is not suitable here
             tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
-                SceneTree.StretchAspect.KeepWidth, new Vector2(for_ui ? 600 : TouchSettings.ScreenWidth, 240));
+                SceneTree.StretchAspect.KeepWidth, new Vector2(screen_width, 240));
         }
     }
     
