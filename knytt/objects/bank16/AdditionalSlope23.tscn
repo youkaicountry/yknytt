@@ -6,6 +6,7 @@
 collision_layer = 2050
 collision_mask = 0
 script = ExtResource( 1 )
+DenyDeletion = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 0, 24, 24, 24, 24, 12 )

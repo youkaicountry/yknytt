@@ -68,7 +68,6 @@ public abstract class Switch : GDKnyttBaseObject
 
         if (!@switch.AsOne || GDArea.Selector.IsObjectSelected(this))
         {
-            juni.juniInput.SwitchHeld = true;
             executeAnyway(juni);
         }
     }

@@ -12,6 +12,7 @@ public class DeletePoint : GDKnyttBaseObject
                 // TODO: delete by collision shape
                 if (knytt_object != this && rect.HasPoint(knytt_object.Center))
                 {
+                    if (knytt_object.DenyDeletion) { continue; }
                     knytt_object.customDeletion();
                     knytt_object.QueueFree();
                 }

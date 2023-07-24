@@ -3,13 +3,13 @@
 [ext_resource path="res://knytt/objects/bank15/block1.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=2]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
 [node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 2050
 script = ExtResource( 2 )
+DenyDeletion = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

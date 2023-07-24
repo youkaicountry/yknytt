@@ -7,6 +7,7 @@ extents = Vector2( 12, 12 )
 
 [node name="InvisibleBlock" type="Node2D"]
 script = ExtResource( 1 )
+DenyDeletion = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )
