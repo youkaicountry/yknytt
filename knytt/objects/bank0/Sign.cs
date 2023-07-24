@@ -11,8 +11,7 @@ public class Sign : GDKnyttBaseObject
     private int shiftMessageIndex;
     private int triggerMessageIndex;
     private AnimationPlayer player;
-
-    private Dictionary<Juni, int> refCounter = new Dictionary<Juni, int>(); // ConnectFlags.ReferenceCounted doesn't work..
+    private int areaCount;
 
     public override void _Ready()
     {
@@ -93,42 +92,46 @@ public class Sign : GDKnyttBaseObject
     public void OnArea2DBodyEntered(Node body)
     {
         if (!(body is Juni juni)) { return; }
+        areaCount++;
 
         var signs = GDArea.Objects.findObjects(new KnyttPoint(0, 17))
             .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 18)))
-            .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 19)));
+            .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 19)))
+            .Where(s => s != this);
         foreach (Sign sign in signs)
         {
             if (sign != this)
             {
-                sign.OnArea2DBodyExited(body, exit_all: true);
+                sign.OnArea2DBodyExited(body, force_exit: true);
             }
         }
 
-        if (refCounter.ContainsKey(juni))
+        if (areaCount == 1)
         {
-            refCounter[juni]++;
+            messageIndex = -1;
+            nextMessage(juni);
         }
-        else
+
+        if (!juni.IsConnected(nameof(Juni.DownEvent), this, nameof(nextMessage)) && 
+            (texts.Count > 1 || shiftMessageIndex > 0 || triggerMessageIndex > 0))
         {
-            if (refCounter.Count == 0) { messageIndex = -1; nextMessage(juni); }
-            if (texts.Count > 1 || shiftMessageIndex > 0 || triggerMessageIndex > 0)
-            {
-                juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage));
-            }
-            refCounter[juni] = 1;
+            juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage));
         }
     }
 
-    public void OnArea2DBodyExited(Node body, bool exit_all = false)
+    public void OnArea2DBodyExited(Node body, bool force_exit = false)
     {
-        if (!(body is Juni juni) || !refCounter.ContainsKey(juni)) { return; }
-        refCounter[juni]--;
-        if (refCounter[juni] == 0 || exit_all)
+        if (!(body is Juni juni)) { return; }
+        areaCount = areaCount <= 0 || force_exit ? 0 : areaCount - 1;
+
+        if (areaCount == 0)
         {
-            if (texts.Count > 1) { juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage)); }
-            refCounter.Remove(juni);
-            if (refCounter.Count == 0) { messageIndex = -2; nextMessage(juni); }
+            if (juni.IsConnected(nameof(Juni.DownEvent), this, nameof(nextMessage)))
+            {
+                juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage));
+            }
+            messageIndex = -2;
+            nextMessage(juni);
         }
     }
 

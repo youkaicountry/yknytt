@@ -31,6 +31,8 @@ public class GDKnyttBaseObject : Node2D
 
     private bool safe = false;
 
+    [Export] public bool DenyDeletion;
+
     protected Random random = GDKnyttDataStore.random; // Shortcut
 
     public void initialize(KnyttPoint object_id, GDKnyttObjectLayer layer, KnyttPoint coords)

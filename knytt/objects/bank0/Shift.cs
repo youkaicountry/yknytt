@@ -20,6 +20,7 @@ public class Shift : Switch
     {
         var game = GDArea.GDWorld.Game;
         if (GDArea != game.CurrentArea) { return; }
+        juni.juniInput.SwitchHeld = true;
 
         if (shift.Delay > 0)
         {

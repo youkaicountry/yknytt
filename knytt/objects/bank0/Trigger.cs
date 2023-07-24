@@ -15,6 +15,8 @@ public class Trigger : Switch
 
     protected override void _execute(Juni juni)
     {
+        juni.juniInput.SwitchHeld = true;
+        
         if (sound != null) { juni.playSound(sound); }
 
         if (!trigger.ObjectID.Equals(new KnyttPoint(0, 0)))

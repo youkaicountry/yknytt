@@ -4,6 +4,7 @@
 
 [node name="InvisibleSlopeRight" type="Node2D"]
 script = ExtResource( 1 )
+DenyDeletion = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2050

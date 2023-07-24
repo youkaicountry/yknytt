@@ -9,42 +9,41 @@
 [ext_resource path="res://knytt/objects/bank1/Object21.png" type="Texture" id=7]
 [ext_resource path="res://knytt/objects/bank1/Object24.png" type="Texture" id=8]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "Block24",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Block21",
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "Block11",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
-"loop": true,
+"loop": false,
 "name": "Block17",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "Block21",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "Block24",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "Block7",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 3 ) ],
-"loop": true,
+"loop": false,
 "name": "Block8",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
-"loop": true,
+"loop": false,
 "name": "Block9",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Block11",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Block7",
 "speed": 5.0
 } ]
 
@@ -53,6 +52,7 @@ extents = Vector2( 12, 12 )
 
 [node name="WaterBlock" type="Node2D"]
 script = ExtResource( 1 )
+DenyDeletion = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
