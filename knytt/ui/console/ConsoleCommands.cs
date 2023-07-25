@@ -343,6 +343,7 @@ public static class ConsoleCommands
         }
 
         protected abstract void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env);
+        protected abstract bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env);
 
         public string Execute(object environment)
         {
@@ -350,7 +351,11 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
-            if (subcmd == null || subcmd == "on")
+            if (subcmd == null)
+            {
+                enable(!isEnabled(game, env), game, env);
+            }
+            else if (subcmd == "on")
             {
                 enable(true, game, env);
             }
@@ -380,6 +385,11 @@ public static class ConsoleCommands
             game.Juni.DebugFlyMode = on;
             env.Console.AddMessage(on ? "Now you can move Juni with arrow keys freely." : "Now Juni is in normal mode.");
         }
+
+        protected override bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            return game.Juni.DebugFlyMode;
+        }
     }
 
     public class ImmuneCommand : OnOffCommand
@@ -395,6 +405,11 @@ public static class ConsoleCommands
         {
             game.Juni.Immune = on;
             env.Console.AddMessage(on ? "Now Juni is invulnerable." : "Now Juni is in normal mode.");
+        }
+
+        protected override bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            return game.Juni.Immune;
         }
     }
 
@@ -414,6 +429,11 @@ public static class ConsoleCommands
             if (on) { game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map); }
             game.Juni.setPower(JuniValues.PowerNames.Map, on);
             env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled.");
+        }
+
+        protected override bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env)
+        {
+            return game.UI.ForceMap;
         }
     }
 
