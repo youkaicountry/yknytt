@@ -1,4 +1,9 @@
-﻿namespace YKnyttLib
+﻿using System;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
+
+namespace YKnyttLib
 {
     public static class KnyttUtil
     {
@@ -18,6 +23,43 @@
             if (int.TryParse(val, out var result)) { return result; }
 
             return def_col;
+        }
+
+        public static string CompressString(string input)
+        {
+            var bytes = Encoding.Unicode.GetBytes(input);
+            using (var instream = new MemoryStream(bytes))
+            {
+                using (var outstream = new MemoryStream())
+                {
+                    // TODO: Try Brotli / Zlib, when able to upgrade .net, or try Smaz
+                    using (var cstream = new DeflateStream(outstream, CompressionLevel.Optimal))
+                    {
+                        instream.CopyTo(cstream);
+                    } // Close GZipStream here so the compression can be completed.
+
+                    var result =  outstream.ToArray();
+                    // TODO: Use higher base
+                    return Convert.ToBase64String(result);
+                }
+            }
+        }
+
+        public static string DecompressString(string input)
+        {
+            var bytes = Convert.FromBase64String(input);
+            using (var instream = new MemoryStream(bytes))
+            {
+                using (var outstream = new MemoryStream())
+                {
+                    using (var cstream = new DeflateStream(instream, CompressionMode.Decompress))
+                    {
+                        cstream.CopyTo(outstream);
+                    } // Close GZipStream here so the decompression can be completed.
+
+                    return Encoding.Unicode.GetString(outstream.ToArray());
+                }
+            }
         }
     }
 }
