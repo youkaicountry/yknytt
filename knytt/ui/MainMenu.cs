@@ -58,7 +58,7 @@ public class MainMenu : BasicScreen
         var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
         var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory(TUTORIAL_PATH, binloader.RootDirectory);
+        world.setDirectory(path, binloader.RootDirectory);
         world.loadWorldConfig(txt);
         var save_txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini"));
         world.CurrentSave = new KnyttSave(world, save_txt, 1);
