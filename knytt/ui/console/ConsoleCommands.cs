@@ -19,6 +19,11 @@ public static class ConsoleCommands
             "save paste: pastes save from clipboard\n" +
             "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip"), 
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
+            "pass: prints the current password\n" +
+            "pass copy: copies save to clipboard\n" +
+            "pass paste: pastes save from clipboard\n",
+            false, PassCommand.NewPassCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("set", "Sets Juni's power or flag",
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
@@ -212,6 +217,65 @@ public static class ConsoleCommands
                     env.Console.AddMessage($"{dest_zip} was successfully created.");
                     break;
 
+                default:
+                    return "Can't recognize your command";
+            }
+            return null;
+        }
+    }
+
+    public class PassCommand : ICommand
+    {
+        string subcmd;
+
+        public PassCommand(CommandParseResult result)
+        {
+            subcmd = result.Args["subcmd"];
+        }
+
+        public static ICommand NewPassCommand(CommandParseResult result)
+        {
+            return new PassCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+
+            switch (subcmd)
+            {
+                case null:
+                    if (game == null) { return "No game is loaded"; }
+                    var code = KnyttUtil.CompressString(game.GDWorld.KWorld.CurrentSave.ToString());
+                    env.Console.AddMessage(code);
+                    break;
+
+                case "copy":
+                    if (game == null) { return "No game is loaded"; }
+                    var c_code = KnyttUtil.CompressString(game.GDWorld.KWorld.CurrentSave.ToString());
+                    OS.Clipboard = c_code;
+                    env.Console.AddMessage("Password was copied to clipboard.");
+                    break;
+
+                case "paste":
+                    if (game == null) { return "No game is loaded"; }
+                    KnyttSave save;
+                    try
+                    {
+                        var ini = KnyttUtil.DecompressString(OS.Clipboard);
+                        GD.Print(ini);
+                        save = new KnyttSave(game.GDWorld.KWorld, ini, game.GDWorld.KWorld.CurrentSave.Slot);
+                    }
+                    catch (Exception)
+                    {
+                        return "Can't parse save file from clipboard";
+                    }
+                    game.GDWorld.KWorld.CurrentSave = save; // TODO: Consider, should it overwrite the save when using a password?
+                    game.saveGame(save);
+                    game.Juni.die();
+                    break;
+                
                 default:
                     return "Can't recognize your command";
             }
