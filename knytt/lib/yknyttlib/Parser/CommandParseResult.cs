@@ -24,8 +24,14 @@ namespace YKnyttLib.Parser
 
         public bool GetArgAsBool(string arg)
         {
+            var b = GetArgAsNullableBool(arg);
+            return b.GetValueOrDefault();
+        }
+
+        public bool? GetArgAsNullableBool(string arg)
+        {
             var a = Args[arg];
-            if (a == null) { return false; }
+            if (a == null) { return null; }
             switch(a)
             {
                 case "true":
