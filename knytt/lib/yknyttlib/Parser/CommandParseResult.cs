@@ -21,5 +21,24 @@ namespace YKnyttLib.Parser
         {
             CurrentArg++;
         }
+
+        public bool GetArgAsBool(string arg)
+        {
+            var a = Args[arg];
+            if (a == null) { return false; }
+            a = a.ToLower();
+            switch(a)
+            {
+                case "true":
+                case "1":
+                return true;
+                
+                case "false":
+                case "0":
+                return false;
+            }
+
+            throw new System.Exception("Invalid bool");
+        }
     }
 }

@@ -39,6 +39,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("goto", "Shifts Juni (absolute map+area coordinates)", null, false, ShiftCommand.NewGotoCommand, 
             new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -434,6 +435,57 @@ public static class ConsoleCommands
         protected override bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env)
         {
             return game.UI.ForceMap;
+        }
+    }
+
+    public class WorldCommand : ICommand
+    {
+        string world;
+        bool intro;
+
+        public WorldCommand(CommandParseResult result)
+        {
+            this.world = result.Args["world"];
+            this.intro = result.GetArgAsBool("intro");
+        }
+
+        public static ICommand NewWorldCommand(CommandParseResult result)
+        {
+            return new WorldCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            string path = null;
+
+            // Check for file internally first
+            var f = new File();
+            var internal_path = $"res://knytt/worlds/{this.world}";
+            if (f.FileExists(internal_path)) { path = internal_path; }
+            else
+            {
+                var external_path = $"user://Worlds/{this.world}";
+                if (f.FileExists(external_path)) { path = external_path; }
+            }
+
+            if (path == null) { return $"Cannot find world: \"{this.world}\""; }
+
+            var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
+            var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
+            GDKnyttWorldImpl world = new GDKnyttWorldImpl();
+            world.setDirectory(path, binloader.RootDirectory);
+            world.loadWorldConfig(txt);
+            var save_txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini"));
+            world.CurrentSave = new KnyttSave(world, save_txt, 1);
+            world.setBinMode(binloader);
+            GDKnyttDataStore.KWorld = world;
+            
+            GDKnyttDataStore.startGame(intro);
+
+            var env = (ConsoleExecutionEnvironment)environment;
+            env.Console.AddMessage($"World loaded: {path}");
+
+            return "";
         }
     }
 
