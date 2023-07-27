@@ -30,9 +30,9 @@ public static class ConsoleCommands
             "monitor flags: display also Juni's flags\n" +
             "monitor off: turn off monitor", 
             false, MonitorCommand.NewMonitorCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("shift", "Shifts Juni (relative to current position)", null, false, ShiftCommand.NewShiftCommand, 
             new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
@@ -336,11 +336,11 @@ public static class ConsoleCommands
 
     public abstract class OnOffCommand : ICommand
     {
-        string subcmd;
+        bool? subcmd;
 
         public OnOffCommand(CommandParseResult result)
         {
-            subcmd = result.Args["on"];
+            subcmd = result.GetArgAsNullableBool("on");
         }
 
         protected abstract void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env);
@@ -355,19 +355,10 @@ public static class ConsoleCommands
             if (subcmd == null)
             {
                 enable(!isEnabled(game, env), game, env);
+                return null;
             }
-            else if (subcmd == "on")
-            {
-                enable(true, game, env);
-            }
-            else if (subcmd == "off")
-            {
-                enable(false, game, env);
-            }
-            else
-            {
-                return "Can't recognize your command";
-            }
+
+            enable(subcmd.GetValueOrDefault(), game, env);
             return null;
         }
     }
