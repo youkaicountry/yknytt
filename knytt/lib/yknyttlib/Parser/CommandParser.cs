@@ -60,7 +60,7 @@ namespace YKnyttLib.Parser
         private Regex floatRE = new Regex(@"^[+-]?((\d+(\.\d*)?)|(\.\d+))", RegexOptions.Compiled);
         private Regex uintRE = new Regex(@"^[+]?[0-9]+", RegexOptions.Compiled);
         private Regex intRE = new Regex(@"^[+-]?[0-9]+", RegexOptions.Compiled);
-        private Regex boolRE = new Regex(@"^(?<false>[Ff][Aa][Ll][Ss][Ee]|0)|(?<true>[Tt][Rr][Uu][Ee]|1)", RegexOptions.Compiled);
+        private Regex boolRE = new Regex(@"^(?<false>false|off|0)|(?<true>true|on|1)", RegexOptions.Compiled|RegexOptions.IgnoreCase);
         private Regex hexRE = new Regex(@"^0x[0-9a-fA-F]+", RegexOptions.Compiled);
 
         public CommandSet Commands { get; }
@@ -247,10 +247,7 @@ namespace YKnyttLib.Parser
             var m = boolRE.Match(input);
             if (!m.Success) { return new TypeParseResult { Value = null, Consumed = 0, Error = "invalid param" }; }
 
-            if (m.Groups[1].Name.Equals("true")) { return new TypeParseResult { Value = "true", Consumed = m.Length, Error = null }; }
-            else if (m.Groups[1].Name.Equals("false")) { return new TypeParseResult { Value = "true", Consumed = m.Length, Error = null }; }
-
-            return new TypeParseResult { Value = null, Consumed = 0, Error = "invalid param" };
+            return new TypeParseResult { Value = m.Groups[1].Value == "" ? m.Groups[2].Name : m.Groups[1].Name, Consumed = m.Length, Error = null };
         }
 
         private TypeParseResult parseBasicRE(Regex re, string input)
