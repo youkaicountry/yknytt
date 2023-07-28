@@ -45,6 +45,7 @@ public static class ConsoleCommands
             new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
+        cs.AddCommand(new CommandDeclaration("col", "Toggle collision shapes", null, OS.IsDebugBuild(), ColCommand.NewColCommand));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -394,6 +395,28 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             GDKnyttDataStore.Tree.Root.GetNode<Console>("Console").toggleConsole();
+            return null;
+        }
+    }
+
+    public class ColCommand : ICommand
+    {
+        public ColCommand(CommandParseResult result) { }
+
+        public static ICommand NewColCommand(CommandParseResult result)
+        {
+            return new ColCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            if (!OS.IsDebugBuild()) { return "Collision shape rendering requires a debug build."; }
+
+            GDKnyttDataStore.Tree.DebugCollisionsHint = !GDKnyttDataStore.Tree.DebugCollisionsHint;
+            var env = (ConsoleExecutionEnvironment)environment;
+            var status = GDKnyttDataStore.Tree.DebugCollisionsHint ? "on" : "off";
+            env.Console.AddMessage($"Collision shape rendering: {status}");
+
             return null;
         }
     }
