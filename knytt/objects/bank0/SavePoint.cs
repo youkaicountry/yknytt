@@ -4,18 +4,18 @@ using System.Collections.Generic;
 public class SavePoint : GDKnyttBaseObject
 {
     HashSet<Juni> junis;
-    AnimationPlayer animation;
+    AnimatedSprite animation;
 
     public override void _Ready()
     {
         junis = new HashSet<Juni>();
-        animation = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
+        animation = GetNode<AnimatedSprite>("AnimatedSprite");
         animation.Play("Idle");
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        if (junis.Count == 0 || animation.CurrentAnimation.Equals("Save")) { return; }
+        if (junis.Count == 0 || animation.Animation.Equals("Save")) { return; }
         foreach (var juni in junis)
         {
             if (juni.juniInput.DownHeld) { save(juni); }
