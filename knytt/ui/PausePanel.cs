@@ -75,21 +75,6 @@ public class PausePanel : Control
     public void _on_QuitButton_pressed()
     {
         ClickPlayer.Play();
-        quit();
-    }
-
-    private async void quit()
-    {
-        var worldInfo = GetNode<GDKnyttGame>("../../..").GDWorld.KWorld.Info;
-        GetNode<RateHTTPRequest>("../RateHTTPRequest").send(worldInfo.Name, worldInfo.Author, (int)RateHTTPRequest.Action.Exit);
-
-        GDKnyttDataStore.CurrentSpeed = 1;
-
-        var fade = GetNode<FadeLayer>("../../../FadeCanvasLayer/Fade");
-        fade.startFade();
-        await ToSignal(fade, "FadeDone");
-
-        GetTree().Paused = false;
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        GetNode<GDKnyttGame>("../../..").quit();
     }
 }
