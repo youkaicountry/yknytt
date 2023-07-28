@@ -308,11 +308,16 @@ public class GDKnyttSettings : Node
     {
         if (!ini.Sections.ContainsSection("Misc")) { ini.Sections.AddSection("Misc"); }
 
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.5")
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.5.2")
         {
-            ini["Misc"]["Version"] = "0.5";
-            ini["Server"]?.RemoveKey("URL");
-            GDKnyttWorldImpl.removeDirectory("user://Cache");
+            ini["Misc"]["Version"] = "0.5.2";
+            if (new File().FileExists("user://input.ini"))
+            {
+                GDKnyttKeys.loadSettings();
+                GDKnyttKeys.setAction("debug_die0", new InputEventKey() {Scancode = (uint)KeyList.F3});
+                GDKnyttKeys.saveSettings();
+            }
+            //GDKnyttWorldImpl.removeDirectory("user://Cache");
             return true;
         }
         return false;

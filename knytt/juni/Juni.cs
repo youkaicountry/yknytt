@@ -426,6 +426,7 @@ public class Juni : KinematicBody2D
         if (Input.IsActionJustPressed("debug_idclip")) { DebugFlyMode = !DebugFlyMode; }
         if (Input.IsActionJustPressed("debug_slow")) { GDKnyttDataStore.CurrentSpeed /= 1.2f; }
         if (Input.IsActionJustPressed("debug_fast")) { GDKnyttDataStore.CurrentSpeed *= 1.2f; }
+        if (Input.IsActionJustPressed("main_menu")) { Game.quit(); }
     }
 
     public void processMotion(float delta)

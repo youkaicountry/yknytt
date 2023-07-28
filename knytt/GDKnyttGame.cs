@@ -294,11 +294,23 @@ public class GDKnyttGame : Node2D
         GDKnyttDataStore.winGame(ending);
     }
 
-    public SignalAwaiter fade(bool fast, Color color)
+    public SignalAwaiter fade(bool fast, Color? color)
     {
         var fade = GetNode<FadeLayer>("FadeCanvasLayer/Fade");
         fade.startFade(fast: fast, color: color);
         return ToSignal(fade, "FadeDone");
+    }
+
+    public async void quit()
+    {
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+            (int)RateHTTPRequest.Action.Exit);
+
+        GDKnyttDataStore.CurrentSpeed = 1;
+        await fade(fast: false, color: null);
+
+        GetTree().Paused = false;
+        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 
     // Handles transition effects

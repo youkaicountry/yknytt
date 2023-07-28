@@ -40,7 +40,7 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "hologram0", "Key(W)");
         modified |= ensureSetting("Input", "pause0", "Key(Escape)");
         modified |= ensureSetting("Input", "map0", "Key(M)");
-        modified |= ensureSetting("Input", "debug_die0", "Key(F2)");
+        modified |= ensureSetting("Input", "debug_die0", "Key(F3)");
 
         modified |= ensureSetting("Input", "up1", "Joy(12)");
         modified |= ensureSetting("Input", "down1", "Joy(13)");
