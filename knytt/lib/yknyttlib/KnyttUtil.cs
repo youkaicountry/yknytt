@@ -9,6 +9,7 @@ namespace YKnyttLib
     {
         public static int BGRToRGBA(int kc)
         {
+            if (kc == 0) { return 0; }
             return ((0xFF0000 & kc) >> 8) + ((0xFF00 & kc) << 8) + ((0xFF & kc) << 24) + 0xFF;
         }
 
