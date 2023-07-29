@@ -1,0 +1,14 @@
+syntax = "proto3";
+package tutorial;
+//option java_package = "com.tutorialspoint.greeting";
+
+message Greet
+{
+   int32 position_x = 1;
+   int32 position_y = 2;
+   int32 map_x = 3;
+   int32 map_y = 4;
+   repeated bool powers = 5;
+   string world = 6;
+   repeated bool flags = 7;
+}
