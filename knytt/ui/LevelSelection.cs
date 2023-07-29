@@ -208,6 +208,7 @@ public class LevelSelection : BasicScreen
             binLoad("res://knytt/worlds/html5/dessgeega-UndertheCrack.knytt.bin");
             binLoad("res://knytt/worlds/html5/egomassive-AKnyttinTime1.5.knytt.bin");
             binLoad("res://knytt/worlds/html5/Introversity - Scrolly Polly Snow.knytt.bin");
+            binLoad("res://knytt/worlds/html5/Diesel-Station07.knytt.bin");
         }
         //if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
         //if (OS.GetName() != "Android") {directoryLoad(@"c:\apps\Knytt Stories\Worlds\test - test");}
