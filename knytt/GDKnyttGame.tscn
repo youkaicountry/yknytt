@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=9]
+[ext_resource path="res://knytt/juni/trail/TrailContainer.cs" type="Script" id=10]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
@@ -147,8 +148,12 @@ viewMode = false
 [node name="GKnyttWorld" parent="." instance=ExtResource( 2 )]
 
 [node name="TrailContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 2
+script = ExtResource( 10 )
 
 [node name="GKnyttCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 position = Vector2( 300, 120 )
 current = true
 script = ExtResource( 5 )
@@ -176,6 +181,7 @@ margin_bottom = 120.0
 custom_styles/panel = SubResource( 6 )
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 script = ExtResource( 11 )
 
 [node name="Curtain" type="Control" parent="UICanvasLayer"]
@@ -320,11 +326,13 @@ layer = 2
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
 
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
+unique_name_in_owner = true
 bus = "Music"
 fadeInTime = 0.1
 fadeOutTime = 4.5
 
 [node name="Ambi1Channel" parent="." instance=ExtResource( 17 )]
+unique_name_in_owner = true
 
 [node name="AmbiTrack1" parent="Ambi1Channel" index="0"]
 bus = "Ambiance1"
@@ -333,6 +341,7 @@ bus = "Ambiance1"
 bus = "Ambiance1"
 
 [node name="Ambi2Channel" parent="." instance=ExtResource( 17 )]
+unique_name_in_owner = true
 
 [node name="AmbiTrack1" parent="Ambi2Channel" index="0"]
 bus = "Ambiance2"
