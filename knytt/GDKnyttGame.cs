@@ -15,6 +15,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttArea CurrentArea { get; private set; }
     public GDKnyttWorld GDWorld { get; private set; }
     public GDKnyttCamera Camera { get; private set; }
+    public TrailContainer Trails { get; private set; }
 
     // Audio channels
     public GDKnyttMusicChannel MusicChannel { get; private set; }
@@ -37,22 +38,25 @@ public class GDKnyttGame : Node2D
 
     public override void _Ready()
     {
-        this.MusicChannel = GetNode<GDKnyttMusicChannel>("MusicChannel");
+        this.MusicChannel = GetNode<GDKnyttMusicChannel>("%MusicChannel");
         this.MusicChannel.OnFetch = (int num) => GDWorld.AssetManager.getSong(num);
         this.MusicChannel.OnClose = (int num) => GDWorld.AssetManager.returnSong(num);
 
-        this.AmbianceChannel1 = GetNode<GDKnyttAmbiChannel>("Ambi1Channel");
+        this.AmbianceChannel1 = GetNode<GDKnyttAmbiChannel>("%Ambi1Channel");
         this.AmbianceChannel1.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
         this.AmbianceChannel1.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-        this.AmbianceChannel2 = GetNode<GDKnyttAmbiChannel>("Ambi2Channel");
+        this.AmbianceChannel2 = GetNode<GDKnyttAmbiChannel>("%Ambi2Channel");
         this.AmbianceChannel2.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
         this.AmbianceChannel2.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-        this.Camera = GetNode<GDKnyttCamera>("GKnyttCamera");
+        this.Camera = GetNode<GDKnyttCamera>("%GKnyttCamera");
         this.Camera.initialize(this);
 
-        UI = GetNode<UICanvasLayer>("UICanvasLayer");
+        this.Trails = GetNode<TrailContainer>("%TrailContainer");
+        this.Trails.initialize(this);
+
+        UI = GetNode<UICanvasLayer>("%UICanvasLayer");
         this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
         tint = ResourceLoader.Load<ShaderMaterial>("res://knytt/AreaTint.tres");
