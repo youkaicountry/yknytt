@@ -146,6 +146,8 @@ viewMode = false
 
 [node name="GKnyttWorld" parent="." instance=ExtResource( 2 )]
 
+[node name="TrailContainer" type="Node2D" parent="."]
+
 [node name="GKnyttCamera" type="Camera2D" parent="."]
 position = Vector2( 300, 120 )
 current = true
