@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=1]
+
+[node name="JuniTrail" type="Sprite"]
+modulate = Color( 1, 1, 1, 0.705882 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -3 )
+hframes = 10
+vframes = 5
+frame = 47

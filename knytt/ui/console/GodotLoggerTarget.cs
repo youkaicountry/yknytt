@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using YKnyttLib.Logging;
 
 public class GodotLoggerTarget : IKnyttLoggerTarget
