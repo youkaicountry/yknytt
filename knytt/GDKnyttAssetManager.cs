@@ -280,22 +280,30 @@ public class GDKnyttAssetManager
 
     private static IEnumerable<Vector2[]> tilePolygons(BitMap bitmap, Rect2 region)
     {
-        // Makes walls thicker if they are 1px wide. Some polygons disappear without this (Godot bug).
-        for (float i = region.Position.y; i < region.End.y; i++)
+        // Makes points of contact thicker. Some polygons disappear without this (Godot bug).
+        for (float i = region.Position.y; i < region.End.y - 1; i++)
         {
-            bool ppbit = false;
-            bool pbit = bitmap.GetBit(new Vector2(region.Position.x, i));
-            for (float j = region.Position.x + 1; j <= region.End.x; j++)
+            bool ulbit = bitmap.GetBit(new Vector2(region.Position.x, i));
+            bool dlbit = bitmap.GetBit(new Vector2(region.Position.x, i + 1));
+            for (float j = region.Position.x + 1; j < region.End.x; j++)
             {
-                bool bit = (j == region.End.x) ? false : bitmap.GetBit(new Vector2(j, i));
-                if (!ppbit && pbit && !bit)
+                bool urbit = bitmap.GetBit(new Vector2(j, i));
+                bool drbit = bitmap.GetBit(new Vector2(j, i + 1));
+
+                if (ulbit && !urbit && !dlbit && drbit)
                 {
-                    if (j - 2 >= region.Position.x) { bitmap.SetBit(new Vector2(j - 2, i), true); }
-                    bitmap.SetBit(new Vector2(j - 1, i), true);
-                    if (j < region.End.x) { bitmap.SetBit(new Vector2(j, i), true); }
+                    bitmap.SetBit(new Vector2(j, i), true);
+                    bitmap.SetBit(new Vector2(j - 1, i + 1), true);
                 }
-                ppbit = pbit;
-                pbit = bit;
+
+                if (!ulbit && urbit && dlbit && !drbit)
+                {
+                    bitmap.SetBit(new Vector2(j - 1, i), true);
+                    bitmap.SetBit(new Vector2(j, i + 1), true);
+                }
+
+                ulbit = urbit;
+                dlbit = drbit;
             }
         }
 

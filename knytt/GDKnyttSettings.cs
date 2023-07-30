@@ -317,7 +317,7 @@ public class GDKnyttSettings : Node
                 GDKnyttKeys.setAction("debug_die0", new InputEventKey() {Scancode = (uint)KeyList.F3});
                 GDKnyttKeys.saveSettings();
             }
-            //GDKnyttWorldImpl.removeDirectory("user://Cache");
+            GDKnyttWorldImpl.removeDirectory("user://Cache");
             return true;
         }
         return false;
