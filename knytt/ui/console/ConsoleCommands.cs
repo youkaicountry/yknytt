@@ -431,11 +431,6 @@ public static class ConsoleCommands
 
         public TrailCommand(CommandParseResult result)
         {
-            foreach (var key in result.Args.Keys)
-            {
-                GD.Print(key);
-            }
-            
             size = result.Args.TryGetValue("size", out var j) && j != null ? (int?)int.Parse(j) : null;
             frames = result.Args.TryGetValue("frames", out var i) && i != null ? (int?)int.Parse(i) : null;
         }
@@ -455,6 +450,9 @@ public static class ConsoleCommands
             if (frames != null) { game.Trails.TrailFrames = frames.Value; }
 
             game.Trails.On = !game.Trails.On;
+            var status = game.Trails.On ? $"on (size: {game.Trails.TrailCount}, frames: {game.Trails.TrailFrames})" : "off";
+            
+            env.Console.AddMessage($"Trails: {status}");
 
             return null;
         }
