@@ -16,14 +16,19 @@ public class GDKnyttAmbiChannel : Node
         get { return on_track1 ? track1 : track2; }
     }
 
+    bool has_custom_volume;
+    public float Volume;
+
     public override void _Ready()
     {
         track1 = GetNode<GDKnyttAmbiTrack>("AmbiTrack1");
         track2 = GetNode<GDKnyttAmbiTrack>("AmbiTrack2");
     }
 
-    public void setTrack(int num, bool no_fade_in = false)
+    public void setTrack(int num, bool has_custom_volume = false)
     {
+        this.has_custom_volume = has_custom_volume;
+
         // If already playing it, no change
         if (CurrentTrack.AmbiNum == num) { return; }
         
@@ -44,12 +49,24 @@ public class GDKnyttAmbiChannel : Node
         if (CurrentTrack.AmbiNum == num) { CurrentTrack.fadeIn(); }
         else { CurrentTrack.changeTrack(num, stream); }
 
-        // If no fade in, start the track at full volume
-        if (no_fade_in) { CurrentTrack.fullVolume(); }
+        if (has_custom_volume)
+        {
+            CurrentTrack.mute();
+            Volume = -100;
+        }
     }
 
     private void flipTracks()
     {
         on_track1 = !on_track1;
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        if (has_custom_volume)
+        {
+            CurrentTrack.VolumeDb = Volume;
+            Volume = -100;
+        }
     }
 }

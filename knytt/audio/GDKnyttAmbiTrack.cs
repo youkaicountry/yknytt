@@ -34,9 +34,10 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         fading = true;
     }
 
-    public void fullVolume()
+    public void mute()
     {
-        fade_i = 1f;
+        VolumeDb = -100f;
+        fading = false;
     }
 
     public override void _PhysicsProcess(float delta)
