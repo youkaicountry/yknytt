@@ -746,7 +746,6 @@ public class Juni : KinematicBody2D
 
     public void reset()
     {
-        Sprite.FlipH = false;
         Sprite.Visible = true;
         this.dead = false;
         this.velocity = Godot.Vector2.Zero;

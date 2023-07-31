@@ -45,7 +45,7 @@ __meta__ = {
 }
 
 [node name="BackButton" parent="." instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 0.3333 )
+modulate = Color( 1, 1, 1, 0.4 )
 margin_left = 10.0
 margin_top = 200.0
 margin_right = 55.0
@@ -54,7 +54,7 @@ rect_min_size = Vector2( 60, 0 )
 text = ""
 
 [node name="Arrow" type="TextureRect" parent="BackButton"]
-modulate = Color( 1, 1, 1, 3 )
+modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
@@ -62,7 +62,7 @@ stretch_mode = 4
 flip_h = true
 
 [node name="DisabledArrow" type="TextureRect" parent="BackButton"]
-modulate = Color( 1, 1, 1, 3 )
+modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
@@ -73,7 +73,7 @@ __meta__ = {
 }
 
 [node name="NextButton" parent="." instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 0.3333 )
+modulate = Color( 1, 1, 1, 0.4 )
 margin_left = 532.0
 margin_top = 200.0
 margin_right = 577.0
@@ -82,7 +82,7 @@ rect_min_size = Vector2( 60, 0 )
 text = ""
 
 [node name="Arrow" type="TextureRect" parent="NextButton"]
-modulate = Color( 1, 1, 1, 3 )
+modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
@@ -90,7 +90,7 @@ stretch_mode = 4
 
 [node name="OKLabel" type="Label" parent="NextButton"]
 visible = false
-modulate = Color( 1, 1, 1, 3 )
+modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )

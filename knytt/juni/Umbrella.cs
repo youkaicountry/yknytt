@@ -8,7 +8,6 @@ public class Umbrella : Sprite
         set
         {
             this.FlipH = !value;
-            this.Offset = new Vector2(value ? 1 : -1, 0);
             umbrellaShape.Scale = new Vector2(value ? 1 : -1, 1);
         }
     }
