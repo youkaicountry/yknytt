@@ -46,6 +46,9 @@ public static class ConsoleCommands
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
         cs.AddCommand(new CommandDeclaration("col", "Toggle collision shapes", null, OS.IsDebugBuild(), ColCommand.NewColCommand));
+        cs.AddCommand(new CommandDeclaration("trail", "Toggle debug trails", null, false, TrailCommand.NewTrailCommand, 
+            new CommandArg("size", CommandArg.Type.IntArg, optional: true),
+            new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -416,6 +419,40 @@ public static class ConsoleCommands
             var env = (ConsoleExecutionEnvironment)environment;
             var status = GDKnyttDataStore.Tree.DebugCollisionsHint ? "on" : "off";
             env.Console.AddMessage($"Collision shape rendering: {status}");
+
+            return null;
+        }
+    }
+
+    public class TrailCommand : ICommand
+    {
+        int? size;
+        int? frames;
+
+        public TrailCommand(CommandParseResult result)
+        {
+            size = result.Args.TryGetValue("size", out var j) && j != null ? (int?)int.Parse(j) : null;
+            frames = result.Args.TryGetValue("frames", out var i) && i != null ? (int?)int.Parse(i) : null;
+        }
+
+        public static ICommand NewTrailCommand(CommandParseResult result)
+        {
+            return new TrailCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game == null) { return "No game is loaded"; }
+
+            if (size != null) { game.Trails.TrailCount = size.Value; }
+            if (frames != null) { game.Trails.TrailFrames = frames.Value; }
+
+            game.Trails.On = !game.Trails.On;
+            var status = game.Trails.On ? $"on (size: {game.Trails.TrailCount}, frames: {game.Trails.TrailFrames})" : "off";
+            
+            env.Console.AddMessage($"Trails: {status}");
 
             return null;
         }
