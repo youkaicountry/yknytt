@@ -16,10 +16,8 @@ public class GDKnyttArea : Node2D
     public bool Swim { get; set; }
 
     public bool PlayNoMusic { get; set; }
-    public bool PlayNoAmbiance1 { get; set; }
-    public bool PlayNoAmbiance2 { get; set; }
-    public bool NoAmbiance1FadeIn { get; set; }
-    public bool NoAmbiance2FadeIn { get; set; }
+    public bool Ambiance1CustomVolume { get; set; }
+    public bool Ambiance2CustomVolume { get; set; }
 
     public static float Width { get { return KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; } }
     public static float Height { get { return KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; } }

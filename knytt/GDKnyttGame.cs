@@ -318,8 +318,8 @@ public class GDKnyttGame : Node2D
     {
         // Audio
         this.MusicChannel.setTrack(CurrentArea.PlayNoMusic ? 0 : CurrentArea.Area.Song);
-        this.AmbianceChannel1.setTrack(CurrentArea.PlayNoAmbiance1 ? 0 : CurrentArea.Area.AtmosphereA, CurrentArea.NoAmbiance1FadeIn);
-        this.AmbianceChannel2.setTrack(CurrentArea.PlayNoAmbiance2 ? 0 : CurrentArea.Area.AtmosphereB, CurrentArea.NoAmbiance2FadeIn);
+        this.AmbianceChannel1.setTrack(CurrentArea.Area.AtmosphereA, CurrentArea.Ambiance1CustomVolume);
+        this.AmbianceChannel2.setTrack(CurrentArea.Area.AtmosphereB, CurrentArea.Ambiance2CustomVolume);
 
         // UI
         UI.Location.updateLocation(this.CurrentArea.Area.Position);
