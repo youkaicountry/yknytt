@@ -28,7 +28,7 @@ public static class ConsoleCommands
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
             false, SetCommand.NewSetCommand, new CommandArg("variable", CommandArg.Type.StringArg, optional: false), 
-            new CommandArg("value", CommandArg.Type.StringArg, optional: false)));
+            new CommandArg("value", CommandArg.Type.BoolArg, optional: false)));
         cs.AddCommand(new CommandDeclaration("monitor", "Monitors current area position. Also can monitor Juni's flags.", 
             "monitor: turn on monitor, display always on top\n" +
             "monitor flash: display only when value changes (like '-' on keyboard)\n" +
@@ -173,6 +173,8 @@ public static class ConsoleCommands
                 case null:
                     if (game == null) { return "No game is loaded"; }
                     game.saveGame(game.Juni, write: true);
+                    env.Console.AddMessage("Game was saved to " + 
+                        OS.GetUserDataDir().PlusFile("Saves").PlusFile(game.GDWorld.KWorld.CurrentSave.SaveFileName));
                     break;
 
                 case "print":
@@ -291,12 +293,12 @@ public static class ConsoleCommands
     {
         private static string[] names = Enum.GetNames(typeof(JuniValues.PowerNames));
         string variable;
-        string value;
+        bool value;
 
         public SetCommand(CommandParseResult result)
         {
             variable = result.Args["variable"];
-            value = result.Args["value"];
+            value = result.GetArgAsBool("value");
         }
 
         public static ICommand NewSetCommand(CommandParseResult result)
@@ -310,21 +312,17 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
-            bool? bvalue = null;
-            if (value == "on" || value == "1") { bvalue = true; }
-            if (value == "off" || value == "0") { bvalue = false; }
-
             int power_index = Array.FindIndex(names, x => x.ToLower() == variable);
-            if (power_index != -1 && bvalue != null)
+            if (power_index != -1)
             {
-                game.Juni.setPower(power_index, bvalue ?? true);
+                game.Juni.setPower(power_index, value);
                 game.sendCheat();
                 env.Console.AddMessage($"{((JuniValues.PowerNames)power_index).ToString()} set to {value}");
             }
-            else if (variable.StartsWith("flag") && bvalue != null && 
+            else if (variable.StartsWith("flag") && 
                      int.TryParse(variable.Substring(4), out var flag_index) && flag_index >= 0 && flag_index < 10)
             {
-                game.Juni.Powers.setFlag(flag_index, bvalue ?? true);
+                game.Juni.Powers.setFlag(flag_index, value);
                 game.UI.Location.updateFlags(game.Juni.Powers.Flags);
                 game.sendCheat();
                 env.Console.AddMessage($"Flag {flag_index} set to {value}");

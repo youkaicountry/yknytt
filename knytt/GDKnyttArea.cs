@@ -27,7 +27,7 @@ public class GDKnyttArea : Node2D
     PackedScene objects_scene;
     PackedScene tiles_scene;
 
-    private const int EMPTY_AREA_GRADIENT = 500;
+    private const int EMPTY_AREA_GRADIENT = 0;
 
     public GDKnyttArea()
     {

@@ -5,14 +5,8 @@ public class Automation : GDKnyttBaseObject
 {
     private static Dictionary<int, string> actionNames = new Dictionary<int, string>()
     {
-        [248] = "hologram",
-        [249] = "walk",
-        [250] = "jump",
-        [251] = "umbrella",
-        [252] = "up",
-        [253] = "down",
-        [254] = "left",
-        [255] = "right"
+        [248] = "hologram", [249] = "walk", [250] = "jump", [251] = "umbrella",
+        [252] = "up", [253] = "down", [254] = "left", [255] = "right"
     };
 
     private string action;
@@ -25,7 +19,7 @@ public class Automation : GDKnyttBaseObject
         action = actionNames[ObjectID.y];
     }
 
-    private void _on_Area2D_body_entered(Juni juni)
+    protected virtual void _on_Area2D_body_entered(Juni juni)
     {
         if (!juni.juniInput.altInput.IsActionPressed(action) && GDArea.Selector.IsOpen)
         {
