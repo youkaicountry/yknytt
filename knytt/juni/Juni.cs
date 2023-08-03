@@ -59,6 +59,7 @@ public class Juni : KinematicBody2D
     [Signal] public delegate void PowerChanged();
     [Signal] public delegate void HologramStopped(Juni juni);
     [Signal] public delegate void DownEvent(Juni juni);
+    [Signal] public delegate void Died(Juni juni);
 
     PackedScene hologram_scene;
 
@@ -722,6 +723,9 @@ public class Juni : KinematicBody2D
         Umbrella.Visible = false;
         Detector.Visible = false;
         this.dead = true;
+
+        EmitSignal(nameof(Died), this);
+
         var timer = GetNode<Timer>("RespawnTimer");
         timer.Start();
 
