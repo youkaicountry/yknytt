@@ -16,6 +16,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttWorld GDWorld { get; private set; }
     public GDKnyttCamera Camera { get; private set; }
     public TrailContainer Trails { get; private set; }
+    public DeathContainer Deaths { get; private set; }
 
     // Audio channels
     public GDKnyttMusicChannel MusicChannel { get; private set; }
@@ -56,6 +57,8 @@ public class GDKnyttGame : Node2D
         this.Trails = GetNode<TrailContainer>("%TrailContainer");
         this.Trails.initialize(this);
 
+        this.Deaths = GetNode<DeathContainer>("%DeathContainer");
+
         UI = GetNode<UICanvasLayer>("%UICanvasLayer");
         this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
@@ -93,6 +96,7 @@ public class GDKnyttGame : Node2D
         Juni.initialize(this);
         Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
         Juni.Connect(nameof(Juni.PowerChanged), this, nameof(sendPowerUpdate));
+        Juni.Connect(nameof(Juni.Died), Deaths, nameof(Deaths.onDied));
     }
 
     public async void respawnJuniWithWSOD()
