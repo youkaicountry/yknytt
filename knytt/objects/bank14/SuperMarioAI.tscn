@@ -1,8 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank14/super_mario.png" type="Texture" id=2]
-
+[ext_resource path="res://knytt/objects/bank14/img/super_mario.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -55,4 +54,5 @@ collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeadlyArea2D" index="0"]
 polygon = PoolVector2Array( 7.9356, 23.7558, 2.12966, 21.2274, 2.03601, 15.0469, 5.96907, 6.15069, 12.1496, 4.18417, 18.9856, 6.05705, 21.8886, 15.0469, 21.8886, 21.0401, 17.1127, 23.8494 )
+
 [connection signal="body_entered" from="DeadlyArea2D" to="." method="onDeadlyAreaEntered"]

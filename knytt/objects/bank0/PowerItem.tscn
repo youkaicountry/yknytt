@@ -3,7 +3,6 @@
 [ext_resource path="res://knytt/objects/bank0/PowerItem.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/bank0/PowerItemFrames.tres" type="SpriteFrames" id=2]
 
-
 [sub_resource type="RectangleShape2D" id=71]
 extents = Vector2( 11, 11 )
 
@@ -17,9 +16,9 @@ playing = true
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
-monitorable = false
 collision_layer = 0
 collision_mask = 2147483649
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 12, 12 )

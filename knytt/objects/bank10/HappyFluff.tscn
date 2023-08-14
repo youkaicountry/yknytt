@@ -1,8 +1,7 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://knytt/objects/bank10/happy_fluff.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank10/img/happy_fluff.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=2]
-
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -86,7 +85,6 @@ animations = [ {
 
 [node name="AnimatedSprite" type="AnimatedSprite"]
 frames = SubResource( 19 )
-frame = 6
 playing = true
 centered = false
 script = ExtResource( 2 )

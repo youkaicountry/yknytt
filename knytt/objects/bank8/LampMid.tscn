@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://knytt/objects/bank8/simple4.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank8/img/simple4.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=2]
 
 

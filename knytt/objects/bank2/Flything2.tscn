@@ -1,9 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://knytt/objects/bank2/flything_2.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank2/img/flything_2.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank2/BuzzFlyer.tscn" type="PackedScene" id=2]
-
-
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

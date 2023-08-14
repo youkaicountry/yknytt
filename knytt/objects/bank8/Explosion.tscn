@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/bank8/explosion.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank8/img/explosion.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank8/Explosion.cs" type="Script" id=2]
 
 
