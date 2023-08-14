@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://knytt/objects/bank5/ShadowWitch.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank5/shadow_witch.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank5/shadow_witch_angry.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank5/img/shadow_witch.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank5/img/shadow_witch_angry.png" type="Texture" id=3]
 
 
 [sub_resource type="AtlasTexture" id=1]

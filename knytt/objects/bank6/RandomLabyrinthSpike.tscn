@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/objects/bank6/random_labyrinth_spike.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank6/img/random_labyrinth_spike.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank6/LabyrinthSpike.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/bank6/RandomLabyrinthSpike.cs" type="Script" id=3]
-
 
 [node name="Spike" instance=ExtResource( 2 )]
 script = ExtResource( 3 )

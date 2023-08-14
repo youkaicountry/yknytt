@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://knytt/objects/bank12/eater.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank12/img/eater.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/common/BaseEater.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=4]
 

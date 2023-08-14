@@ -1,11 +1,11 @@
 [gd_scene load_steps=71 format=2]
 
-[ext_resource path="res://knytt/objects/bank2/fire_walking.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bank2/fire_stopped_3.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank2/fire_stopped_4.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/bank2/fire_stopped.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/bank2/fire_stopped_2.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank2/fire_launching.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank2/img/fire_walking.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank2/img/fire_stopped_3.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank2/img/fire_stopped_4.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank2/img/fire_stopped.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank2/img/fire_stopped_2.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank2/img/fire_launching.png" type="Texture" id=6]
 [ext_resource path="res://knytt/objects/bank2/Elemental.tscn" type="PackedScene" id=7]
 [ext_resource path="res://knytt/data/Sfx/Elemental B.wav" type="AudioStream" id=8]
 
