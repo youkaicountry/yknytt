@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank12/ground_blob.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank12/img/ground_blob.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/bank12/GroundBlob.cs" type="Script" id=4]
 

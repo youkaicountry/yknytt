@@ -6,9 +6,10 @@
 [ext_resource path="res://knytt/data/Sfx/Spike Down.wav" type="AudioStream" id=4]
 [ext_resource path="res://knytt/data/Sfx/Spike Up.wav" type="AudioStream" id=5]
 
-
 [node name="SpikerMod" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+areaPath = null
+playSound = true
 
 [node name="ClosePlayer" parent="." index="0" instance=ExtResource( 2 )]
 stream = ExtResource( 4 )

@@ -23,7 +23,7 @@ public class FlySpike : GDKnyttBaseObject
     {
         FacingRight = !FacingRight;
         animated.Stop();
-        animated.Frame = 0;
+        animated.Frame = 0; // TODO: stop animation
         animated.FlipH = !FacingRight;
         wait_timer.WaitTime = random.NextFloat(MIN_WAIT, MAX_WAIT);
         wait_timer.Start();

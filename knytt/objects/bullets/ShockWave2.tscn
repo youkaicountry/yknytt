@@ -1,7 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bullets/shockwave2.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bullets/img/shockwave2.png" type="Texture" id=2]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0

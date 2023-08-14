@@ -1,18 +1,18 @@
-[gd_resource type="SpriteFrames" load_steps=84 format=2]
+[gd_resource type="SpriteFrames" load_steps=119 format=2]
 
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power0.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power1.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power2.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power3.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power4.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power9.png" type="Texture" id=6]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power10.png" type="Texture" id=7]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power11.png" type="Texture" id=8]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/hologram.png" type="Texture" id=9]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power6.png" type="Texture" id=10]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power5.png" type="Texture" id=11]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power8.png" type="Texture" id=12]
-[ext_resource path="res://knytt/objects/bank0/power_gfx/power12.png" type="Texture" id=13]
+[ext_resource path="res://knytt/objects/bank0/img/power0.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank0/img/power1.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank0/img/power2.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank0/img/power3.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank0/img/power4.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank0/img/0-22 Animated.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank0/img/0-9 Animated.png" type="Texture" id=7]
+[ext_resource path="res://knytt/objects/bank0/img/0-23 Animated.png" type="Texture" id=8]
+[ext_resource path="res://knytt/objects/bank0/img/hologram.png" type="Texture" id=9]
+[ext_resource path="res://knytt/objects/bank0/img/0-21 Animated.png" type="Texture" id=10]
+[ext_resource path="res://knytt/objects/bank0/img/power5.png" type="Texture" id=11]
+[ext_resource path="res://knytt/objects/bank0/img/0-24 Animated.png" type="Texture" id=12]
+[ext_resource path="res://knytt/objects/bank0/img/power12.png" type="Texture" id=13]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -94,13 +94,69 @@ region = Rect2( 0, 144, 24, 24 )
 atlas = ExtResource( 2 )
 region = Rect2( 0, 168, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=79]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 8 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=81]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=82]
+atlas = ExtResource( 8 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=83]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=84]
+atlas = ExtResource( 8 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=85]
+atlas = ExtResource( 8 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=86]
+atlas = ExtResource( 8 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=87]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=88]
+atlas = ExtResource( 12 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=89]
+atlas = ExtResource( 12 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=90]
+atlas = ExtResource( 12 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=91]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=92]
+atlas = ExtResource( 12 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=93]
+atlas = ExtResource( 12 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=94]
+atlas = ExtResource( 12 )
+region = Rect2( 168, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 13 )
@@ -250,9 +306,37 @@ region = Rect2( 0, 144, 24, 24 )
 atlas = ExtResource( 11 )
 region = Rect2( 0, 168, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 10 )
+[sub_resource type="AtlasTexture" id=95]
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=96]
+atlas = ExtResource( 7 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=97]
+atlas = ExtResource( 7 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 7 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 7 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 7 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 7 )
+region = Rect2( 168, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=71]
 atlas = ExtResource( 9 )
@@ -286,35 +370,91 @@ region = Rect2( 144, 0, 24, 24 )
 atlas = ExtResource( 9 )
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=70]
-atlas = ExtResource( 12 )
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=29]
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 10 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 10 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=106]
+atlas = ExtResource( 10 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=107]
+atlas = ExtResource( 10 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=108]
+atlas = ExtResource( 10 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 10 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 10 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=111]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 6 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=113]
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=114]
+atlas = ExtResource( 6 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 6 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=117]
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=118]
+atlas = ExtResource( 6 )
+region = Rect2( 168, 0, 24, 24 )
 
 [resource]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "Power0",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
 "loop": true,
 "name": "Power1",
-"speed": 8.0
+"speed": 12.0
 }, {
-"frames": [ SubResource( 53 ) ],
+"frames": [ SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ), SubResource( 86 ) ],
 "loop": true,
 "name": "Power10",
-"speed": 5.0
+"speed": 12.0
 }, {
-"frames": [ SubResource( 27 ) ],
+"frames": [ SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ), SubResource( 91 ), SubResource( 92 ), SubResource( 93 ), SubResource( 94 ) ],
 "loop": true,
 "name": "Power11",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ) ],
 "loop": true,
@@ -324,40 +464,40 @@ animations = [ {
 "frames": [ SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
 "loop": true,
 "name": "Power2",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
 "loop": true,
 "name": "Power3",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
 "name": "Power4",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
 "loop": true,
 "name": "Power5",
-"speed": 8.0
+"speed": 12.0
 }, {
-"frames": [ SubResource( 28 ) ],
+"frames": [ SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ) ],
 "loop": true,
 "name": "Power6",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ) ],
 "loop": true,
 "name": "Power7",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 70 ) ],
+"frames": [ SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ) ],
 "loop": true,
 "name": "Power8",
-"speed": 5.0
+"speed": 12.0
 }, {
-"frames": [ SubResource( 29 ) ],
+"frames": [ SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ), SubResource( 118 ) ],
 "loop": true,
 "name": "Power9",
-"speed": 5.0
+"speed": 12.0
 } ]
