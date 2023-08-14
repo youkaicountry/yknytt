@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 using IniParser.Model;
 using YKnyttLib;
 
@@ -38,6 +39,7 @@ public class CustomObject : GDKnyttBaseObject
         int bank = getInt(section, "Bank", -1);
         int obj = getInt(section, "Object", -1);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
+        string image = getString(section, "Image");
         Color color = new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
         if (bank != -1 && obj != -1)
         {
@@ -47,6 +49,7 @@ public class CustomObject : GDKnyttBaseObject
                 var node = bundle.getNode(Layer, Coords);
                 if (safe) { node.makeSafe(); }
                 if (bank == 7) { node.Modulate = color; }
+                if (image != null) { overrideAnimation(node, image); }
                 AddChild(node);
             }
             return;
@@ -76,6 +79,44 @@ public class CustomObject : GDKnyttBaseObject
     private static int getInt(KeyDataCollection section, string key, int @default)
     {
         return int.TryParse(getString(section, key), out int i) ? i : @default;
+    }
+
+    private void overrideAnimation(GDKnyttBaseObject obj, string image)
+    {
+        var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
+                     obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite") ??
+                     obj.GetNodeOrNull<AnimatedSprite>(".");
+        var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite") ??
+                            obj.GetNodeOrNull<Sprite>(".");
+        if (sprite == null && static_sprite == null) { GD.Print($"No sprite found for custom object {ObjectID.y}"); return; }
+        var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
+        
+        if (static_sprite != null) { static_sprite.Texture = image_texture; return; }
+
+        var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
+        sprite.Frames = new_frames;
+        bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj.ObjectID.y.ToString()));
+        foreach (var anim in new_frames.GetAnimationNames())
+        {
+            if (one_animation_mode && !anim.EndsWith(obj.ObjectID.y.ToString())) { continue; }
+            for (int i = 0; i < new_frames.GetFrameCount(anim); i++)
+            {
+                var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
+                int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.x;
+                int row = (int)tex.Region.Position.y / (int)tex.Region.Size.y;
+                int column = (int)tex.Region.Position.x / (int)tex.Region.Size.x;
+                int index = row * columns + column;
+
+                int new_columns = image_texture.GetWidth() / (int)tex.Region.Size.x;
+                int new_row = index / new_columns;
+                int new_column = index % new_columns;
+
+                var new_tex = new AtlasTexture();
+                new_tex.Atlas = image_texture;
+                new_tex.Region = new Rect2(new_column * tex.Region.Size.x, new_row * tex.Region.Size.y, tex.Region.Size.x, tex.Region.Size.y);
+                new_frames.SetFrame(anim, i, new_tex);
+            }
+        }
     }
 
     protected bool fillAnimation(string animation_name)
