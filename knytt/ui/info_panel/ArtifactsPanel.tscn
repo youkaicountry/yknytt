@@ -1,44 +1,44 @@
-[gd_scene load_steps=159 format=2]
+[gd_scene load_steps=170 format=2]
 
-[ext_resource path="res://knytt/objects/bank19/img/fly_spike20.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/birdie3.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank19/img/birdie1_stop.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/bank19/img/snow_bird_stop.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/bank19/img/buzz_flyer2.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank19/img/bad_flything.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank19/img/19-1.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank19/img/19-9.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank19/img/19-8.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank19/img/19-7.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank19/img/19-11.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank19/img/19-12.png" type="Texture" id=6]
 [ext_resource path="res://knytt/objects/bank19/img/cave_firefly_run.png" type="Texture" id=7]
-[ext_resource path="res://knytt/objects/bank19/img/tentacle_flything.png" type="Texture" id=8]
-[ext_resource path="res://knytt/objects/bank19/img/flything.png" type="Texture" id=9]
-[ext_resource path="res://knytt/objects/bank19/img/bad_flything_3.png" type="Texture" id=10]
+[ext_resource path="res://knytt/objects/bank19/img/19-10.png" type="Texture" id=8]
+[ext_resource path="res://knytt/objects/bank19/img/19-28.png" type="Texture" id=9]
+[ext_resource path="res://knytt/objects/bank19/img/19-31.png" type="Texture" id=10]
 [ext_resource path="res://knytt/ui/info_panel/ArtifactsPanel.cs" type="Script" id=11]
-[ext_resource path="res://knytt/objects/bank19/img/muff7s.png" type="Texture" id=12]
-[ext_resource path="res://knytt/objects/bank19/img/circle_bird.png" type="Texture" id=13]
-[ext_resource path="res://knytt/objects/bank19/img/muff3s.png" type="Texture" id=14]
-[ext_resource path="res://knytt/objects/bank19/img/yellow_dog.png" type="Texture" id=15]
-[ext_resource path="res://knytt/objects/bank19/img/muff6s.png" type="Texture" id=16]
+[ext_resource path="res://knytt/objects/bank19/img/19-24.png" type="Texture" id=12]
+[ext_resource path="res://knytt/objects/bank19/img/19-39.png" type="Texture" id=13]
+[ext_resource path="res://knytt/objects/bank19/img/19-41.png" type="Texture" id=14]
+[ext_resource path="res://knytt/objects/bank19/img/19-23.png" type="Texture" id=15]
+[ext_resource path="res://knytt/objects/bank19/img/19-48.png" type="Texture" id=16]
 [ext_resource path="res://knytt/ui/info_panel/Grayscale.tres" type="Shader" id=17]
-[ext_resource path="res://knytt/objects/bank19/img/muff17s.png" type="Texture" id=18]
-[ext_resource path="res://knytt/objects/bank19/img/left_stranger_climb.png" type="Texture" id=19]
-[ext_resource path="res://knytt/objects/bank19/img/big_cat.png" type="Texture" id=20]
-[ext_resource path="res://knytt/objects/bank19/img/6leg_child_stop.png" type="Texture" id=21]
-[ext_resource path="res://knytt/objects/bank19/img/muff9s.png" type="Texture" id=22]
-[ext_resource path="res://knytt/objects/bank19/img/drop_crawler_2_stop.png" type="Texture" id=23]
-[ext_resource path="res://knytt/objects/bank19/img/muff25s.png" type="Texture" id=24]
-[ext_resource path="res://knytt/objects/bank19/img/muff19s.png" type="Texture" id=25]
-[ext_resource path="res://knytt/objects/bank19/img/muff24s.png" type="Texture" id=26]
-[ext_resource path="res://knytt/objects/bank19/img/muff34s.png" type="Texture" id=27]
-[ext_resource path="res://knytt/objects/bank19/img/toast_monster.png" type="Texture" id=28]
-[ext_resource path="res://knytt/objects/bank19/img/right_super_stranger_climb.png" type="Texture" id=29]
-[ext_resource path="res://knytt/objects/bank19/img/strange_runner.png" type="Texture" id=30]
-[ext_resource path="res://knytt/objects/bank19/img/homing_bullet_runner.png" type="Texture" id=31]
-[ext_resource path="res://knytt/objects/bank19/img/trishot_walk.png" type="Texture" id=32]
-[ext_resource path="res://knytt/objects/bank19/img/self_dropper.png" type="Texture" id=33]
-[ext_resource path="res://knytt/objects/bank19/img/trap_flower.png" type="Texture" id=34]
-[ext_resource path="res://knytt/objects/bank19/img/small_timed_flower.png" type="Texture" id=35]
-[ext_resource path="res://knytt/objects/bank19/img/eater.png" type="Texture" id=36]
-[ext_resource path="res://knytt/objects/bank19/img/timed_flower.png" type="Texture" id=37]
-[ext_resource path="res://knytt/objects/bank19/img/teenage_fluff.png" type="Texture" id=38]
-[ext_resource path="res://knytt/objects/bank19/img/up_stuff_shooter.png" type="Texture" id=39]
+[ext_resource path="res://knytt/objects/bank19/img/19-42.png" type="Texture" id=18]
+[ext_resource path="res://knytt/objects/bank19/img/19-43.png" type="Texture" id=19]
+[ext_resource path="res://knytt/objects/bank19/img/19-21.png" type="Texture" id=20]
+[ext_resource path="res://knytt/objects/bank19/img/19-25.png" type="Texture" id=21]
+[ext_resource path="res://knytt/objects/bank19/img/19-27.png" type="Texture" id=22]
+[ext_resource path="res://knytt/objects/bank19/img/19-29.png" type="Texture" id=23]
+[ext_resource path="res://knytt/objects/bank19/img/19-2.png" type="Texture" id=24]
+[ext_resource path="res://knytt/objects/bank19/img/19-37.png" type="Texture" id=25]
+[ext_resource path="res://knytt/objects/bank19/img/19-22.png" type="Texture" id=26]
+[ext_resource path="res://knytt/objects/bank19/img/19-32.png" type="Texture" id=27]
+[ext_resource path="res://knytt/objects/bank19/img/19-34.png" type="Texture" id=28]
+[ext_resource path="res://knytt/objects/bank19/img/19-6.png" type="Texture" id=29]
+[ext_resource path="res://knytt/objects/bank19/img/19-30.png" type="Texture" id=30]
+[ext_resource path="res://knytt/objects/bank19/img/19-14.png" type="Texture" id=31]
+[ext_resource path="res://knytt/objects/bank19/img/19-18.png" type="Texture" id=32]
+[ext_resource path="res://knytt/objects/bank19/img/19-17.png" type="Texture" id=33]
+[ext_resource path="res://knytt/objects/bank19/img/19-40.png" type="Texture" id=34]
+[ext_resource path="res://knytt/objects/bank19/img/19-38.png" type="Texture" id=35]
+[ext_resource path="res://knytt/objects/bank19/img/19-35.png" type="Texture" id=36]
+[ext_resource path="res://knytt/objects/bank19/img/19-19.png" type="Texture" id=37]
+[ext_resource path="res://knytt/objects/bank19/img/19-15.png" type="Texture" id=38]
+[ext_resource path="res://knytt/objects/bank19/img/19-3.png" type="Texture" id=39]
 [ext_resource path="res://knytt/objects/bank19/img/coin_icon.png" type="Texture" id=40]
 [ext_resource path="res://knytt/objects/bank19/img/artifact_3.png" type="Texture" id=41]
 [ext_resource path="res://knytt/objects/bank19/img/artifact_5.png" type="Texture" id=42]
@@ -47,20 +47,19 @@
 [ext_resource path="res://knytt/objects/bank19/img/artifact_2.png" type="Texture" id=45]
 [ext_resource path="res://knytt/objects/bank19/img/artifact_1.png" type="Texture" id=46]
 [ext_resource path="res://knytt/objects/bank19/img/artifact_7.png" type="Texture" id=47]
-[ext_resource path="res://knytt/objects/bank19/img/green_worm_stop.png" type="Texture" id=48]
-[ext_resource path="res://knytt/objects/bank19/img/harmless_insect.png" type="Texture" id=49]
-[ext_resource path="res://knytt/objects/bank19/img/smile_ball_smile.png" type="Texture" id=50]
-[ext_resource path="res://knytt/objects/bank19/img/shock_disk_3_stop.png" type="Texture" id=51]
-[ext_resource path="res://knytt/objects/bank19/img/shock_disk_2_walk.png" type="Texture" id=52]
-[ext_resource path="res://knytt/objects/bank19/img/green_disk_stop.png" type="Texture" id=53]
-[ext_resource path="res://knytt/objects/bank19/img/stationary_rock.png" type="Texture" id=54]
-[ext_resource path="res://knytt/objects/bank19/img/small_spider.png" type="Texture" id=55]
-[ext_resource path="res://knytt/objects/bank19/img/water_monster.png" type="Texture" id=56]
-[ext_resource path="res://knytt/objects/bank19/img/spikeless_spiker.png" type="Texture" id=57]
-[ext_resource path="res://knytt/objects/bank19/img/supershot_right_stop.png" type="Texture" id=58]
-[ext_resource path="res://knytt/objects/bank19/img/dark_randomizer_ready.png" type="Texture" id=59]
-[ext_resource path="res://knytt/objects/bank19/img/another_snail.png" type="Texture" id=60]
-
+[ext_resource path="res://knytt/objects/bank19/img/19-16.png" type="Texture" id=48]
+[ext_resource path="res://knytt/objects/bank19/img/19-20.png" type="Texture" id=49]
+[ext_resource path="res://knytt/objects/bank19/img/19-36.png" type="Texture" id=50]
+[ext_resource path="res://knytt/objects/bank19/img/19-33.png" type="Texture" id=51]
+[ext_resource path="res://knytt/objects/bank19/img/19-13.png" type="Texture" id=52]
+[ext_resource path="res://knytt/objects/bank19/img/19-26.png" type="Texture" id=53]
+[ext_resource path="res://knytt/objects/bank19/img/19-5.png" type="Texture" id=54]
+[ext_resource path="res://knytt/objects/bank19/img/19-47.png" type="Texture" id=55]
+[ext_resource path="res://knytt/objects/bank19/img/19-44.png" type="Texture" id=56]
+[ext_resource path="res://knytt/objects/bank19/img/19-45.png" type="Texture" id=57]
+[ext_resource path="res://knytt/objects/bank19/img/19-46.png" type="Texture" id=58]
+[ext_resource path="res://knytt/objects/bank19/img/19-49.png" type="Texture" id=59]
+[ext_resource path="res://knytt/objects/bank19/img/19-50.png" type="Texture" id=60]
 
 [sub_resource type="StyleBoxFlat" id=100]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -79,7 +78,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 9 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=12]
@@ -87,7 +86,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 24 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=13]
@@ -95,7 +94,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 39 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=14]
@@ -107,7 +106,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 54 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=16]
@@ -115,20 +114,24 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 26 )
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=18]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=19]
 shader = ExtResource( 17 )
@@ -142,48 +145,72 @@ region = Rect2( 0, 0, 24, 24 )
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=21]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 13 )
+atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=23]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 24, 24, 24 )
+atlas = ExtResource( 52 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=24]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=25]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
+
+[sub_resource type="AtlasTexture" id=106]
+atlas = ExtResource( 38 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=26]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=107]
+atlas = ExtResource( 48 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=27]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
+
+[sub_resource type="AtlasTexture" id=108]
+atlas = ExtResource( 33 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=28]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 25 )
+atlas = ExtResource( 32 )
 region = Rect2( 72, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=30]
@@ -191,23 +218,31 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 26 )
+atlas = ExtResource( 37 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 49 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=33]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
+
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=34]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 20 )
+atlas = ExtResource( 26 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=36]
@@ -215,19 +250,23 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 21 )
+atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=38]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=111]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=39]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 19 )
+atlas = ExtResource( 21 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=41]
@@ -235,7 +274,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 30 )
+atlas = ExtResource( 53 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=43]
@@ -243,7 +282,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 31 )
+atlas = ExtResource( 22 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=45]
@@ -251,15 +290,15 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 28 )
-region = Rect2( 0, 192, 24, 24 )
+atlas = ExtResource( 9 )
+region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=47]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 32 )
+atlas = ExtResource( 23 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=49]
@@ -267,7 +306,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 29 )
+atlas = ExtResource( 30 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=58]
@@ -275,23 +314,23 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 36 )
-region = Rect2( 0, 240, 48, 48 )
+atlas = ExtResource( 10 )
+region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="ShaderMaterial" id=59]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 33 )
-region = Rect2( 0, 120, 24, 24 )
+atlas = ExtResource( 27 )
+region = Rect2( 120, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=60]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 39 )
+atlas = ExtResource( 51 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=61]
@@ -299,7 +338,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 34 )
+atlas = ExtResource( 28 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=62]
@@ -307,7 +346,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 37 )
+atlas = ExtResource( 36 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=63]
@@ -315,7 +354,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 35 )
+atlas = ExtResource( 50 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=64]
@@ -323,7 +362,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 38 )
+atlas = ExtResource( 25 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=81]
@@ -331,19 +370,23 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=72]
-atlas = ExtResource( 52 )
+atlas = ExtResource( 35 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=82]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="ShaderMaterial" id=83]
 shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=73]
-atlas = ExtResource( 51 )
+atlas = ExtResource( 34 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=84]
@@ -351,7 +394,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=74]
-atlas = ExtResource( 48 )
+atlas = ExtResource( 14 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=85]
@@ -359,7 +402,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=75]
-atlas = ExtResource( 49 )
+atlas = ExtResource( 18 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=86]
@@ -367,7 +410,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=76]
-atlas = ExtResource( 54 )
+atlas = ExtResource( 19 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=87]
@@ -375,7 +418,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=77]
-atlas = ExtResource( 50 )
+atlas = ExtResource( 56 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=88]
@@ -383,7 +426,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=89]
-atlas = ExtResource( 60 )
+atlas = ExtResource( 57 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=90]
@@ -391,7 +434,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=91]
-atlas = ExtResource( 57 )
+atlas = ExtResource( 58 )
 region = Rect2( 96, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=92]
@@ -399,7 +442,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=93]
-atlas = ExtResource( 58 )
+atlas = ExtResource( 55 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=94]
@@ -407,7 +450,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=95]
-atlas = ExtResource( 59 )
+atlas = ExtResource( 16 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=96]
@@ -415,7 +458,7 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=97]
-atlas = ExtResource( 55 )
+atlas = ExtResource( 59 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="ShaderMaterial" id=98]
@@ -423,8 +466,8 @@ shader = ExtResource( 17 )
 shader_param/grayscale = false
 
 [sub_resource type="AtlasTexture" id=99]
-atlas = ExtResource( 56 )
-region = Rect2( 0, 192, 24, 48 )
+atlas = ExtResource( 60 )
+region = Rect2( 96, 0, 24, 48 )
 
 [sub_resource type="AtlasTexture" id=65]
 atlas = ExtResource( 46 )
@@ -493,9 +536,6 @@ margin_right = 240.0
 margin_bottom = 225.0
 mouse_filter = 2
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
 margin_right = 480.0
@@ -573,7 +613,7 @@ margin_left = 172.5
 margin_top = 62.0
 margin_right = 196.5
 margin_bottom = 88.0
-texture = SubResource( 6 )
+texture = SubResource( 101 )
 
 [node name="Creature8" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 18 )
@@ -581,7 +621,7 @@ margin_left = 266.0
 margin_top = 81.0
 margin_right = 290.0
 margin_bottom = 105.0
-texture = ExtResource( 3 )
+texture = SubResource( 102 )
 
 [node name="Creature9" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 19 )
@@ -597,7 +637,7 @@ margin_left = 47.0
 margin_top = 4.0
 margin_right = 71.0
 margin_bottom = 28.0
-texture = ExtResource( 4 )
+texture = SubResource( 103 )
 
 [node name="Creature11" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 21 )
@@ -613,7 +653,7 @@ margin_left = 197.0
 margin_top = 36.0
 margin_right = 221.0
 margin_bottom = 60.0
-texture = ExtResource( 14 )
+texture = SubResource( 104 )
 
 [node name="Creature13" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 23 )
@@ -629,7 +669,7 @@ margin_left = 233.0
 margin_top = 37.5
 margin_right = 257.0
 margin_bottom = 61.5
-texture = ExtResource( 16 )
+texture = SubResource( 105 )
 
 [node name="Creature15" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 25 )
@@ -637,7 +677,7 @@ margin_left = 170.5
 margin_top = 13.5
 margin_right = 194.5
 margin_bottom = 37.5
-texture = ExtResource( 12 )
+texture = SubResource( 106 )
 
 [node name="Creature16" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 26 )
@@ -645,7 +685,7 @@ margin_left = 203.5
 margin_top = 16.0
 margin_right = 227.5
 margin_bottom = 40.0
-texture = ExtResource( 22 )
+texture = SubResource( 107 )
 
 [node name="Creature17" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 27 )
@@ -653,7 +693,7 @@ margin_left = 231.5
 margin_top = 19.5
 margin_right = 255.5
 margin_bottom = 43.5
-texture = ExtResource( 18 )
+texture = SubResource( 108 )
 
 [node name="Creature18" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 28 )
@@ -677,7 +717,7 @@ margin_left = 202.5
 margin_top = -8.5
 margin_right = 226.5
 margin_bottom = 15.5
-texture = ExtResource( 24 )
+texture = SubResource( 109 )
 
 [node name="Creature21" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 33 )
@@ -685,7 +725,7 @@ margin_left = 246.0
 margin_top = 63.0
 margin_right = 270.0
 margin_bottom = 87.0
-texture = ExtResource( 27 )
+texture = SubResource( 110 )
 
 [node name="Creature22" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 34 )
@@ -709,7 +749,7 @@ margin_left = 139.5
 margin_top = 68.0
 margin_right = 163.5
 margin_bottom = 92.0
-texture = ExtResource( 23 )
+texture = SubResource( 111 )
 
 [node name="Creature25" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 39 )
@@ -770,7 +810,7 @@ texture = SubResource( 51 )
 [node name="Creature32" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 59 )
 margin_left = 221.0
-margin_top = 80.5
+margin_top = 92.0
 margin_right = 245.0
 margin_bottom = 104.5
 texture = SubResource( 52 )
@@ -829,7 +869,7 @@ margin_left = 237.0
 margin_top = 100.5
 margin_right = 261.0
 margin_bottom = 124.5
-texture = ExtResource( 53 )
+texture = SubResource( 112 )
 
 [node name="Creature40" type="TextureRect" parent="CreaturesControl"]
 material = SubResource( 83 )

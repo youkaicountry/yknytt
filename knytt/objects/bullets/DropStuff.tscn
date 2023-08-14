@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bullets/img/drop_stuff.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bullets/img/drop_stuff_disappearing.png" type="Texture" id=3]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.0
+
+[sub_resource type="CanvasItemMaterial" id=10]
+blend_mode = 1
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -57,5 +59,6 @@ collision_mask = 6176
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
+material = SubResource( 10 )
 position = Vector2( -0.5, -0.5 )
 frames = SubResource( 9 )

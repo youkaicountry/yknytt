@@ -75,6 +75,7 @@ deceleration = 9.0
 jellySpeed = 15
 
 [node name="AnimatedSprite" parent="." index="0"]
+modulate = Color( 1, 1, 1, 0.69 )
 frames = SubResource( 13 )
 
 [node name="CollisionShape2D" parent="." index="3"]

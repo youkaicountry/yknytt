@@ -50,9 +50,11 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[node name="AnimatedSprite" type="AnimatedSprite"]
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 11 )
 frames = SubResource( 10 )
 playing = true
 centered = false
-script = ExtResource( 2 )

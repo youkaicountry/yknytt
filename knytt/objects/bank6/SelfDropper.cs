@@ -34,15 +34,13 @@ public class SelfDropper : GDKnyttBaseObject
                 GetNode<AudioStreamPlayer2D>("DropPlayer").Play();
             }
             // 14 * 50 * delta -- original formula
-            // for some odd reasons original formula makes some enemies impossible to pass
-            if (dropSpeed < 450) { dropSpeed += 10 * 50 * delta; }
+            if (dropSpeed < 450) { dropSpeed += 13 * 50 * delta; }
         }
     }
 
     private void _on_AnimatedSprite_frame_changed()
     {
         int frame = GetNode<AnimatedSprite>("AnimatedSprite").Frame;
-        collisionShape.Position = new Vector2(12, 15 + frame * 2);
-        collisionShape.Scale = new Vector2(new float[] { 0.4f, 0.5f, 0.6f, 0.9f, 1f }[frame], 1);
+        collisionShape.Scale = new Vector2(new float[] { 0.4f, 0.4f, 0.5f, 0.9f, 1f }[frame], 1);
     }
 }
