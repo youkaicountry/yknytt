@@ -346,7 +346,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(15, 9)] = "FalseBlock9";
         ObjectLookup[new KnyttPoint(15, 10)] = "FalseBlock10";
         ObjectLookup[new KnyttPoint(15, 11)] = "FalseBlock11";
-        ObjectLookup[new KnyttPoint(15, 12)] = "LockBlock";
+        ObjectLookup[new KnyttPoint(15, 12)] = "LockBlock12";
         ObjectLookup[new KnyttPoint(15, 13)] = "Password";
         ObjectLookup[new KnyttPoint(15, 14)] = "Password";
         ObjectLookup[new KnyttPoint(15, 15)] = "Password";

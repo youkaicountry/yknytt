@@ -1,131 +1,107 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank3/sky_girl.png" type="Texture" id=2]
-
-
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
+[ext_resource path="res://knytt/objects/bank3/img/sky_girl.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=18]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=19]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=20]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 120, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=21]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 144, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 168, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=23]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 192, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=24]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=25]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=26]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 120, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=27]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 144, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=28]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 168, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=29]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 192, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=30]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 72, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=31]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=32]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 120, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=33]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 144, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=34]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 168, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=35]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 192, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=36]
-flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 24, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 48, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ SubResource( 17 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
 "loop": false,
 "name": "flap",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 17 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": false,

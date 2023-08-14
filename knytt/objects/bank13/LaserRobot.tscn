@@ -1,40 +1,38 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://knytt/objects/bank13/laser_robot_off.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bank13/laser_robot_on.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank13/img/13-3.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank13/LaserRobot.cs" type="Script" id=3]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Laser Machine A.wav" type="AudioStream" id=5]
 [ext_resource path="res://knytt/data/Sfx/Laser Machine B.wav" type="AudioStream" id=6]
 
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 12, 96 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 12, 0, 12, 96 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 12, 96 )
-
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 12, 96 )
+region = Rect2( 0, 0, 24, 96 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 0, 24, 96 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 24, 96 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 0, 24, 96 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "on",
-"speed": 25.0
-}, {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": false,
 "name": "off",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "on",
+"speed": 25.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -62,6 +60,7 @@ extents = Vector2( 1, 42 )
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -6, 0 )
 frames = SubResource( 5 )
 animation = "off"
 centered = false

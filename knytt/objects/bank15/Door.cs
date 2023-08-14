@@ -2,20 +2,18 @@ using Godot;
 
 public abstract class Door : GDKnyttBaseObject
 {
-    private void _on_OpenArea_body_entered(object body)
+    private async void _on_OpenArea_body_entered(object body)
     {
-        if (body is Juni juni && checkKey(juni)) { open(); }
+        if (body is Juni juni && checkKey(juni))
+        {
+            GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true);
+            juni.playSound("door");
+            var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+            sprite.Play("open");
+            await ToSignal(sprite, "animation_finished");
+            QueueFree();
+        }
     }
 
     protected abstract bool checkKey(Juni juni);
-
-    private async void open()
-    {
-        GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true);
-        GetNode<AudioStreamPlayer2D>("DoorPlayer2D").Play();
-        await playAnimation();
-        QueueFree();
-    }
-
-    protected abstract SignalAwaiter playAnimation();
 }

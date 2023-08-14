@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://knytt/objects/bank15/proximity_block.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank15/img/proximity_block.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank15/ProximityBlock.cs" type="Script" id=2]
 
 

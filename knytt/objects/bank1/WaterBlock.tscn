@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/objects/bank1/WaterBlock.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank1/Object7.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank1/Object8.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/bank1/Object9.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/bank1/Object11.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank1/Object17.png" type="Texture" id=6]
-[ext_resource path="res://knytt/objects/bank1/Object21.png" type="Texture" id=7]
-[ext_resource path="res://knytt/objects/bank1/Object24.png" type="Texture" id=8]
+[ext_resource path="res://knytt/objects/bank1/img/Object7.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank1/img/Object8.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank1/img/Object9.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank1/img/Object11.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank1/img/Object17.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank1/img/Object21.png" type="Texture" id=7]
+[ext_resource path="res://knytt/objects/bank1/img/Object24.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

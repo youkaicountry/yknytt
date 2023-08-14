@@ -1,9 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/data/Sfx/Door.wav" type="AudioStream" id=1]
 [ext_resource path="res://knytt/objects/bank15/Door.cs" type="Script" id=5]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=6]
-
 
 [sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 12, 12 )
@@ -29,7 +26,8 @@ collision_layer = 0
 position = Vector2( 12, 12 )
 shape = SubResource( 39 )
 
-[node name="DoorPlayer2D" parent="." instance=ExtResource( 6 )]
-stream = ExtResource( 1 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+playing = true
+centered = false
 
 [connection signal="body_entered" from="OpenArea" to="." method="_on_OpenArea_body_entered"]
