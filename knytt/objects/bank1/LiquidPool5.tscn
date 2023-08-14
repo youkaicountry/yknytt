@@ -186,7 +186,7 @@ position = Vector2( 12, 18 )
 shape = SubResource( 42 )
 
 [node name="Halo" type="AnimatedSprite" parent="." index="1"]
-modulate = Color( 1, 1, 1, 0.501961 )
+modulate = Color( 1, 1, 1, 0.25098 )
 position = Vector2( 0, -72 )
 frames = SubResource( 1 )
 centered = false

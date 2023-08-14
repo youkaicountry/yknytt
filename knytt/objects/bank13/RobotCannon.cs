@@ -8,7 +8,7 @@ public class RobotCannon : Cannon
         GDArea.Bullets.RegisterEmitter(this, "DropStuff",
             (p, i) =>
             {
-                p.Translate(new Vector2(8f, 8f));
+                p.Translate(new Vector2(7f, 9f));
                 p.DirectionMMF2 = 12;
                 p.VelocityMMF2 = 10 + i;
                 p.GravityMMF2 = 10 + random.Next(5);

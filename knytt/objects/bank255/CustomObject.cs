@@ -84,10 +84,8 @@ public class CustomObject : GDKnyttBaseObject
     private void overrideAnimation(GDKnyttBaseObject obj, string image)
     {
         var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
-                     obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite") ??
-                     obj.GetNodeOrNull<AnimatedSprite>(".");
-        var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite") ??
-                            obj.GetNodeOrNull<Sprite>(".");
+                     obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
+        var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite");
         if (sprite == null && static_sprite == null) { GD.Print($"No sprite found for custom object {ObjectID.y}"); return; }
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
         

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/img/cauldron_spike_disappear.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bullets/img/cauldron_spike.png" type="Texture" id=2]
@@ -6,9 +6,11 @@
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Fire Hit.wav" type="AudioStream" id=5]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
+
+[sub_resource type="CanvasItemMaterial" id=10]
+blend_mode = 1
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -58,6 +60,7 @@ position = Vector2( 1, 0.5 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
+material = SubResource( 10 )
 frames = SubResource( 9 )
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 4 )]
