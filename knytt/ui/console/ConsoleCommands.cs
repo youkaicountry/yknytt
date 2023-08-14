@@ -49,7 +49,6 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("trail", "Toggle debug trails", null, false, TrailCommand.NewTrailCommand, 
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, true, DeathCommand.NewDeathCommand));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -452,31 +451,6 @@ public static class ConsoleCommands
             var status = game.Trails.On ? $"on (size: {game.Trails.TrailCount}, frames: {game.Trails.TrailFrames})" : "off";
             
             env.Console.AddMessage($"Trails: {status}");
-
-            return null;
-        }
-    }
-
-    public class DeathCommand : ICommand
-    {
-        public DeathCommand(CommandParseResult result) { }
-
-        public static ICommand NewDeathCommand(CommandParseResult result)
-        {
-            return new DeathCommand(result);
-        }
-
-        public string Execute(object environment)
-        {
-            var env = (ConsoleExecutionEnvironment)environment;
-            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
-            if (game == null) { return "No game is loaded"; }
-
-
-            game.Deaths.On = !game.Deaths.On;
-            var status = game.Deaths.On ? "on" : "off";
-            
-            env.Console.AddMessage($"Death Markers: {status}");
 
             return null;
         }
