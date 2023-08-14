@@ -2,13 +2,13 @@
 
 [ext_resource path="res://knytt/objects/bank19/CollectMod.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bank19/Artifact.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/bank19/artifact_1.png" type="Texture" id=3]
-[ext_resource path="res://knytt/objects/bank19/artifact_7.png" type="Texture" id=4]
-[ext_resource path="res://knytt/objects/bank19/artifact_6.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank19/artifact_4.png" type="Texture" id=6]
-[ext_resource path="res://knytt/objects/bank19/artifact_5.png" type="Texture" id=7]
-[ext_resource path="res://knytt/objects/bank19/artifact_3.png" type="Texture" id=8]
-[ext_resource path="res://knytt/objects/bank19/artifact_2.png" type="Texture" id=9]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_1.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_7.png" type="Texture" id=4]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_6.png" type="Texture" id=5]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_4.png" type="Texture" id=6]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_5.png" type="Texture" id=7]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_3.png" type="Texture" id=8]
+[ext_resource path="res://knytt/objects/bank19/img/artifact_2.png" type="Texture" id=9]
 
 
 [sub_resource type="AtlasTexture" id=1]

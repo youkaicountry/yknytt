@@ -4,7 +4,6 @@
 [ext_resource path="res://knytt/objects/bank19/img/cave_firefly_idle.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank19/img/cave_firefly_run.png" type="Texture" id=3]
 
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
