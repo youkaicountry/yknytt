@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/roller_generator.png-2c9b482b9f5cc7afe82d48651e1c3bc5.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://knytt/objects/bank13/img/roller_generator.png"
+dest_files=[ "res://.import/roller_generator.png-2c9b482b9f5cc7afe82d48651e1c3bc5.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

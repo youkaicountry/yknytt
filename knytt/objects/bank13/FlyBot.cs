@@ -7,7 +7,7 @@ public class FlyBot : GDKnyttBaseObject
     public override void _Ready()
     {
         base._Ready();
-        path = GetNode<PathFollow2D>("Path2D/PathFollow2D");
+        path = GetNode<PathFollow2D>("PathFollow2D");
     }
 
     public override void _PhysicsProcess(float delta)

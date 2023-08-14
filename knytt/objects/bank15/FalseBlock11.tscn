@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://knytt/objects/bank15/FalseBlock.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank15/block4.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank15/img/block4.png" type="Texture" id=2]
 
 
 [node name="Node2D" instance=ExtResource( 1 )]

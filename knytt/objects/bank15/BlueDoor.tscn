@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://knytt/objects/bank15/blue_door.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank15/img/blue_door.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank15/KeyDoor.tscn" type="PackedScene" id=2]
 
 

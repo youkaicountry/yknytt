@@ -49,8 +49,8 @@ public class Password : GDKnyttBaseObject
             {
                 if (node is LockBlock block)
                 {
-                    block.QueueFree();
-                    objects_destroyed = true;
+                    objects_destroyed |= !block.opened;
+                    block.open();
                 }
             }
         }

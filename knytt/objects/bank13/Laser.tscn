@@ -1,35 +1,31 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/objects/bank13/Laser.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank13/laser.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank13/img/13-10,11,12 Vertical Laser.png" type="Texture" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/data/Sfx/Laser Machine B.wav" type="AudioStream" id=5]
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 72, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 24, 24, 24 )
+region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 48, 24, 24 )
+region = Rect2( 48, 0, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
+"frames": [ null ],
 "loop": false,
 "name": "off",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "on",
 "speed": 20.0
