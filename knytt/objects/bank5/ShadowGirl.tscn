@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://knytt/objects/bank5/shadow_girl.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank5/img/shadow_girl.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/objects/bank5/ShadowGirl.cs" type="Script" id=3]
 

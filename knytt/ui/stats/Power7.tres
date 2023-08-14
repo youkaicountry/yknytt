@@ -1,6 +1,6 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=2]
 
-[ext_resource path="res://knytt/objects/bank0/power_gfx/hologram.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank0/img/hologram.png" type="Texture" id=1]
 
 [resource]
 atlas = ExtResource( 1 )

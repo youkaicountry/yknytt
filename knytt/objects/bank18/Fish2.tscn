@@ -3,8 +3,6 @@
 [ext_resource path="res://knytt/objects/bank18/Fish.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bank18/img/fish2.png" type="Texture" id=2]
 
-
-
 [sub_resource type="Curve2D" id=6]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -0.622898, 0.280411, 0, 0, 0, 0, 23.9142, 6.20709, 0, 0, 0, 0, 47.9856, 11.9652, 0, 0, 0, 0, 71.7712, 19.4568, 0, 0, 0, 0, 90.8746, 24.3263, 0, 0, 0, 0, 72.1458, 30.5068, 0, 0, 0, 0, 48.1729, 37.811, 0, 0, 0, 0, 23.8254, 42.6805, 0, 0, 0, 0, 0.0397835, 41.9314 )

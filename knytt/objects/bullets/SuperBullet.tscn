@@ -1,9 +1,10 @@
 [gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bullets/super_bullet_fade.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bullets/super_bullet.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bullets/img/super_bullet_fade.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bullets/img/super_bullet.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/bullets/SuperBullet.cs" type="Script" id=4]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.0
