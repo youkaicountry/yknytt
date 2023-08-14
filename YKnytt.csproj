@@ -30,7 +30,6 @@
   <ItemGroup>
     <Compile Include="knytt\audio\GDKnyttAmbiChannel.cs" />
     <Compile Include="knytt\audio\GDKnyttAmbiTrack.cs" />
-    <Compile Include="knytt\juni\death\DeathContainer.cs" />
     <Compile Include="knytt\juni\trail\TrailContainer.cs" />
     <Compile Include="knytt\objects\bank0\AllowHologram.cs" />
     <Compile Include="knytt\objects\bank0\GhostMusic.cs" />

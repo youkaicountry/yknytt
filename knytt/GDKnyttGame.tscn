@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
 [ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
-[ext_resource path="res://knytt/juni/death/DeathContainer.cs" type="Script" id=18]
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -152,11 +151,6 @@ viewMode = false
 unique_name_in_owner = true
 z_index = 2
 script = ExtResource( 10 )
-
-[node name="DeathContainer" type="Node2D" parent="."]
-unique_name_in_owner = true
-z_index = 12
-script = ExtResource( 18 )
 
 [node name="GKnyttCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
