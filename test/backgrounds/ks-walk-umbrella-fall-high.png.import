@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ks-run-umbrella-fall-hj.png-87208a768c5ed7b16fc0ce6016a5a046.stex"
+path="res://.import/ks-walk-umbrella-fall-high.png-0329fd2bd215475d66acadb0ba389a20.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/backgrounds/ks-run-umbrella-fall-hj.png"
-dest_files=[ "res://.import/ks-run-umbrella-fall-hj.png-87208a768c5ed7b16fc0ce6016a5a046.stex" ]
+source_file="res://test/backgrounds/ks-walk-umbrella-fall-high.png"
+dest_files=[ "res://.import/ks-walk-umbrella-fall-high.png-0329fd2bd215475d66acadb0ba389a20.stex" ]
 
 [params]
 

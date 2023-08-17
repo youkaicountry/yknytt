@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ksw-walk-umbrella-jump-nohigh.png-3361363668c12e138fef651156f82286.stex"
+path="res://.import/ks-run-noumb-jump-high.png-5507504d242af3a74d546946fd0806e7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/backgrounds/ksw-walk-umbrella-jump-nohigh.png"
-dest_files=[ "res://.import/ksw-walk-umbrella-jump-nohigh.png-3361363668c12e138fef651156f82286.stex" ]
+source_file="res://test/backgrounds/ks-run-noumb-jump-high.png"
+dest_files=[ "res://.import/ks-run-noumb-jump-high.png-5507504d242af3a74d546946fd0806e7.stex" ]
 
 [params]
 

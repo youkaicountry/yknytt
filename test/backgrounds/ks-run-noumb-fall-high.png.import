@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ksw-run-noumb-jump-nohigh.png-c84f84aca2fe257b1c38d2dbd0b2303e.stex"
+path="res://.import/ks-run-noumb-fall-high.png-f8d863bc419cb0de33f77337c331bf83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/backgrounds/ksw-run-noumb-jump-nohigh.png"
-dest_files=[ "res://.import/ksw-run-noumb-jump-nohigh.png-c84f84aca2fe257b1c38d2dbd0b2303e.stex" ]
+source_file="res://test/backgrounds/ks-run-noumb-fall-high.png"
+dest_files=[ "res://.import/ks-run-noumb-fall-high.png-f8d863bc419cb0de33f77337c331bf83.stex" ]
 
 [params]
 
