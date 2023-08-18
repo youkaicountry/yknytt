@@ -80,6 +80,6 @@ public class TrailContainer : Node2D
     {
         s.Position = juni.Position;
         s.Frame = juni.Sprite.Frame;
-        s.FlipH = juni.Sprite.FlipH;
+        s.FlipH = !juni.FacingRight;
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -28,17 +28,11 @@
 [ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
 
-[sub_resource type="RectangleShape2D" id=32]
-extents = Vector2( 1.5, 7.8 )
-
 [sub_resource type="RectangleShape2D" id=33]
-extents = Vector2( 2, 7.8 )
+extents = Vector2( 4, 7.8 )
 
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 1.5, 7.8 )
-
-[sub_resource type="RectangleShape2D" id=28]
-extents = Vector2( 4, 7.5 )
 
 [sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 3, 8.3 )
@@ -229,7 +223,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 0.5, 4 )
+extents = Vector2( 0.5, 4.3 )
 
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 0.5, 2 )
@@ -257,34 +251,26 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollisionShapeA" type="CollisionShape2D" parent="."]
-position = Vector2( -3.5, 0.8 )
-shape = SubResource( 32 )
-
-[node name="CollisionShapeB" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.8 )
+[node name="MainShape" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 0.8 )
 shape = SubResource( 33 )
 
-[node name="CollisionShapeC" type="CollisionShape2D" parent="."]
-position = Vector2( 3.5, 0.8 )
+[node name="BackShape" type="CollisionShape2D" parent="."]
+position = Vector2( -3.5, 0.8 )
 shape = SubResource( 34 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8192
-
-[node name="ClimbLeftShape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -2, -1 )
-shape = SubResource( 28 )
-disabled = true
+priority = 1.0
 
 [node name="UsualShape" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( 0, 0.3 )
 shape = SubResource( 26 )
 disabled = true
 
-[node name="ClimbRightShape" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 2, -1 )
+[node name="ClimbShape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 2, -0.4 )
 shape = SubResource( 27 )
 disabled = true
 
@@ -382,43 +368,28 @@ max_distance = 1000.0
 [node name="Checkers" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="RightClimb" type="Area2D" parent="Checkers"]
-position = Vector2( 5.5, 0.5 )
+[node name="Climb" type="Area2D" parent="Checkers"]
+position = Vector2( 6.5, 0.2 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/RightClimb"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/Climb"]
 shape = SubResource( 19 )
 
-[node name="LeftClimb" type="Area2D" parent="Checkers"]
-position = Vector2( -5.5, 0.5 )
+[node name="Bump" type="Area2D" parent="Checkers"]
+position = Vector2( 6.5, 6.5 )
 collision_layer = 0
-collision_mask = 22
+collision_mask = 6
 priority = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/LeftClimb"]
-shape = SubResource( 19 )
-
-[node name="RightBump" type="Area2D" parent="Checkers"]
-position = Vector2( 5.5, 6.5 )
-collision_layer = 0
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/RightBump"]
-shape = SubResource( 24 )
-
-[node name="LeftBump" type="Area2D" parent="Checkers"]
-position = Vector2( -5.5, 6.5 )
-collision_layer = 0
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/LeftBump"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/Bump"]
 shape = SubResource( 24 )
 
 [node name="InsideDetector" type="Area2D" parent="Checkers"]
 collision_layer = 0
 collision_mask = 6
+priority = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Checkers/InsideDetector"]
 position = Vector2( 0, 2 )
@@ -546,10 +517,7 @@ shape = SubResource( 22 )
 
 [node name="SpawnLocations" type="Node2D" parent="JuniMotionParticles"]
 
-[node name="LeftClimb" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
-position = Vector2( -2.7, 0 )
-
-[node name="RightClimb" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
+[node name="Climb" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]
 position = Vector2( 2.7, 0 )
 
 [node name="Ground" type="Node2D" parent="JuniMotionParticles/SpawnLocations"]

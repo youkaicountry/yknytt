@@ -6,7 +6,6 @@
 [ext_resource path="res://knytt/objects/bank0/img/circle.png" type="Texture" id=4]
 [ext_resource path="res://knytt/objects/bank0/img/spot1.png" type="Texture" id=7]
 
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 24, 24 )
@@ -110,7 +109,6 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Spot"]
 frames = SubResource( 10 )
 animation = "Spot"
-frame = 2
 playing = true
 centered = false
 
@@ -142,7 +140,6 @@ visible = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Shapes/Circle"]
 frames = SubResource( 20 )
 animation = "Circle"
-frame = 4
 playing = true
 centered = false
 
@@ -150,7 +147,7 @@ centered = false
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Circle/Area2D"]
-position = Vector2( 12.5, 12.5 )
+position = Vector2( 12, 12 )
 shape = SubResource( 21 )
 
 [node name="Square" type="Node2D" parent="Shapes"]
