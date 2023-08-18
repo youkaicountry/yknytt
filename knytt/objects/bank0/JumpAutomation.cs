@@ -1,10 +1,10 @@
 public class JumpAutomation : Automation
 {
-    private int late_jump;
+    private bool late_jump;
 
     protected override void _on_Area2D_body_entered(Juni juni)
     {
-        if (!juni.Grounded && juni.jumps == 1) { late_jump = 2; }
+        if (!(juni.CurrentState is WalkRunState || juni.CurrentState is IdleState) && juni.jumps == 1) { late_jump = true; }
         base._on_Area2D_body_entered(juni);
     }
 
@@ -15,13 +15,13 @@ public class JumpAutomation : Automation
         if (juni != null)
         {
             base._on_Area2D_body_exited(juni);
-            late_jump = 0;
+            late_jump = false;
         }
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        if (juni != null && late_jump > 0 && juni.Grounded && --late_jump == 0)
+        if (juni != null && late_jump && (juni.CurrentState is WalkRunState || juni.CurrentState is IdleState))
         {
             juni.juniInput.altInput.ActionPress("jump");
         }

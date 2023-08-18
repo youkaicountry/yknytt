@@ -22,7 +22,7 @@ public class Spring : GDKnyttBaseObject
 
         // Spring
         bool highjump_hold = juni.Powers.getPower(PowerNames.HighJump) && juni.juniInput.JumpHeld;
-        juni.executeJump(juni.Swim ? -101f : highjump_hold ? -315f : -340f, sound: false, reset_jumps: true);
+        juni.executeJump(juni.Swim ? -100f : highjump_hold ? -324f : -346f, sound: false, reset_jumps: true);
         juni.playSound("bounce");
 
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");

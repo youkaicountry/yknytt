@@ -27,13 +27,13 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("set", "Sets Juni's power or flag",
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
-            false, SetCommand.NewSetCommand, new CommandArg("variable", CommandArg.Type.StringArg, optional: false), 
+            false, SetCommand.NewSetCommand, new CommandArg("power", CommandArg.Type.StringArg, optional: false), 
             new CommandArg("value", CommandArg.Type.BoolArg, optional: false)));
-        cs.AddCommand(new CommandDeclaration("monitor", "Monitors current area position. Also can monitor Juni's flags.", 
-            "monitor: turn on monitor, display always on top\n" +
-            "monitor flash: display only when value changes (like '-' on keyboard)\n" +
-            "monitor flags: display also Juni's flags\n" +
-            "monitor off: turn off monitor", 
+        cs.AddCommand(new CommandDeclaration("mon", "Monitors current area position. Also can monitor Juni's flags.", 
+            "mon: turn on monitor, display always on top\n" +
+            "mon flash: display only when value changes (like '-' on keyboard)\n" +
+            "mon flags: display also Juni's flags\n" +
+            "mon off: turn off monitor", 
             false, MonitorCommand.NewMonitorCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
@@ -297,7 +297,7 @@ public static class ConsoleCommands
 
         public SetCommand(CommandParseResult result)
         {
-            variable = result.Args["variable"];
+            variable = result.Args["power"];
             value = result.GetArgAsBool("value");
         }
 

@@ -11,7 +11,7 @@ public class IdleState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false, true, false);
+        juni.setCollisionMap(true, true, true, false);
         juni.Anim.Play("Idle");
         juni.jumps = 0;
     }
@@ -58,7 +58,7 @@ public class WalkRunState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false, true, false);
+        juni.setCollisionMap(true, true, true, false);
         juni.GetNode<AudioStreamPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
         juni.Anim.Play(WalkRunString);
         juni.jumps = 0;
@@ -133,8 +133,7 @@ public class ClimbState : JuniState
 
     protected void calcCollisionMap()
     {
-        if (!juni.FacingRight) { juni.setCollisionMap(true, true, false, true, false, false); }
-        else { juni.setCollisionMap(false, true, true, false, false, true); }
+        juni.setCollisionMap(true, false, false, true);
     }
 
     public override void PostProcess(float delta)
@@ -222,7 +221,7 @@ public class JumpState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false, true, false);
+        juni.setCollisionMap(true, true, true, false);
     }
 
     public override void PreProcess(float delta)
@@ -250,7 +249,7 @@ public class FallState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false, true, false);
+        juni.setCollisionMap(true, true, true, false);
         juni.Anim.Play("StartFall");
     }
 
@@ -265,7 +264,8 @@ public class FallState : JuniState
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
         if (juni.Grounded)
         {
-            juni.transitionState(new IdleState(juni));
+            if (juni.MoveDirection != 0) { juni.transitionState(new WalkRunState(juni, juni.WalkRun)); }
+            else { juni.transitionState(new IdleState(juni)); }
             juni.GetNode<AudioStreamPlayer2D>("Audio/LandPlayer2D").Play();
         }
     }

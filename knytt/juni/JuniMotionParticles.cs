@@ -28,7 +28,7 @@ public class JuniMotionParticles : Node2D
 
     public Vector2 ClimbPosition
     {
-        get { return GetNode<Node2D>(Juni.FacingRight ? "SpawnLocations/LeftClimb" : "SpawnLocations/RightClimb").GlobalPosition; }
+        get { return GetNode<Node2D>("SpawnLocations/Climb").GlobalPosition; }
     }
 
     public Vector2 GroundPosition { get { return GetNode<Node2D>("SpawnLocations/Ground").GlobalPosition; } }

@@ -7,47 +7,27 @@ public class Checkers : Node2D
         get { return GetNode<CollisionShape2D>("RightClimb/CollisionShape2D").Disabled; }
         set 
         {
-            GetNode<CollisionShape2D>("RightClimb/CollisionShape2D").Disabled = value;
-            GetNode<CollisionShape2D>("LeftClimb/CollisionShape2D").Disabled = value;
-            GetNode<CollisionShape2D>("RightBump/CollisionShape2D").Disabled = value;
-            GetNode<CollisionShape2D>("LeftBump/CollisionShape2D").Disabled = value;
+            GetNode<CollisionShape2D>("Climb/CollisionShape2D").Disabled = value;
+            GetNode<CollisionShape2D>("Bump/CollisionShape2D").Disabled = value;
             GetNode<CollisionShape2D>("InsideDetector/CollisionShape2D").Disabled = value;
         }
     }
 
-    public bool RightColliding
+    public bool Colliding
     {
         get
         {
-            return GetNode<Area2D>("RightClimb").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("RightClimb").GetOverlappingAreas().Count == 0;
+            return GetNode<Area2D>("Climb").GetOverlappingBodies().Count > 0 && 
+                   GetNode<Area2D>("Climb").GetOverlappingAreas().Count == 0;
         }
     }
 
-    public bool LeftColliding 
+    public bool Bump 
     { 
         get 
         { 
-            return GetNode<Area2D>("LeftClimb").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("LeftClimb").GetOverlappingAreas().Count == 0; 
-        }
-    }
-
-    public bool RightBump 
-    { 
-        get 
-        { 
-            return GetNode<Area2D>("RightBump").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("RightClimb").GetOverlappingBodies().Count == 0; 
-        } 
-    }
-
-    public bool LeftBump 
-    { 
-        get 
-        { 
-            return GetNode<Area2D>("LeftBump").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("LeftClimb").GetOverlappingBodies().Count == 0; 
+            return GetNode<Area2D>("Bump").GetOverlappingBodies().Count > 0 && 
+                   GetNode<Area2D>("Climb").GetOverlappingBodies().Count == 0; 
         } 
     }
 
