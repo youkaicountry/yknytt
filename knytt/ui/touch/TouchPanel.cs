@@ -317,14 +317,6 @@ public class TouchPanel : Panel
                 {
                     if (p.Rect.HasPoint(position)) { Input.ActionPress(p.Name); }
                 }
-                
-                if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
-                {
-                    Input.ActionRelease("show_info");
-                    Input.ActionRelease("jump");
-                    Input.ActionRelease("down");
-                    GetNode<Console>("/root/Console").toggleConsole();
-                }
             }
 
             ChangeOpacity(leftUpPanel, Input.IsActionPressed("left") && Input.IsActionPressed("up"));
@@ -361,9 +353,6 @@ public class TouchPanel : Panel
 
     public void OnConsoleClosed()
     {
-        Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
-        Input.ActionRelease("jump");
-        Input.ActionRelease("down");
         SetProcessInput(TouchSettings.EnablePanel);
     }
 }
