@@ -4,12 +4,14 @@ public class SettingsScreen : BasicScreen
 {
     PackedScene input_scene;
     PackedScene touch_scene;
+    PackedScene dir_scene;
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
         this.touch_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/touch/TouchSettingsScreen.tscn");
+        this.dir_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DirectoriesScreen.tscn");
         fillControls();
         initFocus();
     }
@@ -73,6 +75,11 @@ public class SettingsScreen : BasicScreen
     private void _on_TouchPanelButton_pressed()
     {
         loadScreen(touch_scene.Instance() as BasicScreen);
+    }
+
+    private void _on_DirButton_pressed()
+    {
+        loadScreen(dir_scene.Instance() as BasicScreen);
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

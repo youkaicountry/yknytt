@@ -66,6 +66,7 @@ public class LevelSelection : BasicScreen
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");
+        if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
         if (!localLoad) { HttpLoad(grab_focus: true); }
     }
 

@@ -208,17 +208,28 @@ public class GDKnyttSettings : Node
         get { return GDKnyttSettings.ini["Server"]["URL"]; }
     }
 
+    public static string WorldsDirectory
+    {
+        get { return ini["Directories"]["Worlds"]; }
+        set { ini["Directories"]["Worlds"] = value; }
+    }
+
+    public static string SavesDirectory
+    {
+        get { return ini["Directories"]["Saves"]; }
+        set { ini["Directories"]["Saves"] = value; }
+    }
+
+    public static string Saves { get { return SavesDirectory == "" ? "user://Saves" : SavesDirectory; } }
+
     public override void _Ready()
     {
         tree = GetTree();
         initialize();
     }
 
-    private static void initialize()
+    private static void moveUserDir()
     {
-        bool modified = false;
-        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
-
         if (OS.GetName() == "Windows" || OS.GetName() == "X11")
         {
             string prev_data_dir = OS.GetUserDataDir().PlusFile("../godot/app_userdata/YKnytt");
@@ -239,6 +250,14 @@ public class GDKnyttSettings : Node
                 System.IO.Directory.Move(prev_data_dir.PlusFile("Worlds"), OS.GetUserDataDir().PlusFile("Worlds"));
             }
         }
+    }
+
+    private static void initialize()
+    {
+        bool modified = false;
+        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
+
+        moveUserDir();
 
         // Try to load the settings file
         modified |= loadSettings();
@@ -257,6 +276,9 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Panning", "1");
 
         modified |= ensureSetting("Server", "URL", "http://yknytt.pythonanywhere.com");
+
+        modified |= ensureSetting("Directories", "Worlds", "");
+        modified |= ensureSetting("Directories", "Saves", "");
 
         modified |= TouchSettings.ensureSettings();
 

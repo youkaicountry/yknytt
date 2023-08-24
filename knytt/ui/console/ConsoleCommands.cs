@@ -180,7 +180,7 @@ public static class ConsoleCommands
                     if (game == null) { return "No game is loaded"; }
                     game.saveGame(game.Juni, write: true);
                     env.Console.AddMessage("Game was saved to " + 
-                        OS.GetUserDataDir().PlusFile("Saves").PlusFile(game.GDWorld.KWorld.CurrentSave.SaveFileName));
+                        GDKnyttSettings.Saves.PlusFile(game.GDWorld.KWorld.CurrentSave.SaveFileName));
                     break;
 
                 case "print":
@@ -211,7 +211,8 @@ public static class ConsoleCommands
                     break;
 
                 case "backup":
-                    string src_dir = OS.GetUserDataDir().PlusFile("Saves");
+                    string src_dir = GDKnyttSettings.SavesDirectory == "" ? 
+                        OS.GetUserDataDir().PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
                     string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }

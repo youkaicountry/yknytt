@@ -135,9 +135,9 @@ public class GDKnyttGame : Node2D
 
     public void saveGame(KnyttSave save)
     {
-        GDKnyttAssetManager.ensureDirExists("user://Saves");
+        GDKnyttAssetManager.ensureDirExists(GDKnyttSettings.Saves);
         var f = new File();
-        var fname = $"user://Saves/{save.SaveFileName}";
+        var fname = GDKnyttSettings.Saves.PlusFile(save.SaveFileName);
         f.Open(fname, File.ModeFlags.Write);
         f.StoreString(save.ToString());
         f.Close();
@@ -217,7 +217,7 @@ public class GDKnyttGame : Node2D
     {
         if (this.viewMode) { this.editorControls(); }
 
-        if (Input.IsActionJustPressed("pause")) { pause(); }
+        if (Input.IsActionJustPressed("pause") && !GetNode<Console>("/root/Console").IsOpen) { pause(); }
     }
 
     // TODO: Difference between Paged areas, active areas, and current area.
