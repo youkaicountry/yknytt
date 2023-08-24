@@ -198,6 +198,7 @@
     <Compile Include="knytt\ui\console\ConsoleExecutionEnvironment.cs" />
     <Compile Include="knytt\ui\console\GodotLoggerTarget.cs" />
     <Compile Include="knytt\ui\CreditsScreen.cs" />
+    <Compile Include="knytt\ui\DirectoriesScreen.cs" />
     <Compile Include="knytt\ui\FileHTTPRequest.cs" />
     <Compile Include="knytt\ui\info_panel\ArtifactsInfo.cs" />
     <Compile Include="knytt\ui\info_panel\ArtifactsPanel.cs" />

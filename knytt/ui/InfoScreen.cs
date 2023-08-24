@@ -56,9 +56,9 @@ public class InfoScreen : BasicScreen
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 
-        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
-        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
-        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = "user://Saves/" + KWorld.WorldDirectoryName;
+        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = 
+        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = 
+        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = GDKnyttSettings.Saves.PlusFile(KWorld.WorldDirectoryName);
         GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = 
         GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = 
             KWorld.WorldDirectory.StartsWith("res://");
@@ -115,7 +115,7 @@ public class InfoScreen : BasicScreen
         var my_endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         for (int slot = 1; slot <= 3; slot++)
         {
-            string savename = $"user://Saves/{KWorld.WorldDirectoryName} {slot}.ini";
+            string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
             if (new File().FileExists(savename))
             {
                 KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);

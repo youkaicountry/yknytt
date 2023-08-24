@@ -85,7 +85,7 @@ anchor_bottom = 0.0
 margin_right = 80.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
-focus_neighbour_right = NodePath("../../../ButtonContainer/TouchPanelButton")
+focus_neighbour_right = NodePath("../../../ButtonContainer/DirButton")
 text = "Smooth"
 items = [ "Smooth", null, false, 0, null, "Original", null, false, 1, null ]
 selected = 0
@@ -137,9 +137,20 @@ margin_bottom = 74.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_left = NodePath("../../SettingsContainer/SmoothScale")
 focus_neighbour_right = NodePath("../../VolumeContainer/MusicVolumeSlider")
+text = "Touch Panel Settings"
+
+[node name="DirButton" parent="ButtonContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 82.0
+margin_right = 150.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 80, 33 )
+focus_neighbour_left = NodePath("../../SettingsContainer/ScrollContainer/ScrollDropdown")
+focus_neighbour_right = NodePath("../../VolumeContainer/EnvironmentVolumeSlider")
 focus_neighbour_bottom = NodePath("../../BackButton")
 focus_next = NodePath("../../VolumeContainer/MasterVolumeSlider")
-text = "Touch Panel Settings"
+text = "Set Directories"
 
 [node name="VolumeContainer" type="VBoxContainer" parent="."]
 margin_left = 353.408
@@ -161,8 +172,8 @@ margin_right = 150.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 150, 24 )
 focus_neighbour_left = NodePath("../../ButtonContainer/KeyRemapButton")
-focus_neighbour_top = NodePath("../../ButtonContainer/TouchPanelButton")
-focus_previous = NodePath("../../ButtonContainer/TouchPanelButton")
+focus_neighbour_top = NodePath("../../ButtonContainer/DirButton")
+focus_previous = NodePath("../../ButtonContainer/DirButton")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
@@ -260,6 +271,7 @@ step = 0.02
 [connection signal="pressed" from="SettingsContainer/Border" to="." method="_on_Border_pressed"]
 [connection signal="pressed" from="ButtonContainer/KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]
 [connection signal="pressed" from="ButtonContainer/TouchPanelButton" to="." method="_on_TouchPanelButton_pressed"]
+[connection signal="pressed" from="ButtonContainer/DirButton" to="." method="_on_DirButton_pressed"]
 [connection signal="value_changed" from="VolumeContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/EnvironmentVolumeSlider" to="." method="_on_EnvironmentVolumeSlider_value_changed"]
