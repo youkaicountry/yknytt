@@ -1,6 +1,7 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 // TODO: Make a general version of this
@@ -10,11 +11,12 @@ public class GDKnyttKeys : Node
 {
     static IniData ini;
     static Regex key_rx;
+    static Dictionary<int, string> axis_map = new Dictionary<int, string>();
 
     static GDKnyttKeys()
     {
         ini = new IniData();
-        key_rx = new Regex(@"(?<type>\w+)\((?<value>[\w+\d]+)\)", RegexOptions.Compiled);
+        key_rx = new Regex(@"(?<type>\w+)\((?<value>[\-\w+\d]+)\)", RegexOptions.Compiled);
     }
 
     public override void _Ready()
@@ -87,6 +89,11 @@ public class GDKnyttKeys : Node
         "Home", "XBox Share", "Paddle 1", "Paddle 2", "Paddle 3", "Paddle 4", "Touchpad"
     };
 
+    private static Dictionary<int, string> AXIS_NAMES = new Dictionary<int, string> {
+        [1] = "L Stick Right", [-1] = "L Stick Left", [2] = "L Stick Down", [-2] = "L Stick Up",
+        [3] = "R Stick Right", [-3] = "R Stick Left", [4] = "R Stick Down", [-4] = "R Stick Up",
+    };
+
     public static string getValueString(string ini_name)
     {
         if (!ini["Input"].ContainsKey(ini_name)) { return ""; }
@@ -98,6 +105,8 @@ public class GDKnyttKeys : Node
             case "Key": return groups["value"].Value;
             case "Joy": return int.TryParse(groups["value"].Value, out var i) && i < XBOX_BUTTONS.Length ? 
                             /*Input.GetJoyButtonString(i)*/ XBOX_BUTTONS[i] : $"Joy {groups["value"]}";
+            case "Axis": return int.TryParse(groups["value"].Value, out var j) && AXIS_NAMES.ContainsKey(j) ? 
+                            AXIS_NAMES[j] : $"Axis {groups["value"]}";
         }
 
         return "";
@@ -116,6 +125,12 @@ public class GDKnyttKeys : Node
                 ini["Input"][ini_name] = $"Joy({jb.ButtonIndex})";
                 break;
 
+            case InputEventJoypadMotion jm:
+                if (jm.Axis == 6 || jm.Axis == 7) { return false; }
+                int value = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
+                ini["Input"][ini_name] = $"Axis({value})";
+                break;
+
             case null:
                 ini["Input"].RemoveKey(ini_name);
                 break;
@@ -128,6 +143,7 @@ public class GDKnyttKeys : Node
 
     public static void applyAllSettings()
     {
+        axis_map = new Dictionary<int, string>();
         applyAction("up");
         applyAction("down");
         applyAction("left");
@@ -161,6 +177,7 @@ public class GDKnyttKeys : Node
         {
             case "Key": applyKey(action_name, groups["value"].Value); break;
             case "Joy": applyJoy(action_name, groups["value"].Value); break;
+            case "Axis": applyAxis(action_name, groups["value"].Value); break;
         }
     }
 
@@ -175,10 +192,13 @@ public class GDKnyttKeys : Node
 
     private static void applyJoy(string action_name, string key)
     {
-        var e = new InputEventJoypadButton();
-        //e.Device
-        e.ButtonIndex = int.Parse(key);
+        var e = new InputEventJoypadButton() { ButtonIndex = int.Parse(key), Device = -1 };
         InputMap.ActionAddEvent(action_name, e);
+    }
+
+    private static void applyAxis(string action_name, string key)
+    {
+        axis_map.Add(int.Parse(key), action_name);
     }
 
     public static bool ensureSetting(string section, string setting, string value)
@@ -197,5 +217,15 @@ public class GDKnyttKeys : Node
         }
 
         return modified;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!(@event is InputEventJoypadMotion jm)) { return; }
+        int axis = jm.AxisValue > 0 ? jm.Axis + 1 : jm.AxisValue < 0 ? -jm.Axis - 1 : 0;
+        if (axis_map.ContainsKey(axis)) { Input.ActionPress(axis_map[axis]); }
+        if (axis_map.ContainsKey(-axis)) { Input.ActionRelease(axis_map[-axis]); }
+        if (jm.AxisValue == 0 && axis_map.ContainsKey(jm.Axis + 1)) { Input.ActionRelease(axis_map[jm.Axis + 1]); }
+        if (jm.AxisValue == 0 && axis_map.ContainsKey(-jm.Axis - 1)) { Input.ActionRelease(axis_map[-jm.Axis - 1]); }
     }
 }
