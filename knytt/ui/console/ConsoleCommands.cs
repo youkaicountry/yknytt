@@ -3,6 +3,7 @@ using YKnyttLib.Parser;
 using YKnyttLib;
 using System;
 using System.IO.Compression;
+using System.Collections.Generic;
 
 public static class ConsoleCommands
 {
@@ -54,6 +55,10 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
     }
+
+    public static readonly List<string> CommandHistoryExamples = new List<string>() { 
+        "exit", "list", "map", "mon", "trail", "death", "shift 0 0 2 0", "set highjump on", 
+        "speed 1", "speed 0.5", "iddqd", "idclip", "save paste", "save copy", "save" };
 
     public class SpeedCommand : ICommand
     {

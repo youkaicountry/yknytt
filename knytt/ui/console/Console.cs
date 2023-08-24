@@ -24,6 +24,9 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     LinkedList<string> displayBuffer;
     List<string> backBuffer;
 
+    List<string> history = ConsoleCommands.CommandHistoryExamples;
+    int historyIndex = ConsoleCommands.CommandHistoryExamples.Count;
+
     CommandParser parser;
     ConsoleExecutionEnvironment environment;
 
@@ -60,6 +63,32 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         {
             toggleConsole();
         }
+
+        if (Input.IsActionJustPressed("pause") && IsOpen)
+        {
+            toggleConsole();
+        }
+
+        if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
+        {
+            Input.ActionRelease("show_info");
+            Input.ActionRelease("jump");
+            Input.ActionRelease("down");
+            toggleConsole();
+        }
+
+        if (Input.IsActionJustPressed("ui_up") && IsOpen)
+        {
+            historyIndex = (historyIndex + history.Count - 1) % history.Count;
+            lineEdit.Text = history[historyIndex];
+        }
+        if (Input.IsActionJustPressed("ui_down") && IsOpen)
+        {
+            historyIndex = historyIndex < history.Count - 1 ? historyIndex + 1 : 0;
+            lineEdit.Text = history[historyIndex];
+        }
+
+        if (Input.IsActionJustPressed("ui_accept") && IsOpen) { _on_LineEdit_text_entered(null); }
     }
 
     public void NewMessage(KnyttLogMessage message)
@@ -101,6 +130,11 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     {
         EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
+        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
+        GetNodeOrNull<Button>("/root/MenuLayer/ButtonRow/PlayButton")?.GrabFocus();
+        Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
+        Input.ActionRelease("jump");
+        Input.ActionRelease("down");
     }
 
     private void flushBuffer()
@@ -148,6 +182,10 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     public void RunCommand(string command)
     {
+        history.Remove(command);
+        history.Add(command);
+        historyIndex = history.Count;
+
         var p = parser.Parse(command);
         if (p.Error != null)
         {
