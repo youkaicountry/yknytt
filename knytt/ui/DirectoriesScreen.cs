@@ -9,9 +9,11 @@ public class DirectoriesScreen : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         error_label = GetNode<Label>("VBoxContainer/ErrorLabel");
         initFocus();
         updatePaths();
+        disableKeyboard(this);
     }
 
     public override void initFocus()
@@ -27,6 +29,15 @@ public class DirectoriesScreen : BasicScreen
             GDKnyttSettings.SavesDirectory == "" ? "Default" : GDKnyttSettings.SavesDirectory;
     }
 
+    private void disableKeyboard(Node node)
+    {
+        foreach (Node n in node.GetChildren())
+        {
+            if (n is LineEdit e) { e.VirtualKeyboardEnabled = false; }
+            disableKeyboard(n);
+        }
+    }
+
     private void gamepadArrowsMode(bool tab)
     {
         InputMap.ActionEraseEvent(tab ? "ui_left" : "ui_focus_prev", new InputEventJoypadButton() { ButtonIndex = (int)JoystickList.DpadLeft, Device = -1 });
@@ -38,6 +49,7 @@ public class DirectoriesScreen : BasicScreen
     private void _on_WorldsChangeButton_pressed()
     {
         gamepadArrowsMode(tab: true);
+        GetNode<FileDialog>("WorldsFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Downloads);
         GetNode<FileDialog>("WorldsFileDialog").PopupCentered();
     }
 
@@ -50,6 +62,7 @@ public class DirectoriesScreen : BasicScreen
     private void _on_SavesChangeButton_pressed()
     {
         gamepadArrowsMode(tab: true);
+        GetNode<FileDialog>("SavesFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Documents);
         GetNode<FileDialog>("SavesFileDialog").PopupCentered();
     }
 
@@ -63,6 +76,7 @@ public class DirectoriesScreen : BasicScreen
     private void _on_SavesBackupButton_pressed()
     {
         gamepadArrowsMode(tab: true);
+        GetNode<FileDialog>("BackupFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Documents);
         GetNode<FileDialog>("BackupFileDialog").CurrentFile = "yknytt-saves.zip";
         GetNode<FileDialog>("BackupFileDialog").PopupCentered();
     }

@@ -29,6 +29,8 @@ public class SettingsScreen : BasicScreen
         GetNode<Slider>("VolumeContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
         GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = 
             OS.GetName() != "Android" && OS.GetName() != "iOS" && OS.GetName() != "HTML5";
+        GetNode<Button>("ButtonContainer/DirButton").Visible = 
+            OS.GetName() != "iOS" && OS.GetName() != "HTML5";
     }
 
     public override void initFocus()
