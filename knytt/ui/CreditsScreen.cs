@@ -8,6 +8,7 @@ public class CreditsScreen : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         GetNode<AnimationPlayer>("ScrollContainer/VBoxContainer/TestersPanel/AnimationPlayer").Play("RESET");
         GetNode<AnimationPlayer>("ScrollContainer/VBoxContainer/TilesetsPanel/AnimationPlayer").Play("RESET");
         GetNode<AnimationPlayer>("ScrollContainer/VBoxContainer/MusicPanel/AnimationPlayer").Play("RESET");

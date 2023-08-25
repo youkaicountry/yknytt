@@ -13,6 +13,7 @@ public class MainMenu : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
         this.credits_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/CreditsScreen.tscn");
@@ -35,7 +36,7 @@ public class MainMenu : BasicScreen
     public override void _Notification(int what)
     {
         if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
-        if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
+        if (what == MainLoop.NotificationWmGoBackRequest) { ActiveScreen.goBack(); }
     }
 
     private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
@@ -75,16 +76,12 @@ public class MainMenu : BasicScreen
 
     public void _on_SettingsButton_pressed()
     {
-        ClickPlayer.Play();
-        var settings_node = this.settings_scene.Instance() as SettingsScreen;
-        this.AddChild(settings_node);
+        loadScreen(this.settings_scene.Instance() as SettingsScreen);
     }
 
     private void _on_CreditsButton_pressed()
     {
-        ClickPlayer.Play();
-        var credits_node = this.credits_scene.Instance() as CreditsScreen;
-        this.AddChild(credits_node);
+        loadScreen(this.credits_scene.Instance() as CreditsScreen);
     }
 
     public void _on_QuitButton_pressed()
@@ -106,5 +103,10 @@ public class MainMenu : BasicScreen
     {
         GetNode<MenuCloud>("CloudControl/Control2/MenuCloud").Scale = 
             Vector2.One * GetNode<Control>("CloudControl").RectSize.y / (240 + GetNode<Control>("CloudControl").MarginBottom);
+    }
+
+    public override void goBack()
+    {
+        quit();
     }
 }
