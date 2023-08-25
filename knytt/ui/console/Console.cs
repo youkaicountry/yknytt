@@ -20,6 +20,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     HashSet<char> disallowed = new HashSet<char>(new char[] {'`'});
     LineEdit lineEdit;
     RichTextLabel textLabel;
+    Control prevFocusControl;
 
     LinkedList<string> displayBuffer;
     List<string> backBuffer;
@@ -51,20 +52,21 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (OS.GetName() == "Android" || OS.GetName() == "iOS")
         {
             GetNode<Control>("ConsoleContainer/Panel/VBox").MoveChild(GetNode<Control>("ConsoleContainer/Panel/VBox/HBox"), 0);
+            GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Visible = true;
         }
         lineEdit = GetNode<LineEdit>("ConsoleContainer/Panel/VBox/HBox/LineEdit");
         textLabel = GetNode<RichTextLabel>("ConsoleContainer/Panel/VBox/RichTextLabel");
         AddMessage("[color=#cc00FF]Welcome to YKnytt![/color]");
     }
 
-    public override void _Process(float delta)
+    public override void _Input(InputEvent @event)
     {
-        if (Input.IsActionJustPressed("debug_console"))
+        if (@event.IsActionPressed("debug_console"))
         {
             toggleConsole();
         }
 
-        if (Input.IsActionJustPressed("pause") && IsOpen)
+        if (@event.IsActionPressed("pause") && IsOpen)
         {
             toggleConsole();
         }
@@ -77,18 +79,23 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             toggleConsole();
         }
 
-        if (Input.IsActionJustPressed("ui_up") && IsOpen)
+        if (@event.IsActionPressed("ui_up") && IsOpen)
         {
             historyIndex = (historyIndex + history.Count - 1) % history.Count;
             lineEdit.Text = history[historyIndex];
         }
-        if (Input.IsActionJustPressed("ui_down") && IsOpen)
+        
+        if (@event.IsActionPressed("ui_down") && IsOpen)
         {
             historyIndex = historyIndex < history.Count - 1 ? historyIndex + 1 : 0;
             lineEdit.Text = history[historyIndex];
         }
 
-        if (Input.IsActionJustPressed("ui_accept") && IsOpen) { _on_LineEdit_text_entered(null); }
+        if (@event.IsActionPressed("ui_accept") && IsOpen)
+        {
+            if (@event is InputEventKey ek && (ek.Scancode == (int)KeyList.Space || ek.Scancode == (int)KeyList.Enter)) { return; }
+            _on_LineEdit_text_entered(null);
+        }
     }
 
     public void NewMessage(KnyttLogMessage message)
@@ -121,6 +128,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void handleOpen()
     {
+        prevFocusControl = lineEdit.GetFocusOwner();
         lineEdit.GrabFocus();
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
@@ -131,10 +139,12 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
         GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
-        GetNodeOrNull<Button>("/root/MenuLayer/ButtonRow/PlayButton")?.GrabFocus();
+        prevFocusControl?.GrabFocus();
         Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
         Input.ActionRelease("jump");
         Input.ActionRelease("down");
+        historyIndex = history.Count;
+        lineEdit.Text = "";
     }
 
     private void flushBuffer()
@@ -207,5 +217,11 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         AddMessage($"> [color=#00CC00]{lineEdit.Text}[/color]");
         RunCommand(lineEdit.Text);
         lineEdit.Text = "";
+    }
+
+    private void _on_KeyboardButton_pressed()
+    {
+        lineEdit.VirtualKeyboardEnabled = !lineEdit.VirtualKeyboardEnabled;
+        lineEdit.GrabFocus();
     }
 }
