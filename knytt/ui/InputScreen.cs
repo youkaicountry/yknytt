@@ -7,6 +7,7 @@ public class InputScreen : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         connectSettings(GetNode<Node>("SettingsContainer"));
         connectSettings(GetNode<Node>("KSSettingsContainer"));
         initFocus();
@@ -44,7 +45,7 @@ public class InputScreen : BasicScreen
 
     public override void _Input(InputEvent @event)
     {
-        if (collecting == null) { return; }
+        if (collecting == null) { base._Input(@event); return; }
         if (@event.IsActionPressed("pause") || GDKnyttKeys.setAction(collecting.Action + cnum, @event))
         {
             finishCollecting();

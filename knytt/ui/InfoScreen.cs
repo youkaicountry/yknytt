@@ -17,6 +17,7 @@ public class InfoScreen : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         initFocus();
     }
 

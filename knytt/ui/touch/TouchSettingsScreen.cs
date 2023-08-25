@@ -4,6 +4,7 @@ public class TouchSettingsScreen : BasicScreen
 {
     public override void _Ready()
     {
+        base._Ready();
         fillControls();
     }
 

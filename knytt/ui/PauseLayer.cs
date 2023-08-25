@@ -11,4 +11,9 @@ public class PauseLayer : BasicScreen
     {
         GetNode<PausePanel>("PausePanel").backEvent();
     }
+
+    public override void goBack()
+    {
+        GetNode<PausePanel>("PausePanel").unpause();
+    }
 }

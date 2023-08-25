@@ -32,7 +32,7 @@ public class PausePanel : Control
     public override void _Notification(int what)
     {
         if (bounce) { return; }
-        if (what == MainLoop.NotificationWmGoBackRequest) { unpause(); }
+        if (what == MainLoop.NotificationWmGoBackRequest) { BasicScreen.ActiveScreen.goBack(); }
     }
 
     private void pause()
@@ -44,7 +44,7 @@ public class PausePanel : Control
         //GetTree().Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure(force_off: true);
     }
 
-    private void unpause()
+    public void unpause()
     {
         GetTree().Paused = false;
         //GDKnyttSettings.setupViewport(for_ui: false);

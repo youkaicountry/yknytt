@@ -51,6 +51,7 @@ public class LevelSelection : BasicScreen
 
     public override void _Ready()
     {
+        base._Ready();
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");

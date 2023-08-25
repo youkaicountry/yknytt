@@ -9,6 +9,7 @@ public class SettingsScreen : BasicScreen
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        base._Ready();
         this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
         this.touch_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/touch/TouchSettingsScreen.tscn");
         this.dir_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DirectoriesScreen.tscn");
