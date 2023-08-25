@@ -357,7 +357,7 @@ public class GDKnyttSettings : Node
             if (new File().FileExists("user://input.ini"))
             {
                 GDKnyttKeys.loadSettings();
-                GDKnyttKeys.setAction("debug_die0", new InputEventKey() {Scancode = (uint)KeyList.F3});
+                GDKnyttKeys.setAction("debug_die0", new InputEventKey() {Scancode = (uint)KeyList.F10});
                 GDKnyttKeys.saveSettings();
             }
             GDKnyttWorldImpl.removeDirectory("user://Cache");

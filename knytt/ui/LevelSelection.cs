@@ -5,6 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.IO.Compression;
 using System.Text;
+using System.Threading.Tasks;
 using YKnyttLib;
 
 public class LevelSelection : BasicScreen
@@ -63,17 +64,22 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
-        loadDefaultWorlds();
-        discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
-        if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
-        discoverWorlds("user://Worlds");
-        if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
+        if (OS.GetName() != "HTML5") { Task.Run(loadLocalWorlds); } else { loadLocalWorlds(); }
         if (!localLoad) { HttpLoad(grab_focus: true); }
     }
 
     public override void initFocus()
     {
         game_container.GrabFocus();
+    }
+
+    private void loadLocalWorlds()
+    {
+        loadDefaultWorlds();
+        discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
+        if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
+        discoverWorlds("user://Worlds");
+        if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
     }
 
     private void HttpLoad(bool grab_focus = false)
@@ -212,8 +218,6 @@ public class LevelSelection : BasicScreen
             binLoad("res://knytt/worlds/html5/Introversity - Scrolly Polly Snow.knytt.bin");
             binLoad("res://knytt/worlds/html5/Diesel-Station07.knytt.bin");
         }
-        //if (OS.GetName() != "Android") {binLoad("/home/mike/sandbox/test - test.knytt.bin");}
-        //if (OS.GetName() != "Android") {directoryLoad(@"c:\apps\Knytt Stories\Worlds\test - test");}
     }
 
     // Search the given directory for worlds
@@ -260,7 +264,7 @@ public class LevelSelection : BasicScreen
     private WorldEntry generateDirectoryWorld(string world_dir)
     {
         KnyttWorldInfo world_info;
-        string cache_dir = "user://Cache/" + GDKnyttAssetManager.extractFilename(world_dir);
+        string cache_dir = "user://Cache".PlusFile(world_dir.GetFile());
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
         if (new File().FileExists(ini_cache_name))
@@ -272,6 +276,7 @@ public class LevelSelection : BasicScreen
             var ini_bin = GDKnyttAssetManager.loadFile(world_dir + "/world.ini");
             var ini_data = new IniData();
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
+            ini_data["World"]["World Folder"] = world_dir.GetFile();
             GDKnyttAssetManager.ensureDirExists(cache_dir);
             var f = new File();
             f.Open(ini_cache_name, File.ModeFlags.Write);
@@ -290,7 +295,7 @@ public class LevelSelection : BasicScreen
         byte[] icon_bin;
         KnyttWorldInfo world_info;
 
-        string cache_dir = "user://Cache/" + GDKnyttAssetManager.extractFilename(world_dir);
+        string cache_dir = "user://Cache".PlusFile(world_dir.GetFile());
         string icon_cache_name = cache_dir + "/Icon.png";
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
@@ -323,6 +328,7 @@ public class LevelSelection : BasicScreen
 
             var ini_data = new IniData();
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
+            ini_data["World"]["World Folder"] = binloader.RootDirectory;
             f.Open(ini_cache_name, File.ModeFlags.Write);
             f.StoreString(ini_data.ToString());
             f.Close();

@@ -15,7 +15,6 @@ public class GDKnyttAssetManager
     public const int TILE_HEIGHT = 24;
 
     public GDKnyttWorld GDWorld { get; }
-    private Dictionary<string, string> Directories { get; }
 
     ObjectCache<int, TileSet> TileSetCache;
     ObjectCache<int, Texture> GradientCache;
@@ -26,22 +25,12 @@ public class GDKnyttAssetManager
     public GDKnyttAssetManager(GDKnyttWorld gdworld, int tile_cache, int gradient_cache, int song_cache, int ambiance_cache, int object_cache)
     {
         this.GDWorld = gdworld;
-        Directories = new Dictionary<string, string>();
-
-        TileSetCache = new ObjectCache<int, TileSet>(tile_cache);
-        TileSetCache.OnCreate = (int num) => buildTileSet(num);
-
-        GradientCache = new ObjectCache<int, Texture>(gradient_cache);
-        GradientCache.OnCreate = (int num) => buildGradient(num);
-
-        SongCache = new ObjectCache<int, AudioStream>(song_cache);
-        SongCache.OnCreate = (int num) => buildSong(num);
-
-        AmbianceCache = new ObjectCache<int, AudioStream>(ambiance_cache);
-        AmbianceCache.OnCreate = (int num) => buildAmbiance(num);
-
-        ObjectCache = new ObjectCache<KnyttPoint, GDKnyttObjectBundle>(object_cache);
-        ObjectCache.OnCreate = (KnyttPoint id) => GDKnyttObjectFactory.buildKnyttObject(id);
+        TileSetCache  = new ObjectCache<int, TileSet>(tile_cache)         { OnCreate = buildTileSet };
+        GradientCache = new ObjectCache<int, Texture>(gradient_cache)     { OnCreate = buildGradient };
+        SongCache     = new ObjectCache<int, AudioStream>(song_cache)     { OnCreate = buildSong };
+        AmbianceCache = new ObjectCache<int, AudioStream>(ambiance_cache) { OnCreate = buildAmbiance };
+        ObjectCache   = new ObjectCache<KnyttPoint, GDKnyttObjectBundle>(object_cache) 
+                        { OnCreate = GDKnyttObjectFactory.buildKnyttObject };
     }
 
     public TileSet getTileSet(int num) { return TileSetCache.IncObject(num); }
@@ -185,11 +174,6 @@ public class GDKnyttAssetManager
     {
         var dir = new Directory();
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
-    }
-
-    public static string extractFilename(string full_path)
-    {
-        return full_path.Substring(full_path.LastIndexOfAny("/\\".ToCharArray()) + 1);
     }
 
     public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)

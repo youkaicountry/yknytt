@@ -11,11 +11,13 @@ public class Artifact : CustomObject
         var artifact_key = $"Artifact{artifact_number}";
         if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey(artifact_key)) { sprite.Play($"default{artifact_number}"); return; }
 
-        info = new CustomObject.CustomObjectInfo();
-        info.image = GDArea.GDWorld.KWorld.INIData["World"][artifact_key];
-        info.anim_loopback = 1;
-        info.anim_to = 14;
-        info.anim_speed = 250;
+        info = new CustomObject.CustomObjectInfo()
+        {
+            image = GDArea.GDWorld.KWorld.INIData["World"][artifact_key],
+            anim_loopback = 1,
+            anim_to = 14,
+            anim_speed = 250
+        };
         if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{artifact_number}")) { sprite.Play(); }
         else { sprite.Play($"default{artifact_number}"); }
     }

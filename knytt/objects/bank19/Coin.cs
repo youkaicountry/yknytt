@@ -9,10 +9,12 @@ public class Coin : CustomObject
         if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey("Coin")) { sprite.Play("default"); return; }
 
         // Enable custom animation
-        info = new CustomObject.CustomObjectInfo();
-        info.image = GDArea.GDWorld.KWorld.INIData["World"]["Coin"];
-        info.anim_to = 8;
-        info.anim_speed = 250;
+        info = new CustomObject.CustomObjectInfo()
+        {
+            image = GDArea.GDWorld.KWorld.INIData["World"]["Coin"],
+            anim_to = 8,
+            anim_speed = 250
+        };
         if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom")) { sprite.Play(); }
         else { sprite.Play("default"); }
     }
