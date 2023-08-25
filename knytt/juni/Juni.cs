@@ -153,7 +153,6 @@ public class Juni : KinematicBody2D
 
     public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
     public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && Checkers.Colliding; } }
-    public bool HasBump { get { return Checkers.Bump; } }
     public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
     public bool Grounded { get; private set; }
     public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
@@ -520,7 +519,7 @@ public class Juni : KinematicBody2D
 
     private void handleBumps(float delta)
     {
-        if (HasBump && CurrentState is WalkRunState && (juniInput.LeftHeld || juniInput.RightHeld))
+        if (Checkers.Bump && CurrentState is WalkRunState && (juniInput.LeftHeld || juniInput.RightHeld))
         {
             Translate(new Godot.Vector2(0, BUMP_Y_SPEED * delta));
         }

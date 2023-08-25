@@ -38,7 +38,7 @@ public class InfoScreen : BasicScreen
         this.world_entry = world_entry;
         if (new Directory().DirExists(world_entry.Path))
         {
-            KWorld.setDirectory(world_entry.Path, GDKnyttAssetManager.extractFilename(world_entry.Path));
+            KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
         else
         {
@@ -80,7 +80,7 @@ public class InfoScreen : BasicScreen
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        string cache_dir = GDKnyttAssetManager.extractFilename(KWorld.WorldDirectory);
+        string cache_dir = KWorld.WorldDirectory.GetFile();
         GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
         var f = new File();
         f.Open($"user://Cache/{cache_dir}/LastPlayed.flag", File.ModeFlags.Write);
@@ -247,8 +247,15 @@ public class InfoScreen : BasicScreen
     private void _on_OptimizeButton_pressed()
     {
         ClickPlayer.Play();
-        Task.Run(optimize);
-        GetNode<Timer>("HintTimer").Start();
+        if (OS.GetName() != "HTML5")
+        {
+            GetNode<Timer>("HintTimer").Start();
+            Task.Run(optimize);
+        }
+        else
+        {
+            optimize();
+        }
     }
 
     private void optimize()

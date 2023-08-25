@@ -21,11 +21,7 @@ public class MainMenu : BasicScreen
         initFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
-        if (OS.GetName() == "HTML5")
-        {
-            GetNode<Button>("ButtonRow/DownloadButton").Visible = false;
-            GetNode<Button>("ButtonRow/QuitButton").Visible = false;
-        }
+        if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
     }
 
     public override void initFocus()

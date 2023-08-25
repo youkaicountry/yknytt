@@ -33,8 +33,7 @@ public class SelfDropper : GDKnyttBaseObject
                 collisionShape.SetDeferred("disabled", true);
                 GetNode<AudioStreamPlayer2D>("DropPlayer").Play();
             }
-            // 14 * 50 * delta -- original formula
-            if (dropSpeed < 450) { dropSpeed += 13 * 50 * delta; }
+            if (dropSpeed < 450) { dropSpeed += 14 * 50 * delta; }
         }
     }
 

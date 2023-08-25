@@ -89,7 +89,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         GDKnyttDataStore.ProgressHint = "Finishing unpacking...";
         new Directory().Remove(marker_name);
         new Directory().Remove(WorldDirectory);
-        removeDirectory("user://Cache/" + GDKnyttAssetManager.extractFilename(WorldDirectory));
+        removeDirectory("user://Cache".PlusFile(WorldDirectory.GetFile()));
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
@@ -116,12 +116,12 @@ public class GDKnyttWorldImpl : KnyttWorld
         if (BinMode)
         {
             new Directory().Remove(WorldDirectory);
-            removeDirectory("user://Cache/" + GDKnyttAssetManager.extractFilename(WorldDirectory));
+            removeDirectory("user://Cache".PlusFile(WorldDirectory.GetFile()));
         }
         else
         {
             removeDirectory(WorldDirectory);
         }
-        removeDirectory($"user://Cache/{WorldDirectoryName}");
+        removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
     }
 }

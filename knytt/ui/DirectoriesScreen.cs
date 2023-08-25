@@ -14,6 +14,7 @@ public class DirectoriesScreen : BasicScreen
         initFocus();
         updatePaths();
         disableKeyboard(this);
+        if (OS.GetName() == "X11") { GetNode<Label>("VBoxContainer/Label2").Text += "On Linux, unpacked world files must be lowercase."; }
     }
 
     public override void initFocus()
@@ -34,7 +35,7 @@ public class DirectoriesScreen : BasicScreen
         foreach (Node n in node.GetChildren())
         {
             if (n is LineEdit e) { e.VirtualKeyboardEnabled = false; }
-            disableKeyboard(n);
+            if (n.GetChildCount() > 0) { disableKeyboard(n); }
         }
     }
 

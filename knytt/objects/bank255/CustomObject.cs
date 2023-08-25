@@ -2,6 +2,8 @@ using Godot;
 using System.Linq;
 using IniParser.Model;
 using YKnyttLib;
+using System.Collections.Generic;
+using YKnyttLib.Logging;
 
 public class CustomObject : GDKnyttBaseObject
 {
@@ -22,6 +24,7 @@ public class CustomObject : GDKnyttBaseObject
     protected CustomObjectInfo info;
     protected AnimatedSprite sprite;
     private int counter = 0;
+    private static Dictionary<(string, int), SpriteFrames> oco_cache = new Dictionary<(string, int), SpriteFrames>();
 
     // TODO: load textures in _Initialize and loadArea in a background thread, because loading may take a long time
     // Currently _Initialize is called in activateArea, and there is no way to do some initializations before it
@@ -86,13 +89,17 @@ public class CustomObject : GDKnyttBaseObject
         var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
                      obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
         var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite");
-        if (sprite == null && static_sprite == null) { GD.Print($"No sprite found for custom object {ObjectID.y}"); return; }
+        if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.y}"); return; }
+
+        var cache_key = (GDArea.GDWorld.KWorld.WorldDirectoryName, ObjectID.y + (ObjectID.x == 254 ? 256 : 0));
+        if (oco_cache.ContainsKey(cache_key)) { sprite.Frames = oco_cache[cache_key]; return; }
+
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
         
         if (static_sprite != null) { static_sprite.Texture = image_texture; return; }
 
         var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
-        sprite.Frames = new_frames;
+        sprite.Frames = oco_cache[cache_key] = new_frames;
         bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj.ObjectID.y.ToString()));
         foreach (var anim in new_frames.GetAnimationNames())
         {

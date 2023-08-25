@@ -91,7 +91,7 @@ namespace YKnyttLib
                 //get the level name.
                 while (binaryReader.PeekChar() != 0)
                 {
-                    RootDirectory += binaryReader.ReadChar();
+                    RootDirectory += Convert.ToChar(binaryReader.ReadByte());
                 }
                 //this doesn't match the final files I find, so that is confusing.
                 var fileCount = binaryReader.ReadUInt32();
@@ -107,7 +107,7 @@ namespace YKnyttLib
                     var filePath = string.Empty;
                     char fileChr;
                     //build a file name
-                    while ((fileChr = binaryReader.ReadChar()) != 0)
+                    while ((fileChr = Convert.ToChar(binaryReader.ReadByte())) != 0)
                     {
                         filePath += (fileChr == '\\') ? '/' : fileChr;
                     }
