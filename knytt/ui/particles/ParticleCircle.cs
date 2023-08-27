@@ -28,7 +28,7 @@ public class ParticleCircle : Node2D
     [Export]
     public Vector2 angleDifference;
 
-    private Random R { get { return GetParent<MenuCloud>().R; } }
+    private Random R => GetParent<MenuCloud>().R; 
 
     List<float> cloud_speeds;
 

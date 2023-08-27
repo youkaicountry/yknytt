@@ -184,9 +184,7 @@ public class GDKnyttKeys : Node
     private static void applyKey(string action_name, string key, bool ctrl = false)
     {
         int scancode = OS.FindScancodeFromString(key);
-        var e = new InputEventKey();
-        e.Scancode = (uint)scancode;
-        e.Control = ctrl;
+        var e = new InputEventKey() { Scancode = (uint)scancode, Control = ctrl };
         InputMap.ActionAddEvent(action_name, e);
     }
 

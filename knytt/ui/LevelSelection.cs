@@ -351,23 +351,24 @@ public class LevelSelection : BasicScreen
 
     private WorldEntry generateRemoteWorld(Dictionary json_item)
     {
-        WorldEntry world_info = new WorldEntry();
-        world_info.HasServerInfo = true;
-        world_info.Name = HTTPUtil.jsonValue<string>(json_item, "name");
-        world_info.Author = HTTPUtil.jsonValue<string>(json_item, "author");
-        world_info.Description = HTTPUtil.jsonValue<string>(json_item, "description");
         var base64_icon = HTTPUtil.jsonValue<string>(json_item, "icon");
-        world_info.Icon = base64_icon != null && base64_icon.Length > 0 ?
-            GDKnyttAssetManager.loadTexture(decompress(Convert.FromBase64String(base64_icon))) : null;
-        world_info.Link = HTTPUtil.jsonValue<string>(json_item, "link");
-        world_info.FileSize = HTTPUtil.jsonInt(json_item, "file_size");
-        world_info.Upvotes = HTTPUtil.jsonInt(json_item, "upvotes");
-        world_info.Downvotes = HTTPUtil.jsonInt(json_item, "downvotes");
-        world_info.Downloads = HTTPUtil.jsonInt(json_item, "downloads");
-        world_info.Complains = HTTPUtil.jsonInt(json_item, "complains");
-        world_info.AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified");
-        world_info.Status = HTTPUtil.jsonInt(json_item, "status");
-        return world_info;
+        return new WorldEntry()
+        {
+            HasServerInfo = true,
+            Name = HTTPUtil.jsonValue<string>(json_item, "name"),
+            Author = HTTPUtil.jsonValue<string>(json_item, "author"),
+            Description = HTTPUtil.jsonValue<string>(json_item, "description"),
+            Icon = base64_icon != null && base64_icon.Length > 0 ?
+                        GDKnyttAssetManager.loadTexture(decompress(Convert.FromBase64String(base64_icon))) : null,
+            Link = HTTPUtil.jsonValue<string>(json_item, "link"),
+            FileSize = HTTPUtil.jsonInt(json_item, "file_size"),
+            Upvotes = HTTPUtil.jsonInt(json_item, "upvotes"),
+            Downvotes = HTTPUtil.jsonInt(json_item, "downvotes"),
+            Downloads = HTTPUtil.jsonInt(json_item, "downloads"),
+            Complains = HTTPUtil.jsonInt(json_item, "complains"),
+            AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified"),
+            Status = HTTPUtil.jsonInt(json_item, "status"),
+        };
     }
 
     private static byte[] decompress(byte[] file)

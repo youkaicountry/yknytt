@@ -72,9 +72,9 @@ public class Juni : KinematicBody2D
     PackedScene double_jump_scene;
 
     public GDKnyttGame Game { get; private set; }
-    public GDKnyttArea GDArea { get { return Game.CurrentArea; } }
+    public GDKnyttArea GDArea => Game.CurrentArea; 
     public Sprite Detector { get; private set; }
-    public KnyttPoint AreaPosition { get { return GDArea.getPosition(GlobalPosition); } }
+    public KnyttPoint AreaPosition => GDArea.getPosition(GlobalPosition); 
 
     public JuniValues Powers { get; }
 
@@ -151,18 +151,18 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public int JumpLimit { get { return Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; } }
-    public bool CanClimb { get { return Powers.getPower(PowerNames.Climb) && Checkers.Colliding; } }
-    public bool CanUmbrella { get { return Powers.getPower(PowerNames.Umbrella); } }
+    public int JumpLimit => Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; 
+    public bool CanClimb => Powers.getPower(PowerNames.Climb) && Checkers.Colliding; 
+    public bool CanUmbrella => Powers.getPower(PowerNames.Umbrella); 
     public bool Grounded { get; private set; }
-    public bool DidJump { get { return juniInput.JumpEdge && Grounded && CanJump; } }
+    public bool DidJump => juniInput.JumpEdge && Grounded && CanJump; 
     public bool FacingRight
     {
         set { if (FacingRight != value) { Rotation = 0; Scale = new Godot.Vector2(value ? 1 : -1, 1); } }
         get { return Scale.x > 0 && Scale.y > 0; }
     }
-    public bool ApparentFacingRight { get { return Hologram != null ? !(Hologram as Sprite).FlipH : FacingRight; } }
-    public bool DidAirJump { get { return juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); } }
+    public bool ApparentFacingRight => Hologram != null ? !(Hologram as Sprite).FlipH : FacingRight; 
+    public bool DidAirJump => juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); 
     public bool CanAnyJump => Grounded ? CanJump : (CanFreeJump || jumps < JumpLimit);
 
     // Whether or not Juni is in a NoJump situation
@@ -207,7 +207,7 @@ public class Juni : KinematicBody2D
         }
     }
 
-    public Godot.Vector2 ApparentPosition { get { return (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; } }
+    public Godot.Vector2 ApparentPosition => (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; 
     public bool CanDeployHologram
     {
         get

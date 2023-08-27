@@ -54,7 +54,7 @@ public class SlotButton : Button
         }
     }
 
-    public string FullFilename { get { return $"{BaseFile} {slot}.ini"; } }
+    public string FullFilename => $"{BaseFile} {slot}.ini"; 
 
     public override void _Ready()
     {

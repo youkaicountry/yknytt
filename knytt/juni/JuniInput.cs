@@ -53,19 +53,19 @@ public class JuniInput
         return (!Juni.GDArea.BlockInput && pressEdges[action].justReleased) || (Juni.GDArea.HasAltInput && altInput.IsActionJustReleased(action));
     }
 
-    public bool LeftHeld { get { return checkPressed("left"); } }
-    public bool RightHeld { get { return checkPressed("right"); } }
-    public bool UpHeld { get { return checkPressed("up"); } }
-    public bool DownHeld { get { return checkPressed("down"); } }
-    public bool DownPressed { get { return checkJustPressed("down"); } }
-    public bool DownReleased { get { return checkJustReleased("down"); } }
+    public bool LeftHeld => checkPressed("left"); 
+    public bool RightHeld => checkPressed("right"); 
+    public bool UpHeld => checkPressed("up"); 
+    public bool DownHeld => checkPressed("down"); 
+    public bool DownPressed => checkJustPressed("down"); 
+    public bool DownReleased => checkJustReleased("down"); 
     public bool SwitchHeld { get; internal set; }
-    public bool UmbrellaPressed { get { return checkJustPressed("umbrella"); } }
-    public bool HologramPressed { get { return checkJustPressed("hologram"); } }
-    public bool JumpEdge { get { return checkJustPressed("jump"); } }
-    public bool JumpHeld { get { return checkPressed("jump"); } }
-    public bool WalkHeld { get { return checkPressed("walk"); } }
-    public bool UmbrellaHeld { get { return checkPressed("umbrella"); } }
+    public bool UmbrellaPressed => checkJustPressed("umbrella"); 
+    public bool HologramPressed => checkJustPressed("hologram"); 
+    public bool JumpEdge => checkJustPressed("jump"); 
+    public bool JumpHeld => checkPressed("jump"); 
+    public bool WalkHeld => checkPressed("walk"); 
+    public bool UmbrellaHeld => checkPressed("umbrella"); 
 
     public void Update()
     {
