@@ -13,7 +13,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     [Export] public int HistoryLength = 256;
     [Export] public float SlideSpeed = 5f;
 
-    public bool IsOpen { get { return showing; } }
+    public bool IsOpen => showing; 
 
     bool showing = false;
     bool sliding_out = false;

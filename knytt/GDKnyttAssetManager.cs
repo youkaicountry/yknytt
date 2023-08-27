@@ -163,11 +163,7 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
     {
-        var stream = new AudioStreamOGGVorbis();
-        stream.Data = buffer;
-        stream.Loop = loop;
-
-        return stream;
+        return new AudioStreamOGGVorbis() { Data = buffer, Loop = loop };
     }
 
     public static void ensureDirExists(string dir_name)

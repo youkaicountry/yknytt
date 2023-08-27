@@ -18,7 +18,7 @@ public class GameContainer : VBoxContainer
         this.game_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/GameButton.tscn");
     }
 
-    public int Count { get { return GetChildCount(); } }
+    public int Count => GetChildCount(); 
 
     public void clearWorlds()
     {

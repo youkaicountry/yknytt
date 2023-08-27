@@ -19,7 +19,7 @@ namespace YKnyttLib
         private IniData data;
         public int Slot { get; }
 
-        public string SaveFileName { get { return string.Format("{0} {1}.ini", World.WorldDirectoryName, Slot); } }
+        public string SaveFileName => string.Format("{0} {1}.ini", World.WorldDirectoryName, Slot); 
 
         public KnyttSave(KnyttWorld world, string ini_data, int slot)
         {

@@ -220,7 +220,7 @@ public class GDKnyttSettings : Node
         set { ini["Directories"]["Saves"] = value; }
     }
 
-    public static string Saves { get { return SavesDirectory == "" ? "user://Saves" : SavesDirectory; } }
+    public static string Saves => SavesDirectory == "" ? "user://Saves" : SavesDirectory; 
 
     public override void _Ready()
     {

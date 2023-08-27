@@ -31,7 +31,7 @@ public class JuniMotionParticles : Node2D
         get { return GetNode<Node2D>("SpawnLocations/Climb").GlobalPosition; }
     }
 
-    public Vector2 GroundPosition { get { return GetNode<Node2D>("SpawnLocations/Ground").GlobalPosition; } }
+    public Vector2 GroundPosition => GetNode<Node2D>("SpawnLocations/Ground").GlobalPosition; 
 
     JuniMotion _current_motion = JuniMotion.NONE;
     public JuniMotion CurrentMotion

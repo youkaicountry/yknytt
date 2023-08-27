@@ -5,7 +5,7 @@ public class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
-    public BulletLayer Bullets { get { return GetNode<BulletLayer>("Bullets"); } }
+    public BulletLayer Bullets => GetNode<BulletLayer>("Bullets"); 
     public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
@@ -19,9 +19,9 @@ public class GDKnyttArea : Node2D
     public bool Ambiance1CustomVolume { get; set; }
     public bool Ambiance2CustomVolume { get; set; }
 
-    public static float Width { get { return KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; } }
-    public static float Height { get { return KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; } }
-    public static Vector2 Size { get { return new Vector2(Width, Height); } }
+    public static float Width => KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; 
+    public static float Height => KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; 
+    public static Vector2 Size => new Vector2(Width, Height); 
 
     bool active = false;
     PackedScene objects_scene;
