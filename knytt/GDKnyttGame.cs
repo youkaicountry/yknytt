@@ -77,6 +77,7 @@ public class GDKnyttGame : Node2D
         GDWorld.loadWorld();
         createJuni();
 
+        GetNode<InfoPanel>("UICanvasLayer/InfoPanel").checkCustomPowers();
         this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
         Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
         saveGame(Juni, false);

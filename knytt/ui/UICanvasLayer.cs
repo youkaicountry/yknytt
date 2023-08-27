@@ -112,8 +112,7 @@ public class UICanvasLayer : CanvasLayer
                 Game.Juni.Powers.getCoinCount() > 0 || 
                 Game.Juni.Powers.getArtifactsCount() > 0))
         {
-            var scene = ResourceLoader.Load("res://knytt/ui/info_panel/ArtifactsPanel.tscn") as PackedScene;
-            artifactsPanel = scene.Instance() as ArtifactsPanel;
+            artifactsPanel = ResourceLoader.Load<PackedScene>("res://knytt/ui/info_panel/ArtifactsPanel.tscn").Instance<ArtifactsPanel>();
             artifactsPanel.Modulate = new Color(1, 1, 1, 0);
             AddChild(artifactsPanel);
         }

@@ -76,8 +76,8 @@ Bank 19 (Collectables):
 
 [x] Info Panel with golden creatures and artifacts
 
-[ ] Override Custom Objects
-[ ] 	Image=YourSpriteSheet.png
+[x] Override Custom Objects
+[x] 	Image=YourSpriteSheet.png
 [ ] 	TileWidth=
 [x] 	Bank=
 [x] 	Object=
@@ -88,7 +88,7 @@ Bank 19 (Collectables):
 
 [x] Custom Umbrella
 
-[ ] Custom Powers
+[x] Custom Powers
 
 [x] Custom Coins
 
