@@ -52,7 +52,8 @@ public class CustomObject : GDKnyttBaseObject
                 var node = bundle.getNode(Layer, Coords);
                 if (safe) { node.makeSafe(); }
                 if (bank == 7) { node.Modulate = color; }
-                if (image != null) { overrideAnimation(node, image); }
+                Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
+                if (image != null) { overrideAnimation(node, image, tile_size); }
                 AddChild(node);
             }
             return;
@@ -84,7 +85,7 @@ public class CustomObject : GDKnyttBaseObject
         return int.TryParse(getString(section, key), out int i) ? i : @default;
     }
 
-    private void overrideAnimation(GDKnyttBaseObject obj, string image)
+    private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size)
     {
         var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
                      obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
@@ -95,6 +96,7 @@ public class CustomObject : GDKnyttBaseObject
         if (oco_cache.ContainsKey(cache_key)) { sprite.Frames = oco_cache[cache_key]; return; }
 
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
+        if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { return; }
         
         if (static_sprite != null) { static_sprite.Texture = image_texture; return; }
 
@@ -113,13 +115,15 @@ public class CustomObject : GDKnyttBaseObject
                 int column = (int)tex.Region.Position.x / (int)tex.Region.Size.x;
                 int index = row * columns + column;
 
-                int new_columns = image_texture.GetWidth() / (int)tex.Region.Size.x;
+                int tile_width = tile_size.x == 0 ? (int)tex.Region.Size.x : (int)tile_size.x;
+                int tile_height = tile_size.y == 0 ? (int)tex.Region.Size.y : (int)tile_size.y;
+                int new_columns = Mathf.Min(1, image_texture.GetWidth() / tile_width);
                 int new_row = index / new_columns;
                 int new_column = index % new_columns;
 
                 var new_tex = new AtlasTexture();
                 new_tex.Atlas = image_texture;
-                new_tex.Region = new Rect2(new_column * tex.Region.Size.x, new_row * tex.Region.Size.y, tex.Region.Size.x, tex.Region.Size.y);
+                new_tex.Region = new Rect2(new_column * tile_width, new_row * tile_height, tile_width, tile_height);
                 new_frames.SetFrame(anim, i, new_tex);
             }
         }

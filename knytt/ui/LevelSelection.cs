@@ -191,7 +191,7 @@ public class LevelSelection : BasicScreen
         else
         {
             if (!remote_finished_entries.TryDequeue(out var world_entry)) { return; }
-            var entry = findLocal(world_entry); // TODO: with multithreading local level can be added later than remote, and it won't be shown as downloaded
+            var entry = findLocal(world_entry);
             if (entry != null) { world_entry.MergeLocal(entry); }
             bool focus = remotes_grab_focus && game_container.GamesCount == 0;
             remotes_grab_focus = false;

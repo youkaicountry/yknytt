@@ -144,6 +144,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         Input.ActionRelease("pause");
         historyIndex = history.Count;
         lineEdit.Text = "";
+        lineEdit.VirtualKeyboardEnabled = false;
     }
 
     private void flushBuffer()

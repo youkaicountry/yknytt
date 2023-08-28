@@ -78,7 +78,7 @@ Bank 19 (Collectables):
 
 [x] Override Custom Objects
 [x] 	Image=YourSpriteSheet.png
-[ ] 	TileWidth=
+[x] 	TileWidth=
 [x] 	Bank=
 [x] 	Object=
 [x] 	Hurts=False
