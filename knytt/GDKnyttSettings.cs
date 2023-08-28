@@ -66,17 +66,17 @@ public class GDKnyttSettings : Node
         float screen_width = for_ui ? 600 : TouchSettings.ScreenWidth;
         float y_to_x = OS.GetScreenSize().y / OS.GetScreenSize().x;
 
-        if (!TouchSettings.EnablePanel)
-        {
-            tree.SetScreenStretch(
-                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-                SceneTree.StretchAspect.Keep, new Vector2(600, 240));
-        }
-        else if (mobile) // expect fullscreen
+        if (mobile) // expect fullscreen
         {
             tree.SetScreenStretch(
                 SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
                 SceneTree.StretchAspect.Keep, new Vector2(screen_width, screen_width * y_to_x));
+        }
+        else if (!TouchSettings.EnablePanel)
+        {
+            tree.SetScreenStretch(
+                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+                SceneTree.StretchAspect.Keep, new Vector2(600, 240));
         }
         else
         {

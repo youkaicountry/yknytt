@@ -107,6 +107,7 @@ public class CustomObject : GDKnyttBaseObject
             for (int i = 0; i < new_frames.GetFrameCount(anim); i++)
             {
                 var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
+                if (tex == null) { continue; }
                 int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.x;
                 int row = (int)tex.Region.Position.y / (int)tex.Region.Size.y;
                 int column = (int)tex.Region.Position.x / (int)tex.Region.Size.x;

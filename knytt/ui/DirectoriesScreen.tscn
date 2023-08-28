@@ -146,7 +146,7 @@ custom_fonts/font = ExtResource( 2 )
 [node name="WorldsFileDialog" type="FileDialog" parent="."]
 margin_right = 216.0
 margin_bottom = 130.0
-rect_min_size = Vector2( 400, 210 )
+rect_min_size = Vector2( 500, 210 )
 window_title = "Select external worlds directory"
 mode_overrides_title = false
 mode = 2
@@ -155,7 +155,7 @@ access = 2
 [node name="SavesFileDialog" type="FileDialog" parent="."]
 margin_right = 216.0
 margin_bottom = 130.0
-rect_min_size = Vector2( 400, 210 )
+rect_min_size = Vector2( 500, 210 )
 window_title = "Select external saves directory"
 mode_overrides_title = false
 mode = 2
@@ -164,7 +164,7 @@ access = 2
 [node name="BackupFileDialog" type="FileDialog" parent="."]
 margin_right = 216.0
 margin_bottom = 130.0
-rect_min_size = Vector2( 400, 210 )
+rect_min_size = Vector2( 500, 210 )
 window_title = "Backup all save files in a zip"
 mode_overrides_title = false
 access = 2

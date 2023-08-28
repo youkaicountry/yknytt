@@ -42,6 +42,7 @@ public class LevelSelection : BasicScreen
 
     ConcurrentQueue<WorldEntry> finished_entries;
     ConcurrentQueue<WorldEntry> remote_finished_entries;
+    Task local_load_task;
 
     public LevelSelection()
     {
@@ -64,7 +65,7 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
-        if (OS.GetName() != "HTML5") { Task.Run(loadLocalWorlds); } else { loadLocalWorlds(); }
+        if (OS.GetName() != "HTML5") { local_load_task = Task.Run(loadLocalWorlds); } else { loadLocalWorlds(); }
         if (!localLoad) { HttpLoad(grab_focus: true); }
     }
 
@@ -110,12 +111,11 @@ public class LevelSelection : BasicScreen
         if (lost) { GetNode<Button>("BackButton").GrabFocus(); }
     }
 
-    private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
+    private async void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
         if (result != (int)HTTPRequest.Result.Success || response_code == 500)
         {
             if (request_retry-- <= 0) { connectionLost(); return; }
-            GD.Print("retry ", request_url);
             http_levels_node.CancelRequest();
             http_levels_node.Request(request_url);
             return;
@@ -129,6 +129,8 @@ public class LevelSelection : BasicScreen
         var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "results");
         if (world_infos == null) { connectionLost(); return; }
         connectionLost(lost: false);
+
+        if (local_load_task != null && !local_load_task.IsCompleted) { await local_load_task; }
 
         foreach (Dictionary record in world_infos)
         {

@@ -84,7 +84,7 @@ public class GDKnyttKeys : Node
     }
 
     private static string[] XBOX_BUTTONS = {
-        "XBox A", "XBox B", "XBox X", "XBox Y", "L Bumper", "R Bumper", "L Trigger", "R Trigger", "L3", "R3", 
+        "XBox A", "XBox B", "XBox X", "XBox Y", "L Bumper", "R Bumper", "L Trigger", "R Trigger", "L Stick Push", "R Stick Push", 
         "Select", "Start", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right",
         "Home", "XBox Share", "Paddle 1", "Paddle 2", "Paddle 3", "Paddle 4", "Touchpad"
     };
@@ -196,6 +196,7 @@ public class GDKnyttKeys : Node
 
     private static void applyAxis(string action_name, string key)
     {
+        if (axis_map.ContainsKey(int.Parse(key))) { return; }
         axis_map.Add(int.Parse(key), action_name);
     }
 
@@ -217,13 +218,18 @@ public class GDKnyttKeys : Node
         return modified;
     }
 
+    private static float STICK_THRESHOLD = 0.3f;
+
     public override void _Input(InputEvent @event)
     {
         if (!(@event is InputEventJoypadMotion jm)) { return; }
-        int axis = jm.AxisValue > 0 ? jm.Axis + 1 : jm.AxisValue < 0 ? -jm.Axis - 1 : 0;
+        int axis = jm.AxisValue > STICK_THRESHOLD ? jm.Axis + 1 : jm.AxisValue < -STICK_THRESHOLD ? -jm.Axis - 1 : 0;
         if (axis_map.ContainsKey(axis)) { Input.ActionPress(axis_map[axis]); }
         if (axis_map.ContainsKey(-axis)) { Input.ActionRelease(axis_map[-axis]); }
-        if (jm.AxisValue == 0 && axis_map.ContainsKey(jm.Axis + 1)) { Input.ActionRelease(axis_map[jm.Axis + 1]); }
-        if (jm.AxisValue == 0 && axis_map.ContainsKey(-jm.Axis - 1)) { Input.ActionRelease(axis_map[-jm.Axis - 1]); }
+        if (Mathf.Abs(jm.AxisValue) <= STICK_THRESHOLD)
+        {
+            if (axis_map.ContainsKey(jm.Axis + 1)) { Input.ActionRelease(axis_map[jm.Axis + 1]); }
+            if (axis_map.ContainsKey(-jm.Axis - 1)) { Input.ActionRelease(axis_map[-jm.Axis - 1]); }
+        }
     }
 }

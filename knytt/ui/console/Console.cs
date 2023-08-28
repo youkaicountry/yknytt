@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Text;
 using YKnyttLib.Logging;
 using System.Collections.Generic;
@@ -66,16 +65,14 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             toggleConsole();
         }
 
-        if (@event.IsActionPressed("pause") && IsOpen)
+        if (@event.IsActionPressed("pause") && IsOpen) // usual pause is handled in _Process
         {
             toggleConsole();
         }
-
-        if (Input.IsActionPressed("show_info") && Input.IsActionPressed("jump") && Input.IsActionPressed("down"))
+        else if (Input.IsActionPressed("show_info") && Input.IsActionPressed("pause"))
         {
             Input.ActionRelease("show_info");
-            Input.ActionRelease("jump");
-            Input.ActionRelease("down");
+            Input.ActionRelease("pause");
             toggleConsole();
         }
 
@@ -83,12 +80,15 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         {
             historyIndex = (historyIndex + history.Count - 1) % history.Count;
             lineEdit.Text = history[historyIndex];
+            lineEdit.CaretPosition = lineEdit.Text.Length;
+            GetTree().SetInputAsHandled();
         }
         
         if (@event.IsActionPressed("ui_down") && IsOpen)
         {
             historyIndex = historyIndex < history.Count - 1 ? historyIndex + 1 : 0;
             lineEdit.Text = history[historyIndex];
+            lineEdit.CaretPosition = lineEdit.Text.Length;
         }
 
         if (@event.IsActionPressed("ui_accept") && IsOpen)
@@ -141,8 +141,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
         prevFocusControl?.GrabFocus();
         Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
-        Input.ActionRelease("jump");
-        Input.ActionRelease("down");
+        Input.ActionRelease("pause");
         historyIndex = history.Count;
         lineEdit.Text = "";
     }
@@ -223,5 +222,6 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     {
         lineEdit.VirtualKeyboardEnabled = !lineEdit.VirtualKeyboardEnabled;
         lineEdit.GrabFocus();
+        lineEdit.CaretPosition = lineEdit.Text.Length;
     }
 }
