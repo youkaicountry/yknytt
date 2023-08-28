@@ -230,7 +230,7 @@ focus_previous = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
 text = "Back"
 
 [node name="RestHTTPRequest" type="HTTPRequest" parent="."]
-timeout = 30.0
+timeout = 20.0
 
 [node name="FileHTTPRequest" type="HTTPRequest" parent="."]
 script = ExtResource( 1 )

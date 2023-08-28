@@ -35,6 +35,8 @@ public class DirectoriesScreen : BasicScreen
         foreach (Node n in node.GetChildren())
         {
             if (n is LineEdit e) { e.VirtualKeyboardEnabled = false; }
+            if (n is Button b && b.Text == "Create Folder") { b.Visible = false; }
+            if (n is Label l && l.Text == "Directories & Files:") { l.Visible = false; }
             if (n.GetChildCount() > 0) { disableKeyboard(n); }
         }
     }
