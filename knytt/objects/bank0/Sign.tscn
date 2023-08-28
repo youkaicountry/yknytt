@@ -6,7 +6,7 @@
 [ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 12 )
+extents = Vector2( 11.8, 11.8 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "FadeIn"
