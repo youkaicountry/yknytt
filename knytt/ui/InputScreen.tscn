@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://knytt/ui/slider_pip.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/InputScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/InputOption.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://knytt/ui/slider_pip_hover.png" type="Texture" id=6]
+[ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="InputScreen" type="CanvasLayer"]
 layer = 3
@@ -163,17 +170,53 @@ margin_right = 248.0
 margin_bottom = 130.0
 focus_mode = 2
 
-[node name="FromBack" type="Label" parent="KSSettingsContainer"]
+[node name="FromSlider" type="Label" parent="KSSettingsContainer"]
 margin_top = 134.0
 margin_right = 248.0
 margin_bottom = 148.0
 focus_mode = 2
 
-[node name="FromBackLeft" type="Label" parent="KSSettingsContainer"]
+[node name="FromBack" type="Label" parent="KSSettingsContainer"]
 margin_top = 152.0
 margin_right = 248.0
 margin_bottom = 166.0
 focus_mode = 2
+
+[node name="FromBackLeft" type="Label" parent="KSSettingsContainer"]
+margin_top = 170.0
+margin_right = 248.0
+margin_bottom = 184.0
+focus_mode = 2
+
+[node name="Sensitivity" type="Control" parent="."]
+margin_left = 267.0
+margin_top = 130.0
+
+[node name="Label" type="Label" parent="Sensitivity"]
+margin_top = 7.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Stick Sensitivity"
+
+[node name="Slider" type="HSlider" parent="Sensitivity"]
+margin_left = 85.0
+margin_right = 235.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 164, 24 )
+focus_neighbour_left = NodePath("../../SettingsContainer/JumpSetting")
+focus_neighbour_top = NodePath("../../KSSettingsContainer/FromSlider")
+focus_neighbour_bottom = NodePath("../../BackButton")
+focus_next = NodePath("../../BackButton")
+focus_previous = NodePath("../../KSSettingsContainer/FromSlider")
+custom_icons/grabber_highlight = ExtResource( 6 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = ExtResource( 7 )
+custom_styles/grabber_area_highlight = SubResource( 1 )
+custom_styles/grabber_area = SubResource( 2 )
+min_value = 0.02
+max_value = 1.0
+step = 0.02
+value = 0.02
 
 [node name="KeyPrompt" type="Control" parent="."]
 visible = false
@@ -213,7 +256,9 @@ one_shot = true
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="focus_entered" from="KSSettingsContainer/ToBack" to="." method="_on_ToBack_focus_entered"]
+[connection signal="focus_entered" from="KSSettingsContainer/FromSlider" to="." method="_on_FromSlider_focus_entered"]
 [connection signal="focus_entered" from="KSSettingsContainer/FromBack" to="." method="_on_FromBack_focus_entered"]
 [connection signal="focus_entered" from="KSSettingsContainer/FromBackLeft" to="." method="_on_FromBackLeft_focus_entered"]
+[connection signal="value_changed" from="Sensitivity/Slider" to="." method="_on_Slider_value_changed"]
 [connection signal="pressed" from="KeyPrompt/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="KeyPrompt/ClearButton" to="." method="_on_ClearButton_pressed"]
