@@ -51,7 +51,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 10, 3.334 )
+extents = Vector2( 6.5, 4 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 2 )
@@ -113,7 +113,7 @@ playing = true
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Spot"]
-position = Vector2( 11.9953, 20.6657 )
+position = Vector2( 12, 20 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Spot/Area2D"]
@@ -127,11 +127,10 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Floor"]
-position = Vector2( 9.99868, 13.8392 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Floor/Area2D"]
-position = Vector2( 2, 8.15 )
+position = Vector2( 12, 22 )
 shape = SubResource( 12 )
 
 [node name="Circle" type="Node2D" parent="Shapes"]

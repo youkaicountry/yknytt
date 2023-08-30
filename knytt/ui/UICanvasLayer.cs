@@ -67,7 +67,7 @@ public class UICanvasLayer : CanvasLayer
         }
         else if (Input.IsActionJustReleased("show_info"))
         {
-            if (!showing || GetNode<Timer>("StayTimer").TimeLeft > 0f) { return; }
+            if (!sliding_out || GetNode<Timer>("StayTimer").TimeLeft > 0f) { return; }
             togglePanel();
         }
     }
@@ -96,6 +96,11 @@ public class UICanvasLayer : CanvasLayer
     {
         showing = sliding_out;
         if (Game.hasMap()) { GetNode<TouchPanel>("TouchPanel").InstallMap(!showing); }
+    }
+
+    public void closePanel()
+    {
+        if (sliding_out) { togglePanel(); }
     }
 
     public void powerUpdate(PowerNames names, bool value)

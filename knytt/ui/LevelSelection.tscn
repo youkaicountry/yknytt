@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=7]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.75, 0.75, 0.75, 1 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 3.0
@@ -209,6 +217,7 @@ focus_next = NodePath("../../../../BackButton")
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
+custom_styles/read_only = SubResource( 3 )
 custom_styles/normal = SubResource( 1 )
 caret_blink = true
 

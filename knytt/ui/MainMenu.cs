@@ -32,7 +32,11 @@ public class MainMenu : BasicScreen
     public override void _Notification(int what)
     {
         if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
-        if (what == MainLoop.NotificationWmGoBackRequest) { ActiveScreen.goBack(); }
+        if (what == MainLoop.NotificationWmGoBackRequest)
+        {
+            if (GetNode<HBoxContainer>("ButtonRow").GetFocusOwner() is LineEdit) { ActiveScreen.initFocus(); return; }
+            ActiveScreen.goBack();
+        }
     }
 
     private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
