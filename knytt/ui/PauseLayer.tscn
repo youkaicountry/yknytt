@@ -30,9 +30,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.0
+margin_left = -150.0
 margin_top = -55.0
-margin_right = 120.0
+margin_right = 150.0
 margin_bottom = 55.0
 rect_pivot_offset = Vector2( 120, 55 )
 script = ExtResource( 2 )
@@ -52,12 +52,14 @@ position = Vector2( 0, 0 )
 scale = Vector2( 0.55, 0.55 )
 
 [node name="ButtonContainer" type="HBoxContainer" parent="PausePanel"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 27.0
 margin_top = -40.0
-margin_right = 215.0
 margin_bottom = -5.0
+grow_horizontal = 2
+custom_constants/separation = 8
 
 [node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -72,18 +74,28 @@ text = "Resume"
 [node name="SettingsButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 64.0
-margin_right = 124.0
+margin_left = 68.0
+margin_right = 128.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 custom_styles/disabled = SubResource( 2 )
 text = "Settings"
 
+[node name="InfoButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 136.0
+margin_right = 196.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 0 )
+custom_styles/disabled = SubResource( 2 )
+text = "Info"
+
 [node name="QuitButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 128.0
-margin_right = 188.0
+margin_left = 204.0
+margin_right = 264.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 focus_neighbour_right = NodePath("../ResumeButton")
@@ -94,4 +106,5 @@ text = "Quit"
 
 [connection signal="pressed" from="PausePanel/ButtonContainer/ResumeButton" to="PausePanel" method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="PausePanel/ButtonContainer/SettingsButton" to="PausePanel" method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="PausePanel/ButtonContainer/InfoButton" to="PausePanel" method="_on_InfoButton_pressed"]
 [connection signal="pressed" from="PausePanel/ButtonContainer/QuitButton" to="PausePanel" method="_on_QuitButton_pressed"]

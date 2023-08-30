@@ -40,6 +40,7 @@ public class GDKnyttDataStore : Node
 
     public static void startGame(bool new_game)
     {
+        Tree.Paused = false;
         if (new_game)
         {
             Mode = CutsceneMode.Intro;

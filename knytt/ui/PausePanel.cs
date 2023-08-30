@@ -3,12 +3,14 @@ using Godot;
 public class PausePanel : Control
 {
     PackedScene settings_scene;
+    PackedScene info_scene;
     bool bounce = true;
     bool in_settings = false;
 
     public override void _Ready()
     {
         settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
+        info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
         pause();
         bounceWait();
         RectScale = Vector2.One;
@@ -64,7 +66,16 @@ public class PausePanel : Control
     {
         in_settings = true;
         GDKnyttSettings.setupViewport(for_ui: true);
-        GetParent<BasicScreen>().loadScreen(settings_scene.Instance() as SettingsScreen);
+        GetParent<BasicScreen>().loadScreen(settings_scene.Instance<SettingsScreen>());
+    }
+
+    private void _on_InfoButton_pressed()
+    {
+        in_settings = true;
+        GDKnyttSettings.setupViewport(for_ui: true);
+        var info_screen = info_scene.Instance<InfoScreen>();
+        info_screen.initialize(GetNode<GDKnyttGame>("../../..").GDWorld.KWorld);
+        GetParent<BasicScreen>().loadScreen(info_screen);
     }
 
     public void backEvent()

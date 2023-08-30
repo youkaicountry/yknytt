@@ -1,9 +1,11 @@
 using Godot;
+using System.Linq;
 
 public class GameButton : Button
 {
     public WorldEntry worldEntry;
     private ColorRect progressRect;
+    private Label descriptionLabel;
     private float startProgressLength;
     private float varProgressLength;
 
@@ -21,7 +23,8 @@ public class GameButton : Button
         GetNode<TextureRect>("MainContainer/IconTexture").Texture = info.Icon;
         GetNode<TextureRect>("MainContainer/IconTexture").RectSize = new Vector2(30, 30);
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";
-        GetNode<Label>("MainContainer/TextContainer/DescriptionLabel").Text = info.Description;
+        descriptionLabel = GetNode<Label>("MainContainer/TextContainer/DescriptionLabel");
+        descriptionLabel.Text = info.Description;
 
         progressRect = GetNode<ColorRect>("ProgressRect");
         startProgressLength = progressRect.RectSize.x - progressRect.MarginLeft;
@@ -82,5 +85,47 @@ public class GameButton : Button
     {
         var label = GetNode<Label>("RatingControl/DownloadsLabel");
         label.Text = $"{int.Parse(label.Text) + 1}";
+    }
+
+    private string capitalize(string s)
+    {
+        s = s.Trim();
+        return s == "" ? "" : (s[0].ToString().ToUpper() + s.Substring(1).ToLower());
+    }
+
+    private void _on_GameButton_mouse_entered()
+    {
+        _on_GameButton_focus_entered();
+    }
+
+    private void _on_GameButton_mouse_exited()
+    {
+        if (!HasFocus()) { _on_GameButton_focus_exited(); }
+    }
+
+    private void _on_GameButton_focus_entered()
+    {
+        if (ignore_focus) { ignore_focus = false; return; }
+        if (worldEntry == null) { return; }
+        descriptionLabel.Text = capitalize(worldEntry.Size + " " +
+                string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s))) + " " +
+                string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s))))
+                .Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
+        descriptionLabel.AddColorOverride("font_color", new Color(0, 0.5f, 0));
+    }
+
+    private void _on_GameButton_focus_exited()
+    {
+        if (worldEntry == null) { return; }
+        descriptionLabel.Text = worldEntry.Description;
+        descriptionLabel.AddColorOverride("font_color", new Color(0, 0, 0));
+    }
+
+    bool ignore_focus;
+
+    public void forceGrabFocus()
+    {
+        ignore_focus = true;
+        GrabFocus();
     }
 }

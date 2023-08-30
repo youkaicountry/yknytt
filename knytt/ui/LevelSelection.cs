@@ -4,6 +4,7 @@ using IniParser.Model;
 using System;
 using System.Collections.Concurrent;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
@@ -368,7 +369,11 @@ public class LevelSelection : BasicScreen
 
     private WorldEntry generateRemoteWorld(Dictionary json_item)
     {
+        var category_option = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
+        var difficulty_option = GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown");
+        var size_option = GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown");
         var base64_icon = HTTPUtil.jsonValue<string>(json_item, "icon");
+        int size_index = HTTPUtil.jsonInt(json_item, "size");
         return new WorldEntry()
         {
             HasServerInfo = true,
@@ -385,6 +390,13 @@ public class LevelSelection : BasicScreen
             Complains = HTTPUtil.jsonInt(json_item, "complains"),
             AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified"),
             Status = HTTPUtil.jsonInt(json_item, "status"),
+            Categories = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "category")
+                .Cast<float>().Where(i => i > 0 && i < category_option.GetItemCount())
+                .Select(i => category_option.GetItemText((int)i)).ToList(),
+            Difficulties = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "difficulty")
+                .Cast<float>().Where(i => i > 0 && i < difficulty_option.GetItemCount())
+                .Select(i => difficulty_option.GetItemText((int)i)).ToList(),
+            Size = size_index > 0 && size_index < size_option.GetItemCount() ? size_option.GetItemText(size_index) : ""
         };
     }
 
@@ -611,7 +623,7 @@ public class LevelSelection : BasicScreen
             games_scrollbar.Value = prev_scroll;
             return;
         }
-        game_container.GetChild(0).GetChild<GameButton>(0).GrabFocus();
+        game_container.GetChild(0).GetChild<GameButton>(0).forceGrabFocus();
         games_scrollbar.Value = 0;
     }
 
