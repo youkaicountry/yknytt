@@ -235,7 +235,11 @@ public class GDKnyttGame : Node2D
     public override void _Notification(int what)
     {
         if (what == MainLoop.NotificationWmQuitRequest) { pause(); }
-        if (what == MainLoop.NotificationWmGoBackRequest) { pause(); }
+        if (what == MainLoop.NotificationWmGoBackRequest)
+        {
+            if (GetNode<Console>("/root/Console").IsOpen) { GetNode<Console>("/root/Console").toggleConsole(); return; }
+            pause();
+        }
     }
 
     private void pause()

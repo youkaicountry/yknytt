@@ -31,8 +31,8 @@ public abstract class BasicScreen : CanvasLayer
     public override void _Input(InputEvent @event)
     {
         var focused = GetNodeOrNull<Button>("BackButton")?.GetFocusOwner();
-        if (@event.IsActionPressed("ui_back") && ActiveScreen == this && 
-            !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
+        if ((@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu")) && 
+            ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {
             GetTree().SetInputAsHandled();
             goBack();

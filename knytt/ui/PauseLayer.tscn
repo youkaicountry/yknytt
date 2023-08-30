@@ -85,17 +85,17 @@ text = "Settings"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 136.0
-margin_right = 196.0
+margin_right = 205.064
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 custom_styles/disabled = SubResource( 2 )
-text = "Info"
+text = " Select Save "
 
 [node name="QuitButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_right = 264.0
+margin_left = 213.0
+margin_right = 273.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 60, 0 )
 focus_neighbour_right = NodePath("../ResumeButton")
