@@ -41,7 +41,7 @@ public class GameContainer : VBoxContainer
         game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
         if (!replace_stub) { addButton(game_node); }
         
-        if (focus) { game_node.GrabFocus(); }
+        if (focus) { game_node.forceGrabFocus(); }
         if (mark_completed) { game_node.markCompleted(); }
         if (GamesCount == 0)
         { 
