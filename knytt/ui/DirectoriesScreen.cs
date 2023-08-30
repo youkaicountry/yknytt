@@ -117,7 +117,10 @@ public class DirectoriesScreen : BasicScreen
 
     private bool checkReadable(string dir)
     {
-        return new Directory().Open(dir) == Error.Ok;
+        var d = new Directory();
+        if (d.Open(dir) != Error.Ok || d.ListDirBegin() != Error.Ok) { return false; }
+        d.ListDirEnd();
+        return true;
     }
 
     private bool checkDir(string dir, bool write)
