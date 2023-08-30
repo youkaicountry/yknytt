@@ -25,6 +25,7 @@ public class GameButton : Button
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";
         descriptionLabel = GetNode<Label>("MainContainer/TextContainer/DescriptionLabel");
         descriptionLabel.Text = info.Description;
+        if (HasFocus()) { _on_GameButton_focus_entered(); }
 
         progressRect = GetNode<ColorRect>("ProgressRect");
         startProgressLength = progressRect.RectSize.x - progressRect.MarginLeft;

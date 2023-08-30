@@ -34,6 +34,7 @@ public class MainMenu : BasicScreen
         if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
         if (what == MainLoop.NotificationWmGoBackRequest)
         {
+            if (GetNode<Console>("/root/Console").IsOpen) { GetNode<Console>("/root/Console").toggleConsole(); return; }
             if (GetNode<HBoxContainer>("ButtonRow").GetFocusOwner() is LineEdit) { ActiveScreen.initFocus(); return; }
             ActiveScreen.goBack();
         }

@@ -43,10 +43,10 @@ public class GameContainer : VBoxContainer
         
         if (focus) { game_node.forceGrabFocus(); }
         if (mark_completed) { game_node.markCompleted(); }
-        if (GamesCount == 0)
+        if (GamesCount < 2)
         { 
             game_node.FocusNeighbourTop = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown");
-            game_node.FocusPrevious = game_node.FocusNeighbourLeft = new NodePath("../../../../../BackButton");
+            if (GamesCount == 0) { game_node.FocusPrevious = game_node.FocusNeighbourLeft = new NodePath("../../../../../BackButton"); }
         }
         GamesCount++;
     }
