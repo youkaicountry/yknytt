@@ -339,7 +339,6 @@ public class Juni : KinematicBody2D
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite>("Detector");
-        Detector.Visible = true;
         Checkers = GetNode<Checkers>("Checkers");
         Sprite = GetNode<Sprite>("Sprite");
         material = Sprite.Material as ShaderMaterial;
@@ -803,7 +802,7 @@ public class Juni : KinematicBody2D
     public void executeJump(float jump_speed, bool air_jump = false, bool sound = true, bool reset_jumps = false)
     {
         transitionState(new JumpState(this));
-        Anim.Play("Jump");
+        Anim.Play(jump_speed < 0 ? "Jump" : "StartFall");
         if (sound) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
         velocity.y = jump_speed;
 

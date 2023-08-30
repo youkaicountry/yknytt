@@ -51,7 +51,7 @@ public class LevelSelection : BasicScreen
         remote_finished_entries = new ConcurrentQueue<WorldEntry>();
     }
 
-    public override void _Ready()
+    public async override void _Ready()
     {
         base._Ready();
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
@@ -65,8 +65,23 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
-        if (OS.GetName() != "HTML5") { local_load_task = Task.Run(loadLocalWorlds); } else { loadLocalWorlds(); }
+        if (OS.GetName() != "HTML5")
+        {
+            enableFilter(false);
+            local_load_task = Task.Run(loadLocalWorlds);
+        }
+        else
+        {
+            loadLocalWorlds();
+        }
+        
         if (!localLoad) { HttpLoad(grab_focus: true); }
+        
+        if (local_load_task?.IsCompleted == false)
+        {
+            await local_load_task;
+            if (IsInstanceValid(this)) { enableFilter(true); }
+        }
     }
 
     public override void initFocus()
@@ -130,7 +145,7 @@ public class LevelSelection : BasicScreen
         if (world_infos == null) { connectionLost(); return; }
         connectionLost(lost: false);
 
-        if (local_load_task != null && !local_load_task.IsCompleted) { await local_load_task; }
+        if (local_load_task?.IsCompleted == false) { await local_load_task; }
 
         foreach (Dictionary record in world_infos)
         {
@@ -605,6 +620,6 @@ public class LevelSelection : BasicScreen
         var parent = GetNode<Control>("MainContainer/FilterContainer");
         string[] childs = {"Category/CategoryDropdown", "Difficulty/DifficultyDropdown", "Size/SizeDropdown", "Sort/SortDropdown", "Sort/RemoteSortDropdown"};
         foreach (var child in childs) { parent.GetNode<OptionButton>(child).Disabled = !enable; }
-        parent.GetNode<LineEdit>("Search/SearchEdit").Visible = enable;
+        parent.GetNode<LineEdit>("Search/SearchEdit").Editable = enable;
     }
 }

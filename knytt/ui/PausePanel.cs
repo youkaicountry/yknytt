@@ -50,6 +50,7 @@ public class PausePanel : Control
         //GDKnyttSettings.setupViewport(for_ui: false);
         //GetTree().Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera(force_fullscreen: false);
         //GetTree().Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure(force_off: false);
+        Input.ActionRelease("pause");
         GetParent().QueueFree();
     }
 

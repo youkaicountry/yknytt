@@ -73,6 +73,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         {
             Input.ActionRelease("show_info");
             Input.ActionRelease("pause");
+            GetNodeOrNull<UICanvasLayer>("/root/GKnyttGame/UICanvasLayer")?.closePanel();
             toggleConsole();
         }
 
@@ -139,7 +140,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
         GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
-        prevFocusControl?.GrabFocus();
+        if (IsInstanceValid(prevFocusControl)) { prevFocusControl.GrabFocus(); }
         Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
         Input.ActionRelease("pause");
         historyIndex = history.Count;
