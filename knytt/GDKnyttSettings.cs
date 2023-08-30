@@ -221,7 +221,13 @@ public class GDKnyttSettings : Node
         set { ini["Directories"]["Saves"] = value; }
     }
 
-    public static string Saves => SavesDirectory == "" ? "user://Saves" : SavesDirectory; 
+    public static string Saves => SavesDirectory == "" ? "user://Saves" : SavesDirectory;
+
+    public static float StickSensitivity
+    {
+        get { return float.Parse(ini["Misc"]["Stick Sensitivity"]); }
+        set { ini["Misc"]["Stick Sensitivity"] = value.ToString(); GDKnyttKeys.StickTreshold = 1 - value; }
+    }
 
     public override void _Ready()
     {
@@ -281,6 +287,8 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Directories", "Worlds", "");
         modified |= ensureSetting("Directories", "Saves", "");
 
+        modified |= ensureSetting("Misc", "Stick Sensitivity", (0.7f).ToString());
+
         modified |= TouchSettings.ensureSettings();
 
         if (modified) { saveSettings(); }
@@ -298,6 +306,7 @@ public class GDKnyttSettings : Node
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
         EffectsPanning = float.Parse(ini["Audio"]["Effects Panning"]);
+        StickSensitivity = float.Parse(ini["Misc"]["Stick Sensitivity"]);
     }
 
     public static void saveSettings()

@@ -10,6 +10,8 @@ public class InputScreen : BasicScreen
         base._Ready();
         connectSettings(GetNode<Node>("SettingsContainer"));
         connectSettings(GetNode<Node>("KSSettingsContainer"));
+        GetNode<HSlider>("Sensitivity/Slider").Value = GDKnyttSettings.StickSensitivity;
+        GetNode<Control>("Sensitivity").Visible = GDKnyttKeys.HasAxis;
         initFocus();
     }
 
@@ -60,6 +62,7 @@ public class InputScreen : BasicScreen
         GetNode<Control>("KeyPrompt").Visible = true;
         GetNode<Button>("BackButton").Disabled = true;
         GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.None;
+        GetNode<Control>("Sensitivity").Visible = false;
     }
 
     private void finishCollecting()
@@ -71,6 +74,7 @@ public class InputScreen : BasicScreen
         GetNode<Control>("KeyPrompt").Visible = false;
         GetNode<Button>("BackButton").Disabled = false;
         GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.All;
+        GetNode<Control>("Sensitivity").Visible = GDKnyttKeys.HasAxis;
     }
 
     public void _on_CancelButton_pressed()
@@ -88,16 +92,26 @@ public class InputScreen : BasicScreen
 
     private void _on_ToBack_focus_entered()
     {
-        GetNode<Button>("BackButton").GrabFocus();
+        GetNode<Control>(GetNode<Control>("Sensitivity").Visible ? "Sensitivity/Slider" : "BackButton").GrabFocus();
     }
 
     private void _on_FromBack_focus_entered()
     {
-        GetNode<Button>("KSSettingsContainer/DieSetting/Button0").GrabFocus();
+        GetNode<Control>(GetNode<Control>("Sensitivity").Visible ? "Sensitivity/Slider" : "KSSettingsContainer/DieSetting/Button0").GrabFocus();
     }
 
     private void _on_FromBackLeft_focus_entered()
     {
         GetNode<Button>("SettingsContainer/WalkSetting/Button1").GrabFocus();
+    }
+
+    private void _on_FromSlider_focus_entered()
+    {
+        GetNode<Control>("KSSettingsContainer/DieSetting/Button0").GrabFocus();
+    }
+
+    private void _on_Slider_value_changed(float value)
+    {
+        GDKnyttSettings.StickSensitivity = value;
     }
 }

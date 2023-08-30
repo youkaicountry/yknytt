@@ -127,6 +127,7 @@ public class GDKnyttKeys : Node
 
             case InputEventJoypadMotion jm:
                 if (jm.Axis == 6 || jm.Axis == 7) { return false; }
+                if (Mathf.Abs(jm.AxisValue) <= StickTreshold) { return false; }
                 int value = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
                 ini["Input"][ini_name] = $"Axis({value})";
                 break;
@@ -218,15 +219,17 @@ public class GDKnyttKeys : Node
         return modified;
     }
 
-    private static float STICK_THRESHOLD = 0.3f;
+    public static bool HasAxis => axis_map.Count > 0;
+
+    public static float StickTreshold = 0.3f;
 
     public override void _Input(InputEvent @event)
     {
         if (!(@event is InputEventJoypadMotion jm)) { return; }
-        int axis = jm.AxisValue > STICK_THRESHOLD ? jm.Axis + 1 : jm.AxisValue < -STICK_THRESHOLD ? -jm.Axis - 1 : 0;
+        int axis = jm.AxisValue > StickTreshold ? jm.Axis + 1 : jm.AxisValue < -StickTreshold ? -jm.Axis - 1 : 0;
         if (axis_map.ContainsKey(axis)) { Input.ActionPress(axis_map[axis]); }
         if (axis_map.ContainsKey(-axis)) { Input.ActionRelease(axis_map[-axis]); }
-        if (Mathf.Abs(jm.AxisValue) <= STICK_THRESHOLD)
+        if (Mathf.Abs(jm.AxisValue) <= StickTreshold)
         {
             if (axis_map.ContainsKey(jm.Axis + 1)) { Input.ActionRelease(axis_map[jm.Axis + 1]); }
             if (axis_map.ContainsKey(-jm.Axis - 1)) { Input.ActionRelease(axis_map[-jm.Axis - 1]); }
