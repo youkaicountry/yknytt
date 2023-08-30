@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://knytt/ui/DirectoriesScreen.cs" type="Script" id=3]
+[ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=4]
 
 [node name="DirectoriesScreen" type="CanvasLayer"]
 layer = 2
@@ -15,13 +16,13 @@ anchor_bottom = 1.0
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 33.0
+margin_left = 20.0
 margin_top = 20.0
 margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
@@ -29,14 +30,14 @@ text = "External Worlds Directory:"
 
 [node name="WorldsContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 17.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 50.0
 
 [node name="DirLabel" type="Label" parent="VBoxContainer/WorldsContainer"]
 margin_top = 10.0
-margin_right = 300.0
+margin_right = 280.0
 margin_bottom = 23.0
-rect_min_size = Vector2( 300, 0 )
+rect_min_size = Vector2( 280, 0 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Not set"
@@ -45,8 +46,8 @@ clip_text = true
 [node name="ChangeButton" parent="VBoxContainer/WorldsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 304.0
-margin_right = 384.0
+margin_left = 284.0
+margin_right = 364.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_left = NodePath("../../../BackButton")
@@ -56,16 +57,22 @@ text = "Change"
 [node name="ResetButton" parent="VBoxContainer/WorldsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 388.0
-margin_right = 468.0
+margin_left = 368.0
+margin_right = 448.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_top = NodePath("../../../BackButton")
 text = "Reset"
 
+[node name="DownloadBox" parent="VBoxContainer/WorldsContainer" instance=ExtResource( 4 )]
+margin_left = 452.0
+margin_right = 573.0
+margin_bottom = 33.0
+text = "Use for download"
+
 [node name="Label2" type="Label" parent="VBoxContainer"]
 margin_top = 54.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 83.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
@@ -74,7 +81,7 @@ text = "You can set it to your Knytt Stories\\Worlds directory or level archive.
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
 margin_top = 87.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 100.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
@@ -82,14 +89,14 @@ text = "Saves directory:"
 
 [node name="SavesContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 104.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 137.0
 
 [node name="DirLabel" type="Label" parent="VBoxContainer/SavesContainer"]
 margin_top = 10.0
-margin_right = 300.0
+margin_right = 280.0
 margin_bottom = 23.0
-rect_min_size = Vector2( 300, 0 )
+rect_min_size = Vector2( 280, 0 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Default"
@@ -98,8 +105,8 @@ clip_text = true
 [node name="ChangeButton" parent="VBoxContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 304.0
-margin_right = 384.0
+margin_left = 284.0
+margin_right = 364.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_bottom = NodePath("../../../BackButton")
@@ -108,8 +115,8 @@ text = "Change"
 [node name="ResetButton" parent="VBoxContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 388.0
-margin_right = 468.0
+margin_left = 368.0
+margin_right = 448.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_bottom = NodePath("../../../BackButton")
@@ -118,8 +125,8 @@ text = "Reset"
 [node name="BackupButton" parent="VBoxContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 472.0
-margin_right = 552.0
+margin_left = 452.0
+margin_right = 532.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_right = NodePath("../../../BackButton")
@@ -129,7 +136,7 @@ text = "Backup"
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
 margin_top = 141.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 170.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
@@ -138,7 +145,7 @@ YKnytt overwrites save files there only during playing."
 
 [node name="ErrorLabel" type="Label" parent="VBoxContainer"]
 margin_top = 174.0
-margin_right = 568.0
+margin_right = 575.0
 margin_bottom = 187.0
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
@@ -188,6 +195,7 @@ text = "Back"
 
 [connection signal="pressed" from="VBoxContainer/WorldsContainer/ChangeButton" to="." method="_on_WorldsChangeButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/WorldsContainer/ResetButton" to="." method="_on_WorldsResetButton_pressed"]
+[connection signal="toggled" from="VBoxContainer/WorldsContainer/DownloadBox" to="." method="_on_DownloadBox_toggled"]
 [connection signal="pressed" from="VBoxContainer/SavesContainer/ChangeButton" to="." method="_on_SavesChangeButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/SavesContainer/ResetButton" to="." method="_on_SavesResetButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/SavesContainer/BackupButton" to="." method="_on_SavesBackupButton_pressed"]

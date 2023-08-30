@@ -215,6 +215,12 @@ public class GDKnyttSettings : Node
         set { ini["Directories"]["Worlds"] = value; }
     }
 
+    public static bool WorldsDirForDownload
+    {
+        get { return ini["Directories"]["For Download"] == "1"; }
+        set { ini["Directories"]["For Download"] = value ? "1" : "0"; }
+    }
+
     public static string SavesDirectory
     {
         get { return ini["Directories"]["Saves"]; }
@@ -286,6 +292,7 @@ public class GDKnyttSettings : Node
 
         modified |= ensureSetting("Directories", "Worlds", "");
         modified |= ensureSetting("Directories", "Saves", "");
+        modified |= ensureSetting("Directories", "For Download", "0");
 
         modified |= ensureSetting("Misc", "Stick Sensitivity", (0.7f).ToString());
 
