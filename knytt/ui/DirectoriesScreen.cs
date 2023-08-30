@@ -6,11 +6,13 @@ using System.IO.Compression;
 public class DirectoriesScreen : BasicScreen
 {
     Label error_label;
+    CheckBox download_box;
 
     public override void _Ready()
     {
         base._Ready();
         error_label = GetNode<Label>("VBoxContainer/ErrorLabel");
+        download_box = GetNode<CheckBox>("VBoxContainer/WorldsContainer/DownloadBox");
         initFocus();
         updatePaths();
         disableKeyboard(this);
@@ -26,6 +28,8 @@ public class DirectoriesScreen : BasicScreen
     {
         GetNode<Label>("VBoxContainer/WorldsContainer/DirLabel").Text = 
             GDKnyttSettings.WorldsDirectory == "" ? "Not set" : GDKnyttSettings.WorldsDirectory;
+        download_box.Pressed = GDKnyttSettings.WorldsDirForDownload;
+        download_box.Disabled = GDKnyttSettings.WorldsDirectory == "";
         GetNode<Label>("VBoxContainer/SavesContainer/DirLabel").Text = 
             GDKnyttSettings.SavesDirectory == "" ? "Default" : GDKnyttSettings.SavesDirectory;
     }
@@ -60,6 +64,14 @@ public class DirectoriesScreen : BasicScreen
     {
         GDKnyttSettings.WorldsDirectory = "";
         updatePaths();
+        error_label.Text = "";
+    }
+
+    private void _on_DownloadBox_toggled(bool button_pressed)
+    {
+        if (GDKnyttSettings.WorldsDirectory == "") { return; }
+        if (!checkDir(GDKnyttSettings.WorldsDirectory, button_pressed)) { return; }
+        GDKnyttSettings.WorldsDirForDownload = button_pressed;
     }
 
     private void _on_SavesChangeButton_pressed()
@@ -84,12 +96,6 @@ public class DirectoriesScreen : BasicScreen
         GetNode<FileDialog>("BackupFileDialog").PopupCentered();
     }
 
-    private void _on_WorldsFileDialog_dir_selected(String dir)
-    {
-        GDKnyttSettings.WorldsDirectory = dir;
-        updatePaths();
-    }
-
     private bool checkWritable(string dir)
     {
         try
@@ -109,17 +115,34 @@ public class DirectoriesScreen : BasicScreen
         return true;
     }
 
+    private bool checkReadable(string dir)
+    {
+        return new Directory().Open(dir) == Error.Ok;
+    }
+
+    private bool checkDir(string dir, bool write)
+    {
+        if (write ? !checkWritable(dir) : !checkReadable(dir))
+        {
+            error_label.Text = "Cannot " + (write ? "write to" : "read") + " selected directory!\n" +
+                (OS.GetName() != "Android" ? "Make sure you have all required permission." :
+                "Please grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage.");
+            return false;
+        }
+        error_label.Text = "";
+        return true;
+    }
+
+    private void _on_WorldsFileDialog_dir_selected(String dir)
+    {
+        if (!checkDir(dir, GDKnyttSettings.WorldsDirForDownload)) { return; }
+        GDKnyttSettings.WorldsDirectory = dir;
+        updatePaths();
+    }
+
     private void _on_SavesFileDialog_dir_selected(String dir)
     {
-        if (!checkWritable(dir))
-        {
-            error_label.Text = "Cannot write to selected directory!\n" +
-                (OS.GetName() != "Android" ? "Make sure you have permission to write there." :
-                "Please grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage.");
-            return;
-        }
-
-        error_label.Text = "";
+        if (!checkDir(dir, true)) { return; }
         GDKnyttSettings.SavesDirectory = dir;
         updatePaths();
     }
