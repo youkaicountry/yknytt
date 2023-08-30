@@ -15,6 +15,8 @@ public class InfoScreen : BasicScreen
 
     private WorldEntry world_entry;
 
+    private bool in_game;
+
     public override void _Ready()
     {
         base._Ready();
@@ -28,26 +30,39 @@ public class InfoScreen : BasicScreen
 
     public override void goBack()
     {
-        KWorld.purgeBinFile();
+        if (!in_game) { KWorld.purgeBinFile(); }
         base.goBack();
     }
 
     public void initialize(WorldEntry world_entry)
     {
-        KWorld = new GDKnyttWorldImpl();
+        var kworld = new GDKnyttWorldImpl();
         this.world_entry = world_entry;
         if (new Directory().DirExists(world_entry.Path))
         {
-            KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
+            kworld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
         else
         {
             var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path));
-            KWorld.setBinMode(loader);
-            KWorld.setDirectory(world_entry.Path, loader.RootDirectory);
+            kworld.setBinMode(loader);
+            kworld.setDirectory(world_entry.Path, loader.RootDirectory);
         }
-        string ini = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
-        KWorld.loadWorldConfig(ini);
+        string ini = GDKnyttAssetManager.loadTextFile(kworld.getWorldData("World.ini"));
+        kworld.loadWorldConfig(ini);
+        initialize(kworld);
+    }
+
+    public void initialize(GDKnyttWorldImpl kworld)
+    {
+        if (world_entry == null)
+        {
+            in_game = true;
+            world_entry = new WorldEntry();
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = true;
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = true;
+        }
+        KWorld = kworld;
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
                         KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
