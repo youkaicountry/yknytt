@@ -117,7 +117,7 @@ public class CustomObject : GDKnyttBaseObject
 
                 int tile_width = tile_size.x == 0 ? (int)tex.Region.Size.x : (int)tile_size.x;
                 int tile_height = tile_size.y == 0 ? (int)tex.Region.Size.y : (int)tile_size.y;
-                int new_columns = Mathf.Min(1, image_texture.GetWidth() / tile_width);
+                int new_columns = Mathf.Max(1, image_texture.GetWidth() / tile_width);
                 int new_row = index / new_columns;
                 int new_column = index % new_columns;
 

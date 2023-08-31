@@ -92,11 +92,13 @@ public class LevelSelection : BasicScreen
 
     private void loadLocalWorlds()
     {
+        System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Highest;
         loadDefaultWorlds();
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
+        System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Normal;
     }
 
     private void HttpLoad(bool grab_focus = false)
@@ -447,7 +449,7 @@ public class LevelSelection : BasicScreen
             filename = filename.Substring(filename.LastIndexOf('/') + 1);
             if (filename.IndexOf('?') != -1) { filename = filename.Substring(0, filename.IndexOf('?')); }
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
-            filename = Uri.UnescapeDataString(filename);
+            filename = Uri.UnescapeDataString(filename).Replace("+", " ");
             string download_dir = GDKnyttSettings.WorldsDirectory != "" && GDKnyttSettings.WorldsDirForDownload ? 
                 GDKnyttSettings.WorldsDirectory : "user://Worlds";
             http_node.DownloadFile = download_dir.PlusFile($"{filename}.part");
