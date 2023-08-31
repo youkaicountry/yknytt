@@ -317,7 +317,7 @@ public class LevelSelection : BasicScreen
         string icon_cache_name = cache_dir + "/Icon.png";
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
-        if (new Directory().DirExists(cache_dir))
+        if (new Directory().FileExists(ini_cache_name))
         {
             icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
             world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));

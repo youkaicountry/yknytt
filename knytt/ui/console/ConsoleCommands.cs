@@ -13,7 +13,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("speed", "View or set the speed of the game", null, false, SpeedCommand.NewSpeedCommand, new CommandArg("value", CommandArg.Type.FloatArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("help", "View help for a given command", null, false, HelpCommand.NewHelpCommand, new CommandArg("name", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("list", "View the list of commands", null, false, ListCommand.NewListCommand));
-        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard and makes backups.", 
+        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard.", 
             "save: saves game at current position\n" +
             "save print: prints save file\n" +
             "save copy: copies save to clipboard\n" +
@@ -51,13 +51,14 @@ public static class ConsoleCommands
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, true, DeathCommand.NewDeathCommand));
+        cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
     }
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
-        "exit", "list", "map", "mon", "trail", "death", "shift 0 0 2 0", "set highjump on", 
+        "exit", "list", "map", "mon", "trail", "death", "reboot", "shift 0 0 2 0", "set highjump on", 
         "speed 1", "speed 0.5", "iddqd", "idclip", "save paste", "save copy", "save" };
 
     public class SpeedCommand : ICommand
@@ -674,6 +675,28 @@ public static class ConsoleCommands
             if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
             game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
             game.sendCheat();
+            return null;
+        }
+    }
+
+    public class RebootCommand : ICommand
+    {
+        public RebootCommand(CommandParseResult result) {}
+
+        public static ICommand NewRebootCommand(CommandParseResult result)
+        {
+            return new RebootCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game == null) { return "No game is loaded"; }
+            
+            game.GDWorld.KWorld.refreshWorld();
+            GDKnyttDataStore.startGame(false);
+            env.Console.AddMessage($"World was restarted.");
             return null;
         }
     }
