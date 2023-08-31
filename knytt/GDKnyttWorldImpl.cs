@@ -124,4 +124,14 @@ public class GDKnyttWorldImpl : KnyttWorld
         }
         removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
     }
+
+    public void refreshWorld()
+    {
+        if (BinMode)
+        {
+            new Directory().Remove("user://Cache".PlusFile(WorldDirectory.GetFile()).PlusFile("World.ini"));
+            BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
+        }
+        removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
+    }
 }
