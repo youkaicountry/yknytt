@@ -55,14 +55,17 @@ public class InfoScreen : BasicScreen
 
     public void initialize(GDKnyttWorldImpl kworld)
     {
+        KWorld = kworld;
+
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = 
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = 
+            world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
+
         if (world_entry == null)
         {
             in_game = true;
             world_entry = new WorldEntry();
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = true;
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = true;
         }
-        KWorld = kworld;
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
                         KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
@@ -75,9 +78,6 @@ public class InfoScreen : BasicScreen
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = 
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = 
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = GDKnyttSettings.Saves.PlusFile(KWorld.WorldDirectoryName);
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = 
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = 
-            KWorld.WorldDirectory.StartsWith("res://");
         updateRates();
     }
 
@@ -226,28 +226,48 @@ public class InfoScreen : BasicScreen
     private void _on_ComplainButton_pressed()
     {
         ClickPlayer.Play();
-        if (complain_visit)
+        if (complain_visit) { OS.ShellOpen(complainURL); return; }
+
+        string latest_save = null;
+        ulong latest_time = 0;
+        for (int slot = 1; slot <= 3; slot++)
         {
-            OS.ShellOpen(complainURL);
+            string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
+            if (new File().FileExists(savename) && new File().GetModifiedTime(savename) > latest_time)
+            {
+                latest_save = savename;
+                latest_time = new File().GetModifiedTime(savename);
+            }
         }
-        else
+
+        string short_save = null;
+        if (latest_save != null)
         {
-            sendRating((int)RateHTTPRequest.Action.Complain);
-            complain_visit = true;
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = "Visit GitHub to report";
+            KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(latest_save), 0);
+            short_save = string.Join("", Enumerable.Range(0, 13).Select(i => save.getPower(i) ? "1" : "0")) + "," +
+                string.Join("", Enumerable.Range(0, 10).Select(i => save.getFlag(i) ? "1" : "0")) +
+                $";{save.getArea().x} {save.getArea().y} {save.getAreaPosition().x} {save.getAreaPosition().y}";
         }
+
+        sendRating((int)RateHTTPRequest.Action.Complain, additional: short_save);
+        complain_visit = true;
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = "Visit GitHub to report";
     }
 
-    private void sendRating(int action)
+    private void sendRating(int action, string additional = null)
     {
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action);
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional);
     }
 
     private void _on_RateHTTPRequest_RateAdded(int action)
     {
         if (action == (int)RateHTTPRequest.Action.Upvote) { world_entry.Upvotes++; }
         if (action == (int)RateHTTPRequest.Action.Downvote) { world_entry.Downvotes++; }
-        if (action == (int)RateHTTPRequest.Action.Complain) { world_entry.Complains++; }
+        if (action == (int)RateHTTPRequest.Action.Complain)
+        {
+            world_entry.Complains++;
+            GetNode<Label>("InfoRect/HintLabel").Text = "Your latest save was sent to the server.";
+        }
         updateRates();
     }
 
@@ -282,7 +302,8 @@ public class InfoScreen : BasicScreen
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
 
-        if (KWorld.BinMode)
+        bool from_external = GDKnyttSettings.WorldsDirectory != "" && KWorld.WorldDirectory.StartsWith(GDKnyttSettings.WorldsDirectory);
+        if (KWorld.BinMode && !from_external)
         {
             KWorld.unpackWorld();
             world_entry.Path = KWorld.WorldDirectory;
