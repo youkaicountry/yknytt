@@ -65,6 +65,7 @@ public class PausePanel : Control
     public void _on_SettingsButton_pressed()
     {
         in_settings = true;
+        Input.ActionRelease("pause");
         GDKnyttSettings.setupViewport(for_ui: true);
         GetParent<BasicScreen>().loadScreen(settings_scene.Instance<SettingsScreen>());
     }
@@ -72,6 +73,7 @@ public class PausePanel : Control
     private void _on_InfoButton_pressed()
     {
         in_settings = true;
+        Input.ActionRelease("pause");
         GDKnyttSettings.setupViewport(for_ui: true);
         var info_screen = info_scene.Instance<InfoScreen>();
         info_screen.initialize(GetNode<GDKnyttGame>("../../..").GDWorld.KWorld);
@@ -87,6 +89,7 @@ public class PausePanel : Control
     public void _on_QuitButton_pressed()
     {
         ClickPlayer.Play();
+        Input.ActionRelease("pause");
         GetNode<GDKnyttGame>("../../..").quit();
     }
 }

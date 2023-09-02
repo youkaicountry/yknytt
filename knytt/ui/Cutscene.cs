@@ -15,6 +15,7 @@ public class Cutscene : Control
         
         if (GDKnyttDataStore.CutsceneSound != null)
         {
+            GetNode<StandartSoundPlayer>("StandartSoundPlayer").KWorld = GDKnyttDataStore.KWorld;
             GetNode<StandartSoundPlayer>("StandartSoundPlayer").playSound(GDKnyttDataStore.CutsceneSound);
         }
 

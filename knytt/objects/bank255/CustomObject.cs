@@ -82,7 +82,8 @@ public class CustomObject : GDKnyttBaseObject
 
     private static int getInt(KeyDataCollection section, string key, int @default)
     {
-        return int.TryParse(getString(section, key), out int i) ? i : @default;
+        string value = new string(getString(section, key)?.Where(c => char.IsDigit(c) || c == '-')?.ToArray());
+        return int.TryParse(value, out int i) ? i : @default;
     }
 
     private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size)

@@ -1,5 +1,6 @@
 ﻿using IniParser.Model;
 using System;
+using System.Linq;
 
 namespace YKnyttLib
 {
@@ -56,7 +57,8 @@ namespace YKnyttLib
         {
             string key = string.Format("Warp{0}({1})", axis, dir);
             if (!data.ContainsKey(key)) { return 0; }
-            return int.TryParse(data[key], out var i) ? i : 0;
+            string value = new string(data[key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray());
+            return int.TryParse(value, out var i) ? i : 0;
         }
     }
 }
