@@ -45,18 +45,21 @@ public class Sign : GDKnyttBaseObject
 
     protected void adjustSign()
     {
-        var sign_rect = GetNode<Control>("SignRect");
-        var x_pos = sign_rect.RectPosition.x;
-        var y_pos = sign_rect.RectPosition.y;
+        var label = GetNode<Control>("Label");
+        var sign_rect = GetNode<Control>("Label/SignRect");
+        var x_pos = label.RectPosition.x;
+        var y_pos = label.RectPosition.y;
+        var x_diff = Position.x + sign_rect.RectPosition.x;
+        var y_diff = Position.y + sign_rect.RectPosition.y;
         var size = sign_rect.RectSize;
 
         // TODO: original game doesn't overlap object area when showing sign
-        if (Position.x + x_pos < 0) { x_pos = -Position.x; }
-        if (Position.y + y_pos < 0) { y_pos = -Position.y; }
-        if (Position.x + x_pos + size.x > 600) { x_pos = 600 - Position.x - size.x; }
-        if (Position.y + y_pos + size.y > 240) { y_pos = 240 - Position.y - size.y; }
+        if (x_diff + x_pos < 0) { x_pos = -x_diff; }
+        if (y_diff + y_pos < 0) { y_pos = -y_diff; }
+        if (x_diff + x_pos + size.x > 600) { x_pos = 600 - x_diff - size.x; }
+        if (y_diff + y_pos + size.y > 240) { y_pos = 240 - y_diff - size.y; }
 
-        sign_rect.RectPosition = new Vector2(x_pos, y_pos);
+        label.RectPosition = new Vector2(x_pos, y_pos);
     }
 
     public void nextMessage(Juni juni)
@@ -79,8 +82,8 @@ public class Sign : GDKnyttBaseObject
 
         if (messageIndex != -1 && texts[messageIndex] != null)
         {
-            GetNode<Label>("SignRect/Label").Text = texts[messageIndex];
-            GetNode<Control>("SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
+            GetNode<Label>("Label").Text = texts[messageIndex];
+            GetNode<Control>("Label/SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
             if (!messageVisible) { player.Play("FadeIn"); messageVisible = true; }
         }
         else

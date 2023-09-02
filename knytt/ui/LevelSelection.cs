@@ -66,6 +66,7 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
+        loadDefaultWorlds();
         if (OS.GetName() != "HTML5")
         {
             enableFilter(false);
@@ -93,7 +94,6 @@ public class LevelSelection : BasicScreen
     private void loadLocalWorlds()
     {
         System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Highest;
-        loadDefaultWorlds();
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");

@@ -92,6 +92,8 @@ namespace YKnyttLib
                 start_byte = gz.ReadByte();
             }
 
+            while (start_byte != 'x' && start_byte != -1) { start_byte = gz.ReadByte(); }
+
             var areas = new List<KnyttArea>();
 
             // Area definition starts with an 'x' character

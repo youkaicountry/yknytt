@@ -226,4 +226,9 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         lineEdit.GrabFocus();
         lineEdit.CaretPosition = lineEdit.Text.Length;
     }
+
+    private void _on_LineEdit_gui_input(object @event)
+    {
+        if (@event is InputEventScreenTouch ie && ie.Pressed) { _on_KeyboardButton_pressed(); }
+    }
 }

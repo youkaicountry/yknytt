@@ -1,5 +1,4 @@
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,7 +170,7 @@ public class InfoScreen : BasicScreen
         List<int> endings_count = new List<int>();
 
         var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "cutscenes");
-        foreach (Dictionary record in cutscene_infos)
+        foreach (Godot.Collections.Dictionary record in cutscene_infos)
         {
             bool is_ending = HTTPUtil.jsonBool(record, "ending");
             (is_ending ? endings : cutscenes).Add(HTTPUtil.jsonValue<string>(record, "name"));
@@ -336,5 +335,23 @@ public class InfoScreen : BasicScreen
         KWorld.uninstallWorld();
         goBack();
         GetParent<LevelSelection>().disableButton(world_entry);
+    }
+
+    private Dictionary<string, string> hints = new Dictionary<string, string>()
+    {
+        ["ComplainButton"] = "The most recent save will be sent to the server as a complain",
+        ["OptimizeButton"] = "Use this to avoid keeping a large level in memory",
+        ["Uninstall/MainButton"] = "Uninstall will not delete your save files",
+    };
+
+    private void _on_Button_entered(string button)
+    {
+        GetNode<Label>("InfoRect/HintLabel").Text = hints[button];
+    }
+
+    private void _on_Button_exited(string button)
+    {
+        var node = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/" + button);
+        if (!node.HasFocus()) { GetNode<Label>("InfoRect/HintLabel").Text = ""; }
     }
 }

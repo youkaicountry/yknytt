@@ -1,3 +1,4 @@
+using System.Linq;
 using IniParser.Model;
 
 namespace YKnyttLib
@@ -69,6 +70,7 @@ namespace YKnyttLib
         {
             string value = getStringINIValue(data, name);
             if (value == null) { return @default; }
+            value = new string(value?.Where(c => char.IsDigit(c) || c == '-')?.ToArray());
             return int.TryParse(value, out var i) ? i : 0;
         }
 

@@ -2,6 +2,7 @@ using IniParser.Model;
 using System.IO;
 using System.Text;
 using System;
+using System.Linq;
 
 namespace YKnyttLib
 {
@@ -139,18 +140,13 @@ namespace YKnyttLib
                     FlagWarps[(int)id] = new FlagWarp();
                     FlagWarps[(int)id].flag = JuniValues.Flag.Parse(ExtraData[flag_key]);
                     
-                    int x, y;
-                    FlagWarps[(int)id].xArtifactMode = ExtraData.ContainsKey(x_key) && ExtraData[x_key].ToLower().StartsWith("artifact");
-                    FlagWarps[(int)id].x = !ExtraData.ContainsKey(x_key) ? 0 :
-                        FlagWarps[(int)id].xArtifactMode ? 
-                            (int.TryParse(ExtraData[x_key].Substring("artifact".Length), out x) ? x : 0) :
-                            (int.TryParse(ExtraData[x_key], out x) ? x : 0);
+                    FlagWarps[(int)id].x = !ExtraData.ContainsKey(x_key) ? 0 : int.TryParse(
+                        new string(ExtraData[x_key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray()), out var x) ? x : 0;
+                    FlagWarps[(int)id].y = !ExtraData.ContainsKey(y_key) ? 0 : int.TryParse(
+                        new string(ExtraData[y_key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray()), out var y) ? y : 0;
 
+                    FlagWarps[(int)id].xArtifactMode = ExtraData.ContainsKey(x_key) && ExtraData[x_key].ToLower().StartsWith("artifact");
                     FlagWarps[(int)id].yArtifactMode = ExtraData.ContainsKey(y_key) && ExtraData[y_key].ToLower().StartsWith("artifact");
-                    FlagWarps[(int)id].y = !ExtraData.ContainsKey(y_key) ? 0 :
-                        FlagWarps[(int)id].yArtifactMode ? 
-                            (int.TryParse(ExtraData[y_key].Substring("artifact".Length), out y) ? y : 0) :
-                            (int.TryParse(ExtraData[y_key], out y) ? y : 0);
                 }
             }
         }

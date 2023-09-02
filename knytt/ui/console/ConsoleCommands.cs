@@ -29,7 +29,7 @@ public static class ConsoleCommands
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
             false, SetCommand.NewSetCommand, new CommandArg("power", CommandArg.Type.StringArg, optional: false), 
-            new CommandArg("value", CommandArg.Type.BoolArg, optional: false)));
+            new CommandArg("value", CommandArg.Type.StringArg, optional: false)));
         cs.AddCommand(new CommandDeclaration("mon", "Monitors current area position. Also can monitor Juni's flags.", 
             "mon: turn on monitor, display always on top\n" +
             "mon flash: display only when value changes (like '-' on keyboard)\n" +
@@ -52,13 +52,14 @@ public static class ConsoleCommands
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, true, DeathCommand.NewDeathCommand));
         cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
+        cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
     }
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
-        "exit", "list", "map", "mon", "trail", "death", "reboot", "shift 0 0 2 0", "set highjump on", 
+        "exit", "list", "map", "mon", "trail", "mon flags", "death", "youtube", "reboot", "shift 0 0 2 0", "set highjump on", 
         "speed 1", "speed 0.5", "iddqd", "idclip", "save paste", "save copy", "save" };
 
     public class SpeedCommand : ICommand
@@ -301,12 +302,12 @@ public static class ConsoleCommands
     {
         private static string[] names = Enum.GetNames(typeof(JuniValues.PowerNames));
         string variable;
-        bool value;
+        string value;
 
         public SetCommand(CommandParseResult result)
         {
             variable = result.Args["power"];
-            value = result.GetArgAsBool("value");
+            value = result.Args["value"];
         }
 
         public static ICommand NewSetCommand(CommandParseResult result)
@@ -320,20 +321,36 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
+            bool? bvalue = null;
+            if (value == "on" || value == "1") { bvalue = true; }
+            if (value == "off" || value == "0") { bvalue = false; }
             int power_index = Array.FindIndex(names, x => x.ToLower() == variable);
-            if (power_index != -1)
+
+            if (power_index != -1 && bvalue != null)
             {
-                game.Juni.setPower(power_index, value);
+                game.Juni.setPower(power_index, bvalue ?? true);
                 game.sendCheat();
                 env.Console.AddMessage($"{((JuniValues.PowerNames)power_index).ToString()} set to {value}");
             }
-            else if (variable.StartsWith("flag") && 
+            else if (variable.StartsWith("flag") && bvalue != null && 
                      int.TryParse(variable.Substring(4), out var flag_index) && flag_index >= 0 && flag_index < 10)
             {
-                game.Juni.Powers.setFlag(flag_index, value);
+                game.Juni.Powers.setFlag(flag_index, bvalue ?? true);
                 game.UI.Location.updateFlags(game.Juni.Powers.Flags);
                 game.sendCheat();
                 env.Console.AddMessage($"Flag {flag_index} set to {value}");
+            }
+            else if (variable == "powers")
+            {
+                for (int i = 0; i < value.Length && i < 13; i++) { game.Juni.setPower(i, value[i] == '1'); }
+                game.sendCheat();
+                env.Console.AddMessage("Some powers was set or unset.");
+            }
+            else if (variable == "flags")
+            {
+                for (int i = 0; i < value.Length && i < 10; i++) { game.Juni.Powers.setFlag(i, value[i] == '1'); }
+                game.sendCheat();
+                env.Console.AddMessage("Some flags was set or unset.");
             }
             else
             {
@@ -697,6 +714,28 @@ public static class ConsoleCommands
             game.GDWorld.KWorld.refreshWorld();
             GDKnyttDataStore.startGame(false);
             env.Console.AddMessage($"World was restarted.");
+            return null;
+        }
+    }
+
+    public class YoutubeCommand : ICommand
+    {
+        public YoutubeCommand(CommandParseResult result) {}
+
+        public static ICommand NewYoutubeCommand(CommandParseResult result)
+        {
+            return new YoutubeCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game == null) { return "No game is loaded"; }
+
+            OS.ShellOpen("https://www.youtube.com/results?search_query=Knytt+Stories+" + 
+                game.GDWorld.KWorld.Info.Name.Replace(" ", "+"));
+            env.Console.AddMessage($"Opening a browser...");
             return null;
         }
     }
