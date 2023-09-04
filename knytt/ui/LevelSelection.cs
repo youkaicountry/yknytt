@@ -608,13 +608,13 @@ public class LevelSelection : BasicScreen
 
     private void _on_SearchEdit_focus_entered()
     {
-        if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
+        if (!GDKnyttSettings.Mobile) { return; }
         GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/FilterContainer"), 0);
     }
 
     private void _on_SearchEdit_focus_exited()
     {
-        if (OS.GetName() != "Android" && OS.GetName() != "iOS") { return; }
+        if (!GDKnyttSettings.Mobile) { return; }
         GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/ScrollContainer"), 0);
     }
 

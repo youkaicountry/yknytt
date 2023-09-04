@@ -20,6 +20,8 @@ public class GDKnyttSettings : Node
         ini = new IniData();
     }
 
+    public static bool Mobile => OS.GetName() == "Android" || OS.GetName() == "iOS";
+
     public static bool Fullscreen
     {
         get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
@@ -45,9 +47,10 @@ public class GDKnyttSettings : Node
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
             setupViewport(for_ui: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
-            ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres").FontData =
-                ResourceLoader.Load<DynamicFontData>(
+            var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
+            font.FontData = ResourceLoader.Load<DynamicFontData>(
                     "res://knytt/fonts/" + (SmoothScalingReal ? "segan/Segan-Light.ttf" : "magnificent/Magnificent.ttf"));
+            font.UseFilter = SmoothScalingReal;
         }
     }
 
@@ -55,17 +58,15 @@ public class GDKnyttSettings : Node
     {
         get
         {
-            bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
-            return SmoothScaling || (TouchSettings.EnablePanel && !mobile);
+            return SmoothScaling || (TouchSettings.EnablePanel && !Mobile);
         }
     }
     
     public static void setupViewport(bool for_ui = false)
     {
-        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
         float screen_width = for_ui ? 600 : TouchSettings.ScreenWidth;
 
-        if (mobile) // expect fullscreen
+        if (Mobile) // expect fullscreen
         {
             float y_to_x = OS.GetScreenSize().y / OS.GetScreenSize().x;
             float screen_height = for_ui || TouchSettings.EnablePanel ? screen_width * y_to_x : 240;
@@ -204,10 +205,7 @@ public class GDKnyttSettings : Node
         }
     }
 
-    public static string ServerURL
-    {
-        get { return GDKnyttSettings.ini["Server"]["URL"]; }
-    }
+    public static string ServerURL => GDKnyttSettings.ini["Server"]["URL"];
 
     public static string WorldsDirectory
     {
@@ -268,7 +266,6 @@ public class GDKnyttSettings : Node
     private static void initialize()
     {
         bool modified = false;
-        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
 
         moveUserDir();
 
@@ -280,7 +277,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Original");
-        modified |= ensureSetting("Graphics", "Border", mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
+        modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");

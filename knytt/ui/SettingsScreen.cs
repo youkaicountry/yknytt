@@ -27,17 +27,14 @@ public class SettingsScreen : BasicScreen
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
         GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("VolumeContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
-        GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = 
-            OS.GetName() != "Android" && OS.GetName() != "iOS" && OS.GetName() != "HTML5";
-        GetNode<Button>("ButtonContainer/DirButton").Visible = 
-            OS.GetName() != "iOS" && OS.GetName() != "HTML5";
+        GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = !GDKnyttSettings.Mobile && OS.GetName() != "HTML5";
+        GetNode<Button>("ButtonContainer/DirButton").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
     }
 
     public override void initFocus()
     {
-        bool mobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScalingReal;
-        GetNode<CheckBox>("SettingsContainer/SmoothScale").Disabled = TouchSettings.EnablePanel && !mobile;
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").Disabled = TouchSettings.EnablePanel && !GDKnyttSettings.Mobile;
         
         bool desktop = GetNode<CheckBox>("SettingsContainer/FullScreen").Visible;
         GetNode<CheckBox>("SettingsContainer/" + (desktop ? "FullScreen": "SmoothScale")).GrabFocus();
