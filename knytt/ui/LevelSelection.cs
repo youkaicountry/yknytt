@@ -19,9 +19,10 @@ public class LevelSelection : BasicScreen
     string filter_difficulty;
     string filter_size;
     string filter_text;
-    int filter_category_int;
-    int filter_difficulty_int;
-    int filter_size_int;
+    const int FILTER_ALL = 10;
+    int filter_category_int = FILTER_ALL;
+    int filter_difficulty_int = FILTER_ALL;
+    int filter_size_int = FILTER_ALL;
     int filter_order_int = 5; // Downloads by default
 
     GameContainer game_container;
@@ -111,9 +112,9 @@ public class LevelSelection : BasicScreen
         remotes_grab_focus = grab_focus;
 
         request_url = GDKnyttSettings.ServerURL + "/levels/?";
-        if (filter_category_int != 0) { request_url += $"category={filter_category_int}&"; }
-        if (filter_difficulty_int != 0) { request_url += $"difficulty={filter_difficulty_int}&"; }
-        if (filter_size_int != 0) { request_url += $"size={filter_size_int}&"; }
+        if (filter_category_int != FILTER_ALL) { request_url += $"category={filter_category_int}&"; }
+        if (filter_difficulty_int != FILTER_ALL) { request_url += $"difficulty={filter_difficulty_int}&"; }
+        if (filter_size_int != FILTER_ALL) { request_url += $"size={filter_size_int}&"; }
         if (filter_text != null && filter_text != "") { request_url += $"text={Uri.EscapeDataString(filter_text)}&"; }
         request_url += $"order={filter_order_int}";
 
@@ -549,7 +550,8 @@ public class LevelSelection : BasicScreen
     public void _on_CategoryDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
-        filter_category = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        filter_category = dropdown.Text.Equals("[All]") ? null : 
+            dropdown.Text.Equals("Other") ? "" : dropdown.Text;
         filter_category_int = dropdown.GetSelectedId();
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
@@ -557,7 +559,8 @@ public class LevelSelection : BasicScreen
     public void _on_DifficultyDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown");
-        filter_difficulty = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        filter_difficulty = dropdown.Text.Equals("[All]") ? null : 
+            dropdown.Text.Equals("Other") ? "" : dropdown.Text;
         filter_difficulty_int = dropdown.GetSelectedId();
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }
@@ -565,7 +568,8 @@ public class LevelSelection : BasicScreen
     public void _on_SizeDropdown_item_selected(int index)
     {
         var dropdown = GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown");
-        filter_size = dropdown.Text.Equals("[All]") ? null : dropdown.Text;
+        filter_size = dropdown.Text.Equals("[All]") ? null : 
+            dropdown.Text.Equals("Other") ? "" : dropdown.Text;
         filter_size_int = dropdown.GetSelectedId();
         if (localLoad) { this.listWorlds(); } else { this.HttpLoad(); }
     }

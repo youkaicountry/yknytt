@@ -93,7 +93,7 @@ rect_min_size = Vector2( 100, 0 )
 focus_neighbour_left = NodePath("../../../../BackButton")
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+items = [ "[All]", null, false, 10, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null, "Other", null, false, 0, null ]
 selected = 0
 
 [node name="Difficulty" type="VBoxContainer" parent="MainContainer/FilterContainer"]
@@ -120,7 +120,7 @@ margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+items = [ "[All]", null, false, 10, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null, "Other", null, false, 0, null ]
 selected = 0
 
 [node name="Size" type="VBoxContainer" parent="MainContainer/FilterContainer"]
@@ -147,7 +147,7 @@ margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
+items = [ "[All]", null, false, 10, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null, "Other", null, false, 0, null ]
 selected = 0
 
 [node name="Sort" type="VBoxContainer" parent="MainContainer/FilterContainer"]
