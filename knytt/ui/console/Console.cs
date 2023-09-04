@@ -48,7 +48,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         var consoleContainer = GetNode<Control>("ConsoleContainer");
         consoleContainer.MarginTop = -240;
         consoleContainer.MarginBottom = -240;
-        if (OS.GetName() == "Android" || OS.GetName() == "iOS")
+        if (GDKnyttSettings.Mobile)
         {
             GetNode<Control>("ConsoleContainer/Panel/VBox").MoveChild(GetNode<Control>("ConsoleContainer/Panel/VBox/HBox"), 0);
             GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Visible = true;
@@ -130,6 +130,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         prevFocusControl = lineEdit.GetFocusOwner();
+        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Disabled = false;
         lineEdit.GrabFocus();
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
@@ -140,9 +141,11 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
         GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
+        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Disabled = true;
         if (IsInstanceValid(prevFocusControl)) { prevFocusControl.GrabFocus(); }
         Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
         Input.ActionRelease("pause");
+
         historyIndex = history.Count;
         lineEdit.Text = "";
         lineEdit.VirtualKeyboardEnabled = false;

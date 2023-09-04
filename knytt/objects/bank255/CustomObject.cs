@@ -47,15 +47,18 @@ public class CustomObject : GDKnyttBaseObject
         if (bank != -1 && obj != -1)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
-            if (bundle != null)
-            {
-                var node = bundle.getNode(Layer, Coords);
-                if (safe) { node.makeSafe(); }
-                if (bank == 7) { node.Modulate = color; }
-                Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
-                if (image != null) { overrideAnimation(node, image, tile_size); }
-                AddChild(node);
-            }
+            if (bundle == null) { return; }
+
+            var node = bundle.getNode(Layer, Coords);
+            if (safe) { node.makeSafe(); }
+            if (bank == 7) { node.Modulate = color; }
+
+            Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
+            Vector2 offset = new Vector2(getInt(section, "Offset X", 0), getInt(section, "Offset Y", 0));
+            if (image != null) { overrideAnimation(node, image, tile_size, offset); }
+
+            node.Position = Position;
+            GetParent<GDKnyttObjectLayer>().CallDeferred("add_child", node);
             return;
         }
 
@@ -86,7 +89,7 @@ public class CustomObject : GDKnyttBaseObject
         return int.TryParse(value, out int i) ? i : @default;
     }
 
-    private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size)
+    private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size, Vector2 offset)
     {
         var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
                      obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
@@ -124,7 +127,9 @@ public class CustomObject : GDKnyttBaseObject
 
                 var new_tex = new AtlasTexture();
                 new_tex.Atlas = image_texture;
-                new_tex.Region = new Rect2(new_column * tile_width, new_row * tile_height, tile_width, tile_height);
+                Vector2 corner = new Vector2(new_column * tile_width + offset.x, new_row * tile_height + offset.y);
+                if (corner.y + tile_height > image_texture.GetHeight()) { corner.y %= (image_texture.GetHeight() / tile_height) * tile_height; }
+                new_tex.Region = new Rect2(corner, tile_width, tile_height);
                 new_frames.SetFrame(anim, i, new_tex);
             }
         }
