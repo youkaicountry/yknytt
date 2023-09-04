@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-public class GameButton : Button
+public class GameButton : GDKnyttButton
 {
     public WorldEntry worldEntry;
     private ColorRect progressRect;
@@ -25,7 +25,6 @@ public class GameButton : Button
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";
         descriptionLabel = GetNode<Label>("MainContainer/TextContainer/DescriptionLabel");
         descriptionLabel.Text = info.Description;
-        if (HasFocus()) { _on_GameButton_focus_entered(); }
 
         progressRect = GetNode<ColorRect>("ProgressRect");
         startProgressLength = progressRect.RectSize.x - progressRect.MarginLeft;
@@ -48,6 +47,12 @@ public class GameButton : Button
             rating_control.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
             rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
         }
+
+        hint = capitalize(worldEntry.Size + " " +
+                string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s))) + " " +
+                string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s))))
+                .Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
+        if (HasFocus()) { _on_GameButton_ShowHint(hint); }
     }
 
     public void _on_GameButton_pressed()
@@ -94,32 +99,11 @@ public class GameButton : Button
         return s == "" ? "" : (s[0].ToString().ToUpper() + s.Substring(1).ToLower());
     }
 
-    private void _on_GameButton_mouse_entered()
-    {
-        _on_GameButton_focus_entered();
-    }
-
-    private void _on_GameButton_mouse_exited()
-    {
-        if (!HasFocus()) { _on_GameButton_focus_exited(); }
-    }
-
-    private void _on_GameButton_focus_entered()
+    private void _on_GameButton_ShowHint(string hint)
     {
         if (ignore_focus) { ignore_focus = false; return; }
-        if (worldEntry == null) { return; }
-        descriptionLabel.Text = capitalize(worldEntry.Size + " " +
-                string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s))) + " " +
-                string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s))))
-                .Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
-        descriptionLabel.AddColorOverride("font_color", new Color(0, 0.5f, 0));
-    }
-
-    private void _on_GameButton_focus_exited()
-    {
-        if (worldEntry == null) { return; }
-        descriptionLabel.Text = worldEntry.Description;
-        descriptionLabel.AddColorOverride("font_color", new Color(0, 0, 0));
+        descriptionLabel.Text = hint == null ? worldEntry.Description : hint;
+        descriptionLabel.AddColorOverride("font_color", hint == null ? new Color(0, 0, 0) : new Color(0, 0.5f, 0));
     }
 
     bool ignore_focus;

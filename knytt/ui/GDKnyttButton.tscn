@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=5]
+[ext_resource path="res://knytt/ui/GDKnyttButton.cs" type="Script" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 border_width_left = 2
@@ -31,3 +32,9 @@ custom_styles/focus = ExtResource( 5 )
 custom_styles/disabled = SubResource( 1 )
 custom_styles/normal = ExtResource( 2 )
 text = "Hello"
+script = ExtResource( 6 )
+
+[connection signal="focus_entered" from="." to="." method="_on_GDKnyttButton_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_GDKnyttButton_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_GDKnyttButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_GDKnyttButton_mouse_exited"]
