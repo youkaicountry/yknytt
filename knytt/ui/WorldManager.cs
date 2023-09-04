@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,10 @@ public class WorldManager
     public enum Order { Default, ByLastPlayed, ByInstalledTime, ByName, ByAuthor }
     private Order order;
 
+    List<string> size_choices = new List<string>(){ "small", "medium", "large" };
+    List<string> difficulty_choices = new List<string>(){ "easy", "normal", "hard", "very Hard", "lunatic"};
+    List<string> category_choices = new List<string>(){ "tutorial", "challenge", "puzzle", "maze", "environmental", "playground", "misc"};
+
     List<WorldEntry> Entries { get; } = new List<WorldEntry>();
 
     public bool addWorld(WorldEntry entry)
@@ -47,10 +52,17 @@ public class WorldManager
 
     public bool checkEntry(WorldEntry entry)
     {
-        if (category != null && !entry.Categories.Contains(category)) { return false; }
-        if (difficulty != null && !entry.Difficulties.Contains(difficulty)) { return false; }
-        if (size != null && !entry.Size.Equals(size)) { return false; }
-        if (text != null && !entry.Name.ToLower().Contains(text) && !entry.Author.ToLower().Contains(text)) { return false; }
+        var cmp = StringComparer.OrdinalIgnoreCase;
+        if (category != null && !entry.Categories.Contains(category, cmp)) { return false; }
+        if (category == "" && entry.Categories.Intersect(category_choices, cmp).Count() > 0) { return false; }
+        if (difficulty != null && !entry.Difficulties.Contains(difficulty, cmp)) { return false; }
+        if (difficulty == "" && entry.Difficulties.Intersect(difficulty_choices, cmp).Count() > 0) { return false; }
+        if (size != null && cmp.Compare(entry.Size, size) != 0) { return false; }
+        if (size == "" && size_choices.Contains(entry.Size, cmp)) { return false; }
+        if (text != null && 
+            !entry.Name.ToLower().Contains(text) && 
+            !entry.Author.ToLower().Contains(text) &&
+            !(entry.Description != null && entry.Description.ToLower().Contains(text))) { return false; }
         return true;
     }
 
