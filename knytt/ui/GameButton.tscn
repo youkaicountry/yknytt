@@ -206,8 +206,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="focus_entered" from="." to="." method="_on_GameButton_focus_entered"]
-[connection signal="focus_exited" from="." to="." method="_on_GameButton_focus_exited"]
-[connection signal="mouse_entered" from="." to="." method="_on_GameButton_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_GameButton_mouse_exited"]
+[connection signal="ShowHint" from="." to="." method="_on_GameButton_ShowHint"]
+[connection signal="focus_entered" from="." to="." method="_on_GDKnyttButton_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_GDKnyttButton_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_GDKnyttButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_GDKnyttButton_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_GameButton_pressed"]

@@ -337,21 +337,8 @@ public class InfoScreen : BasicScreen
         GetParent<LevelSelection>().disableButton(world_entry);
     }
 
-    private Dictionary<string, string> hints = new Dictionary<string, string>()
+    private void _on_ShowHint(string hint)
     {
-        ["ComplainButton"] = "The most recent save will be sent to the server as a complain",
-        ["OptimizeButton"] = "Use this to avoid keeping a large level in memory",
-        ["Uninstall/MainButton"] = "Uninstall will not delete your save files",
-    };
-
-    private void _on_Button_entered(string button)
-    {
-        GetNode<Label>("InfoRect/HintLabel").Text = hints[button];
-    }
-
-    private void _on_Button_exited(string button)
-    {
-        var node = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/" + button);
-        if (!node.HasFocus()) { GetNode<Label>("InfoRect/HintLabel").Text = ""; }
+        GetNode<Label>("InfoRect/HintLabel").Text = hint ?? "";
     }
 }

@@ -57,6 +57,7 @@ margin_left = 10.0
 margin_top = 94.0
 margin_right = 70.0
 margin_bottom = 129.0
+slot = 1
 
 [node name="Slot2Button" parent="InfoRect" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -125,6 +126,7 @@ rect_min_size = Vector2( 40, 40 )
 size_flags_vertical = 0
 custom_styles/disabled = SubResource( 1 )
 text = "+"
+hint = "Press it if you like this level"
 
 [node name="TextContainer" type="VBoxContainer" parent="InfoRect/RatePanel/VBoxContainer/Rates"]
 margin_left = 44.0
@@ -180,6 +182,7 @@ rect_min_size = Vector2( 40, 40 )
 size_flags_vertical = 0
 custom_styles/disabled = SubResource( 1 )
 text = "-"
+hint = "Press it if you don't like this level"
 
 [node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -190,6 +193,7 @@ margin_bottom = 78.0
 rect_min_size = Vector2( 80, 30 )
 custom_styles/disabled = SubResource( 1 )
 text = "Mark as broken"
+hint = "The latest save will be sent to the server as a complain"
 
 [node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -199,6 +203,7 @@ margin_right = 141.0
 margin_bottom = 111.0
 rect_min_size = Vector2( 80, 30 )
 text = "Optimize"
+hint = "Use this to avoid keeping a large level in memory"
 
 [node name="Uninstall" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
 margin_top = 114.0
@@ -214,6 +219,7 @@ margin_bottom = 0.0
 rect_min_size = Vector2( 80, 30 )
 custom_styles/disabled = SubResource( 1 )
 text = "Uninstall Level"
+hint = "Uninstall will not delete your save files"
 
 [node name="ConfirmButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource( 2 )]
 visible = false
@@ -221,6 +227,7 @@ margin_right = 46.475
 margin_bottom = 28.26
 rect_min_size = Vector2( 65, 30 )
 text = "Confirm"
+hint = "Uninstall will not delete your save files"
 
 [node name="RedLayer" type="NinePatchRect" parent="InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton"]
 anchor_right = 1.0
@@ -265,23 +272,17 @@ wait_time = 0.2
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot2Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton" to="." method="_on_UpvoteButton_pressed"]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton" to="." method="_on_DownvoteButton_pressed"]
-[connection signal="focus_entered" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_Button_entered" binds= [ "ComplainButton" ]]
-[connection signal="focus_exited" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_Button_exited" binds= [ "ComplainButton" ]]
-[connection signal="mouse_entered" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_Button_entered" binds= [ "ComplainButton" ]]
-[connection signal="mouse_exited" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_Button_exited" binds= [ "ComplainButton" ]]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_ComplainButton_pressed"]
-[connection signal="focus_entered" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_Button_entered" binds= [ "OptimizeButton" ]]
-[connection signal="focus_exited" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_Button_exited" binds= [ "OptimizeButton" ]]
-[connection signal="mouse_entered" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_Button_entered" binds= [ "OptimizeButton" ]]
-[connection signal="mouse_exited" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_Button_exited" binds= [ "OptimizeButton" ]]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]
-[connection signal="focus_entered" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_Button_entered" binds= [ "Uninstall/MainButton" ]]
-[connection signal="focus_exited" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_Button_exited" binds= [ "Uninstall/MainButton" ]]
-[connection signal="mouse_entered" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_Button_entered" binds= [ "Uninstall/MainButton" ]]
-[connection signal="mouse_exited" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_Button_exited" binds= [ "Uninstall/MainButton" ]]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_UninstallButton_pressed" binds= [ true ]]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/CancelButton" to="." method="_on_UninstallButton_pressed" binds= [ false ]]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/StatsButton" to="." method="_on_StatsButton_pressed"]
