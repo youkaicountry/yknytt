@@ -54,13 +54,7 @@ public class GDKnyttSettings : Node
         }
     }
 
-    public static bool SmoothScalingReal
-    {
-        get
-        {
-            return SmoothScaling || (TouchSettings.EnablePanel && !Mobile);
-        }
-    }
+    public static bool SmoothScalingReal => SmoothScaling || (TouchSettings.EnablePanel && !Mobile);
     
     public static void setupViewport(bool for_ui = false)
     {

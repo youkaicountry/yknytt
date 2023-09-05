@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -27,9 +27,6 @@
 [ext_resource path="res://knytt/data/Sfx/Into Smoke.ogg" type="AudioStream" id=26]
 [ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
-
-[sub_resource type="RectangleShape2D" id=33]
-extents = Vector2( 4, 7.8 )
 
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 1.5, 7.8 )
@@ -251,9 +248,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="MainShape" type="CollisionShape2D" parent="."]
-position = Vector2( 2, 0.8 )
-shape = SubResource( 33 )
+[node name="MainShape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -2, 8.6, -2, -7, 4.5, -7, 6, -5.5, 6, 8.6 )
 
 [node name="BackShape" type="CollisionShape2D" parent="."]
 position = Vector2( -3.5, 0.8 )

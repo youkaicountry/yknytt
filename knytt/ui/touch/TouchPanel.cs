@@ -33,7 +33,7 @@ public class TouchPanel : Panel
     // Left/right prediction settings
     private const float SPEED_TOO_FAST = 90;
     private const float SPEED_TOO_SLOW = 30;
-    private const float SPEED_TOO_FAST_JUMP = 50;
+    private const float SPEED_TOO_FAST_JUMP = 80;
 
 
     public override void _Ready()
@@ -112,7 +112,8 @@ public class TouchPanel : Panel
     private float getScale()
     {
         float window_x = GDKnyttSettings.SmoothScalingReal ? GetViewport().Size.x : OS.WindowSize.x;
-        return Mathf.Min(OS.GetScreenDpi() * TouchSettings.Scale * GetViewport().GetVisibleRect().Size.x / (window_x * 100), 1.4f / TouchSettings.Viewport);
+        float correction = 0.55f + 0.075f * window_x / OS.GetScreenDpi(); // slighly bigger for bigger devices
+        return Mathf.Min(0.01f * OS.GetScreenDpi() * TouchSettings.Scale * correction * GetViewport().GetVisibleRect().Size.x / window_x, 1.4f / TouchSettings.Viewport);
     }
 
     // Returns rectangle for the button with excess space

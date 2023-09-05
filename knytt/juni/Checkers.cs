@@ -13,23 +13,11 @@ public class Checkers : Node2D
         }
     }
 
-    public bool Colliding
-    {
-        get
-        {
-            return GetNode<Area2D>("Climb").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("Climb").GetOverlappingAreas().Count == 0;
-        }
-    }
+    public bool Colliding => GetNode<Area2D>("Climb").GetOverlappingBodies().Count > 0 && 
+                             GetNode<Area2D>("Climb").GetOverlappingAreas().Count == 0;
 
-    public bool Bump 
-    { 
-        get 
-        { 
-            return GetNode<Area2D>("Bump").GetOverlappingBodies().Count > 0 && 
-                   GetNode<Area2D>("Climb").GetOverlappingBodies().Count == 0; 
-        } 
-    }
+    public bool Bump => GetNode<Area2D>("Bump").GetOverlappingBodies().Count > 0 && 
+                        GetNode<Area2D>("Climb").GetOverlappingBodies().Count == 0; 
 
     int inside = 0; // Number of sticky zones covering Juni
     public bool IsInside

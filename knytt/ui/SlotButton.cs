@@ -1,6 +1,6 @@
 using Godot;
 
-public class SlotButton : Button
+public class SlotButton : GDKnyttButton
 {
     [Export]
     public int slot = 1;

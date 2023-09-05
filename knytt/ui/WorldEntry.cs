@@ -55,24 +55,12 @@ public class WorldEntry
     private static string[] statuses = {"Not Verified", "Hard to Verify", "Broken", 
         "Almost Broken", "Partially Playable", "Almost Playable", "Playable"};
 
-    public string StatusDescription
-    {
-        get
-        {
-            return Status == 0 && AutoVerified ? "Auto-verified" : 
-                   Status >= statuses.Length ? "Undefined" : statuses[Status];
-        }
-    }
+    public string StatusDescription => Status == 0 && AutoVerified ? "Auto-verified" : 
+                                       Status >= statuses.Length ? "Undefined" : statuses[Status];
 
     private static Color[] status_colors = {new Color(0.5f, 0, 0), new Color(0, 0, 0.5f), new Color(0.5f, 0, 0), 
         new Color(0.5f, 0, 0), new Color(0, 0, 0.5f), new Color(0, 0, 0.5f), new Color(0, 0.5f, 0)};
 
-    public Color StatusColor
-    {
-        get
-        {
-            return Status == 0 && AutoVerified ? new Color(0, 0.5f, 0) : 
-                   Status >= status_colors.Length ? new Color(0, 0, 0) : status_colors[Status];
-        }
-    }
+    public Color StatusColor => Status == 0 && AutoVerified ? new Color(0, 0.5f, 0) : 
+                                Status >= status_colors.Length ? new Color(0, 0, 0) : status_colors[Status];
 }

@@ -225,6 +225,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void _on_KeyboardButton_pressed()
     {
+        if (!IsOpen) { return; }
         lineEdit.VirtualKeyboardEnabled = !lineEdit.VirtualKeyboardEnabled;
         lineEdit.GrabFocus();
         lineEdit.CaretPosition = lineEdit.Text.Length;
