@@ -75,7 +75,6 @@ public class BulletLayer : Node2D
         bullet.Visible = true;
 
         var enemy_parent = enemy_object.GetParent<Node2D>();
-        if (enemy_parent is CustomObject) { enemy_parent = enemy_parent.GetParent<Node2D>(); }
         bullet.ZIndex = enemy_parent is GDKnyttObjectLayer ? enemy_parent.ZIndex - 1 : enemy_object.ZIndex;
 
         initEvents[enemy_object](bullet, n);

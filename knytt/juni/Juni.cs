@@ -108,14 +108,7 @@ public class Juni : KinematicBody2D
         set { _can_free_jump = value ? FREE_JUMP_TIME : 0f; }
     }
 
-    public Godot.Vector2 Bottom
-    {
-        get
-        {
-            var gp = GlobalPosition;
-            return new Godot.Vector2(gp.x, gp.y + 8.6f);
-        }
-    }
+    public Godot.Vector2 Bottom => GlobalPosition + new Godot.Vector2(0, 8.6f);
 
     int _updrafts = 0;
     public bool InUpdraft
@@ -208,36 +201,18 @@ public class Juni : KinematicBody2D
     }
 
     public Godot.Vector2 ApparentPosition => (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; 
-    public bool CanDeployHologram
-    {
-        get
-        {
-            return ((CurrentState is IdleState) || (CurrentState is WalkRunState)) &&
-                   !(GDArea.BlockHologram && !InHologramPlace);
-        }
-    }
+    public bool CanDeployHologram => ((CurrentState is IdleState) || (CurrentState is WalkRunState)) &&
+                                     !(GDArea.BlockHologram && !InHologramPlace);
+
     public Node2D Hologram { get; private set; }
 
     public float detector_reverse_distance = 0;
     public Color detector_color = new Color(0, 0, 0, 0);
 
-    public bool WalkRun
-    {
-        get
-        {
-            if (!Powers.getPower(PowerNames.Run)) { return false; }
-            return !juniInput.WalkHeld;
-        }
-    }
+    public bool WalkRun => Powers.getPower(PowerNames.Run) && !juniInput.WalkHeld;
 
-    public float MaxSpeed
-    {
-        get
-        {
-            return Swim ? (WalkRun ? SWIM_MAX_SPEED_RUN : SWIM_MAX_SPEED_WALK)
-                        : (WalkRun ? MAX_SPEED_RUN : MAX_SPEED_WALK);
-        }
-    }
+    public float MaxSpeed => Swim ? (WalkRun ? SWIM_MAX_SPEED_RUN : SWIM_MAX_SPEED_WALK) :
+                                    (WalkRun ? MAX_SPEED_RUN : MAX_SPEED_WALK);
 
     public int MoveDirection
     {
@@ -301,7 +276,7 @@ public class Juni : KinematicBody2D
     }
 
     // Toggle the collision shapes
-    CollisionShape2D[] _collision_polygons = { null, null, null, null };
+    Node2D[] _collision_polygons = { null, null, null, null };
     bool[] _collision_map = { true, true, true, false };
     public void setCollisionMap(bool main, bool back, bool small_main, bool small_climb)
     {
@@ -313,7 +288,8 @@ public class Juni : KinematicBody2D
     {
         for (int i = 0; i < 4; i++)
         {
-            _collision_polygons[i].Disabled = CollisionsDisabled || !_collision_map[i];
+            if (_collision_polygons[i] is CollisionShape2D s)   { s.Disabled = CollisionsDisabled || !_collision_map[i]; }
+            if (_collision_polygons[i] is CollisionPolygon2D p) { p.Disabled = CollisionsDisabled || !_collision_map[i]; }
         }
     }
 
@@ -329,9 +305,9 @@ public class Juni : KinematicBody2D
         GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
         GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
 
-        _collision_polygons = new CollisionShape2D[]
+        _collision_polygons = new Node2D[]
         {
-            GetNode<CollisionShape2D>("MainShape"),
+            GetNode<CollisionPolygon2D>("MainShape"),
             GetNode<CollisionShape2D>("BackShape"),
             GetNode<CollisionShape2D>("Hitbox/UsualShape"),
             GetNode<CollisionShape2D>("Hitbox/ClimbShape"),
@@ -736,9 +712,9 @@ public class Juni : KinematicBody2D
         Game.respawnJuniWithWSOD();
     }
 
-    public void moveToPosition(GDKnyttArea area, KnyttPoint position)
+    public void moveToPosition(GDKnyttArea area, KnyttPoint position, bool up_correction = false)
     {
-        GlobalPosition = (area.getTileLocation(position) + (velocity.y < 0 ? -1 : 1) * BaseCorrection);
+        GlobalPosition = area.getTileLocation(position) + (velocity.y < 0 && up_correction ? -1 : 1) * BaseCorrection;
     }
 
     public void win(string ending)

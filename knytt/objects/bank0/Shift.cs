@@ -99,7 +99,7 @@ public class Shift : Switch
         // Move Juni to the correct location in the area
         if (shift.Quantize || shift.AbsoluteTarget)
         {
-            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition, up_correction: true);
         }
         else
         {

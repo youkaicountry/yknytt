@@ -36,16 +36,20 @@ public static class ConsoleCommands
             "mon flags: display also Juni's flags\n" +
             "mon off: turn off monitor", 
             false, MonitorCommand.NewMonitorCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("idclip", "Gives ability to go through walls. idclip off: normal mode", null, 
+            false, FlyCommand.NewFlyCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("iddqd", "Gives invulnerability. iddqd off: normal mode", null, 
+            false, ImmuneCommand.NewImmuneCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("map", "Enables KS+ map for bare KS levels", null, 
+            false, MapCommand.NewMapCommand, new CommandArg("on", CommandArg.Type.BoolArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("shift", "Shifts Juni (relative to current position)", null, false, ShiftCommand.NewShiftCommand, 
             new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("goto", "Shifts Juni (absolute map+area coordinates)", null, false, ShiftCommand.NewGotoCommand, 
             new CommandArg("xMap", CommandArg.Type.IntArg), new CommandArg("yMap", CommandArg.Type.IntArg),
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
+        cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, 
+            new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
         cs.AddCommand(new CommandDeclaration("col", "Toggle collision shapes", null, OS.IsDebugBuild(), ColCommand.NewColCommand));
         cs.AddCommand(new CommandDeclaration("trail", "Toggle debug trails", null, false, TrailCommand.NewTrailCommand, 
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
@@ -53,6 +57,8 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, true, DeathCommand.NewDeathCommand));
         cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
         cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
+        cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,
+            false, SettingsCommand.NewSettingsCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -737,6 +743,45 @@ public static class ConsoleCommands
                 game.GDWorld.KWorld.Info.Name.Replace(" ", "+"));
             env.Console.AddMessage($"Opening a browser...");
             return null;
+        }
+    }
+
+    public class SettingsCommand : ICommand
+    {
+        string subcmd;
+
+        public SettingsCommand(CommandParseResult result)
+        {
+            subcmd = result.Args["subcmd"];
+        }
+
+        public static ICommand NewSettingsCommand(CommandParseResult result)
+        {
+            return new SettingsCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var f = new File();
+            var error = f.Open("user://settings.ini", File.ModeFlags.Read);
+            var ini_text = f.GetAsText();
+            f.Close();
+
+            switch (subcmd)
+            {
+                case null:
+                    env.Console.AddMessage(ini_text);
+                    return null;
+
+                case "copy":
+                    OS.Clipboard = ini_text;
+                    env.Console.AddMessage("Settings was copied to clipboard.");
+                    return null;
+
+                default:
+                    return "Can't recognize your command";
+            }
         }
     }
 }

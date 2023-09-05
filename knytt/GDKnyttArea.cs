@@ -35,15 +35,7 @@ public class GDKnyttArea : Node2D
         tiles_scene = ResourceLoader.Load("res://knytt/AreaTiles.tscn") as PackedScene;
     }
 
-    public Vector2 GlobalCenter
-    {
-        get
-        {
-            var gp = GlobalPosition;
-            return new Vector2(gp.x + Width / 2f,
-                               gp.y + Height / 2f);
-        }
-    }
+    public Vector2 GlobalCenter => GlobalPosition + new Vector2(Width / 2f, Height / 2f);
 
     public Vector2 getTileLocation(KnyttPoint point)
     {
