@@ -47,10 +47,15 @@ public class GDKnyttSettings : Node
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
             setupViewport(for_ui: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
+
             var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
+            bool smooth = SmoothScalingReal;
             font.FontData = ResourceLoader.Load<DynamicFontData>(
-                    "res://knytt/fonts/" + (SmoothScalingReal ? "segan/Segan-Light.ttf" : "magnificent/Magnificent.ttf"));
-            font.UseFilter = SmoothScalingReal;
+                    "res://knytt/fonts/" + (smooth ? "segan/Segan-Light.ttf" : "silver/Silver-Light.ttf"));
+            font.Size = smooth ? 12 : 17;
+            font.ExtraSpacingTop = smooth ? 1 : 0;
+            font.ExtraSpacingBottom = smooth ? 0 : -6;
+            font.UseFilter = smooth;
         }
     }
 
