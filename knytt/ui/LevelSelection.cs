@@ -53,7 +53,7 @@ public class LevelSelection : BasicScreen
         remote_finished_entries = new ConcurrentQueue<WorldEntry>();
     }
 
-    public async override void _Ready()
+    public override void _Ready()
     {
         base._Ready();
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
@@ -70,7 +70,7 @@ public class LevelSelection : BasicScreen
         loadDefaultWorlds();
         if (OS.GetName() != "HTML5")
         {
-            enableFilter(false);
+            if (localLoad) { enableFilter(false); }
             local_load_task = Task.Run(loadLocalWorlds);
         }
         else
@@ -79,12 +79,6 @@ public class LevelSelection : BasicScreen
         }
         
         if (!localLoad) { HttpLoad(grab_focus: true); }
-        
-        if (local_load_task?.IsCompleted == false)
-        {
-            await local_load_task;
-            if (IsInstanceValid(this)) { enableFilter(true); }
-        }
     }
 
     public override void initFocus()
@@ -195,16 +189,21 @@ public class LevelSelection : BasicScreen
         prev_focus_owner = game_container.GetFocusOwner();
         if (prev_focus_owner == null) { game_container.GrabFocus(); }
 
+        if (localLoad && finished_entries.Count == 0 && local_load_task?.IsCompleted != false) { enableFilter(true); }
+
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
             (!localLoad && remote_finished_entries.Count == 0)) { return; }
 
         if (localLoad)
         {
-            if (!finished_entries.TryDequeue(out var entry)) { return; }
-            if (Manager.addWorld(entry))
+            for (int i = 0; i < 10; i++)
             {
-                game_container.addWorld(entry, focus: game_container.Count == 0);
+                if (!finished_entries.TryDequeue(out var entry)) { return; }
+                if (Manager.addWorld(entry))
+                {
+                    game_container.addWorld(entry, focus: game_container.Count == 0);
+                }
             }
         }
         else

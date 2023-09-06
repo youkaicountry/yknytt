@@ -22,8 +22,9 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         Play();
     }
 
-    public void fadeIn()
+    public void fadeIn(bool force = false)
     {
+        if (force) { fade_i = 0; }
         fade_target = 1f;
         fading = true;
     }
