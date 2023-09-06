@@ -497,10 +497,11 @@ madrabbit90"
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 292.0
 margin_right = 580.0
-margin_bottom = 13.0
+margin_bottom = 29.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-text = "Lit Knob"
+text = "Lit Knob
+ms2048"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 174.0

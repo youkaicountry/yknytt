@@ -27,11 +27,14 @@ public class GDKnyttAmbiChannel : Node
 
     public void setTrack(int num, bool has_custom_volume = false)
     {
+        // if coming from muted area, set volume to normal
+        if (CurrentTrack.AmbiNum == num && this.has_custom_volume && !has_custom_volume) { CurrentTrack.fadeIn(force: true); }
+
         this.has_custom_volume = has_custom_volume;
 
         // If already playing it, no change
         if (CurrentTrack.AmbiNum == num) { return; }
-        
+
         AudioStream stream = null;
         if (num != 0) { stream = this.OnFetch?.Invoke(num); }
 
