@@ -35,6 +35,7 @@ public abstract class BasicScreen : CanvasLayer
             ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {
             GetTree().SetInputAsHandled();
+            if (focused is PopupMenu pm) { pm.Hide(); return; }
             goBack();
         }
     }

@@ -131,6 +131,8 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         prevFocusControl = lineEdit.GetFocusOwner();
+        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/GoButton").Visible = 
+        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/HistoryButton").Visible = TouchSettings.EnablePanel;
         lineEdit.GrabFocus();
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
