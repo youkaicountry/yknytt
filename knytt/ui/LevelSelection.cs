@@ -120,6 +120,7 @@ public class LevelSelection : BasicScreen
 
     private void connectionLost(bool lost = true)
     {
+        if (!IsInstanceValid(this)) { return; }
         GetNode<Label>("ConnectionLostLabel").Visible = lost;
         if (lost) { GetNode<Button>("BackButton").GrabFocus(); }
     }
@@ -148,6 +149,7 @@ public class LevelSelection : BasicScreen
         foreach (Dictionary record in world_infos)
         {
             if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
+            if (remote_finished_entries.Last() == null) { return; } // function is async, so 'this' can be disposed at any time
         }
 
         var worlds_total = HTTPUtil.jsonInt(json.Result, "count");
@@ -371,6 +373,7 @@ public class LevelSelection : BasicScreen
 
     private WorldEntry generateRemoteWorld(Dictionary json_item)
     {
+        if (!IsInstanceValid(this)) { return null; }
         var category_option = GetNode<OptionButton>("MainContainer/FilterContainer/Category/CategoryDropdown");
         var difficulty_option = GetNode<OptionButton>("MainContainer/FilterContainer/Difficulty/DifficultyDropdown");
         var size_option = GetNode<OptionButton>("MainContainer/FilterContainer/Size/SizeDropdown");
