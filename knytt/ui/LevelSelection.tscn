@@ -93,7 +93,7 @@ rect_min_size = Vector2( 100, 0 )
 focus_neighbour_left = NodePath("../../../../BackButton")
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 10, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null, "Other", null, false, 0, null ]
+items = [ "[All]", null, false, 10, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
 selected = 0
 
 [node name="Difficulty" type="VBoxContainer" parent="MainContainer/FilterContainer"]

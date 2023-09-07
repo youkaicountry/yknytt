@@ -142,7 +142,7 @@ public class GDKnyttAssetManager
 
     public static string loadTextFile(byte[] buffer)
     {
-        ASCIIEncoding encoder = new ASCIIEncoding();
+        var encoder = Encoding.GetEncoding(1252);
         return encoder.GetString(buffer, 0, buffer.Length);
     }
 
