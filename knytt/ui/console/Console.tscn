@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/ui/console/Console.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/console/up_arrow.png" type="Texture" id=3]
 [ext_resource path="res://knytt/ui/console/keyboard.png" type="Texture" id=4]
+[ext_resource path="res://knytt/ui/console/go.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/console/history.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -170,12 +172,32 @@ text = ">"
 
 [node name="LineEdit" type="LineEdit" parent="ConsoleContainer/Panel/VBox/HBox"]
 margin_left = 12.0
-margin_right = 560.0
+margin_right = 492.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 virtual_keyboard_enabled = false
 caret_blink = true
 caret_blink_speed = 0.5
+
+[node name="GoButton" parent="ConsoleContainer/Panel/VBox/HBox" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 496.0
+margin_right = 526.064
+margin_bottom = 24.0
+rect_min_size = Vector2( 30, 0 )
+text = ""
+icon = ExtResource( 5 )
+
+[node name="HistoryButton" parent="ConsoleContainer/Panel/VBox/HBox" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 530.0
+margin_right = 560.064
+margin_bottom = 24.0
+rect_min_size = Vector2( 30, 0 )
+text = ""
+icon = ExtResource( 6 )
 
 [node name="KeyboardButton" parent="ConsoleContainer/Panel/VBox/HBox" instance=ExtResource( 2 )]
 visible = false
@@ -207,6 +229,8 @@ anims/SlideOut = SubResource( 1 )
 [connection signal="gui_input" from="ConsoleContainer/Panel/VBox/HBox/LineEdit" to="." method="_on_LineEdit_gui_input"]
 [connection signal="text_changed" from="ConsoleContainer/Panel/VBox/HBox/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="text_entered" from="ConsoleContainer/Panel/VBox/HBox/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="ConsoleContainer/Panel/VBox/HBox/GoButton" to="." method="_on_GoButton_pressed"]
+[connection signal="pressed" from="ConsoleContainer/Panel/VBox/HBox/HistoryButton" to="." method="_on_HistoryButton_pressed"]
 [connection signal="pressed" from="ConsoleContainer/Panel/VBox/HBox/KeyboardButton" to="." method="_on_KeyboardButton_pressed"]
-[connection signal="pressed" from="ConsoleContainer/Panel/VBox/HBox/CloseButton" to="." method="toggleConsole"]
+[connection signal="pressed" from="ConsoleContainer/Panel/VBox/HBox/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

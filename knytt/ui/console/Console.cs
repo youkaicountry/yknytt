@@ -95,6 +95,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (@event.IsActionPressed("ui_accept") && IsOpen)
         {
             if (@event is InputEventKey ek && (ek.Scancode == (int)KeyList.Space || ek.Scancode == (int)KeyList.Enter)) { return; }
+            if (lineEdit.GetFocusOwner() is Button) { return; }
             _on_LineEdit_text_entered(null);
         }
     }
@@ -130,7 +131,6 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         prevFocusControl = lineEdit.GetFocusOwner();
-        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Disabled = false;
         lineEdit.GrabFocus();
         EmitSignal(nameof(ConsoleOpen));
         flushBuffer();
@@ -140,8 +140,6 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     {
         EmitSignal(nameof(ConsoleClosed));
         lineEdit.ReleaseFocus();
-        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/CloseButton").ReleaseFocus();
-        GetNode<Button>("ConsoleContainer/Panel/VBox/HBox/KeyboardButton").Disabled = true;
         if (IsInstanceValid(prevFocusControl)) { prevFocusControl.GrabFocus(); }
         Input.ActionRelease("show_info"); // second time - sometimes first time is not enough
         Input.ActionRelease("pause");
@@ -221,6 +219,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         AddMessage($"> [color=#00CC00]{lineEdit.Text}[/color]");
         RunCommand(lineEdit.Text);
         lineEdit.Text = "";
+        lineEdit.VirtualKeyboardEnabled = false;
     }
 
     private void _on_KeyboardButton_pressed()
@@ -234,5 +233,23 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void _on_LineEdit_gui_input(object @event)
     {
         if (@event is InputEventScreenTouch ie && ie.Pressed) { _on_KeyboardButton_pressed(); }
+    }
+
+    private void _on_GoButton_pressed()
+    {
+        if (IsOpen) { _on_LineEdit_text_entered(null); }
+    }
+
+    private void _on_HistoryButton_pressed()
+    {
+        if (!IsOpen) { return; }
+        historyIndex = (historyIndex + history.Count - 1) % history.Count;
+        lineEdit.Text = history[historyIndex];
+        lineEdit.CaretPosition = lineEdit.Text.Length;
+    }
+
+    private void _on_CloseButton_pressed()
+    {
+        if (IsOpen) { toggleConsole(); }
     }
 }
