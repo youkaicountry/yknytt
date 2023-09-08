@@ -4,11 +4,11 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.5.1 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1.apk)
+[Download YKnytt v0.6 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.0/YKnytt_v0.6.apk)
 
-[Download YKnytt v0.5.1 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1_win.zip)
+[Download YKnytt v0.6 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.0/YKnytt_v0.6_win.zip)
 
-[Download YKnytt v0.5.1 beta for Linux/X11](https://github.com/youkaicountry/yknytt/releases/download/0.5.1/YKnytt_v0.5.1_linux.zip)
+[Download YKnytt v0.6 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.0/YKnytt_v0.6_linux.zip)
 
 YKnytt for Web: coming soon
 
@@ -26,17 +26,7 @@ YKnytt for Web: coming soon
 
 ### Reporting a broken level
 
-Feel free to report any bug you found in levels on the issues page. It would be great if you provide us a brief description and attach a save file.
-
-<details>
-<summary>Where to find save files</summary>
-
-On Windows: `Users/[User]/AppData/Roaming/Godot/app_userdata/YKnytt/Saves/`
-
-On Linux: `~/.local/share/godot/app_userdata/YKnytt/Saves/`
-
-On mobiles: open the console by pressing [down] + [info] + [jump] simultaneously, and type `save copy`. You will get a save file in your clipboard. In a similar way you can paste a file from the clipboard by `save paste`.
-</details>
+If you find a bug in a level, just press "mark as broken" on a level info screen. Your latest save will be sent to the server. There is no need to report it in issues, unless it requires some explanation.
 
 ### Building
 
