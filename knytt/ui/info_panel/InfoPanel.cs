@@ -47,7 +47,10 @@ public class InfoPanel : Panel
         {
             string icon_path = $"custom objects/powericon{power}.png";
             if (!game.GDWorld.KWorld.worldFileExists(icon_path)) { continue; }
-            var new_anim = $"{game.GDWorld.KWorld.WorldDirectoryName} {power} icon";
+            int power_fixed = power < (int)PowerNames.RedKey ? power : 
+                              power > (int)PowerNames.RedKey ? power - 1 : (int)PowerNames.Map;
+            var new_anim = $"{game.GDWorld.KWorld.WorldDirectoryName} {power_fixed} icon";
+            if (frames.HasAnimation(new_anim)) { continue; }
             frames.AddAnimation(new_anim);
             frames.AddFrame(new_anim, game.GDWorld.KWorld.getWorldTexture(icon_path) as Texture);
         }
@@ -61,6 +64,7 @@ public class InfoPanel : Panel
         {
             int power_fixed = power == (int)PowerNames.RedKey ? (int)PowerNames.Map : power;
             var new_anim = $"{game.GDWorld.KWorld.WorldDirectoryName} {power_fixed}";
+            if (frames.HasAnimation(new_anim)) { continue; }
             frames.AddAnimation(new_anim);
             frames.SetAnimationSpeed(new_anim, 12);
             frames.SetAnimationLoop(new_anim, true);
@@ -73,6 +77,7 @@ public class InfoPanel : Panel
         for (var power = PowerNames.RedKey; power <= PowerNames.PurpleKey; power++)
         {
             var new_anim = $"{game.GDWorld.KWorld.WorldDirectoryName} {(int)power}";
+            if (frames.HasAnimation(new_anim)) { continue; }
             frames.AddAnimation(new_anim);
             frames.AddFrame(new_anim, new AtlasTexture() { Atlas = sheet_tex, Region = new Rect2(24 * (power - PowerNames.RedKey), 24 * 9, 24, 24) });
         }
