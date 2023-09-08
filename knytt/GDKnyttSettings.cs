@@ -243,19 +243,19 @@ public class GDKnyttSettings : Node
         if (OS.GetName() == "Windows" || OS.GetName() == "X11")
         {
             string prev_data_dir = OS.GetUserDataDir().PlusFile("../godot/app_userdata/YKnytt");
-            if (System.IO.File.Exists(prev_data_dir.PlusFile("input.ini")))
+            if (System.IO.File.Exists(prev_data_dir.PlusFile("input.ini")) && !new Directory().FileExists("user://input.ini"))
             {
                 System.IO.File.Move(prev_data_dir.PlusFile("input.ini"), OS.GetUserDataDir().PlusFile("input.ini"));
             }
-            if (System.IO.File.Exists(prev_data_dir.PlusFile("settings.ini")))
+            if (System.IO.File.Exists(prev_data_dir.PlusFile("settings.ini")) && !new Directory().FileExists("user://settings.ini"))
             {
                 System.IO.File.Move(prev_data_dir.PlusFile("settings.ini"), OS.GetUserDataDir().PlusFile("settings.ini"));
             }
-            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Saves")))
+            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Saves")) && !new Directory().DirExists("user://Saves"))
             {
                 System.IO.Directory.Move(prev_data_dir.PlusFile("Saves"), OS.GetUserDataDir().PlusFile("Saves"));
             }
-            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Worlds")))
+            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Worlds")) && !new Directory().DirExists("user://Worlds"))
             {
                 System.IO.Directory.Move(prev_data_dir.PlusFile("Worlds"), OS.GetUserDataDir().PlusFile("Worlds"));
             }
@@ -364,9 +364,9 @@ public class GDKnyttSettings : Node
     {
         if (!ini.Sections.ContainsSection("Misc")) { ini.Sections.AddSection("Misc"); }
 
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.5.2")
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.6")
         {
-            ini["Misc"]["Version"] = "0.5.2";
+            ini["Misc"]["Version"] = "0.6";
             if (new File().FileExists("user://input.ini"))
             {
                 GDKnyttKeys.loadSettings();

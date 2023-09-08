@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 580, 29 ) ]
+"values": [ Vector2( 580, 45 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -54,7 +54,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 29 ), Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 45 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -82,7 +82,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ), Vector2( 580, 29 ) ]
+"values": [ Vector2( 580, 0 ), Vector2( 580, 45 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -137,7 +137,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 349 ), Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 370 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
@@ -165,7 +165,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ), Vector2( 580, 349 ) ]
+"values": [ Vector2( 580, 0 ), Vector2( 580, 370 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
@@ -220,7 +220,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 157 ), Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 170 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
@@ -248,7 +248,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ), Vector2( 580, 157 ) ]
+"values": [ Vector2( 580, 0 ), Vector2( 580, 170 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
@@ -304,7 +304,7 @@ theme = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 580.0
-margin_bottom = 218.0
+margin_bottom = 234.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 
@@ -472,8 +472,8 @@ text = "Beta Testers"
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
 margin_top = 139.0
 margin_right = 580.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 580, 29 )
+margin_bottom = 184.0
+rect_min_size = Vector2( 580, 45 )
 rect_clip_content = true
 mouse_filter = 1
 
@@ -484,29 +484,31 @@ anims/expand = SubResource( 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TestersPanel"]
 margin_right = 580.0
-margin_bottom = 29.0
+margin_bottom = 45.0
 rect_clip_content = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_right = 288.0
-margin_bottom = 29.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 text = "Wibi (ncrecc)
-madrabbit90"
+madrabbit90
+blipdrifter"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 292.0
 margin_right = 580.0
-margin_bottom = 29.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Lit Knob
-ms2048"
+ms2048
+LumicatRB"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 174.0
+margin_top = 190.0
 margin_right = 580.0
-margin_bottom = 187.0
+margin_bottom = 203.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -526,9 +528,9 @@ margin_bottom = 13.0
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 193.0
+margin_top = 209.0
 margin_right = 580.0
-margin_bottom = 193.0
+margin_bottom = 209.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
 mouse_filter = 1
@@ -599,9 +601,9 @@ Zonhin
 Zé Pedro Quintanilha (PONTO)"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 199.0
+margin_top = 215.0
 margin_right = 580.0
-margin_bottom = 212.0
+margin_bottom = 228.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -622,9 +624,9 @@ focus_mode = 2
 text = "Music & Sound Effects"
 
 [node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 218.0
+margin_top = 234.0
 margin_right = 580.0
-margin_bottom = 218.0
+margin_bottom = 234.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
 mouse_filter = 1

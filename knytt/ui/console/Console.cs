@@ -234,7 +234,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void _on_LineEdit_gui_input(object @event)
     {
-        if (@event is InputEventScreenTouch ie && ie.Pressed) { _on_KeyboardButton_pressed(); }
+        if (@event is InputEventScreenTouch ie && ie.Pressed && IsOpen) { lineEdit.VirtualKeyboardEnabled = true; }
     }
 
     private void _on_GoButton_pressed()

@@ -65,8 +65,8 @@ public static class ConsoleCommands
     }
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
-        "exit", "list", "map", "mon", "trail", "mon flags", "death", "reboot", "shift 0 0 2 0", "set highjump on", 
-        "save paste", "save copy", "speed 1", "speed 0.5", "iddqd", "idclip", "youtube", "save" };
+        "exit", "list", "reboot", "mon", "mon flags", "trail", "death", "shift 0 0 2 0", "set highjump on", 
+        "speed 1", "speed 0.5", "iddqd", "idclip", "map", "save paste", "save copy", "youtube", "save" };
 
     public class SpeedCommand : ICommand
     {
