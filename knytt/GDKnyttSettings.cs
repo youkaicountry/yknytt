@@ -49,41 +49,30 @@ public class GDKnyttSettings : Node
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
 
             var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
-            bool smooth = SmoothScalingReal;
             font.FontData = ResourceLoader.Load<DynamicFontData>(
-                    "res://knytt/fonts/" + (smooth ? "segan/Segan-Light.ttf" : "silver/Silver-Light.ttf"));
-            font.Size = smooth ? 12 : 17;
-            font.ExtraSpacingTop = smooth ? 1 : 0;
-            font.ExtraSpacingBottom = smooth ? 0 : -6;
-            font.UseFilter = smooth;
+                    "res://knytt/fonts/" + (value ? "segan/Segan-Light.ttf" : "silver/Silver-Light.ttf"));
+            font.Size = value ? 12 : 17;
+            font.ExtraSpacingTop = value ? 1 : 0;
+            font.ExtraSpacingBottom = value ? 0 : -6;
+            font.UseFilter = value;
         }
     }
 
-    public static bool SmoothScalingReal => SmoothScaling || (TouchSettings.EnablePanel && !Mobile);
-    
     public static void setupViewport(bool for_ui = false)
     {
         float screen_width = for_ui ? 600 : TouchSettings.ScreenWidth;
+        var stretch_mode = SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport;
+        bool stretch_height = for_ui || TouchSettings.EnablePanel;
 
         if (Mobile) // expect fullscreen
         {
-            float y_to_x = OS.GetScreenSize().y / OS.GetScreenSize().x;
-            float screen_height = for_ui || TouchSettings.EnablePanel ? screen_width * y_to_x : 240;
-            tree.SetScreenStretch(
-                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-                SceneTree.StretchAspect.Keep, new Vector2(screen_width, screen_height));
-        }
-        else if (!TouchSettings.EnablePanel)
-        {
-            tree.SetScreenStretch(
-                SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-                SceneTree.StretchAspect.Keep, new Vector2(600, 240));
+            float screen_height = stretch_height ? screen_width * OS.GetScreenSize().y / OS.GetScreenSize().x : 240;
+            tree.SetScreenStretch(stretch_mode, SceneTree.StretchAspect.Keep, new Vector2(screen_width, screen_height));
         }
         else
         {
-            // Touch panel needs some screen space, so "Viewport" mode is not suitable here
-            tree.SetScreenStretch(SceneTree.StretchMode.Mode2d,
-                SceneTree.StretchAspect.KeepWidth, new Vector2(screen_width, 240));
+            var stretch_aspect = stretch_height ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep;
+            tree.SetScreenStretch(stretch_mode, stretch_aspect, new Vector2(screen_width, 240));
         }
     }
     
@@ -194,17 +183,17 @@ public class GDKnyttSettings : Node
     {
         get
         {
-            if (!GDKnyttSettings.ini.Sections.ContainsSection("Server") || !GDKnyttSettings.ini["Server"].ContainsKey("UUID"))
+            if (!ini.Sections.ContainsSection("Server") || !ini["Server"].ContainsKey("UUID"))
             {
-                GDKnyttSettings.ensureSetting("Server", "UUID", System.Guid.NewGuid().ToString());
-                GDKnyttSettings.saveSettings();
+                ensureSetting("Server", "UUID", System.Guid.NewGuid().ToString());
+                saveSettings();
             }
 
-            return GDKnyttSettings.ini["Server"]["UUID"];
+            return ini["Server"]["UUID"];
         }
     }
 
-    public static string ServerURL => GDKnyttSettings.ini["Server"]["URL"];
+    public static string ServerURL => ini["Server"]["URL"];
 
     public static string WorldsDirectory
     {
@@ -284,7 +273,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Effects Panning", "1");
 
-        modified |= ensureSetting("Server", "URL", "http://yknytt.pythonanywhere.com");
+        modified |= ensureSetting("Server", "URL", (OS.GetName() == "HTML5" ? "https" : "http") + "://yknytt.pythonanywhere.com");
 
         modified |= ensureSetting("Directories", "Worlds", "");
         modified |= ensureSetting("Directories", "Saves", "");
@@ -367,6 +356,7 @@ public class GDKnyttSettings : Node
         if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.6")
         {
             ini["Misc"]["Version"] = "0.6";
+            if (OS.GetName() == "HTML5") { ini["Server"]?.RemoveKey("URL"); }
             if (new File().FileExists("user://input.ini"))
             {
                 GDKnyttKeys.loadSettings();

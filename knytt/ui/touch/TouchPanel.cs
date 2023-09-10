@@ -111,7 +111,7 @@ public class TouchPanel : Panel
 
     private float getScale()
     {
-        float window_x = GDKnyttSettings.SmoothScalingReal ? GetViewport().Size.x : OS.WindowSize.x;
+        float window_x = GDKnyttSettings.SmoothScaling ? GetViewport().Size.x : OS.WindowSize.x;
         float correction = 0.55f + 0.075f * window_x / OS.GetScreenDpi(); // slighly bigger for bigger devices
         return Mathf.Min(0.01f * OS.GetScreenDpi() * TouchSettings.Scale * correction * GetViewport().GetVisibleRect().Size.x / window_x, 1.4f / TouchSettings.Viewport);
     }

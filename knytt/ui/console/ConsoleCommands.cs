@@ -50,7 +50,7 @@ public static class ConsoleCommands
             new CommandArg("xPos", CommandArg.Type.IntArg, optional: true), new CommandArg("yPos", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("world", "Loads a world", null, false, WorldCommand.NewWorldCommand, 
             new CommandArg("world", CommandArg.Type.StringArg), new CommandArg("intro", CommandArg.Type.BoolArg, optional:true)));
-        cs.AddCommand(new CommandDeclaration("col", "Toggle collision shapes", null, OS.IsDebugBuild(), ColCommand.NewColCommand));
+        cs.AddCommand(new CommandDeclaration("col", "Toggle collision shapes", null, !OS.IsDebugBuild(), ColCommand.NewColCommand));
         cs.AddCommand(new CommandDeclaration("trail", "Toggle debug trails", null, false, TrailCommand.NewTrailCommand, 
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
@@ -58,7 +58,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
         cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
         cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,
-            false, SettingsCommand.NewSettingsCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
+            true, SettingsCommand.NewSettingsCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;

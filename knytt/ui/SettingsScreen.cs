@@ -20,6 +20,7 @@ public class SettingsScreen : BasicScreen
     public void fillControls()
     {
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
+        GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
@@ -33,8 +34,6 @@ public class SettingsScreen : BasicScreen
 
     public override void initFocus()
     {
-        GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScalingReal;
-        GetNode<CheckBox>("SettingsContainer/SmoothScale").Disabled = TouchSettings.EnablePanel && !GDKnyttSettings.Mobile;
         
         bool desktop = GetNode<CheckBox>("SettingsContainer/FullScreen").Visible;
         GetNode<CheckBox>("SettingsContainer/" + (desktop ? "FullScreen": "SmoothScale")).GrabFocus();
