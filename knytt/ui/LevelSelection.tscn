@@ -120,7 +120,7 @@ margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 10, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null, "Other", null, false, 0, null ]
+items = [ "[All]", null, false, 10, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
 selected = 0
 
 [node name="Size" type="VBoxContainer" parent="MainContainer/FilterContainer"]
@@ -147,7 +147,7 @@ margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[All]"
-items = [ "[All]", null, false, 10, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null, "Other", null, false, 0, null ]
+items = [ "[All]", null, false, 10, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
 selected = 0
 
 [node name="Sort" type="VBoxContainer" parent="MainContainer/FilterContainer"]
