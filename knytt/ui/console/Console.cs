@@ -131,6 +131,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     private void handleOpen()
     {
         prevFocusControl = lineEdit.GetFocusOwner();
+        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox").Visible = true;
         GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/GoButton").Visible = 
         GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/HistoryButton").Visible = TouchSettings.EnablePanel;
         lineEdit.GrabFocus();
@@ -149,6 +150,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         historyIndex = history.Count;
         lineEdit.Text = "";
         lineEdit.VirtualKeyboardEnabled = false;
+        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox").Visible = false;
     }
 
     private void flushBuffer()
