@@ -36,6 +36,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 10, 9.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 OrganicEnemy = true

@@ -105,7 +105,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 3, 8 )
+extents = Vector2( 3.5, 8 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 bulletScene = "NinjaStar"

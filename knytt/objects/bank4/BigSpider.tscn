@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/bank4/BigSpider.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 19, 10 )
+extents = Vector2( 19, 10.5 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 2 )

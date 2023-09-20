@@ -6,7 +6,7 @@
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7 )
+extents = Vector2( 7, 7.5 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
