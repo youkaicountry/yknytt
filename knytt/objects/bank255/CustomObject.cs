@@ -48,17 +48,16 @@ public class CustomObject : GDKnyttBaseObject
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
             if (bundle == null) { return; }
-
             var node = bundle.getNode(Layer, Coords);
+            node.Position = Position;
+            GetParent<GDKnyttObjectLayer>().CallDeferred("add_child", node);
+
             if (safe) { node.makeSafe(); }
-            if (bank == 7) { node.Modulate = color; }
+            if (bank == 7) { node.Modulate = color; return; }
 
             Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
             Vector2 offset = new Vector2(getInt(section, "Offset X", 0), getInt(section, "Offset Y", 0));
             if (image != null) { overrideAnimation(node, image, tile_size, offset); }
-
-            node.Position = Position;
-            GetParent<GDKnyttObjectLayer>().CallDeferred("add_child", node);
             return;
         }
 
@@ -96,13 +95,28 @@ public class CustomObject : GDKnyttBaseObject
         var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite");
         if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.y}"); return; }
 
+        if (sprite != null)
+        {
+            sprite.Offset += offset;
+            if (obj is BigSpiker)
+            {
+                sprite.Offset = new Vector2(offset.x == 0 ? sprite.Offset.x : -24 + offset.x, 
+                                            offset.y == 0 ? sprite.Offset.y : -24 + offset.y);
+            }
+        }
+
         var cache_key = (GDArea.GDWorld.KWorld.WorldDirectoryName, ObjectID.y + (ObjectID.x == 254 ? 256 : 0));
         if (oco_cache.ContainsKey(cache_key)) { sprite.Frames = oco_cache[cache_key]; return; }
 
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
         if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { return; }
         
-        if (static_sprite != null) { static_sprite.Texture = image_texture; return; }
+        if (static_sprite != null)
+        {
+            static_sprite.Texture = image_texture;
+            static_sprite.Offset += offset;
+            return;
+        }
 
         var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
         sprite.Frames = oco_cache[cache_key] = new_frames;
@@ -127,7 +141,7 @@ public class CustomObject : GDKnyttBaseObject
 
                 var new_tex = new AtlasTexture();
                 new_tex.Atlas = image_texture;
-                Vector2 corner = new Vector2(new_column * tile_width + offset.x, new_row * tile_height + offset.y);
+                Vector2 corner = new Vector2(new_column * tile_width, new_row * tile_height);
                 if (corner.y + tile_height > image_texture.GetHeight()) { corner.y %= (image_texture.GetHeight() / tile_height) * tile_height; }
                 new_tex.Region = new Rect2(corner, tile_width, tile_height);
                 new_frames.SetFrame(anim, i, new_tex);

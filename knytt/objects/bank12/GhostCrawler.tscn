@@ -46,6 +46,7 @@ animations = [ {
 } ]
 
 [node name="Crawler" instance=ExtResource( 3 )]
+collision_mask = 2048
 speed = 150.0
 keepDistance = 12
 radarBottom = 12

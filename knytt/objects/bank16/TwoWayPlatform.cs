@@ -2,12 +2,12 @@ public class TwoWayPlatform : OneWayPlatform
 {
     private void _on_EnterArea_body_entered(Juni juni)
     {
-        juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
+        juni.Connect(nameof(Juni.JumpedReal), this, nameof(juniJumped));
     }
 
     private void _on_EnterArea_body_exited(Juni juni)
     {
-        Juni.Disconnect(nameof(Juni.Jumped), this, nameof(juniJumped));
+        Juni.Disconnect(nameof(Juni.JumpedReal), this, nameof(juniJumped));
     }
 
     public void juniJumped(Juni juni)

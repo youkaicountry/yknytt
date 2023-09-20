@@ -20,7 +20,7 @@ public class Elemental : GDKnyttBaseObject
             exploded = true;
             sprite.Play("launch");
             GetNode<AudioStreamPlayer2D>("ExplodePlayer").Play();
-            if (Juni.GlobalPosition.DistanceTo(prev_juni_pos) < 12) { juniDie(Juni); } // can teleport into elemental with no harm
+            if (Juni.GlobalPosition.DistanceTo(prev_juni_pos) < 1000 * delta) { juniDie(Juni); } // can teleport into elemental with no harm
         }
         prev_juni_pos = Juni.GlobalPosition;
     }
