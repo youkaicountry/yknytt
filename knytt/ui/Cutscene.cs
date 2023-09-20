@@ -147,6 +147,7 @@ public class Cutscene : Control
                      GDKnyttDataStore.CutsceneName.ToLower() != "ending" ?
                         RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
 
+        if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
             GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author, (int)action, GDKnyttDataStore.CutsceneName);
     }

@@ -27,6 +27,7 @@ public class MainMenu : BasicScreen
     public override void initFocus()
     {
         GetNode<HBoxContainer>("ButtonRow").GrabFocus();
+        GetNode<Button>("ButtonRow/DownloadButton").Disabled = GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline;
     }
 
     public override void _Notification(int what)

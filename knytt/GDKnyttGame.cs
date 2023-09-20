@@ -84,9 +84,6 @@ public class GDKnyttGame : Node2D
 
         UI.initialize(this);
         UI.updatePowers();
-
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-            (int)RateHTTPRequest.Action.Enter);
     }
 
     // On load a save file
@@ -301,8 +298,11 @@ public class GDKnyttGame : Node2D
 
     public async void win(string ending)
     {
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-            (int)RateHTTPRequest.Action.WinExit);
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Online)
+        {
+            GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+                (int)RateHTTPRequest.Action.WinExit);
+        }
         await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
         GDKnyttDataStore.winGame(ending);
     }
@@ -316,9 +316,6 @@ public class GDKnyttGame : Node2D
 
     public async void quit()
     {
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-            (int)RateHTTPRequest.Action.Exit);
-
         GDKnyttDataStore.CurrentSpeed = 1;
         await fade(fast: false, color: null);
 
@@ -369,6 +366,7 @@ public class GDKnyttGame : Node2D
 
     public void sendPowerUpdate(int power, bool value)
     {
+        if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
         if (power < 0 || !value) { return; }
         if (GetNode<Console>("/root/Console").IsOpen) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
@@ -376,6 +374,7 @@ public class GDKnyttGame : Node2D
 
     public void sendCheat()
     {
+        if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
             (int)RateHTTPRequest.Action.Cheat);
     }
