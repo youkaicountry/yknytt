@@ -23,7 +23,7 @@ public class Rain : GDKnyttBaseObject
     {
         if (add_next != null && add_next.GetParent() == null && GetChildCount() < MAX_DROPS)
         {
-            add_next.Position = new Vector2(random.NextFloat() * GDKnyttAssetManager.TILE_WIDTH, 12f);
+            add_next.Position = new Vector2(random.NextFloat() * GDKnyttAssetManager.TILE_WIDTH, 16f);
             add_next.max_distance = (KnyttArea.AREA_HEIGHT - Coords.y) * GDKnyttAssetManager.TILE_HEIGHT;
             add_next.reset(this);
             CallDeferred("add_child", add_next);

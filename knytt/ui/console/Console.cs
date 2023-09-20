@@ -150,7 +150,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         historyIndex = history.Count;
         lineEdit.Text = "";
         lineEdit.VirtualKeyboardEnabled = false;
-        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox").Visible = false;
+        GetNode<Control>("ConsoleContainer/Panel/VBox/HBox").Visible = false; // to lost controls' focus
     }
 
     private void flushBuffer()

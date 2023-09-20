@@ -57,6 +57,7 @@ public class Juni : KinematicBody2D
     SWIM_EXIT_BOOST = 2.1f;
 
     [Signal] public delegate void Jumped();
+    [Signal] public delegate void JumpedReal();
     [Signal] public delegate void PowerChanged();
     [Signal] public delegate void HologramStopped(Juni juni);
     [Signal] public delegate void DownEvent(Juni juni);
@@ -789,6 +790,7 @@ public class Juni : KinematicBody2D
         JustClimbed = false;
         CanFreeJump = false;
 
+        EmitSignal(nameof(JumpedReal), this);
         // Do not emit this event if the hologram is out, as it cannot jump
         if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
     }
