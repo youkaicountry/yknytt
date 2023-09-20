@@ -87,6 +87,16 @@ public class GameButton : GDKnyttButton
         setProgress(1, new Color(0.375f, 0.375f, 0.375f, 0.5f));
     }
 
+    public void markCompletedByPlayer()
+    {
+        setProgress(1, new Color(0.5f, 0.5f, 0.5f, 0.5f));
+    }
+
+    public void markClear()
+    {
+        setProgress(1, new Color(1f, 1f, 1f, 0));
+    }
+
     public void incDownloads()
     {
         var label = GetNode<Label>("RatingControl/DownloadsLabel");

@@ -184,16 +184,35 @@ custom_styles/disabled = SubResource( 1 )
 text = "-"
 hint = "Press it if you don't like this level"
 
-[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="CompContainer" type="HBoxContainer" parent="InfoRect/RatePanel/VBoxContainer"]
 margin_top = 48.0
 margin_right = 141.0
 margin_bottom = 78.0
-rect_min_size = Vector2( 80, 30 )
+
+[node name="CompleteButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 65, 0 )
+toggle_mode = true
+text = "Complete"
+
+[node name="Label" type="Label" parent="InfoRect/RatePanel/VBoxContainer/CompContainer"]
+margin_left = 69.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+
+[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 76.0
+margin_right = 141.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 65, 30 )
 custom_styles/disabled = SubResource( 1 )
-text = "Mark as broken"
-hint = "The latest save will be sent to the server as a complain"
+text = "Complain"
 
 [node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -276,8 +295,10 @@ wait_time = 0.2
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton" to="." method="_on_UpvoteButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton" to="." method="_on_DownvoteButton_pressed"]
-[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_ShowHint"]
-[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/ComplainButton" to="." method="_on_ComplainButton_pressed"]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton" to="." method="_on_ShowHint"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton" to="." method="_on_CompleteButton_pressed"]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton" to="." method="_on_ShowHint"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton" to="." method="_on_ComplainButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_ShowHint"]

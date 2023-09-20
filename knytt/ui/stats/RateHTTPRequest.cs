@@ -19,7 +19,8 @@ public class RateHTTPRequest : HTTPRequest
         Enter = 7,
         Exit = 8,
         WinExit = 9,
-        Cheat = 10
+        Cheat = 10,
+        Complete = 11
     }
 
     private int retry;

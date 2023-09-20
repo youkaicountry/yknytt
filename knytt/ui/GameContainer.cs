@@ -42,6 +42,7 @@ public class GameContainer : VBoxContainer
         if (!replace_stub) { addButton(game_node); }
         
         if (focus) { game_node.forceGrabFocus(); }
+        if (world_entry.Completed) { game_node.markCompletedByPlayer(); }
         if (mark_completed) { game_node.markCompleted(); }
         if (GamesCount < 2)
         { 

@@ -289,6 +289,7 @@ public class LevelSelection : BasicScreen
         string cache_dir = "user://Cache".PlusFile(world_dir.GetFile());
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
+        string completed_flag_name = cache_dir + "/Completed.flag";
         if (new File().FileExists(ini_cache_name))
         {
             world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
@@ -302,14 +303,15 @@ public class LevelSelection : BasicScreen
             GDKnyttAssetManager.ensureDirExists(cache_dir);
             var f = new File();
             f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreString(ini_data.ToString());
+            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
             f.Close();
         }
 
         Texture icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");
         var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
+        bool completed = new File().FileExists(completed_flag_name);
 
-        return new WorldEntry(icon, world_info, world_dir, last_played);
+        return new WorldEntry(icon, world_info, world_dir, last_played, completed);
     }
 
     private WorldEntry generateBinWorld(string world_dir)
@@ -321,6 +323,7 @@ public class LevelSelection : BasicScreen
         string icon_cache_name = cache_dir + "/Icon.png";
         string ini_cache_name = cache_dir + "/World.ini";
         string played_flag_name = cache_dir + "/LastPlayed.flag";
+        string completed_flag_name = cache_dir + "/Completed.flag";
         if (new Directory().FileExists(ini_cache_name))
         {
             icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
@@ -352,14 +355,15 @@ public class LevelSelection : BasicScreen
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
             ini_data["World"]["World Folder"] = binloader.RootDirectory;
             f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreString(ini_data.ToString());
+            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
             f.Close();
         }
 
         Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
         var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
+        bool completed = new File().FileExists(completed_flag_name);
 
-        return new WorldEntry(icon, world_info, world_dir, last_played);
+        return new WorldEntry(icon, world_info, world_dir, last_played, completed);
     }
 
     private KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
@@ -530,7 +534,7 @@ public class LevelSelection : BasicScreen
         }
     }
 
-    public void disableButton(WorldEntry entry)
+    public void refreshButton(WorldEntry entry, bool disable = false)
     {
         Manager.removeWorld(entry);
         var local = findLocal(entry);
@@ -541,8 +545,8 @@ public class LevelSelection : BasicScreen
             {
                 if (button.worldEntry == entry)
                 {
-                    button.Disabled = true;
-                    button.markDisabled();
+                    if (entry.Completed) { button.markCompletedByPlayer(); } else { button.markClear(); }
+                    if (disable) { button.Disabled = true; button.markDisabled(); }
                     return;
                 }
             }
