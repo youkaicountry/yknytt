@@ -20,6 +20,14 @@ public class InfoScreen : BasicScreen
     {
         base._Ready();
         initFocus();
+
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
+        {
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton").Disabled = 
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton").Disabled = 
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton").Disabled = 
+            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/StatsButton").Disabled = true;
+        }
     }
 
     public override void initFocus()
@@ -64,6 +72,7 @@ public class InfoScreen : BasicScreen
         {
             in_game = true;
             world_entry = new WorldEntry();
+            // TODO: fill world_entry.Completed
         }
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
@@ -113,6 +122,7 @@ public class InfoScreen : BasicScreen
 
     private void _on_StatHTTPRequest_ready()
     {
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
         string serverURL = GDKnyttSettings.ServerURL;
         GetNode<HTTPRequest>("StatHTTPRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
@@ -143,6 +153,7 @@ public class InfoScreen : BasicScreen
         world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
         world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
         world_entry.Complains = HTTPUtil.jsonInt(json.Result, "complains");
+        world_entry.Completions = HTTPUtil.jsonInt(json.Result, "completions");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -220,6 +231,33 @@ public class InfoScreen : BasicScreen
         sendRating((int)RateHTTPRequest.Action.Downvote);
     }
 
+    private void _on_CompleteButton_pressed()
+    {
+        ClickPlayer.Play();
+        string cache_dir = KWorld.WorldDirectory.GetFile();
+        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+        string flagname = $"user://Cache/{cache_dir}/Completed.flag";
+        bool pressed = GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton").Pressed;
+        if (pressed)
+        {
+            GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+            var f = new File();
+            f.Open(flagname, File.ModeFlags.Write);
+            f.Close();
+            world_entry.Completed = true;
+            GetNode<Label>("InfoRect/HintLabel").Text = "Level was marked as completed.";
+            sendRating((int)RateHTTPRequest.Action.Complete);
+        }
+        else
+        {
+            new Directory().Remove(flagname);
+            world_entry.Completed = false;
+            GetNode<Label>("InfoRect/HintLabel").Text = "Level was unmarked as completed.";
+        }
+        if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
+        updateRates();
+    }
+
     private bool complain_visit;
 
     private void _on_ComplainButton_pressed()
@@ -250,11 +288,12 @@ public class InfoScreen : BasicScreen
 
         sendRating((int)RateHTTPRequest.Action.Complain, additional: short_save);
         complain_visit = true;
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = "Visit GitHub to report";
+        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton").Text = "To GitHub";
     }
 
     private void sendRating(int action, string additional = null)
     {
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional);
     }
 
@@ -275,7 +314,17 @@ public class InfoScreen : BasicScreen
         var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates/TextContainer/RatesContainer");
         rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{world_entry.Upvotes}";
         rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{world_entry.Downvotes}";
-        if (!complain_visit) { GetNode<Button>("InfoRect/RatePanel/VBoxContainer/ComplainButton").Text = $"Mark as broken ({world_entry.Complains})"; }
+
+        var complete_button = GetNode<GDKnyttButton>("InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton");
+        var complain_button = GetNode<GDKnyttButton>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton");
+
+        complete_button.Text = world_entry.Completed ? "Completed" : "Complete";
+        complete_button.Pressed = world_entry.Completed;
+        complete_button.hint = (world_entry.Completed ? "Unmark this level as completed" : "Mark this level as completed") + 
+            (world_entry.Completions > 0 ? $" (marked {world_entry.Completions} times)" : "");
+
+        complain_button.hint = "The latest save will be sent to the server as a complain" + 
+               (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
     }
 
     private void _on_OptimizeButton_pressed()
@@ -334,7 +383,7 @@ public class InfoScreen : BasicScreen
     {
         KWorld.uninstallWorld();
         goBack();
-        GetParent<LevelSelection>().disableButton(world_entry);
+        GetParent<LevelSelection>().refreshButton(world_entry, disable: true);
     }
 
     private void _on_ShowHint(string hint)

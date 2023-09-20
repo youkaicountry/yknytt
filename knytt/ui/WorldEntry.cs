@@ -21,13 +21,15 @@ public class WorldEntry
     public int Downvotes;
     public int Downloads;
     public int Complains;
+    public int Completions;
     public bool AutoVerified;
     public int Status;
     public bool Disabled;
+    public bool Completed;
 
     public WorldEntry() { }
 
-    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played)
+    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played, bool completed)
     {
         Icon = icon;
         Name = world_info.Name;
@@ -40,6 +42,7 @@ public class WorldEntry
         Path = path;
         InstalledTime = new File().GetModifiedTime(path);
         LastPlayedTime = last_played;
+        Completed = completed;
     }
 
     public void MergeLocal(WorldEntry info)
@@ -50,6 +53,7 @@ public class WorldEntry
         Path = info.Path;
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
+        Completed = info.Completed;
     }
 
     private static string[] statuses = {"Not Verified", "Hard to Verify", "Broken", 
