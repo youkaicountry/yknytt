@@ -23,6 +23,7 @@ public class SettingsScreen : BasicScreen
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
+        GetNode<OptionButton>("ButtonContainer/OfflineDropdown").Select((int)GDKnyttSettings.Connection);
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
@@ -34,7 +35,6 @@ public class SettingsScreen : BasicScreen
 
     public override void initFocus()
     {
-        
         bool desktop = GetNode<CheckBox>("SettingsContainer/FullScreen").Visible;
         GetNode<CheckBox>("SettingsContainer/" + (desktop ? "FullScreen": "SmoothScale")).GrabFocus();
     }
@@ -79,6 +79,11 @@ public class SettingsScreen : BasicScreen
     private void _on_DirButton_pressed()
     {
         loadScreen(dir_scene.Instance() as BasicScreen);
+    }
+
+    private void _on_OfflineDropdown_item_selected(int index)
+    {
+        GDKnyttSettings.Connection = (GDKnyttSettings.ConnectionType)index;
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

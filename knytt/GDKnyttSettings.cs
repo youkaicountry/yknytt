@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using IniParser.Model;
 using IniParser.Parser;
 using YKnyttLib;
@@ -195,6 +196,14 @@ public class GDKnyttSettings : Node
 
     public static string ServerURL => ini["Server"]["URL"];
 
+    public enum ConnectionType { Online, NoAchievements, Offline };
+
+    public static ConnectionType Connection
+    {
+        get { return (ConnectionType)Enum.Parse(typeof(ConnectionType), ini["Server"]["Connection"]); }
+        set { ini["Server"]["Connection"] = value.ToString(); }
+    }
+
     public static string WorldsDirectory
     {
         get { return ini["Directories"]["Worlds"]; }
@@ -274,6 +283,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Panning", "1");
 
         modified |= ensureSetting("Server", "URL", (OS.GetName() == "HTML5" ? "https" : "http") + "://yknytt.pythonanywhere.com");
+        modified |= ensureSetting("Server", "Connection", "Online");
 
         modified |= ensureSetting("Directories", "Worlds", "");
         modified |= ensureSetting("Directories", "Saves", "");
