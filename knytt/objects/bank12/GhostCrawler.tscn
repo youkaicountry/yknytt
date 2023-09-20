@@ -5,9 +5,8 @@
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9, 10 )
+extents = Vector2( 9, 9.5 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )

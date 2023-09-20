@@ -81,7 +81,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=16]
-extents = Vector2( 22, 5 )
+extents = Vector2( 22, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 19, 3 )

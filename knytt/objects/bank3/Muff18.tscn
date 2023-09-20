@@ -41,7 +41,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 10, 5 )
+extents = Vector2( 10, 4.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 directionChangeTime = 4.26

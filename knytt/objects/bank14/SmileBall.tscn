@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/bank14/SmileBall.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 6 )
+extents = Vector2( 6, 5.5 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )

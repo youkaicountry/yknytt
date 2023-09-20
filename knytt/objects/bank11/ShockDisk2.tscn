@@ -50,7 +50,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 7, 7 )
+extents = Vector2( 7, 6.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 4 )

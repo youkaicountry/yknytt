@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 5 )
+extents = Vector2( 11, 4.5 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )

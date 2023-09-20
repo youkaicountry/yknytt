@@ -148,7 +148,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=33]
-extents = Vector2( 5, 7 )
+extents = Vector2( 5, 6.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 5 )

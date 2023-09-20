@@ -45,7 +45,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 10, 7 )
+extents = Vector2( 10, 6.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 speedValues = PoolIntArray( 27, 28, 29, 30, 31, 32 )
