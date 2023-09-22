@@ -9,13 +9,6 @@
 [ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
 [ext_resource path="res://knytt/ui/touch/TouchSettingsScreen.cs" type="Script" id=14]
 
-[sub_resource type="StyleBoxFlat" id=1]
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0 )
-
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=4]
@@ -31,6 +24,13 @@ border_color = Color( 0, 0, 0, 0 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
+[sub_resource type="StyleBoxFlat" id=1]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0 )
+
 [node name="TouchSettingsScreen" type="CanvasLayer"]
 layer = 3
 script = ExtResource( 14 )
@@ -39,27 +39,11 @@ script = ExtResource( 14 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="BackButton" parent="." instance=ExtResource( 2 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -40.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
-focus_neighbour_top = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
-focus_neighbour_right = NodePath("../SettingsContainer/EnableContainer/EnableButton")
-focus_neighbour_bottom = NodePath("../SettingsContainer/EnableContainer/EnableButton")
-focus_next = NodePath("../SettingsContainer/EnableContainer/EnableButton")
-focus_previous = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
-custom_styles/disabled = SubResource( 1 )
-text = "Back"
-
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
 margin_left = 33.0
 margin_top = 20.0
+margin_right = 567.0
+margin_bottom = 212.0
 
 [node name="EnableContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_right = 534.0
@@ -103,40 +87,43 @@ selected = 0
 [node name="SwapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 28.0
 margin_right = 534.0
-margin_bottom = 49.0
+margin_bottom = 52.0
 
 [node name="SwapButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
 margin_right = 265.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
 text = "Arrows on the right side"
 
 [node name="UmbrellaButton" parent="SettingsContainer/SwapContainer" instance=ExtResource( 3 )]
 margin_left = 269.0
 margin_right = 534.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
 focus_neighbour_right = NodePath("../../SwipeContainer/SwipeButton")
 text = "Stow umbrella when jumping"
 
 [node name="SwipeContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 53.0
+margin_top = 56.0
 margin_right = 534.0
-margin_bottom = 74.0
+margin_bottom = 80.0
 
 [node name="SwipeButton" parent="SettingsContainer/SwipeContainer" instance=ExtResource( 3 )]
 margin_right = 265.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 265, 0 )
 text = "Swipe to change direction quickly"
 
 [node name="Label" type="Label" parent="SettingsContainer/SwipeContainer"]
 margin_left = 269.0
-margin_top = 3.0
+margin_top = 5.0
 margin_right = 269.0
-margin_bottom = 17.0
+margin_bottom = 19.0
 
 [node name="ScaleContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 78.0
+margin_top = 84.0
 margin_right = 534.0
-margin_bottom = 102.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="ScaleLabel" type="Label" parent="SettingsContainer/ScaleContainer"]
@@ -187,9 +174,9 @@ __meta__ = {
 }
 
 [node name="ViewportContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 106.0
+margin_top = 112.0
 margin_right = 534.0
-margin_bottom = 130.0
+margin_bottom = 136.0
 
 [node name="ViewportLabel" type="Label" parent="SettingsContainer/ViewportContainer"]
 margin_top = 5.0
@@ -235,9 +222,9 @@ margin_bottom = 24.0
 text = "Set 100%"
 
 [node name="JumpContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 134.0
+margin_top = 140.0
 margin_right = 534.0
-margin_bottom = 158.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="JumpLabel" type="Label" parent="SettingsContainer/JumpContainer"]
@@ -288,9 +275,9 @@ __meta__ = {
 }
 
 [node name="OpacityContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 162.0
+margin_top = 168.0
 margin_right = 534.0
-margin_bottom = 186.0
+margin_bottom = 192.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="OpacityLabel" type="Label" parent="SettingsContainer/OpacityContainer"]
@@ -339,7 +326,24 @@ focus_neighbour_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../BackButton")
 text = "Set 100%"
 
-[connection signal="pressed" from="BackButton" to="." method="goBack"]
+[node name="BackButton" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -85.0
+margin_top = -40.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
+focus_neighbour_top = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
+focus_neighbour_right = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_neighbour_bottom = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_next = NodePath("../SettingsContainer/EnableContainer/EnableButton")
+focus_previous = NodePath("../SettingsContainer/OpacityContainer/OpacityMaxButton")
+custom_styles/disabled = SubResource( 1 )
+text = "Back"
+
 [connection signal="toggled" from="SettingsContainer/EnableContainer/EnableButton" to="." method="_on_EnableButton_toggled"]
 [connection signal="item_selected" from="SettingsContainer/EnableContainer/AnchorDropdown" to="." method="_on_AnchorDropdown_item_selected"]
 [connection signal="toggled" from="SettingsContainer/SwapContainer/SwapButton" to="." method="_on_SwapButton_toggled"]
@@ -353,3 +357,4 @@ text = "Set 100%"
 [connection signal="pressed" from="SettingsContainer/JumpContainer/JumpDefaultButton" to="." method="_on_JumpDefaultButton_pressed"]
 [connection signal="value_changed" from="SettingsContainer/OpacityContainer/OpacitySlider" to="." method="_on_OpacitySlider_value_changed"]
 [connection signal="pressed" from="SettingsContainer/OpacityContainer/OpacityMaxButton" to="." method="_on_OpacityMaxButton_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="goBack"]

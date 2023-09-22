@@ -92,7 +92,7 @@ public class TouchSettings : Node
 
     public static void applyAllSettings(SceneTree tree)
     {
-        tree.Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.Configure();
+        tree.Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.CallDeferred("Configure");
     }
 
     // tries to determine tablets or any other device with enough space for touch panel
