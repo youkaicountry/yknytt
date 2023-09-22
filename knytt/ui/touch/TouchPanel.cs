@@ -65,13 +65,14 @@ public class TouchPanel : Panel
         GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
         GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
 
-        Configure();
+        // must be deferred because calling this right after setupViewport causes positioning bugs on Android
+        CallDeferred("Configure");
     }
 
     // Manipulates anchors and margins to apply program settings
-    public void Configure(bool force_off = false)
+    public void Configure()
     {
-        Visible = TouchSettings.EnablePanel && !force_off;
+        Visible = TouchSettings.EnablePanel;
         SetProcessInput(Visible);
         var curtain = GetTree().Root.GetNode<Control>("GKnyttGame/UICanvasLayer/Curtain");
         curtain.Visible = Visible;
@@ -192,144 +193,143 @@ public class TouchPanel : Panel
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventScreenTouch || @event is InputEventScreenDrag)
+        if (!(@event is InputEventScreenTouch) && !(@event is InputEventScreenDrag)) { return; }
+
+        Vector2 position = @event is InputEventScreenTouch ?
+            (@event as InputEventScreenTouch).Position :
+            (@event as InputEventScreenDrag).Position;
+
+        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
+
+        if (released)
         {
-            Vector2 position = @event is InputEventScreenTouch ?
-                (@event as InputEventScreenTouch).Position :
-                (@event as InputEventScreenDrag).Position;
-
-            bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
-
-            if (released)
+            foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
             {
-                foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
-                {
-                    if (p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
-                }
-
-                if (TouchSettings.Swipe)
-                {
-                    if (leftRect.HasPoint(position)) { Input.ActionRelease("right"); }
-                    if (rightRect.HasPoint(position)) { Input.ActionRelease("left"); }
-                    if (jumpRect.HasPoint(position)) { Input.ActionRelease("umbrella"); }
-                    if (umbrellaRect.HasPoint(position)) { Input.ActionRelease("jump"); }
-                }
+                if (p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
             }
-            else if (@event is InputEventScreenDrag drag_event)
+
+            if (TouchSettings.Swipe)
             {
-                var speed = drag_event.Speed;
-                var rel = drag_event.Relative;
-                var old_position = drag_event.Position - drag_event.Relative;
+                if (leftRect.HasPoint(position)) { Input.ActionRelease("right"); }
+                if (rightRect.HasPoint(position)) { Input.ActionRelease("left"); }
+                if (jumpRect.HasPoint(position)) { Input.ActionRelease("umbrella"); }
+                if (umbrellaRect.HasPoint(position)) { Input.ActionRelease("jump"); }
+            }
+        }
+        else if (@event is InputEventScreenDrag drag_event)
+        {
+            var speed = drag_event.Speed;
+            var rel = drag_event.Relative;
+            var old_position = drag_event.Position - drag_event.Relative;
 
-                // Release action if user lefts the button
-                if ((leftRect.HasPoint(old_position) && !leftRect.HasPoint(position)) ||
-                    (rightRect.HasPoint(old_position) && !rightRect.HasPoint(position)))
-                {
-                    Input.ActionRelease(Input.IsActionPressed("left") ? "left" : "right");
-                }
+            // Release action if user lefts the button
+            if ((leftRect.HasPoint(old_position) && !leftRect.HasPoint(position)) ||
+                (rightRect.HasPoint(old_position) && !rightRect.HasPoint(position)))
+            {
+                Input.ActionRelease(Input.IsActionPressed("left") ? "left" : "right");
+            }
 
-                if ((umbrellaRect.HasPoint(old_position) || jumpRect.HasPoint(old_position)) && 
-                    !umbrellaRect.HasPoint(position) && !jumpRect.HasPoint(position))
-                {
-                    Input.ActionRelease(Input.IsActionPressed("jump") ? "jump" : "umbrella");
-                }
+            if ((umbrellaRect.HasPoint(old_position) || jumpRect.HasPoint(old_position)) && 
+                !umbrellaRect.HasPoint(position) && !jumpRect.HasPoint(position))
+            {
+                Input.ActionRelease(Input.IsActionPressed("jump") ? "jump" : "umbrella");
+            }
 
-                foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
-                {
-                    if (p.Rect.HasPoint(old_position) && !p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
-                }
+            foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
+            {
+                if (p.Rect.HasPoint(old_position) && !p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
+            }
 
-                Juni juni = GetNode<GDKnyttGame>("/root/GKnyttGame").Juni;
-                float adj_speed = speed.x / getScale();
-                if (TouchSettings.Swipe)
+            Juni juni = GetNode<GDKnyttGame>("/root/GKnyttGame").Juni;
+            float adj_speed = speed.x / getScale();
+            if (TouchSettings.Swipe)
+            {
+                // If user swipes left/right too fast, left/right action can be pressed in advance
+                if (leftRect.HasPoint(position) || rightRect.HasPoint(position))
                 {
-                    // If user swipes left/right too fast, left/right action can be pressed in advance
-                    if (leftRect.HasPoint(position) || rightRect.HasPoint(position))
+                    if (adj_speed > SPEED_TOO_FAST)
                     {
-                        if (adj_speed > SPEED_TOO_FAST)
-                        {
-                            Input.ActionRelease("left");
-                            Input.ActionPress("right");
-                        }
-                        if (adj_speed < -SPEED_TOO_FAST)
-                        {
-                            Input.ActionRelease("right");
-                            Input.ActionPress("left");
-                        }
+                        Input.ActionRelease("left");
+                        Input.ActionPress("right");
                     }
-
-                    if (jumpRect.HasPoint(position) || umbrellaRect.HasPoint(position))
+                    if (adj_speed < -SPEED_TOO_FAST)
                     {
-                        bool swipe_fast_to_jump = TouchSettings.SwapHands ? adj_speed < -SPEED_TOO_FAST_JUMP : adj_speed > SPEED_TOO_FAST_JUMP;
-                        bool swipe_fast_to_umbrella = TouchSettings.SwapHands ? adj_speed > SPEED_TOO_FAST_JUMP : adj_speed < -SPEED_TOO_FAST_JUMP;
-                        if (swipe_fast_to_jump && Input.IsActionPressed("umbrella") && juni.CanAnyJump)
-                        {
-                            juni.Umbrella.Deployed = false;
-                            Input.ActionRelease("umbrella");
-                            Input.ActionPress("jump");
-                        }
-                        if (swipe_fast_to_umbrella && Input.IsActionPressed("jump") && juni.CanUmbrella && !juni.Umbrella.Deployed)
-                        {
-                            Input.ActionPress("umbrella");
-                            Input.ActionRelease("jump");
-                        }
+                        Input.ActionRelease("right");
+                        Input.ActionPress("left");
                     }
                 }
 
-                // If user swipes back after this, original direction should be restored
-                // Swiping up/down (too slow on X) should not affect this
-                bool swipe_slow_to_right = adj_speed >= -SPEED_TOO_SLOW;
-                bool swipe_slow_to_left = adj_speed <= SPEED_TOO_SLOW;
-                if (leftRect.HasPoint(position) && !(Input.IsActionPressed("right") && swipe_slow_to_right))
+                if (jumpRect.HasPoint(position) || umbrellaRect.HasPoint(position))
                 {
-                    Input.ActionRelease("right");
-                    Input.ActionPress("left");
+                    bool swipe_fast_to_jump = TouchSettings.SwapHands ? adj_speed < -SPEED_TOO_FAST_JUMP : adj_speed > SPEED_TOO_FAST_JUMP;
+                    bool swipe_fast_to_umbrella = TouchSettings.SwapHands ? adj_speed > SPEED_TOO_FAST_JUMP : adj_speed < -SPEED_TOO_FAST_JUMP;
+                    if (swipe_fast_to_jump && Input.IsActionPressed("umbrella") && juni.CanAnyJump)
+                    {
+                        juni.Umbrella.Deployed = false;
+                        Input.ActionRelease("umbrella");
+                        Input.ActionPress("jump");
+                    }
+                    if (swipe_fast_to_umbrella && Input.IsActionPressed("jump") && juni.CanUmbrella && !juni.Umbrella.Deployed)
+                    {
+                        Input.ActionPress("umbrella");
+                        Input.ActionRelease("jump");
+                    }
                 }
-                if (rightRect.HasPoint(position) && !(Input.IsActionPressed("left") && swipe_slow_to_left))
-                {
-                    Input.ActionRelease("left");
-                    Input.ActionPress("right");
-                }
-
-                bool swipe_slow_to_jump = TouchSettings.SwapHands ? swipe_slow_to_left : swipe_slow_to_right;
-                bool swipe_slow_to_umbrella = TouchSettings.SwapHands ? swipe_slow_to_right : swipe_slow_to_left;
-                if (umbrellaRect.HasPoint(position) && !(Input.IsActionPressed("jump") && swipe_slow_to_jump) &&
-                    (Input.IsActionPressed("jump") || Input.IsActionJustReleased("jump")) && 
-                    juni.CanUmbrella && !juni.Umbrella.Deployed)
-                {
-                    Input.ActionRelease("jump");
-                    Input.ActionPress("umbrella");
-                }
-                if (jumpRect.HasPoint(position) && !(Input.IsActionPressed("umbrella") && swipe_slow_to_umbrella) && 
-                    (Input.IsActionPressed("umbrella") || Input.IsActionJustReleased("umbrella")) && 
-                    juni.CanAnyJump)
-                {
-                    juni.Umbrella.Deployed = false;
-                    Input.ActionRelease("umbrella");
-                    Input.ActionPress("jump");
-                }
-
-                if (downRect.HasPoint(position)) { Input.ActionPress("down"); }
-                if (upRect.HasPoint(position)) { Input.ActionPress("up"); }
             }
-            else
+
+            // If user swipes back after this, original direction should be restored
+            // Swiping up/down (too slow on X) should not affect this
+            bool swipe_slow_to_right = adj_speed >= -SPEED_TOO_SLOW;
+            bool swipe_slow_to_left = adj_speed <= SPEED_TOO_SLOW;
+            if (leftRect.HasPoint(position) && !(Input.IsActionPressed("right") && swipe_slow_to_right))
             {
-                foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
-                {
-                    if (p.Rect.HasPoint(position)) { Input.ActionPress(p.Name); }
-                }
+                Input.ActionRelease("right");
+                Input.ActionPress("left");
+            }
+            if (rightRect.HasPoint(position) && !(Input.IsActionPressed("left") && swipe_slow_to_left))
+            {
+                Input.ActionRelease("left");
+                Input.ActionPress("right");
             }
 
-            ChangeOpacity(leftUpPanel, Input.IsActionPressed("left") && Input.IsActionPressed("up"));
-            ChangeOpacity(rightUpPanel, Input.IsActionPressed("right") && Input.IsActionPressed("up"));
-            ChangeOpacity(leftPanel, Input.IsActionPressed("left") && !Input.IsActionPressed("up"));
-            ChangeOpacity(rightPanel, Input.IsActionPressed("right") && !Input.IsActionPressed("up"));
-            ChangeOpacity(downPanel, Input.IsActionPressed("down"));
-            foreach (var p in jumpPanels.Zip(jumpActionNames, (a, b) => new { Pan = a, Name = b }))
+            bool swipe_slow_to_jump = TouchSettings.SwapHands ? swipe_slow_to_left : swipe_slow_to_right;
+            bool swipe_slow_to_umbrella = TouchSettings.SwapHands ? swipe_slow_to_right : swipe_slow_to_left;
+            if (umbrellaRect.HasPoint(position) && !(Input.IsActionPressed("jump") && swipe_slow_to_jump) &&
+                (Input.IsActionPressed("jump") || Input.IsActionJustReleased("jump")) && 
+                juni.CanUmbrella && !juni.Umbrella.Deployed)
             {
-                if (p.Name == "pause" || p.Name == "map") continue;
-                ChangeOpacity(p.Pan, Input.IsActionPressed(p.Name));
+                Input.ActionRelease("jump");
+                Input.ActionPress("umbrella");
             }
+            if (jumpRect.HasPoint(position) && !(Input.IsActionPressed("umbrella") && swipe_slow_to_umbrella) && 
+                (Input.IsActionPressed("umbrella") || Input.IsActionJustReleased("umbrella")) && 
+                juni.CanAnyJump)
+            {
+                juni.Umbrella.Deployed = false;
+                Input.ActionRelease("umbrella");
+                Input.ActionPress("jump");
+            }
+
+            if (downRect.HasPoint(position)) { Input.ActionPress("down"); }
+            if (upRect.HasPoint(position)) { Input.ActionPress("up"); }
+        }
+        else
+        {
+            foreach (var p in allRectangles.Zip(actionNames, (a, b) => new { Rect = a, Name = b }))
+            {
+                if (p.Rect.HasPoint(position)) { Input.ActionPress(p.Name); }
+            }
+        }
+
+        ChangeOpacity(leftUpPanel, Input.IsActionPressed("left") && Input.IsActionPressed("up"));
+        ChangeOpacity(rightUpPanel, Input.IsActionPressed("right") && Input.IsActionPressed("up"));
+        ChangeOpacity(leftPanel, Input.IsActionPressed("left") && !Input.IsActionPressed("up"));
+        ChangeOpacity(rightPanel, Input.IsActionPressed("right") && !Input.IsActionPressed("up"));
+        ChangeOpacity(downPanel, Input.IsActionPressed("down"));
+        foreach (var p in jumpPanels.Zip(jumpActionNames, (a, b) => new { Pan = a, Name = b }))
+        {
+            if (p.Name == "pause" || p.Name == "map") continue;
+            ChangeOpacity(p.Pan, Input.IsActionPressed(p.Name));
         }
     }
 

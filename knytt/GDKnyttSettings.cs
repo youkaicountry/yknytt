@@ -61,20 +61,10 @@ public class GDKnyttSettings : Node
 
     public static void setupViewport(bool for_ui = false)
     {
-        float screen_width = for_ui ? 600 : TouchSettings.ScreenWidth;
-        var stretch_mode = SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport;
-        bool stretch_height = for_ui || TouchSettings.EnablePanel;
-
-        if (Mobile) // expect fullscreen
-        {
-            float screen_height = stretch_height ? screen_width * OS.GetScreenSize().y / OS.GetScreenSize().x : 240;
-            tree.SetScreenStretch(stretch_mode, SceneTree.StretchAspect.Keep, new Vector2(screen_width, screen_height));
-        }
-        else
-        {
-            var stretch_aspect = stretch_height ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep;
-            tree.SetScreenStretch(stretch_mode, stretch_aspect, new Vector2(screen_width, 240));
-        }
+        tree.SetScreenStretch(
+            SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
+            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
+            new Vector2(for_ui ? 600 : TouchSettings.ScreenWidth, 240));
     }
     
     public static ScrollTypes ScrollType
