@@ -88,12 +88,10 @@ public class LevelSelection : BasicScreen
 
     private void loadLocalWorlds()
     {
-        System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Highest;
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
-        System.Threading.Thread.CurrentThread.Priority = System.Threading.ThreadPriority.Normal;
     }
 
     private void HttpLoad(bool grab_focus = false)
