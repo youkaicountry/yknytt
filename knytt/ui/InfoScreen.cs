@@ -245,7 +245,7 @@ public class InfoScreen : BasicScreen
             f.Open(flagname, File.ModeFlags.Write);
             f.Close();
             world_entry.Completed = true;
-            GetNode<Label>("InfoRect/HintLabel").Text = "Level was marked as completed.";
+            GetNode<Label>("InfoRect/HintLabel").Text = "";
             sendRating((int)RateHTTPRequest.Action.Complete);
         }
         else
@@ -306,6 +306,12 @@ public class InfoScreen : BasicScreen
             world_entry.Complains++;
             GetNode<Label>("InfoRect/HintLabel").Text = "Your latest save was sent to the server.";
         }
+        if (action == (int)RateHTTPRequest.Action.Complete)
+        {
+            world_entry.Completions++;
+            GetNode<Label>("InfoRect/HintLabel").Text = "Level was marked as completed.";
+        }
+        
         updateRates();
     }
 
