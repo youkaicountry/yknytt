@@ -39,12 +39,12 @@ public class BouncerEnemy : GDKnyttBaseObject
         sprite.Play("jump");
     }
 
-    public void juniJumped(Juni juni)
+    public void juniJumped(Juni juni, bool real)
     {
-        if (in_air) { return; }
+        if (in_air || !real) { return; }
 
         // Calculate and test jump chance
-        if (!in_air && juni.Hologram == null && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
+        if (Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
         {
             launch();
         }
