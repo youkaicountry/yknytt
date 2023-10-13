@@ -8,9 +8,9 @@ public class SmartWalkingBouncer : WalkingBouncer
         Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
     }
 
-    public void juniJumped(Juni juni)
+    public void juniJumped(Juni juni, bool real)
     {
-        if (!inAir && juni.Hologram == null && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
+        if (!inAir && real && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
         {
             jump();
         }

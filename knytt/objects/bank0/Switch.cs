@@ -6,7 +6,7 @@ public abstract class Switch : GDKnyttBaseObject
     protected KnyttSwitch @switch;
 
     protected string sound;
-    protected bool alreadyExecuted;
+    public bool alreadyExecuted;
 
     public override void _Ready()
     {
@@ -75,7 +75,10 @@ public abstract class Switch : GDKnyttBaseObject
     public void executeAnyway(Juni juni)
     {
         if (!@switch.Repeat && alreadyExecuted) { return; }
-        alreadyExecuted = true;
+
+        if (@switch.AsOne) { foreach (Switch s in GDArea.Objects.findObjects(ObjectID)) { s.alreadyExecuted = true; } }
+        else { alreadyExecuted = true; }
+
         CallDeferred("_execute", juni);
     }
 

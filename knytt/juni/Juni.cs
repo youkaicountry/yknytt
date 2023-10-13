@@ -56,8 +56,7 @@ public class Juni : KinematicBody2D
     SWIM_MAX_UPDRAFT_SPEED = -100f,
     SWIM_EXIT_BOOST = 2.1f;
 
-    [Signal] public delegate void Jumped();
-    [Signal] public delegate void JumpedReal();
+    [Signal] public delegate void Jumped(Juni juni, bool real);
     [Signal] public delegate void PowerChanged();
     [Signal] public delegate void HologramStopped(Juni juni);
     [Signal] public delegate void DownEvent(Juni juni);
@@ -148,7 +147,7 @@ public class Juni : KinematicBody2D
     public int JumpLimit => Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; 
     public bool CanClimb => Powers.getPower(PowerNames.Climb) && Checkers.Colliding; 
     public bool CanUmbrella => Powers.getPower(PowerNames.Umbrella); 
-    public bool Grounded { get; private set; }
+    public bool Grounded { get; set; }
     public bool DidJump => juniInput.JumpEdge && Grounded && CanJump; 
     public bool FacingRight
     {
@@ -790,9 +789,7 @@ public class Juni : KinematicBody2D
         JustClimbed = false;
         CanFreeJump = false;
 
-        EmitSignal(nameof(JumpedReal), this);
-        // Do not emit this event if the hologram is out, as it cannot jump
-        if (Hologram == null) { EmitSignal(nameof(Jumped), this); }
+        EmitSignal(nameof(Jumped), this, Hologram == null);
     }
 
     public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false, bool check_stow = true)
