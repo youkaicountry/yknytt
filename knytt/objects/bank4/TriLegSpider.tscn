@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/bank4/TriLegSpider.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 9.5 )
+extents = Vector2( 11, 10 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
@@ -73,7 +73,7 @@ speed = 187.5
 border = 8.0
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12, 14 )
+position = Vector2( 12, 13.5 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]

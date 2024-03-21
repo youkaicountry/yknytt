@@ -109,7 +109,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 7.5, 10 )
+extents = Vector2( 6.5, 10 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 bulletScene = "SmallGlowingBullet"
@@ -124,7 +124,7 @@ frames = SubResource( 20 )
 animation = "aftershot"
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 16, 11 )
+position = Vector2( 17, 11 )
 shape = SubResource( 21 )
 
 [node name="ShotTimer" parent="." index="4"]

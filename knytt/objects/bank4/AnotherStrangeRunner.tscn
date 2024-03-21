@@ -51,7 +51,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 7, 9.5 )
+extents = Vector2( 7, 9 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -67,7 +67,7 @@ frames = SubResource( 9 )
 animation = "prepare"
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 14 )
+position = Vector2( 12, 14.5 )
 shape = SubResource( 10 )
 
 [node name="ShotTimer" parent="." index="4"]

@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/bank4/CeilingDropCrawler.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7.5 )
+extents = Vector2( 7, 6.5 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
@@ -44,7 +44,7 @@ animations = [ {
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12, 8 )
+position = Vector2( 12, 7 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]

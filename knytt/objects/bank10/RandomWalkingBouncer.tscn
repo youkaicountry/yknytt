@@ -59,7 +59,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 9, 7.5 )
+extents = Vector2( 9, 7 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 8, 7 )
@@ -77,7 +77,7 @@ jumpGravity = 0.33
 frames = SubResource( 10 )
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 16 )
+position = Vector2( 12, 16.5 )
 shape = SubResource( 12 )
 
 [node name="Area2D" type="Area2D" parent="." index="4"]

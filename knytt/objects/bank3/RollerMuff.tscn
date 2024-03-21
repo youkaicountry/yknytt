@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 7.5 )
+extents = Vector2( 10, 7 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 7.0
@@ -18,7 +18,7 @@ initialSpeed = 8
 speedValues = PoolIntArray( 5, 10 )
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 16 )
+position = Vector2( 12, 16.5 )
 shape = SubResource( 1 )
 
 [node name="RollTimer" parent="." index="4" instance=ExtResource( 3 )]

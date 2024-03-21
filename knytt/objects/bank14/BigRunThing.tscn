@@ -45,7 +45,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 10, 6.5 )
+extents = Vector2( 10, 7.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 speedValues = PoolIntArray( 27, 28, 29, 30, 31, 32 )
@@ -59,7 +59,7 @@ frames = SubResource( 8 )
 animation = "walk"
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 17 )
+position = Vector2( 12, 16 )
 shape = SubResource( 9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]

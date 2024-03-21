@@ -66,7 +66,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 9, 9.5 )
+extents = Vector2( 9, 10 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 directionChange = 2
@@ -79,5 +79,5 @@ shotPositions = PoolVector2Array( 2, 17, 5, 13, 19, 13, 22, 17 )
 frames = SubResource( 12 )
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 14 )
+position = Vector2( 12, 13.5 )
 shape = SubResource( 13 )
