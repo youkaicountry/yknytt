@@ -6,7 +6,7 @@
 [ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 7.5 )
+extents = Vector2( 7, 6.5 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
@@ -45,7 +45,7 @@ animations = [ {
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12, 16 )
+position = Vector2( 12, 17 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]

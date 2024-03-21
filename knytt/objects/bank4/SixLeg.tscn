@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 9.5 )
+extents = Vector2( 12, 9 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
@@ -78,7 +78,7 @@ radarBottom = 12
 radarTop = 36
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12, 14 )
+position = Vector2( 12, 14.5 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]

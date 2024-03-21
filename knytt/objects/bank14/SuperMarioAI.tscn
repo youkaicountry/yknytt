@@ -36,7 +36,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 10, 9.5 )
+extents = Vector2( 10, 10.5 )
 
 [node name="Muff" instance=ExtResource( 1 )]
 OrganicEnemy = true
@@ -47,7 +47,7 @@ frames = SubResource( 7 )
 animation = "walk"
 
 [node name="CollisionShape2D" parent="." index="3"]
-position = Vector2( 12, 14 )
+position = Vector2( 12, 13 )
 shape = SubResource( 8 )
 
 [node name="DeadlyArea2D" type="Area2D" parent="." index="4"]
