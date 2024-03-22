@@ -42,17 +42,19 @@ public class MainMenu : BasicScreen
     }
 
     private const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
+    private const string TOUCH_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Touch Tutorial.knytt.bin";
     private const string WEB_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Original Tutorial.knytt.bin";
 
     public async void _on_TutorialButton_pressed()
     {
         ClickPlayer.Play();
         Task task = null;
-        if (OS.GetName() != "HTML5") { task = Task.Run(() => loadTutorial(TUTORIAL_PATH)); }
-        else { loadTutorial(WEB_TUTORIAL_PATH); }
+        if (OS.GetName() == "HTML5") { loadTutorial(WEB_TUTORIAL_PATH); }
+        else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadTutorial(TOUCH_TUTORIAL_PATH)); }
+        else { task = Task.Run(() => loadTutorial(TUTORIAL_PATH)); }
         fade.startFade();
         await ToSignal(fade, "FadeDone");
-        if (task != null) { task.Wait(); }
+        task?.Wait();
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
 
