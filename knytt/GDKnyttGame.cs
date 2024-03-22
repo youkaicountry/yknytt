@@ -206,9 +206,11 @@ public class GDKnyttGame : Node2D
 
     public bool hasMap()
     {
-        if (UI.ForceMap || Juni.Powers.getPower(JuniValues.PowerNames.Map)) { return true; }
         var world_section = GDWorld.KWorld.INIData["World"];
-        return world_section["Format"] == "4" && world_section["Map"]?.ToLower() != "false";
+        if (UI.ForceMap) { return true; } // map is shown anyway in case of console command or if a player finds map power
+        if (world_section["Map"]?.ToLower() == "false") { return false; }
+        if (GDKnyttSettings.ForcedMap) { return true; }
+        return world_section["Format"] == "4";
     }
 
     public override void _Process(float delta)

@@ -91,6 +91,41 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static bool ForcedMap
+    {
+        get { return ini["Graphics"]["Forced Map"].Equals("1") ? true : false; }
+        set
+        {
+            var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            bool had_map = game != null && game.hasMap();
+            ini["Graphics"]["Forced Map"] = value ? "1" : "0";
+            if (game == null) { return; }
+            if (!had_map && game.hasMap()) { game.UI.forceMap(true); }
+            if (had_map && !game.hasMap()) { game.UI.forceMap(false); }
+        }
+    }
+
+    public static bool DetailedMap
+    {
+        get { return ini["Graphics"]["Detailed Map"].Equals("1") ? true : false; }
+        set
+        {/*
+            ini["Graphics"]["Detailed Map"] = value ? "1" : "0";
+            var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            var viewports = game?.GetNode<MapViewports>("%MapViewports");
+            var map_panel = game?.GetNode<MapPanel>("%MapPanel");
+            MapPanel.initScale();
+            if (game == null) { return; }
+            if (value)
+            {
+                viewports.init(game.GDWorld.KWorld);
+                if (game.hasMap()) { viewports.addArea(game.CurrentArea); }
+            }
+            else { viewports.destroy(); }
+            map_panel.initSize();
+        */}
+    }
+
     // Calculate the volume in dB from the config value
     private static float calcVolume(int v)
     {
@@ -265,6 +300,8 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Scroll Type", "Original");
         modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
+        modified |= ensureSetting("Graphics", "Forced Map", "1");
+        modified |= ensureSetting("Graphics", "Detailed Map", "1");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");
@@ -293,6 +330,8 @@ public class GDKnyttSettings : Node
         SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
         ScrollType = String2ScrollTypes(ini["Graphics"]["Scroll Type"]);
         Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
+        ForcedMap = ini["Graphics"]["Forced Map"].Equals("1") ? true : false;
+        DetailedMap = ini["Graphics"]["Detailed Map"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);

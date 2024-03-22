@@ -16,19 +16,21 @@ public class UICanvasLayer : CanvasLayer
     public bool ForceMap
     {
         get { return _force_map; } 
-        set
+        set { _force_map = value; forceMap(value, add_icon: true); }
+    }
+
+    public void forceMap(bool force, bool add_icon = false)
+    {
+        if (force)
         {
-            _force_map = value;
-            if (value)
-            {
-                mapPanel.init(Game.GDWorld.KWorld, Game.Juni);
-                Game.Juni.Powers.setVisited(Game.CurrentArea.Area);
-            }
-            else
-            {
-                mapPanel.init(null, null);
-            }
+            mapPanel.init(Game.GDWorld.KWorld, Game.Juni);
+            if (add_icon) { GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map); }
         }
+        else
+        {
+            mapPanel.init(null, null);
+        }
+        Game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap(force);
     }
 
     public void initialize(GDKnyttGame game)
@@ -40,7 +42,10 @@ public class UICanvasLayer : CanvasLayer
         {
             mapPanel.init(game.GDWorld.KWorld, game.Juni);
             GetNode<TouchPanel>("TouchPanel").InstallMap();
-            GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
+            if (Game.GDWorld.KWorld.INIData["World"]["Format"] == "4" || Game.Juni.Powers.getPower(PowerNames.Map))
+            {
+                GetNode<InfoPanel>("%InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
+            }
         }
         else
         {
