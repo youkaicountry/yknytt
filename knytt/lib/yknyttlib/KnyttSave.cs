@@ -14,6 +14,8 @@ namespace YKnyttLib
         private IniData data;
         public int Slot { get; }
 
+        public JuniValues SourcePowers { get; set; }
+
         public string SaveFileName => string.Format("{0} {1}.ini", World.WorldDirectoryName, Slot); 
 
         public KnyttSave(KnyttWorld world, string ini_data, int slot)
