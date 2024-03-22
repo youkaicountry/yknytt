@@ -97,6 +97,7 @@ public class GDKnyttArea : Node2D
     {
         Bullets.Reset();
         Selector.Reset();
+        Objects?.checkCollectables();
         this.removeObjectLayers();
         this.active = false;
         Tiles?.deactivate();

@@ -16,5 +16,5 @@ public abstract class Door : GDKnyttBaseObject
         }
     }
 
-    protected abstract bool checkKey(Juni juni);
+    public abstract bool checkKey(Juni juni);
 }

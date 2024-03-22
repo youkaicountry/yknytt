@@ -3,17 +3,12 @@ using IniParser.Parser;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using System.Linq;
 
 namespace YKnyttLib
 {
     public class KnyttSave
     {
-        private const int HASH_BYTES = 4;
-        private const int SLIM_HASH_BYTES = 2;
-
         public KnyttWorld World { get; }
 
         private IniData data;
@@ -120,6 +115,32 @@ namespace YKnyttLib
                 if (visited_save == null || visited_save == "") { return null; }
                 Int32[] packed = visited_save.Split(',').Select(v => int.Parse(v)).ToArray();
                 return new BitArray(packed);
+            }
+        }
+
+        public Dictionary<KnyttPoint, string> Marked
+        {
+            set
+            {
+                if (value == null) { return; }
+                setValue("Extras", "Marked", String.Join(",", value.Select(kv => $"{kv.Value}x{kv.Key.x}y{kv.Key.y}")));
+            }
+
+            get
+            {
+                var marked_save = getValue("Extras", "Marked");
+                if (marked_save == null || marked_save == "") { return null; }
+                var marks = marked_save.Split(',');
+                var result = new Dictionary<KnyttPoint, string>(marks.Length);
+                foreach (string mark in marks)
+                {
+                    int xp = mark.IndexOf('x');
+                    int yp = mark.IndexOf('y');
+                    int x = int.Parse(mark.Substring(xp + 1, yp - xp - 1));
+                    int y = int.Parse(mark.Substring(yp + 1));
+                    result[new KnyttPoint(x, y)] = mark.Substring(0, xp);
+                }
+                return result;
             }
         }
 
