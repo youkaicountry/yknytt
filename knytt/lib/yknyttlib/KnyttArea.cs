@@ -16,6 +16,8 @@ namespace YKnyttLib
         public KnyttWorld World { get; }
 
         public KnyttPoint Position { get; protected set; }
+        public KnyttPoint? Spoofing { private get; set; } = null;
+        public KnyttPoint MapPosition => Spoofing ?? Position;
 
         public int TilesetA { get; protected set; }
         public int TilesetB { get; protected set; }

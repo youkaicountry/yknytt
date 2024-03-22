@@ -1,0 +1,103 @@
+using Godot;
+using System.Collections.Generic;
+using YKnyttLib;
+
+public class MapViewports : Node2D
+{
+    public Dictionary<KnyttPoint, ViewportTile> viewports = new Dictionary<KnyttPoint, ViewportTile>();
+    public Dictionary<KnyttPoint, Texture> map_images = new Dictionary<KnyttPoint, Texture>();
+    public Queue<KnyttPoint> latest_images = new Queue<KnyttPoint>();
+    private static readonly int IMAGES_LIMIT = 50;
+    private PackedScene viewport_scene;
+    private KnyttWorld KWorld;
+    private string cache_dir;
+
+    public override void _Ready()
+    {
+        viewport_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/map/ViewportTile.tscn");
+    }
+
+    public void init(KnyttWorld world)
+    {
+        this.KWorld = world;
+        cache_dir = $"user://Cache/{KWorld.WorldDirectoryName}";
+        GDKnyttAssetManager.ensureDirExists(cache_dir);
+    }
+
+    public void destroy()
+    {
+        KWorld = null;
+        foreach (ViewportTile c in GetChildren()) { c.QueueFree(); }
+        viewports.Clear();
+        map_images.Clear();
+        latest_images.Clear();
+    }
+
+    private KnyttPoint getKey(KnyttPoint area_coord) => 
+        area_coord / new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE) * new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+
+    private string getFilename(KnyttPoint key) => $"{cache_dir}/map_x{key.x}y{key.y}.png";
+
+    public void addArea(GDKnyttArea area)
+    {
+        if (KWorld == null) { return; }
+        var key = getKey(area.Area.MapPosition);
+        if (!viewports.ContainsKey(key))
+        {
+            ViewportTile tile = viewport_scene.Instance<ViewportTile>();
+            tile.init(key, getFilename(key), map_images.ContainsKey(key) ? map_images[key] : null);
+            AddChild(tile);
+            viewports.Add(key, tile);
+        }
+        viewports[key].addArea(area);
+    }
+
+    public (Rect2, Texture) getArea(KnyttPoint coord)
+    {
+        var key = getKey(coord);
+        Rect2 src = new Rect2(
+            new Vector2(coord.x % MapPanel.SCALE, coord.y % MapPanel.SCALE) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
+
+        if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture()); }
+        if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
+
+        var filename = getFilename(key);
+        if (!new File().FileExists(filename)) { return (src, null); }
+        map_images[key] = GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
+        latest_images.Enqueue(key);
+        if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
+        return (src, map_images[key]);
+    }
+
+    public void loadAll()
+    {
+        if (KWorld == null) { return; }
+        var wd = new Directory();
+        var error = wd.Open(cache_dir);
+        wd.ListDirBegin(skipNavigational: true);
+        while (true)
+        {
+            string name = wd.GetNext();
+            if (name.Length == 0) { break; }
+            if (wd.CurrentIsDir() || !name.StartsWith("map_x") || !name.EndsWith(".png")) { continue; }
+            int yp = name.IndexOf('y');
+            var key = new KnyttPoint(int.Parse(name.Substring(5, yp - 5)), int.Parse(name.Substring(yp + 1, name.Length - yp - 1 - 4)));
+            map_images[key] = GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(cache_dir.PlusFile(name)));
+            latest_images.Enqueue(key);
+        }
+        wd.ListDirEnd();
+    }
+
+    public void saveAll()
+    {
+        if (KWorld == null) { return; }
+        foreach (var key in viewports.Keys)
+        {
+            if (viewports[key].dump())
+            {
+                viewports[key].reset();
+                viewports[key].refresh();
+            }
+        }
+    }
+}
