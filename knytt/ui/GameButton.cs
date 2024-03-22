@@ -50,8 +50,9 @@ public class GameButton : GDKnyttButton
 
         hint = capitalize(worldEntry.Size + " " +
                 string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s))) + " " +
+                (worldEntry.Categories.Count == 0 ? "level" :
                 string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s))))
-                .Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
+                ).Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
         if (HasFocus()) { _on_GameButton_ShowHint(hint); }
     }
 

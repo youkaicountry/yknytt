@@ -3,6 +3,7 @@
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.cs" type="Script" id=1]
 
 [node name="Particle" type="KinematicBody2D"]
+physics_interpolation_mode = 1
 collision_layer = 8192
 collision_mask = 2080
 script = ExtResource( 1 )

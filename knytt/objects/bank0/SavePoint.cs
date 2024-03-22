@@ -25,7 +25,7 @@ public class SavePoint : GDKnyttBaseObject
     private async void save(Juni juni)
     {
         GDArea.GDWorld.Game.saveGame(juni.GDArea.Area.Position, Coords, true);
-        GetNode<AudioStreamPlayer2D>("SavePlayer2D").Play();
+        juni.playSound("save");
         animation.Play("Save");
         await ToSignal(animation, "animation_finished");
         animation.Play("Idle");

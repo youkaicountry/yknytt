@@ -65,8 +65,8 @@ public static class ConsoleCommands
     }
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
-        "exit", "list", "reboot", "mon", "mon flags", "trail", "death", "shift 0 0 2 0", "set highjump on", 
-        "speed 1", "speed 0.5", "iddqd", "idclip", "map", "save paste", "save copy", "youtube", "save" };
+        "exit", "list", "reboot", "mon", "trail", "death", "shift 0 0 2 0", "set highjump on", 
+        "speed 1", "speed 0.5", "iddqd", "idclip", "map", "mon flags", "save paste", "save copy", "youtube", "save" };
 
     public class SpeedCommand : ICommand
     {
@@ -213,6 +213,8 @@ public static class ConsoleCommands
                     {
                         return "Can't parse save file from clipboard";
                     }
+                    save.SourcePowers = new JuniValues();
+                    save.SourcePowers.readFromSave(save);
                     game.GDWorld.KWorld.CurrentSave = save;
                     game.saveGame(save);
                     game.Juni.die();
@@ -350,13 +352,13 @@ public static class ConsoleCommands
             {
                 for (int i = 0; i < value.Length && i < 13; i++) { game.Juni.setPower(i, value[i] == '1'); }
                 game.sendCheat();
-                env.Console.AddMessage("Some powers was set or unset.");
+                env.Console.AddMessage("Some powers were set or unset.");
             }
             else if (variable == "flags")
             {
                 for (int i = 0; i < value.Length && i < 10; i++) { game.Juni.Powers.setFlag(i, value[i] == '1'); }
                 game.sendCheat();
-                env.Console.AddMessage("Some flags was set or unset.");
+                env.Console.AddMessage("Some flags were set or unset.");
             }
             else
             {
@@ -402,6 +404,7 @@ public static class ConsoleCommands
                 case "flags":
                     game.UI.Location.ShowFlags = true;
                     game.UI.Location.Visible = true;
+                    game.UI.Location.Flash = false;
                     game.UI.Location.updateFlags(game.Juni.Powers.Flags);
                     break;
                 case "off":
@@ -595,8 +598,6 @@ public static class ConsoleCommands
         protected override void enable(bool on, GDKnyttGame game, ConsoleExecutionEnvironment env)
         {
             game.UI.ForceMap = on;
-            game.UI.GetNode<TouchPanel>("TouchPanel").InstallMap(on);
-            if (on) { game.UI.GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)JuniValues.PowerNames.Map); }
             game.Juni.setPower(JuniValues.PowerNames.Map, on);
             env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled.");
         }
@@ -776,7 +777,7 @@ public static class ConsoleCommands
 
                 case "copy":
                     OS.Clipboard = ini_text;
-                    env.Console.AddMessage("Settings was copied to clipboard.");
+                    env.Console.AddMessage("Settings were copied to clipboard.");
                     return null;
 
                 default:

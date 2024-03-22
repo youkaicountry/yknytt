@@ -5,7 +5,6 @@
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
 [ext_resource path="res://knytt/objects/bank0/img/pickup.png" type="Texture" id=4]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "collect"
 length = 2.0
@@ -45,8 +44,5 @@ texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EffectSprite"]
 anims/collect = SubResource( 1 )
-
-[node name="DestroyTimer" type="Timer" parent="."]
-wait_time = 0.1
 
 [connection signal="timeout" from="DeactivateTimer" to="." method="_on_DeactivateTimer_timeout"]

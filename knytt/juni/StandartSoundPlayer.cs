@@ -8,7 +8,7 @@ public class StandartSoundPlayer : Node2D
 
     public void playSound(string sound)
     {
-        string[] available_sounds = {"door", "electronic", "switch", "teleport", "powerup", "bounce"};
+        string[] available_sounds = {"door", "electronic", "switch", "teleport", "powerup", "bounce", "save"};
         if (Array.IndexOf(available_sounds, sound.ToLower()) != -1)
         {
             GetNode<AudioStreamPlayer2D>($"{sound.Capitalize()}Player2D").Play();

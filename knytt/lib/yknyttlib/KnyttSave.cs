@@ -132,7 +132,7 @@ namespace YKnyttLib
         public string Character
         {
             get { return getValue("Extras", "Character"); }
-            set { setValue("Extras", "Character", value?.ToLower() ?? "juni", "juni"); }
+            set { setValue("Extras", "Character", value?.ToLower() ?? "juni"); }
         }
 
         public (string, string, string) Tint

@@ -1,9 +1,7 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://knytt/objects/bank0/img/savespot_flash.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank0/SavePoint.cs" type="Script" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Save Spot.wav" type="AudioStream" id=4]
 [ext_resource path="res://knytt/objects/bank0/img/savespot.png" type="Texture" id=5]
 
 [sub_resource type="CanvasItemMaterial" id=4]
@@ -140,9 +138,6 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 12, 18 )
 shape = SubResource( 3 )
-
-[node name="SavePlayer2D" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
