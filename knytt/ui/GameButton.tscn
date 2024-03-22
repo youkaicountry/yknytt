@@ -6,8 +6,9 @@
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/GameButton.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
-[ext_resource path="res://knytt/ui/down_arrow.png" type="Texture" id=7]
-[ext_resource path="res://knytt/ui/birdie2_fly.png" type="Texture" id=8]
+[ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/img/birdie2_fly.png" type="Texture" id=8]
+
 
 [sub_resource type="StyleBoxEmpty" id=11]
 

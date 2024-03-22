@@ -6,9 +6,10 @@
 [ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=6]
-[ext_resource path="res://knytt/ui/button_red.png" type="Texture" id=7]
+[ext_resource path="res://knytt/ui/img/button_red.png" type="Texture" id=7]
 [ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 border_width_left = 2

@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/slider_pip.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/SettingsScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
-[ext_resource path="res://knytt/ui/slider_pip_hover.png" type="Texture" id=8]
+[ext_resource path="res://knytt/ui/img/slider_pip_hover.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 

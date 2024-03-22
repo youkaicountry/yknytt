@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://knytt/ui/button_up.png" type="Texture" id=1]
+[ext_resource path="res://knytt/ui/img/button_up.png" type="Texture" id=1]
 [ext_resource path="res://knytt/ui/info_panel/ItemInfo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=4]
 

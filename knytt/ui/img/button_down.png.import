@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/checked.png-2de1ab210ba301e64704155ecca8668e.stex"
+path="res://.import/button_down.png-17bb2b85f113c597c977be370055d0e4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/checked.png"
-dest_files=[ "res://.import/checked.png-2de1ab210ba301e64704155ecca8668e.stex" ]
+source_file="res://knytt/ui/img/button_down.png"
+dest_files=[ "res://.import/button_down.png-17bb2b85f113c597c977be370055d0e4.stex" ]
 
 [params]
 

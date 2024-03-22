@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/unchecked.png-6b689fd71c2489ee2bc96e28b0199618.stex"
+path="res://.import/slider_bar.png-ef5fa3144809f9fc169c450978bceefd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/unchecked.png"
-dest_files=[ "res://.import/unchecked.png-6b689fd71c2489ee2bc96e28b0199618.stex" ]
+source_file="res://knytt/ui/img/slider_bar.png"
+dest_files=[ "res://.import/slider_bar.png-ef5fa3144809f9fc169c450978bceefd.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/button_focus.png-b1617ba34679e77a000ffb6fef677f32.stex"
+path="res://.import/dialogue.png-962564694d903051cc46efd69c7973fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/button_focus.png"
-dest_files=[ "res://.import/button_focus.png-b1617ba34679e77a000ffb6fef677f32.stex" ]
+source_file="res://knytt/ui/img/dialogue.png"
+dest_files=[ "res://.import/dialogue.png-962564694d903051cc46efd69c7973fc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
