@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/button_red.png-2b6fd2dd502c85a4b3e70788a85fa869.stex"
+path="res://.import/slider_pip_hover.png-a61aa2b2eaa410896118e1b8a3d9802e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/button_red.png"
-dest_files=[ "res://.import/button_red.png-2b6fd2dd502c85a4b3e70788a85fa869.stex" ]
+source_file="res://knytt/ui/img/slider_pip_hover.png"
+dest_files=[ "res://.import/slider_pip_hover.png-a61aa2b2eaa410896118e1b8a3d9802e.stex" ]
 
 [params]
 

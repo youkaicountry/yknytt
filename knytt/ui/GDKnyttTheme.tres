@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://knytt/ui/checked.png" type="Texture" id=2]
-[ext_resource path="res://knytt/ui/unchecked.png" type="Texture" id=3]
+[ext_resource path="res://knytt/ui/img/checked.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture" id=3]
 [ext_resource path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" type="StyleBox" id=4]
 
 [sub_resource type="StyleBoxTexture" id=1]

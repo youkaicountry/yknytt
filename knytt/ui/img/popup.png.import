@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/down_arrow.png-ed18dfaa19c2f9eef15c5294d938563c.stex"
+path="res://.import/popup.png-2dad5185bf66679d077570c7f6e09515.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/down_arrow.png"
-dest_files=[ "res://.import/down_arrow.png-ed18dfaa19c2f9eef15c5294d938563c.stex" ]
+source_file="res://knytt/ui/img/popup.png"
+dest_files=[ "res://.import/popup.png-2dad5185bf66679d077570c7f6e09515.stex" ]
 
 [params]
 

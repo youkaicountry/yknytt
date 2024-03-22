@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/unchecked_disabled.png-ccee8913e0d72e5ac796dc81a141d478.stex"
+path="res://.import/big_arrow.png-aa77b81c53afd14c73a149e41291898c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/unchecked_disabled.png"
-dest_files=[ "res://.import/unchecked_disabled.png-ccee8913e0d72e5ac796dc81a141d478.stex" ]
+source_file="res://knytt/ui/img/big_arrow.png"
+dest_files=[ "res://.import/big_arrow.png-aa77b81c53afd14c73a149e41291898c.stex" ]
 
 [params]
 

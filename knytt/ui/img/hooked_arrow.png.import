@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/big_arrow.png-4c0c867200c94132d279d4c56334c3b2.stex"
+path="res://.import/hooked_arrow.png-734ee893772bb2bc63537d81c3084269.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/big_arrow.png"
-dest_files=[ "res://.import/big_arrow.png-4c0c867200c94132d279d4c56334c3b2.stex" ]
+source_file="res://knytt/ui/img/hooked_arrow.png"
+dest_files=[ "res://.import/hooked_arrow.png-734ee893772bb2bc63537d81c3084269.stex" ]
 
 [params]
 
