@@ -69,9 +69,19 @@ namespace YKnyttLib
             Endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public JuniValues(KnyttSave save) : this()
+        public JuniValues(JuniValues src)
         {
-            readFromSave(save);
+            Powers = (bool[])src.Powers.Clone();
+            Flags = (bool[])src.Flags.Clone();
+            Collectables = (bool[])src.Collectables.Clone();
+            CoinsSpent = src.CoinsSpent;
+            VisitedAreas = src.VisitedAreas != null ? (BitArray)src.VisitedAreas.Clone() : null;
+            Marked = src.Marked != null ? new Dictionary<KnyttPoint, string>(src.Marked) : null;
+            Attachment = src.Attachment;
+            Character = src.Character;
+            Tint = src.Tint;
+            Cutscenes = new HashSet<string>(src.Cutscenes, StringComparer.OrdinalIgnoreCase);
+            Endings = new HashSet<string>(src.Endings, StringComparer.OrdinalIgnoreCase);
         }
 
         public void setPower(int id, bool val) { this.Powers[id] = val; }
@@ -162,6 +172,7 @@ namespace YKnyttLib
             save.Tint = Tint;
             save.Cutscenes = Cutscenes;
             save.Endings = Endings;
+            save.SourcePowers = new JuniValues(this);
         }
 
         public void readFromSave(KnyttSave save)

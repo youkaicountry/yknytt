@@ -108,7 +108,7 @@ public class GDKnyttGame : Node2D
     public void respawnJuni()
     {
         var save = GDWorld.KWorld.CurrentSave;
-        Juni.Powers.readFromSave(save);
+        Juni.Powers = new JuniValues(save.SourcePowers);
         this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
         Juni.moveToPosition(CurrentArea, save.getAreaPosition());
         Juni.reset();
