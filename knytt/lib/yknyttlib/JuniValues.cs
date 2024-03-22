@@ -24,11 +24,19 @@ namespace YKnyttLib
             Map = 12
         }
 
+        public enum Collectable { None, User, Powerup, Key, Door, Creature, Coin, Artifact, Multiple }
+        private static string[] COLLECT_CHAR = { "", "m", "p", "k", "d", "#", "c", "a", "+" };
+        public static Dictionary<string, Collectable> COLLECT_ENUM = new Dictionary<string, Collectable>() {
+            [""] = Collectable.None, ["m"] = Collectable.User, ["+"] = Collectable.Multiple, ["p"] = Collectable.Powerup,
+            ["k"] = Collectable.Key, ["d"] = Collectable.Door, ["#"] = Collectable.Creature, ["c"] = Collectable.Coin,
+            ["a"] = Collectable.Artifact};
+
         public bool[] Powers { get; }
         public bool[] Flags { get; }
         public bool[] Collectables { get; private set; }
         public int CoinsSpent { get; set; }
         public BitArray VisitedAreas { get; private set; }
+        public Dictionary<KnyttPoint, string> Marked { get; private set; }
         public string Attachment { get; set; }
         public string Character { get; set; }
         public (string, string, string) Tint { get; set; }
@@ -103,12 +111,52 @@ namespace YKnyttLib
             return VisitedAreas.Get(area.World.getMapIndex(area.Position));
         }
 
+        public void setMark(KnyttPoint pos, Collectable c)
+        {
+            if (Marked == null) { Marked = new Dictionary<KnyttPoint, string>(); }
+
+            if (!Marked.ContainsKey(pos) || Marked[pos] == "") { Marked[pos] = COLLECT_CHAR[(int)c]; return; }
+            if (Marked[pos].IndexOf(COLLECT_CHAR[(int)c]) != -1) { return; }
+            
+            Collectable mark1 = COLLECT_ENUM[Marked[pos][0].ToString()];
+            Collectable mark2 = COLLECT_ENUM[Marked[pos].Substring(1)];
+            if (mark2 == Collectable.None) { mark2 = c; }
+            else
+            {
+                mark1 = c < mark1 && c < mark2 ? c : mark1 < mark2 ? mark1 : mark2;
+                mark2 = Collectable.Multiple;
+            }
+            Marked[pos] = COLLECT_CHAR[(int)mark1] + COLLECT_CHAR[(int)mark2];
+        }
+
+        public void unsetMark(KnyttPoint pos, Collectable c)
+        {
+            if (Marked == null || !Marked.ContainsKey(pos)) { return; }
+            Marked[pos] = Marked[pos].Replace(COLLECT_CHAR[(int)c], "");
+            if (Marked[pos].Length == 0) { Marked.Remove(pos); }
+        }
+
+        public bool hasMark(KnyttPoint pos, Collectable c)
+        {
+            return Marked != null && Marked.ContainsKey(pos) && Marked[pos].Contains(COLLECT_CHAR[(int)c]);
+        }
+
+        public void resetMarks(KnyttPoint pos)
+        {
+            if (Marked == null || !Marked.ContainsKey(pos)) { return; }
+            Collectable mark1 = COLLECT_ENUM[Marked[pos][0].ToString()];
+            Collectable mark2 = COLLECT_ENUM[Marked[pos].Substring(1)];
+            if (mark1 == Collectable.User || mark2 == Collectable.User) { Marked[pos] = COLLECT_CHAR[(int)Collectable.User]; }
+            else { Marked.Remove(pos); }
+        }
+
         public void writeToSave(KnyttSave save)
         {
             for (int i = 0; i < Powers.Length; i++) { save.setPower(i, Powers[i]); }
             for (int i = 0; i < Flags.Length; i++) { save.setFlag(i, Flags[i]); }
             save.setCollectables(Collectables, CoinsSpent);
             save.VisitedAreas = VisitedAreas;
+            save.Marked = Marked;
             save.Attachment = Attachment;
             save.Character = Character;
             save.Tint = Tint;
@@ -124,6 +172,7 @@ namespace YKnyttLib
             Collectables = collectables;
             CoinsSpent = coins_spent;
             VisitedAreas = save.VisitedAreas;
+            Marked = save.Marked;
             Attachment = save.Attachment;
             Character = save.Character;
             Tint = save.Tint;

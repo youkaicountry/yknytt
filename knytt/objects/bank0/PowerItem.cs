@@ -9,22 +9,22 @@ public class PowerItem : GDKnyttBaseObject
         [21] = 8, [22] = 9, [23] = 10, [24] = 11, [35] = 12
     };
 
-    int power;
+    public int Power { get; private set; }
 
     public override void _Ready()
     {
-        this.power = Object2Power[ObjectID.y];
+        this.Power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
-        if (Juni.Powers.getPower(power)) { QueueFree(); }
+        if (Juni.Powers.getPower(Power)) { QueueFree(); }
         var anim = GetNode<AnimatedSprite>("AnimatedSprite");
-        string custom_anim = $"{GDArea.GDWorld.KWorld.WorldDirectoryName} {power}";
-        anim.Animation = anim.Frames.HasAnimation(custom_anim) ? custom_anim : $"Power{power}";
+        string custom_anim = $"{GDArea.GDWorld.KWorld.WorldDirectoryName} {Power}";
+        anim.Animation = anim.Frames.HasAnimation(custom_anim) ? custom_anim : $"Power{Power}";
     }
 
     public void _on_Area2D_body_entered(Node body)
     {
         if (!(body is Juni juni)) { return; }
-        juni.setPower(power, true);
+        juni.setPower(Power, true);
         GDArea.playEffect(Coords);
         juni.playSound("powerup");
         QueueFree();
