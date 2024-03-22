@@ -245,7 +245,9 @@
     <Compile Include="knytt\objects\bank7\Rain.cs" />
     <Compile Include="knytt\objects\GDKnyttObjectFactory.cs" />
     <Compile Include="knytt\objects\GDObjectLayers.cs" />
-    <Compile Include="knytt\ui\MapPanel.cs" />
+    <Compile Include="knytt\ui\map\MapPanel.cs" />
+    <Compile Include="knytt\ui\map\MapViewports.cs" />
+    <Compile Include="knytt\ui\map\ViewportTile.cs" />
     <Compile Include="knytt\ui\PauseLayer.cs" />
     <Compile Include="knytt\ui\PausePanel.cs" />
     <Compile Include="knytt\ui\ClickPlayer.cs" />

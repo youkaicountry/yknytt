@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -8,16 +8,15 @@
 [ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=9]
+[ext_resource path="res://knytt/ui/map/MapBackgroundPanel.tscn" type="PackedScene" id=9]
 [ext_resource path="res://knytt/juni/trail/TrailContainer.cs" type="Script" id=10]
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
-[ext_resource path="res://knytt/ui/MapPanel.cs" type="Script" id=14]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=15]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
 [ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
 [ext_resource path="res://knytt/juni/death/DeathContainer.cs" type="Script" id=18]
+[ext_resource path="res://knytt/ui/map/MapViewports.cs" type="Script" id=19]
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -40,7 +39,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -3.0, -32.2144 ]
+"values": [ -123.0, -153.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("InfoPanel:margin_bottom")
@@ -52,7 +51,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 30, 0 ]
+"values": [ -90, -120 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("InfoPanel:modulate")
@@ -79,7 +78,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -32.2144, -3.0 ]
+"values": [ -153.0, -123.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("InfoPanel:margin_bottom")
@@ -91,7 +90,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0, 30 ]
+"values": [ -120, -90 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("InfoPanel:modulate")
@@ -186,6 +185,19 @@ margin_right = 300.0
 margin_bottom = 120.0
 custom_styles/panel = SubResource( 6 )
 
+[node name="InfoPanel" parent="GKnyttCamera/TintNode" instance=ExtResource( 8 )]
+unique_name_in_owner = true
+margin_left = -303.62
+margin_top = -153.0
+margin_right = -13.0
+margin_bottom = -123.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GKnyttCamera/TintNode/InfoPanel"]
+root_node = NodePath("../..")
+playback_speed = 6.0
+anims/SlideIn = SubResource( 2 )
+anims/SlideOut = SubResource( 3 )
+
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource( 11 )
@@ -217,13 +229,6 @@ margin_right = 600.0
 margin_bottom = 240.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
-
-[node name="InfoPanel" parent="UICanvasLayer" instance=ExtResource( 8 )]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer"]
-playback_speed = 6.0
-anims/SlideIn = SubResource( 2 )
-anims/SlideOut = SubResource( 3 )
 
 [node name="StayTimer" type="Timer" parent="UICanvasLayer"]
 wait_time = 0.25
@@ -268,62 +273,12 @@ anchor_bottom = 1.0
 margin_top = -140.0
 margin_bottom = 0.0
 
-[node name="MapBackgroundPanel" type="Panel" parent="UICanvasLayer"]
-pause_mode = 2
+[node name="MapBackgroundPanel" parent="UICanvasLayer" instance=ExtResource( 9 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MapPanel" type="Panel" parent="UICanvasLayer/MapBackgroundPanel"]
-script = ExtResource( 14 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CloseButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -47.0
-margin_top = -2.0
-margin_right = 2.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 9 )
-custom_styles/pressed = ExtResource( 9 )
-custom_styles/focus = ExtResource( 9 )
-text = "X"
-
-[node name="ShrinkButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -92.0
-margin_top = -2.0
-margin_right = -43.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 9 )
-custom_styles/pressed = ExtResource( 9 )
-custom_styles/focus = ExtResource( 9 )
-text = "–"
-
-[node name="ExpandButton" parent="UICanvasLayer/MapBackgroundPanel" instance=ExtResource( 15 )]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-margin_left = -137.0
-margin_top = -2.0
-margin_right = -88.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 9 )
-custom_styles/pressed = ExtResource( 9 )
-custom_styles/focus = ExtResource( 9 )
-text = "+"
+[node name="MapViewports" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 19 )
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
 pause_mode = 2
@@ -357,11 +312,8 @@ bus = "Ambiance2"
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 16 )]
 
-[connection signal="animation_finished" from="UICanvasLayer/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="GKnyttCamera/TintNode/InfoPanel/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/CloseButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="ShowMap" binds= [ false ]]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ShrinkButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 0.9 ]]
-[connection signal="pressed" from="UICanvasLayer/MapBackgroundPanel/ExpandButton" to="UICanvasLayer/MapBackgroundPanel/MapPanel" method="scale" binds= [ 1.111 ]]
 
 [editable path="Ambi1Channel"]
 [editable path="Ambi2Channel"]

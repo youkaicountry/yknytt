@@ -16,7 +16,7 @@ namespace YKnyttLib
         public KnyttPoint Size { get; protected set; }
 
         public List<KnyttArea> Areas { get; protected set; }
-        public KnyttArea[] Map { get; protected set; }
+        public Dictionary<KnyttPoint, KnyttArea> Map { get; protected set; }
 
         public IniData INIData { get; private set; }
 
@@ -94,13 +94,13 @@ namespace YKnyttLib
 
             while (start_byte != 'x' && start_byte != -1) { start_byte = gz.ReadByte(); }
 
-            var areas = new List<KnyttArea>();
+            this.Map = new Dictionary<KnyttPoint, KnyttArea>();
 
             // Area definition starts with an 'x' character
             while (start_byte == 'x')
             {
                 var area = new KnyttArea(gz, this);
-                areas.Add(area);
+                this.Map.Add(area.Position, area);
 
                 this.MinBounds = this.MinBounds.min(area.Position);
                 this.MaxBounds = this.MaxBounds.max(area.Position);
@@ -110,12 +110,6 @@ namespace YKnyttLib
 
             // Set the map
             this.Size = new KnyttPoint((MaxBounds.x - MinBounds.x) + 1, (MaxBounds.y - MinBounds.y) + 1);
-            this.Map = new KnyttArea[this.Size.Area];
-
-            foreach (var area in areas)
-            {
-                this.Map[getMapIndex(area.Position)] = area;
-            }
         }
 
         public byte[] getWorldData(string filepath)
@@ -183,17 +177,17 @@ namespace YKnyttLib
         protected abstract object getSystemSound(string filepath, bool loop);
 
 
-        // TODO: This logic needs refactoring when things are fleshed out
         public KnyttArea getArea(KnyttPoint coords)
         {
-            bool out_of_bounds = coords.x < MinBounds.x || coords.x > MaxBounds.x || coords.y < MinBounds.y || coords.y > MaxBounds.y;
-            return out_of_bounds ? null : this.Map[getMapIndex(coords)];
+            return Map.ContainsKey(coords) ? Map[coords] : null;
         }
 
         public int getMapIndex(KnyttPoint coords)
         {
             return (coords.y - MinBounds.y) * Size.x + (coords.x - MinBounds.x);
         }
+
+        public int getMapLength() => Size.Area;
 
         public void setDirectory(string full_dir, string dir_name)
         {

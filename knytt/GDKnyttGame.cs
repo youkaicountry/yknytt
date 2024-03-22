@@ -24,6 +24,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttAmbiChannel AmbianceChannel2 { get; private set; }
 
     private ShaderMaterial tint;
+    private MapViewports viewports;
 
     [Export]
     public float edgeScrollSpeed = 1500f;
@@ -59,6 +60,8 @@ public class GDKnyttGame : Node2D
 
         this.Deaths = GetNode<DeathContainer>("%DeathContainer");
 
+        this.viewports = GetNode<MapViewports>("%MapViewports");
+
         UI = GetNode<UICanvasLayer>("%UICanvasLayer");
         this.GDWorld = GetNode<GDKnyttWorld>("GKnyttWorld");
 
@@ -77,13 +80,13 @@ public class GDKnyttGame : Node2D
         GDWorld.loadWorld();
         createJuni();
 
-        GetNode<InfoPanel>("UICanvasLayer/InfoPanel").checkCustomPowers();
+        if (GDKnyttSettings.DetailedMap) { viewports.init(world); }
+        UI.initialize(this);
+        UI.updatePowers();
+
         this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
         Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
         saveGame(Juni, false);
-
-        UI.initialize(this);
-        UI.updatePowers();
     }
 
     // On load a save file
@@ -140,6 +143,7 @@ public class GDKnyttGame : Node2D
         f.StoreString(save.ToString());
         f.Close();
 
+        viewports.saveAll();
         KnyttLogger.Debug($"Game saved to {fname}");
     }
 
@@ -295,7 +299,10 @@ public class GDKnyttGame : Node2D
         Juni.stopHologram(cleanup: true);
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
         checkTint(area);
-        if (hasMap() && !Juni.DebugFlyMode) { Juni.Powers.setVisited(CurrentArea.Area); }
+
+        if (Juni.DebugFlyMode) { return; }
+        Juni.Powers.setVisited(CurrentArea.Area);
+        if (hasMap()) { viewports.addArea(CurrentArea); }
     }
 
     public async void win(string ending)

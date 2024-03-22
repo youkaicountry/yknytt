@@ -43,6 +43,8 @@ namespace YKnyttLib
         public HashSet<string> Cutscenes { get; private set; }
         public HashSet<string> Endings { get; private set; }
 
+        private static readonly int VISITED_LIMIT = 160_000_000; // TODO: visited areas don't work on large levels // max save file size ~= 10MB
+
         public class Flag
         {
             public bool power;
@@ -110,15 +112,17 @@ namespace YKnyttLib
 
         public void setVisited(KnyttArea area)
         {
-            if (area.Position.x < area.World.MinBounds.x || area.Position.x > area.World.MaxBounds.x ||
-                area.Position.y < area.World.MinBounds.y || area.Position.y > area.World.MaxBounds.y) { return; }
-            if (VisitedAreas == null) { VisitedAreas = new BitArray(area.World.Map.Length, false); }
-            VisitedAreas.Set(area.World.getMapIndex(area.Position), true);
+            if (area.World.getMapLength() > VISITED_LIMIT) { return; }
+            if (area.MapPosition.x < area.World.MinBounds.x || area.MapPosition.x > area.World.MaxBounds.x ||
+                area.MapPosition.y < area.World.MinBounds.y || area.MapPosition.y > area.World.MaxBounds.y) { return; }
+            if (VisitedAreas == null) { VisitedAreas = new BitArray(area.World.getMapLength(), false); }
+            VisitedAreas.Set(area.World.getMapIndex(area.MapPosition), true);
         }
 
         public bool isVisited(KnyttArea area)
         {
-            return VisitedAreas.Get(area.World.getMapIndex(area.Position));
+            if (VisitedAreas == null) { return false; }
+            return VisitedAreas.Get(area.World.getMapIndex(area.MapPosition));
         }
 
         public void setMark(KnyttPoint pos, Collectable c)

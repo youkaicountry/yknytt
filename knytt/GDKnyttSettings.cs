@@ -109,11 +109,11 @@ public class GDKnyttSettings : Node
     {
         get { return ini["Graphics"]["Detailed Map"].Equals("1") ? true : false; }
         set
-        {/*
+        {
             ini["Graphics"]["Detailed Map"] = value ? "1" : "0";
             var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             var viewports = game?.GetNode<MapViewports>("%MapViewports");
-            var map_panel = game?.GetNode<MapPanel>("%MapPanel");
+            var map_panel = game?.GetNode<MapPanel>("UICanvasLayer/MapBackgroundPanel/MapPanel");
             MapPanel.initScale();
             if (game == null) { return; }
             if (value)
@@ -123,7 +123,7 @@ public class GDKnyttSettings : Node
             }
             else { viewports.destroy(); }
             map_panel.initSize();
-        */}
+        }
     }
 
     // Calculate the volume in dB from the config value

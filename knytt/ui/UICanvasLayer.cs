@@ -11,6 +11,7 @@ public class UICanvasLayer : CanvasLayer
     public LocationLabel Location { get; private set; }
     private ArtifactsPanel artifactsPanel;
     private MapPanel mapPanel;
+    private InfoPanel infoPanel;
 
     private bool _force_map;
     public bool ForceMap
@@ -24,7 +25,8 @@ public class UICanvasLayer : CanvasLayer
         if (force)
         {
             mapPanel.init(Game.GDWorld.KWorld, Game.Juni);
-            if (add_icon) { GetNode<InfoPanel>("InfoPanel").addItem("ItemInfo", (int)PowerNames.Map); }
+            if (Game.hasMap()) { GetNode<MapViewports>("%MapViewports").addArea(Game.CurrentArea); }
+            if (add_icon) { infoPanel.addItem("ItemInfo", (int)PowerNames.Map); }
         }
         else
         {
@@ -37,6 +39,9 @@ public class UICanvasLayer : CanvasLayer
     {
         Game = game;
 
+        infoPanel = Game.GetNode<InfoPanel>("%InfoPanel");
+        infoPanel.checkCustomPowers();
+
         mapPanel = GetNode<MapPanel>("MapBackgroundPanel/MapPanel");
         if (game.hasMap())
         {
@@ -44,7 +49,7 @@ public class UICanvasLayer : CanvasLayer
             GetNode<TouchPanel>("TouchPanel").InstallMap();
             if (Game.GDWorld.KWorld.INIData["World"]["Format"] == "4" || Game.Juni.Powers.getPower(PowerNames.Map))
             {
-                GetNode<InfoPanel>("%InfoPanel").addItem("ItemInfo", (int)PowerNames.Map);
+                infoPanel.addItem("ItemInfo", (int)PowerNames.Map);
             }
         }
         else
@@ -79,7 +84,7 @@ public class UICanvasLayer : CanvasLayer
 
     private void togglePanel()
     {
-        var anim = GetNode<AnimationPlayer>("AnimationPlayer");
+        var anim = infoPanel.GetNode<AnimationPlayer>("AnimationPlayer");
         var anim2 = artifactsPanel?.GetNode<AnimationPlayer>("AnimationPlayer");
 
         if (!anim.IsPlaying())
@@ -115,7 +120,7 @@ public class UICanvasLayer : CanvasLayer
 
     public void updatePowers()
     {
-        GetNode<InfoPanel>("InfoPanel").updateItems(Game.Juni);
+        infoPanel.updateItems(Game.Juni);
 
         if (artifactsPanel == null && (
                 Game.Juni.Powers.getCreaturesCount() > 0 || 
