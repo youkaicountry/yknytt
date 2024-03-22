@@ -276,6 +276,8 @@ position = Vector2( 0, -3.95 )
 texture = ExtResource( 10 )
 hframes = 16
 frame = 7
+region_enabled = true
+region_rect = Rect2( 0, 0, 384, 24 )
 script = ExtResource( 11 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Umbrella"]
@@ -302,6 +304,8 @@ texture = ExtResource( 2 )
 hframes = 10
 vframes = 5
 frame = 47
+region_enabled = true
+region_rect = Rect2( 0, 0, 240, 120 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Climbing = SubResource( 11 )

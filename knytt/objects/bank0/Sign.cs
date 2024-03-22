@@ -40,6 +40,11 @@ public class Sign : GDKnyttBaseObject
         if (msg == null) { return null; }
         if (msg.StartsWith("\"") && msg.EndsWith("\"")) { msg = msg.Substring(1, msg.Length - 2); }
         msg = msg.Replace("\\n", "\n");
+        msg = msg.Replace('\x7f', '\n');
+        for (int i = 22; i < msg.Length; i += 22)
+        {
+            if (msg[i-1] == ' ' && msg[i-2] == ' ') { msg = msg.Remove(i - 1, 1).Insert(i - 1, "\n"); }
+        }
         return msg;
     }
 

@@ -34,6 +34,7 @@ public abstract class Switch : GDKnyttBaseObject
             }
             else
             {
+                if (GDArea.Selector.GetSize(this) > 1) { return; }
                 execute(juni);
             }
         }

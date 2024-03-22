@@ -8,7 +8,7 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -240f,    // Speed of jump with high jump power (-238.5 in original)
+    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -243f,    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235.5f,                   // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -221f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni
@@ -76,7 +76,7 @@ public class Juni : KinematicBody2D
     public Sprite Detector { get; private set; }
     public KnyttPoint AreaPosition => GDArea.getPosition(GlobalPosition); 
 
-    public JuniValues Powers { get; }
+    public JuniValues Powers { get; set; }
 
     public Checkers Checkers { get; private set; }
 
@@ -360,6 +360,7 @@ public class Juni : KinematicBody2D
             if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
         }
         Powers.setPower(name, value);
+        if (name == PowerNames.Map && !Game.hasMap()) { Game.UI.ForceMap = true; }
         EmitSignal(nameof(PowerChanged), name, value);
     }
 
@@ -480,6 +481,10 @@ public class Juni : KinematicBody2D
                                       stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
+        /* // poor parallax // set scale of background nodes to (1.04, 1)
+        Game.CurrentArea.Tiles.Layers[0].Position = Game.CurrentArea.Tiles.Layers[1].Position = Game.CurrentArea.Tiles.Layers[2].Position = 
+        Game.CurrentArea.GetNode<GDKnyttBackground>("Background").Position =
+            new Godot.Vector2(-(GlobalPosition.x - Game.CurrentArea.GlobalPosition.x) / 25, 0);*/
     }
 
     private void processFlyMode(float delta)
@@ -661,10 +666,12 @@ public class Juni : KinematicBody2D
         var frames = Sprite.Texture.GetSize() / 24;
         Sprite.Hframes = (int)frames.x;
         Sprite.Vframes = (int)frames.y;
+        Sprite.RegionRect = new Rect2(0, 0, 24 * Sprite.Hframes, 24 * Sprite.Vframes);
 
         var uframes = Umbrella.Texture.GetSize() / 24;
         Umbrella.Hframes = (int)uframes.x;
         Umbrella.Vframes = (int)uframes.y;
+        Umbrella.RegionRect = new Rect2(0, 0, 24 * Umbrella.Hframes, 24 * Umbrella.Vframes);
     }
 
     private void _on_Hitbox_body_entered(BaseBullet bullet)

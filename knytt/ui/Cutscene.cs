@@ -103,6 +103,7 @@ public class Cutscene : Control
 
     private async void endCutscene()
     {
+        if (!IsProcessing()) { return; }
         SetProcess(false);
         var fade = GetNode<FadeLayer>("FadeLayer");
         fade.startFade(color: getCutsceneColor());
