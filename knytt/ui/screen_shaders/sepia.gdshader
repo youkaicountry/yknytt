@@ -8,4 +8,5 @@ void fragment()
 	float v = dot(c, vec3(0.33333, 0.33333, 0.33333));
 	v = sqrt(v);
 	COLOR.rgb = base.rgb * v;
+	COLOR.a = 1.;
 }

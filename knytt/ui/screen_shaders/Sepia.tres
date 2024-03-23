@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://knytt/ui/screen_shaders/sepia.gdshader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/base = Color( 0.541176, 0.411765, 0.4, 1 )
