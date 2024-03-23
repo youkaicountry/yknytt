@@ -4,5 +4,5 @@ uniform float amount: hint_range(0.0, 5.0);
 
 void fragment()
 {
-	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount).rgb;
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount);
 }

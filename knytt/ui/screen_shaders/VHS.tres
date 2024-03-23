@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [ext_resource path="res://knytt/ui/screen_shaders/vhs.gdshader" type="Shader" id=1]
 
-[sub_resource type="ShaderMaterial" id=7]
+[resource]
 shader = ExtResource( 1 )
 shader_param/overlay = true
 shader_param/scanlines_opacity = 0.1
@@ -25,8 +25,3 @@ shader_param/warp_amount = 1.5
 shader_param/clip_warp = false
 shader_param/vignette_intensity = 0.4
 shader_param/vignette_opacity = 0.5
-
-[node name="VHSRect" type="ColorRect"]
-material = SubResource( 7 )
-anchor_right = 1.0
-anchor_bottom = 1.0

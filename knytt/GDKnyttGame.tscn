@@ -198,6 +198,17 @@ playback_speed = 6.0
 anims/SlideIn = SubResource( 2 )
 anims/SlideOut = SubResource( 3 )
 
+[node name="ShaderNode" type="Node2D" parent="GKnyttCamera"]
+z_index = 18
+z_as_relative = false
+
+[node name="Shader" type="ColorRect" parent="GKnyttCamera/ShaderNode"]
+margin_left = -300.0
+margin_top = -120.0
+margin_right = 300.0
+margin_bottom = 120.0
+color = Color( 1, 1, 1, 0 )
+
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource( 11 )
@@ -285,6 +296,8 @@ pause_mode = 2
 layer = 2
 
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
+margin_left = -16.0
+margin_right = -16.0
 
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
 unique_name_in_owner = true

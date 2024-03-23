@@ -70,6 +70,7 @@ public class GDKnyttGame : Node2D
         GDKnyttSettings.setupViewport(for_ui: false);
         this.setupCamera();
         this.setupBorder();
+        this.setupShader();
         this.setupWorld();
     }
 
@@ -434,5 +435,16 @@ public class GDKnyttGame : Node2D
         var border = GetNode<Control>("GKnyttCamera/TintNode/Border");
         border.Visible = GDKnyttSettings.Border;
         GetNode<TouchPanel>("UICanvasLayer/TouchPanel").SetupBorder();
+    }
+
+    public void setupShader()
+    {
+        GetNode<ColorRect>("GKnyttCamera/ShaderNode/Shader").Material = 
+            GDKnyttSettings.Shader <= GDKnyttSettings.ShaderType.HQ4X ? null :
+            ResourceLoader.Load<ShaderMaterial>($"res://knytt/ui/screen_shaders/{GDKnyttSettings.Shader}.tres");
+
+        var mat = ResourceLoader.Load<ShaderMaterial>("res://knytt/ui/screen_shaders/TileShader.tres");
+        mat.Shader = GDKnyttSettings.Shader == GDKnyttSettings.ShaderType.HQ4X ?
+            ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
     }
 }

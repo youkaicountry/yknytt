@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [ext_resource path="res://knytt/ui/screen_shaders/crt2.gdshader" type="Shader" id=1]
 
-[sub_resource type="ShaderMaterial" id=7]
+[resource]
 shader = ExtResource( 1 )
 shader_param/res = Vector2( 600, 240 )
 shader_param/mask_type = 0
@@ -15,8 +15,3 @@ shader_param/bloomAmount = 16.0
 shader_param/warp = Vector2( 64, 24 )
 shader_param/maskDark = 0.5
 shader_param/maskLight = 1.5
-
-[node name="CRT2Rect" type="ColorRect"]
-material = SubResource( 7 )
-anchor_right = 1.0
-anchor_bottom = 1.0
