@@ -6,7 +6,7 @@ public class ObjectSelector
     private Dictionary<object, List<object>> allObjects = new Dictionary<object, List<object>>();
     private Dictionary<object, int> counters = new Dictionary<object, int>();
     private Dictionary<object, object> selections = new Dictionary<object, object>();
-    public bool IsOpen { get; set; }
+    public bool IsOpen { get; set; } // possibly obsolete, area deactivation now is immediate, without any timer
 
     private object getKey(object obj, bool by_type)
     {

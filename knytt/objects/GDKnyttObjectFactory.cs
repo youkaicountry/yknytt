@@ -60,7 +60,7 @@ public static class GDKnyttObjectFactory
         ObjectLookup[new KnyttPoint(0, 48)] = "AllowHologram";
         ObjectLookup[new KnyttPoint(0, 49)] = "Halt";
         ObjectLookup[new KnyttPoint(0, 247)] = "BlockUser";
-        ObjectLookup[new KnyttPoint(0, 248)] = "Automation";
+        ObjectLookup[new KnyttPoint(0, 248)] = "HoloAutomation";
         ObjectLookup[new KnyttPoint(0, 249)] = "Automation";
         ObjectLookup[new KnyttPoint(0, 250)] = "JumpAutomation";
         ObjectLookup[new KnyttPoint(0, 251)] = "Automation";
