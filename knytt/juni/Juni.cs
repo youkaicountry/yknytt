@@ -20,7 +20,7 @@ public class Juni : KinematicBody2D
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
     MAX_SPEED_RUN = 175f,                       // Max speed while running
     MAX_X_SPEED_UMBRELLA = 130f,                // Maximum X speed when Juni has the umbrella deployed
-    PULL_OVER_FORCE_X = 30f,                    // X Force guranteed when reaching the top of a climb
+    PULL_OVER_FORCE_X = 75f,                    // X Force guranteed when reaching the top of a climb
     PULL_OVER_SPEED_Y = -125f,                  // Y Speed set when reaching the top of a climb
     SLOPE_MAX_ANGLE = 1.11f,                    // The Maximum angle a floor can be before becoming a wall (in original 2-pixel obstacle is a bump, 3-4-pixel obstacle is a stopper, 5-pixel obstacle is a wall)
     UPDRAFT_FORCE = .116f,                      // The base updraft force exerted (.111 in original)

@@ -4,7 +4,7 @@
 [ext_resource path="res://knytt/objects/bank0/JumpAutomation.cs" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 19, 19 )
+extents = Vector2( 15.5, 15.5 )
 
 [node name="Area2D" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

@@ -86,6 +86,10 @@ public class WalkRunState : JuniState
         {
             juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
         }
+        else if (juni.DidAirJump)
+        {
+            juni.executeJump(air_jump: true, sound: true);
+        }
         else if (!juni.CanFreeJump) // Juni Walks off Ledge / ground falls out from under
         {
             juni.jumps = 1; // Transition as if Juni has jumped once
