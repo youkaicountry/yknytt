@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using YKnyttLib;
 
 public class MapViewports : Node2D
@@ -88,9 +89,15 @@ public class MapViewports : Node2D
         wd.ListDirEnd();
     }
 
-    public void saveAll()
+    public async void saveAll()
     {
         if (KWorld == null) { return; }
+        await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
+        if (OS.GetName() == "HTML5") { CallDeferred("saveAllInternal"); } else { await Task.Run(saveAllInternal); }
+    }
+
+    private void saveAllInternal()
+    {
         foreach (var key in viewports.Keys)
         {
             if (viewports[key].dump())

@@ -199,7 +199,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
     public void RunCommand(string command)
     {
         history.Remove(command);
-        history.Add(command);
+        if (command != "") { history.Add(command); }
         historyIndex = history.Count;
 
         var p = parser.Parse(command);
