@@ -144,7 +144,7 @@ public class GDKnyttArea : Node2D
         deactivateArea();
     }
 
-    public async void destroyArea()
+    public void destroyArea()
     {
         if (Area.Empty) { return; }
         if (active && this.Objects != null) { Objects.returnObjects(); }

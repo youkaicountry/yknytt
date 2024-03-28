@@ -48,11 +48,12 @@ public class GameButton : GDKnyttButton
             rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
         }
 
-        hint = capitalize(worldEntry.Size + " " +
-                string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s))) + " " +
-                (worldEntry.Categories.Count == 0 ? "level" :
-                string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s))))
-                ).Replace("environmental", "environment").Replace("misc", "misc level").Replace("  ", " ");
+        string difficulties = string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s)));
+        string categories = string.Join("/", worldEntry.Categories.Where(s => !string.IsNullOrWhiteSpace(s)))
+            .ToLower().Replace("environmental", "environment").Replace("misc", "misc level");
+        if (categories == "" && (worldEntry.Size != "" || categories != "")) { categories = "level"; }
+        hint = capitalize($"{worldEntry.Size} {difficulties} {categories}").Replace("  ", " ");
+        
         if (HasFocus()) { _on_GameButton_ShowHint(hint); }
     }
 

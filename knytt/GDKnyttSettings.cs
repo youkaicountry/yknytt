@@ -12,10 +12,7 @@ public class GDKnyttSettings : Node
 
     public enum ScrollTypes { Smooth, Original }
 
-    public enum ShaderType
-    {
-        NoShader, HQ4X, CRT, CRT2, Sepia, VHS,
-    }
+    public enum ShaderType { NoShader, HQ4X, CRT, Sepia, VHS, }
 
     static GDKnyttSettings()
     {

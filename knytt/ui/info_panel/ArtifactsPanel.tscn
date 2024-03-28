@@ -529,11 +529,13 @@ tracks/0/keys = {
 
 [node name="ArtifactsPanel" type="Control"]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -240.0
-margin_top = 45.0
+margin_top = -75.0
 margin_right = 240.0
-margin_bottom = 225.0
+margin_bottom = 105.0
 mouse_filter = 2
 script = ExtResource( 11 )
 

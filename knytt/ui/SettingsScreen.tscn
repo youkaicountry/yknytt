@@ -130,7 +130,7 @@ focus_neighbour_left = NodePath("../../../BackButton")
 focus_neighbour_right = NodePath("../../../ButtonContainer/OfflineDropdown")
 focus_neighbour_bottom = NodePath("../../MapContainer/ForcedMap")
 text = "No"
-items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "CRT 2", null, false, 3, null, "Sepia", null, false, 4, null, "VHS", null, false, 5, null ]
+items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "Sepia", null, false, 3, null, "VHS", null, false, 4, null ]
 selected = 0
 
 [node name="ShaderLabel" type="Label" parent="SettingsContainer/ShaderContainer"]

@@ -166,6 +166,7 @@ script = ExtResource( 5 )
 [node name="ShaderCanvasLayer" type="CanvasLayer" parent="GKnyttCamera"]
 
 [node name="TintNode" type="Node2D" parent="GKnyttCamera"]
+unique_name_in_owner = true
 z_index = 16
 z_as_relative = false
 

@@ -19,7 +19,7 @@ public class MapPanel : Panel
     private static readonly float SCROLL_SPEED = 600;
     private static readonly float BORDER = 20;
     private static readonly int AREA_PRELOAD_LIMIT = 1000;
-    private static readonly float DETAILED_MIN_SCALE = 0.334f;
+    private static readonly float DETAILED_MIN_SCALE = 0.5f;
 
     private Font mark_font;
 
@@ -192,9 +192,33 @@ public class MapPanel : Panel
         Cutscene.releaseAll();
     }
 
+    private Vector2 drag_pos0, drag_pos1;
+    private float last_drag_distance;
+
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventScreenDrag drag_event) { drag(drag_event.Relative / RectScale); }
+        if (@event is InputEventScreenDrag drag_event)
+        {
+            if (drag_event.Index == 0)
+            {
+                drag(drag_event.Relative / RectScale);
+                drag_pos0 = drag_event.Position;
+            }
+            else
+            {
+                drag_pos1 = drag_event.Position;
+                if (last_drag_distance == 0) { last_drag_distance = drag_pos1.DistanceTo(drag_pos0); }
+            }
+
+            if (last_drag_distance > 0)
+            {
+                float drag_distance = drag_pos1.DistanceTo(drag_pos0);
+                scale(drag_distance / last_drag_distance);
+                last_drag_distance = drag_distance;
+            }
+        }
+
+        if (@event is InputEventScreenTouch touch_event) { last_drag_distance = 0; }
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {

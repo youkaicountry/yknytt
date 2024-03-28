@@ -129,7 +129,7 @@ public class UICanvasLayer : CanvasLayer
         {
             artifactsPanel = ResourceLoader.Load<PackedScene>("res://knytt/ui/info_panel/ArtifactsPanel.tscn").Instance<ArtifactsPanel>();
             artifactsPanel.Modulate = new Color(1, 1, 1, 0);
-            AddChild(artifactsPanel);
+            Game.GetNode<Node2D>("%TintNode").AddChild(artifactsPanel);
         }
 
         artifactsPanel?.updateItems(Game.Juni);

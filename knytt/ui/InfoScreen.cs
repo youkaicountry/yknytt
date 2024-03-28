@@ -23,10 +23,8 @@ public class InfoScreen : BasicScreen
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Rates/UpvoteButton").Disabled = 
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Rates/DownvoteButton").Disabled = 
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton").Disabled = 
-            GetNode<Button>("InfoRect/RatePanel/VBoxContainer/StatsButton").Disabled = true;
+            GetNode<Button>("%UpvoteButton").Disabled = GetNode<Button>("%DownvoteButton").Disabled = 
+            GetNode<Button>("%ComplainButton").Disabled = GetNode<Button>("%StatsButton").Disabled = true;
         }
     }
 
@@ -64,8 +62,8 @@ public class InfoScreen : BasicScreen
     {
         KWorld = kworld;
 
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton").Disabled = 
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/OptimizeButton").Disabled = 
+        GetNode<Button>("%Uninstall/MainButton").Disabled = 
+        GetNode<Button>("%OptimizeButton").Disabled = 
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
 
         if (world_entry == null)
@@ -237,7 +235,7 @@ public class InfoScreen : BasicScreen
         string cache_dir = KWorld.WorldDirectory.GetFile();
         GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
         string flagname = $"user://Cache/{cache_dir}/Completed.flag";
-        bool pressed = GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton").Pressed;
+        bool pressed = GetNode<Button>("%CompleteButton").Pressed;
         if (pressed)
         {
             GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
@@ -288,7 +286,7 @@ public class InfoScreen : BasicScreen
 
         sendRating((int)RateHTTPRequest.Action.Complain, additional: short_save);
         complain_visit = true;
-        GetNode<Button>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton").Text = "To GitHub";
+        GetNode<Button>("%ComplainButton").Text = "To GitHub";
     }
 
     private void sendRating(int action, string additional = null)
@@ -317,12 +315,11 @@ public class InfoScreen : BasicScreen
 
     public void updateRates()
     {
-        var rate_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Rates/TextContainer/RatesContainer");
-        rate_root.GetNode<Label>("UpvoteLabel").Text = $"+{world_entry.Upvotes}";
-        rate_root.GetNode<Label>("DownvoteLabel").Text = $"-{world_entry.Downvotes}";
+        GetNode<Label>("%UpvoteLabel").Text = $"+{world_entry.Upvotes}";
+        GetNode<Label>("%DownvoteLabel").Text = $"-{world_entry.Downvotes}";
 
-        var complete_button = GetNode<GDKnyttButton>("InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton");
-        var complain_button = GetNode<GDKnyttButton>("InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton");
+        var complete_button = GetNode<GDKnyttButton>("%CompleteButton");
+        var complain_button = GetNode<GDKnyttButton>("%ComplainButton");
 
         complete_button.Text = world_entry.Completed ? "Completed" : "Complete";
         complete_button.Pressed = world_entry.Completed;
@@ -351,8 +348,7 @@ public class InfoScreen : BasicScreen
     {
         string[] nodes_to_disable = { "InfoRect/BackButton", 
             "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button", 
-            "InfoRect/RatePanel/VBoxContainer/OptimizeButton", "InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton", 
-            "InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" };
+            "%OptimizeButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
 
@@ -378,11 +374,10 @@ public class InfoScreen : BasicScreen
     private void _on_UninstallButton_pressed(bool show_confirm)
     {
         ClickPlayer.Play();
-        var un_root = GetNode<Control>("InfoRect/RatePanel/VBoxContainer/Uninstall");
-        un_root.GetNode<Button>("MainButton").Visible = !show_confirm;
-        un_root.GetNode<Button>("ConfirmButton").Visible = show_confirm;
-        un_root.GetNode<Button>("CancelButton").Visible = show_confirm;
-        un_root.GetNode<Button>(show_confirm ? "CancelButton" : "MainButton").GrabFocus();
+        GetNode<Button>("%Uninstall/MainButton").Visible = !show_confirm;
+        GetNode<Button>("%Uninstall/ConfirmButton").Visible = show_confirm;
+        GetNode<Button>("%Uninstall/CancelButton").Visible = show_confirm;
+        GetNode<Button>(show_confirm ? "%Uninstall/CancelButton" : "%Uninstall/MainButton").GrabFocus();
     }
 
     private void _on_ConfirmButton_pressed()
