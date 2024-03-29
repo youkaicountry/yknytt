@@ -86,7 +86,7 @@ public class WalkRunState : JuniState
         {
             juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
         }
-        else if (juni.DidAirJump)
+        else if (!juni.Grounded && juni.DidAirJump)
         {
             juni.executeJump(air_jump: true, sound: true);
         }
