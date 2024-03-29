@@ -58,7 +58,8 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
         cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
         cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,
-            true, SettingsCommand.NewSettingsCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
+            true, SettingsCommand.NewSettingsCommand, new CommandArg("section", CommandArg.Type.StringArg, optional: true),
+            new CommandArg("name", CommandArg.Type.StringArg, optional: true), new CommandArg("value", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -749,11 +750,13 @@ public static class ConsoleCommands
 
     public class SettingsCommand : ICommand
     {
-        string subcmd;
+        string section, name, value;
 
         public SettingsCommand(CommandParseResult result)
         {
-            subcmd = result.Args["subcmd"];
+            section = result.Args.ContainsKey("section") ? result.Args["section"] : null;
+            name = result.Args.ContainsKey("name") ? result.Args["name"] : null;
+            value = result.Args.ContainsKey("value") ? result.Args["value"] : null;
         }
 
         public static ICommand NewSettingsCommand(CommandParseResult result)
@@ -769,7 +772,7 @@ public static class ConsoleCommands
             var ini_text = f.GetAsText();
             f.Close();
 
-            switch (subcmd)
+            switch (section)
             {
                 case null:
                     env.Console.AddMessage(ini_text);
@@ -781,7 +784,14 @@ public static class ConsoleCommands
                     return null;
 
                 default:
-                    return "Can't recognize your command";
+                    if (name == null) { return "Setting name missing!"; }
+                    if (value == null) { return "Setting value missing!"; }
+                    if (!GDKnyttSettings.ini.Sections.ContainsSection(section)) { return "Wrong section name!"; }
+                    name = name.Replace('_', ' ');
+                    GDKnyttSettings.ini[section][name] = value;
+                    GDKnyttSettings.saveSettings();
+                    env.Console.AddMessage($"Now {section}[{name}] = {value}");
+                    return null;
             }
         }
     }

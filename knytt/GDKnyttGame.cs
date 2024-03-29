@@ -104,8 +104,11 @@ public class GDKnyttGame : Node2D
     public async void respawnJuniWithWSOD()
     {
         // TODO: if respawn executes during save, Juni may save position, but not area coordinates (check again, hard to reproduce)
-        UI.WSOD.startWSOD();
-        await ToSignal(UI.WSOD, "WSODFinished");
+        if (GDKnyttSettings.WSOD)
+        {
+            UI.WSOD.startWSOD();
+            await ToSignal(UI.WSOD, "WSODFinished");
+        }
         respawnJuni();
     }
 

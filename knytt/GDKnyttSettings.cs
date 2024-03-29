@@ -134,6 +134,12 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static bool WSOD
+    {
+        get { return ini["Graphics"]["WSOD"].Equals("1") ? true : false; }
+        set { ini["Graphics"]["WSOD"] = value ? "1" : "0"; }
+    }
+
     // Calculate the volume in dB from the config value
     private static float calcVolume(int v)
     {
@@ -291,6 +297,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Forced Map", "1");
         modified |= ensureSetting("Graphics", "Detailed Map", "1");
         modified |= ensureSetting("Graphics", "Shader Type", ShaderType.NoShader.ToString());
+        modified |= ensureSetting("Graphics", "WSOD", "1");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");
@@ -322,6 +329,7 @@ public class GDKnyttSettings : Node
         ForcedMap = ini["Graphics"]["Forced Map"].Equals("1") ? true : false;
         DetailedMap = ini["Graphics"]["Detailed Map"].Equals("1") ? true : false;
         Shader = Enum.TryParse<ShaderType>(ini["Graphics"]["Shader Type"], out var f) ? f : ShaderType.NoShader;
+        WSOD = ini["Graphics"]["WSOD"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
