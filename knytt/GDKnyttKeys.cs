@@ -158,6 +158,7 @@ public class GDKnyttKeys : Node
         applyAction("map");
         applyAction("debug_die");
         applyKey("debug_die", "r", ctrl: true);
+        applyKey("down", "Enter");
     }
 
     private static void applyAction(string name)
