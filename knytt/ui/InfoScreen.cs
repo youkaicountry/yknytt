@@ -326,7 +326,7 @@ public class InfoScreen : BasicScreen
         complete_button.hint = (world_entry.Completed ? "Unmark this level as completed" : "Mark this level as completed") + 
             (world_entry.Completions > 0 ? $" (marked {world_entry.Completions} times)" : "");
 
-        complain_button.hint = "The latest save will be sent to the server as a complain" + 
+        complain_button.hint = "The latest save will be sent to the server as a bug report" + 
                (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
     }
 
