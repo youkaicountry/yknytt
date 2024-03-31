@@ -297,8 +297,6 @@ pause_mode = 2
 layer = 2
 
 [node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
-margin_left = -16.0
-margin_right = -16.0
 
 [node name="MusicChannel" parent="." instance=ExtResource( 3 )]
 unique_name_in_owner = true

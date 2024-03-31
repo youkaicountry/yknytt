@@ -92,8 +92,11 @@ public class MapViewports : Node2D
     public async void saveAll()
     {
         if (KWorld == null) { return; }
-        await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
-        await ToSignal(GetTree(), "idle_frame");
+        if (IsInsideTree())
+        {
+            await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
+            await ToSignal(GetTree(), "idle_frame");
+        }
         if (OS.GetName() == "HTML5") { CallDeferred("saveAllInternal"); } else { await Task.Run(saveAllInternal); }
     }
 
