@@ -41,7 +41,7 @@ public class MapViewports : Node2D
 
     public void addArea(GDKnyttArea area)
     {
-        if (KWorld == null) { return; }
+        if (KWorld == null || area == null) { return; }
         var key = getKey(area.Area.MapPosition);
         if (!viewports.ContainsKey(key))
         {

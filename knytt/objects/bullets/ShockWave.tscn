@@ -3,7 +3,6 @@
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bullets/img/shockwave.png" type="Texture" id=2]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
 
@@ -32,6 +31,7 @@ animations = [ {
 } ]
 
 [node name="Particle" instance=ExtResource( 1 )]
+collision_mask = 2048
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0.5, 0.5 )

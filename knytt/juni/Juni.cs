@@ -360,7 +360,6 @@ public class Juni : KinematicBody2D
             if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
         }
         Powers.setPower(name, value);
-        if (name == PowerNames.Map && !Game.hasMap()) { Game.UI.ForceMap = true; }
         EmitSignal(nameof(PowerChanged), name, value);
     }
 
