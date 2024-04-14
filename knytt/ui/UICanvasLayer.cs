@@ -133,5 +133,7 @@ public class UICanvasLayer : CanvasLayer
         }
 
         artifactsPanel?.updateItems(Game.Juni);
+
+        if (Game.Juni.Powers.getPower(PowerNames.Map) && !Game.hasMap()) { ForceMap = true; } // if Map=false but map power was given
     }
 }

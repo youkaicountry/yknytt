@@ -4,7 +4,6 @@
 [ext_resource path="res://knytt/objects/bank12/img/Object5.png" type="Texture" id=2]
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
@@ -17,7 +16,7 @@ centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )
-collision_layer = 2050
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]

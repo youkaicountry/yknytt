@@ -8,12 +8,12 @@ public class DistanceMod : Node2D
     [Export] float closeDistance = 0;
     [Export] DistanceMethod method = DistanceMethod.Distance;
     [Export] NodePath spritePath = null;
-    [Export] string openAnimation = "open";
+    [Export] public string openAnimation = "open";
 
     [Signal] public delegate void EnterEvent();
     [Signal] public delegate void ExitEvent();
 
-    private AnimatedSprite sprite;
+    protected AnimatedSprite sprite;
 
     protected GDKnyttBaseObject parent;
     protected Juni globalJuni;

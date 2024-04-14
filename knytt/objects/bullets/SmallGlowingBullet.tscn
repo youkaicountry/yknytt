@@ -7,7 +7,6 @@
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/data/Sfx/Tri Bullet Hit.wav" type="AudioStream" id=6]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 4.0
 
@@ -53,6 +52,7 @@ animations = [ {
 } ]
 
 [node name="Particle" instance=ExtResource( 1 )]
+collision_mask = 2048
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]

@@ -14,6 +14,7 @@ public class WhiteExplosion : GDKnyttBaseObject
                 p.DirectionMMF2 = i % 32;
                 p.DecelerationMMF2 = 12; // 20 in original
                 p.DisappearWhenStopped = true;
+                p.Translate(new Vector2(-17, 0).Rotated(p.Direction)); // Ability to teleport into explosion (workaround)
             });
 
         for (int i = 0; i < 32 * 3; i++)
