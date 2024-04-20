@@ -41,8 +41,8 @@ public class GameButton : GDKnyttButton
             rating_control.Visible = true;
             RectMinSize = new Vector2(RectMinSize.x, 55);
             rating_control.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
-            rating_control.GetNode<Label>("UpvotesLabel").Text = $"+{worldEntry.Upvotes}";
-            rating_control.GetNode<Label>("DownvotesLabel").Text = $"-{worldEntry.Downvotes}";
+            rating_control.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
+            rating_control.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);
             rating_control.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
             rating_control.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
             rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);

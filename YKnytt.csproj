@@ -268,6 +268,7 @@
     <Compile Include="knytt\ui\SlotButton.cs" />
     <Compile Include="knytt\ui\stats\HTTPUtil.cs" />
     <Compile Include="knytt\ui\stats\RateHTTPRequest.cs" />
+    <Compile Include="knytt\ui\stats\StarRate.cs" />
     <Compile Include="knytt\ui\stats\StatPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchPanel.cs" />
     <Compile Include="knytt\ui\touch\TouchSettings.cs" />
