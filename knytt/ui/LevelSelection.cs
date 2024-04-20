@@ -312,8 +312,9 @@ public class LevelSelection : BasicScreen
         Texture icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");
         var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
         bool completed = new File().FileExists(completed_flag_name);
+        int user_score = Enumerable.Range(1, 5).FirstOrDefault(i => new File().FileExists($"{cache_dir}/Score-{i}.flag"));
 
-        return new WorldEntry(icon, world_info, world_dir, last_played, completed);
+        return new WorldEntry(icon, world_info, world_dir, last_played, completed, user_score);
     }
 
     private WorldEntry generateBinWorld(string world_dir)
@@ -364,8 +365,9 @@ public class LevelSelection : BasicScreen
         Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
         var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
         bool completed = new File().FileExists(completed_flag_name);
+        int user_score = Enumerable.Range(1, 5).FirstOrDefault(i => new File().FileExists($"{cache_dir}/Score-{i}.flag"));
 
-        return new WorldEntry(icon, world_info, world_dir, last_played, completed);
+        return new WorldEntry(icon, world_info, world_dir, last_played, completed, user_score);
     }
 
     private KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
@@ -399,6 +401,8 @@ public class LevelSelection : BasicScreen
             Downvotes = HTTPUtil.jsonInt(json_item, "downvotes"),
             Downloads = HTTPUtil.jsonInt(json_item, "downloads"),
             Complains = HTTPUtil.jsonInt(json_item, "complains"),
+            OverallScore = HTTPUtil.jsonFloat(json_item, "score"),
+            Voters = HTTPUtil.jsonInt(json_item, "voters"),
             AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified"),
             Status = HTTPUtil.jsonInt(json_item, "status"),
             Categories = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "category")

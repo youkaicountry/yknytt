@@ -189,7 +189,7 @@ margin_bottom = 59.2149
 rect_min_size = Vector2( 90, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "Downloads"
-items = [ "Downloads", null, false, 5, null, "Upvotes", null, false, 6, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
+items = [ "Downloads", null, false, 5, null, "Rating", null, false, 8, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
 selected = 0
 
 [node name="Search" type="VBoxContainer" parent="MainContainer/FilterContainer"]

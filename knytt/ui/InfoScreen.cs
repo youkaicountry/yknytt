@@ -23,7 +23,7 @@ public class InfoScreen : BasicScreen
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
-            GetNode<Button>("%UpvoteButton").Disabled = GetNode<Button>("%DownvoteButton").Disabled = 
+            GetNode<StarRate>("%Rate").Visible = false;
             GetNode<Button>("%ComplainButton").Disabled = GetNode<Button>("%StatsButton").Disabled = true;
         }
     }
@@ -152,6 +152,8 @@ public class InfoScreen : BasicScreen
         world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
         world_entry.Complains = HTTPUtil.jsonInt(json.Result, "complains");
         world_entry.Completions = HTTPUtil.jsonInt(json.Result, "completions");
+        world_entry.OverallScore = HTTPUtil.jsonFloat(json.Result, "score");
+        world_entry.Voters = HTTPUtil.jsonInt(json.Result, "voters");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -217,16 +219,35 @@ public class InfoScreen : BasicScreen
         panel.Visible = !panel.Visible;
     }
 
-    private void _on_UpvoteButton_pressed()
+    private void _on_Rate_RateEvent(int n)
     {
         ClickPlayer.Play();
-        sendRating((int)RateHTTPRequest.Action.Upvote);
+        string cache_dir = KWorld.WorldDirectory.GetFile();
+        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+        string flagname = $"user://Cache/{cache_dir}/Score-{n}.flag";
+        if (new File().FileExists(flagname)) { return; }
+        if (n == 0 && world_entry.UserScore == 0) { return; }
+        GetNode<Label>("InfoRect/HintLabel").Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n}...";
+        sendRating(20 + n * 2);
     }
 
-    private void _on_DownvoteButton_pressed()
+    private void updateRating(int n)
     {
-        ClickPlayer.Play();
-        sendRating((int)RateHTTPRequest.Action.Downvote);
+        string cache_dir = KWorld.WorldDirectory.GetFile();
+        string flagname = $"user://Cache/{cache_dir}/Score-{n}.flag";
+        for (int i = 1; i <= 5; i++) { new Directory().Remove($"user://Cache/{cache_dir}/Score-{i}.flag"); }
+        if (n != 0)
+        {
+            var f = new File();
+            f.Open(flagname, File.ModeFlags.Write);
+            f.Close();
+        }
+
+        int old_voters = world_entry.Voters;
+        world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
+        world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
+            (world_entry.OverallScore * old_voters - world_entry.UserScore + n) / world_entry.Voters;
+        world_entry.UserScore = n;
     }
 
     private void _on_CompleteButton_pressed()
@@ -292,13 +313,17 @@ public class InfoScreen : BasicScreen
     private void sendRating(int action, string additional = null)
     {
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional);
+        GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional, once: false);
     }
 
     private void _on_RateHTTPRequest_RateAdded(int action)
     {
-        if (action == (int)RateHTTPRequest.Action.Upvote) { world_entry.Upvotes++; }
-        if (action == (int)RateHTTPRequest.Action.Downvote) { world_entry.Downvotes++; }
+        if (action >= 20 && action <= 30)
+        {
+            updateRating((action - 20) / 2);
+            GetNode<Label>("InfoRect/HintLabel").Text = action == 20 ? "Your rating for this level was removed." :
+                $"You rated this level as {(action - 20) / 2} (out of 5).";
+        }
         if (action == (int)RateHTTPRequest.Action.Complain)
         {
             world_entry.Complains++;
@@ -315,8 +340,9 @@ public class InfoScreen : BasicScreen
 
     public void updateRates()
     {
-        GetNode<Label>("%UpvoteLabel").Text = $"+{world_entry.Upvotes}";
-        GetNode<Label>("%DownvoteLabel").Text = $"-{world_entry.Downvotes}";
+        GetNode<StarRate>("%Rate").Rate = world_entry.UserScore;
+        GetNode<Label>("%OverallLabel").Text = world_entry.Voters != 0 ?
+            $"Rating: {world_entry.OverallScore:0.0} (by {world_entry.Voters} people)" : "Rating: -";
 
         var complete_button = GetNode<GDKnyttButton>("%CompleteButton");
         var complain_button = GetNode<GDKnyttButton>("%ComplainButton");

@@ -26,10 +26,13 @@ public class WorldEntry
     public int Status;
     public bool Disabled;
     public bool Completed;
+    public float OverallScore;
+    public int Voters;
+    public int UserScore;
 
     public WorldEntry() { }
 
-    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played, bool completed)
+    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played, bool completed, int user_score)
     {
         Icon = icon;
         Name = world_info.Name;
@@ -43,6 +46,7 @@ public class WorldEntry
         InstalledTime = new File().GetModifiedTime(path);
         LastPlayedTime = last_played;
         Completed = completed;
+        UserScore = user_score;
     }
 
     public void MergeLocal(WorldEntry info)
@@ -54,6 +58,7 @@ public class WorldEntry
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
         Completed = info.Completed;
+        UserScore = info.UserScore;
     }
 
     private static string[] statuses = {"Not Verified", "Unfinished", "Broken", 
@@ -67,4 +72,7 @@ public class WorldEntry
 
     public Color StatusColor => Status == 0 && AutoVerified ? new Color(0, 0.5f, 0) : 
                                 Status >= status_colors.Length ? new Color(0, 0, 0) : status_colors[Status];
+
+    public Color ScoreColor => Voters == 0 ? new Color(0.5f, 0.5f, 0.5f) :
+                               OverallScore > 3.4f ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0);
 }

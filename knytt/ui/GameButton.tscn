@@ -9,7 +9,6 @@
 [ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture" id=7]
 [ext_resource path="res://knytt/ui/img/birdie2_fly.png" type="Texture" id=8]
 
-
 [sub_resource type="StyleBoxEmpty" id=11]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -139,47 +138,32 @@ margin_top = -17.0
 margin_right = -5.0
 margin_bottom = -5.0
 alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VerifiedLabel" type="Label" parent="RatingControl"]
-margin_left = 56.0
-margin_right = 119.0
+margin_left = 67.0
+margin_right = 130.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Not Verified"
 
 [node name="SizeLabel" type="Label" parent="RatingControl"]
-margin_left = 123.0
-margin_right = 170.0
+margin_left = 134.0
+margin_right = 181.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 18, 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "111.2 MB"
 
-[node name="UpvotesLabel" type="Label" parent="RatingControl"]
-margin_left = 174.0
-margin_right = 205.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 18, 13 )
-custom_colors/font_color = Color( 0, 0.501961, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "+9999"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DownvotesLabel" type="Label" parent="RatingControl"]
-margin_left = 209.0
+[node name="RatingLabel" type="Label" parent="RatingControl"]
+margin_left = 185.0
 margin_right = 240.0
 margin_bottom = 13.0
-rect_min_size = Vector2( 7, 13 )
-custom_colors/font_color = Color( 0.752941, 0, 0, 1 )
+rect_min_size = Vector2( 18, 13 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "+9999"
+text = "Rating: 4.5"
 __meta__ = {
 "_edit_use_anchors_": false
 }
