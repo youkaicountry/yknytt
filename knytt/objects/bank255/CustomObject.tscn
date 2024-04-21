@@ -2,7 +2,6 @@
 
 [ext_resource path="res://knytt/objects/bank255/CustomObject.cs" type="Script" id=1]
 
-
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
@@ -26,4 +25,5 @@ script = ExtResource( 1 )
 material = SubResource( 2 )
 position = Vector2( 12, 12 )
 frames = SubResource( 3 )
+
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
