@@ -30,7 +30,7 @@ If you find a bug in a level, just press "complain" on a level info screen. Your
 
 ### Building
 
-Requires Godot 3.6.beta2.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.6.beta4.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
 
 #### Export settings
 

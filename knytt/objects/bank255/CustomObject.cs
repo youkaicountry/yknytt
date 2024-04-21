@@ -106,10 +106,16 @@ public class CustomObject : GDKnyttBaseObject
         }
 
         var cache_key = (GDArea.GDWorld.KWorld.WorldDirectoryName, ObjectID.y + (ObjectID.x == 254 ? 256 : 0));
-        if (oco_cache.ContainsKey(cache_key)) { sprite.Frames = oco_cache[cache_key]; return; }
+        if (oco_cache.ContainsKey(cache_key))
+        {
+            obj.CustomAnimation = true;
+            sprite.Frames = oco_cache[cache_key];
+            return;
+        }
 
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
         if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { return; }
+        obj.CustomAnimation = true;
         
         if (static_sprite != null)
         {
@@ -120,10 +126,11 @@ public class CustomObject : GDKnyttBaseObject
 
         var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
         sprite.Frames = oco_cache[cache_key] = new_frames;
-        bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj.ObjectID.y.ToString()));
+        int obj_y = !(obj is PowerItem) ? obj.ObjectID.y : PowerItem.Object2Power[obj.ObjectID.y];
+        bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj_y.ToString()));
         foreach (var anim in new_frames.GetAnimationNames())
         {
-            if (one_animation_mode && !anim.EndsWith(obj.ObjectID.y.ToString())) { continue; }
+            if (one_animation_mode && !anim.EndsWith(obj_y.ToString())) { continue; }
             for (int i = 0; i < new_frames.GetFrameCount(anim); i++)
             {
                 var tex = new_frames.GetFrame(anim, i) as AtlasTexture;

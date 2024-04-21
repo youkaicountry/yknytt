@@ -38,11 +38,6 @@ public class InfoPanel : Panel
         var game = GetNodeOrNull<GDKnyttGame>("/root/GKnyttGame");
         var frames = ResourceLoader.Load<SpriteFrames>("res://knytt/objects/bank0/PowerItemFrames.tres");
 
-        string sheet = game.GDWorld.KWorld.INIData["World"]["Powers"];
-        if (sheet == null || !game.GDWorld.KWorld.worldFileExists("custom objects/" + sheet)) { return; }
-        var sheet_tex = game.GDWorld.KWorld.getWorldTexture("custom objects/" + sheet) as Texture;
-        if (sheet_tex == null) { return; }
-
         foreach (int power in Enum.GetValues(typeof(PowerNames)))
         {
             string icon_path = $"custom objects/powericon{power}.png";
@@ -59,6 +54,11 @@ public class InfoPanel : Panel
         {
             child.checkCustomIcon(game.GDWorld.KWorld.WorldDirectoryName);
         }
+
+        string sheet = game.GDWorld.KWorld.INIData["World"]["Powers"];
+        if (sheet == null || !game.GDWorld.KWorld.worldFileExists("custom objects/" + sheet)) { return; }
+        var sheet_tex = game.GDWorld.KWorld.getWorldTexture("custom objects/" + sheet) as Texture;
+        if (sheet_tex == null) { return; }
 
         for (int power = 0; power <= (int)PowerNames.RedKey; power++)
         {

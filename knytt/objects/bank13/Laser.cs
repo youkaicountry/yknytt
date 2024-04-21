@@ -19,7 +19,7 @@ public class Laser : GDKnyttBaseObject
         if (horizontal[index])
         {
             GetNode<Area2D>("Area2D").RotationDegrees = 90;
-            sprite.RotationDegrees = 90;
+            if (!CustomAnimation) { sprite.RotationDegrees = 90; }
         }
 
         is_on = onAtStart[index] || alwaysOn[index];
