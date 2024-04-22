@@ -24,11 +24,12 @@ public class StarRate : HBoxContainer
         {
             GetNode<TextureRect>($"Star{i}").Modulate = 
                 i <= n ? new Color("#EE0000") : 
-                i <= _rate ? new Color("#005C00") : new Color("#EECC22");
+                i <= _rate ? new Color("#005C00") : new Color("#606060");
         }
+        GetNode<TextureRect>($"Remove").Modulate = n == 0 && _rate > 0 ? new Color("#EE0000") : 
+                _rate > 0 ? new Color("#EECC22") : new Color("#606060");
         if (n != -2)
         {
-            GetNode<TextureRect>($"Remove").Modulate = n == 0 && _rate > 0 ? new Color("#EE0000") : new Color("#EECC22");
             EmitSignal(nameof(HoverEvent), 
                 n == 0 && _rate > 0 ? "Remove your rating for this level" : 
                 n > 0 ? $"Rate this level as {n} (out of 5)" : null);
