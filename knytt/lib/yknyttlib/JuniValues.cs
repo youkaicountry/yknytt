@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -122,7 +122,9 @@ namespace YKnyttLib
         public bool isVisited(KnyttArea area)
         {
             if (VisitedAreas == null) { return false; }
-            return VisitedAreas.Get(area.World.getMapIndex(area.MapPosition));
+            int map_position = area.World.getMapIndex(area.MapPosition);
+            if (map_position < 0 || map_position >= VisitedAreas.Length) { return false; }
+            return VisitedAreas.Get(map_position);
         }
 
         public void setMark(KnyttPoint pos, Collectable c)

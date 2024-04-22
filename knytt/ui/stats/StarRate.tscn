@@ -12,7 +12,6 @@ custom_constants/separation = 0
 script = ExtResource( 2 )
 
 [node name="Remove" type="TextureRect" parent="."]
-modulate = Color( 0.933333, 0.8, 0.133333, 1 )
 margin_right = 20.0
 margin_bottom = 28.0
 texture = ExtResource( 3 )
