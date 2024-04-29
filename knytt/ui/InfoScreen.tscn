@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://knytt/ui/img/button_red.png" type="Texture" id=7]
 [ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/stats/StarRate.tscn" type="PackedScene" id=9]
+[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=10]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -27,9 +28,6 @@ complainURL = "https://github.com/youkaicountry/yknytt/issues"
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="InfoRect" type="TextureRect" parent="."]
 anchor_top = 0.5
@@ -127,19 +125,33 @@ unique_name_in_owner = true
 margin_top = 16.0
 margin_bottom = 44.0
 
-[node name="CompContainer" type="HBoxContainer" parent="InfoRect/RatePanel/VBoxContainer"]
+[node name="CompleteOption" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 10 )]
+unique_name_in_owner = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 47.0
 margin_right = 140.0
 margin_bottom = 77.0
+rect_min_size = Vector2( 0, 30 )
+text = "Not Started"
+items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Backlog", null, false, 2, null, "Too Hard", null, false, 3, null, "Not Interested", null, false, 4, null, "Bad Design", null, false, 5, null ]
+selected = 0
 
-[node name="CompleteButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
+[node name="CompContainer" type="HBoxContainer" parent="InfoRect/RatePanel/VBoxContainer"]
+margin_top = 80.0
+margin_right = 140.0
+margin_bottom = 110.0
+
+[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_bottom = 30.0
-rect_min_size = Vector2( 65, 0 )
-toggle_mode = true
-text = "Complete"
+rect_min_size = Vector2( 65, 30 )
+text = "Optimize"
+hint = "Use this to avoid keeping a large level in memory"
 
 [node name="Label" type="Label" parent="InfoRect/RatePanel/VBoxContainer/CompContainer"]
 margin_left = 69.0
@@ -158,17 +170,6 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 65, 30 )
 custom_styles/disabled = SubResource( 1 )
 text = "Complain"
-
-[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
-unique_name_in_owner = true
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 80.0
-margin_right = 140.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 80, 30 )
-text = "Optimize"
-hint = "Use this to avoid keeping a large level in memory"
 
 [node name="Uninstall" type="Control" parent="InfoRect/RatePanel/VBoxContainer"]
 unique_name_in_owner = true
@@ -241,12 +242,13 @@ wait_time = 0.2
 [connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="HoverEvent" from="InfoRect/RatePanel/VBoxContainer/Rate" to="." method="_on_ShowHint"]
 [connection signal="RateEvent" from="InfoRect/RatePanel/VBoxContainer/Rate" to="." method="_on_Rate_RateEvent"]
-[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton" to="." method="_on_ShowHint"]
-[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/CompContainer/CompleteButton" to="." method="_on_CompleteButton_pressed"]
+[connection signal="item_selected" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_CompleteOption_item_selected"]
+[connection signal="mouse_entered" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_ShowHint" binds= [ "Set completion (or incompletion) status of the level" ]]
+[connection signal="mouse_exited" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_ShowHint" binds= [ "" ]]
+[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/CompContainer/OptimizeButton" to="." method="_on_ShowHint"]
+[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/CompContainer/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/CompContainer/ComplainButton" to="." method="_on_ComplainButton_pressed"]
-[connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_ShowHint"]
-[connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/OptimizeButton" to="." method="_on_OptimizeButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_ShowHint"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/MainButton" to="." method="_on_UninstallButton_pressed" binds= [ true ]]
 [connection signal="ShowHint" from="InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" to="." method="_on_ShowHint"]

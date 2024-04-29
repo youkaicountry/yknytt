@@ -16,25 +16,25 @@ public class WorldEntry
     public string Path;
     public bool HasServerInfo;
     public string Link;
-    public int FileSize;
+    public long FileSize;
     public int Upvotes;
     public int Downvotes;
     public int Downloads;
     public int Complains;
-    public int Completions;
     public bool AutoVerified;
     public int Status;
     public bool Disabled;
-    public bool Completed;
+    public int Completed;
+    public bool HasSaves;
     public float OverallScore;
     public int Voters;
-    public int UserScore;
+    public int UserScore; // be careful! 2x scale - 0..10
+    public int[] Completions = new int[6];
 
     public WorldEntry() { }
 
-    public WorldEntry(Texture icon, KnyttWorldInfo world_info, string path, ulong last_played, bool completed, int user_score)
+    public WorldEntry(KnyttWorldInfo world_info, string path)
     {
-        Icon = icon;
         Name = world_info.Name;
         Author = world_info.Author;
         Description = world_info.Description;
@@ -44,9 +44,7 @@ public class WorldEntry
         HasServerInfo = false;
         Path = path;
         InstalledTime = new File().GetModifiedTime(path);
-        LastPlayedTime = last_played;
-        Completed = completed;
-        UserScore = user_score;
+        FileSize = world_info.FileSize;
     }
 
     public void MergeLocal(WorldEntry info)
@@ -75,4 +73,9 @@ public class WorldEntry
 
     public Color ScoreColor => Voters == 0 ? new Color(0.5f, 0.5f, 0.5f) :
                                OverallScore > 3.4f ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0);
+
+    private static Color[] completion_colors = {new Color(1, 1, 1), new Color(0.75f, 0.75f, 0.75f), new Color(1f, 0.95f, 0.65f), 
+        new Color(1f, 0.75f, 0.75f), new Color(0.9f, 0.75f, 1f), new Color(0.9f, 0.65f, 0.55f)};
+
+    public Color CompletionColor => Completed == 0 && HasSaves ? new Color(0.85f, 1f, 0.85f) : completion_colors[Completed];
 }

@@ -151,9 +151,13 @@ public class InfoScreen : BasicScreen
         world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
         world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
         world_entry.Complains = HTTPUtil.jsonInt(json.Result, "complains");
-        world_entry.Completions = HTTPUtil.jsonInt(json.Result, "completions");
         world_entry.OverallScore = HTTPUtil.jsonFloat(json.Result, "score");
         world_entry.Voters = HTTPUtil.jsonInt(json.Result, "voters");
+        world_entry.Completions[1] = HTTPUtil.jsonInt(json.Result, "completions");
+        world_entry.Completions[2] = HTTPUtil.jsonInt(json.Result, "backlogged");
+        world_entry.Completions[3] = HTTPUtil.jsonInt(json.Result, "too_hard");
+        world_entry.Completions[4] = HTTPUtil.jsonInt(json.Result, "not_interested");
+        world_entry.Completions[5] = HTTPUtil.jsonInt(json.Result, "bad_design");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -210,6 +214,12 @@ public class InfoScreen : BasicScreen
         {
             stat_panel.addLabel("No achievements found");
         }
+
+        var complete_option = GetNode<OptionButton>("%CompleteOption");
+        for (int i = 1; i < world_entry.Completions.Length; i++)
+        {
+            complete_option.SetItemText(i, complete_option.GetItemText(i) + $" [{world_entry.Completions[i]}]");
+        }
     }
 
     private void _on_StatsButton_pressed()
@@ -228,14 +238,14 @@ public class InfoScreen : BasicScreen
         if (new File().FileExists(flagname)) { return; }
         if (n == 0 && world_entry.UserScore == 0) { return; }
         GetNode<Label>("InfoRect/HintLabel").Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n}...";
-        sendRating(20 + n * 2);
+        sendRating(20 + n);
     }
 
     private void updateRating(int n)
     {
         string cache_dir = KWorld.WorldDirectory.GetFile();
         string flagname = $"user://Cache/{cache_dir}/Score-{n}.flag";
-        for (int i = 1; i <= 5; i++) { new Directory().Remove($"user://Cache/{cache_dir}/Score-{i}.flag"); }
+        for (int i = 2; i <= 10; i += 2) { new Directory().Remove($"user://Cache/{cache_dir}/Score-{i}.flag"); }
         if (n != 0)
         {
             var f = new File();
@@ -246,35 +256,33 @@ public class InfoScreen : BasicScreen
         int old_voters = world_entry.Voters;
         world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
         world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
-            (world_entry.OverallScore * old_voters - world_entry.UserScore + n) / world_entry.Voters;
+            (world_entry.OverallScore * old_voters - (world_entry.UserScore - n) / 2) / world_entry.Voters;
         world_entry.UserScore = n;
     }
 
-    private void _on_CompleteButton_pressed()
+    private void _on_CompleteOption_item_selected(int index)
     {
         ClickPlayer.Play();
         string cache_dir = KWorld.WorldDirectory.GetFile();
         GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
-        string flagname = $"user://Cache/{cache_dir}/Completed.flag";
-        bool pressed = GetNode<Button>("%CompleteButton").Pressed;
-        if (pressed)
+        string flagname = $"user://Cache/{cache_dir}/Completed-{index}.flag";
+        
+        for (var i = 1; i <= 5; i++) { new Directory().Remove($"user://Cache/{cache_dir}/Completed-{i}.flag"); }
+        new Directory().Remove($"user://Cache/{cache_dir}/Completed.flag");
+
+        if (index != 0)
         {
-            GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
             var f = new File();
             f.Open(flagname, File.ModeFlags.Write);
             f.Close();
-            world_entry.Completed = true;
-            GetNode<Label>("InfoRect/HintLabel").Text = "";
-            sendRating((int)RateHTTPRequest.Action.Complete);
         }
-        else
-        {
-            new Directory().Remove(flagname);
-            world_entry.Completed = false;
-            GetNode<Label>("InfoRect/HintLabel").Text = "Level was unmarked as completed.";
-        }
+
+        world_entry.Completed = index;
+        var option_text = GetNode<OptionButton>("%CompleteOption").Text;
+        if (option_text.LastIndexOf('[') != -1) { option_text = option_text.Left(option_text.LastIndexOf('[') - 1); }
+        GetNode<Label>("InfoRect/HintLabel").Text = $"Setting your completion status as '{option_text}'...";
         if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
-        updateRates();
+        sendRating(40 + index);
     }
 
     private bool complain_visit;
@@ -320,19 +328,18 @@ public class InfoScreen : BasicScreen
     {
         if (action >= 20 && action <= 30)
         {
-            updateRating((action - 20) / 2);
+            updateRating(action - 20);
             GetNode<Label>("InfoRect/HintLabel").Text = action == 20 ? "Your rating for this level was removed." :
                 $"You rated this level as {(action - 20) / 2} (out of 5).";
+        }
+        if (action >= 40 && action <= 45)
+        {
+            GetNode<Label>("InfoRect/HintLabel").Text = "Your completion status was set.";
         }
         if (action == (int)RateHTTPRequest.Action.Complain)
         {
             world_entry.Complains++;
             GetNode<Label>("InfoRect/HintLabel").Text = "Your latest save was sent to the server.";
-        }
-        if (action == (int)RateHTTPRequest.Action.Complete)
-        {
-            world_entry.Completions++;
-            GetNode<Label>("InfoRect/HintLabel").Text = "Level was marked as completed.";
         }
         
         updateRates();
@@ -344,14 +351,11 @@ public class InfoScreen : BasicScreen
         GetNode<Label>("%OverallLabel").Text = world_entry.Voters != 0 ?
             $"Rating: {world_entry.OverallScore:0.0} (by {world_entry.Voters} people)" : "Rating: -";
 
-        var complete_button = GetNode<GDKnyttButton>("%CompleteButton");
+        var complete_option = GetNode<OptionButton>("%CompleteOption");
+        complete_option.Selected = world_entry.Completed;
+        complete_option.SetItemText(0, world_entry.HasSaves ? "In Progress" : "Not Started");
+
         var complain_button = GetNode<GDKnyttButton>("%ComplainButton");
-
-        complete_button.Text = world_entry.Completed ? "Completed" : "Complete";
-        complete_button.Pressed = world_entry.Completed;
-        complete_button.hint = (world_entry.Completed ? "Unmark this level as completed" : "Mark this level as completed") + 
-            (world_entry.Completions > 0 ? $" (marked {world_entry.Completions} times)" : "");
-
         complain_button.hint = "The latest save will be sent to the server as a bug report" + 
                (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
     }
