@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using YKnyttLib;
 
@@ -102,7 +103,7 @@ public class MapViewports : Node2D
 
     private void saveAllInternal()
     {
-        foreach (var key in viewports.Keys)
+        foreach (var key in viewports.Keys.ToArray())
         {
             if (viewports[key].dump())
             {

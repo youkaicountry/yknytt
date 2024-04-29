@@ -23,6 +23,7 @@ public class GDKnyttBaseObject : Node2D
     protected Color enemy_detector_color = new Color(1, 0, 0);
 
     private bool safe = false;
+    public bool SafeBullets { get; set; } = false;
     public bool CustomAnimation { get; set; } = false;
 
     [Export] public bool DenyDeletion;

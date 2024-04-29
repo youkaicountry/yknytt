@@ -145,7 +145,7 @@ public class Juni : KinematicBody2D
     }
 
     public int JumpLimit => Powers.getPower(PowerNames.DoubleJump) ? 2 : 1; 
-    public bool CanClimb => Powers.getPower(PowerNames.Climb) && Checkers.Colliding; 
+    public bool CanClimb => Powers.getPower(PowerNames.Climb) && Checkers.Colliding && !Checkers.IsInside; 
     public bool CanUmbrella => Powers.getPower(PowerNames.Umbrella); 
     public bool Grounded { get; set; }
     public bool DidJump => juniInput.JumpEdge && Grounded && CanJump; 
@@ -469,7 +469,7 @@ public class Juni : KinematicBody2D
         // Limit falling speed to terminal velocity
         velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
 
-        if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta)); }
+        if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1))); }
         else
         {
             // Do the movement in two steps to avoid hanging up on tile seams

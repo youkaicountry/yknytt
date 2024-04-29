@@ -83,8 +83,9 @@ public class GDObjectLayers : Node2D
 
     private void turnOffObjects(GDKnyttObjectLayer layer)
     {
-        foreach (Node obj in layer.GetChildren())
+        foreach (GDKnyttBaseObject obj in layer.GetChildren())
         {
+            obj.SafeBullets = true;
             foreach (Node child in obj.GetChildren())
             {
                 switch (child)
