@@ -73,6 +73,7 @@ public class BulletLayer : Node2D
         bullet.GlobalPosition = enemy_object.GlobalPosition;
         bullet.Enabled = true;
         bullet.Visible = true;
+        bullet.Safe = enemy_object is GDKnyttBaseObject obj ? obj.SafeBullets : false;
 
         var enemy_parent = enemy_object.GetParent<Node2D>();
         bullet.ZIndex = enemy_parent is GDKnyttObjectLayer ? enemy_parent.ZIndex - 1 : enemy_object.ZIndex;
