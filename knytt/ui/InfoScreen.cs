@@ -192,6 +192,7 @@ public class InfoScreen : BasicScreen
             (is_ending ? endings_count : cutscenes_count).Add(HTTPUtil.jsonInt(record, "counter"));
         }
 
+        int winexits = HTTPUtil.jsonInt(json.Result, "winexits");
         if (endings.Count > 0)
         {
             stat_panel.addLabel("Endings:");
@@ -199,6 +200,10 @@ public class InfoScreen : BasicScreen
             {
                 stat_panel.addEnding(p.Name, p.Count, my_endings.Contains(p.Name));
             }
+        }
+        else if (winexits > 0)
+        {
+            stat_panel.addEnding("Win Exit", winexits, my_endings.Contains("Ending"));
         }
 
         if (cutscenes.Count > 0)
@@ -210,7 +215,7 @@ public class InfoScreen : BasicScreen
             }
         }
 
-        if (!(powers_count.Any(c => c > 0) || endings.Count > 0 || cutscenes.Count > 0))
+        if (!(powers_count.Any(c => c > 0) || endings.Count > 0 || cutscenes.Count > 0 || winexits > 0))
         {
             stat_panel.addLabel("No achievements found");
         }
