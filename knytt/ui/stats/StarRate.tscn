@@ -16,31 +16,31 @@ margin_right = 20.0
 margin_bottom = 28.0
 texture = ExtResource( 3 )
 
-[node name="Star1" type="TextureRect" parent="."]
+[node name="Star2" type="TextureRect" parent="."]
 margin_left = 20.0
 margin_right = 44.0
 margin_bottom = 28.0
 texture = ExtResource( 1 )
 
-[node name="Star2" type="TextureRect" parent="."]
+[node name="Star4" type="TextureRect" parent="."]
 margin_left = 44.0
 margin_right = 68.0
 margin_bottom = 28.0
 texture = ExtResource( 1 )
 
-[node name="Star3" type="TextureRect" parent="."]
+[node name="Star6" type="TextureRect" parent="."]
 margin_left = 68.0
 margin_right = 92.0
 margin_bottom = 28.0
 texture = ExtResource( 1 )
 
-[node name="Star4" type="TextureRect" parent="."]
+[node name="Star8" type="TextureRect" parent="."]
 margin_left = 92.0
 margin_right = 116.0
 margin_bottom = 28.0
 texture = ExtResource( 1 )
 
-[node name="Star5" type="TextureRect" parent="."]
+[node name="Star10" type="TextureRect" parent="."]
 margin_left = 116.0
 margin_right = 140.0
 margin_bottom = 28.0
@@ -49,18 +49,18 @@ texture = ExtResource( 1 )
 [connection signal="gui_input" from="Remove" to="." method="_on_Star_gui_input" binds= [ 0 ]]
 [connection signal="mouse_entered" from="Remove" to="." method="_on_Star_mouse_entered" binds= [ 0 ]]
 [connection signal="mouse_exited" from="Remove" to="." method="_on_Star_mouse_exited" binds= [ 0 ]]
-[connection signal="gui_input" from="Star1" to="." method="_on_Star_gui_input" binds= [ 1 ]]
-[connection signal="mouse_entered" from="Star1" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 1 ]]
-[connection signal="mouse_exited" from="Star1" to="." method="_on_Star_mouse_exited" binds= [ 1 ]]
 [connection signal="gui_input" from="Star2" to="." method="_on_Star_gui_input" binds= [ 2 ]]
 [connection signal="mouse_entered" from="Star2" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 2 ]]
 [connection signal="mouse_exited" from="Star2" to="." method="_on_Star_mouse_exited" binds= [ 2 ]]
-[connection signal="gui_input" from="Star3" to="." method="_on_Star_gui_input" binds= [ 3 ]]
-[connection signal="mouse_entered" from="Star3" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 3 ]]
-[connection signal="mouse_exited" from="Star3" to="." method="_on_Star_mouse_exited" binds= [ 3 ]]
 [connection signal="gui_input" from="Star4" to="." method="_on_Star_gui_input" binds= [ 4 ]]
 [connection signal="mouse_entered" from="Star4" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 4 ]]
 [connection signal="mouse_exited" from="Star4" to="." method="_on_Star_mouse_exited" binds= [ 4 ]]
-[connection signal="gui_input" from="Star5" to="." method="_on_Star_gui_input" binds= [ 5 ]]
-[connection signal="mouse_entered" from="Star5" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 5 ]]
-[connection signal="mouse_exited" from="Star5" to="." method="_on_Star_mouse_exited" binds= [ 5 ]]
+[connection signal="gui_input" from="Star6" to="." method="_on_Star_gui_input" binds= [ 6 ]]
+[connection signal="mouse_entered" from="Star6" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 6 ]]
+[connection signal="mouse_exited" from="Star6" to="." method="_on_Star_mouse_exited" binds= [ 6 ]]
+[connection signal="gui_input" from="Star8" to="." method="_on_Star_gui_input" binds= [ 8 ]]
+[connection signal="mouse_entered" from="Star8" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 8 ]]
+[connection signal="mouse_exited" from="Star8" to="." method="_on_Star_mouse_exited" binds= [ 8 ]]
+[connection signal="gui_input" from="Star10" to="." method="_on_Star_gui_input" binds= [ 10 ]]
+[connection signal="mouse_entered" from="Star10" to="." method="_on_Star_mouse_entered" flags=3 binds= [ 10 ]]
+[connection signal="mouse_exited" from="Star10" to="." method="_on_Star_mouse_exited" binds= [ 10 ]]

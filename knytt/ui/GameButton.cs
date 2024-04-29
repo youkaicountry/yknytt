@@ -6,6 +6,7 @@ public class GameButton : GDKnyttButton
     public WorldEntry worldEntry;
     private ColorRect progressRect;
     private Label descriptionLabel;
+    private Control ratingControl;
     private float startProgressLength;
     private float varProgressLength;
 
@@ -18,7 +19,6 @@ public class GameButton : GDKnyttButton
 
         GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
         GetNode<Control>("MainContainer").Visible = true;
-        GetNode<Control>("RatingControl").Visible = true;
 
         GetNode<TextureRect>("MainContainer/IconTexture").Texture = info.Icon;
         GetNode<TextureRect>("MainContainer/IconTexture").RectSize = new Vector2(30, 30);
@@ -30,22 +30,23 @@ public class GameButton : GDKnyttButton
         startProgressLength = progressRect.RectSize.x - progressRect.MarginLeft;
         varProgressLength = RectSize.x - startProgressLength - progressRect.MarginLeft * 2;
 
-        var rating_control = GetNode<Control>("RatingControl");
+        ratingControl = GetNode<Control>("RatingControl");
         if (!worldEntry.HasServerInfo)
         {
-            rating_control.Visible = false;
+            ratingControl.Visible = false;
             RectMinSize = new Vector2(RectMinSize.x, 45);
+            setProgress(1, worldEntry.CompletionColor);
         }
         else
         {
-            rating_control.Visible = true;
+            ratingControl.Visible = true;
             RectMinSize = new Vector2(RectMinSize.x, 55);
-            rating_control.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
-            rating_control.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
-            rating_control.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);
-            rating_control.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
-            rating_control.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
-            rating_control.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
+            ratingControl.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
+            ratingControl.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
+            ratingControl.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);
+            ratingControl.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
+            ratingControl.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
+            ratingControl.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
         }
 
         string difficulties = string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s)));
@@ -66,7 +67,7 @@ public class GameButton : GDKnyttButton
     {
         progressRect.Visible = true;
         progressRect.Color = color;
-        progressRect.RectSize = new Vector2(startProgressLength + varProgressLength * progress, progressRect.RectSize.y);
+        progressRect.RectSize = new Vector2(startProgressLength + varProgressLength * progress, 49); // TODO: not clear for small buttons
     }
 
     public void setDownloaded(int bytes_count)
@@ -89,9 +90,9 @@ public class GameButton : GDKnyttButton
         setProgress(1, new Color(0.375f, 0.375f, 0.375f, 0.5f));
     }
 
-    public void markCompletedByPlayer()
+    public void refreshCompletion()
     {
-        setProgress(1, new Color(0.5f, 0.5f, 0.5f, 0.5f));
+        if (!ratingControl.Visible) { setProgress(1, worldEntry.CompletionColor); }
     }
 
     public void markClear()
