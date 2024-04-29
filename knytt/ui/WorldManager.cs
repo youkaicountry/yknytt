@@ -16,6 +16,7 @@ public class WorldManager
                 case Order.ByInstalledTime: result = result.OrderByDescending(e => e.InstalledTime); break;
                 case Order.ByName:          result = result.OrderBy(e => e.Name); break;
                 case Order.ByAuthor:        result = result.OrderBy(e => e.Author); break;
+                case Order.ByFileSize:      result = result.OrderByDescending(e => e.FileSize); break;
             }
             return result.ToList();
         }
@@ -26,7 +27,7 @@ public class WorldManager
     private string size;
     private string text;
 
-    public enum Order { Default, ByLastPlayed, ByInstalledTime, ByName, ByAuthor }
+    public enum Order { Default, ByLastPlayed, ByInstalledTime, ByName, ByAuthor, ByFileSize }
     private Order order;
 
     List<string> size_choices = new List<string>(){ "small", "medium", "large" };

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using YKnyttLib;
 
@@ -43,8 +44,26 @@ public class WorldEntry
         Categories = world_info.Categories;
         HasServerInfo = false;
         Path = path;
-        InstalledTime = new File().GetModifiedTime(path);
+
         FileSize = world_info.FileSize;
+        if (FileSize != 0 || new Directory().DirExists(path))
+        {
+            InstalledTime = new File().GetModifiedTime(path);
+        }
+        else
+        {
+            try
+            {
+                if (path.StartsWith("user://")) { path = OS.GetUserDataDir().PlusFile(path.Substring(7)); }
+                var file_info = new System.IO.FileInfo(path);
+                InstalledTime = (ulong)((DateTimeOffset)file_info.LastWriteTimeUtc).ToUnixTimeSeconds();
+                FileSize = file_info.Length;
+            }
+            catch (Exception)
+            {
+                InstalledTime = new File().GetModifiedTime(path);
+            }
+        }
     }
 
     public void MergeLocal(WorldEntry info)

@@ -352,7 +352,7 @@ public class LevelSelection : BasicScreen
             world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
             world_info.Folder = ini_data["World"]["World Folder"] = binloader.RootDirectory;
             world_info.FileSize = world_bin.Length;
-            ini_data["World"]["World Folder"] = world_bin.Length.ToString();
+            ini_data["World"]["File Size"] = world_bin.Length.ToString();
             f.Open(ini_cache_name, File.ModeFlags.Write);
             f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
             f.Close();
