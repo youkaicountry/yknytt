@@ -42,6 +42,11 @@ namespace YKnyttLib
         public (string, string, string) Tint { get; set; }
         public HashSet<string> Cutscenes { get; private set; }
         public HashSet<string> Endings { get; private set; }
+        public int TotalDeaths { get; set; }
+        private int current_place_deaths;
+        private KnyttPoint respawn_area, respawn_position;
+        public int HardestPlaceDeaths { get; set; }
+        public string HardestPlace { get; set; }
 
         private static readonly int VISITED_LIMIT = 160_000_000; // TODO: visited areas don't work on large levels // max save file size ~= 10MB
 
@@ -71,7 +76,7 @@ namespace YKnyttLib
             Endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public JuniValues(JuniValues src)
+        public JuniValues(JuniValues src, JuniValues newest = null)
         {
             Powers = (bool[])src.Powers.Clone();
             Flags = (bool[])src.Flags.Clone();
@@ -84,6 +89,16 @@ namespace YKnyttLib
             Tint = src.Tint;
             Cutscenes = new HashSet<string>(src.Cutscenes, StringComparer.OrdinalIgnoreCase);
             Endings = new HashSet<string>(src.Endings, StringComparer.OrdinalIgnoreCase);
+            
+            if (newest != null)
+            {
+                TotalDeaths = newest.TotalDeaths;
+                current_place_deaths = newest.current_place_deaths;
+                respawn_area = newest.respawn_area;
+                respawn_position = newest.respawn_position;
+                HardestPlaceDeaths = newest.HardestPlaceDeaths;
+                HardestPlace = newest.HardestPlace;
+            }
         }
 
         public void setPower(int id, bool val) { this.Powers[id] = val; }
@@ -166,6 +181,23 @@ namespace YKnyttLib
             else { Marked.Remove(pos); }
         }
 
+        public void respawn(KnyttPoint new_respawn_area, KnyttPoint new_respawn_position)
+        {
+            TotalDeaths++;
+            if (!(new_respawn_area.Equals(respawn_area) && new_respawn_position.Equals(respawn_position)))
+            {
+                current_place_deaths = 0;
+                respawn_area = new_respawn_area;
+                respawn_position = new_respawn_position;
+            }
+            current_place_deaths++;
+            if (current_place_deaths > HardestPlaceDeaths)
+            {
+                HardestPlace = $"x{respawn_area.x}y{respawn_area.y}:x{respawn_position.x}y{respawn_position.y}";
+                HardestPlaceDeaths = current_place_deaths;
+            }
+        }
+
         public void writeToSave(KnyttSave save)
         {
             for (int i = 0; i < Powers.Length; i++) { save.setPower(i, Powers[i]); }
@@ -178,6 +210,9 @@ namespace YKnyttLib
             save.Tint = Tint;
             save.Cutscenes = Cutscenes;
             save.Endings = Endings;
+            save.TotalDeaths = TotalDeaths;
+            save.HardestPlaceDeaths = HardestPlaceDeaths;
+            save.HardestPlace = HardestPlace;
             save.SourcePowers = new JuniValues(this);
         }
 
@@ -195,6 +230,12 @@ namespace YKnyttLib
             Tint = save.Tint;
             Cutscenes = save.Cutscenes;
             Endings = save.Endings;
+            TotalDeaths = save.TotalDeaths;
+            current_place_deaths = 0;
+            respawn_area = default;
+            respawn_position = default;
+            HardestPlaceDeaths = save.HardestPlaceDeaths;
+            HardestPlace = save.HardestPlace;
         }
     }
 }
