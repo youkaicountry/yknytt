@@ -1,4 +1,4 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 using IniParser.Parser;
 using System;
 using System.Collections;
@@ -179,6 +179,24 @@ namespace YKnyttLib
         {
             get { return getValue("Extras", "Endings")?.Split(',').Where(s => s != "").ToHashSet() ?? new HashSet<string>(); }
             set { setValue("Extras", "Endings", String.Join(",", value), ""); }
+        }
+
+        public int TotalDeaths
+        {
+            get { return int.TryParse(getValue("Extras", "Total Deaths"), out int i) ? i : 0; }
+            set { setValue("Extras", "Total Deaths", value.ToString()); }
+        }
+
+        public int HardestPlaceDeaths
+        {
+            get { return int.TryParse(getValue("Extras", "Hardest Place Deaths"), out int i) ? i : 0; }
+            set { setValue("Extras", "Hardest Place Deaths", value.ToString()); }
+        }
+
+        public string HardestPlace
+        {
+            get { return getValue("Extras", "Hardest Place"); }
+            set { setValue("Extras", "Hardest Place", value); }
         }
 
         public KnyttPoint getArea()

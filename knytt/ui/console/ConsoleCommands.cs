@@ -60,6 +60,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,
             true, SettingsCommand.NewSettingsCommand, new CommandArg("section", CommandArg.Type.StringArg, optional: true),
             new CommandArg("name", CommandArg.Type.StringArg, optional: true), new CommandArg("value", CommandArg.Type.StringArg, optional: true)));
+        cs.AddCommand(new CommandDeclaration("hell", "Goes to the most hardest place on the map + prints death statistics", null, false, HellCommand.NewHellCommand));
         cs.AddCommand(new CommandDeclaration("exit", "Hides this console", null, false, ExitCommand.NewExitCommand));
         cs.AddCommand(new CommandDeclaration("quit", "Hides this console", null, true, ExitCommand.NewExitCommand));
         return cs;
@@ -67,7 +68,7 @@ public static class ConsoleCommands
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
         "exit", "list", "reboot", "mon", "trail", "death", "shift 0 0 2 0", "set highjump on", 
-        "speed 1", "speed 0.5", "iddqd", "idclip", "map", "mon flags", "save paste", "save copy", "youtube", "save" };
+        "speed 1", "speed 0.5", "iddqd", "idclip", "hell", "map", "mon flags", "save paste", "save copy", "youtube", "save" };
 
     public class SpeedCommand : ICommand
     {
@@ -793,6 +794,48 @@ public static class ConsoleCommands
                     env.Console.AddMessage($"Now {section}[{name}] = {value}");
                     return null;
             }
+        }
+    }
+
+    public class HellCommand : ICommand
+    {
+        public HellCommand(CommandParseResult result) {}
+
+        public static ICommand NewHellCommand(CommandParseResult result)
+        {
+            return new HellCommand(result);
+        }
+
+        public string Execute(object environment)
+        {
+            var env = (ConsoleExecutionEnvironment)environment;
+            var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game == null) { return "No game is loaded"; }
+
+            env.Console.AddMessage($"Total deaths: {game.Juni.Powers.TotalDeaths}");
+            if (game.Juni.Powers.HardestPlace == null)
+            {
+                return "But can't go to the most dangerous place (not saved yet).";
+            }
+
+            env.Console.AddMessage($"Going to the most dangerous place: {game.Juni.Powers.HardestPlace}");
+            env.Console.AddMessage($"You died here {game.Juni.Powers.HardestPlaceDeaths} times");
+
+            string place = game.Juni.Powers.HardestPlace;
+            string area = place.Left(place.IndexOf(':'));
+            string pos = place.Substring(place.IndexOf(':') + 1);
+            var area_kp = new KnyttPoint(int.Parse(area.Substring(1, area.IndexOf('y') - 1)), 
+                                         int.Parse(area.Substring(area.IndexOf('y') + 1)));
+            var pos_kp = new KnyttPoint(int.Parse(pos.Substring(1, pos.IndexOf('y') - 1)), 
+                                        int.Parse(pos.Substring(pos.IndexOf('y') + 1)));
+
+            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            shift.AbsoluteTarget = true;
+            shift.FormattedArea = area_kp;
+            shift.FormattedPosition = pos_kp;
+            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
+            game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            return null;
         }
     }
 }
