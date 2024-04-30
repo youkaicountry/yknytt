@@ -224,7 +224,8 @@ public class LevelSelection : BasicScreen
         binLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
-        binLoad("res://knytt/worlds/Nifflas - Tutorial.knytt.bin");
+        binLoad(OS.GetName() == "HTML5" ? MainMenu.WEB_TUTORIAL_PATH :
+                TouchSettings.EnablePanel ? MainMenu.TOUCH_TUTORIAL_PATH : MainMenu.TUTORIAL_PATH);
         if (OS.GetName() == "HTML5")
         {
             binLoad("res://knytt/worlds/html5/dessgeega-TheLighthouse.knytt.bin");

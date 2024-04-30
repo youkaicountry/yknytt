@@ -339,6 +339,13 @@ public class InfoScreen : BasicScreen
         }
         if (action >= 40 && action <= 45)
         {
+            string item_text = GetNode<OptionButton>("%CompleteOption").GetItemText(action - 40);
+            int br_pos = item_text.IndexOf('[');
+            if (br_pos != -1)
+            {
+                int new_count = int.Parse(item_text.Substring(br_pos + 1, item_text.IndexOf(']') - br_pos - 1)) + 1;
+                GetNode<OptionButton>("%CompleteOption").SetItemText(action - 40, item_text.Left(br_pos) + $"[{new_count}]");
+            }
             GetNode<Label>("InfoRect/HintLabel").Text = "Your completion status was set.";
         }
         if (action == (int)RateHTTPRequest.Action.Complain)
