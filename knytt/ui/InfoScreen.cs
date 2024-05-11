@@ -1,4 +1,5 @@
 using Godot;
+using IniParser.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,13 @@ public class InfoScreen : BasicScreen
 
     private bool in_game;
 
+    private Label hint_label;
+
     public override void _Ready()
     {
         base._Ready();
         initFocus();
+        hint_label = GetNode<Label>("InfoRect/HintLabel");
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
@@ -118,6 +122,8 @@ public class InfoScreen : BasicScreen
         this.QueueFree();
     }
 
+    private int stat_retry = 1;
+
     private void _on_StatHTTPRequest_ready()
     {
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
@@ -128,7 +134,18 @@ public class InfoScreen : BasicScreen
 
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200) {; } else { return; }
+        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
+        {
+            if (stat_retry-- <= 0) { return; }
+            GD.Print("stat retry");
+            GetNode<HTTPRequest>("StatHTTPRequest").CancelRequest();
+            string serverURL = GDKnyttSettings.ServerURL;
+            GetNode<HTTPRequest>("StatHTTPRequest").Request(
+                $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
+            return;
+        }
+        if (response_code != 200) { return; }
+
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
@@ -157,7 +174,8 @@ public class InfoScreen : BasicScreen
         world_entry.Completions[2] = HTTPUtil.jsonInt(json.Result, "backlogged");
         world_entry.Completions[3] = HTTPUtil.jsonInt(json.Result, "too_hard");
         world_entry.Completions[4] = HTTPUtil.jsonInt(json.Result, "not_interested");
-        world_entry.Completions[5] = HTTPUtil.jsonInt(json.Result, "bad_design");
+        world_entry.Completions[5] = HTTPUtil.jsonInt(json.Result, "cant_progress");
+        world_entry.Completions[6] = HTTPUtil.jsonInt(json.Result, "level_errors");
         updateRates();
 
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
@@ -225,6 +243,23 @@ public class InfoScreen : BasicScreen
         {
             complete_option.SetItemText(i, complete_option.GetItemText(i) + $" [{world_entry.Completions[i]}]");
         }
+
+        if (world_entry.Completed == 0 && (endings.Count > 0 ? my_endings.Count >= endings.Count : my_endings.Count > 0))
+        {
+            setIniValue(KWorld, "Completed", "1");
+            world_entry.Completed = 1;
+            GetNode<OptionButton>("%CompleteOption").Selected = 1;
+            if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
+        }
+
+        string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectory.GetFile()).PlusFile("Endings.flag");
+        if (!new File().FileExists(endings_flag_name))
+        {
+            setIniValue(KWorld, "Endings", string.Join("/", endings));
+            var f = new File();
+            f.Open(endings_flag_name, File.ModeFlags.Write);
+            f.Close();
+        }
     }
 
     private void _on_StatsButton_pressed()
@@ -237,27 +272,14 @@ public class InfoScreen : BasicScreen
     private void _on_Rate_RateEvent(int n)
     {
         ClickPlayer.Play();
-        string cache_dir = KWorld.WorldDirectory.GetFile();
-        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
-        string flagname = $"user://Cache/{cache_dir}/Score-{n}.flag";
-        if (new File().FileExists(flagname)) { return; }
-        if (n == 0 && world_entry.UserScore == 0) { return; }
-        GetNode<Label>("InfoRect/HintLabel").Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n}...";
+        if (world_entry.UserScore == n) { return; }
+        hint_label.Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n}...";
         sendRating(20 + n);
     }
 
     private void updateRating(int n)
     {
-        string cache_dir = KWorld.WorldDirectory.GetFile();
-        string flagname = $"user://Cache/{cache_dir}/Score-{n}.flag";
-        for (int i = 2; i <= 10; i += 2) { new Directory().Remove($"user://Cache/{cache_dir}/Score-{i}.flag"); }
-        if (n != 0)
-        {
-            var f = new File();
-            f.Open(flagname, File.ModeFlags.Write);
-            f.Close();
-        }
-
+        setIniValue(KWorld, "Score", n.ToString());
         int old_voters = world_entry.Voters;
         world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
         world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
@@ -268,26 +290,37 @@ public class InfoScreen : BasicScreen
     private void _on_CompleteOption_item_selected(int index)
     {
         ClickPlayer.Play();
-        string cache_dir = KWorld.WorldDirectory.GetFile();
-        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
-        string flagname = $"user://Cache/{cache_dir}/Completed-{index}.flag";
-        
-        for (var i = 1; i <= 5; i++) { new Directory().Remove($"user://Cache/{cache_dir}/Completed-{i}.flag"); }
-        new Directory().Remove($"user://Cache/{cache_dir}/Completed.flag");
-
-        if (index != 0)
-        {
-            var f = new File();
-            f.Open(flagname, File.ModeFlags.Write);
-            f.Close();
-        }
-
+        setIniValue(KWorld, "Completed", index.ToString());
         world_entry.Completed = index;
         var option_text = GetNode<OptionButton>("%CompleteOption").Text;
         if (option_text.LastIndexOf('[') != -1) { option_text = option_text.Left(option_text.LastIndexOf('[') - 1); }
-        GetNode<Label>("InfoRect/HintLabel").Text = $"Setting your completion status as '{option_text}'...";
+        hint_label.Text = $"Setting your completion status as '{option_text}'...";
         if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
         sendRating(40 + index);
+    }
+
+    public static void setIniValue(KnyttWorld kworld, string key, string value)
+    {
+        string ini_cache_name = "user://Cache".PlusFile(kworld.WorldDirectory.GetFile()).PlusFile("World.ini");
+        var ini_data = new IniData();
+        LevelSelection.getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name), merge_to: ini_data["World"]);
+        ini_data["World"][key] = value;
+        var f = new File();
+        f.Open(ini_cache_name, File.ModeFlags.Write);
+        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
+        f.Close();
+    }
+
+    private static readonly string[] hints =
+    {
+        "you have not completed this level", "you completed the level with no problems", "you want to postpone completion",
+        "you encountered impassable enemies or hard jumps", "this level is too large for you or boring",
+        "you are stuck and don't know where to go", "encountered a critical error (press complain then!)"
+    };
+
+    private void _on_CompleteOption_item_focused(int index)
+    {
+        hint_label.Text = "Select if " + hints[index];
     }
 
     private bool complain_visit;
@@ -334,10 +367,10 @@ public class InfoScreen : BasicScreen
         if (action >= 20 && action <= 30)
         {
             updateRating(action - 20);
-            GetNode<Label>("InfoRect/HintLabel").Text = action == 20 ? "Your rating for this level was removed." :
+            hint_label.Text = action == 20 ? "Your rating for this level was removed." :
                 $"You rated this level as {(action - 20) / 2} (out of 5).";
         }
-        if (action >= 40 && action <= 45)
+        if (action >= 40 && action <= 46)
         {
             string item_text = GetNode<OptionButton>("%CompleteOption").GetItemText(action - 40);
             int br_pos = item_text.IndexOf('[');
@@ -346,12 +379,12 @@ public class InfoScreen : BasicScreen
                 int new_count = int.Parse(item_text.Substring(br_pos + 1, item_text.IndexOf(']') - br_pos - 1)) + 1;
                 GetNode<OptionButton>("%CompleteOption").SetItemText(action - 40, item_text.Left(br_pos) + $"[{new_count}]");
             }
-            GetNode<Label>("InfoRect/HintLabel").Text = "Your completion status was set.";
+            hint_label.Text = "Your completion status was set.";
         }
         if (action == (int)RateHTTPRequest.Action.Complain)
         {
             world_entry.Complains++;
-            GetNode<Label>("InfoRect/HintLabel").Text = "Your latest save was sent to the server.";
+            hint_label.Text = "Your latest save was sent to the server.";
         }
         
         updateRates();
@@ -410,7 +443,7 @@ public class InfoScreen : BasicScreen
 
     private void _on_HintTimer_timeout()
     {
-        GetNode<Label>("InfoRect/HintLabel").Text = GDKnyttDataStore.ProgressHint;
+        hint_label.Text = GDKnyttDataStore.ProgressHint;
     }
 
     private void _on_UninstallButton_pressed(bool show_confirm)
@@ -431,6 +464,6 @@ public class InfoScreen : BasicScreen
 
     private void _on_ShowHint(string hint)
     {
-        GetNode<Label>("InfoRect/HintLabel").Text = hint ?? "";
+        hint_label.Text = hint ?? "";
     }
 }
