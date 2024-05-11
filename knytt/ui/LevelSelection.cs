@@ -232,13 +232,13 @@ public class LevelSelection : BasicScreen
             binLoad("res://knytt/worlds/html5/dessgeega-Fossil.knytt.bin");
             binLoad("res://knytt/worlds/html5/dessgeega-UndertheCrack.knytt.bin");
             binLoad("res://knytt/worlds/html5/dessgeega-Torchlight.knytt.bin");
+            binLoad("res://knytt/worlds/html5/ozz - Realms of the Pharaoh v1.1.knytt.bin");
+            binLoad("res://knytt/worlds/html5/Introversity - Scrolly Polly Snow.knytt.bin");
             binLoad("res://knytt/worlds/html5/Diesel-Station07.knytt.bin");
             binLoad("res://knytt/worlds/html5/egomassive-AKnyttinTime1.5.knytt.bin");
             binLoad("res://knytt/worlds/html5/Fegon-Yggdrasil.knytt.bin");
             binLoad("res://knytt/worlds/html5/Grimwit - Cliff Hangerv13.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Introversity - Scrolly Polly Snow.knytt.bin");
             binLoad("res://knytt/worlds/html5/Jigganis - splitMindv1.1.knytt.bin");
-            binLoad("res://knytt/worlds/html5/ozz - Realms of the Pharaoh v1.1.knytt.bin");
             binLoad("res://knytt/worlds/html5/Ania - The Cursed House.knytt.bin");
             binLoad("res://knytt/worlds/html5/Chironex - Afar.knytt.bin");
             binLoad("res://knytt/worlds/html5/FredrikAndersson-Core.knytt.bin");
@@ -363,7 +363,7 @@ public class LevelSelection : BasicScreen
         return getWorldEntry(world_file, icon, world_info);
     }
 
-    private KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
+    public static KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
     {
         string ini = GDKnyttAssetManager.loadTextFile(ini_bin);
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
@@ -379,13 +379,12 @@ public class LevelSelection : BasicScreen
         string played_flag_name = cache_dir + "/LastPlayed.flag";
         var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
 
-        int user_score = 2 * Enumerable.Range(1, 5).FirstOrDefault(i => new File().FileExists($"{cache_dir}/Score-{i * 2}.flag"));
-        var completed = Enumerable.Range(1, 5).FirstOrDefault(i => new File().FileExists($"{cache_dir}/Completed-{i}.flag"));
         bool has_saves = Enumerable.Range(1, 3).Any(i => new File().FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini"));
-        if (completed == 0 && new File().FileExists($"{cache_dir}/Completed.flag")) { completed = 1; } // backwards compatability
 
-        return new WorldEntry(world_info, world_dir)
-            { Icon = icon, LastPlayedTime = last_played, UserScore = user_score, Completed = completed, HasSaves = has_saves };
+        var result = new WorldEntry(world_info, world_dir) { Icon = icon, LastPlayedTime = last_played, HasSaves = has_saves };
+        
+        if (result.Completed == 0 && new File().FileExists($"{cache_dir}/Completed.flag")) { result.Completed = 1; } // backwards compatability
+        return result;
     }
 
     private WorldEntry generateRemoteWorld(Dictionary json_item)

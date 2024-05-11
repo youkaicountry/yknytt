@@ -136,7 +136,7 @@ margin_right = 140.0
 margin_bottom = 77.0
 rect_min_size = Vector2( 0, 30 )
 text = "Not Started"
-items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Backlog", null, false, 2, null, "Too Hard", null, false, 3, null, "Not Interested", null, false, 4, null, "Bad Design", null, false, 5, null ]
+items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Play Later", null, false, 2, null, "Too Hard", null, false, 3, null, "Not Interested", null, false, 4, null, "Can't Progress", null, false, 5, null, "Level Errors", null, false, 6, null ]
 selected = 0
 
 [node name="CompContainer" type="HBoxContainer" parent="InfoRect/RatePanel/VBoxContainer"]
@@ -230,6 +230,7 @@ rect_min_size = Vector2( 80, 30 )
 text = "View Achievements"
 
 [node name="StatHTTPRequest" type="HTTPRequest" parent="."]
+timeout = 7.0
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
 
@@ -242,6 +243,7 @@ wait_time = 0.2
 [connection signal="StartGame" from="InfoRect/Slot3Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="HoverEvent" from="InfoRect/RatePanel/VBoxContainer/Rate" to="." method="_on_ShowHint"]
 [connection signal="RateEvent" from="InfoRect/RatePanel/VBoxContainer/Rate" to="." method="_on_Rate_RateEvent"]
+[connection signal="item_focused" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_CompleteOption_item_focused"]
 [connection signal="item_selected" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_CompleteOption_item_selected"]
 [connection signal="mouse_entered" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_ShowHint" binds= [ "Set completion (or incompletion) status of the level" ]]
 [connection signal="mouse_exited" from="InfoRect/RatePanel/VBoxContainer/CompleteOption" to="." method="_on_ShowHint" binds= [ "" ]]

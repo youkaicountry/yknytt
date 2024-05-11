@@ -19,6 +19,8 @@ namespace YKnyttLib
 
         public string Folder { get; set; }
         public int FileSize { get; set; }
+        public int Score { get; set; }
+        public int Completed { get; set; }
 
         public KnyttWorldInfo(KeyDataCollection world_data)
         {
@@ -40,9 +42,9 @@ namespace YKnyttLib
 
             this.Folder = world_data["World Folder"];
             this.FileSize = int.TryParse(world_data["File Size"], out int i) ? i : 0;
+            this.Score = int.TryParse(world_data["Score"], out i) ? i : 0;
+            this.Completed = int.TryParse(world_data["Completed"], out i) ? i : 0;
         }
-
-        
 
         private void parseMultiCategory(KeyDataCollection world_data, string base_name, List<string> target, string[] sub)
         {

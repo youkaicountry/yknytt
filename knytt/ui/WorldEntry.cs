@@ -30,7 +30,7 @@ public class WorldEntry
     public float OverallScore;
     public int Voters;
     public int UserScore; // be careful! 2x scale - 0..10
-    public int[] Completions = new int[6];
+    public int[] Completions = new int[7];
 
     public WorldEntry() { }
 
@@ -44,6 +44,8 @@ public class WorldEntry
         Categories = world_info.Categories;
         HasServerInfo = false;
         Path = path;
+        Completed = world_info.Completed;
+        UserScore = world_info.Score;
 
         FileSize = world_info.FileSize;
         if (FileSize != 0 || new Directory().DirExists(path))
@@ -94,7 +96,7 @@ public class WorldEntry
                                OverallScore > 3.4f ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0);
 
     private static Color[] completion_colors = {new Color(1, 1, 1), new Color(0.75f, 0.75f, 0.75f), new Color(1f, 0.95f, 0.65f), 
-        new Color(1f, 0.75f, 0.75f), new Color(0.9f, 0.75f, 1f), new Color(0.9f, 0.65f, 0.55f)};
+        new Color(0.9f, 0.65f, 0.55f), new Color(0.9f, 0.75f, 1f), new Color(1f, 0.75f, 0.75f), new Color(0.75f, 0.5f, 0.5f)};
 
     public Color CompletionColor => Completed == 0 && HasSaves ? new Color(0.85f, 1f, 0.85f) : completion_colors[Completed];
 }
