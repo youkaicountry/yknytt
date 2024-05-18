@@ -68,7 +68,6 @@ offset = Vector2( -48, -48 )
 [node name="SpikerMod" parent="." index="2"]
 openDistance = 80.0
 closeDistance = 100.0
-delayDeath = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BigArea2D" index="0"]
 polygon = PoolVector2Array( -9.15539, 21.1404, 32.3751, 21.3764, 61.3992, 14.5333, 45.9706, -20.3374, 11.6098, -35.964, -22.8416, -19.6821, -38.1795, 14.7693 )

@@ -10,6 +10,7 @@
 script = ExtResource( 3 )
 areaPath = null
 playSound = true
+delayDeath = false
 
 [node name="ClosePlayer" parent="." index="0" instance=ExtResource( 2 )]
 stream = ExtResource( 4 )

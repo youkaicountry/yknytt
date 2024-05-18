@@ -179,7 +179,7 @@ public class CustomObject : GDKnyttBaseObject
 
             sprite.Frames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
-            sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20);
+            sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20.0f);
             sprite.Frames.SetAnimationLoop(animation_name, info.anim_repeat == 0 && info.anim_loopback == 0);
         }
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);

@@ -60,11 +60,17 @@ public class Shift : Switch
             }
         }
 
+        if (shift.Cutscene != null)
+        {
+            GetTree().Paused = true;
+            await game.fade(fast: true, color: Cutscene.getCutsceneColor(shift.Cutscene));
+            GDKnyttDataStore.playCutscene(shift.Cutscene, sound);
+        }
+
         if (shift.FlagOn != null)
         {
             if (shift.FlagOn.power)
             {
-                // TODO: it fires RateHTTPRequest which will stop if shift has a cutscene. Power update will not be sent to the server!
                 juni.setPower(shift.FlagOn.number, true);
             }
             else
@@ -85,13 +91,6 @@ public class Shift : Switch
                 juni.Powers.setFlag(shift.FlagOff.number, false);
                 game.UI.Location.updateFlags(juni.Powers.Flags);
             }
-        }
-
-        if (shift.Cutscene != null)
-        {
-            GetTree().Paused = true;
-            await game.fade(fast: true, color: Cutscene.getCutsceneColor(shift.Cutscene));
-            GDKnyttDataStore.playCutscene(shift.Cutscene, sound);
         }
 
         var relative_area = shift.RelativeArea;

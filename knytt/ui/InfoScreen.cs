@@ -137,14 +137,18 @@ public class InfoScreen : BasicScreen
         if (result != (int)HTTPRequest.Result.Success || response_code == 500)
         {
             if (stat_retry-- <= 0) { return; }
-            GD.Print("stat retry");
             GetNode<HTTPRequest>("StatHTTPRequest").CancelRequest();
             string serverURL = GDKnyttSettings.ServerURL;
             GetNode<HTTPRequest>("StatHTTPRequest").Request(
                 $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
             return;
         }
-        if (response_code != 200) { return; }
+        var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
+        if (response_code != 200)
+        {
+            stat_panel.addLabel("Level not found");
+            return;
+        }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
@@ -178,7 +182,6 @@ public class InfoScreen : BasicScreen
         world_entry.Completions[6] = HTTPUtil.jsonInt(json.Result, "level_errors");
         updateRates();
 
-        var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
         int[] powers_count = new int[13];
         for (int i = 0; i < 13; i++)
         {
@@ -249,7 +252,11 @@ public class InfoScreen : BasicScreen
             setIniValue(KWorld, "Completed", "1");
             world_entry.Completed = 1;
             GetNode<OptionButton>("%CompleteOption").Selected = 1;
-            if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
+            if (!in_game)
+            {
+                GetParent<LevelSelection>().refreshButton(world_entry);
+                sendRating(41);
+            }
         }
 
         string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectory.GetFile()).PlusFile("Endings.flag");
