@@ -1,0 +1,116 @@
+[gd_scene load_steps=10 format=2]
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 21
+extra_spacing_char = 1
+font_data = SubResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://knytt/fonts/magnificent/Magnificent.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 13
+extra_spacing_char = 1
+font_data = SubResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "subtitle"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("SubtitleLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "title"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TitleLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "title_subtitle"
+length = 11.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TitleLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SubtitleLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 4.8, 5.8, 9.8, 10.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Title" type="Control"]
+
+[node name="TitleLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 12.0
+margin_bottom = 26.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
+align = 1
+
+[node name="SubtitleLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 12.0
+margin_bottom = 6.0
+size_flags_horizontal = 7
+custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/subtitle = SubResource( 7 )
+anims/title = SubResource( 8 )
+anims/title_subtitle = SubResource( 9 )

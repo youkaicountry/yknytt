@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
 [ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
+[ext_resource path="res://knytt/objects/bank0/TitleNode.tscn" type="PackedScene" id=14]
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=16]
 [ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
 [ext_resource path="res://knytt/juni/death/DeathContainer.cs" type="Script" id=18]
@@ -198,6 +199,9 @@ root_node = NodePath("../..")
 playback_speed = 6.0
 anims/SlideIn = SubResource( 2 )
 anims/SlideOut = SubResource( 3 )
+
+[node name="Title" parent="GKnyttCamera/TintNode" instance=ExtResource( 14 )]
+unique_name_in_owner = true
 
 [node name="ShaderNode" type="Node2D" parent="GKnyttCamera"]
 z_index = 18
