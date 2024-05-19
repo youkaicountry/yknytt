@@ -95,8 +95,9 @@ public class WorldEntry
     public Color ScoreColor => Voters == 0 ? new Color(0.5f, 0.5f, 0.5f) :
                                OverallScore > 3.4f ? new Color(0, 0.5f, 0) : new Color(0.5f, 0, 0);
 
-    private static Color[] completion_colors = {new Color(1, 1, 1), new Color(0.75f, 0.75f, 0.75f), new Color(1f, 0.95f, 0.65f), 
+    private static Color[] completion_colors = {new Color(0.75f, 0.75f, 0.75f), new Color(1f, 0.95f, 0.65f), 
         new Color(0.9f, 0.65f, 0.55f), new Color(0.9f, 0.75f, 1f), new Color(1f, 0.75f, 0.75f), new Color(0.75f, 0.5f, 0.5f)};
 
-    public Color CompletionColor => Completed == 0 && HasSaves ? new Color(0.85f, 1f, 0.85f) : completion_colors[Completed];
+    public Color CompletionColor => Completed > 0 ? completion_colors[Completed - 1] :
+        (HasSaves ? new Color(0.85f, 1f, 0.85f) : new Color(1, 1, 1));
 }

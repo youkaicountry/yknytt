@@ -17,17 +17,21 @@ public class WorldManager
                 case Order.ByName:          result = result.OrderBy(e => e.Name); break;
                 case Order.ByAuthor:        result = result.OrderBy(e => e.Author); break;
                 case Order.ByFileSize:      result = result.OrderByDescending(e => e.FileSize); break;
+                case Order.ByCompletion:    result = result.OrderBy(
+                    e => e.Completed <= 0 && e.HasSaves ? 1 : completed_dict[e.Completed]); break;
             }
             return result.ToList();
         }
     }
+
+    Dictionary<int, int> completed_dict = new Dictionary<int, int> { [2] = 0, [-1] = 2, [0] = 2, [3] = 3, [5] = 4, [4] = 5, [6] = 6, [1] = 7 };
 
     private string category;
     private string difficulty;
     private string size;
     private string text;
 
-    public enum Order { Default, ByLastPlayed, ByInstalledTime, ByName, ByAuthor, ByFileSize }
+    public enum Order { Default, ByLastPlayed, ByInstalledTime, ByName, ByAuthor, ByFileSize, ByCompletion }
     private Order order;
 
     List<string> size_choices = new List<string>(){ "small", "medium", "large" };

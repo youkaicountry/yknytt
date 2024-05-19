@@ -174,7 +174,7 @@ margin_bottom = 36.2149
 rect_min_size = Vector2( 90, 0 )
 focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
 text = "[Default]"
-items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 5, null ]
+items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 5, null, "Color Status", null, false, 6, null ]
 selected = 0
 
 [node name="RemoteSortDropdown" parent="MainContainer/FilterContainer/Sort" instance=ExtResource( 2 )]
