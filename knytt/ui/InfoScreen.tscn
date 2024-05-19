@@ -136,7 +136,7 @@ margin_right = 140.0
 margin_bottom = 77.0
 rect_min_size = Vector2( 0, 30 )
 text = "Not Started"
-items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Play Later", null, false, 2, null, "Too Hard", null, false, 3, null, "Not Interested", null, false, 4, null, "Can't Progress", null, false, 5, null, "Level Errors", null, false, 6, null ]
+items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Play Later", null, false, 2, null, "Too Hard", null, false, 3, null, "Can't Progress", null, false, 5, null, "Not Interested", null, false, 4, null, "Level Errors", null, false, 6, null ]
 selected = 0
 
 [node name="CompContainer" type="HBoxContainer" parent="InfoRect/RatePanel/VBoxContainer"]

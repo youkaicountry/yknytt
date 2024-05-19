@@ -383,7 +383,7 @@ public class LevelSelection : BasicScreen
 
         var result = new WorldEntry(world_info, world_dir) { Icon = icon, LastPlayedTime = last_played, HasSaves = has_saves };
         
-        if (result.Completed == 0 && new File().FileExists($"{cache_dir}/Completed.flag")) { result.Completed = 1; } // backwards compatability
+        if (result.Completed == -1 && new File().FileExists($"{cache_dir}/Completed.flag")) { result.Completed = 1; } // backwards compatability
         return result;
     }
 
@@ -550,9 +550,13 @@ public class LevelSelection : BasicScreen
 
     public void refreshButton(WorldEntry entry, bool disable = false)
     {
-        Manager.removeWorld(entry);
-        var local = findLocal(entry);
-        if (local != null) { local.Disabled = true; }
+        if (disable)
+        {
+            Manager.removeWorld(entry);
+            var local = findLocal(entry);
+            if (local != null) { local.Disabled = true; }
+        }
+
         foreach (var hbox in game_container.GetChildren())
         {
             foreach (GameButton button in (hbox as Control).GetChildren())

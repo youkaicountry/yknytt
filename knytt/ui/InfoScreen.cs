@@ -18,12 +18,12 @@ public class InfoScreen : BasicScreen
     private bool in_game;
 
     private Label hint_label;
+    private OptionButton complete_option;
 
     public override void _Ready()
     {
         base._Ready();
         initFocus();
-        hint_label = GetNode<Label>("InfoRect/HintLabel");
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
@@ -66,6 +66,9 @@ public class InfoScreen : BasicScreen
     {
         KWorld = kworld;
 
+        hint_label = GetNode<Label>("InfoRect/HintLabel");
+        complete_option = GetNode<OptionButton>("%CompleteOption");
+
         GetNode<Button>("%Uninstall/MainButton").Disabled = 
         GetNode<Button>("%OptimizeButton").Disabled = 
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
@@ -74,7 +77,7 @@ public class InfoScreen : BasicScreen
         {
             in_game = true;
             world_entry = new WorldEntry();
-            // TODO: fill world_entry.Completed
+            // TODO: fill world_entry.Completed && .UserScore
         }
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
@@ -241,22 +244,19 @@ public class InfoScreen : BasicScreen
             stat_panel.addLabel("No achievements found");
         }
 
-        var complete_option = GetNode<OptionButton>("%CompleteOption");
         for (int i = 1; i < world_entry.Completions.Length; i++)
         {
-            complete_option.SetItemText(i, complete_option.GetItemText(i) + $" [{world_entry.Completions[i]}]");
+            int idx = complete_option.GetItemIndex(i);
+            complete_option.SetItemText(idx, complete_option.GetItemText(idx) + $" [{world_entry.Completions[i]}]");
         }
 
-        if (world_entry.Completed == 0 && (endings.Count > 0 ? my_endings.Count >= endings.Count : my_endings.Count > 0))
+        if (world_entry.Completed == -1 && (endings.Count > 0 ? my_endings.Count >= endings.Count : my_endings.Count > 0))
         {
             setIniValue(KWorld, "Completed", "1");
             world_entry.Completed = 1;
-            GetNode<OptionButton>("%CompleteOption").Selected = 1;
-            if (!in_game)
-            {
-                GetParent<LevelSelection>().refreshButton(world_entry);
-                sendRating(41);
-            }
+            complete_option.Selected = 1;
+            if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
+            sendRating(41);
         }
 
         string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectory.GetFile()).PlusFile("Endings.flag");
@@ -297,13 +297,14 @@ public class InfoScreen : BasicScreen
     private void _on_CompleteOption_item_selected(int index)
     {
         ClickPlayer.Play();
-        setIniValue(KWorld, "Completed", index.ToString());
-        world_entry.Completed = index;
-        var option_text = GetNode<OptionButton>("%CompleteOption").Text;
+        int id = complete_option.GetItemId(index);
+        setIniValue(KWorld, "Completed", id.ToString());
+        world_entry.Completed = id;
+        var option_text = complete_option.Text;
         if (option_text.LastIndexOf('[') != -1) { option_text = option_text.Left(option_text.LastIndexOf('[') - 1); }
         hint_label.Text = $"Setting your completion status as '{option_text}'...";
         if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
-        sendRating(40 + index);
+        sendRating(40 + id);
     }
 
     public static void setIniValue(KnyttWorld kworld, string key, string value)
@@ -327,7 +328,7 @@ public class InfoScreen : BasicScreen
 
     private void _on_CompleteOption_item_focused(int index)
     {
-        hint_label.Text = "Select if " + hints[index];
+        hint_label.Text = "Select if " + hints[complete_option.GetItemId(index)];
     }
 
     private bool complain_visit;
@@ -379,12 +380,13 @@ public class InfoScreen : BasicScreen
         }
         if (action >= 40 && action <= 46)
         {
-            string item_text = GetNode<OptionButton>("%CompleteOption").GetItemText(action - 40);
+            int idx = complete_option.GetItemIndex(action - 40);
+            string item_text = complete_option.GetItemText(idx);
             int br_pos = item_text.IndexOf('[');
             if (br_pos != -1)
             {
                 int new_count = int.Parse(item_text.Substring(br_pos + 1, item_text.IndexOf(']') - br_pos - 1)) + 1;
-                GetNode<OptionButton>("%CompleteOption").SetItemText(action - 40, item_text.Left(br_pos) + $"[{new_count}]");
+                complete_option.SetItemText(idx, item_text.Left(br_pos) + $"[{new_count}]");
             }
             hint_label.Text = "Your completion status was set.";
         }
@@ -403,8 +405,7 @@ public class InfoScreen : BasicScreen
         GetNode<Label>("%OverallLabel").Text = world_entry.Voters != 0 ?
             $"Rating: {world_entry.OverallScore:0.0} (by {world_entry.Voters} people)" : "Rating: -";
 
-        var complete_option = GetNode<OptionButton>("%CompleteOption");
-        complete_option.Selected = world_entry.Completed;
+        complete_option.Selected = world_entry.Completed == -1 ? 0 : complete_option.GetItemIndex(world_entry.Completed);
         complete_option.SetItemText(0, world_entry.HasSaves ? "In Progress" : "Not Started");
 
         var complain_button = GetNode<GDKnyttButton>("%ComplainButton");
