@@ -51,7 +51,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 6.5, 4 )
+extents = Vector2( 6.5, 3.3 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 2 )
@@ -113,7 +113,7 @@ playing = true
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Spot"]
-position = Vector2( 12, 20 )
+position = Vector2( 12, 20.7 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Spot/Area2D"]

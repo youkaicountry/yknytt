@@ -34,8 +34,7 @@ public class IdleState : JuniState
         if (juni.DidJump) { juni.executeJump(reset_jumps: true); }
         else if (!juni.Grounded) // Ground falls out from under Juni
         {
-            juni.CanFreeJump = false;
-            juni.jumps = 1;
+            juni.CanFreeJump = true;
             juni.transitionState(new FallState(juni));
         }
     }

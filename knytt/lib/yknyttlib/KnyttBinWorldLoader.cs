@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Text;
 
 /**
  * This class was adapted from KnyttSharp, by Codeusa
@@ -88,17 +89,16 @@ namespace YKnyttLib
                     throw new InvalidOperationException("Not a valid compressed World file (.knytt.bin) -- missing NF header.");
                 }
 
+                var encoding = Encoding.GetEncoding(1252);
                 //get the level name.
-                while (binaryReader.PeekChar() != 0)
+                char levelChr;
+                while ((levelChr = encoding.GetChars(new byte[]{binaryReader.ReadByte()})[0]) != 0)
                 {
-                    RootDirectory += Convert.ToChar(binaryReader.ReadByte());
+                    RootDirectory += levelChr;
                 }
                 //this doesn't match the final files I find, so that is confusing.
                 var fileCount = binaryReader.ReadUInt32();
 
-                // Skip initial N/F
-                binaryReader.BaseStream.Seek(1, SeekOrigin.Current);
-                
                 while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
                 {
                     //skip ['N', 'F']
@@ -107,7 +107,7 @@ namespace YKnyttLib
                     var filePath = string.Empty;
                     char fileChr;
                     //build a file name
-                    while ((fileChr = Convert.ToChar(binaryReader.ReadByte())) != 0)
+                    while ((fileChr = encoding.GetChars(new byte[]{binaryReader.ReadByte()})[0]) != 0)
                     {
                         filePath += (fileChr == '\\') ? '/' : fileChr;
                     }

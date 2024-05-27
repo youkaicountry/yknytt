@@ -105,7 +105,7 @@ public class Shift : Switch
         // Move Juni to the correct location in the area
         if (shift.Quantize || shift.AbsoluteTarget)
         {
-            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition, up_correction: true);
+            juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition, up_correction: true); // up_correction replaces juni._PhysicsProcess sometimes
         }
         else
         {
@@ -120,12 +120,14 @@ public class Shift : Switch
             juni.GlobalPosition = jgp;
         }
 
-        juni.just_reset = 2; // sometimes inside checker needs time to start working
-
         if (!(shift.RelativeArea.isZero() && shift.RelativePosition.isZero()))
         {
             _on_Area2D_body_exited(juni); // sometimes exit signal is late
         }
+
+        if (juni.just_reset == 0) { juni._PhysicsProcess(1 / 30.0f); } // to exit endless shift loops
+
+        juni.just_reset = 2; // sometimes inside checker needs time to start working
 
         if (shift.Effect)
         {
