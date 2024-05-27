@@ -37,7 +37,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
-    BUMP_Y_SPEED = -245f,                       // Speed Juni goes up when running over a bump. value / fps is max height of obstacle (currently 4px)
+    BUMP_Y_SPEED_PX = -4.1f,                    // Speed Juni goes up when running over a bump. value / fps is max height of obstacle (currently 4px)
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
@@ -87,7 +87,7 @@ public class Juni : KinematicBody2D
     private JuniState next_state = null;
 
     public bool dead = false;
-    public int just_reset = 0;
+    public long just_reset = 0;
 
     public int jumps = 0;
 
@@ -406,9 +406,9 @@ public class Juni : KinematicBody2D
 
     public void processMotion(float delta)
     {
-        if (just_reset > 0)
+        if (--just_reset >= 0)
         {
-            if (--just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
+            if (just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
             return;
         }
 
@@ -502,7 +502,7 @@ public class Juni : KinematicBody2D
     {
         if (Checkers.Bump && CurrentState is WalkRunState && (juniInput.LeftHeld || juniInput.RightHeld))
         {
-            Translate(new Godot.Vector2(0, BUMP_Y_SPEED * delta));
+            Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }
     }
 

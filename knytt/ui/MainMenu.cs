@@ -98,6 +98,7 @@ public class MainMenu : BasicScreen
     {
         if (quitting) { return; }
         quitting = true;
+        GetNode<Timer>("QuitTimer").Start(); // sometimes await fails in Godot 3.6 -- experimental fix
         fade.startFade(reset:false);
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
@@ -112,5 +113,10 @@ public class MainMenu : BasicScreen
     public override void goBack()
     {
         quit();
+    }
+
+    private void _on_QuitTimer_timeout()
+    {
+        GetTree().Quit();
     }
 }
