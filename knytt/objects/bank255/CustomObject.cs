@@ -39,6 +39,8 @@ public class CustomObject : GDKnyttBaseObject
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); return; }
 
+        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+
         int bank = getInt(section, "Bank", -1);
         int obj = getInt(section, "Object", -1);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
@@ -73,7 +75,6 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_to = getInt(section, "Init AnimTo", info.anim_to);
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{mod}{ObjectID.y}")) { sprite.Play(); }
     }
 
@@ -110,6 +111,7 @@ public class CustomObject : GDKnyttBaseObject
         {
             obj.CustomAnimation = true;
             sprite.Frames = oco_cache[cache_key];
+            sprite.Material = this.sprite.Material;
             return;
         }
 
@@ -121,11 +123,13 @@ public class CustomObject : GDKnyttBaseObject
         {
             static_sprite.Texture = image_texture;
             static_sprite.Offset += offset;
+            static_sprite.Material = this.sprite.Material;
             return;
         }
 
         var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
         sprite.Frames = oco_cache[cache_key] = new_frames;
+        sprite.Material = this.sprite.Material;
         int obj_y = !(obj is PowerItem) ? obj.ObjectID.y : PowerItem.Object2Power[obj.ObjectID.y];
         bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj_y.ToString()));
         foreach (var anim in new_frames.GetAnimationNames())

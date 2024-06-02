@@ -304,7 +304,7 @@ theme = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 580.0
-margin_bottom = 234.0
+margin_bottom = 215.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 
@@ -370,26 +370,10 @@ margin_right = 210.0
 margin_bottom = 13.0
 text = "youkaicountry.itch.io/yknytt"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 57.0
 margin_right = 580.0
 margin_bottom = 70.0
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 123.0
-margin_bottom = 13.0
-text = "C# .knytt.bin file reader:"
-
-[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 127.0
-margin_right = 316.0
-margin_bottom = 13.0
-text = "github.com/andrewmd5/KnyttSharp"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 76.0
-margin_right = 580.0
-margin_bottom = 89.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
 margin_right = 288.0
@@ -405,9 +389,9 @@ size_flags_horizontal = 3
 text = "Knytt Stories Plus Mod Developer:"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 95.0
+margin_top = 76.0
 margin_right = 580.0
-margin_bottom = 108.0
+margin_bottom = 89.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 margin_right = 288.0
@@ -443,14 +427,14 @@ margin_bottom = 13.0
 text = "egomassive.com/ks/"
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 114.0
+margin_top = 95.0
 margin_right = 580.0
-margin_bottom = 114.0
+margin_bottom = 95.0
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 120.0
+margin_top = 101.0
 margin_right = 580.0
-margin_bottom = 133.0
+margin_bottom = 114.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -470,9 +454,9 @@ focus_mode = 2
 text = "Beta Testers"
 
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 139.0
+margin_top = 120.0
 margin_right = 580.0
-margin_bottom = 184.0
+margin_bottom = 165.0
 rect_min_size = Vector2( 580, 45 )
 rect_clip_content = true
 mouse_filter = 1
@@ -488,7 +472,7 @@ margin_bottom = 45.0
 rect_clip_content = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_right = 288.0
+margin_right = 142.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 text = "Wibi (ncrecc)
@@ -496,19 +480,36 @@ madrabbit90
 blipdrifter"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 45.0
+margin_left = 146.0
+margin_right = 288.0
+margin_bottom = 29.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Lit Knob
-ms2048
-LumicatRB"
+ms2048"
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
+margin_left = 292.0
+margin_right = 434.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "djsolidsnake86
+fabzenfab"
+
+[node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
+margin_left = 438.0
+margin_right = 580.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "LumicatRB
+Someone65"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 190.0
+margin_top = 171.0
 margin_right = 580.0
-margin_bottom = 203.0
+margin_bottom = 184.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -528,9 +529,9 @@ margin_bottom = 13.0
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 209.0
+margin_top = 190.0
 margin_right = 580.0
-margin_bottom = 209.0
+margin_bottom = 190.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
 mouse_filter = 1
@@ -601,9 +602,9 @@ Zonhin
 Zé Pedro Quintanilha (PONTO)"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 215.0
+margin_top = 196.0
 margin_right = 580.0
-margin_bottom = 228.0
+margin_bottom = 209.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -624,9 +625,9 @@ focus_mode = 2
 text = "Music & Sound Effects"
 
 [node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 234.0
+margin_top = 215.0
 margin_right = 580.0
-margin_bottom = 234.0
+margin_bottom = 215.0
 rect_min_size = Vector2( 580, 0 )
 rect_clip_content = true
 mouse_filter = 1
@@ -672,7 +673,6 @@ Studio Box Nature (Best Service), www.bestservice.de"
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://youkaicountry.itch.io/yknytt" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer3/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/andrewmd5/KnyttSharp" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.ni2.se/" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/LinkButton2" to="." method="_on_LinkButton_pressed" binds= [ "http://egomassive.com/ks/" ]]
 [connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer8" to="." method="_on_Testers_gui_input"]

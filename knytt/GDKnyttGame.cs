@@ -70,8 +70,8 @@ public class GDKnyttGame : Node2D
         GDKnyttSettings.setupViewport(for_ui: false);
         this.setupCamera();
         this.setupBorder();
-        this.setupShader();
         this.setupWorld();
+        this.setupShader();
     }
 
     private void setupWorld()
@@ -196,7 +196,7 @@ public class GDKnyttGame : Node2D
             {
                 if (juni.Powers.check(flag_warp.flag))
                 {
-                    if (flag_warp == all_flag_warp && flag_warp.flag.true_flag) // Special case
+                    if (flag_warp == all_flag_warp) // Special case
                     {
                         if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
                     }
@@ -382,7 +382,7 @@ public class GDKnyttGame : Node2D
     {
         if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
         if (power < 0 || !value) { return; }
-        if (GetNode<Console>("/root/Console").IsOpen) { return; }
+        if (GetNodeOrNull<Console>("/root/Console")?.IsOpen ?? false) { return; }
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
     }
 

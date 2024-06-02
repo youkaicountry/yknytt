@@ -60,7 +60,6 @@ animations = [ {
 extents = Vector2( 11, 9 )
 
 [node name="Node2D" instance=ExtResource( 1 )]
-openOffset = Vector2( -48, 0 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 11 )
@@ -69,10 +68,9 @@ offset = Vector2( -48, 0 )
 [node name="SpikerMod" parent="." index="2"]
 openDistance = 110.0
 closeDistance = 140.0
-playSound = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BigArea2D" index="0"]
-polygon = PoolVector2Array( -7.60177, 1.68755, -38.5211, 7.93088, -23.6561, 43.0125, 10.8309, 59.3641, 46.2098, 43.0125, 61.0749, 8.22818, 31.9394, 1.39024 )
+polygon = PoolVector2Array( -7, 2, -37, 8, -22, 43, 12.5, 58, 47, 43, 62, 8, 32, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmallArea2D" index="0"]
 position = Vector2( 12, 9 )
