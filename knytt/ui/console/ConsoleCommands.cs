@@ -820,6 +820,7 @@ public static class ConsoleCommands
 
             env.Console.AddMessage($"Going to the most dangerous place: {game.Juni.Powers.HardestPlace}");
             env.Console.AddMessage($"You died here {game.Juni.Powers.HardestPlaceDeaths} times");
+            env.Console.AddMessage($"Ctrl+R / die to return back");
 
             string place = game.Juni.Powers.HardestPlace;
             string area = place.Left(place.IndexOf(':'));

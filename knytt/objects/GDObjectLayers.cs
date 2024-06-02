@@ -129,7 +129,7 @@ public class GDObjectLayers : Node2D
     public void checkCollectables()
     {
         var powers = GDArea.GDWorld.Game.Juni.Powers;
-        powers.resetMarks(GDArea.Area.Position);
+        powers.resetMarks(GDArea.Area.MapPosition);
 
         foreach (var layer in GDArea.Objects.Layers)
         {
@@ -143,15 +143,15 @@ public class GDObjectLayers : Node2D
                 if (knytt_object is PowerItem pitem && !powers.getPower(pitem.Power))
                 {
                     bool is_key = pitem.Power >= 8 && pitem.Power <= 11;
-                    powers.setMark(GDArea.Area.Position, is_key ? JuniValues.Collectable.Key : JuniValues.Collectable.Powerup);
+                    powers.setMark(GDArea.Area.MapPosition, is_key ? JuniValues.Collectable.Key : JuniValues.Collectable.Powerup);
                 }
                 if (knytt_object is Door door && !door.checkKey(GDArea.GDWorld.Game.Juni))
                 {
-                    powers.setMark(GDArea.Area.Position, JuniValues.Collectable.Door);
+                    powers.setMark(GDArea.Area.MapPosition, JuniValues.Collectable.Door);
                 }
                 if (knytt_object.ObjectID.x == 19 && !powers.getCollectable(knytt_object.ObjectID.y))
                 {
-                    powers.setMark(GDArea.Area.Position, 
+                    powers.setMark(GDArea.Area.MapPosition, 
                         knytt_object.ObjectID.y <= 50 ? JuniValues.Collectable.Creature :
                         knytt_object.ObjectID.y <= 150 ? JuniValues.Collectable.Coin : JuniValues.Collectable.Artifact);
                 }

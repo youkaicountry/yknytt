@@ -60,7 +60,6 @@ animations = [ {
 extents = Vector2( 10, 9 )
 
 [node name="Node2D" instance=ExtResource( 1 )]
-openOffset = Vector2( -48, -48 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 11 )
@@ -71,7 +70,7 @@ openDistance = 110.0
 closeDistance = 140.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BigArea2D" index="0"]
-polygon = PoolVector2Array( -8.5, 20.9653, -38.75, 14.4653, -23.25, -20.5347, 11.5, -35.5347, 45.75, -19.7847, 60.75, 14.7153, 32, 20.9653 )
+polygon = PoolVector2Array( -7, 22, -37, 16, -22, -19, 12.5, -34, 47, -19, 62, 16, 32, 22 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmallArea2D" index="0"]
 position = Vector2( 12, 15 )

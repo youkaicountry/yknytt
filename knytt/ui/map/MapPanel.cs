@@ -235,10 +235,10 @@ public class MapPanel : Panel
     public override void _PhysicsProcess(float delta)
     {
         var new_offset = Vector2.Zero;
-        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta; }
-        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta; }
+        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta / RectScale; }
+        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta / RectScale; }
+        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta / RectScale; }
+        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta / RectScale; }
         if (Input.IsActionJustPressed("walk")) { scale(0.9f); }
         if (Input.IsActionJustPressed("umbrella")) { scale(10 / 9f); }
         if (Input.IsActionJustPressed("jump")) { mark(); }
@@ -267,9 +267,9 @@ public class MapPanel : Panel
 
     private void mark()
     {
-        bool marked = juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User);
-        if (marked) { juni.Powers.unsetMark(juni.GDArea.Area.Position, JuniValues.Collectable.User); }
-        else { juni.Powers.setMark(juni.GDArea.Area.Position, JuniValues.Collectable.User); }
+        bool marked = juni.Powers.hasMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+        if (marked) { juni.Powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User); }
+        else { juni.Powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User); }
         setMarkButtonText(!marked);
         Update();
     }
