@@ -7,7 +7,7 @@ public class SignArea : GDKnyttBaseObject
 
     private void _on_Area2D_body_entered(Node body)
     {
-        attachedSign = attachedSign ?? GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 12)) as Sign;
+        attachedSign = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 12)) as Sign;
         attachedSign?.OnArea2DBodyEntered(body);
     }
 

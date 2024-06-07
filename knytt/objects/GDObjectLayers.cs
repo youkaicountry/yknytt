@@ -106,7 +106,7 @@ public class GDObjectLayers : Node2D
         {
             foreach (GDKnyttBaseObject knytt_object in layer.GetChildren())
             {
-                if (obj_ids.Contains(knytt_object.ObjectID))
+                if (obj_ids.Contains(knytt_object.ObjectID) && !knytt_object.Deleted)
                 {
                     finds.Add(knytt_object);
                 }

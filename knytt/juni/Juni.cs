@@ -218,10 +218,9 @@ public class Juni : KinematicBody2D
     {
         get
         {
-            var d = 0;
             if (Sticky) { return 0; }
-            if (juniInput.RightHeld) { d = 1; FacingRight = true; }
-            else if (juniInput.LeftHeld) { d = -1; FacingRight = false; }
+            int d = juniInput.Direction;
+            if (d != 0) { FacingRight = d > 0; }
             return d;
         }
     }
@@ -500,7 +499,7 @@ public class Juni : KinematicBody2D
 
     private void handleBumps(float delta)
     {
-        if (Checkers.Bump && CurrentState is WalkRunState && (juniInput.LeftHeld || juniInput.RightHeld))
+        if (Checkers.Bump && CurrentState is WalkRunState && juniInput.Direction != 0)
         {
             Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }

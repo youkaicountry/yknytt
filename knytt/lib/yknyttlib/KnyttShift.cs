@@ -31,17 +31,16 @@ namespace YKnyttLib
             set { if (AbsoluteTarget) { AbsoluteArea = value; } else { RelativeArea = value; }  }
         }
 
-        private int positiveMod(int x, int m) { return (x % m + m) % m; }
-        private int floorDiv(int x, int m) { return (x - positiveMod(x, m)) / m; }
-
         private KnyttPoint _absolute_position;
         public override KnyttPoint AbsolutePosition
         {
             get { return _absolute_position; }
             protected set
             {
-                AbsoluteArea += new KnyttPoint(floorDiv(value.x, KnyttArea.AREA_WIDTH), floorDiv(value.y, KnyttArea.AREA_HEIGHT));
-                _absolute_position = new KnyttPoint(positiveMod(value.x, KnyttArea.AREA_WIDTH), positiveMod(value.y, KnyttArea.AREA_HEIGHT));
+                var area_size = new KnyttPoint(KnyttArea.AREA_WIDTH, KnyttArea.AREA_HEIGHT);
+                var floor_div = (value - value % area_size) / area_size;
+                AbsoluteArea += floor_div;
+                _absolute_position = value % area_size;
             }
         }
 

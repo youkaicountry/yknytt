@@ -53,8 +53,13 @@ public class JuniInput
         return (!Juni.GDArea.BlockInput && pressEdges[action].justReleased) || (Juni.GDArea.HasAltInput && altInput.IsActionJustReleased(action));
     }
 
-    public bool LeftHeld => checkPressed("left"); 
-    public bool RightHeld => checkPressed("right"); 
+    public int Direction => 
+        Juni.GDArea.HasAltInput && altInput.IsActionPressed("left") ? -1 :
+        Juni.GDArea.HasAltInput && altInput.IsActionPressed("right") ? 1 :
+        !Enabled || Juni.GDArea.BlockInput ? 0 :
+        Input.IsActionPressed("left") ? -1 : 
+        Input.IsActionPressed("right") ? 1 : 0;
+
     public bool UpHeld => checkPressed("up"); 
     public bool DownHeld => checkPressed("down"); 
     public bool DownPressed => checkJustPressed("down"); 

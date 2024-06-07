@@ -41,9 +41,8 @@ public class ViewportTile : ViewportContainer
     {
         if (added_areas.Contains(area.Area.MapPosition) || area.Area.Empty) { return; }
         
-        Vector2 pos = new Vector2(
-            TILE_SIZE.x * (area.Area.MapPosition.x % MapPanel.SCALE), 
-            240 * TILE_SCALE - TILE_SIZE.y * (area.Area.MapPosition.y % MapPanel.SCALE));
+        KnyttPoint tile_coord = area.Area.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+        Vector2 pos = new Vector2(TILE_SIZE.x * tile_coord.x, 240 * TILE_SCALE - TILE_SIZE.y * tile_coord.y);
         var image = GetNode<TextureRect>("Viewport/TextureRect").Texture?.GetData();
         image?.Lock();
         if (image != null && image.GetPixel((int)pos.x, 240 * TILE_SCALE - (int)pos.y).a > 0) { return; }
@@ -80,8 +79,8 @@ public class ViewportTile : ViewportContainer
     public bool dump()
     {
         if (added_backgrounds.Count == 0) { return false; }
-        GetNode<Viewport>("Viewport").GetTexture().GetData().SavePng(filename);
-        return true;
+        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture()?.GetData()?.SavePng(filename);
+        return err == Error.Ok;
     }
 
     public void reset()
