@@ -50,6 +50,11 @@ namespace YKnyttLib
             return new KnyttPoint(a.x / b.x, a.y / b.y);
         }
 
+        public static KnyttPoint operator %(KnyttPoint a, KnyttPoint b)
+        => new KnyttPoint(positiveMod(a.x, b.x), positiveMod(a.y, b.y));
+
+        public static int positiveMod(int x, int m) { return (x % m + m) % m; }
+        
         public override bool Equals(object obj)
         {
             return ((KnyttPoint)obj).x == this.x && ((KnyttPoint)obj).y == this.y;

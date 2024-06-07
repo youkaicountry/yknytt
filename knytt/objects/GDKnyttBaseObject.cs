@@ -25,6 +25,7 @@ public class GDKnyttBaseObject : Node2D
     private bool safe = false;
     public bool SafeBullets { get; set; } = false;
     public bool CustomAnimation { get; set; } = false;
+    public bool Deleted { get; set; } = false;
 
     [Export] public bool DenyDeletion;
 
@@ -66,7 +67,10 @@ public class GDKnyttBaseObject : Node2D
         OrganicEnemy = false;
     }
 
-    public virtual void customDeletion() { }
+    public virtual void customDeletion()
+    {
+        Deleted = true;
+    }
 
     public void juniDie(Juni juni)
     {

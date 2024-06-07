@@ -70,8 +70,10 @@ namespace YKnyttLib
         {
             string value = getStringINIValue(data, name);
             if (value == null) { return @default; }
-            value = new string(value?.Where(c => char.IsDigit(c) || c == '-')?.ToArray());
-            return int.TryParse(value, out var i) ? i : 0;
+            value = new string(value?.Where(c => char.IsDigit(c) || c == '-' || c == '.')?.ToArray());
+            return double.TryParse(value,
+                System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture.NumberFormat, 
+                out var i) ? (int)System.Math.Round(i) : 0;
         }
 
         protected string getStringINIValue(KeyDataCollection data, string name)

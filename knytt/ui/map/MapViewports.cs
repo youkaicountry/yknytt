@@ -57,8 +57,8 @@ public class MapViewports : Node2D
     public (Rect2, Texture) getArea(KnyttPoint coord)
     {
         var key = getKey(coord);
-        Rect2 src = new Rect2(
-            new Vector2(coord.x % MapPanel.SCALE, coord.y % MapPanel.SCALE) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
+        KnyttPoint tile_coord = coord % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+        Rect2 src = new Rect2(new Vector2(tile_coord.x, tile_coord.y) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
 
         if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture()); }
         if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
