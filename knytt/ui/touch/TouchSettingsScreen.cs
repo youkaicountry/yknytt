@@ -13,8 +13,8 @@ public class TouchSettingsScreen : BasicScreen
         GetNode<CheckBox>("SettingsContainer/EnableContainer/EnableButton").Pressed = TouchSettings.EnablePanel;
         GetNode<CheckBox>("SettingsContainer/SwapContainer/SwapButton").Pressed = TouchSettings.SwapHands;
         GetNode<OptionButton>("SettingsContainer/EnableContainer/AnchorDropdown").Select((int)TouchSettings.Position);
-        GetNode<CheckBox>("SettingsContainer/SwipeContainer/SwipeButton").Pressed = TouchSettings.Swipe;
         GetNode<CheckBox>("SettingsContainer/SwapContainer/UmbrellaButton").Pressed = TouchSettings.UmbrellaCheat;
+        GetNode<HSlider>("SettingsContainer/SwipeContainer/SwipeSlider").Value = TouchSettings.Swipe;
         GetNode<HSlider>("SettingsContainer/ScaleContainer/ScaleSlider").Value = TouchSettings.Scale;
         GetNode<HSlider>("SettingsContainer/ViewportContainer/ViewportSlider").Value = TouchSettings.Viewport;
         GetNode<HSlider>("SettingsContainer/JumpContainer/JumpSlider").Value = TouchSettings.JumpScale;
@@ -42,14 +42,20 @@ public class TouchSettingsScreen : BasicScreen
         TouchSettings.Position = (TouchSettings.VerticalPosition)index;
     }
 
-    private void _on_SwipeButton_toggled(bool button_pressed)
-    {
-        TouchSettings.Swipe = button_pressed;
-    }
-
     private void _on_UmbrellaButton_toggled(bool button_pressed)
     {
         TouchSettings.UmbrellaCheat = button_pressed;
+    }
+
+    private void _on_SwipeSlider_value_changed(float value)
+    {
+        TouchSettings.Swipe = value;
+        GetNode<Label>("SettingsContainer/SwipeContainer/ValueLabel").Text = $"{value * 100}%";
+    }
+
+    private void _on_SwipeDefaultButton_pressed()
+    {
+        GetNode<HSlider>("SettingsContainer/SwipeContainer/SwipeSlider").Value = 1;
     }
 
     private void _on_ScaleSlider_value_changed(float value)

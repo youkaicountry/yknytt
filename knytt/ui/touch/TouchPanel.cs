@@ -31,9 +31,9 @@ public class TouchPanel : Panel
     private const int BOTTOM_EXCESS = 40;
 
     // Left/right prediction settings
-    private const float SPEED_TOO_FAST = 90;
-    private const float SPEED_TOO_SLOW = 30;
-    private const float SPEED_TOO_FAST_JUMP = 80;
+    private float speedTooFast;
+    private float speedTooSlow;
+    private float speedToFastJump;
 
 
     public override void _Ready()
@@ -79,6 +79,10 @@ public class TouchPanel : Panel
         SetupBorder();
         if (!Visible) return;
         
+        speedTooFast = 205 - 100 * TouchSettings.Swipe;
+        speedTooSlow = 0.5f * speedTooFast;
+        speedToFastJump = speedTooFast;
+
         Modulate = new Color(Modulate.r, Modulate.g, Modulate.b, TouchSettings.Opacity);
         
         RectSize = new Vector2(TouchSettings.ScreenWidth + 4, RectSize.y);
@@ -208,7 +212,7 @@ public class TouchPanel : Panel
                 if (p.Rect.HasPoint(position)) { Input.ActionRelease(p.Name); }
             }
 
-            if (TouchSettings.Swipe)
+            if (TouchSettings.Swipe > 0)
             {
                 if (leftRect.HasPoint(position)) { Input.ActionRelease("right"); }
                 if (rightRect.HasPoint(position)) { Input.ActionRelease("left"); }
@@ -242,17 +246,17 @@ public class TouchPanel : Panel
 
             Juni juni = GetNode<GDKnyttGame>("/root/GKnyttGame").Juni;
             float adj_speed = speed.x / getScale();
-            if (TouchSettings.Swipe)
+            if (TouchSettings.Swipe > 0)
             {
                 // If user swipes left/right too fast, left/right action can be pressed in advance
                 if (leftRect.HasPoint(position) || rightRect.HasPoint(position))
                 {
-                    if (adj_speed > SPEED_TOO_FAST)
+                    if (adj_speed > speedTooFast)
                     {
                         Input.ActionRelease("left");
                         Input.ActionPress("right");
                     }
-                    if (adj_speed < -SPEED_TOO_FAST)
+                    if (adj_speed < -speedTooFast)
                     {
                         Input.ActionRelease("right");
                         Input.ActionPress("left");
@@ -261,8 +265,8 @@ public class TouchPanel : Panel
 
                 if (jumpRect.HasPoint(position) || umbrellaRect.HasPoint(position))
                 {
-                    bool swipe_fast_to_jump = TouchSettings.SwapHands ? adj_speed < -SPEED_TOO_FAST_JUMP : adj_speed > SPEED_TOO_FAST_JUMP;
-                    bool swipe_fast_to_umbrella = TouchSettings.SwapHands ? adj_speed > SPEED_TOO_FAST_JUMP : adj_speed < -SPEED_TOO_FAST_JUMP;
+                    bool swipe_fast_to_jump = TouchSettings.SwapHands ? adj_speed < -speedToFastJump : adj_speed > speedToFastJump;
+                    bool swipe_fast_to_umbrella = TouchSettings.SwapHands ? adj_speed > speedToFastJump : adj_speed < -speedToFastJump;
                     if (swipe_fast_to_jump && Input.IsActionPressed("umbrella") && juni.CanAnyJump)
                     {
                         juni.Umbrella.Deployed = false;
@@ -279,8 +283,8 @@ public class TouchPanel : Panel
 
             // If user swipes back after this, original direction should be restored
             // Swiping up/down (too slow on X) should not affect this
-            bool swipe_slow_to_right = adj_speed >= -SPEED_TOO_SLOW;
-            bool swipe_slow_to_left = adj_speed <= SPEED_TOO_SLOW;
+            bool swipe_slow_to_right = adj_speed >= -speedTooSlow;
+            bool swipe_slow_to_left = adj_speed <= speedTooSlow;
             if (leftRect.HasPoint(position) && !(Input.IsActionPressed("right") && swipe_slow_to_right))
             {
                 Input.ActionRelease("right");

@@ -33,10 +33,10 @@ public class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["VerticalPosition"] = value.ToString(); }
     }
     
-    public static bool Swipe
+    public static float Swipe
     {
-        get { return GDKnyttSettings.ini["TouchPanel"]["Swipe"].Equals("1"); }
-        set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value ? "1" : "0"; }
+        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Swipe"]); }
+        set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value.ToString(); }
     }
 
     public static bool UmbrellaCheat
