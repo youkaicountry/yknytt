@@ -63,10 +63,9 @@ public class GDKnyttWorldImpl : KnyttWorld
     }
 
     // Call this if you don't want a level placed in RAM
-    public void unpackWorld()
+    public void unpackWorld(string dir)
     {
         GDKnyttDataStore.ProgressHint = "Starting unpacking .bin file...";
-        string dir = $"user://Worlds/{BinLoader.RootDirectory}";
         GDKnyttAssetManager.ensureDirExists(dir);
 
         string marker_name = $"{dir}/_do_not_load_";
@@ -89,7 +88,6 @@ public class GDKnyttWorldImpl : KnyttWorld
         GDKnyttDataStore.ProgressHint = "Finishing unpacking...";
         new Directory().Remove(marker_name);
         new Directory().Remove(WorldDirectory);
-        removeDirectory("user://Cache".PlusFile(WorldDirectory.GetFile()));
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
@@ -116,7 +114,6 @@ public class GDKnyttWorldImpl : KnyttWorld
         if (BinMode)
         {
             new Directory().Remove(WorldDirectory);
-            removeDirectory("user://Cache".PlusFile(WorldDirectory.GetFile()));
         }
         else
         {
@@ -129,7 +126,6 @@ public class GDKnyttWorldImpl : KnyttWorld
     {
         if (BinMode)
         {
-            new Directory().Remove("user://Cache".PlusFile(WorldDirectory.GetFile()).PlusFile("World.ini"));
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
         removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
