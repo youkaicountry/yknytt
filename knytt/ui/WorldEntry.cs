@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using YKnyttLib;
 
@@ -8,7 +7,8 @@ public class WorldEntry
     public string Name;
     public string Author;
     public string Description;
-    public Texture Icon;
+    public byte[] Icon;
+    public Texture IconTexture;
     public string Size;
     public List<string> Difficulties = new List<string>();
     public List<string> Categories = new List<string>();
@@ -34,7 +34,7 @@ public class WorldEntry
 
     public WorldEntry() { }
 
-    public WorldEntry(KnyttWorldInfo world_info, string path)
+    public WorldEntry(KnyttWorldInfo world_info)
     {
         Name = world_info.Name;
         Author = world_info.Author;
@@ -43,29 +43,9 @@ public class WorldEntry
         Difficulties = world_info.Difficulties;
         Categories = world_info.Categories;
         HasServerInfo = false;
-        Path = path;
         Completed = world_info.Completed;
         UserScore = world_info.Score;
-
         FileSize = world_info.FileSize;
-        if (FileSize != 0 || new Directory().DirExists(path))
-        {
-            InstalledTime = new File().GetModifiedTime(path);
-        }
-        else
-        {
-            try
-            {
-                if (path.StartsWith("user://")) { path = OS.GetUserDataDir().PlusFile(path.Substring(7)); }
-                var file_info = new System.IO.FileInfo(path);
-                InstalledTime = (ulong)((DateTimeOffset)file_info.LastWriteTimeUtc).ToUnixTimeSeconds();
-                FileSize = file_info.Length;
-            }
-            catch (Exception)
-            {
-                InstalledTime = new File().GetModifiedTime(path);
-            }
-        }
     }
 
     public void MergeLocal(WorldEntry info)

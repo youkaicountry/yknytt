@@ -1,4 +1,6 @@
+using System.Text;
 using Godot;
+using IniParser.Parser;
 
 public class Win : GDKnyttBaseObject
 {
@@ -14,16 +16,22 @@ public class Win : GDKnyttBaseObject
         save.Endings = endings; // to write to ini
         GDArea.GDWorld.Game.saveGame(save);
 
-        string ini_cache_name = "user://Cache".PlusFile(juni.Game.GDWorld.KWorld.WorldDirectory.GetFile()).PlusFile("World.ini");
-        string ini = GDKnyttAssetManager.loadTextFile(GDKnyttAssetManager.loadFile(ini_cache_name));
-        GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.loadWorldConfig(ini);
-        if (world.INIData["World"].ContainsKey("Endings"))
+        const string INI_PATH = "user://worlds.ini";
+        var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
+        var parser = new IniDataParser();
+        var worlds_cache_ini = parser.Parse(ini_text);
+        var section = worlds_cache_ini[juni.Game.GDWorld.KWorld.WorldDirectory];
+
+        if (section.ContainsKey("Endings"))
         {
-            var all_endings = world.INIData["World"]["Endings"].Split('/');
+            var all_endings = section["Endings"].Split('/');
             if (all_endings.Length > 0 ? endings.Count >= all_endings.Length : endings.Count > 0)
             {
-                InfoScreen.setIniValue(juni.Game.GDWorld.KWorld, "Completed", "1");
+                section["Completed"] = "1";
+                var f = new File();
+                f.Open(INI_PATH, File.ModeFlags.Write);
+                f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
+                f.Close();
             }
         }
 

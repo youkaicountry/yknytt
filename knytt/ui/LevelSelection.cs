@@ -1,8 +1,10 @@
 using Godot;
 using Godot.Collections;
 using IniParser.Model;
+using IniParser.Parser;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -46,6 +48,11 @@ public class LevelSelection : BasicScreen
     ConcurrentQueue<WorldEntry> remote_finished_entries;
     Task local_load_task;
 
+    private IniData worlds_cache_ini;
+    private HashSet<string> old_levels_paths;
+    private bool worlds_modified;
+    private const string CACHE_INI_PATH = "user://worlds.ini";
+
     public LevelSelection()
     {
         Manager = new WorldManager();
@@ -67,7 +74,14 @@ public class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
 
+        worlds_modified = false;
+        var ini_text = new File().FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
+        var parser = new IniDataParser();
+        worlds_cache_ini = parser.Parse(ini_text);
+        old_levels_paths = worlds_cache_ini.Sections.Select(s => s.SectionName).ToHashSet();
+
         loadDefaultWorlds();
+
         if (OS.GetName() != "HTML5")
         {
             if (localLoad) { enableFilter(false); }
@@ -92,6 +106,16 @@ public class LevelSelection : BasicScreen
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds("user://Worlds");
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
+
+        foreach (string path in old_levels_paths) { worlds_cache_ini.Sections.RemoveSection(path); }
+        
+        if (worlds_modified || old_levels_paths.Count > 0)
+        {
+            var f = new File();
+            f.Open(CACHE_INI_PATH, File.ModeFlags.Write);
+            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
+            f.Close();
+        }
     }
 
     private void HttpLoad(bool grab_focus = false)
@@ -289,27 +313,21 @@ public class LevelSelection : BasicScreen
     private WorldEntry generateDirectoryWorld(string world_dir)
     {
         KnyttWorldInfo world_info;
-        string cache_dir = "user://Cache".PlusFile(world_dir.GetFile());
-        string ini_cache_name = cache_dir + "/World.ini";
-        if (new File().FileExists(ini_cache_name))
+        if (worlds_cache_ini.Sections.ContainsSection(world_dir))
         {
-            world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
+            world_info = new KnyttWorldInfo(worlds_cache_ini[world_dir]);
+            old_levels_paths.Remove(world_dir);
         }
         else
         {
             var ini_bin = GDKnyttAssetManager.loadFile(world_dir + "/world.ini");
-            var ini_data = new IniData();
-            world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
-            world_info.Folder = ini_data["World"]["World Folder"] = world_dir.GetFile();
-            GDKnyttAssetManager.ensureDirExists(cache_dir);
-            var f = new File();
-            f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
-            f.Close();
+            world_info = getWorldInfo(ini_bin, merge_to: worlds_cache_ini[world_dir]);
+            world_info.Folder = worlds_cache_ini[world_dir]["World Folder"] = world_dir.GetFile();
+            worlds_modified = true;
         }
 
-        Texture icon = GDKnyttAssetManager.loadExternalTexture(world_dir + "/icon.png");
-        return getWorldEntry(world_dir, icon, world_info);
+        byte[] icon_bin = GDKnyttAssetManager.loadFile(world_dir + "/icon.png");
+        return getWorldEntry(world_dir, icon_bin, world_info);
     }
 
     private WorldEntry generateBinWorld(string world_file)
@@ -317,13 +335,11 @@ public class LevelSelection : BasicScreen
         byte[] icon_bin;
         KnyttWorldInfo world_info;
 
-        string cache_dir = "user://Cache".PlusFile(world_file.GetFile());
-        string icon_cache_name = cache_dir + "/Icon.png";
-        string ini_cache_name = cache_dir + "/World.ini";
-        if (new Directory().FileExists(ini_cache_name))
+        if (worlds_cache_ini.Sections.ContainsSection(world_file))
         {
-            icon_bin = GDKnyttAssetManager.loadFile(icon_cache_name);
-            world_info = getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name));
+            world_info = new KnyttWorldInfo(worlds_cache_ini[world_file]);
+            icon_bin = GDKnyttAssetManager.loadFile($"user://Cache/{world_info.Folder}/Icon.png");
+            old_levels_paths.Remove(world_file);
         }
         else
         {
@@ -342,25 +358,21 @@ public class LevelSelection : BasicScreen
             icon_bin = binloader.GetFile("Icon.png");
             ini_bin = binloader.GetFile("World.ini");
 
-            GDKnyttAssetManager.ensureDirExists("user://Cache");
-            new Directory().MakeDir(cache_dir);
-            var f = new File();
-            f.Open(icon_cache_name, File.ModeFlags.Write);
-            f.StoreBuffer(icon_bin);
-            f.Close();
+            world_info = getWorldInfo(ini_bin, merge_to: worlds_cache_ini[world_file]);
+            world_info.Folder = worlds_cache_ini[world_file]["World Folder"] = binloader.RootDirectory;
 
-            var ini_data = new IniData();
-            world_info = getWorldInfo(ini_bin, merge_to: ini_data["World"]);
-            world_info.Folder = ini_data["World"]["World Folder"] = binloader.RootDirectory;
             world_info.FileSize = world_bin.Length;
-            ini_data["World"]["File Size"] = world_bin.Length.ToString();
-            f.Open(ini_cache_name, File.ModeFlags.Write);
-            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
+            worlds_cache_ini[world_file]["File Size"] = world_bin.Length.ToString();
+            worlds_modified = true;
+
+            GDKnyttAssetManager.ensureDirExists($"user://Cache/{world_info.Folder}");
+            var f = new File();
+            f.Open($"user://Cache/{world_info.Folder}/Icon.png", File.ModeFlags.Write);
+            f.StoreBuffer(icon_bin);
             f.Close();
         }
 
-        Texture icon = GDKnyttAssetManager.loadTexture(icon_bin);
-        return getWorldEntry(world_file, icon, world_info);
+        return getWorldEntry(world_file, icon_bin, world_info);
     }
 
     public static KnyttWorldInfo getWorldInfo(byte[] ini_bin, KeyDataCollection merge_to = null)
@@ -372,18 +384,19 @@ public class LevelSelection : BasicScreen
         return world.Info;
     }
 
-    private WorldEntry getWorldEntry(string world_dir, Texture icon, KnyttWorldInfo world_info)
+    private WorldEntry getWorldEntry(string world_dir, byte[] icon, KnyttWorldInfo world_info)
     {
-        string cache_dir = "user://Cache".PlusFile(world_dir.GetFile());
-
-        string played_flag_name = cache_dir + "/LastPlayed.flag";
-        var last_played = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0;
-
-        bool has_saves = Enumerable.Range(1, 3).Any(i => new File().FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini"));
-
-        var result = new WorldEntry(world_info, world_dir) { Icon = icon, LastPlayedTime = last_played, HasSaves = has_saves };
+        string played_flag_name = $"user://Cache/{world_info.Folder}/LastPlayed.flag";
+        var result = new WorldEntry(world_info)
+        { 
+            Icon = icon,
+            LastPlayedTime = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0,
+            HasSaves = Enumerable.Range(1, 3).Any(i => new File().FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini")),
+            Path = world_dir,
+            InstalledTime = new File().GetModifiedTime(world_dir)
+        };
         
-        if (result.Completed == -1 && new File().FileExists($"{cache_dir}/Completed.flag")) { result.Completed = 1; } // backwards compatability
+        if (result.Completed == -1 && new File().FileExists($"user://Cache/{world_dir.GetFile()}/Completed.flag")) { result.Completed = 1; } // backwards compatability
         return result;
     }
 
@@ -401,8 +414,7 @@ public class LevelSelection : BasicScreen
             Name = HTTPUtil.jsonValue<string>(json_item, "name"),
             Author = HTTPUtil.jsonValue<string>(json_item, "author"),
             Description = HTTPUtil.jsonValue<string>(json_item, "description"),
-            Icon = base64_icon != null && base64_icon.Length > 0 ?
-                        GDKnyttAssetManager.loadTexture(decompress(Convert.FromBase64String(base64_icon))) : null,
+            Icon = base64_icon != null && base64_icon.Length > 0 ? decompress(Convert.FromBase64String(base64_icon)) : null,
             Link = HTTPUtil.jsonValue<string>(json_item, "link"),
             FileSize = HTTPUtil.jsonInt(json_item, "file_size"),
             Upvotes = HTTPUtil.jsonInt(json_item, "upvotes"),

@@ -1,5 +1,5 @@
 using Godot;
-using IniParser.Model;
+using IniParser.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,10 +108,10 @@ public class InfoScreen : BasicScreen
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        string cache_dir = KWorld.WorldDirectory.GetFile();
-        GDKnyttAssetManager.ensureDirExists($"user://Cache/{cache_dir}");
+        string cache_dir = $"user://Cache/{KWorld.WorldDirectoryName}";
+        GDKnyttAssetManager.ensureDirExists(cache_dir);
         var f = new File();
-        f.Open($"user://Cache/{cache_dir}/LastPlayed.flag", File.ModeFlags.Write);
+        f.Open(cache_dir.PlusFile("LastPlayed.flag"), File.ModeFlags.Write);
         f.Close();
 
         KnyttSave save = new KnyttSave(KWorld,
@@ -252,17 +252,17 @@ public class InfoScreen : BasicScreen
 
         if (world_entry.Completed == -1 && (endings.Count > 0 ? my_endings.Count >= endings.Count : my_endings.Count > 0))
         {
-            setIniValue(KWorld, "Completed", "1");
+            setIniValue("Completed", "1");
             world_entry.Completed = 1;
             complete_option.Selected = 1;
             if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
             sendRating(41);
         }
 
-        string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectory.GetFile()).PlusFile("Endings.flag");
+        string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectoryName).PlusFile("Endings.flag");
         if (!new File().FileExists(endings_flag_name))
         {
-            setIniValue(KWorld, "Endings", string.Join("/", endings));
+            setIniValue("Endings", string.Join("/", endings));
             var f = new File();
             f.Open(endings_flag_name, File.ModeFlags.Write);
             f.Close();
@@ -286,7 +286,7 @@ public class InfoScreen : BasicScreen
 
     private void updateRating(int n)
     {
-        setIniValue(KWorld, "Score", n.ToString());
+        setIniValue("Score", n.ToString());
         int old_voters = world_entry.Voters;
         world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
         world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
@@ -298,7 +298,7 @@ public class InfoScreen : BasicScreen
     {
         ClickPlayer.Play();
         int id = complete_option.GetItemId(index);
-        setIniValue(KWorld, "Completed", id.ToString());
+        setIniValue("Completed", id.ToString());
         world_entry.Completed = id;
         var option_text = complete_option.Text;
         if (option_text.LastIndexOf('[') != -1) { option_text = option_text.Left(option_text.LastIndexOf('[') - 1); }
@@ -307,15 +307,25 @@ public class InfoScreen : BasicScreen
         sendRating(40 + id);
     }
 
-    public static void setIniValue(KnyttWorld kworld, string key, string value)
+    private void setIniValue(string key, string value)
     {
-        string ini_cache_name = "user://Cache".PlusFile(kworld.WorldDirectory.GetFile()).PlusFile("World.ini");
-        var ini_data = new IniData();
-        LevelSelection.getWorldInfo(GDKnyttAssetManager.loadFile(ini_cache_name), merge_to: ini_data["World"]);
-        ini_data["World"][key] = value;
+        const string INI_PATH = "user://worlds.ini";
+        var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
+        var parser = new IniDataParser();
+        var worlds_cache_ini = parser.Parse(ini_text);
+
+        if (key != null)
+        {
+            worlds_cache_ini[KWorld.WorldDirectory][key] = value;
+        }
+        else
+        {
+            worlds_cache_ini.Sections.GetSectionData(KWorld.WorldDirectory).SectionName = value;
+        }
+
         var f = new File();
-        f.Open(ini_cache_name, File.ModeFlags.Write);
-        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(ini_data.ToString()));
+        f.Open(INI_PATH, File.ModeFlags.Write);
+        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
         f.Close();
     }
 
@@ -436,15 +446,20 @@ public class InfoScreen : BasicScreen
         closeOtherSlots(-1);
 
         bool from_external = GDKnyttSettings.WorldsDirectory != "" && KWorld.WorldDirectory.StartsWith(GDKnyttSettings.WorldsDirectory);
+        bool unpacked = false;
+        // if (KWorld.BinMode && (!from_external || GDKnyttSettings.WorldsDirForDownload)) // use as downloader
         if (KWorld.BinMode && !from_external)
         {
-            KWorld.unpackWorld();
+            string dir = KWorld.WorldDirectory.GetBaseDir().PlusFile(KWorld.WorldDirectoryName);
+            setIniValue(null, dir);
+            KWorld.unpackWorld(dir);
             world_entry.Path = KWorld.WorldDirectory;
+            unpacked = true;
         }
         GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true);
 
         GetNode<Timer>("HintTimer").Stop();
-        GDKnyttDataStore.ProgressHint = "Level was unpacked and compiled.";
+        GDKnyttDataStore.ProgressHint = unpacked ? "Level was unpacked and compiled." : "Level tilesets have been compiled.";
         _on_HintTimer_timeout();
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = false; }
     }
