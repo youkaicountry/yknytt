@@ -13,7 +13,7 @@ using YKnyttLib;
 
 public class LevelSelection : BasicScreen
 {
-    private WorldManager Manager { get; }
+    private WorldManager Manager { get; } = new WorldManager();
 
     private PackedScene info_scene;
 
@@ -44,21 +44,15 @@ public class LevelSelection : BasicScreen
     private Control prev_focus_owner;
     private double prev_scroll;
 
-    ConcurrentQueue<WorldEntry> finished_entries;
-    ConcurrentQueue<WorldEntry> remote_finished_entries;
-    Task local_load_task;
+    private ConcurrentQueue<WorldEntry> finished_entries = new ConcurrentQueue<WorldEntry>();
+    private ConcurrentQueue<WorldEntry> remote_finished_entries = new ConcurrentQueue<WorldEntry>();
+    private Task local_load_task;
+    private bool manager_completed = false;
 
     private IniData worlds_cache_ini;
     private HashSet<string> old_levels_paths;
     private bool worlds_modified;
     private const string CACHE_INI_PATH = "user://worlds.ini";
-
-    public LevelSelection()
-    {
-        Manager = new WorldManager();
-        finished_entries = new ConcurrentQueue<WorldEntry>();
-        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
-    }
 
     public override void _Ready()
     {
@@ -224,7 +218,7 @@ public class LevelSelection : BasicScreen
             for (int i = 0; i < 10; i++)
             {
                 if (!finished_entries.TryDequeue(out var entry)) { return; }
-                if (Manager.addWorld(entry))
+                if (manager_completed || Manager.addWorld(entry))
                 {
                     game_container.addWorld(entry, focus: game_container.Count == 0);
                 }
@@ -461,11 +455,9 @@ public class LevelSelection : BasicScreen
         var worlds = Manager.Filtered;
         game_container.clearWorlds();
         requested_level = 0;
-
-        foreach (var world_entry in worlds)
-        {
-            game_container.addWorld(world_entry, false);
-        }
+        enableFilter(false);
+        manager_completed = true;
+        finished_entries = new ConcurrentQueue<WorldEntry>(worlds);
     }
 
     public void _on_GamePressed(GameButton button)
