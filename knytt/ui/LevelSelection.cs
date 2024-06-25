@@ -94,6 +94,14 @@ public class LevelSelection : BasicScreen
         game_container.GrabFocus();
     }
 
+    private void flushCache()
+    {
+        var f = new File();
+        f.Open(CACHE_INI_PATH, File.ModeFlags.Write);
+        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
+        f.Close();
+    }
+
     private void loadLocalWorlds()
     {
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
@@ -102,14 +110,7 @@ public class LevelSelection : BasicScreen
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
 
         foreach (string path in old_levels_paths) { worlds_cache_ini.Sections.RemoveSection(path); }
-        
-        if (worlds_modified || old_levels_paths.Count > 0)
-        {
-            var f = new File();
-            f.Open(CACHE_INI_PATH, File.ModeFlags.Write);
-            f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
-            f.Close();
-        }
+        if (worlds_modified || old_levels_paths.Count > 0) { flushCache(); }
     }
 
     private void HttpLoad(bool grab_focus = false)
@@ -307,10 +308,10 @@ public class LevelSelection : BasicScreen
     private WorldEntry generateDirectoryWorld(string world_dir)
     {
         KnyttWorldInfo world_info;
-        if (worlds_cache_ini.Sections.ContainsSection(world_dir))
+        old_levels_paths.Remove(world_dir);
+        if (worlds_cache_ini.Sections.ContainsSection(world_dir) && worlds_cache_ini[world_dir].ContainsKey("Name"))
         {
             world_info = new KnyttWorldInfo(worlds_cache_ini[world_dir]);
-            old_levels_paths.Remove(world_dir);
         }
         else
         {
@@ -328,12 +329,12 @@ public class LevelSelection : BasicScreen
     {
         byte[] icon_bin;
         KnyttWorldInfo world_info;
+        old_levels_paths.Remove(world_file);
 
-        if (worlds_cache_ini.Sections.ContainsSection(world_file))
+        if (worlds_cache_ini.Sections.ContainsSection(world_file) && worlds_cache_ini[world_file].ContainsKey("Name"))
         {
             world_info = new KnyttWorldInfo(worlds_cache_ini[world_file]);
             icon_bin = GDKnyttAssetManager.loadFile($"user://Cache/{world_info.Folder}/Icon.png");
-            old_levels_paths.Remove(world_file);
         }
         else
         {
@@ -508,6 +509,7 @@ public class LevelSelection : BasicScreen
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
             new Directory().Rename(http_node.DownloadFile, final_filename);
             var entry = generateBinWorld(final_filename);
+            flushCache();
 
             if (entry != null)
             {

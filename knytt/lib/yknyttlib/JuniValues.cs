@@ -53,8 +53,9 @@ namespace YKnyttLib
         public class Flag
         {
             public bool power;
-            public int number;
+            public bool coin;
             public bool true_flag;
+            public int number;
 
             public static Flag Parse(string str)
             {
@@ -62,7 +63,8 @@ namespace YKnyttLib
                 Flag flag = new Flag();
                 if (str.ToLower() == "true") { flag.true_flag = true; return flag; }
                 flag.power = str.ToLower().StartsWith("power");
-                if (!int.TryParse(flag.power ? str.Substring(5) : str, out flag.number)) { return null; }
+                flag.coin = str.ToLower().StartsWith("coin");
+                if (!int.TryParse(flag.power ? str.Substring(5) : flag.coin ? str.Substring(4) : str, out flag.number)) { return null; }
                 return flag;
             }
         }
@@ -114,7 +116,8 @@ namespace YKnyttLib
         {
             return flag == null ? false :
                    flag.true_flag ? true :
-                   flag.power ? Powers[flag.number] : Flags[flag.number];
+                   flag.power ? Powers[flag.number] : 
+                   flag.coin ? Collectables[flag.number + 50] : Flags[flag.number];
         }
 
         public void setCollectable(int index, bool val) { Collectables[index] = val; }

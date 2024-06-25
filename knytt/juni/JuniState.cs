@@ -113,6 +113,7 @@ public class ClimbState : JuniState
         juni.Anim.Play("Climbing");
         juni.GetNode<AudioStreamPlayer2D>("Audio/ClimbPlayer2D").Play();
         juni.jumps = 0;
+        juni.CanFreeJump = false;
         juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
     }
 
@@ -170,6 +171,7 @@ public class SlideState : ClimbState
         juni.Anim.Play("Sliding");
         slide_sound = juni.GetNode<AudioStreamPlayer2D>("Audio/SlidePlayer2D");
         juni.jumps = 0;
+        juni.CanFreeJump = false;
     }
 
     public override void PreProcess(float delta)
