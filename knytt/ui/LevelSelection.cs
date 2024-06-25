@@ -54,10 +54,14 @@ public class LevelSelection : BasicScreen
     private bool worlds_modified;
     private const string CACHE_INI_PATH = "user://worlds.ini";
 
+    private PackedScene download_link_scene;
+    private bool download_link_added;
+
     public override void _Ready()
     {
         base._Ready();
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
+        this.download_link_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DownloadScreenLink.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
@@ -208,7 +212,17 @@ public class LevelSelection : BasicScreen
         prev_focus_owner = game_container.GetFocusOwner();
         if (prev_focus_owner == null) { game_container.GrabFocus(); }
 
-        if (localLoad && finished_entries.Count == 0 && local_load_task?.IsCompleted != false) { enableFilter(true); }
+        if (localLoad && finished_entries.Count == 0 && local_load_task?.IsCompleted != false)
+        {
+            enableFilter(true);
+            if (!download_link_added && game_container.GamesCount <= 6)
+            {
+                var download_link = download_link_scene.Instance();
+                download_link.Connect("pressed", this, "_on_DownloadLinkPressed");
+                game_container.AddChild(download_link);
+                download_link_added = true;
+            }
+        }
 
         // Process the queue
         if ((localLoad && finished_entries.Count == 0) ||
@@ -236,6 +250,11 @@ public class LevelSelection : BasicScreen
         }
     }
 
+    private void _on_DownloadLinkPressed()
+    {
+        GetParent<MainMenu>()._on_PlayButton_pressed(local_load: false);
+    }
+
     private void loadDefaultWorlds()
     {
         binLoad("res://knytt/worlds/Nifflas - The Machine.knytt.bin");
@@ -245,23 +264,6 @@ public class LevelSelection : BasicScreen
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad(OS.GetName() == "HTML5" ? MainMenu.WEB_TUTORIAL_PATH :
                 TouchSettings.EnablePanel ? MainMenu.TOUCH_TUTORIAL_PATH : MainMenu.TUTORIAL_PATH);
-        if (OS.GetName() == "HTML5")
-        {
-            binLoad("res://knytt/worlds/html5/dessgeega-TheLighthouse.knytt.bin");
-            binLoad("res://knytt/worlds/html5/dessgeega-Fossil.knytt.bin");
-            binLoad("res://knytt/worlds/html5/dessgeega-UndertheCrack.knytt.bin");
-            binLoad("res://knytt/worlds/html5/dessgeega-Torchlight.knytt.bin");
-            binLoad("res://knytt/worlds/html5/ozz - Realms of the Pharaoh v1.1.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Introversity - Scrolly Polly Snow.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Diesel-Station07.knytt.bin");
-            binLoad("res://knytt/worlds/html5/egomassive-AKnyttinTime1.5.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Fegon-Yggdrasil.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Grimwit - Cliff Hangerv13.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Jigganis - splitMindv1.1.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Ania - The Cursed House.knytt.bin");
-            binLoad("res://knytt/worlds/html5/Chironex - Afar.knytt.bin");
-            binLoad("res://knytt/worlds/html5/FredrikAndersson-Core.knytt.bin");
-        }
     }
 
     // Search the given directory for worlds
