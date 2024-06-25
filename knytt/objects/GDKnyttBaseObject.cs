@@ -61,10 +61,14 @@ public class GDKnyttBaseObject : Node2D
         }
     }
 
-    public void makeSafe()
+    public virtual void makeSafe()
     {
         safe = true;
         OrganicEnemy = false;
+
+        var collision = GetNodeOrNull<CollisionShape2D>("CollisionShape2D") ?? 
+            GetNodeOrNull<CollisionShape2D>("StaticBody2D/CollisionShape2D");
+        if (collision != null) { collision.Disabled = true; }
     }
 
     public virtual void customDeletion()

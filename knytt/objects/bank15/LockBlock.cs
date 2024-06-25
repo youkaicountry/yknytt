@@ -14,4 +14,6 @@ public class LockBlock : GDKnyttBaseObject
         await ToSignal(sprite, "animation_finished");
         QueueFree();
     }    
+
+    public override void makeSafe() { }
 }

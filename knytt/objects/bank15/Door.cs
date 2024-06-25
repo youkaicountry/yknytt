@@ -17,4 +17,6 @@ public abstract class Door : GDKnyttBaseObject
     }
 
     public abstract bool checkKey(Juni juni);
+
+    public override void makeSafe() { }
 }

@@ -33,4 +33,6 @@ public class RollerGenerator : GDKnyttBaseObject
     {
         GetNode<AudioStreamPlayer2D>("ShotPlayer").Play();
     }
+
+    public override void makeSafe() { }
 }

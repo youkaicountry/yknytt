@@ -59,7 +59,7 @@ public class CustomObject : GDKnyttBaseObject
 
             Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
             Vector2 offset = new Vector2(getInt(section, "Offset X", 0), getInt(section, "Offset Y", 0));
-            if (image != null) { overrideAnimation(node, image, tile_size, offset); }
+            overrideAnimation(node, image, tile_size, offset);
             return;
         }
 
@@ -118,7 +118,7 @@ public class CustomObject : GDKnyttBaseObject
         }
 
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
-        if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0) { return; }
+        if (image != null && (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)) { return; }
         obj.CustomAnimation = true;
         
         if (static_sprite != null)
@@ -139,6 +139,8 @@ public class CustomObject : GDKnyttBaseObject
             if (one_animation_mode && !anim.EndsWith(obj_y.ToString())) { continue; }
             for (int i = 0; i < new_frames.GetFrameCount(anim); i++)
             {
+                if (image == null) { new_frames.SetFrame(anim, i, null); continue; }
+                
                 var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
                 if (tex == null) { continue; }
                 int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.x;
