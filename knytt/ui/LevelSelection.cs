@@ -252,6 +252,7 @@ public class LevelSelection : BasicScreen
 
     private void _on_DownloadLinkPressed()
     {
+        goBack();
         GetParent<MainMenu>()._on_PlayButton_pressed(local_load: false);
     }
 

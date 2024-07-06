@@ -14,7 +14,7 @@ public class Win : GDKnyttBaseObject
         var endings = save.Endings;
         endings.Add(ending);
         save.Endings = endings; // to write to ini
-        GDArea.GDWorld.Game.saveGame(save);
+        GDArea.GDWorld.Game.saveGame(save, save_map: false); // workaround: different thread + exit causes crash sometimes
 
         const string INI_PATH = "user://worlds.ini";
         var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
