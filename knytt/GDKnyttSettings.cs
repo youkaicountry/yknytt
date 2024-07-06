@@ -295,7 +295,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Scroll Type", ScrollTypes.Original.ToString());
         modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
         modified |= ensureSetting("Graphics", "Forced Map", "1");
-        modified |= ensureSetting("Graphics", "Detailed Map", "1");
+        modified |= ensureSetting("Graphics", "Detailed Map", OS.GetName() == "HTML5" ? "0" : "1");
         modified |= ensureSetting("Graphics", "Shader Type", ShaderType.NoShader.ToString());
         modified |= ensureSetting("Graphics", "WSOD", "1");
 

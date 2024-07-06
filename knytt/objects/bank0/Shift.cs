@@ -32,6 +32,7 @@ public class Shift : Switch
             {
                 juni.Visible = false;
                 GDArea.BlockInput = true;
+                juni.StopMotion = true;
                 Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 18)) as Trigger;
                 trigger?.executeAnyway(juni);
             }
@@ -42,6 +43,7 @@ public class Shift : Switch
             {
                 juni.Visible = true;
                 GDArea.BlockInput = false;
+                juni.StopMotion = false;
             }
 
             if (GDArea != game.CurrentArea) { return; }

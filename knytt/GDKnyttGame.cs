@@ -139,7 +139,7 @@ public class GDKnyttGame : Node2D
         saveGame(save);
     }
 
-    public void saveGame(KnyttSave save)
+    public void saveGame(KnyttSave save, bool save_map = true)
     {
         GDKnyttAssetManager.ensureDirExists(GDKnyttSettings.Saves);
         var f = new File();
@@ -148,7 +148,7 @@ public class GDKnyttGame : Node2D
         f.StoreString(save.ToString());
         f.Close();
 
-        viewports.saveAll();
+        if (save_map) { viewports.saveAll(); }
         KnyttLogger.Debug($"Game saved to {fname}");
     }
 

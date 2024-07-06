@@ -183,6 +183,8 @@ public class Juni : KinematicBody2D
         }
     }
 
+    public bool StopMotion { get; set; }
+
     public bool InHologramPlace { get; set; }
 
     int swim_zones = 0;
@@ -405,6 +407,7 @@ public class Juni : KinematicBody2D
 
     public void processMotion(float delta)
     {
+        if (StopMotion) { return; }
         if (--just_reset >= 0)
         {
             if (just_reset == 0) { SetDeferred("CollisionsDisabled", false); }
