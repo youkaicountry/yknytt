@@ -1,3 +1,5 @@
+using System;
+using System.IO.Compression;
 using Godot;
 
 public class SettingsScreen : BasicScreen
@@ -33,7 +35,8 @@ public class SettingsScreen : BasicScreen
         GetNode<Slider>("VolumeContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("VolumeContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
         GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = !GDKnyttSettings.Mobile && OS.GetName() != "HTML5";
-        GetNode<Button>("ButtonContainer/DirButton").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
+        GetNode<Button>("ButtonContainer/DirButton").Visible = OS.GetName() != "iOS";
+        if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonContainer/DirButton").Text = "Download Saves"; }
     }
 
     public override void initFocus()
@@ -96,6 +99,18 @@ public class SettingsScreen : BasicScreen
 
     private void _on_DirButton_pressed()
     {
+        if (OS.GetName() == "HTML5")
+        {
+            string dest_zip = OS.GetUserDataDir().PlusFile("yknytt-saves.zip");
+            try
+            {
+                ZipFile.CreateFromDirectory(OS.GetUserDataDir().PlusFile("Saves"), dest_zip);
+            }
+            catch (Exception) {}
+            JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-saves.zip");
+            return;
+        }
+
         loadScreen(dir_scene.Instance() as BasicScreen);
     }
 
