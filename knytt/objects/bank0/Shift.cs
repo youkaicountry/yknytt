@@ -127,7 +127,12 @@ public class Shift : Switch
             _on_Area2D_body_exited(juni); // sometimes exit signal is late
         }
 
-        if (juni.just_reset == 0) { juni._PhysicsProcess(1 / 30.0f); } // to exit endless shift loops
+        if (juni.just_reset == 0)
+        {
+            juni._PhysicsProcess(1 / 60.0f); // to exit endless shift loops
+            juni._PhysicsProcess(1 / 60.0f); // MoveAndSlide can't use other fps
+            juni._PhysicsProcess(1 / 60.0f);
+        }
 
         juni.just_reset = 2; // sometimes inside checker needs time to start working
 

@@ -9,7 +9,7 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     /*[Export] public*/internal const float JUMP_SPEED_HIGH = -243f,    // Speed of jump with high jump power (-238.5 in original)
-    JUMP_SPEED_LOW = -235.5f,                   // Speed of jump with no high jump power (-230 in original)
+    JUMP_SPEED_LOW = -239.5f,                   // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -221f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni
     LOW_JUMP_HOLD_POWER = 130f,                 // Y Force exerted while holding jump (125 in original)
@@ -379,19 +379,11 @@ public class Juni : KinematicBody2D
         this.next_state = state;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _Process(float delta)
     {
-        if (dead) { return; }
-
-        juniInput.Update();
-
         this.checkDebugInput(); // TODO: Check the mode for debug
-
-        if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
-
-        if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
     }
-
+    
     private void checkDebugInput()
     {
         if (Input.IsActionJustPressed("debug_die")) { die(); }
@@ -403,6 +395,17 @@ public class Juni : KinematicBody2D
         if (Input.IsActionJustPressed("debug_fast")) { GDKnyttDataStore.CurrentSpeed *= 1.2f; }
         if (Input.IsActionJustPressed("main_menu")) { Game.quit(); }
         if (Input.IsActionJustPressed("reboot")) { Game.GDWorld.KWorld.refreshWorld(); GDKnyttDataStore.startGame(false); }
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        if (dead) { return; }
+
+        juniInput.Update();
+
+        if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
+
+        if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
     }
 
     public void processMotion(float delta)

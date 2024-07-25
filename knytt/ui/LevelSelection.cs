@@ -220,8 +220,8 @@ public class LevelSelection : BasicScreen
                 var download_link = download_link_scene.Instance();
                 download_link.Connect("pressed", this, "_on_DownloadLinkPressed");
                 game_container.AddChild(download_link);
-                download_link_added = true;
             }
+            download_link_added = true;
         }
 
         // Process the queue
