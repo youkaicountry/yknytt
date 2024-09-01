@@ -56,6 +56,7 @@ public class WorldEntry
         Path = info.Path;
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
+        HasSaves = info.HasSaves;
         Completed = info.Completed;
         UserScore = info.UserScore;
     }

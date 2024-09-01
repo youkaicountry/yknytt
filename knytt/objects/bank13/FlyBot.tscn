@@ -99,6 +99,9 @@ centered = false
 
 [node name="Area2D" type="Area2D" parent="PathFollow2D/AnimatedSprite"]
 position = Vector2( 12, 12.125 )
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/AnimatedSprite/Area2D"]
 shape = SubResource( 19 )
+
+[connection signal="body_entered" from="PathFollow2D/AnimatedSprite/Area2D" to="." method="onDeadlyAreaEntered"]
