@@ -28,9 +28,13 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 If you find a bug in a level, just press "complain" on a level info screen. Your latest save will be sent to the server. There is no need to report it in issues, unless it requires some explanation. Results may appear [here](https://github.com/youkaicountry/yknytt/issues/200).
 
+### Working directory
+
+/Users/{user}/AppData/Roaming/YKnytt/ for Windows, ~/.local/share/YKnytt/ for Linux
+
 ### Building
 
-Requires Godot 3.6.beta5.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.6.rc1.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
 
 #### Export settings
 
