@@ -15,6 +15,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttArea CurrentArea { get; private set; }
     public GDKnyttWorld GDWorld { get; private set; }
     public GDKnyttCamera Camera { get; private set; }
+    public BitmapFont SignFont { get; private set; }
     public TrailContainer Trails { get; private set; }
     public DeathContainer Deaths { get; private set; }
 
@@ -82,6 +83,7 @@ public class GDKnyttGame : Node2D
         createJuni();
 
         if (GDKnyttSettings.DetailedMap) { viewports.init(world); }
+        loadFonts();
         UI.initialize(this);
         UI.updatePowers();
 
@@ -450,5 +452,41 @@ public class GDKnyttGame : Node2D
         var mat = ResourceLoader.Load<ShaderMaterial>("res://knytt/ui/screen_shaders/TileShader.tres");
         mat.Shader = GDKnyttSettings.Shader == GDKnyttSettings.ShaderType.HQ4X ?
             ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
+    }
+
+    private BitmapFont loadFont(string key, int width, int height)
+    {
+        if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
+        string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
+        var t = GDWorld.KWorld.getWorldTexture(font_path) as Texture;
+        var font = new BitmapFont();
+        font.Height = height;
+        font.AddTexture(t);
+        for (int y = 0; y < 7; y++)
+        {
+            for (int x = 0; x < 32; x++)
+            {
+                font.AddChar(32 + y * 32 + x, 0, new Rect2(x * width, y * height, width, height));
+            }
+        }
+        font.AddChar(0x100, 0, new Rect2(0, 0, width, height)); // workaround for space char (godot just skips it)
+        return font;
+    }
+
+    public void loadFonts()
+    {
+        SignFont = loadFont("font", 7, 13);
+        var title_font = loadFont("title", 13, 24);
+        if (title_font != null)
+        {
+            GetNode<Label>("%Title/TitleLabel").AddFontOverride("font", title_font);
+            GetNode<Label>("%Title/TitleLabel").RemoveStyleboxOverride("normal");
+        }
+        var subtitle_font = loadFont("subtitle", 7, 13);
+        if (subtitle_font != null)
+        {
+            GetNode<Label>("%Title/SubtitleLabel").AddFontOverride("font", subtitle_font);
+            GetNode<Label>("%Title/SubtitleLabel").RemoveStyleboxOverride("normal");
+        }
     }
 }
