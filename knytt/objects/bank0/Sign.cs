@@ -11,11 +11,13 @@ public class Sign : GDKnyttBaseObject
     private int shiftMessageIndex;
     private int triggerMessageIndex;
     private AnimationPlayer player;
+    private Label label;
     private int areaCount;
 
     public override void _Ready()
     {
         player = GetNode<AnimationPlayer>("AnimationPlayer");
+        label = GetNode<Label>("Label");
 
         char letter = "ABC"[ObjectID.y - 17];
 
@@ -27,12 +29,18 @@ public class Sign : GDKnyttBaseObject
             if (text == null) { break; }
             texts.Add(preprocess(text));
         }
-        if (texts[0] == null && texts.Count == 1) { texts[0] = "<SIGN TEXT MISSING>"; }
+        if (texts[0] == null && texts.Count == 1) { texts[0] = "[SILENCE]"; }
 
         shiftMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignShift({letter})"), out var j) ? j : 0;
         triggerMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignTrig({letter})"), out j) ? j : 0;
 
         adjustSign();
+
+        if (GDArea.GDWorld.Game.SignFont != null)
+        {
+            label.AddFontOverride("font", GDArea.GDWorld.Game.SignFont);
+            label.RemoveColorOverride("font_color");
+        }
     }
 
     private string preprocess(string msg)
@@ -50,7 +58,6 @@ public class Sign : GDKnyttBaseObject
 
     protected void adjustSign()
     {
-        var label = GetNode<Control>("Label");
         var sign_rect = GetNode<Control>("Label/SignRect");
         var x_pos = label.RectPosition.x;
         var y_pos = label.RectPosition.y;
@@ -87,7 +94,7 @@ public class Sign : GDKnyttBaseObject
 
         if (messageIndex != -1 && texts[messageIndex] != null)
         {
-            GetNode<Label>("Label").Text = texts[messageIndex];
+            label.Text = texts[messageIndex];
             GetNode<Control>("Label/SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
             if (!messageVisible) { player.Play("FadeIn"); messageVisible = true; }
         }

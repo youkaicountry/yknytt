@@ -156,7 +156,7 @@ Bank 19 (Collectables):
 [x] 	Title=YourMessageHere
 [x] 	Subtitle=YourMessageHere
 
-[ ] Custom Fonts
+[x] Custom Fonts
 
 [x] Attachment
 
