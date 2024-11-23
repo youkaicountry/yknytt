@@ -219,12 +219,12 @@ namespace YKnyttLib
         {
             var sb = new StringBuilder();
             char c = (char)map.ReadByte();
-            while ((c >= 48 && c < 58) || (c == 45))
+            while ((c >= 48 && c < 58) || (c == 45) || (c == 46))
             {
                 sb.Append(c);
                 c = (char)map.ReadByte();
             }
-
+            if (sb.ToString().Contains('.')) { return int.MinValue; }
             return int.Parse(sb.ToString());
         }
 

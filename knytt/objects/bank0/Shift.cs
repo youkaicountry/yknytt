@@ -180,6 +180,8 @@ public class Shift : Switch
                 KnyttSave save = new KnyttSave(game.GDWorld.KWorld, savefile, game.GDWorld.KWorld.CurrentSave.Slot);
                 game.GDWorld.KWorld.CurrentSave = save;
                 game.saveGame(save);
+                save.SourcePowers = new JuniValues();
+                save.SourcePowers.readFromSave(save);
             }
             catch (Exception) {}
         }

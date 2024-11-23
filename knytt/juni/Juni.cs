@@ -8,15 +8,16 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    /*[Export] public*/internal const float JUMP_SPEED_HIGH = -243f,    // Speed of jump with high jump power (-238.5 in original)
-    JUMP_SPEED_LOW = -239.5f,                   // Speed of jump with no high jump power (-230 in original)
-    JUMP_SPEED_UMBRELLA = -221f,                // Speed of jump with umbrella (-220 in original)
+    /*[Export] public*/internal const float 
+    JUMP_SPEED_HIGH = -238.5f,                  // Speed of jump with high jump power (-238.5 in original)
+    JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
+    JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni
-    LOW_JUMP_HOLD_POWER = 130f,                 // Y Force exerted while holding jump (125 in original)
-    HIGH_JUMP_HOLD_POWER = 555f,                // Y Force exerted while holding jump when Juni has high jump power (550 in original)
+    LOW_JUMP_HOLD_POWER = 125f,                 // Y Force exerted while holding jump (125 in original)
+    HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power (550 in original)
     LOW_JUMP_EXTRA_GRAVITY = 100f,              // Y Force added to gravity when Juni has no high jump power (not from the original)
     JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
-    FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump (+1 extra frame)
+    FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump (4 in original + 1 extra frame)
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
     MAX_SPEED_RUN = 175f,                       // Max speed while running
     MAX_X_SPEED_UMBRELLA = 130f,                // Maximum X speed when Juni has the umbrella deployed
@@ -37,7 +38,7 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
-    BUMP_Y_SPEED_PX = -4.1f,                    // Speed Juni goes up when running over a bump. value / fps is max height of obstacle (currently 4px)
+    BUMP_Y_SPEED_PX = -4.1f,                    // Speed Juni goes up when running over a bump
     INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
@@ -505,7 +506,8 @@ public class Juni : KinematicBody2D
 
     private void handleBumps(float delta)
     {
-        if (Checkers.Bump && CurrentState is WalkRunState && juniInput.Direction != 0)
+        bool x_moving_state = CurrentState is WalkRunState || CurrentState is JumpState || CurrentState is FallState;
+        if (Checkers.Bump && x_moving_state && juniInput.Direction != 0)
         {
             Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }

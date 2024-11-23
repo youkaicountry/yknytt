@@ -17,6 +17,6 @@ public class TrapCeiling : GDKnyttBaseObject
     private void _on_Checker_body_entered(object body, bool up)
     {
         moving_up = up;
-        GetNode<AudioStreamPlayer2D>("HitSound2D").Play();
+        GetNode<AudioStreamPlayer2D>(up ? "FloorHitSound2D" : "CeilingHitSound2D").Play();
     }
 }

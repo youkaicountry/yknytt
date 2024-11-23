@@ -68,7 +68,7 @@ public class GDKnyttBaseObject : Node2D
 
         var collision = GetNodeOrNull<CollisionShape2D>("CollisionShape2D") ?? 
             GetNodeOrNull<CollisionShape2D>("StaticBody2D/CollisionShape2D");
-        if (collision != null) { collision.Disabled = true; }
+        if (collision != null && collision.GetParent().GetClass() == "StaticBody2D") { collision.Disabled = true; }
     }
 
     public virtual void customDeletion()

@@ -208,6 +208,7 @@ public class LevelSelection : BasicScreen
 
     public override void _PhysicsProcess(float delta)
     {
+        if (ActiveScreen != this) { return; }
         prev_scroll = games_scrollbar.Value;
         prev_focus_owner = game_container.GetFocusOwner();
         if (prev_focus_owner == null) { game_container.GrabFocus(); }
@@ -235,7 +236,7 @@ public class LevelSelection : BasicScreen
                 if (!finished_entries.TryDequeue(out var entry)) { return; }
                 if (manager_completed || Manager.addWorld(entry))
                 {
-                    game_container.addWorld(entry, focus: game_container.Count == 0);
+                    game_container.addWorld(entry, focus: !this.IsAParentOf(prev_focus_owner) && game_container.Count == 0);
                 }
             }
         }

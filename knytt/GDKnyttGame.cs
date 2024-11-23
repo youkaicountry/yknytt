@@ -459,6 +459,7 @@ public class GDKnyttGame : Node2D
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
         string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
         var t = GDWorld.KWorld.getWorldTexture(font_path) as Texture;
+        if (t == null) { return null; }
         var font = new BitmapFont();
         font.Height = height;
         font.AddTexture(t);
