@@ -1,4 +1,4 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 using IniParser.Parser;
 using System.Collections.Generic;
 using System.IO;
@@ -100,6 +100,8 @@ namespace YKnyttLib
             while (start_byte == 'x')
             {
                 var area = new KnyttArea(gz, this);
+                if (area.Position.x == int.MinValue || area.Position.y == int.MinValue) { start_byte = gz.ReadByte(); continue; }
+
                 this.Map.Add(area.Position, area);
 
                 this.MinBounds = this.MinBounds.min(area.Position);
