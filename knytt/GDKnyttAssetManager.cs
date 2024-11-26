@@ -142,8 +142,9 @@ public class GDKnyttAssetManager
 
     public static string loadTextFile(byte[] buffer)
     {
-        var encoder = Encoding.GetEncoding(1252);
-        return encoder.GetString(buffer, 0, buffer.Length);
+        char[] chars = new char[buffer.Length];
+        for (int i = 0; i < buffer.Length; i++) { chars[i] = (char)buffer[i]; }
+        return new string(chars);
     }
 
     public static string loadTextFile(string path)
