@@ -197,6 +197,8 @@ public class MapPanel : Panel
 
     public override void _Input(InputEvent @event)
     {
+        GetNode<GDKnyttKeys>("/root/GdKnyttKeys")._Input(@event);
+
         if (@event is InputEventScreenDrag drag_event)
         {
             if (drag_event.Index == 0)

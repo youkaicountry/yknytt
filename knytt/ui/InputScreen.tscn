@@ -119,6 +119,17 @@ focus_neighbour_left = NodePath("../../BackButton")
 Action = "walk"
 ActionLabel = "Walk"
 
+[node name="Label" type="Label" parent="SettingsContainer"]
+margin_top = 232.0
+margin_right = 248.0
+margin_bottom = 247.0
+rect_min_size = Vector2( 0, 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Info + Pause (or `) to show console"
+align = 2
+valign = 1
+
 [node name="KSSettingsContainer" type="VBoxContainer" parent="."]
 margin_left = 265.571
 margin_top = 7.0

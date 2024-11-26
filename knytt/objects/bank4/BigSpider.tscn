@@ -75,7 +75,7 @@ extents = Vector2( 16, 10 )
 script = ExtResource( 4 )
 speed = 250.0
 centerOffset = 24.0
-border = 16.0
+border = 0.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 24, 13.5 )
