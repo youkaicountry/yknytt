@@ -4,11 +4,11 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.6.5 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.5/YKnytt_v0.6.5.apk)
+[Download YKnytt v0.6.6 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.6/YKnytt_v0.6.6.apk)
 
-[Download YKnytt v0.6.5 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.5/YKnytt_v0.6.5_win.zip)
+[Download YKnytt v0.6.6 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.6/YKnytt_v0.6.6_linux.zip)
 
-[Download YKnytt v0.6.5 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.5/YKnytt_v0.6.5_linux.zip)
+[Download YKnytt v0.6.6 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.6/YKnytt_v0.6.6_linux.zip)
 
 [Web version: play YKnytt v0.6.5 on itch.io](https://youkaicountry.itch.io/yknytt)
 
@@ -34,7 +34,7 @@ If you find a bug in a level, just press "complain" on a level info screen. Your
 
 ### Building
 
-Requires Godot 3.6.rc1.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.6 and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
 
 #### Export settings
 
