@@ -57,7 +57,7 @@ public class InfoScreen : BasicScreen
             kworld.setBinMode(loader);
             kworld.setDirectory(world_entry.Path, loader.RootDirectory);
         }
-        string ini = GDKnyttAssetManager.loadTextFile(kworld.getWorldData("World.ini"));
+        string ini = GDKnyttAssetManager.loadTextFileRaw(kworld.getWorldData("World.ini"));
         kworld.loadWorldConfig(ini);
         initialize(kworld);
     }
