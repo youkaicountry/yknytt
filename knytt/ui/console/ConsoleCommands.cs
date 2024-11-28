@@ -643,7 +643,7 @@ public static class ConsoleCommands
             if (path == null) { return $"Cannot find world: \"{this.world}\""; }
 
             var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
-            var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
+            var txt = GDKnyttAssetManager.loadTextFileRaw(binloader.GetFile("World.ini"));
             GDKnyttWorldImpl world = new GDKnyttWorldImpl();
             world.setDirectory(path, binloader.RootDirectory);
             world.loadWorldConfig(txt);

@@ -39,7 +39,7 @@ public class GDKnyttWorld : Node2D
         // If info is not initialized, load it
         if (KWorld.Info == null)
         {
-            var txt = GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("World.ini"));
+            var txt = GDKnyttAssetManager.loadTextFileRaw(KWorld.getWorldData("World.ini"));
             KWorld.loadWorldConfig(txt);
         }
 
