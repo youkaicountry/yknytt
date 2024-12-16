@@ -199,6 +199,12 @@ namespace YKnyttLib
             set { setValue("Extras", "Hardest Place", value); }
         }
 
+        public int TotalTime
+        {
+            get { return int.TryParse(getValue("Extras", "Total Time"), out int i) ? i : 0; }
+            set { setValue("Extras", "Total Time", value.ToString()); }
+        }
+
         public KnyttPoint getArea()
         {
             return new KnyttPoint(int.Parse(data["Positions"]["X Map"]), int.Parse(data["Positions"]["Y Map"]));
