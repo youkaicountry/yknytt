@@ -126,13 +126,38 @@ public class InfoScreen : BasicScreen
     }
 
     private int stat_retry = 1;
+    private HashSet<int> my_powers = new HashSet<int>();
+    private HashSet<string> my_cutscenes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    private HashSet<string> my_endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     private void _on_StatHTTPRequest_ready()
     {
+        loadSaves();
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
         string serverURL = GDKnyttSettings.ServerURL;
         GetNode<HTTPRequest>("StatHTTPRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
+    }
+
+    private void loadSaves()
+    {
+        for (int slot = 1; slot <= 3; slot++)
+        {
+            string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
+            if (new File().FileExists(savename))
+            {
+                KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);
+                for (int i = 0; i < 13; i++) { if (save.getPower(i)) { my_powers.Add(i); } }
+                my_cutscenes.UnionWith(save.Cutscenes);
+                my_endings.UnionWith(save.Endings);
+
+                var total_deaths = save.TotalDeaths;
+                var total_time = save.TotalTime;
+                GetNode<SlotButton>($"InfoRect/Slot{slot}Button").hint = 
+                    total_time > 0 ? $"Time: {total_time / 60} min {total_time % 60:D2} sec, respawns: {total_deaths}" : 
+                    total_deaths > 0 ? $"Respawns: {total_deaths}" : null;
+            }
+        }
     }
 
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
@@ -156,21 +181,6 @@ public class InfoScreen : BasicScreen
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = JSON.Parse(response);
         if (json.Error != Error.Ok) { return; }
-
-        var my_powers = new HashSet<int>();
-        var my_cutscenes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var my_endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        for (int slot = 1; slot <= 3; slot++)
-        {
-            string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
-            if (new File().FileExists(savename))
-            {
-                KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);
-                for (int i = 0; i < 13; i++) { if (save.getPower(i)) { my_powers.Add(i); } }
-                my_cutscenes.UnionWith(save.Cutscenes);
-                my_endings.UnionWith(save.Endings);
-            }
-        }
 
         world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
         world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");

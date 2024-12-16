@@ -47,6 +47,10 @@ namespace YKnyttLib
         private KnyttPoint respawn_area, respawn_position;
         public int HardestPlaceDeaths { get; set; }
         public string HardestPlace { get; set; }
+        public int TotalTime { get; set; }
+        public int TotalTimeNow { get { return TotalTime + (int)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - current_time_start); } }
+        private long current_time_start;
+        public void adjustPlayingTime(int delay) { current_time_start += delay; }
 
         private static readonly int VISITED_LIMIT = 160_000_000; // TODO: visited areas don't work on large levels // max save file size ~= 10MB
 
@@ -78,28 +82,30 @@ namespace YKnyttLib
             Endings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public JuniValues(JuniValues src, JuniValues newest = null)
+        public JuniValues(JuniValues @base, JuniValues failed = null)
         {
-            Powers = (bool[])src.Powers.Clone();
-            Flags = (bool[])src.Flags.Clone();
-            Collectables = (bool[])src.Collectables.Clone();
-            CoinsSpent = src.CoinsSpent;
-            VisitedAreas = src.VisitedAreas != null ? (BitArray)src.VisitedAreas.Clone() : null;
-            Marked = src.Marked != null ? new Dictionary<KnyttPoint, string>(src.Marked) : null;
-            Attachment = src.Attachment;
-            Character = src.Character;
-            Tint = src.Tint;
-            Cutscenes = new HashSet<string>(src.Cutscenes, StringComparer.OrdinalIgnoreCase);
-            Endings = new HashSet<string>(src.Endings, StringComparer.OrdinalIgnoreCase);
+            Powers = (bool[])@base.Powers.Clone();
+            Flags = (bool[])@base.Flags.Clone();
+            Collectables = (bool[])@base.Collectables.Clone();
+            CoinsSpent = @base.CoinsSpent;
+            VisitedAreas = @base.VisitedAreas != null ? (BitArray)@base.VisitedAreas.Clone() : null;
+            Marked = @base.Marked != null ? new Dictionary<KnyttPoint, string>(@base.Marked) : null;
+            Attachment = @base.Attachment;
+            Character = @base.Character;
+            Tint = @base.Tint;
+            Cutscenes = new HashSet<string>(@base.Cutscenes, StringComparer.OrdinalIgnoreCase);
+            Endings = new HashSet<string>(@base.Endings, StringComparer.OrdinalIgnoreCase);
             
-            if (newest != null)
+            if (failed != null)
             {
-                TotalDeaths = newest.TotalDeaths;
-                current_place_deaths = newest.current_place_deaths;
-                respawn_area = newest.respawn_area;
-                respawn_position = newest.respawn_position;
-                HardestPlaceDeaths = newest.HardestPlaceDeaths;
-                HardestPlace = newest.HardestPlace;
+                TotalDeaths = failed.TotalDeaths;
+                current_place_deaths = failed.current_place_deaths;
+                respawn_area = failed.respawn_area;
+                respawn_position = failed.respawn_position;
+                HardestPlaceDeaths = failed.HardestPlaceDeaths;
+                HardestPlace = failed.HardestPlace;
+                current_time_start = failed.current_time_start;
+                TotalTime = failed.TotalTime;
             }
         }
 
@@ -216,6 +222,11 @@ namespace YKnyttLib
             save.TotalDeaths = TotalDeaths;
             save.HardestPlaceDeaths = HardestPlaceDeaths;
             save.HardestPlace = HardestPlace;
+
+            TotalTime = TotalTimeNow;
+            current_time_start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            save.TotalTime = TotalTime;
+            
             save.SourcePowers = new JuniValues(this);
         }
 
@@ -239,6 +250,8 @@ namespace YKnyttLib
             respawn_position = default;
             HardestPlaceDeaths = save.HardestPlaceDeaths;
             HardestPlace = save.HardestPlace;
+            TotalTime = save.TotalTime;
+            current_time_start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
     }
 }

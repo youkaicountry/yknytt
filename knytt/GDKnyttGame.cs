@@ -317,7 +317,9 @@ public class GDKnyttGame : Node2D
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Online)
         {
             GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-                (int)RateHTTPRequest.Action.WinExit);
+                (int)RateHTTPRequest.Action.WinExit, 
+                $"{Juni.Powers.TotalTimeNow}s {Juni.Powers.TotalDeaths}d " +
+                $"{Juni.Powers.HardestPlace} {Juni.Powers.HardestPlaceDeaths}d");
         }
         await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
         GDKnyttDataStore.winGame(ending);

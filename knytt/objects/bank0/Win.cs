@@ -14,6 +14,10 @@ public class Win : GDKnyttBaseObject
         var endings = save.Endings;
         endings.Add(ending);
         save.Endings = endings; // to write to ini
+        save.TotalDeaths = juni.Powers.TotalDeaths;
+        save.HardestPlaceDeaths = juni.Powers.HardestPlaceDeaths;
+        save.HardestPlace = juni.Powers.HardestPlace;
+        save.TotalTime = juni.Powers.TotalTimeNow;
         GDArea.GDWorld.Game.saveGame(save, save_map: false); // workaround: different thread + exit causes crash sometimes
 
         const string INI_PATH = "user://worlds.ini";

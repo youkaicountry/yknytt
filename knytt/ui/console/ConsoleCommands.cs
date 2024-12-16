@@ -812,6 +812,8 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
+            var time = game.Juni.Powers.TotalTimeNow;
+            env.Console.AddMessage($"Total time: {time / 60}:{time % 60:D2}");
             env.Console.AddMessage($"Total deaths: {game.Juni.Powers.TotalDeaths}");
             if (game.Juni.Powers.HardestPlace == null)
             {

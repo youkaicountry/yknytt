@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public class PausePanel : Control
@@ -6,6 +7,7 @@ public class PausePanel : Control
     PackedScene info_scene;
     bool bounce = true;
     bool in_settings = false;
+    long start_time;
 
     public override void _Ready()
     {
@@ -40,12 +42,14 @@ public class PausePanel : Control
     private void pause()
     {
         GetTree().Paused = true;
+        start_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
     }
 
     public void unpause()
     {
         GetTree().Paused = false;
         Input.ActionRelease("pause");
+        GetNode<GDKnyttGame>("../../..").Juni.Powers.adjustPlayingTime((int)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - start_time));
         GetParent().QueueFree();
     }
 
