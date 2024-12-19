@@ -23,7 +23,8 @@ public class Laser : GDKnyttBaseObject
         }
 
         is_on = onAtStart[index] || alwaysOn[index];
-        sprite.Play(is_on ? "on" : "off");
+        sprite.Play("on");
+        sprite.Visible = is_on;
         collisionShape.SetDeferred("disabled", !is_on);
         if (!alwaysOn[index])
         {
@@ -35,7 +36,7 @@ public class Laser : GDKnyttBaseObject
     private void _on_SwitchTimer_timeout_ext()
     {
         is_on = !is_on;
-        sprite.Play(is_on ? "on" : "off");
+        sprite.Visible = is_on;
         collisionShape.SetDeferred("disabled", !is_on);
         if (GDArea.Selector.IsObjectSelected(this, by_type: true))
         {

@@ -9,7 +9,7 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     /*[Export] public*/internal const float 
-    JUMP_SPEED_HIGH = -238.5f,                  // Speed of jump with high jump power (-238.5 in original)
+    JUMP_SPEED_HIGH = -241f,                    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni

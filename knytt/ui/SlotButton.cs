@@ -123,4 +123,9 @@ public class SlotButton : GDKnyttButton
         // Message up to the level selection with a new? flag, the filename, and the slot number
         EmitSignal(nameof(StartGame), NewMode, FullFilename, slot);
     }
+
+    public void _on_StartLoadButton_ShowHint(string _)
+    {
+        EmitSignal(nameof(ShowHint), hint);
+    }
 }
