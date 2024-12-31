@@ -180,7 +180,7 @@ public class MapPanel : Panel
             RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
 
             if (world.Size.Area < AREA_PRELOAD_LIMIT) { juni.Game.GetNode<MapViewports>("%MapViewports").loadAll(); }
-            juni.GDArea?.Objects?.checkCollectables();
+            juni.GDArea?.Objects?.checkCollectables(juni.Powers);
             setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User));
             Update();
         }
@@ -270,8 +270,17 @@ public class MapPanel : Panel
     private void mark()
     {
         bool marked = juni.Powers.hasMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
-        if (marked) { juni.Powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User); }
-        else { juni.Powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User); }
+        var base_powers = juni.Game.GDWorld.KWorld.CurrentSave.SourcePowers;
+        if (marked)
+        {
+            juni.Powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+            base_powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+        }
+        else
+        {
+            juni.Powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+            base_powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+        }
         setMarkButtonText(!marked);
         Update();
     }

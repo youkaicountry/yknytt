@@ -124,8 +124,8 @@ public class SlotButton : GDKnyttButton
         EmitSignal(nameof(StartGame), NewMode, FullFilename, slot);
     }
 
-    public void _on_StartLoadButton_ShowHint(string _)
+    public void _on_Button_ShowHint(string h)
     {
-        EmitSignal(nameof(ShowHint), hint);
+        EmitSignal(nameof(ShowHint), h != null ? hint : null);
     }
 }

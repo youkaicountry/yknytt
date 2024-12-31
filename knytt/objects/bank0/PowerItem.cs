@@ -27,6 +27,7 @@ public class PowerItem : GDKnyttBaseObject
         juni.setPower(Power, true);
         GDArea.playEffect(Coords);
         juni.playSound("powerup");
-        QueueFree();
+        Visible = false;
+        GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", true);
     }
 }

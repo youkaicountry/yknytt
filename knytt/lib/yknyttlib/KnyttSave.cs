@@ -124,7 +124,7 @@ namespace YKnyttLib
         {
             set
             {
-                if (value == null) { return; }
+                if (value == null || value.Count == 0) { return; }
                 setValue("Extras", "Marked", String.Join(",", value.Select(kv => $"{kv.Value}x{kv.Key.x}y{kv.Key.y}")));
             }
 
