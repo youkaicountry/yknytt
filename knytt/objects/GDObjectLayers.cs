@@ -126,9 +126,9 @@ public class GDObjectLayers : Node2D
         return finds.Count != 0 ? finds[0] : null;
     }
 
-    public void checkCollectables()
+    public void checkCollectables(JuniValues powers)
     {
-        var powers = GDArea.GDWorld.Game.Juni.Powers;
+        if (powers == null) { return; }
         powers.resetMarks(GDArea.Area.MapPosition);
 
         foreach (var layer in GDArea.Objects.Layers)

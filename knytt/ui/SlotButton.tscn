@@ -60,6 +60,7 @@ margin_right = 80.386
 margin_bottom = 50.434
 rect_min_size = Vector2( 60, 0 )
 text = "Erase"
+hint = ""
 
 [node name="ConfirmArrow" type="TextureRect" parent="." index="3"]
 visible = false
@@ -92,7 +93,8 @@ patch_margin_right = 1
 patch_margin_bottom = 1
 
 [connection signal="pressed" from="." to="." method="_on_SlotButton_pressed"]
-[connection signal="ShowHint" from="StartLoadArrow/StartLoadButton" to="." method="_on_StartLoadButton_ShowHint"]
+[connection signal="ShowHint" from="StartLoadArrow/StartLoadButton" to="." method="_on_Button_ShowHint"]
 [connection signal="pressed" from="StartLoadArrow/StartLoadButton" to="." method="_on_StartLoadButton_pressed"]
+[connection signal="ShowHint" from="EraseArrow/EraseButton" to="." method="_on_Button_ShowHint"]
 [connection signal="pressed" from="EraseArrow/EraseButton" to="." method="_on_EraseButton_pressed"]
 [connection signal="pressed" from="ConfirmArrow/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]

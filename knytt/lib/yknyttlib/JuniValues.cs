@@ -88,8 +88,9 @@ namespace YKnyttLib
             Flags = (bool[])@base.Flags.Clone();
             Collectables = (bool[])@base.Collectables.Clone();
             CoinsSpent = @base.CoinsSpent;
-            VisitedAreas = @base.VisitedAreas != null ? (BitArray)@base.VisitedAreas.Clone() : null;
             Marked = @base.Marked != null ? new Dictionary<KnyttPoint, string>(@base.Marked) : null;
+            // same reference for current and for saved visited areas to preserve them between respawns
+            VisitedAreas = @base.VisitedAreas; // should already be filled (changeArea executes before writeToSave at start)
             Attachment = @base.Attachment;
             Character = @base.Character;
             Tint = @base.Tint;

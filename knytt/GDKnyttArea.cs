@@ -89,6 +89,7 @@ public class GDKnyttArea : Node2D
         Selector.IsOpen = true;
         if ((!regenerate_same && this.active) || this.Area.Empty) { return; }
         this.createObjectLayers();
+        Objects.checkCollectables(GDWorld.KWorld.CurrentSave.SourcePowers);
         this.active = true;
         Tiles.activate();
     }
@@ -97,7 +98,7 @@ public class GDKnyttArea : Node2D
     {
         Bullets.Reset();
         Selector.Reset();
-        Objects?.checkCollectables();
+        Objects?.checkCollectables(GDWorld.Game.Juni.Powers);
         this.removeObjectLayers();
         this.active = false;
         Tiles?.deactivate();
