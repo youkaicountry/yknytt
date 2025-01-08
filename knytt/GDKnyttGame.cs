@@ -287,7 +287,7 @@ public class GDKnyttGame : Node2D
                 return;
             }
 
-            if (!respawn) { CurrentArea.Objects.checkCollectables(GDWorld.Game.Juni.Powers); }
+            if (!respawn) { CurrentArea?.Objects?.checkCollectables(GDWorld.Game.Juni.Powers); }
             CurrentArea.scheduleDeactivation();
             Juni.juniInput.altInput.ClearInput();
         }
@@ -302,7 +302,7 @@ public class GDKnyttGame : Node2D
 
         this.CurrentArea = area;
         CurrentArea.activateArea();
-        CurrentArea.Objects.checkCollectables(GDWorld.KWorld.CurrentSave.SourcePowers);
+        CurrentArea?.Objects?.checkCollectables(GDWorld.KWorld.CurrentSave.SourcePowers);
         beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
 
         Juni.stopHologram(cleanup: true);
