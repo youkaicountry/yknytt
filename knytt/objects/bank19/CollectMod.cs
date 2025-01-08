@@ -18,6 +18,7 @@ public class CollectMod : Node2D
         if (parent.Juni.Powers.getCollectable(parent.ObjectID.y))
         {
             parent.QueueFree();
+            parent.Deleted = true;
             return;
         }
         var area = GetNode<Area2D>("Area2D");
@@ -31,6 +32,10 @@ public class CollectMod : Node2D
         juni.updateCollectables();
         parent.GDArea.playEffect(offset: GlobalPosition - parent.GDArea.GlobalPosition);
         juni.playSound("powerup");
-        foreach (var obj in parent.GDArea.Objects.findObjects(parent.ObjectID)) { obj.QueueFree(); }
+        foreach (var obj in parent.GDArea.Objects.findObjects(parent.ObjectID))
+        {
+            obj.QueueFree();
+            obj.Deleted = true;
+        }
     }
 }

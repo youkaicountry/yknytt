@@ -13,6 +13,7 @@ public abstract class Door : GDKnyttBaseObject
             sprite.Play("open");
             await ToSignal(sprite, "animation_finished");
             QueueFree();
+            Deleted = true;
         }
     }
 

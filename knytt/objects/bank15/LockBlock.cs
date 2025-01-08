@@ -13,6 +13,7 @@ public class LockBlock : GDKnyttBaseObject
         sprite.Play("open");
         await ToSignal(sprite, "animation_finished");
         QueueFree();
+        Deleted = true;
     }    
 
     public override void makeSafe() { }

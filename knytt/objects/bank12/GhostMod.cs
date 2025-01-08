@@ -19,6 +19,7 @@ public class GhostMod : Node2D
         if (!parent.Juni.Powers.getPower(YKnyttLib.JuniValues.PowerNames.Eye))
         {
             parent.QueueFree();
+            parent.Deleted = true;
         }
     }
 
