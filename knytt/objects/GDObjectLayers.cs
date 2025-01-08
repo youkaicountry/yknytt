@@ -136,9 +136,9 @@ public class GDObjectLayers : Node2D
             foreach (GDKnyttBaseObject kbo in layer.GetChildren())
             {
                 var knytt_object = kbo;
-                if (knytt_object is CustomObject obj && obj.GetChildCount() > 0 && obj.GetChild(0) is GDKnyttBaseObject child_object)
+                if (knytt_object is CustomObject obj && obj.node != null && !obj.node.Deleted && !obj.node.IsInsideTree())
                 {
-                    knytt_object = child_object;
+                    knytt_object = obj.node;
                 }
                 if (knytt_object is PowerItem pitem && !powers.getPower(pitem.Power))
                 {

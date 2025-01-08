@@ -23,6 +23,7 @@ public class CustomObject : GDKnyttBaseObject
 
     protected CustomObjectInfo info;
     protected AnimatedSprite sprite;
+    public GDKnyttBaseObject node;
     private int counter = 0;
     private static Dictionary<(string, int), SpriteFrames> oco_cache = new Dictionary<(string, int), SpriteFrames>();
 
@@ -37,7 +38,7 @@ public class CustomObject : GDKnyttBaseObject
         string mod = ObjectID.x == 254 ? "B" : "";
         string key = $"Custom Object {mod}{ObjectID.y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
-        if (section == null) { QueueFree(); return; }
+        if (section == null) { QueueFree(); Deleted = true; return; }
 
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
@@ -50,7 +51,7 @@ public class CustomObject : GDKnyttBaseObject
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
             if (bundle == null) { return; }
-            var node = bundle.getNode(Layer, Coords);
+            node = bundle.getNode(Layer, Coords);
             node.Position = Position;
             GetParent<GDKnyttObjectLayer>().CallDeferred("add_child", node);
 

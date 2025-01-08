@@ -15,7 +15,7 @@ public class PowerItem : GDKnyttBaseObject
     {
         this.Power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
-        if (Juni.Powers.getPower(Power)) { QueueFree(); }
+        if (Juni.Powers.getPower(Power)) { QueueFree(); Deleted = true; }
         var anim = GetNode<AnimatedSprite>("AnimatedSprite");
         string custom_anim = $"{GDArea.GDWorld.KWorld.WorldDirectoryName} {Power}";
         anim.Animation = anim.Frames.HasAnimation(custom_anim) ? custom_anim : $"Power{Power}";
@@ -27,7 +27,7 @@ public class PowerItem : GDKnyttBaseObject
         juni.setPower(Power, true);
         GDArea.playEffect(Coords);
         juni.playSound("powerup");
-        Visible = false;
-        GetNode<CollisionShape2D>("Area2D/CollisionShape2D").SetDeferred("disabled", true);
+        QueueFree();
+        Deleted = true;
     }
 }

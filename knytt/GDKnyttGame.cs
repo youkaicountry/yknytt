@@ -119,7 +119,7 @@ public class GDKnyttGame : Node2D
         var save = GDWorld.KWorld.CurrentSave;
         Juni.Powers = new JuniValues(save.SourcePowers, Juni.Powers);
         Juni.Powers.respawn(save.getArea(), save.getAreaPosition());
-        this.changeArea(save.getArea(), force_jump: true, regenerate_same: true);
+        this.changeArea(save.getArea(), force_jump: true, regenerate_same: true, respawn: true);
         Juni.moveToPosition(CurrentArea, save.getAreaPosition());
         Juni.reset();
         UI.updatePowers();
@@ -276,7 +276,7 @@ public class GDKnyttGame : Node2D
     }
 
     // Changes the current area
-    public void changeArea(KnyttPoint new_area, bool force_jump = false, bool regenerate_same = true)
+    public void changeArea(KnyttPoint new_area, bool force_jump = false, bool regenerate_same = true, bool respawn = false)
     {
         // Regenerate current area if no change, else deactivate old area
         if (this.CurrentArea != null)
@@ -287,6 +287,7 @@ public class GDKnyttGame : Node2D
                 return;
             }
 
+            if (!respawn) { CurrentArea.Objects.checkCollectables(GDWorld.Game.Juni.Powers); }
             CurrentArea.scheduleDeactivation();
             Juni.juniInput.altInput.ClearInput();
         }
@@ -300,8 +301,9 @@ public class GDKnyttGame : Node2D
         int change_distance = CurrentArea == null ? 0 : CurrentArea.Area.Position.manhattanDistance(new_area);
 
         this.CurrentArea = area;
-        this.CurrentArea.activateArea();
-        this.beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
+        CurrentArea.activateArea();
+        CurrentArea.Objects.checkCollectables(GDWorld.KWorld.CurrentSave.SourcePowers);
+        beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
 
         Juni.stopHologram(cleanup: true);
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
