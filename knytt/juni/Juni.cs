@@ -8,8 +8,8 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    /*[Export] public*/internal const float 
-    JUMP_SPEED_HIGH = -241f,                    // Speed of jump with high jump power (-238.5 in original)
+    /*[Export] public/*/internal const float 
+    JUMP_SPEED_HIGH = -243f,                    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni
@@ -101,6 +101,7 @@ public class Juni : KinematicBody2D
         get { return _just_climbed > 0f; }
         set { _just_climbed = value ? JUST_CLIMBED_TIME : 0f; }
     }
+    bool climbed_with_pull_over;
 
     float _can_free_jump = 0f;
     public bool CanFreeJump
@@ -453,13 +454,25 @@ public class Juni : KinematicBody2D
         // Pull-over-edge
         if (JustClimbed)
         {
-            if (velocity.y < 0)
+            if (_just_climbed == JUST_CLIMBED_TIME)
+            {
+                climbed_with_pull_over = velocity.y < 0;
+                if (climbed_with_pull_over)
+                {
+                    if (Checkers.Bump)
+                    {
+                        velocity.y = 0;
+                        Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX)); // to not jump so high
+                    }
+                    else
+                    {
+                        velocity.y = Mathf.Max(Swim ? SWIM_PULL_OVER_SPEED_Y : PULL_OVER_SPEED_Y, velocity.y);
+                    }
+                }
+            }
+            if (climbed_with_pull_over)
             {
                 velocity.x = FacingRight ? Mathf.Max(velocity.x, PULL_OVER_FORCE_X) : Mathf.Min(velocity.x, -PULL_OVER_FORCE_X);
-                if (_just_climbed == JUST_CLIMBED_TIME)
-                {
-                    velocity.y = Mathf.Max(Swim ? SWIM_PULL_OVER_SPEED_Y : PULL_OVER_SPEED_Y, velocity.y);
-                }
             }
             _just_climbed -= delta;
             if (_can_free_jump <= 0f) { JustClimbed = false; }
@@ -479,17 +492,12 @@ public class Juni : KinematicBody2D
         else
         {
             // Do the movement in two steps to avoid hanging up on tile seams
-            //var snap = IsOnFloor() && !juniInput.JumpEdge && !CanClimb ? 10 * Godot.Vector2.Down : Godot.Vector2.Zero; // previous version
             velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), 5 * Godot.Vector2.Down, Godot.Vector2.Up,
                                               stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
             velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up,
-                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).y;
+                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE, maxSlides: 1).y;
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
-        /* // poor parallax // set scale of background nodes to (1.04, 1)
-        Game.CurrentArea.Tiles.Layers[0].Position = Game.CurrentArea.Tiles.Layers[1].Position = Game.CurrentArea.Tiles.Layers[2].Position = 
-        Game.CurrentArea.GetNode<GDKnyttBackground>("Background").Position =
-            new Godot.Vector2(-(GlobalPosition.x - Game.CurrentArea.GlobalPosition.x) / 25, 0);*/
     }
 
     private void processFlyMode(float delta)
@@ -506,8 +514,10 @@ public class Juni : KinematicBody2D
 
     private void handleBumps(float delta)
     {
-        bool x_moving_state = CurrentState is WalkRunState || CurrentState is JumpState || CurrentState is FallState;
-        if (Checkers.Bump && x_moving_state && juniInput.Direction != 0)
+        bool x_moving_state = (CurrentState is WalkRunState || CurrentState is JumpState || 
+                               CurrentState is FallState) && juniInput.Direction != 0;
+        bool pull_over = JustClimbed && climbed_with_pull_over;
+        if (Checkers.Bump && (x_moving_state || pull_over))
         {
             Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }
@@ -528,7 +538,7 @@ public class Juni : KinematicBody2D
         else
         {
             if (!Grounded) { velocity.y += GRAVITY * delta; }
-            else { velocity.y = GRAVITY * delta; }
+            else if (!(juniInput.JumpEdge && CanAnyJump)) { velocity.y = GRAVITY * delta; }
             if (jump_held)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ?
@@ -742,6 +752,7 @@ public class Juni : KinematicBody2D
     public void reset()
     {
         Sprite.Visible = true;
+        GetNode<DeathParticles>("DeathParticles").Visible = false;
         this.dead = false;
         this.velocity = Godot.Vector2.Zero;
         this.transitionState(new IdleState(this));

@@ -114,6 +114,11 @@ public class InfoScreen : BasicScreen
         f.Open(cache_dir.PlusFile("LastPlayed.flag"), File.ModeFlags.Write);
         f.Close();
 
+        f = new File();
+        f.Open("user://lastplayed.ini", File.ModeFlags.Write);
+        f.StoreString($"{KWorld.WorldDirectory}/{slot}");
+        f.Close();
+
         KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
                                     GDKnyttAssetManager.loadTextFile(filename),

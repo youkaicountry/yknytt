@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://knytt/objects/bank13/Laser.cs" type="Script" id=1]
 [ext_resource path="res://knytt/objects/bank13/img/13-10,11,12 Vertical Laser.png" type="Texture" id=2]
@@ -34,6 +34,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 1.9, 11.9 )
 
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 3.1, 11.9 )
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -53,9 +56,18 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 6 )
 
+[node name="ClimbArea2D" type="Area2D" parent="."]
+position = Vector2( 12, 12 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbArea2D"]
+shape = SubResource( 10 )
+disabled = true
+
 [node name="SwitchPlayer" parent="." instance=ExtResource( 3 )]
 stream = ExtResource( 5 )
 volume_db = 15.0
 
 [connection signal="timeout_ext" from="SwitchTimer" to="." method="_on_SwitchTimer_timeout_ext"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
+[connection signal="body_entered" from="ClimbArea2D" to="." method="_on_ClimbArea2D_body_entered"]

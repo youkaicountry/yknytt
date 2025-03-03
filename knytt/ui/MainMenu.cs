@@ -22,6 +22,8 @@ public class MainMenu : BasicScreen
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
+        GetNode<Button>("ButtonRow/TutorialButton").Text = 
+            new File().FileExists("user://lastplayed.ini") ? "Continue" : "Tutorial";
     }
 
     public override void initFocus()
@@ -49,25 +51,44 @@ public class MainMenu : BasicScreen
     {
         ClickPlayer.Play();
         Task task = null;
-        if (OS.GetName() == "HTML5") { loadTutorial(WEB_TUTORIAL_PATH); }
-        else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadTutorial(TOUCH_TUTORIAL_PATH)); }
-        else { task = Task.Run(() => loadTutorial(TUTORIAL_PATH)); }
+        if (!new File().FileExists("user://lastplayed.ini"))
+        {
+            if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
+            else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadLevel(TOUCH_TUTORIAL_PATH, 0)); }
+            else { task = Task.Run(() => loadLevel(TUTORIAL_PATH, 0)); }
+        }
+        else
+        {
+            var f = new File();
+            f.Open("user://lastplayed.ini", File.ModeFlags.Read);
+            string path = f.GetAsText();
+            f.Close();
+            string file = path.Substring(0, path.LastIndexOf('/'));
+            int slot = int.Parse(path.Substring(file.Length + 1));
+
+            if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
+            else { task = Task.Run(() => loadLevel(file, slot)); }
+        }
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         task?.Wait();
         GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
     }
 
-    public void loadTutorial(string path)
+    public void loadLevel(string path, int slot)
     {
-        var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
-        var txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("World.ini"));
+        bool bin = !new Directory().DirExists(path);
+        var binloader = bin ? new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path)) : null;
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        world.setDirectory(path, binloader.RootDirectory);
-        world.loadWorldConfig(txt);
-        var save_txt = GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini"));
-        world.CurrentSave = new KnyttSave(world, save_txt, 1);
-        world.setBinMode(binloader);
+        if (bin) { world.setBinMode(binloader); }
+        world.setDirectory(path, bin ? binloader.RootDirectory : path.GetFile());
+        string world_txt = GDKnyttAssetManager.loadTextFileRaw(world.getWorldData("World.ini"));
+        world.loadWorldConfig(world_txt);
+        var save_file = GDKnyttSettings.Saves.PlusFile($"{world.WorldDirectoryName} {slot}.ini");
+        var save_txt = new File().FileExists(save_file) ? 
+            GDKnyttAssetManager.loadTextFile(save_file) : 
+            GDKnyttAssetManager.loadTextFile(world.getWorldData("DefaultSavegame.ini"));
+        world.CurrentSave = new KnyttSave(world, save_txt, slot != 0 ? slot : 1);
         GDKnyttDataStore.KWorld = world;
     }
 
