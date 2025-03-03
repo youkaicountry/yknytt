@@ -137,7 +137,7 @@ namespace YKnyttLib
                 foreach (string mark in marks)
                 {
                     int xp = mark.IndexOf('x');
-                    int yp = mark.IndexOf('y');
+                    int yp = mark.IndexOf('y', xp);
                     int x = int.Parse(mark.Substring(xp + 1, yp - xp - 1));
                     int y = int.Parse(mark.Substring(yp + 1));
                     result[new KnyttPoint(x, y)] = mark.Substring(0, xp);

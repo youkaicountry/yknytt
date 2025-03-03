@@ -14,7 +14,22 @@ public class MapPanel : Panel
     private static readonly Color VISITED_COLOR = new Color(0.5f, 0.5f, 1);
     private static readonly Color NOT_VISITED_COLOR = new Color(0.5f, 0.5f, 0.5f);
     private static readonly Color CURRENT_BORDER = new Color(1, 0, 0);
-    private static Color markColor(char c) => c != 'm' ? new Color(1, 0, 0) : new Color(0, 0, 1);
+    
+    private static Color markColor(char c)
+    {
+        return  c == 'm' ?              new Color(0, 0, 1) : 
+                c == 'r' || c == 'R' ?  new Color(1, 0, 0) :
+                c == 'y' || c == 'Y' ?  new Color(0.75f, 0.75f, 0) :
+                c == 'b' || c == 'B' ?  new Color(0, 0, 1) :
+                c == 'u' || c == 'U' ?  new Color(0.5f, 0, 1) :
+                c == 'k' || c == 'd' ?  new Color(0, 0.65f, 0) :
+                                        new Color(1, 0, 0);
+    }
+
+    private static string markChar(char c)
+    {
+        return ("rybu".IndexOf(c) != -1 ? 'k' : "RYBU".IndexOf(c) != -1 ? 'd' : c).ToString().Capitalize();
+    }
 
     private static readonly float SCROLL_SPEED = 600;
     private static readonly float BORDER = 20;
@@ -154,8 +169,9 @@ public class MapPanel : Panel
             {
                 Vector2 p = new Vector2((coord.x - world.MinBounds.x) * XSIZE + 4, (coord.y - world.MinBounds.y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
-                DrawChar(mark_font, p, m[0].ToString().Capitalize(), "", markColor(m[0]));
-                if (m.Length > 1) { DrawChar(mark_font, p + new Vector2(11, 0), m[1].ToString().Capitalize(), "", markColor(m[1])); }
+                DrawChar(mark_font, p, markChar(m[0]), "", markColor(m[0]));
+                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), "", markColor(m[1])); }
+                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", "", markColor('+')); }
             }
         }
 

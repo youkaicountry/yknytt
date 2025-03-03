@@ -24,12 +24,18 @@ namespace YKnyttLib
             Map = 12
         }
 
-        public enum Collectable { None, User, Powerup, Key, Door, Creature, Coin, Artifact, Multiple }
-        private static string[] COLLECT_CHAR = { "", "m", "p", "k", "d", "#", "c", "a", "+" };
-        public static Dictionary<string, Collectable> COLLECT_ENUM = new Dictionary<string, Collectable>() {
-            [""] = Collectable.None, ["m"] = Collectable.User, ["+"] = Collectable.Multiple, ["p"] = Collectable.Powerup,
-            ["k"] = Collectable.Key, ["d"] = Collectable.Door, ["#"] = Collectable.Creature, ["c"] = Collectable.Coin,
-            ["a"] = Collectable.Artifact};
+        public enum Collectable { None, User, Powerup, Creature, Coin, Artifact, Multiple,
+            Key, RedKey, YellowKey, BlueKey, PurpleKey, Door, RedDoor, YellowDoor, BlueDoor, PurpleDoor }
+        private static string[] COLLECT_CHAR = { "", "m", "p", "#", "c", "a", "+", 
+            "k", "r", "y", "b", "u", "d", "R", "Y", "B", "U" };
+        public static Dictionary<string, Collectable> COLLECT_ENUM = new Dictionary<string, Collectable>();
+        static JuniValues()
+        {
+            for (int i = 0; i < COLLECT_CHAR.Length; i++)
+            {
+                COLLECT_ENUM.Add(COLLECT_CHAR[i], (Collectable)i);
+            }
+        }
 
         public bool[] Powers { get; }
         public bool[] Flags { get; }
@@ -155,19 +161,9 @@ namespace YKnyttLib
         public void setMark(KnyttPoint pos, Collectable c)
         {
             if (Marked == null) { Marked = new Dictionary<KnyttPoint, string>(); }
-
             if (!Marked.ContainsKey(pos) || Marked[pos] == "") { Marked[pos] = COLLECT_CHAR[(int)c]; return; }
             if (Marked[pos].IndexOf(COLLECT_CHAR[(int)c]) != -1) { return; }
-            
-            Collectable mark1 = COLLECT_ENUM[Marked[pos][0].ToString()];
-            Collectable mark2 = COLLECT_ENUM[Marked[pos].Substring(1)];
-            if (mark2 == Collectable.None) { mark2 = c; }
-            else
-            {
-                mark1 = c < mark1 && c < mark2 ? c : mark1 < mark2 ? mark1 : mark2;
-                mark2 = Collectable.Multiple;
-            }
-            Marked[pos] = COLLECT_CHAR[(int)mark1] + COLLECT_CHAR[(int)mark2];
+            Marked[pos] += COLLECT_CHAR[(int)c];
         }
 
         public void unsetMark(KnyttPoint pos, Collectable c)
@@ -185,9 +181,7 @@ namespace YKnyttLib
         public void resetMarks(KnyttPoint pos)
         {
             if (Marked == null || !Marked.ContainsKey(pos)) { return; }
-            Collectable mark1 = COLLECT_ENUM[Marked[pos][0].ToString()];
-            Collectable mark2 = COLLECT_ENUM[Marked[pos].Substring(1)];
-            if (mark1 == Collectable.User || mark2 == Collectable.User) { Marked[pos] = COLLECT_CHAR[(int)Collectable.User]; }
+            if (Marked[pos].IndexOf(COLLECT_CHAR[(int)Collectable.User]) != -1) { Marked[pos] = COLLECT_CHAR[(int)Collectable.User]; }
             else { Marked.Remove(pos); }
         }
 
