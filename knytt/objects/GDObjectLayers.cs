@@ -142,12 +142,15 @@ public class GDObjectLayers : Node2D
                 }
                 if (knytt_object is PowerItem pitem && !powers.getPower(pitem.Power))
                 {
-                    bool is_key = pitem.Power >= 8 && pitem.Power <= 11;
-                    powers.setMark(GDArea.Area.MapPosition, is_key ? JuniValues.Collectable.Key : JuniValues.Collectable.Powerup);
+                    var collectable = pitem.Power >= 8 && pitem.Power <= 11 ?
+                        JuniValues.Collectable.Key + (int)(pitem.Power - JuniValues.PowerNames.RedKey + 1) :
+                        JuniValues.Collectable.Powerup;
+                    powers.setMark(GDArea.Area.MapPosition, collectable);
                 }
                 if (knytt_object is Door door && !door.checkKey(GDArea.GDWorld.Game.Juni))
                 {
-                    powers.setMark(GDArea.Area.MapPosition, JuniValues.Collectable.Door);
+                    int color = knytt_object is KeyDoor keydoor ? keydoor.power - JuniValues.PowerNames.RedKey + 1 : 0;
+                    powers.setMark(GDArea.Area.MapPosition, JuniValues.Collectable.Door + color);
                 }
                 if (knytt_object.ObjectID.x == 19 && !powers.getCollectable(knytt_object.ObjectID.y))
                 {

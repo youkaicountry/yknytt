@@ -2,7 +2,7 @@ using Godot;
 
 public class KeyDoor : Door
 {
-    [Export] YKnyttLib.JuniValues.PowerNames power = 0;
+    [Export] public YKnyttLib.JuniValues.PowerNames power = 0;
 
     public override bool checkKey(Juni juni)
     {
