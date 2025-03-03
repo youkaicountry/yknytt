@@ -114,7 +114,6 @@ public class CustomObject : GDKnyttBaseObject
         {
             obj.CustomAnimation = true;
             sprite.Frames = oco_cache[cache_key];
-            sprite.Material = this.sprite.Material;
             return;
         }
 
@@ -126,13 +125,11 @@ public class CustomObject : GDKnyttBaseObject
         {
             static_sprite.Texture = image_texture;
             static_sprite.Offset += offset;
-            static_sprite.Material = this.sprite.Material;
             return;
         }
 
         var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
         sprite.Frames = oco_cache[cache_key] = new_frames;
-        sprite.Material = this.sprite.Material;
         int obj_y = !(obj is PowerItem) ? obj.ObjectID.y : PowerItem.Object2Power[obj.ObjectID.y];
         bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj_y.ToString()));
         foreach (var anim in new_frames.GetAnimationNames())

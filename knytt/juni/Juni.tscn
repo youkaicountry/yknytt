@@ -29,7 +29,7 @@
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
 
 [sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 1.5, 7.8 )
+extents = Vector2( 1, 7.8 )
 
 [sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 3, 8.3 )
@@ -221,10 +221,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 0.5, 4.3 )
+extents = Vector2( 0.1, 4.3 )
 
 [sub_resource type="RectangleShape2D" id=24]
-extents = Vector2( 0.5, 2 )
+extents = Vector2( 0.1, 2 )
 
 [sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 1.9, 5 )
@@ -250,10 +250,10 @@ __meta__ = {
 }
 
 [node name="MainShape" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -2, 8.6, -2, -7, 4.5, -7, 6, -5.5, 6, 8.6 )
+polygon = PoolVector2Array( -3, 8.6, -3, -7, 4.5, -7, 6, -5.5, 6, 8.6 )
 
 [node name="BackShape" type="CollisionShape2D" parent="."]
-position = Vector2( -3.5, 0.8 )
+position = Vector2( -4, 0.8 )
 shape = SubResource( 34 )
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -370,7 +370,7 @@ max_distance = 1000.0
 script = ExtResource( 4 )
 
 [node name="Climb" type="Area2D" parent="Checkers"]
-position = Vector2( 6.5, 0.2 )
+position = Vector2( 6.1, 0.2 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
@@ -379,7 +379,7 @@ priority = 1.0
 shape = SubResource( 19 )
 
 [node name="Bump" type="Area2D" parent="Checkers"]
-position = Vector2( 6.5, 6.5 )
+position = Vector2( 6.1, 6.5 )
 collision_layer = 0
 collision_mask = 6
 priority = 1.0

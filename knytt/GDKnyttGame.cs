@@ -299,6 +299,7 @@ public class GDKnyttGame : Node2D
         if (area == null) { return; }
 
         int change_distance = CurrentArea == null ? 0 : CurrentArea.Area.Position.manhattanDistance(new_area);
+        bool old_area_swim = CurrentArea == null ? false : CurrentArea.Swim;
 
         this.CurrentArea = area;
         CurrentArea.activateArea();
@@ -306,6 +307,7 @@ public class GDKnyttGame : Node2D
         beginTransitionEffects(force_jump || change_distance > 1); // never scroll if jump distance is over 1
 
         Juni.stopHologram(cleanup: true);
+        if (old_area_swim && !CurrentArea.Swim) { Juni.Swim = true; Juni.Swim = false; } // boost when exit swim area
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
         checkTint(area);
 
