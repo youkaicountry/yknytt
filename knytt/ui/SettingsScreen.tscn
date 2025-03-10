@@ -90,8 +90,8 @@ margin_bottom = 33.0
 rect_min_size = Vector2( 80, 33 )
 focus_neighbour_left = NodePath("../../../BackButton")
 focus_neighbour_right = NodePath("../../../ButtonContainer/TouchPanelButton")
-text = "Smooth"
-items = [ "Smooth", null, false, 0, null, "Original", null, false, 1, null ]
+text = "Original"
+items = [ "Original", null, false, 0, null, "Smooth", null, false, 1, null, "Parallax", null, false, 2, null ]
 selected = 0
 
 [node name="ScrollLabel" type="Label" parent="SettingsContainer/ScrollContainer"]
@@ -110,37 +110,18 @@ margin_bottom = 132.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../../ButtonContainer/DirButton")
-focus_neighbour_bottom = NodePath("../ShaderContainer/Shader")
+focus_neighbour_bottom = NodePath("../WSOD")
 text = "Screen Border"
 
-[node name="ShaderContainer" type="HBoxContainer" parent="SettingsContainer"]
+[node name="WSOD" parent="SettingsContainer" instance=ExtResource( 6 )]
 margin_top = 132.0
 margin_right = 152.0
 margin_bottom = 165.0
-
-[node name="Shader" parent="SettingsContainer/ShaderContainer" instance=ExtResource( 5 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../../BackButton")
-focus_neighbour_right = NodePath("../../../ButtonContainer/OfflineDropdown")
-focus_neighbour_bottom = NodePath("../../MapContainer/ForcedMap")
-text = "No"
-items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "Sepia", null, false, 3, null, "VHS", null, false, 4, null ]
-selected = 0
-
-[node name="ShaderLabel" type="Label" parent="SettingsContainer/ShaderContainer"]
-margin_left = 84.0
-margin_top = 10.0
-margin_right = 143.0
-margin_bottom = 23.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "Video Filter"
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../ButtonContainer/OfflineDropdown")
+focus_neighbour_bottom = NodePath("../MapContainer/ForcedMap")
+text = "White Screen Of Death"
 
 [node name="MapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 165.0
@@ -174,7 +155,7 @@ margin_right = 152.0
 margin_bottom = 33.0
 focus_neighbour_left = NodePath("../ForcedMap")
 focus_neighbour_top = NodePath("../ForcedMap")
-focus_neighbour_right = NodePath("../../../ButtonContainer/OfflineDropdown")
+focus_neighbour_right = NodePath("../../../ButtonContainer/ShaderContainer/Shader")
 focus_neighbour_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../ButtonContainer/KeyRemapButton")
 custom_constants/hseparation = 0
@@ -230,13 +211,41 @@ margin_top = 123.0
 margin_right = 150.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../SettingsContainer/ShaderContainer/Shader")
+focus_neighbour_left = NodePath("../../SettingsContainer/WSOD")
 focus_neighbour_right = NodePath("../../VolumeContainer/EffectsVolumeSlider")
-focus_neighbour_bottom = NodePath("../../BackButton")
-focus_next = NodePath("../../VolumeContainer/MasterVolumeSlider")
 text = "Server Interaction: On"
 items = [ "Server Interaction: On", null, false, 0, null, "Achievements Off", null, false, 1, null, "Completely Offline", null, false, 2, null ]
 selected = 0
+
+[node name="ShaderContainer" type="HBoxContainer" parent="ButtonContainer"]
+margin_top = 164.0
+margin_right = 150.0
+margin_bottom = 197.0
+
+[node name="Shader" parent="ButtonContainer/ShaderContainer" instance=ExtResource( 5 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 80.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 80, 33 )
+focus_neighbour_left = NodePath("../../../SettingsContainer/MapContainer/DetailedMap")
+focus_neighbour_right = NodePath("../../../VolumeContainer/EffectsPanningSlider")
+focus_neighbour_bottom = NodePath("../../../BackButton")
+focus_next = NodePath("../../../VolumeContainer/MasterVolumeSlider")
+text = "No"
+items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "Sepia", null, false, 3, null, "VHS", null, false, 4, null ]
+selected = 0
+
+[node name="ShaderLabel" type="Label" parent="ButtonContainer/ShaderContainer"]
+margin_left = 84.0
+margin_top = 10.0
+margin_right = 143.0
+margin_bottom = 23.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Video Filter"
 
 [node name="VolumeContainer" type="VBoxContainer" parent="."]
 margin_left = 353.408
@@ -258,8 +267,8 @@ margin_right = 150.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 150, 24 )
 focus_neighbour_left = NodePath("../../ButtonContainer/KeyRemapButton")
-focus_neighbour_top = NodePath("../../ButtonContainer/OfflineDropdown")
-focus_previous = NodePath("../../ButtonContainer/OfflineDropdown")
+focus_neighbour_top = NodePath("../../ButtonContainer/ShaderContainer/Shader")
+focus_previous = NodePath("../../ButtonContainer/ShaderContainer/Shader")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
@@ -355,13 +364,14 @@ step = 0.02
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
 [connection signal="item_selected" from="SettingsContainer/ScrollContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
 [connection signal="pressed" from="SettingsContainer/Border" to="." method="_on_Border_pressed"]
-[connection signal="item_selected" from="SettingsContainer/ShaderContainer/Shader" to="." method="_on_Shader_item_selected"]
+[connection signal="pressed" from="SettingsContainer/WSOD" to="." method="_on_WSOD_pressed"]
 [connection signal="pressed" from="SettingsContainer/MapContainer/ForcedMap" to="." method="_on_ForcedMap_pressed"]
 [connection signal="pressed" from="SettingsContainer/MapContainer/DetailedMap" to="." method="_on_DetailedMap_pressed"]
 [connection signal="pressed" from="ButtonContainer/KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]
 [connection signal="pressed" from="ButtonContainer/TouchPanelButton" to="." method="_on_TouchPanelButton_pressed"]
 [connection signal="pressed" from="ButtonContainer/DirButton" to="." method="_on_DirButton_pressed"]
 [connection signal="item_selected" from="ButtonContainer/OfflineDropdown" to="." method="_on_OfflineDropdown_item_selected"]
+[connection signal="item_selected" from="ButtonContainer/ShaderContainer/Shader" to="." method="_on_Shader_item_selected"]
 [connection signal="value_changed" from="VolumeContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
 [connection signal="value_changed" from="VolumeContainer/EnvironmentVolumeSlider" to="." method="_on_EnvironmentVolumeSlider_value_changed"]

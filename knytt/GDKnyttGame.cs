@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 using YKnyttLib;
 using YKnyttLib.Logging;
@@ -345,6 +346,9 @@ public class GDKnyttGame : Node2D
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 
+    private bool left_area_restricted, right_area_restricted;
+    private const int CAMERA_THRESHOLD = 100;
+
     // Handles transition effects
     private void beginTransitionEffects(bool force_jump = false)
     {
@@ -358,17 +362,54 @@ public class GDKnyttGame : Node2D
 
         // Camera
         var scroll = GDKnyttSettings.ScrollType;
-        if (force_jump || scroll == GDKnyttSettings.ScrollTypes.Original)
+        if (scroll == GDKnyttSettings.ScrollTypes.Smooth && !force_jump)
         {
+            this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
+        }
+        else
+        {
+            if (scroll == GDKnyttSettings.ScrollTypes.Parallax)
+            {
+                int dir = Math.Sign(CurrentArea.GlobalCenter.x - Camera.GlobalPosition.x);
+                Camera.Offset += dir * -new Vector2(600, 0);
+                
+                var left_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(-1, 0)];
+                left_area_restricted = left_area.Area.Empty ||
+                    (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
+                    left_area.Area.FlagWarps.Any(w => w != null);
+
+                var right_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(1, 0)];
+                right_area_restricted = right_area.Area.Empty ||
+                    (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
+                    right_area.Area.FlagWarps.Any(w => w != null);
+
+                adjustCenteredScroll(initial: true);
+                GDWorld.createFakeObjects();
+            }
+            
             this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
-            return;
+        }
+    }
+
+    public void adjustCenteredScroll(bool initial = false)
+    {
+        float center_offset = TouchSettings.EnablePanel ? -TouchSettings.ScreenWidth / 2 - 300 : -300;
+        float xpos = Juni.GlobalPosition.x - CurrentArea.GlobalPosition.x;
+        float offset = xpos + center_offset - Camera.Offset.x;
+
+        float cam_offset_x = xpos - Math.Sign(offset) * CAMERA_THRESHOLD;
+        bool no_move = (right_area_restricted && cam_offset_x > 300) || (left_area_restricted && cam_offset_x < 300);
+        if (no_move) { cam_offset_x = 300; }
+
+        if (Math.Abs(offset) > CAMERA_THRESHOLD || (no_move && initial))
+        {
+            Camera.Offset = new Vector2(cam_offset_x + center_offset, Camera.Offset.y);
         }
 
-        switch (scroll)
+        foreach (var area in GDWorld.Areas.Areas.Values)
         {
-            case GDKnyttSettings.ScrollTypes.Smooth:
-                this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
-                break;
+            float axpos = Juni.GlobalPosition.x - area.GlobalPosition.x;
+            area.Background.Position = new Vector2((axpos - 300 - offset) * 0.5f, 0);
         }
     }
 

@@ -8,7 +8,7 @@ using static YKnyttLib.JuniValues;
 
 public class Juni : KinematicBody2D
 {
-    /*[Export] public/*/internal const float 
+    /*[Export] public*/internal const float 
     JUMP_SPEED_HIGH = -243f,                    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
@@ -498,6 +498,8 @@ public class Juni : KinematicBody2D
                                       stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE, maxSlides: 1).y;
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
+        
+        if (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Parallax) { Game.adjustCenteredScroll(); }
     }
 
     private void processFlyMode(float delta)

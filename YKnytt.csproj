@@ -129,6 +129,7 @@
     <Compile Include="knytt\objects\common\BaseWaterMonster.cs" />
     <Compile Include="knytt\objects\bullets\GhostSlimeBullet.cs" />
     <Compile Include="knytt\objects\bullets\SuperBullet.cs" />
+    <Compile Include="knytt\objects\fake\FakeObjectLayer.cs" />
     <Compile Include="knytt\objects\TimerExt.cs" />
     <Compile Include="knytt\objects\common\TrapFlower.cs" />
     <Compile Include="knytt\objects\common\BigSpiker.cs" />
