@@ -48,7 +48,7 @@ public class ViewportTile : ViewportContainer
         if (image != null && image.GetPixel((int)pos.x, 240 * TILE_SCALE - (int)pos.y).a > 0) { return; }
 
         Viewport vp = GetNode<Viewport>("Viewport");
-        var bg = area.GetNode("Background").Duplicate() as GDKnyttBackground;
+        var bg = area.Background.Duplicate() as GDKnyttBackground;
         var tiles = area.Tiles.Duplicate() as GDAreaTiles;
         var objects = createObjectTiles(area);
         bg.Scale = tiles.Scale = objects.Scale = new Vector2(1, -1) / MapPanel.SCALE * TILE_SCALE;

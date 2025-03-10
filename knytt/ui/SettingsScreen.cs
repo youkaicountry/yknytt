@@ -25,10 +25,11 @@ public class SettingsScreen : BasicScreen
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
         GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
-        GetNode<OptionButton>("SettingsContainer/ShaderContainer/Shader").Select((int)GDKnyttSettings.Shader);
+        GetNode<CheckBox>("SettingsContainer/WSOD").Pressed = GDKnyttSettings.WSOD;
         GetNode<CheckBox>("SettingsContainer/MapContainer/ForcedMap").Pressed = GDKnyttSettings.ForcedMap;
         GetNode<CheckBox>("SettingsContainer/MapContainer/DetailedMap").Pressed = GDKnyttSettings.DetailedMap;
         GetNode<OptionButton>("ButtonContainer/OfflineDropdown").Select((int)GDKnyttSettings.Connection);
+        GetNode<OptionButton>("ButtonContainer/ShaderContainer/Shader").Select((int)GDKnyttSettings.Shader);
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
         GetNode<Slider>("VolumeContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
         GetNode<Slider>("VolumeContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
@@ -65,6 +66,12 @@ public class SettingsScreen : BasicScreen
     public void _on_ScollDropdown_item_selected(int index)
     {
         GDKnyttSettings.ScrollType = (GDKnyttSettings.ScrollTypes)index;
+        
+        if (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Parallax)
+        {
+            GetNode<CheckBox>("SettingsContainer/Border").Pressed = true;
+            GDKnyttSettings.Border = true;
+        }
     }
 
     private void _on_Border_pressed()
@@ -117,6 +124,11 @@ public class SettingsScreen : BasicScreen
     private void _on_OfflineDropdown_item_selected(int index)
     {
         GDKnyttSettings.Connection = (GDKnyttSettings.ConnectionType)index;
+    }
+
+    private void _on_WSOD_pressed()
+    {
+        GDKnyttSettings.WSOD = GetNode<CheckBox>("SettingsContainer/WSOD").Pressed;
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

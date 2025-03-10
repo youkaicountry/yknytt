@@ -5,7 +5,9 @@ public class GDKnyttArea : Node2D
 {
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
+    public FakeObjectLayer FakeObjects { get; private set; }
     public BulletLayer Bullets => GetNode<BulletLayer>("Bullets"); 
+    public GDKnyttBackground Background  { get; private set; }
     public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
@@ -26,6 +28,7 @@ public class GDKnyttArea : Node2D
     bool active = false;
     PackedScene objects_scene;
     PackedScene tiles_scene;
+    PackedScene fake_objects_scene;
 
     private const int EMPTY_AREA_GRADIENT = 0;
 
@@ -33,6 +36,7 @@ public class GDKnyttArea : Node2D
     {
         objects_scene = ResourceLoader.Load("res://knytt/objects/ObjectLayers.tscn") as PackedScene;
         tiles_scene = ResourceLoader.Load("res://knytt/AreaTiles.tscn") as PackedScene;
+        fake_objects_scene = ResourceLoader.Load("res://knytt/objects/fake/FakeObjectLayer.tscn") as PackedScene;
     }
 
     public Vector2 GlobalCenter => GlobalPosition + new Vector2(Width / 2f, Height / 2f);
@@ -68,8 +72,8 @@ public class GDKnyttArea : Node2D
         this.Position = new Vector2(area.Position.x * Width, area.Position.y * Height);
 
         // Setup gradient
-        GetNode<GDKnyttBackground>("Background").initialize(
-            world.AssetManager.getGradient(area.Empty ? EMPTY_AREA_GRADIENT : area.Background));
+        Background = GetNode<GDKnyttBackground>("Control/Background");
+        Background.initialize(world.AssetManager.getGradient(area.Empty ? EMPTY_AREA_GRADIENT : area.Background));
 
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
@@ -116,6 +120,21 @@ public class GDKnyttArea : Node2D
             this.Objects.returnObjects();
             this.Objects.QueueFree();
         }
+    }
+
+    public void createFakeObjectLayer()
+    {
+        if (FakeObjects != null || Area.Empty) { return; }
+        FakeObjects = fake_objects_scene.Instance<FakeObjectLayer>();
+        AddChild(FakeObjects);
+        FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers.getPower(JuniValues.PowerNames.Eye));
+    }
+
+    public void removeFakeObjectLayer()
+    {
+        if (FakeObjects == null) { return; }
+        FakeObjects.QueueFree();
+        FakeObjects = null;
     }
 
     // We don't want this to be async, because it can be cancelled

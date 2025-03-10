@@ -10,7 +10,7 @@ public class GDKnyttSettings : Node
     public static IniData ini { get; private set; }
     static SceneTree tree;
 
-    public enum ScrollTypes { Smooth, Original }
+    public enum ScrollTypes { Original, Smooth, Parallax }
 
     public enum ShaderType { NoShader, HQ4X, CRT, Sepia, VHS, }
 
@@ -73,7 +73,18 @@ public class GDKnyttSettings : Node
             var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game != null)
             {
-                game.GDWorld.Areas.BorderSize = (value == ScrollTypes.Original ? new KnyttPoint(0, 0) : new KnyttPoint(1, 1));
+                game.GDWorld.Areas.BorderSize = value == ScrollTypes.Original ? new KnyttPoint(0, 0) :
+                    value == ScrollTypes.Parallax ? new KnyttPoint(1, 0) : new KnyttPoint(1, 1);
+
+                if (value == ScrollTypes.Parallax)
+                {
+                    game.adjustCenteredScroll(initial: true);
+                }
+                else
+                {
+                    tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
+                    game.CurrentArea.Background.Position = Vector2.Zero;
+                }
             }
             ini["Graphics"]["Scroll Type"] = value.ToString();
         }
