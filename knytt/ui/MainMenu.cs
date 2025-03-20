@@ -51,13 +51,8 @@ public class MainMenu : BasicScreen
     {
         ClickPlayer.Play();
         Task task = null;
-        if (!new File().FileExists("user://lastplayed.ini"))
-        {
-            if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
-            else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadLevel(TOUCH_TUTORIAL_PATH, 0)); }
-            else { task = Task.Run(() => loadLevel(TUTORIAL_PATH, 0)); }
-        }
-        else
+        bool load_last_played = false;
+        if (new File().FileExists("user://lastplayed.ini"))
         {
             var f = new File();
             f.Open("user://lastplayed.ini", File.ModeFlags.Read);
@@ -66,9 +61,21 @@ public class MainMenu : BasicScreen
             string file = path.Substring(0, path.LastIndexOf('/'));
             int slot = int.Parse(path.Substring(file.Length + 1));
 
-            if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
-            else { task = Task.Run(() => loadLevel(file, slot)); }
+            if (new File().FileExists(file) || new Directory().DirExists(file))
+            {
+                load_last_played = true;
+                if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
+                else { task = Task.Run(() => loadLevel(file, slot)); }                
+            }
         }
+        
+        if (!load_last_played)
+        {
+            if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
+            else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadLevel(TOUCH_TUTORIAL_PATH, 0)); }
+            else { task = Task.Run(() => loadLevel(TUTORIAL_PATH, 0)); }
+        }
+
         fade.startFade();
         await ToSignal(fade, "FadeDone");
         task?.Wait();
