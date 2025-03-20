@@ -15,6 +15,9 @@ public class Title : GDKnyttBaseObject
         if (title_label.GetFont("font")    is BitmapFont) { title    = title?.Replace(' ', '\x100'); }
         if (subtitle_label.GetFont("font") is BitmapFont) { subtitle = subtitle?.Replace(' ', '\x100'); }
 
+        if (title_label.Text == title) { title = null; }
+        if (subtitle_label.Text == title) { subtitle = null; }
+
         if (title != null) { adjustLabel(title, title_label); }
         if (subtitle != null) { adjustLabel(subtitle, subtitle_label); }
 

@@ -347,7 +347,7 @@ public class GDKnyttGame : Node2D
     }
 
     private bool left_area_restricted, right_area_restricted;
-    private const int CAMERA_THRESHOLD = 100;
+    private const int CAMERA_THRESHOLD = 72;
 
     // Handles transition effects
     private void beginTransitionEffects(bool force_jump = false)

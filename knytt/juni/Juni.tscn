@@ -221,10 +221,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 0.1, 4.3 )
+extents = Vector2( 0.2, 4.3 )
 
 [sub_resource type="RectangleShape2D" id=24]
-extents = Vector2( 0.1, 2 )
+extents = Vector2( 0.2, 2 )
 
 [sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 1.9, 5 )
@@ -370,7 +370,7 @@ max_distance = 1000.0
 script = ExtResource( 4 )
 
 [node name="Climb" type="Area2D" parent="Checkers"]
-position = Vector2( 6.1, 0.2 )
+position = Vector2( 6.2, 0.2 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0
@@ -379,7 +379,7 @@ priority = 1.0
 shape = SubResource( 19 )
 
 [node name="Bump" type="Area2D" parent="Checkers"]
-position = Vector2( 6.1, 6.5 )
+position = Vector2( 6.2, 6.5 )
 collision_layer = 0
 collision_mask = 6
 priority = 1.0

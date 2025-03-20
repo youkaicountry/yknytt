@@ -184,7 +184,7 @@
 12/texture = ExtResource( 2 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
-12/region = Rect2( 288, 192, 24, 96 )
+12/region = Rect2( 288, 192, 48, 24 )
 12/tile_mode = 0
 12/occluder_offset = Vector2( 0, 0 )
 12/navigation_offset = Vector2( 0, 0 )
@@ -240,7 +240,7 @@
 16/texture = ExtResource( 2 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
-16/region = Rect2( 288, 288, 48, 24 )
+16/region = Rect2( 288, 288, 24, 96 )
 16/tile_mode = 0
 16/occluder_offset = Vector2( 0, 0 )
 16/navigation_offset = Vector2( 0, 0 )
@@ -254,7 +254,7 @@
 17/texture = ExtResource( 2 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
-17/region = Rect2( 0, 384, 24, 96 )
+17/region = Rect2( 0, 384, 48, 48 )
 17/tile_mode = 0
 17/occluder_offset = Vector2( 0, 0 )
 17/navigation_offset = Vector2( 0, 0 )
@@ -268,7 +268,7 @@
 18/texture = ExtResource( 2 )
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
-18/region = Rect2( 96, 384, 48, 48 )
+18/region = Rect2( 96, 384, 48, 24 )
 18/tile_mode = 0
 18/occluder_offset = Vector2( 0, 0 )
 18/navigation_offset = Vector2( 0, 0 )
@@ -278,20 +278,6 @@
 18/shape_one_way_margin = 0.0
 18/shapes = [  ]
 18/z_index = 0
-19/name = "combined-big.png 19"
-19/texture = ExtResource( 2 )
-19/tex_offset = Vector2( 0, 0 )
-19/modulate = Color( 1, 1, 1, 1 )
-19/region = Rect2( 192, 384, 48, 24 )
-19/tile_mode = 0
-19/occluder_offset = Vector2( 0, 0 )
-19/navigation_offset = Vector2( 0, 0 )
-19/shape_offset = Vector2( 0, 0 )
-19/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-19/shape_one_way = false
-19/shape_one_way_margin = 0.0
-19/shapes = [  ]
-19/z_index = 0
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
