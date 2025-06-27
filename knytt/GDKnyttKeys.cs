@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 public class GDKnyttKeys : Node
 {
-    static IniData ini;
+    public static IniData ini;
     static Regex key_rx;
     static Dictionary<int, string> axis_map = new Dictionary<int, string>();
 
@@ -52,7 +52,7 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
         modified |= ensureSetting("Input", "walk1", "Joy(6)");
         modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
-        modified |= ensureSetting("Input", "hologram1", "Joy(0)");
+        modified |= ensureSetting("Input", "hologram1", "Joy(1)");
         modified |= ensureSetting("Input", "pause1", "Joy(4)");
         modified |= ensureSetting("Input", "map1", "Joy(5)");
         modified |= ensureSetting("Input", "debug_die1", "Joy(11)");

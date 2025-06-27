@@ -159,6 +159,7 @@ z_index = 12
 script = ExtResource( 18 )
 
 [node name="GKnyttCamera" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
 unique_name_in_owner = true
 position = Vector2( 300, 120 )
 current = true

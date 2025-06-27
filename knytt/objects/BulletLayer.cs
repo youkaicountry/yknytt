@@ -79,6 +79,7 @@ public class BulletLayer : Node2D
         bullet.ZIndex = enemy_parent is GDKnyttObjectLayer ? enemy_parent.ZIndex - 1 : enemy_object.ZIndex;
 
         initEvents[enemy_object](bullet, n);
+        bullet.ResetPhysicsInterpolation();
         queue.Enqueue(bullet);
     }
 

@@ -3,6 +3,7 @@ using System;
 using IniParser.Model;
 using IniParser.Parser;
 using YKnyttLib;
+using System.Linq;
 
 public class GDKnyttSettings : Node
 {
@@ -151,6 +152,17 @@ public class GDKnyttSettings : Node
         set { ini["Graphics"]["WSOD"] = value ? "1" : "0"; }
     }
 
+    public static bool Interpolation
+    {
+        get { return ini["Graphics"]["Interpolation"].Equals("1") ? true : false; }
+        set
+        {
+            ini["Graphics"]["Interpolation"] = value ? "1" : "0";
+            ProjectSettings.SetSetting("physics/common/physics_interpolation", value);
+            tree.PhysicsInterpolation = value;
+        }
+    }
+
     // Calculate the volume in dB from the config value
     private static float calcVolume(int v)
     {
@@ -260,6 +272,11 @@ public class GDKnyttSettings : Node
         set { ini["Misc"]["Stick Sensitivity"] = value.ToString(); GDKnyttKeys.StickTreshold = 1 - value; }
     }
 
+    public static string Version
+    {
+        get { return ini["Misc"]["Version"]; }
+    }
+
     public override void _Ready()
     {
         tree = GetTree();
@@ -309,6 +326,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Detailed Map", OS.GetName() == "HTML5" ? "0" : "1");
         modified |= ensureSetting("Graphics", "Shader Type", ShaderType.NoShader.ToString());
         modified |= ensureSetting("Graphics", "WSOD", "1");
+        modified |= ensureSetting("Graphics", "Interpolation", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");
@@ -316,7 +334,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Effects Panning", "1");
 
-        modified |= ensureSetting("Server", "URL", (OS.GetName() == "HTML5" ? "https" : "http") + "://yknytt.pythonanywhere.com");
+        modified |= ensureSetting("Server", "URL", "https://yknytt.pythonanywhere.com");
         modified |= ensureSetting("Server", "Connection", "Online");
 
         modified |= ensureSetting("Directories", "Worlds", "");
@@ -341,6 +359,7 @@ public class GDKnyttSettings : Node
         DetailedMap = ini["Graphics"]["Detailed Map"].Equals("1") ? true : false;
         Shader = Enum.TryParse<ShaderType>(ini["Graphics"]["Shader Type"], out var f) ? f : ShaderType.NoShader;
         WSOD = ini["Graphics"]["WSOD"].Equals("1") ? true : false;
+        Interpolation = ini["Graphics"]["Interpolation"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
@@ -401,17 +420,20 @@ public class GDKnyttSettings : Node
     {
         if (!ini.Sections.ContainsSection("Misc")) { ini.Sections.AddSection("Misc"); }
 
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.6")
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.6.8")
         {
-            ini["Misc"]["Version"] = "0.6";
-            if (OS.GetName() == "HTML5") { ini["Server"]?.RemoveKey("URL"); }
+            ini["Misc"]["Version"] = "0.6.8";
+            ini["Server"]?.RemoveKey("URL");
             if (new File().FileExists("user://input.ini"))
             {
                 GDKnyttKeys.loadSettings();
-                GDKnyttKeys.setAction("debug_die0", new InputEventKey() {Scancode = (uint)KeyList.F10});
-                GDKnyttKeys.saveSettings();
+                if (GDKnyttKeys.ini["Input"]["hologram1"] == "Joy(0)" &&
+                    !GDKnyttKeys.ini["Input"].Any(k => k.Value == "Joy(1)"))
+                {
+                    GDKnyttKeys.ini["Input"]["hologram1"] = "Joy(1)";
+                    GDKnyttKeys.saveSettings();
+                }
             }
-            GDKnyttWorldImpl.removeDirectory("user://Cache");
             return true;
         }
         return false;
