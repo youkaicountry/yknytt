@@ -24,9 +24,12 @@ public class Shift : Switch
 
         if (shift.Delay > 0)
         {
-            var delay_timer = GetNode<Timer>("DelayTimer");
-            if (!delay_timer.IsStopped()) { return; }
-            delay_timer.Start(shift.Delay / 1000f);
+            // HACK: juni.just_reset == 0 doesn't work with timers
+            // every shift timer guarantees 0.1s of motion
+            for (float i = shift.Delay / 1000f; i < 0.1f; i += 1 / 60.0f)
+            {
+                juni._PhysicsProcess(1 / 60.0f);
+            }
 
             if (shift.Hide)
             {
@@ -37,6 +40,9 @@ public class Shift : Switch
                 trigger?.executeAnyway(juni);
             }
 
+            var delay_timer = GetNode<Timer>("DelayTimer");
+            if (!delay_timer.IsStopped()) { return; }
+            delay_timer.Start(shift.Delay / 1000f);
             await ToSignal(delay_timer, "timeout");
 
             if (shift.Hide)
@@ -131,6 +137,7 @@ public class Shift : Switch
         {
             juni._PhysicsProcess(1 / 60.0f); // to exit endless shift loops
             juni._PhysicsProcess(1 / 60.0f); // MoveAndSlide can't use other fps
+            juni._PhysicsProcess(1 / 60.0f);
             juni._PhysicsProcess(1 / 60.0f);
         }
 

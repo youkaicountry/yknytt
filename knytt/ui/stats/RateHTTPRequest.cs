@@ -9,18 +9,12 @@ public class RateHTTPRequest : HTTPRequest
 
     public enum Action
     {
-        Undefined = 0,
         Download = 1,
-        Upvote = 2,
-        Downvote = 3,
         Complain = 4,
         Cutscene = 5,
         Ending = 6,
-        Enter = 7,
-        Exit = 8,
         WinExit = 9,
         Cheat = 10,
-        Complete = 11
     }
 
     private int retry;
@@ -37,7 +31,7 @@ public class RateHTTPRequest : HTTPRequest
             ["author"] = level_author,
             ["action"] = action,
             ["uid"] = GDKnyttSettings.UUID,
-            ["platform"] = OS.GetName()
+            ["platform"] = OS.GetName() + " " + GDKnyttSettings.Version
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
         retry = 1;

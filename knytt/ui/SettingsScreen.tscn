@@ -91,7 +91,7 @@ rect_min_size = Vector2( 80, 33 )
 focus_neighbour_left = NodePath("../../../BackButton")
 focus_neighbour_right = NodePath("../../../ButtonContainer/TouchPanelButton")
 text = "Original"
-items = [ "Original", null, false, 0, null, "Smooth", null, false, 1, null, "Parallax", null, false, 2, null ]
+items = [ "Original", null, false, 0, null, "Smooth", null, false, 1, null, "Side Scroll", null, false, 2, null ]
 selected = 0
 
 [node name="ScrollLabel" type="Label" parent="SettingsContainer/ScrollContainer"]
@@ -121,7 +121,7 @@ rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../../ButtonContainer/OfflineDropdown")
 focus_neighbour_bottom = NodePath("../MapContainer/ForcedMap")
-text = "White Screen Of Death"
+text = "White Respawn Screen"
 
 [node name="MapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 165.0
