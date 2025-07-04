@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using YKnyttLib;
 
 public class PowerItem : GDKnyttBaseObject
 {
@@ -27,7 +28,20 @@ public class PowerItem : GDKnyttBaseObject
         juni.setPower(Power, true);
         GDArea.playEffect(Coords);
         juni.playSound("powerup");
+        checkDoors(juni);
         QueueFree();
         Deleted = true;
+    }
+
+    private void checkDoors(Juni juni)
+    {
+        if (Power >= 8 && Power <= 11)
+        {
+            var doors = juni.Game.CurrentArea.Objects.findObjects(new KnyttPoint(15, Power - 8 + 27));
+            foreach (Door door in doors)
+            {
+                door.gotKey();
+            }
+        }
     }
 }

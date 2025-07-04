@@ -70,7 +70,7 @@ openDistance = 80.0
 closeDistance = 100.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BigArea2D" index="0"]
-polygon = PoolVector2Array( -8, 22, 33, 22, 62, 16, 47, -19, 12.5, -34, -22, -19, -37, 16 )
+polygon = PoolVector2Array( -8, 22, 33, 22, 33, 17, 62, 16, 38, 13, 55, -3, 34, 0, 47, -19, 26, -8, 29, -28, 18, -12, 12.5, -34, 8, -12, -4, -29, -3, -8, -22, -19, -9, 0, -30, -3, -15, 13, -37, 16, -8, 17 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmallArea2D" index="0"]
 position = Vector2( 12, 15 )

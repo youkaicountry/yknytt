@@ -22,13 +22,18 @@ public class Shift : Switch
         if (GDArea != game.CurrentArea) { return; }
         juni.juniInput.SwitchHeld = true;
 
+        if (shift.Coin != 0 && juni.Powers.getCoinCount() < shift.Coin) { return; }
+
         if (shift.Delay > 0)
         {
-            // HACK: juni.just_reset == 0 doesn't work with timers
-            // every shift timer guarantees 0.1s of motion
-            for (float i = shift.Delay / 1000f; i < 0.1f; i += 1 / 60.0f)
+            // workaround: juni.just_reset == 0 doesn't work with timers
+            // every additional shift timer guarantees 0.1s of motion
+            if (juni.just_reset == -1)
             {
-                juni._PhysicsProcess(1 / 60.0f);
+                for (float i = shift.Delay / 1000f; i < 0.1f; i += 1 / 60.0f)
+                {
+                    juni._PhysicsProcess(1 / 60.0f);
+                }
             }
 
             if (shift.Hide)
@@ -57,15 +62,8 @@ public class Shift : Switch
 
         if (shift.Coin != 0)
         {
-            if (juni.Powers.getCoinCount() - shift.Coin >= 0)
-            {
-                juni.Powers.CoinsSpent += shift.Coin;
-                juni.updateCollectables();
-            }
-            else
-            {
-                return;
-            }
+            juni.Powers.CoinsSpent += shift.Coin;
+            juni.updateCollectables();
         }
 
         if (shift.Cutscene != null)

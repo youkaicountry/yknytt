@@ -370,7 +370,7 @@ max_distance = 1000.0
 script = ExtResource( 4 )
 
 [node name="Climb" type="Area2D" parent="Checkers"]
-position = Vector2( 6.2, 0.2 )
+position = Vector2( 6.23, 0.2 )
 collision_layer = 0
 collision_mask = 22
 priority = 1.0

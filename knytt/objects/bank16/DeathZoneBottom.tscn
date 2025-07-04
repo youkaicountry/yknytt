@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 3 )
+extents = Vector2( 11, 2.9 )
 
 [node name="DeathZoneBottom" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,4 +13,5 @@ position = Vector2( 12, 21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
