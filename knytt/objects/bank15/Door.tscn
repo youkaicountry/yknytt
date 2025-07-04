@@ -31,3 +31,4 @@ playing = true
 centered = false
 
 [connection signal="body_entered" from="OpenArea" to="." method="_on_OpenArea_body_entered"]
+[connection signal="body_exited" from="OpenArea" to="." method="_on_OpenArea_body_exited"]

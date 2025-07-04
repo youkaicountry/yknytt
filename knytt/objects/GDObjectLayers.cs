@@ -28,7 +28,7 @@ public class GDObjectLayers : Node2D
         this.Layers = llayers.ToArray();
 
         //Load objects
-        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
+        for (int layer = KnyttArea.AREA_SPRITE_LAYERS - 1; layer >= 0; layer--)
         {
             var data = area.Area.ObjectLayers[layer];
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)

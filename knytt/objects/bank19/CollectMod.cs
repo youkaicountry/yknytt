@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Godot;
+using YKnyttLib;
 
 public class CollectMod : Node2D
 {
@@ -32,10 +34,22 @@ public class CollectMod : Node2D
         juni.updateCollectables();
         parent.GDArea.playEffect(offset: GlobalPosition - parent.GDArea.GlobalPosition);
         juni.playSound("powerup");
+        checkDoors(juni);
         foreach (var obj in parent.GDArea.Objects.findObjects(parent.ObjectID))
         {
             obj.QueueFree();
             obj.Deleted = true;
+        }
+    }
+
+    private void checkDoors(Juni juni)
+    {
+        var doors = juni.Game.CurrentArea.Objects.findObjects(new List<KnyttPoint>() {
+            new KnyttPoint(15, 31), new KnyttPoint(15, 32), new KnyttPoint(15, 33), 
+            new KnyttPoint(15, 34), new KnyttPoint(15, 35), new KnyttPoint(15, 36) });
+        foreach (Door door in doors)
+        {
+            door.gotKey();
         }
     }
 }

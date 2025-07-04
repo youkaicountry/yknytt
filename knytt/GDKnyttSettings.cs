@@ -420,7 +420,7 @@ public class GDKnyttSettings : Node
     {
         if (!ini.Sections.ContainsSection("Misc")) { ini.Sections.AddSection("Misc"); }
 
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"] != "0.6.8")
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.6.8") == -1)
         {
             ini["Misc"]["Version"] = "0.6.8";
             ini["Server"]?.RemoveKey("URL");
