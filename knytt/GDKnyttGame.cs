@@ -346,9 +346,6 @@ public class GDKnyttGame : Node2D
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 
-    private bool left_area_restricted, right_area_restricted;
-    private const int CAMERA_THRESHOLD = 72;
-
     // Handles transition effects
     private void beginTransitionEffects(bool force_jump = false)
     {
@@ -366,50 +363,57 @@ public class GDKnyttGame : Node2D
         {
             this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
         }
+        else if (scroll == GDKnyttSettings.ScrollTypes.Parallax)
+        {
+            adjustCenteredScroll(initial: true);
+            GDWorld.createFakeObjects();
+        }
         else
         {
-            if (scroll == GDKnyttSettings.ScrollTypes.Parallax)
-            {
-                int dir = Math.Sign(CurrentArea.GlobalCenter.x - Camera.GlobalPosition.x);
-                Camera.Offset += dir * -new Vector2(600, 0);
-                
-                var left_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(-1, 0)];
-                left_area_restricted = left_area.Area.Empty ||
-                    (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
-                    left_area.Area.FlagWarps.Any(w => w != null);
-
-                var right_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(1, 0)];
-                right_area_restricted = right_area.Area.Empty ||
-                    (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
-                    right_area.Area.FlagWarps.Any(w => w != null);
-
-                adjustCenteredScroll(initial: true);
-                GDWorld.createFakeObjects();
-            }
-            
             this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
         }
     }
 
+    private bool left_area_restricted, right_area_restricted;
+    private const int CAMERA_THRESHOLD = 72;
+
     public void adjustCenteredScroll(bool initial = false)
     {
-        float center_offset = TouchSettings.EnablePanel ? -TouchSettings.ScreenWidth / 2 - 300 : -300;
-        float xpos = Juni.GlobalPosition.x - CurrentArea.GlobalPosition.x;
-        float offset = xpos + center_offset - Camera.Offset.x;
-
-        float cam_offset_x = xpos - Math.Sign(offset) * CAMERA_THRESHOLD;
-        bool no_move = (right_area_restricted && cam_offset_x > 300) || (left_area_restricted && cam_offset_x < 300);
-        if (no_move) { cam_offset_x = 300; }
-
-        if (Math.Abs(offset) > CAMERA_THRESHOLD || (no_move && initial))
+        if (initial)
         {
-            Camera.Offset = new Vector2(cam_offset_x + center_offset, Camera.Offset.y);
+            var left_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(-1, 0)];
+            left_area_restricted = left_area.Area.Empty ||
+                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
+                left_area.Area.FlagWarps.Any(w => w != null);
+
+            var right_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(1, 0)];
+            right_area_restricted = right_area.Area.Empty ||
+                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
+                right_area.Area.FlagWarps.Any(w => w != null);
+
+            Camera.GlobalPosition = new Vector2(Camera.GlobalPosition.x, CurrentArea.GlobalCenter.y);
         }
+
+        float juni_in_area = Juni.GlobalPosition.x - CurrentArea.GlobalCenter.x;
+        float juni_on_camera = Juni.GlobalPosition.x - Camera.GlobalPosition.x;
+        float camera_in_area = Camera.GlobalPosition.x - CurrentArea.GlobalCenter.x;
+
+        if (Math.Abs(juni_on_camera) > CAMERA_THRESHOLD)
+        {
+            camera_in_area = juni_in_area - Math.Sign(juni_on_camera) * CAMERA_THRESHOLD;
+        }
+
+        if ((right_area_restricted && camera_in_area > 0) || (left_area_restricted && camera_in_area < 0))
+        {
+            camera_in_area = 0;
+        }
+
+        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, Camera.GlobalPosition.y);
 
         foreach (var area in GDWorld.Areas.Areas.Values)
         {
-            float axpos = Juni.GlobalPosition.x - area.GlobalPosition.x;
-            area.Background.Position = new Vector2((axpos - 300 - offset) * 0.5f, 0);
+            float juni_in_this_area = Juni.GlobalPosition.x - area.GlobalCenter.x;
+            area.Background.Position = new Vector2((juni_in_this_area - juni_on_camera) * 0.5f, 0);
         }
     }
 
