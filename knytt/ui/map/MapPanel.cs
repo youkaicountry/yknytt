@@ -198,6 +198,7 @@ public class MapPanel : Panel
             if (world.Size.Area < AREA_PRELOAD_LIMIT) { juni.Game.GetNode<MapViewports>("%MapViewports").loadAll(); }
             juni.GDArea?.Objects?.checkCollectables(juni.Powers);
             setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User));
+            last_drag_distance = 0;
             Update();
         }
         GetParent<Panel>().Visible = show;
@@ -222,7 +223,7 @@ public class MapPanel : Panel
                 drag(drag_event.Relative / RectScale);
                 drag_pos0 = drag_event.Position;
             }
-            else
+            else if (drag_event.Index == 1)
             {
                 drag_pos1 = drag_event.Position;
                 if (last_drag_distance == 0) { last_drag_distance = drag_pos1.DistanceTo(drag_pos0); }
@@ -231,7 +232,11 @@ public class MapPanel : Panel
             if (last_drag_distance > 0)
             {
                 float drag_distance = drag_pos1.DistanceTo(drag_pos0);
-                scale(drag_distance / last_drag_distance);
+                float scale_k = drag_distance / last_drag_distance;
+                if (scale_k < 1.5f && scale_k > 1 / 1.5f)
+                {
+                    scale(scale_k);
+                }
                 last_drag_distance = drag_distance;
             }
         }
