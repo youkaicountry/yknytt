@@ -381,13 +381,13 @@ public class GDKnyttGame : Node2D
     {
         if (initial)
         {
-            var left_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(-1, 0)];
-            left_area_restricted = left_area.Area.Empty ||
+            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
+            left_area_restricted = left_area == null || left_area.Area.Empty ||
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
                 left_area.Area.FlagWarps.Any(w => w != null);
 
-            var right_area = GDWorld.Areas.Areas[CurrentArea.Area.Position + new KnyttPoint(1, 0)];
-            right_area_restricted = right_area.Area.Empty ||
+            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(1, 0), out var right_area);
+            right_area_restricted = right_area == null || right_area.Area.Empty ||
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
                 right_area.Area.FlagWarps.Any(w => w != null);
 
