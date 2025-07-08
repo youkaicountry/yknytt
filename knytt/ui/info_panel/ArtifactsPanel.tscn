@@ -536,6 +536,7 @@ margin_left = -240.0
 margin_top = -75.0
 margin_right = 240.0
 margin_bottom = 105.0
+rect_pivot_offset = Vector2( 240, 0 )
 mouse_filter = 2
 script = ExtResource( 11 )
 

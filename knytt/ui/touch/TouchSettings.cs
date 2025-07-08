@@ -13,12 +13,8 @@ public class TouchSettings : Node
 
     public static bool EnablePanel
     {
-        get { return GDKnyttSettings.ini["TouchPanel"]["Enable"].Equals("1"); }
-        set
-        {
-            GDKnyttSettings.ini["TouchPanel"]["Enable"] = value ? "1" : "0";
-            GDKnyttSettings.SmoothScaling = GDKnyttSettings.SmoothScaling;
-        }
+        get { return GDKnyttSettings.ini["TouchPanel"]["Enable"].Equals("1") && !GDKnyttSettings.FullHeightScroll; }
+        set { GDKnyttSettings.ini["TouchPanel"]["Enable"] = value ? "1" : "0"; }
     }
 
     public static bool SwapHands
@@ -92,6 +88,7 @@ public class TouchSettings : Node
 
     public static void applyAllSettings(SceneTree tree)
     {
+        tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
         tree.Root.GetNodeOrNull<TouchPanel>("GKnyttGame/UICanvasLayer/TouchPanel")?.CallDeferred("Configure");
     }
 

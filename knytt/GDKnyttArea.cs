@@ -6,8 +6,8 @@ public class GDKnyttArea : Node2D
     public GDAreaTiles Tiles { get; private set; }
     public GDObjectLayers Objects { get; private set; }
     public FakeObjectLayer FakeObjects { get; private set; }
-    public BulletLayer Bullets => GetNode<BulletLayer>("Bullets"); 
-    public GDKnyttBackground Background  { get; private set; }
+    public BulletLayer Bullets => GetNode<BulletLayer>("Bullets");
+    public GDKnyttBackground Background { get; private set; }
     public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
     public KnyttArea Area { get; private set; }
@@ -21,9 +21,9 @@ public class GDKnyttArea : Node2D
     public bool Ambiance1CustomVolume { get; set; }
     public bool Ambiance2CustomVolume { get; set; }
 
-    public static float Width => KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH; 
-    public static float Height => KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT; 
-    public static Vector2 Size => new Vector2(Width, Height); 
+    public static float Width => KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH;
+    public static float Height => KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT;
+    public static Vector2 Size => new Vector2(Width, Height);
 
     bool active = false;
     PackedScene objects_scene;
@@ -85,6 +85,8 @@ public class GDKnyttArea : Node2D
 
         // Area should start deactivated
         this.deactivateArea();
+
+        setBorderVisible(GDKnyttSettings.Border);
     }
 
     public void activateArea(bool regenerate_same = false)
@@ -127,7 +129,7 @@ public class GDKnyttArea : Node2D
         if (FakeObjects != null || Area.Empty) { return; }
         FakeObjects = fake_objects_scene.Instance<FakeObjectLayer>();
         AddChild(FakeObjects);
-        FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers.getPower(JuniValues.PowerNames.Eye));
+        FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers);
     }
 
     public void removeFakeObjectLayer()
@@ -180,4 +182,6 @@ public class GDKnyttArea : Node2D
         player.Stop();
         player.Play("collect");
     }
+
+    public bool setBorderVisible(bool visible) => GetNode<Panel>("BorderNode/Border").Visible = visible;
 }

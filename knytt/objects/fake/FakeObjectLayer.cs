@@ -50,7 +50,7 @@ public class FakeObjectLayer : Node2D
         }
     }
 
-    public void Load(KnyttArea.ObjectLayer[] layers, bool eye)
+    public void Load(KnyttArea.ObjectLayer[] layers, JuniValues powers)
     {
         for (int i = 0; i < layers.Length; i++)
         {
@@ -60,7 +60,10 @@ public class FakeObjectLayer : Node2D
                 {
                     var oid = layers[i].getObjectID(x, y);
                     if (oid.isZero()) { continue; }
-                    if (oid.x == 12 && !eye) { continue; }
+                    if (oid.x == 12 && !powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
+                    if (oid.x == 0 && PowerItem.Object2Power.TryGetValue(oid.y, out var power) &&
+                        powers.getPower(power)) { continue; }
+                    if (oid.x == 19 && powers.getCollectable(oid.y)) { continue; }
                     setCell(i, x, y, oid);
                 }
             }

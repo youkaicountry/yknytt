@@ -75,33 +75,20 @@ focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../../ButtonContainer/KeyRemapButton")
 text = "Smooth Scale"
 
-[node name="ScrollContainer" type="HBoxContainer" parent="SettingsContainer"]
-margin_top = 66.0
-margin_right = 152.0
-margin_bottom = 99.0
-
-[node name="ScrollDropdown" parent="SettingsContainer/ScrollContainer" instance=ExtResource( 5 )]
+[node name="ScrollDropdown" parent="SettingsContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 33.0
+margin_top = 66.0
+margin_right = 152.0
+margin_bottom = 99.0
 rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../../BackButton")
-focus_neighbour_right = NodePath("../../../ButtonContainer/TouchPanelButton")
-text = "Original"
-items = [ "Original", null, false, 0, null, "Smooth", null, false, 1, null, "Side Scroll", null, false, 2, null ]
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../ButtonContainer/TouchPanelButton")
+text = "No Area Scroll"
+items = [ "No Area Scroll", null, false, 0, null, "Full Height Side Scroll", null, false, 1, null, "Seamless Side Scroll", null, false, 2, null, "Small Height Side Scroll", null, false, 3, null, "Quick Smooth Scroll", null, false, 4, null ]
 selected = 0
-
-[node name="ScrollLabel" type="Label" parent="SettingsContainer/ScrollContainer"]
-margin_left = 84.0
-margin_top = 10.0
-margin_right = 138.0
-margin_bottom = 23.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "Area Scroll"
 
 [node name="Border" parent="SettingsContainer" instance=ExtResource( 6 )]
 margin_top = 99.0
@@ -187,7 +174,7 @@ margin_top = 41.0
 margin_right = 150.0
 margin_bottom = 74.0
 rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../SettingsContainer/ScrollContainer/ScrollDropdown")
+focus_neighbour_left = NodePath("../../SettingsContainer/ScrollDropdown")
 focus_neighbour_right = NodePath("../../VolumeContainer/MusicVolumeSlider")
 text = "Touch Panel Settings"
 
@@ -362,7 +349,7 @@ step = 0.02
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
-[connection signal="item_selected" from="SettingsContainer/ScrollContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
+[connection signal="item_selected" from="SettingsContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
 [connection signal="pressed" from="SettingsContainer/Border" to="." method="_on_Border_pressed"]
 [connection signal="pressed" from="SettingsContainer/WSOD" to="." method="_on_WSOD_pressed"]
 [connection signal="pressed" from="SettingsContainer/MapContainer/ForcedMap" to="." method="_on_ForcedMap_pressed"]

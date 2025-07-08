@@ -11,7 +11,7 @@
 bg_color = Color( 0.717647, 0.913725, 0.847059, 1 )
 border_width_left = 4
 border_width_top = 2
-border_width_right = 4
+border_width_right = 14
 border_width_bottom = 2
 border_color = Color( 0.8, 0.8, 0.8, 0 )
 anti_aliasing = false
