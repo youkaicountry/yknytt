@@ -76,7 +76,6 @@ public class TouchPanel : Panel
         SetProcessInput(Visible);
         var curtain = GetTree().Root.GetNode<Control>("GKnyttGame/UICanvasLayer/Curtain");
         curtain.Visible = Visible;
-        SetupBorder();
         if (!Visible) return;
         
         speedTooFast = 205 - 100 * TouchSettings.Swipe;
@@ -342,13 +341,6 @@ public class TouchPanel : Panel
     {
         actionNames[8] = jumpActionNames[4] = on ? "map" : "walk";
         walkPanel.GetNode<TextureRect>("Label").Texture = walkPanel.GetNode<TextureRect>(on ? "MapLabel" : "WalkLabel").Texture;
-    }
-
-    public void SetupBorder()
-    {
-        var border = GetTree().Root.GetNode<Control>("GKnyttGame/GKnyttCamera/TintNode/Border");
-        border.MarginTop = TouchSettings.EnablePanel && TouchSettings.AreaAnchor == 1 ? -121 : -120;
-        border.MarginBottom = TouchSettings.EnablePanel && TouchSettings.AreaAnchor == 0 ? 121 : 120;
     }
 
     public void OnConsoleOpen()

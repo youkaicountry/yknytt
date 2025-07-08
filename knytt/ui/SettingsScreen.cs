@@ -7,7 +7,7 @@ public class SettingsScreen : BasicScreen
     PackedScene input_scene;
     PackedScene touch_scene;
     PackedScene dir_scene;
-    
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -15,6 +15,7 @@ public class SettingsScreen : BasicScreen
         this.input_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InputScreen.tscn");
         this.touch_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/touch/TouchSettingsScreen.tscn");
         this.dir_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DirectoriesScreen.tscn");
+        GDKnyttSettings.setupViewport(for_ui: true, check_shrink: true);
         fillControls();
         initFocus();
     }
@@ -23,7 +24,7 @@ public class SettingsScreen : BasicScreen
     {
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
-        GetNode<OptionButton>("SettingsContainer/ScrollContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
+        GetNode<OptionButton>("SettingsContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
         GetNode<CheckBox>("SettingsContainer/WSOD").Pressed = GDKnyttSettings.WSOD;
         GetNode<CheckBox>("SettingsContainer/MapContainer/ForcedMap").Pressed = GDKnyttSettings.ForcedMap;
@@ -38,6 +39,7 @@ public class SettingsScreen : BasicScreen
         GetNode<CheckBox>("SettingsContainer/FullScreen").Visible = !GDKnyttSettings.Mobile && OS.GetName() != "HTML5";
         GetNode<Button>("ButtonContainer/DirButton").Visible = OS.GetName() != "iOS";
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonContainer/DirButton").Text = "Download Saves"; }
+        GetNode<Button>("ButtonContainer/TouchPanelButton").Disabled = GDKnyttSettings.FullHeightScroll;
     }
 
     public override void initFocus()
@@ -50,6 +52,7 @@ public class SettingsScreen : BasicScreen
     {
         GDKnyttSettings.saveSettings();
         TouchSettings.applyAllSettings(GetTree());
+        GDKnyttSettings.setupViewport(for_ui: true, check_shrink: false);
         base.goBack();
     }
 
@@ -66,12 +69,14 @@ public class SettingsScreen : BasicScreen
     public void _on_ScollDropdown_item_selected(int index)
     {
         GDKnyttSettings.ScrollType = (GDKnyttSettings.ScrollTypes)index;
-        
-        if (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Parallax)
+
+        if (GDKnyttSettings.SeamlessScroll)
         {
             GetNode<CheckBox>("SettingsContainer/Border").Pressed = true;
             GDKnyttSettings.Border = true;
         }
+
+        GetNode<Button>("ButtonContainer/TouchPanelButton").Disabled = GDKnyttSettings.FullHeightScroll;
     }
 
     private void _on_Border_pressed()

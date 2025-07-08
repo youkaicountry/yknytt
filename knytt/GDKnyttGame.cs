@@ -71,7 +71,6 @@ public class GDKnyttGame : Node2D
 
         GDKnyttSettings.setupViewport(for_ui: false);
         this.setupCamera();
-        this.setupBorder();
         this.setupWorld();
         this.setupShader();
     }
@@ -358,12 +357,11 @@ public class GDKnyttGame : Node2D
         UI.Location.updateLocation(this.CurrentArea.Area.Position);
 
         // Camera
-        var scroll = GDKnyttSettings.ScrollType;
-        if (scroll == GDKnyttSettings.ScrollTypes.Smooth && !force_jump)
+        if (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Smooth && !force_jump)
         {
             this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
         }
-        else if (scroll == GDKnyttSettings.ScrollTypes.Parallax)
+        else if (GDKnyttSettings.SideScroll)
         {
             adjustCenteredScroll(initial: true);
             GDWorld.createFakeObjects();
@@ -375,19 +373,18 @@ public class GDKnyttGame : Node2D
     }
 
     private bool left_area_restricted, right_area_restricted;
-    private const int CAMERA_THRESHOLD = 72;
 
     public void adjustCenteredScroll(bool initial = false)
     {
         if (initial)
         {
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
-            left_area_restricted = left_area == null || left_area.Area.Empty ||
+            left_area_restricted = !GDKnyttSettings.SeamlessScroll || left_area == null || left_area.Area.Empty ||
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
                 left_area.Area.FlagWarps.Any(w => w != null);
 
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(1, 0), out var right_area);
-            right_area_restricted = right_area == null || right_area.Area.Empty ||
+            right_area_restricted = !GDKnyttSettings.SeamlessScroll || right_area == null || right_area.Area.Empty ||
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
                 right_area.Area.FlagWarps.Any(w => w != null);
 
@@ -398,22 +395,33 @@ public class GDKnyttGame : Node2D
         float juni_on_camera = Juni.GlobalPosition.x - Camera.GlobalPosition.x;
         float camera_in_area = Camera.GlobalPosition.x - CurrentArea.GlobalCenter.x;
 
-        if (Math.Abs(juni_on_camera) > CAMERA_THRESHOLD)
+        float x_viewport = GetViewport().GetVisibleRect().Size.x;
+        float camera_restriction = (600 - x_viewport) / 2;
+        float camera_threshold = x_viewport * 72f / 600f;
+
+        if (Math.Abs(juni_on_camera) > camera_threshold)
         {
-            camera_in_area = juni_in_area - Math.Sign(juni_on_camera) * CAMERA_THRESHOLD;
+            camera_in_area = juni_in_area - Math.Sign(juni_on_camera) * camera_threshold;
         }
 
-        if ((right_area_restricted && camera_in_area > 0) || (left_area_restricted && camera_in_area < 0))
+        if (right_area_restricted && camera_in_area > camera_restriction)
         {
-            camera_in_area = 0;
+            camera_in_area = camera_restriction;
+        }
+        if (left_area_restricted && camera_in_area < -camera_restriction)
+        {
+            camera_in_area = -camera_restriction;
         }
 
         Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, Camera.GlobalPosition.y);
 
-        foreach (var area in GDWorld.Areas.Areas.Values)
+        if (x_viewport <= 600)
         {
-            float juni_in_this_area = Juni.GlobalPosition.x - area.GlobalCenter.x;
-            area.Background.Position = new Vector2((juni_in_this_area - juni_on_camera) * 0.5f, 0);
+            foreach (var area in GDWorld.Areas.Areas.Values)
+            {
+                float juni_in_this_area = Juni.GlobalPosition.x - area.GlobalCenter.x;
+                area.Background.Position = new Vector2((juni_in_this_area - juni_on_camera) * 0.5f, 0);
+            }
         }
     }
 
@@ -489,9 +497,10 @@ public class GDKnyttGame : Node2D
 
     public void setupBorder()
     {
-        var border = GetNode<Control>("GKnyttCamera/TintNode/Border");
-        border.Visible = GDKnyttSettings.Border;
-        GetNode<TouchPanel>("UICanvasLayer/TouchPanel").SetupBorder();
+        foreach (var area in GDWorld.Areas.Areas.Values)
+        {
+            area.setBorderVisible(GDKnyttSettings.Border);
+        }
     }
 
     public void setupShader()

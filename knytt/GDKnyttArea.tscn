@@ -1,9 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/objects/BulletLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/GDKnyttBackground.cs" type="Script" id=2]
 [ext_resource path="res://knytt/GDKnyttArea.cs" type="Script" id=3]
 [ext_resource path="res://knytt/objects/bank0/img/pickup.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.8, 0.8, 0.8, 0.219608 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "collect"
@@ -35,6 +43,14 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 24, 240 )
 script = ExtResource( 2 )
+
+[node name="BorderNode" type="Node2D" parent="."]
+z_index = 16
+
+[node name="Border" type="Panel" parent="BorderNode"]
+margin_right = 600.0
+margin_bottom = 240.0
+custom_styles/panel = SubResource( 2 )
 
 [node name="DeactivateTimer" type="Timer" parent="."]
 one_shot = true

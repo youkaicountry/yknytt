@@ -11,7 +11,7 @@ public class GDKnyttSettings : Node
     public static IniData ini { get; private set; }
     static SceneTree tree;
 
-    public enum ScrollTypes { Original, Smooth, Parallax }
+    public enum ScrollTypes { Original, FullHeightSide, SeamlessSide, SmallHeightSide, Smooth }
 
     public enum ShaderType { NoShader, HQ4X, CRT, Sepia, VHS, }
 
@@ -31,7 +31,7 @@ public class GDKnyttSettings : Node
             OS.WindowMaximized = value;
             if (!value && OS.GetName() == "Windows")
             {
-                OS.WindowSize = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"), 
+                OS.WindowSize = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"),
                                             (int)ProjectSettings.GetSetting("display/window/size/test_height"));
                 OS.WindowPosition = (OS.GetScreenSize() - OS.WindowSize) / 2;
             }
@@ -45,7 +45,7 @@ public class GDKnyttSettings : Node
         set
         {
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
-            setupViewport(for_ui: true);
+            setupViewport(for_ui: true, check_shrink: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
 
             var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
@@ -58,38 +58,53 @@ public class GDKnyttSettings : Node
         }
     }
 
-    public static void setupViewport(bool for_ui = false)
+    public static void setupViewport(bool for_ui = false, bool check_shrink = false)
     {
+        float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 515 : 600;
         tree.SetScreenStretch(
-            SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport, 
-            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
-            new Vector2(for_ui ? 600 : TouchSettings.ScreenWidth, 240));
+            SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth :
+                FullHeightScroll ? SceneTree.StretchAspect.KeepHeight : SceneTree.StretchAspect.Keep,
+            new Vector2(for_ui ? ui_width : FullHeightScroll ? 240 : TouchSettings.ScreenWidth, 240));
     }
-    
+
     public static ScrollTypes ScrollType
     {
         get { return Enum.TryParse<ScrollTypes>(ini["Graphics"]["Scroll Type"], out var s) ? s : ScrollTypes.Original; }
         set
         {
+            ini["Graphics"]["Scroll Type"] = value.ToString();
+
             var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game != null)
             {
-                game.GDWorld.Areas.BorderSize = value == ScrollTypes.Original ? new KnyttPoint(0, 0) :
-                    value == ScrollTypes.Parallax ? new KnyttPoint(1, 0) : new KnyttPoint(1, 1);
+                game.GDWorld.Areas.BorderSize =
+                    value == ScrollTypes.Original ? new KnyttPoint(0, 0) :
+                    value == ScrollTypes.Smooth ? new KnyttPoint(1, 1) :
+                    SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
 
-                if (value == ScrollTypes.Parallax)
+                game.setupCamera();
+
+                if (SideScroll)
                 {
                     game.adjustCenteredScroll(initial: true);
                 }
                 else
                 {
-                    tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
-                    game.CurrentArea.Background.Position = Vector2.Zero;
+                    foreach (var area in game.GDWorld.Areas.Areas.Values)
+                    {
+                        area.Background.Position = Vector2.Zero;
+                    }
                 }
             }
-            ini["Graphics"]["Scroll Type"] = value.ToString();
         }
     }
+
+    public static bool SideScroll { get { var s = ScrollType; return s != ScrollTypes.Original && s != ScrollTypes.Smooth; } }
+
+    public static bool SeamlessScroll { get { var s = ScrollType; return s == ScrollTypes.SeamlessSide || s == ScrollTypes.SmallHeightSide; } }
+
+    public static bool FullHeightScroll { get { var s = ScrollType; return s == ScrollTypes.FullHeightSide || s == ScrollTypes.SeamlessSide; } }
 
     public static bool Border
     {

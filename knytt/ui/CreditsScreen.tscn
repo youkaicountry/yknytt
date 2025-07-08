@@ -502,11 +502,12 @@ Aradiant"
 [node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 438.0
 margin_right = 580.0
-margin_bottom = 29.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "LumicatRB
-Someone65"
+Someone65
+yainaya"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 171.0

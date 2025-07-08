@@ -144,7 +144,7 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = 234.0
-rect_min_size = Vector2( 594, 0 )
+rect_min_size = Vector2( 234, 0 )
 custom_constants/separation = 5
 alignment = 1
 
@@ -161,7 +161,7 @@ scroll_following = true
 margin_top = 210.0
 margin_right = 594.0
 margin_bottom = 234.0
-rect_min_size = Vector2( 594, 0 )
+rect_min_size = Vector2( 234, 0 )
 alignment = 1
 
 [node name="Label" type="Label" parent="ConsoleContainer/Panel/VBox/HBox"]

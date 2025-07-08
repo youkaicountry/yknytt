@@ -91,8 +91,24 @@ public class UICanvasLayer : CanvasLayer
         {
             anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
             if (anim2 != null) { anim2.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed); }
-            if (showing) { anim.PlayBackwards("SlideOut"); anim2?.PlayBackwards("SlideOut"); sliding_out = false; }
-            else { anim.Play("SlideOut"); anim2?.Play("SlideOut"); sliding_out = true; }
+            if (showing)
+            {
+                anim.PlayBackwards("SlideOut");
+                anim2?.PlayBackwards("SlideOut");
+                sliding_out = false;
+            }
+            else
+            {
+                float xscreen = GDKnyttSettings.FullHeightScroll ? GetViewport().GetVisibleRect().Size.x : 600;
+                float xinfo = infoPanel.RectSize.x;
+                infoPanel.MarginLeft = -xscreen / 2 - 3;
+                infoPanel.MarginRight = infoPanel.MarginLeft + xinfo;
+                if (artifactsPanel != null) { artifactsPanel.RectScale = Vector2.One * xscreen / 600; }
+
+                anim.Play("SlideOut");
+                anim2?.Play("SlideOut");
+                sliding_out = true;
+            }
         }
         else
         {
