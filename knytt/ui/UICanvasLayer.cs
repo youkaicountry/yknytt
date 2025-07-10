@@ -103,7 +103,7 @@ public class UICanvasLayer : CanvasLayer
                 float xinfo = infoPanel.RectSize.x;
                 infoPanel.MarginLeft = -xscreen / 2 - 3;
                 infoPanel.MarginRight = infoPanel.MarginLeft + xinfo;
-                if (artifactsPanel != null) { artifactsPanel.RectScale = Vector2.One * xscreen / 600; }
+                if (artifactsPanel != null) { artifactsPanel.RectScale = Vector2.One * Mathf.Min(xscreen / 600, 1); }
 
                 anim.Play("SlideOut");
                 anim2?.Play("SlideOut");

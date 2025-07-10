@@ -141,14 +141,28 @@ namespace YKnyttLib
 
                     FlagWarps[(int)id] = new FlagWarp();
                     FlagWarps[(int)id].flag = JuniValues.Flag.Parse(ExtraData[flag_key]);
-                    
-                    FlagWarps[(int)id].x = !ExtraData.ContainsKey(x_key) ? 0 : int.TryParse(
-                        new string(ExtraData[x_key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray()), out var x) ? x : 0;
-                    FlagWarps[(int)id].y = !ExtraData.ContainsKey(y_key) ? 0 : int.TryParse(
-                        new string(ExtraData[y_key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray()), out var y) ? y : 0;
 
-                    FlagWarps[(int)id].xArtifactMode = ExtraData.ContainsKey(x_key) && ExtraData[x_key].ToLower().StartsWith("artifact");
-                    FlagWarps[(int)id].yArtifactMode = ExtraData.ContainsKey(y_key) && ExtraData[y_key].ToLower().StartsWith("artifact");
+                    if (ExtraData.ContainsKey(x_key))
+                    {
+                        string value = ExtraData[x_key].ToLower();
+                        if (value.StartsWith("artifact"))
+                        {
+                            FlagWarps[(int)id].xArtifactMode = true;
+                            value = value.Substring(8);
+                        }
+                        FlagWarps[(int)id].x = KnyttUtil.parseIniInt(value) ?? 0;
+                    }
+
+                    if (ExtraData.ContainsKey(y_key))
+                    {
+                        string value = ExtraData[y_key].ToLower();
+                        if (value.StartsWith("artifact"))
+                        {
+                            FlagWarps[(int)id].yArtifactMode = true;
+                            value = value.Substring(8);
+                        }
+                        FlagWarps[(int)id].y = KnyttUtil.parseIniInt(value) ?? 0;
+                    }
                 }
             }
         }

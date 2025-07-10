@@ -107,8 +107,8 @@ public class MapPanel : Panel
             colors[coord] = makeBright(GRADIENTS[area.Background]);
             if (area.ExtraData == null) { continue; }
 
-            int? map_x = int.TryParse(area.ExtraData["MapX"], out var i) ? i : null as int?;
-            int? map_y = int.TryParse(area.ExtraData["MapY"], out i) ? i : null as int?;
+            int? map_x = KnyttUtil.parseIniInt(area.ExtraData["MapX"]);
+            int? map_y = KnyttUtil.parseIniInt(area.ExtraData["MapY"]);
             if (map_x != null || map_y != null)
             {
                 area.Spoofing = new KnyttPoint(map_x ?? coord.x, map_y ?? coord.y);
@@ -117,7 +117,7 @@ public class MapPanel : Panel
             if (area.ExtraData["MapVisible"]?.ToLower() == "true") { visible[coord] = true; }
             if (area.ExtraData["MapVisible"]?.ToLower() == "false") { visible[coord] = false; }
 
-            int? color = int.TryParse(area.ExtraData["MapColor"], out i) ? i : null as int?;
+            int? color = KnyttUtil.parseIniInt(area.ExtraData["MapColor"]);
             if (color != null)
             {
                 if (color == 64)

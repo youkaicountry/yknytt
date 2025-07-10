@@ -7,6 +7,7 @@ public class RollerGenerator : GDKnyttBaseObject
         GDArea.Bullets.RegisterEmitter(this, "RollBullet",
             (p, i) =>
             {
+                p.Translate(new Vector2(12, 0));
                 p.VelocityMMF2 = 12;
                 p.DirectionMMF2 = 0;
             });

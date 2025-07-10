@@ -74,7 +74,10 @@ namespace YKnyttLib
                 if (str.ToLower() == "true") { flag.true_flag = true; return flag; }
                 flag.power = str.ToLower().StartsWith("power");
                 flag.coin = str.ToLower().StartsWith("coin");
-                if (!int.TryParse(flag.power ? str.Substring(5) : flag.coin ? str.Substring(4) : str, out flag.number)) { return null; }
+                
+                int? number = KnyttUtil.parseIniInt(flag.power ? str.Substring(5) : flag.coin ? str.Substring(4) : str);
+                if (number == null) { return null; }
+                flag.number = (int)number;
                 return flag;
             }
         }

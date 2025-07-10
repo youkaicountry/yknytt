@@ -31,8 +31,8 @@ public class Sign : GDKnyttBaseObject
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "[SILENCE]"; }
 
-        shiftMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignShift({letter})"), out var j) ? j : 0;
-        triggerMessageIndex = int.TryParse(GDArea.Area.getExtraData($"SignTrig({letter})"), out j) ? j : 0;
+        shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignShift({letter})")) ?? 0;
+        triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignTrig({letter})")) ?? 0;
 
         adjustSign();
 

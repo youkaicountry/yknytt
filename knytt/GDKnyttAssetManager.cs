@@ -431,7 +431,7 @@ public class GDKnyttAssetManager
             var texture = world.getWorldTexture(tileset_path);
             if (texture is Texture t)
             {
-                t = preprocessTilesetTexture(t);
+                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
                 ResourceSaver.Save(cached_path, makeTileset(t), ResourceSaver.SaverFlags.Compress);
             }
         }

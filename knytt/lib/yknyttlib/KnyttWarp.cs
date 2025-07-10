@@ -57,8 +57,7 @@ namespace YKnyttLib
         {
             string key = string.Format("Warp{0}({1})", axis, dir);
             if (!data.ContainsKey(key)) { return 0; }
-            string value = new string(data[key]?.Where(c => char.IsDigit(c) || c == '-')?.ToArray());
-            return int.TryParse(value, out var i) ? i : 0;
+            return KnyttUtil.parseIniInt(data[key]) ?? 0;
         }
     }
 }
