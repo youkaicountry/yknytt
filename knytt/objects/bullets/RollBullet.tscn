@@ -106,13 +106,14 @@ animations = [ {
 collision_mask = 2048
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 12.5, 16 )
+position = Vector2( 0.5, 16 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 position = Vector2( 0, -0.5 )
 frames = SubResource( 22 )
 centered = false
+offset = Vector2( -12, 0 )
 
 [node name="HitPlayer" parent="." index="2" instance=ExtResource( 4 )]
 stream = ExtResource( 5 )

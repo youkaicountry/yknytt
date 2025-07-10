@@ -86,10 +86,7 @@ public class CustomObject : GDKnyttBaseObject
 
     private static int getInt(KeyDataCollection section, string key, int @default)
     {
-        string value = new string(getString(section, key)?.Where(c => char.IsDigit(c) || c == '-' || c == '.')?.ToArray());
-        return double.TryParse(value, 
-            System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture.NumberFormat,
-            out var i) ? (int)System.Math.Round(i) : @default;
+        return KnyttUtil.parseIniInt(getString(section, key)) ?? @default;
     }
 
     private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size, Vector2 offset)

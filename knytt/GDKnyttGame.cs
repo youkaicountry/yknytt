@@ -395,7 +395,7 @@ public class GDKnyttGame : Node2D
         float juni_on_camera = Juni.GlobalPosition.x - Camera.GlobalPosition.x;
         float camera_in_area = Camera.GlobalPosition.x - CurrentArea.GlobalCenter.x;
 
-        float x_viewport = GetViewport().GetVisibleRect().Size.x;
+        float x_viewport = GDKnyttSettings.FullHeightScroll ? GetViewport().GetVisibleRect().Size.x : 600;
         float camera_restriction = (600 - x_viewport) / 2;
         float camera_threshold = x_viewport * 72f / 600f;
 
@@ -474,7 +474,7 @@ public class GDKnyttGame : Node2D
 
         int bgr = KnyttUtil.parseBGRString(color_str, 0);
         TintInk mode = Enum.TryParse<TintInk>(ink_str?.ToUpper(), out var i) ? i : TintInk.TRANS;
-        int trans = int.TryParse(trans_str, out var t) ? t : 46;
+        int trans = KnyttUtil.parseIniInt(trans_str) ?? 46;
 
         if (bgr == 0)
         {
