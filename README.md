@@ -4,11 +4,11 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.6.7 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.7/YKnytt_v0.6.7.apk)
+[Download YKnytt v0.6.8 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.8/YKnytt_v0.6.8.apk)
 
-[Download YKnytt v0.6.7 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.7/YKnytt_v0.6.7_win.zip)
+[Download YKnytt v0.6.8 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.8/YKnytt_v0.6.8_win.zip)
 
-[Download YKnytt v0.6.7 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.7/YKnytt_v0.6.7_linux.zip)
+[Download YKnytt v0.6.8 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.8/YKnytt_v0.6.8_linux.zip)
 
 [Web version: play YKnytt v0.6.5 on itch.io](https://youkaicountry.itch.io/yknytt)
 
@@ -23,6 +23,12 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 ![image](screenshots/screen4.png)
 
 ![image](screenshots/screen7.png)
+
+![image](screenshots/screen9.png)
+
+![image](screenshots/screen8.png)
+
+![image](screenshots/screen11.png)
 
 ### Reporting a broken level
 
@@ -41,9 +47,3 @@ Requires Godot 3.6.1.stable.mono and .NET Framework 4.8 Developer Pack for Windo
 To properly export, `knytt/worlds/*` must be included in the export filters
 
 To build a proper Android APK, activate the "Internet" permission.
-
-### Playing
-
-You can download additional levels from the built-in level downloader (if our server is running).
-
-Or you can place packed (.knytt.bin) or unpacked levels in `worlds` directory.
