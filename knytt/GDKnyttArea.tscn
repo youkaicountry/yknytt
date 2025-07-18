@@ -9,7 +9,7 @@
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 1
 border_width_top = 1
-border_width_right = 1
+border_width_right = 2
 border_width_bottom = 1
 border_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
@@ -48,7 +48,7 @@ script = ExtResource( 2 )
 z_index = 16
 
 [node name="Border" type="Panel" parent="BorderNode"]
-margin_right = 600.0
+margin_right = 601.0
 margin_bottom = 240.0
 custom_styles/panel = SubResource( 2 )
 
