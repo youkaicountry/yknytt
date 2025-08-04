@@ -52,7 +52,7 @@ public class LevelSelection : BasicScreen
     private IniData worlds_cache_ini;
     private HashSet<string> old_levels_paths;
     private bool worlds_modified;
-    private const string CACHE_INI_PATH = "user://worlds.ini";
+    private string CACHE_INI_PATH => GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
 
     private PackedScene download_link_scene;
     private bool download_link_added;
@@ -110,7 +110,7 @@ public class LevelSelection : BasicScreen
     {
         discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
-        discoverWorlds("user://Worlds");
+        discoverWorlds(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
 
         foreach (string path in old_levels_paths) { worlds_cache_ini.Sections.RemoveSection(path); }
@@ -338,7 +338,7 @@ public class LevelSelection : BasicScreen
         if (worlds_cache_ini.Sections.ContainsSection(world_file) && worlds_cache_ini[world_file].ContainsKey("Name"))
         {
             world_info = new KnyttWorldInfo(worlds_cache_ini[world_file]);
-            icon_bin = GDKnyttAssetManager.loadFile($"user://Cache/{world_info.Folder}/Icon.png");
+            icon_bin = GDKnyttAssetManager.loadFile(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/Icon.png"));
         }
         else
         {
@@ -364,9 +364,9 @@ public class LevelSelection : BasicScreen
             worlds_cache_ini[world_file]["File Size"] = world_bin.Length.ToString();
             worlds_modified = true;
 
-            GDKnyttAssetManager.ensureDirExists($"user://Cache/{world_info.Folder}");
+            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}"));
             var f = new File();
-            f.Open($"user://Cache/{world_info.Folder}/Icon.png", File.ModeFlags.Write);
+            f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/Icon.png"), File.ModeFlags.Write);
             f.StoreBuffer(icon_bin);
             f.Close();
         }
@@ -385,7 +385,7 @@ public class LevelSelection : BasicScreen
 
     private WorldEntry getWorldEntry(string world_dir, byte[] icon, KnyttWorldInfo world_info)
     {
-        string played_flag_name = $"user://Cache/{world_info.Folder}/LastPlayed.flag";
+        string played_flag_name = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/LastPlayed.flag");
         var result = new WorldEntry(world_info)
         { 
             Icon = icon,
@@ -395,7 +395,7 @@ public class LevelSelection : BasicScreen
             InstalledTime = new File().GetModifiedTime(world_dir)
         };
         
-        if (result.Completed == -1 && new File().FileExists($"user://Cache/{world_dir.GetFile()}/Completed.flag")) { result.Completed = 1; } // backwards compatability
+        if (result.Completed == -1 && new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_dir.GetFile()}/Completed.flag"))) { result.Completed = 1; } // backwards compatability
         return result;
     }
 
@@ -472,7 +472,7 @@ public class LevelSelection : BasicScreen
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }
 
-            GDKnyttAssetManager.ensureDirExists("user://Worlds");
+            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
             cleanUnfinished();
 
             string filename = button.worldEntry.Link;
@@ -481,7 +481,7 @@ public class LevelSelection : BasicScreen
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename).Replace("+", " ");
             string download_dir = GDKnyttSettings.WorldsDirectory != "" && GDKnyttSettings.WorldsDirForDownload ? 
-                GDKnyttSettings.WorldsDirectory : "user://Worlds";
+                GDKnyttSettings.WorldsDirectory : GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds");
             http_node.DownloadFile = download_dir.PlusFile($"{filename}.part");
 
             var error = http_node.Request(button.worldEntry.Link);
@@ -550,7 +550,7 @@ public class LevelSelection : BasicScreen
     private void cleanUnfinished()
     {
         var dir = new Directory();
-        dir.Open("user://Worlds");
+        dir.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
         dir.ListDirBegin(skipNavigational: true);
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {
