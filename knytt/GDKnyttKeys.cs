@@ -65,7 +65,7 @@ public class GDKnyttKeys : Node
     public static bool loadSettings()
     {
         var f = new File();
-        var error = f.Open("user://input.ini", File.ModeFlags.Read);
+        var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("input.ini"), File.ModeFlags.Read);
         if (error != Error.Ok) { return true; }
         var ini_text = f.GetAsText();
         f.Close();
@@ -78,7 +78,7 @@ public class GDKnyttKeys : Node
     {
         var text = ini.ToString();
         var f = new File();
-        f.Open("user://input.ini", File.ModeFlags.Write);
+        f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("input.ini"), File.ModeFlags.Write);
         f.StoreString(text);
         f.Close();
     }
