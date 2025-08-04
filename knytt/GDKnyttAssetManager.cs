@@ -160,9 +160,21 @@ public class GDKnyttAssetManager
 
     public static byte[] loadFile(string path)
     {
-        if (!new File().FileExists(path)) { return null; }
         var f = new File();
-        f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+        
+        // Handle res:// paths for bundled resources
+        if (path.StartsWith("res://"))
+        {
+            var error = f.Open(path, File.ModeFlags.Read);
+            if (error != Error.Ok) { return null; }
+        }
+        else
+        {
+            // Handle regular filesystem paths
+            if (!f.FileExists(path)) { return null; }
+            f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+        }
+        
         var buffer = f.GetBuffer((int)f.GetLen());
         f.Close();
         return buffer;

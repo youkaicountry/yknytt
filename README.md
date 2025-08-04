@@ -38,6 +38,22 @@ If you find a bug in a level, just press "complain" on a level info screen. Your
 
 /Users/{user}/AppData/Roaming/YKnytt/ for Windows, ~/.local/share/YKnytt/ for Linux
 
+### Custom data directory and portable installation
+
+You can specify a custom data directory using the `--data` command line parameter:
+
+```
+YKnytt --data /path/to/custom/data
+```
+
+For portable installations (e.g., running from a USB drive), you can use a relative path:
+
+```
+YKnytt --data ./yknytt-data
+```
+
+This will store all game data (saves, downloaded worlds, cache, and settings) in the specified directory instead of the default user data directory.
+
 ### Building
 
 Requires Godot 3.6.1.stable.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)

@@ -12,7 +12,31 @@ public class GDKnyttDataStore : Node
 
 	public static string ProgressHint { get; set; }
 
-	public static string BaseDataDirectory { get; private set; } = OS.GetUserDataDir();
+	public static string BaseDataDirectory { get; private set; }
+	
+	static GDKnyttDataStore()
+	{
+		// Initialize base data directory, checking for command line arguments
+		BaseDataDirectory = OS.GetUserDataDir();
+		
+		// Check for --data command line parameter
+		var args = OS.GetCmdlineArgs();
+		for (int i = 0; i < args.Length - 1; i++)
+		{
+			if (args[i] == "--data" && i + 1 < args.Length)
+			{
+				string dataPath = args[i + 1];
+				// Convert relative paths to absolute paths
+				if (!dataPath.IsAbsPath())
+				{
+					dataPath = OS.GetExecutablePath().GetBaseDir().PlusFile(dataPath);
+				}
+				BaseDataDirectory = dataPath;
+				GD.Print($"Using custom data directory: {BaseDataDirectory}");
+				break;
+			}
+		}
+	}
 
 	public static string CutsceneName { get; private set; }
 	public static string CutsceneAfter { get; private set; }
