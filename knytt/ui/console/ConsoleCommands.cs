@@ -224,7 +224,7 @@ public static class ConsoleCommands
 
                 case "backup":
                     string src_dir = GDKnyttSettings.SavesDirectory == "" ? 
-                        OS.GetUserDataDir().PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
+                        GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
                     string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
@@ -636,7 +636,7 @@ public static class ConsoleCommands
             if (f.FileExists(internal_path)) { path = internal_path; }
             else
             {
-                var external_path = $"user://Worlds/{this.world}";
+                var external_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Worlds/{this.world}");
                 if (f.FileExists(external_path)) { path = external_path; }
             }
 
@@ -769,7 +769,7 @@ public static class ConsoleCommands
         {
             var env = (ConsoleExecutionEnvironment)environment;
             var f = new File();
-            var error = f.Open("user://settings.ini", File.ModeFlags.Read);
+            var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("settings.ini"), File.ModeFlags.Read);
             var ini_text = f.GetAsText();
             f.Close();
 

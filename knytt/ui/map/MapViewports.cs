@@ -22,7 +22,7 @@ public class MapViewports : Node2D
     public void init(KnyttWorld world)
     {
         this.KWorld = world;
-        cache_dir = $"user://Cache/{KWorld.WorldDirectoryName}";
+        cache_dir = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
     }
 

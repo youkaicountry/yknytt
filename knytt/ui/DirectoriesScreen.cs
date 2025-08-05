@@ -152,7 +152,7 @@ public class DirectoriesScreen : BasicScreen
 
     private void _on_BackupFileDialog_file_selected(String path)
     {
-        string src_dir = GDKnyttSettings.SavesDirectory == "" ? OS.GetUserDataDir().PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
+        string src_dir = GDKnyttSettings.SavesDirectory == "" ? GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
         try
         {
             if (new Directory().FileExists(path)) { new Directory().Remove(path); }

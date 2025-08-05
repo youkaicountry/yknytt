@@ -108,14 +108,14 @@ public class InfoScreen : BasicScreen
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        string cache_dir = $"user://Cache/{KWorld.WorldDirectoryName}";
+        string cache_dir = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
         var f = new File();
         f.Open(cache_dir.PlusFile("LastPlayed.flag"), File.ModeFlags.Write);
         f.Close();
 
         f = new File();
-        f.Open("user://lastplayed.ini", File.ModeFlags.Write);
+        f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"), File.ModeFlags.Write);
         f.StoreString($"{KWorld.WorldDirectory}/{slot}");
         f.Close();
 
@@ -274,7 +274,7 @@ public class InfoScreen : BasicScreen
             sendRating(41);
         }
 
-        string endings_flag_name = "user://Cache".PlusFile(KWorld.WorldDirectoryName).PlusFile("Endings.flag");
+        string endings_flag_name = GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(KWorld.WorldDirectoryName).PlusFile("Endings.flag");
         if (!new File().FileExists(endings_flag_name))
         {
             setIniValue("Endings", string.Join("/", endings));
@@ -324,7 +324,7 @@ public class InfoScreen : BasicScreen
 
     private void setIniValue(string key, string value)
     {
-        const string INI_PATH = "user://worlds.ini";
+        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
         var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
         var parser = new IniDataParser();
         var worlds_cache_ini = parser.Parse(ini_text);
