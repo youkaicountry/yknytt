@@ -4,4 +4,9 @@ public class BlockUser : GDKnyttBaseObject
     {
         GDArea.BlockInput = true;
     }
+
+    public override void customDeletion()
+    {
+        GDArea.BlockInput = false;
+    }
 }
