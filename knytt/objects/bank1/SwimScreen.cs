@@ -5,4 +5,9 @@ public class SwimScreen : GDKnyttBaseObject
         base._Ready();
         GDArea.Swim = true;
     }
+
+    public override void customDeletion()
+    {
+        GDArea.Swim = false;
+    }
 }
