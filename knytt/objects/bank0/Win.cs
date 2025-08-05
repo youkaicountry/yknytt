@@ -20,7 +20,7 @@ public class Win : GDKnyttBaseObject
         save.TotalTime = juni.Powers.TotalTimeNow;
         GDArea.GDWorld.Game.saveGame(save, save_map: false); // workaround: different thread + exit causes crash sometimes
 
-        const string INI_PATH = "user://worlds.ini";
+        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
         var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
         var parser = new IniDataParser();
         var worlds_cache_ini = parser.Parse(ini_text);

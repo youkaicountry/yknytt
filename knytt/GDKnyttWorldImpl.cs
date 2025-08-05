@@ -119,7 +119,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         {
             removeDirectory(WorldDirectory);
         }
-        removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName));
     }
 
     public void refreshWorld()
@@ -128,6 +128,6 @@ public class GDKnyttWorldImpl : KnyttWorld
         {
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
-        removeDirectory("user://Cache".PlusFile(WorldDirectoryName));
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName));
     }
 }

@@ -50,7 +50,7 @@ public class GDKnyttAssetManager
 
     private TileSet buildTileSet(int num)
     {
-        string cached_path = $"user://Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res";
+        string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res");
         if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
@@ -59,7 +59,7 @@ public class GDKnyttAssetManager
             case Texture t:
                 // Preprocess the texture if no alpha channel
                 TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t));
-                ensureDirExists($"user://Cache/{GDWorld.KWorld.WorldDirectoryName}");
+                ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{GDWorld.KWorld.WorldDirectoryName}"));
                 ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
             case TileSet ts: return ts;
@@ -160,9 +160,21 @@ public class GDKnyttAssetManager
 
     public static byte[] loadFile(string path)
     {
-        if (!new File().FileExists(path)) { return null; }
         var f = new File();
-        f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+        
+        // Handle res:// paths for bundled resources
+        if (path.StartsWith("res://"))
+        {
+            var error = f.Open(path, File.ModeFlags.Read);
+            if (error != Error.Ok) { return null; }
+        }
+        else
+        {
+            // Handle regular filesystem paths
+            if (!f.FileExists(path)) { return null; }
+            f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+        }
+        
         var buffer = f.GetBuffer((int)f.GetLen());
         f.Close();
         return buffer;
@@ -417,7 +429,7 @@ public class GDKnyttAssetManager
     public static void compileInternalTileset(KnyttWorld world, bool recompile)
     {
         GDKnyttDataStore.ProgressHint = "Compiling tilesets...";
-        ensureDirExists($"user://Cache/{world.WorldDirectoryName}");
+        ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world.WorldDirectoryName}"));
 
         for (int num = 0; num < 256; num++)
         {
@@ -425,7 +437,7 @@ public class GDKnyttAssetManager
             string tileset_path = $"Tilesets/Tileset{num}.png";
             if (!world.worldFileExists(tileset_path)) { continue; }
 
-            string cached_path = $"user://Cache/{world.WorldDirectoryName}/Tileset{num}.res";
+            string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world.WorldDirectoryName}/Tileset{num}.res");
             if (!recompile && new File().FileExists(cached_path)) { continue; }
 
             var texture = world.getWorldTexture(tileset_path);
@@ -441,13 +453,13 @@ public class GDKnyttAssetManager
     // Call this function at start to compile default tilesets
     public static void compileTileset()
     {
-        ensureDirExists($"user://tilesets");
+        ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("tilesets"));
         for (int i = 0; i < 256; i++)
         {
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
-            GD.PrintErr(ResourceSaver.Save($"user://tilesets/Tileset{i}.png.res", tileset, ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PlusFile($"tilesets/Tileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
         }
     }
 }

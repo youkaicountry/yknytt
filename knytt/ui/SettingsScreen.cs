@@ -113,10 +113,10 @@ public class SettingsScreen : BasicScreen
     {
         if (OS.GetName() == "HTML5")
         {
-            string dest_zip = OS.GetUserDataDir().PlusFile("yknytt-saves.zip");
+            string dest_zip = GDKnyttDataStore.BaseDataDirectory.PlusFile("yknytt-saves.zip");
             try
             {
-                ZipFile.CreateFromDirectory(OS.GetUserDataDir().PlusFile("Saves"), dest_zip);
+                ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves"), dest_zip);
             }
             catch (Exception) {}
             JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-saves.zip");
