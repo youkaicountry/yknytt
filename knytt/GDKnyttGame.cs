@@ -122,6 +122,7 @@ public class GDKnyttGame : Node2D
         this.changeArea(save.getArea(), force_jump: true, regenerate_same: true, respawn: true);
         Juni.moveToPosition(CurrentArea, save.getAreaPosition());
         Juni.reset();
+        if (GDKnyttSettings.SideScroll) { adjustCenteredScroll(initial: true); }
         UI.updatePowers();
         KnyttLogger.Debug("Juni has respawned");
     }
@@ -376,6 +377,8 @@ public class GDKnyttGame : Node2D
 
     public void adjustCenteredScroll(bool initial = false)
     {
+        if (GetViewport() == null) { return; }
+
         if (initial)
         {
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);

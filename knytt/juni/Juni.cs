@@ -462,7 +462,6 @@ public class Juni : KinematicBody2D
                     if (Checkers.Bump)
                     {
                         velocity.y = 0;
-                        Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX)); // to not jump so high
                     }
                     else
                     {

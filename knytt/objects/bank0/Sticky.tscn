@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/objects/bank0/Sticky.cs" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11.5, 14 )
+extents = Vector2( 11.5, 12.5 )
 
 [node name="Sticky" type="Node2D"]
 script = ExtResource( 1 )

@@ -15,7 +15,7 @@ public class Elemental : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        if (!exploded && Juni.manhattanDistance(Center) < 67 && GDArea.isIn(Juni.GlobalPosition, 18 + 14, 18 + 14))
+        if (!exploded && Juni.manhattanDistance(Center) < 66 && GDArea.isIn(Juni.GlobalPosition, 18 + 14, 18 + 14))
         {
             exploded = true;
             sprite.Play("launch");

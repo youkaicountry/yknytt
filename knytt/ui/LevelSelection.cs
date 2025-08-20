@@ -131,7 +131,8 @@ public class LevelSelection : BasicScreen
         if (filter_difficulty_int != FILTER_ALL) { request_url += $"difficulty={filter_difficulty_int}&"; }
         if (filter_size_int != FILTER_ALL) { request_url += $"size={filter_size_int}&"; }
         if (filter_text != null && filter_text != "") { request_url += $"text={Uri.EscapeDataString(filter_text)}&"; }
-        request_url += $"order={filter_order_int}";
+        request_url += $"order={filter_order_int}&";
+        request_url += $"version={GDKnyttSettings.ini["Misc"]["Version"]}";
 
         http_levels_node.CancelRequest();
         request_retry = 1;
