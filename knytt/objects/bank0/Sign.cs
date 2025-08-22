@@ -65,10 +65,20 @@ public class Sign : GDKnyttBaseObject
         var y_diff = Position.y + sign_rect.RectPosition.y;
         var size = sign_rect.RectSize;
 
+        float left_limit = 0;
+        float right_limit = 600;
+        if (GDKnyttSettings.FullHeightScroll)
+        {
+            float camera_in_area = Juni.Game.Camera.GlobalPosition.x - GDArea.GlobalPosition.x;
+            float x_viewport = GetViewport().GetVisibleRect().Size.x;
+            left_limit = camera_in_area - x_viewport / 2;
+            right_limit = camera_in_area + x_viewport / 2;
+        }
+
         // TODO: original game doesn't overlap object area when showing sign
-        if (x_diff + x_pos < 0) { x_pos = -x_diff; }
+        if (x_diff + x_pos < left_limit) { x_pos = left_limit - x_diff; }
         if (y_diff + y_pos < 0) { y_pos = -y_diff; }
-        if (x_diff + x_pos + size.x > 600) { x_pos = 600 - x_diff - size.x; }
+        if (x_diff + x_pos + size.x > right_limit) { x_pos = right_limit - x_diff - size.x; }
         if (y_diff + y_pos + size.y > 240) { y_pos = 240 - y_diff - size.y; }
 
         label.RectPosition = new Vector2(x_pos, y_pos);
@@ -96,7 +106,12 @@ public class Sign : GDKnyttBaseObject
         {
             label.Text = texts[messageIndex];
             GetNode<Control>("Label/SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
-            if (!messageVisible) { player.Play("FadeIn"); messageVisible = true; }
+            if (!messageVisible)
+            {
+                if (GDKnyttSettings.FullHeightScroll) { adjustSign(); }
+                player.Play("FadeIn");
+                messageVisible = true;
+            }
         }
         else
         {
