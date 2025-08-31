@@ -319,15 +319,15 @@ public class GDKnyttGame : Node2D
 
     public async void win(string ending)
     {
+        string statistics = $"{Juni.Powers.TotalTimeNow}s {Juni.Powers.TotalDeaths}d " +
+                            $"{Juni.Powers.HardestPlace} {Juni.Powers.HardestPlaceDeaths}d";
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Online)
         {
-            GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-                (int)RateHTTPRequest.Action.WinExit, 
-                $"{Juni.Powers.TotalTimeNow}s {Juni.Powers.TotalDeaths}d " +
-                $"{Juni.Powers.HardestPlace} {Juni.Powers.HardestPlaceDeaths}d");
+            GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author,
+                (int)RateHTTPRequest.Action.WinExit, statistics);
         }
         await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
-        GDKnyttDataStore.winGame(ending);
+        GDKnyttDataStore.winGame(ending, statistics);
     }
 
     public SignalAwaiter fade(bool fast, Color? color)
@@ -379,6 +379,8 @@ public class GDKnyttGame : Node2D
     {
         if (GetViewport() == null) { return; }
 
+        float camera_global_position_x = Camera.GlobalPosition.x;
+        
         if (initial)
         {
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
@@ -390,13 +392,13 @@ public class GDKnyttGame : Node2D
             right_area_restricted = !GDKnyttSettings.SeamlessScroll || right_area == null || right_area.Area.Empty ||
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
                 right_area.Area.FlagWarps.Any(w => w != null);
-
-            Camera.GlobalPosition = new Vector2(Camera.GlobalPosition.x, CurrentArea.GlobalCenter.y);
+                
+            if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.x; } // fix flickering
         }
 
         float juni_in_area = Juni.GlobalPosition.x - CurrentArea.GlobalCenter.x;
-        float juni_on_camera = Juni.GlobalPosition.x - Camera.GlobalPosition.x;
-        float camera_in_area = Camera.GlobalPosition.x - CurrentArea.GlobalCenter.x;
+        float juni_on_camera = Juni.GlobalPosition.x - camera_global_position_x;
+        float camera_in_area = camera_global_position_x - CurrentArea.GlobalCenter.x;
 
         float x_viewport = GDKnyttSettings.FullHeightScroll ? GetViewport().GetVisibleRect().Size.x : 600;
         float camera_restriction = (600 - x_viewport) / 2;
@@ -416,7 +418,7 @@ public class GDKnyttGame : Node2D
             camera_in_area = -camera_restriction;
         }
 
-        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, Camera.GlobalPosition.y);
+        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, CurrentArea.GlobalCenter.y);
 
         if (x_viewport <= 600)
         {
