@@ -20,10 +20,18 @@ public class RateHTTPRequest : HTTPRequest
     private int retry;
     private Dictionary dict;
     private HashSet<int> sent_actions = new HashSet<int>();
+    private bool is_requesting = false;
 
-    public void send(string level_name, string level_author, int action, string cutscene = null, bool once = true)
+    public async void send(string level_name, string level_author, int action, string cutscene = null, bool once = true)
     {
         if (once && sent_actions.Contains(action)) { return; }
+
+        while (is_requesting)
+        {
+            await ToSignal(this, "request_completed");
+            await ToSignal(GetTree(), "idle_frame");
+        }
+
         string serverURL = GDKnyttSettings.ServerURL;
         dict = new Dictionary()
         {
@@ -35,19 +43,20 @@ public class RateHTTPRequest : HTTPRequest
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
         retry = 1;
-        Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+        var error = Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+        if (error == Error.Ok) { is_requesting = true; }
     }
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
         if (result != (int)HTTPRequest.Result.Success || response_code == 500)
         {
-            if (retry-- <= 0) { return; }
-            GD.Print("retry ", dict["action"]);
+            if (retry-- <= 0) { is_requesting = false; return; }
             CancelRequest();
             Request($"{GDKnyttSettings.ServerURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
             return;
         }
+        is_requesting = false;
         if (response_code != 200) { return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
@@ -60,5 +69,10 @@ public class RateHTTPRequest : HTTPRequest
         {
             EmitSignal(nameof(RateAdded), action);
         }
+    }
+
+    private void _on_RateHTTPRequest_tree_exiting()
+    {
+        is_requesting = false;
     }
 }

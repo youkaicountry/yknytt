@@ -149,7 +149,16 @@ public class Cutscene : Control
                         RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
 
         if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
+
         GetNode<RateHTTPRequest>("RateHTTPRequest").send(
-            GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author, (int)action, GDKnyttDataStore.CutsceneName);
+            GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author,
+            (int)action, GDKnyttDataStore.CutsceneName);
+
+        if (GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Ending)
+        {
+            GetNode<RateHTTPRequest>("RateHTTPRequest").send(
+                GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author,
+                (int)RateHTTPRequest.Action.WinExit, GDKnyttDataStore.Statistics); // second time - in case of slow internet
+        }
     }
 }
