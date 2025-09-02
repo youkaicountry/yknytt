@@ -1,6 +1,7 @@
 using System;
 using System.IO.Compression;
 using Godot;
+using YKnyttLib.Logging;
 
 public class SettingsScreen : BasicScreen
 {
@@ -114,11 +115,16 @@ public class SettingsScreen : BasicScreen
         if (OS.GetName() == "HTML5")
         {
             string dest_zip = GDKnyttDataStore.BaseDataDirectory.PlusFile("yknytt-saves.zip");
+            if (System.IO.File.Exists(dest_zip)) { System.IO.File.Delete(dest_zip); }
+
             try
             {
                 ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves"), dest_zip);
             }
-            catch (Exception) {}
+            catch (Exception e)
+            {
+                KnyttLogger.Error(e.Message);
+            }
             JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-saves.zip");
             return;
         }

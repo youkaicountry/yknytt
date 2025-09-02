@@ -339,7 +339,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Scroll Type", ScrollTypes.Original.ToString());
         modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
         modified |= ensureSetting("Graphics", "Forced Map", "1");
-        modified |= ensureSetting("Graphics", "Detailed Map", OS.GetName() == "HTML5" ? "0" : "1");
+        modified |= ensureSetting("Graphics", "Detailed Map", "1");
         modified |= ensureSetting("Graphics", "Shader Type", ShaderType.NoShader.ToString());
         modified |= ensureSetting("Graphics", "WSOD", "1");
         modified |= ensureSetting("Graphics", "Interpolation", "0");
@@ -440,6 +440,8 @@ public class GDKnyttSettings : Node
         {
             ini["Misc"]["Version"] = "0.6.9";
             ini["Server"]?.RemoveKey("URL");
+            if (OS.GetName() == "HTML5") { ini["Graphics"]?.RemoveKey("Detailed Map"); }
+            
             if (new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("input.ini")))
             {
                 GDKnyttKeys.loadSettings();

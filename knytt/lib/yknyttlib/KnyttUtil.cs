@@ -28,7 +28,7 @@ namespace YKnyttLib
         public static int? parseIniInt(string value)
         {
             if (value == null) { return null; }
-            value = new string(value.TakeWhile(c => char.IsDigit(c) || c == '-' || c == '.').ToArray());
+            value = new string(value.TakeWhile(c => char.IsDigit(c) || c == '-' || c == '+' || c == '.').ToArray());
             return double.TryParse(value,
                 System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture.NumberFormat, 
                 out var i) ? (int)System.Math.Round(i) : null as int?;
