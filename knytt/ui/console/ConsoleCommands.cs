@@ -223,8 +223,6 @@ public static class ConsoleCommands
                     break;
 
                 case "backup":
-                    string src_dir = GDKnyttSettings.SavesDirectory == "" ? 
-                        GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves") : GDKnyttSettings.SavesDirectory;
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
                     string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
@@ -232,7 +230,7 @@ public static class ConsoleCommands
 
                     try
                     {
-                        ZipFile.CreateFromDirectory(src_dir, dest_zip);
+                        ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, dest_zip);
                     }
                     catch (Exception)
                     {
