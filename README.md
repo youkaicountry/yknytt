@@ -4,13 +4,15 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.6.9 beta for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9.apk)
+[Download YKnytt v0.6.9 for Android](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9.apk)
 
-[Download YKnytt v0.6.9 beta for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9_win.zip)
+[Download YKnytt v0.6.9 for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9_win.zip)
 
-[Download YKnytt v0.6.9 beta for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9_linux.zip)
+[Download YKnytt v0.6.9 for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9_linux.zip)
 
-[Web version: play YKnytt v0.6.5 on itch.io](https://youkaicountry.itch.io/yknytt)
+[Download YKnytt v0.6.9 for macOS](https://github.com/youkaicountry/yknytt/releases/download/0.6.9/YKnytt_v0.6.9_macos.zip)
+
+[Web version: play YKnytt v0.6.9 on itch.io](https://youkaicountry.itch.io/yknytt)
 
 ### Screenshots
 
