@@ -288,6 +288,12 @@ public class GDKnyttSettings : Node
         set { ini["Misc"]["Stick Sensitivity"] = value.ToString(); GDKnyttKeys.StickTreshold = 1 - value; }
     }
 
+    public static int JumpBufferTime
+    {
+        get { return int.Parse(ini["Misc"]["Jump Buffer Time"]); }
+        set { ini["Misc"]["Jump Buffer Time"] = value.ToString(); }
+    }
+
     public static string Version
     {
         get { return ini["Misc"]["Version"]; }
@@ -358,6 +364,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Directories", "For Download", "0");
 
         modified |= ensureSetting("Misc", "Stick Sensitivity", (0.7f).ToString());
+        modified |= ensureSetting("Misc", "Jump Buffer Time", "100");
 
         modified |= TouchSettings.ensureSettings();
 
@@ -382,6 +389,7 @@ public class GDKnyttSettings : Node
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
         EffectsPanning = float.Parse(ini["Audio"]["Effects Panning"]);
         StickSensitivity = float.Parse(ini["Misc"]["Stick Sensitivity"]);
+        JumpBufferTime = int.Parse(ini["Misc"]["Jump Buffer Time"]);
     }
 
     public static void saveSettings()
