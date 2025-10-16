@@ -31,7 +31,12 @@ public class IdleState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(reset_jumps: true); }
+        // Check for both immediate jump and buffered jump
+        if (juni.DidJump || (juni.Grounded && juni.CanJump && juni.juniInput.HasBufferedJump()))
+        {
+            juni.juniInput.ClearJumpBuffer();
+            juni.executeJump(reset_jumps: true);
+        }
         else if (!juni.Grounded) // Ground falls out from under Juni
         {
             juni.CanFreeJump = true;
@@ -81,8 +86,10 @@ public class WalkRunState : JuniState
 
         if (juni.Grounded) { juni.CanFreeJump = true; }
 
-        if (juni.juniInput.JumpEdge && juni.CanJump && juni.CanFreeJump)
+        // Check for both immediate jump and buffered jump
+        if ((juni.juniInput.JumpEdge || juni.juniInput.HasBufferedJump()) && juni.CanJump && juni.CanFreeJump)
         {
+            juni.juniInput.ClearJumpBuffer();
             juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
         }
         else if (!juni.Grounded && juni.DidAirJump)
@@ -269,6 +276,14 @@ public class FallState : JuniState
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
         if (juni.Grounded)
         {
+            // Check for buffered jump immediately upon landing
+            if (juni.CanJump && juni.juniInput.HasBufferedJump())
+            {
+                juni.juniInput.ClearJumpBuffer();
+                juni.executeJump(reset_jumps: true);
+                return; // Skip transition to idle/walk state since we're jumping
+            }
+
             if (juni.MoveDirection != 0) { juni.transitionState(new WalkRunState(juni, juni.WalkRun)); }
             else { juni.transitionState(new IdleState(juni)); }
             juni.GetNode<AudioStreamPlayer2D>("Audio/LandPlayer2D").Play();

@@ -403,7 +403,7 @@ public class Juni : KinematicBody2D
     {
         if (dead) { return; }
 
-        juniInput.Update();
+        juniInput.Update(delta);
 
         if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
 
