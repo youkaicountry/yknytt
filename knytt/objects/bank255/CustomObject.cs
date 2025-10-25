@@ -120,7 +120,10 @@ public class CustomObject : GDKnyttBaseObject
         
         if (static_sprite != null)
         {
-            static_sprite.Texture = image_texture;
+            var new_tex = new AtlasTexture();
+            new_tex.Atlas = image_texture;
+            new_tex.Region = new Rect2(0, 0, static_sprite.Texture.GetSize());
+            static_sprite.Texture = new_tex;
             static_sprite.Offset += offset;
             return;
         }
