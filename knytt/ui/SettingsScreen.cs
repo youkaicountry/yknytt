@@ -129,6 +129,7 @@ public class SettingsScreen : BasicScreen
             return;
         }
 
+        OS.RequestPermissions();
         loadScreen(dir_scene.Instance() as BasicScreen);
     }
 

@@ -599,12 +599,12 @@ public static class ConsoleCommands
         {
             game.UI.ForceMap = on;
             game.Juni.setPower(JuniValues.PowerNames.Map, on);
-            env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power." : "Map is disabled.");
+            env.Console.AddMessage(on ? "Map is enabled. Save the game to keep map power, die to show only visited areas." : "Map is disabled.");
         }
 
         protected override bool isEnabled(GDKnyttGame game, ConsoleExecutionEnvironment env)
         {
-            return game.UI.ForceMap;
+            return game.Juni.Powers.getPower(JuniValues.PowerNames.Map);
         }
     }
 
