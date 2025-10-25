@@ -24,9 +24,6 @@ public class JuniInput
 
     public bool Enabled { get; set; } = true;
 
-    // Jump buffering
-    private float jumpBufferTime = 0f;
-
     public JuniInput(Juni juni)
     {
         Juni = juni;
@@ -71,44 +68,22 @@ public class JuniInput
     public bool UmbrellaPressed => checkJustPressed("umbrella"); 
     public bool HologramPressed => checkJustPressed("hologram"); 
     public bool JumpEdge => checkJustPressed("jump"); 
-    public bool JumpHeld => checkPressed("jump");
-    public bool WalkHeld => checkPressed("walk");
-    public bool UmbrellaHeld => checkPressed("umbrella");
+    public bool JumpHeld => checkPressed("jump"); 
+    public bool WalkHeld => checkPressed("walk"); 
+    public bool UmbrellaHeld => checkPressed("umbrella"); 
 
-    public void Update(float delta)
+    public void Update()
     {
         pressEdges["down"].Update();
         pressEdges["umbrella"].Update();
         pressEdges["hologram"].Update();
         pressEdges["jump"].Update();
 
-        // Handle jump buffer
-        if (checkJustPressed("jump"))
-        {
-            jumpBufferTime = GDKnyttSettings.JumpBufferTime / 1000f; // Convert ms to seconds
-        }
-
-        if (jumpBufferTime > 0f)
-        {
-            jumpBufferTime -= delta;
-            if (jumpBufferTime < 0f) { jumpBufferTime = 0f; }
-        }
-
         // Handle Switch
         if (SwitchHeld)
         {
             if (Juni.GDArea.BlockInput || DownReleased || !DownHeld || (Juni.GDArea.HasAltInput && altInput.IsActionJustReleased("down"))) { SwitchHeld = false; }
         }
-    }
-
-    public bool HasBufferedJump()
-    {
-        return jumpBufferTime > 0f;
-    }
-
-    public void ClearJumpBuffer()
-    {
-        jumpBufferTime = 0f;
     }
 
     public void FinishFrame()
