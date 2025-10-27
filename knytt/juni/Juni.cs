@@ -204,6 +204,38 @@ public class Juni : KinematicBody2D
         }
     }
 
+    int on_shift = 0;
+    public bool OnShift
+    {
+        get { return on_shift > 0; }
+        set
+        {
+            if (value && on_shift == 0) { showShiftHint(true); }
+            on_shift += (value ? 1 : -1);
+            if (!value && on_shift == 0) { showShiftHint(false); }
+        }
+    }
+
+    int on_platform = 0;
+    public bool OnPlatform
+    {
+        get { return on_platform > 0; }
+        set
+        {
+            if (value && on_platform == 0) { showShiftHint(true, jump_hint: true); }
+            on_platform += (value ? 1 : -1);
+            if (!value && on_platform == 0) { showShiftHint(false); }
+        }
+    }
+
+    public void showShiftHint(bool show, bool jump_hint = false)
+    {
+        if (!GDKnyttSettings.DownButtonHint) { return; }
+        var sprite = GetNode<AnimatedSprite>("ShiftHintSprite");
+        sprite.Animation = jump_hint ? "platform" : "shift";
+        sprite.Playing = sprite.Visible = show;
+    }
+
     public Godot.Vector2 ApparentPosition => (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; 
     public bool CanDeployHologram => ((CurrentState is IdleState) || (CurrentState is WalkRunState)) &&
                                      !(GDArea.BlockHologram && !InHologramPlace);

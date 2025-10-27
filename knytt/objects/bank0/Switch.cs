@@ -40,8 +40,15 @@ public abstract class Switch : GDKnyttBaseObject
         }
         else
         {
-            if (juni.juniInput.DownHeld && !juni.juniInput.SwitchHeld) { execute(juni); }
-            else { juni.Connect(nameof(Juni.DownEvent), this, nameof(execute)); }
+            if (juni.juniInput.DownHeld && !juni.juniInput.SwitchHeld)
+            {
+                execute(juni);
+            }
+            else
+            {
+                juni.Connect(nameof(Juni.DownEvent), this, nameof(execute));
+                juni.OnShift = true;
+            }
         }
     }
 
@@ -55,6 +62,7 @@ public abstract class Switch : GDKnyttBaseObject
         if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(execute)))
         {
             juni.Disconnect(nameof(Juni.DownEvent), this, nameof(execute));
+            juni.OnShift = false;
         }
 
         if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(execute)))
