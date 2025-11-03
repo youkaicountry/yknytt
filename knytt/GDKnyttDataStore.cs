@@ -60,6 +60,11 @@ public class GDKnyttDataStore : Node
         }
     }
 
+    public static void setTitle(string level_name)
+    {
+        OS.SetWindowTitle("YKnytt" + (level_name == null ? "" : $" | {level_name}"));
+    }
+
     public override void _Ready()
     {
         Tree = GetTree();
@@ -68,6 +73,7 @@ public class GDKnyttDataStore : Node
     public static void startGame(bool new_game)
     {
         Tree.Paused = false;
+        setTitle(KWorld.WorldDirectoryName);
         if (new_game)
         {
             Mode = CutsceneMode.Intro;
