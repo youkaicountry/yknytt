@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/star.png-e1be7d13bd900e7e86c4180224e6f58b.stex"
+path="res://.import/left_star.png-e9d846a39f77347d77af10bb7f9113aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/ui/img/star.png"
-dest_files=[ "res://.import/star.png-e1be7d13bd900e7e86c4180224e6f58b.stex" ]
+source_file="res://knytt/ui/img/left_star.png"
+dest_files=[ "res://.import/left_star.png-e9d846a39f77347d77af10bb7f9113aa.stex" ]
 
 [params]
 

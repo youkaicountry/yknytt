@@ -20,7 +20,7 @@ public class StarRate : HBoxContainer
 
     private void update(int n)
     {
-        for (int i = 2; i <= 10; i += 2)
+        for (int i = 1; i <= 10; i++)
         {
             GetNode<TextureRect>($"Star{i}").Modulate = 
                 i <= n ? new Color("#EE0000") : 
@@ -32,7 +32,7 @@ public class StarRate : HBoxContainer
         {
             EmitSignal(nameof(HoverEvent), 
                 n == 0 && _rate > 0 ? "Remove your rating for this level" : 
-                n > 0 ? $"Rate this level as {n / 2} (out of 5)" : null);
+                n > 0 ? $"Rate this level as {n / 2f:0.0} (out of 5)" : null);
         }
     }
 

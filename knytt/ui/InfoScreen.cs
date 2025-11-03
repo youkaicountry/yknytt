@@ -295,7 +295,7 @@ public class InfoScreen : BasicScreen
     {
         ClickPlayer.Play();
         if (world_entry.UserScore == n) { return; }
-        hint_label.Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n}...";
+        hint_label.Text = n == 0 ? "Removing your rating..." : $"Setting your rating as {n / 2f:0.0}...";
         sendRating(20 + n);
     }
 
@@ -305,7 +305,7 @@ public class InfoScreen : BasicScreen
         int old_voters = world_entry.Voters;
         world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
         world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
-            (world_entry.OverallScore * old_voters - (world_entry.UserScore - n) / 2) / world_entry.Voters;
+            (world_entry.OverallScore * old_voters - (world_entry.UserScore - n) / 2f) / world_entry.Voters;
         world_entry.UserScore = n;
     }
 
@@ -401,7 +401,7 @@ public class InfoScreen : BasicScreen
         {
             updateRating(action - 20);
             hint_label.Text = action == 20 ? "Your rating for this level was removed." :
-                $"You rated this level as {(action - 20) / 2} (out of 5).";
+                $"You rated this level as {(action - 20) / 2f:0.0} (out of 5).";
         }
         if (action >= 40 && action <= 46)
         {
