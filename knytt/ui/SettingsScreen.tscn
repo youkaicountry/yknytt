@@ -52,7 +52,7 @@ text = "Back"
 
 [node name="SettingsContainer" type="VBoxContainer" parent="."]
 margin_left = 33.3879
-margin_top = 20.1587
+margin_top = 15.0
 margin_right = 183.388
 margin_bottom = 141.159
 custom_constants/separation = 0
@@ -72,28 +72,13 @@ margin_right = 152.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../BackButton")
-focus_neighbour_right = NodePath("../../ButtonContainer/KeyRemapButton")
+focus_neighbour_right = NodePath("../../ButtonContainer/TouchPanelButton")
 text = "Smooth Scale"
 
-[node name="ScrollDropdown" parent="SettingsContainer" instance=ExtResource( 5 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Border" parent="SettingsContainer" instance=ExtResource( 6 )]
 margin_top = 66.0
 margin_right = 152.0
 margin_bottom = 99.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../BackButton")
-focus_neighbour_right = NodePath("../../ButtonContainer/TouchPanelButton")
-text = "No Area Scroll"
-items = [ "No Area Scroll", null, false, 0, null, "Full Height Side Scroll", null, false, 1, null, "Seamless Side Scroll", null, false, 2, null, "Small Height Side Scroll", null, false, 3, null, "Quick Smooth Scroll", null, false, 4, null ]
-selected = 0
-
-[node name="Border" parent="SettingsContainer" instance=ExtResource( 6 )]
-margin_top = 99.0
-margin_right = 152.0
-margin_bottom = 132.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../../ButtonContainer/DirButton")
@@ -101,6 +86,15 @@ focus_neighbour_bottom = NodePath("../WSOD")
 text = "Screen Border"
 
 [node name="WSOD" parent="SettingsContainer" instance=ExtResource( 6 )]
+margin_top = 99.0
+margin_right = 152.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../ButtonContainer/ScrollDropdown")
+text = "White Respawn Screen"
+
+[node name="DownButtonHint" parent="SettingsContainer" instance=ExtResource( 6 )]
 margin_top = 132.0
 margin_right = 152.0
 margin_bottom = 165.0
@@ -108,7 +102,7 @@ rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../../ButtonContainer/OfflineDropdown")
 focus_neighbour_bottom = NodePath("../MapContainer/ForcedMap")
-text = "White Respawn Screen"
+text = "Down Button Hint"
 
 [node name="MapContainer" type="HBoxContainer" parent="SettingsContainer"]
 margin_top = 165.0
@@ -150,18 +144,18 @@ text = "Detailed"
 
 [node name="ButtonContainer" type="VBoxContainer" parent="."]
 margin_left = 190.0
-margin_top = 20.0
+margin_top = 15.0
 margin_right = 340.0
 margin_bottom = 90.0
-custom_constants/separation = 8
+custom_constants/separation = 6
 
 [node name="KeyRemapButton" parent="ButtonContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 150.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../SettingsContainer/SmoothScale")
+margin_bottom = 31.0
+rect_min_size = Vector2( 80, 31 )
+focus_neighbour_left = NodePath("../../SettingsContainer/FullScreen")
 focus_neighbour_top = NodePath("../../SettingsContainer/MapContainer/DetailedMap")
 focus_neighbour_right = NodePath("../../VolumeContainer/MasterVolumeSlider")
 focus_previous = NodePath("../../SettingsContainer/MapContainer/DetailedMap")
@@ -170,44 +164,60 @@ text = "Key Configure"
 [node name="TouchPanelButton" parent="ButtonContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 41.0
+margin_top = 37.0
 margin_right = 150.0
-margin_bottom = 74.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../../SettingsContainer/ScrollDropdown")
+margin_bottom = 68.0
+rect_min_size = Vector2( 80, 31 )
+focus_neighbour_left = NodePath("../../SettingsContainer/SmoothScale")
 focus_neighbour_right = NodePath("../../VolumeContainer/MusicVolumeSlider")
 text = "Touch Panel Settings"
 
 [node name="DirButton" parent="ButtonContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 82.0
+margin_top = 74.0
 margin_right = 150.0
-margin_bottom = 115.0
-rect_min_size = Vector2( 80, 33 )
+margin_bottom = 105.0
+rect_min_size = Vector2( 80, 31 )
 focus_neighbour_left = NodePath("../../SettingsContainer/Border")
 focus_neighbour_right = NodePath("../../VolumeContainer/EnvironmentVolumeSlider")
 text = "Set Directories"
+
+[node name="ScrollDropdown" parent="ButtonContainer" instance=ExtResource( 5 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 111.0
+margin_right = 150.0
+margin_bottom = 142.0
+rect_min_size = Vector2( 80, 31 )
+focus_neighbour_left = NodePath("../../SettingsContainer/WSOD")
+focus_neighbour_right = NodePath("../../VolumeContainer/EffectsVolumeSlider")
+text = "No Area Scroll"
+items = [ "No Area Scroll", null, false, 0, null, "Full Height Side Scroll", null, false, 1, null, "Seamless Side Scroll", null, false, 2, null, "Small Height Side Scroll", null, false, 3, null, "Quick Smooth Scroll", null, false, 4, null ]
+selected = 0
 
 [node name="OfflineDropdown" parent="ButtonContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 123.0
+margin_top = 148.0
 margin_right = 150.0
-margin_bottom = 156.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../SettingsContainer/WSOD")
-focus_neighbour_right = NodePath("../../VolumeContainer/EffectsVolumeSlider")
+margin_bottom = 179.0
+rect_min_size = Vector2( 0, 31 )
+focus_neighbour_left = NodePath("../../SettingsContainer/DownButtonHint")
+focus_neighbour_right = NodePath("../../VolumeContainer/EffectsPanningSlider")
 text = "Server Interaction: On"
 items = [ "Server Interaction: On", null, false, 0, null, "Achievements Off", null, false, 1, null, "Completely Offline", null, false, 2, null ]
 selected = 0
 
 [node name="ShaderContainer" type="HBoxContainer" parent="ButtonContainer"]
-margin_top = 164.0
+margin_top = 185.0
 margin_right = 150.0
-margin_bottom = 197.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 30 )
 
 [node name="Shader" parent="ButtonContainer/ShaderContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0
@@ -215,10 +225,10 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 80.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
+margin_bottom = 31.0
+rect_min_size = Vector2( 80, 31 )
 focus_neighbour_left = NodePath("../../../SettingsContainer/MapContainer/DetailedMap")
-focus_neighbour_right = NodePath("../../../VolumeContainer/EffectsPanningSlider")
+focus_neighbour_right = NodePath("../../../BackButton")
 focus_neighbour_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../VolumeContainer/MasterVolumeSlider")
 text = "No"
@@ -227,16 +237,16 @@ selected = 0
 
 [node name="ShaderLabel" type="Label" parent="ButtonContainer/ShaderContainer"]
 margin_left = 84.0
-margin_top = 10.0
+margin_top = 9.0
 margin_right = 143.0
-margin_bottom = 23.0
+margin_bottom = 22.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Video Filter"
 
 [node name="VolumeContainer" type="VBoxContainer" parent="."]
 margin_left = 353.408
-margin_top = 18.2689
+margin_top = 15.0
 margin_right = 503.408
 margin_bottom = 125.269
 custom_constants/separation = 1
@@ -349,14 +359,15 @@ step = 0.02
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="pressed" from="SettingsContainer/FullScreen" to="." method="_on_FullScreen_pressed"]
 [connection signal="pressed" from="SettingsContainer/SmoothScale" to="." method="_on_SmoothScale_pressed"]
-[connection signal="item_selected" from="SettingsContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
 [connection signal="pressed" from="SettingsContainer/Border" to="." method="_on_Border_pressed"]
 [connection signal="pressed" from="SettingsContainer/WSOD" to="." method="_on_WSOD_pressed"]
+[connection signal="pressed" from="SettingsContainer/DownButtonHint" to="." method="_on_DownButtonHint_pressed"]
 [connection signal="pressed" from="SettingsContainer/MapContainer/ForcedMap" to="." method="_on_ForcedMap_pressed"]
 [connection signal="pressed" from="SettingsContainer/MapContainer/DetailedMap" to="." method="_on_DetailedMap_pressed"]
 [connection signal="pressed" from="ButtonContainer/KeyRemapButton" to="." method="_on_KeyRemapButton_pressed"]
 [connection signal="pressed" from="ButtonContainer/TouchPanelButton" to="." method="_on_TouchPanelButton_pressed"]
 [connection signal="pressed" from="ButtonContainer/DirButton" to="." method="_on_DirButton_pressed"]
+[connection signal="item_selected" from="ButtonContainer/ScrollDropdown" to="." method="_on_ScollDropdown_item_selected"]
 [connection signal="item_selected" from="ButtonContainer/OfflineDropdown" to="." method="_on_OfflineDropdown_item_selected"]
 [connection signal="item_selected" from="ButtonContainer/ShaderContainer/Shader" to="." method="_on_Shader_item_selected"]
 [connection signal="value_changed" from="VolumeContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]

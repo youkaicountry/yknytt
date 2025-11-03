@@ -25,11 +25,12 @@ public class SettingsScreen : BasicScreen
     {
         GetNode<CheckBox>("SettingsContainer/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
         GetNode<CheckBox>("SettingsContainer/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
-        GetNode<OptionButton>("SettingsContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<CheckBox>("SettingsContainer/Border").Pressed = GDKnyttSettings.Border;
         GetNode<CheckBox>("SettingsContainer/WSOD").Pressed = GDKnyttSettings.WSOD;
+        GetNode<CheckBox>("SettingsContainer/DownButtonHint").Pressed = GDKnyttSettings.DownButtonHint;
         GetNode<CheckBox>("SettingsContainer/MapContainer/ForcedMap").Pressed = GDKnyttSettings.ForcedMap;
         GetNode<CheckBox>("SettingsContainer/MapContainer/DetailedMap").Pressed = GDKnyttSettings.DetailedMap;
+        GetNode<OptionButton>("ButtonContainer/ScrollDropdown").Select((int)GDKnyttSettings.ScrollType);
         GetNode<OptionButton>("ButtonContainer/OfflineDropdown").Select((int)GDKnyttSettings.Connection);
         GetNode<OptionButton>("ButtonContainer/ShaderContainer/Shader").Select((int)GDKnyttSettings.Shader);
         GetNode<Slider>("VolumeContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
@@ -141,6 +142,11 @@ public class SettingsScreen : BasicScreen
     private void _on_WSOD_pressed()
     {
         GDKnyttSettings.WSOD = GetNode<CheckBox>("SettingsContainer/WSOD").Pressed;
+    }
+
+    private void _on_DownButtonHint_pressed()
+    {
+        GDKnyttSettings.DownButtonHint = GetNode<CheckBox>("SettingsContainer/DownButtonHint").Pressed;
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)

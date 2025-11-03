@@ -184,8 +184,13 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["DownButtonHint"].Equals("1") ? true : false; }
         set
         {
-            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.Juni?.showShiftHint(value);
             ini["Graphics"]["DownButtonHint"] = value ? "1" : "0";
+            var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+            if (game != null)
+            {
+                if (game.Juni.OnShift) { game.Juni.showShiftHint(true, jump_hint: false); }
+                if (game.Juni.OnPlatform) { game.Juni.showShiftHint(true, jump_hint: true); }
+            }
         }
     }
 

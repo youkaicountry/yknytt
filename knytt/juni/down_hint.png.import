@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/platform_hint.png-e27ffd444e17159f0905e9113d885f2e.stex"
+path="res://.import/down_hint.png-8036708284161b0abbad009368f3ef96.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/juni/platform_hint.png"
-dest_files=[ "res://.import/platform_hint.png-e27ffd444e17159f0905e9113d885f2e.stex" ]
+source_file="res://knytt/juni/down_hint.png"
+dest_files=[ "res://.import/down_hint.png-8036708284161b0abbad009368f3ef96.stex" ]
 
 [params]
 

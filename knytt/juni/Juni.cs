@@ -230,10 +230,14 @@ public class Juni : KinematicBody2D
 
     public void showShiftHint(bool show, bool jump_hint = false)
     {
-        if (!GDKnyttSettings.DownButtonHint) { return; }
-        var sprite = GetNode<AnimatedSprite>("ShiftHintSprite");
-        sprite.Animation = jump_hint ? "platform" : "shift";
-        sprite.Playing = sprite.Visible = show;
+        var sprite = GetNode<Sprite>("ShiftHintSprite");
+        if (!GDKnyttSettings.DownButtonHint || !show) { sprite.Visible = false; return; }
+
+        (sprite.Material as ShaderMaterial).SetShaderParam(
+            "dark_hint", jump_hint ? new Color(0, 0, 0.25f, 1) : new Color(0, 0, 0, 1));
+        (sprite.Material as ShaderMaterial).SetShaderParam(
+            "light_hint", jump_hint ? new Color(0.75f, 1, 0.75f, 1) : new Color(1, 1, 1, 1));
+        sprite.Visible = true;
     }
 
     public Godot.Vector2 ApparentPosition => (Hologram == null) ? GlobalPosition : Hologram.GlobalPosition; 
