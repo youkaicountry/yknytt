@@ -414,7 +414,8 @@ public class LevelSelection : BasicScreen
             Name = HTTPUtil.jsonValue<string>(json_item, "name"),
             Author = HTTPUtil.jsonValue<string>(json_item, "author"),
             Description = HTTPUtil.jsonValue<string>(json_item, "description"),
-            Icon = base64_icon != null && base64_icon.Length > 0 ? decompress(Convert.FromBase64String(base64_icon)) : null,
+            Icon = base64_icon != null && base64_icon.Length > 0 ?
+                KnyttSave.Decompress(Convert.FromBase64String(base64_icon)) : null,
             Link = HTTPUtil.jsonValue<string>(json_item, "link"),
             FileSize = HTTPUtil.jsonInt(json_item, "file_size"),
             Upvotes = HTTPUtil.jsonInt(json_item, "upvotes"),
@@ -433,17 +434,6 @@ public class LevelSelection : BasicScreen
                 .Select(i => difficulty_option.GetItemText((int)i)).ToList(),
             Size = size_index > 0 && size_index < size_option.GetItemCount() ? size_option.GetItemText(size_index) : ""
         };
-    }
-
-    private static byte[] decompress(byte[] file)
-    {
-        if (file[0] != 31 || file[1] != 139) { return file; }
-        var output = new System.IO.MemoryStream();
-        using (var gzip = new GZipStream(new System.IO.MemoryStream(file), CompressionMode.Decompress))
-        {
-            gzip.CopyTo(output);
-        }
-        return output.ToArray();
     }
 
     private bool verifyDirWorld(Directory dir, string name)
