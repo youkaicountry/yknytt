@@ -555,7 +555,8 @@ public class Juni : KinematicBody2D
         bool x_moving_state = (CurrentState is WalkRunState || CurrentState is JumpState || 
                                CurrentState is FallState) && juniInput.Direction != 0;
         bool pull_over = JustClimbed && climbed_with_pull_over;
-        if (Checkers.Bump && (x_moving_state || pull_over))
+        bool bump_collision = CurrentState is WalkRunState || pull_over ? Checkers.Bump : Checkers.LittleBump;
+        if (bump_collision && (x_moving_state || pull_over))
         {
             Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }
