@@ -3,6 +3,8 @@ using IniParser.Parser;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 
 namespace YKnyttLib
@@ -101,22 +103,63 @@ namespace YKnyttLib
             coins_spent = int.TryParse(getValue("Extras", "Coins Spent"), out var c) ? c : 0;
         }
 
+        public static byte[] Compress(byte[] file)
+        {
+            var output = new MemoryStream();
+            using (var gzip = new GZipStream(output, CompressionMode.Compress))
+            {
+                new MemoryStream(file).CopyTo(gzip);
+            }
+            var result = output.ToArray();
+            return result.Length > file.Length ? file : result;
+        }
+
+        public static byte[] Decompress(byte[] file)
+        {
+            if (file[0] != 31 || file[1] != 139) { return file; }
+            var output = new System.IO.MemoryStream();
+            using (var gzip = new GZipStream(new System.IO.MemoryStream(file), CompressionMode.Decompress))
+            {
+                gzip.CopyTo(output);
+            }
+            return output.ToArray();
+        }
+
         public BitArray VisitedAreas
         {
             set
             {
                 if (value == null) { return; }
-                Int32[] packed = new Int32[(value.Length - 1) / 32 + 1];
-                value.CopyTo(packed, 0);
-                setValue("Extras", "Visited Areas", String.Join(",", packed));
+                if (value.Length < 50_000)
+                {
+                    Int32[] packed = new Int32[(value.Length - 1) / 32 + 1];
+                    value.CopyTo(packed, 0);
+                    setValue("Extras", "Visited Areas", String.Join(",", packed));
+                }
+                else
+                {
+                    Byte[] packed = new Byte[(value.Length - 1) / 8 + 1];
+                    value.CopyTo(packed, 0);
+                    setValue("Extras", "Gzipped Visited Areas", Convert.ToBase64String(Compress(packed)));
+                    setValue("Extras", "Visited Areas", "");
+                }
             }
-            
+
             get
             {
-                var visited_save = getValue("Extras", "Visited Areas");
-                if (visited_save == null || visited_save == "") { return null; }
-                Int32[] packed = visited_save.Split(',').Select(v => int.Parse(v)).ToArray();
-                return new BitArray(packed);
+                var visited_save_gz = getValue("Extras", "Gzipped Visited Areas");
+                if (visited_save_gz != null)
+                {
+                    byte[] packed = Decompress(Convert.FromBase64String(visited_save_gz));
+                    return new BitArray(packed);
+                }
+                else
+                {
+                    var visited_save = getValue("Extras", "Visited Areas");
+                    if (visited_save == null || visited_save == "") { return null; }
+                    Int32[] packed = visited_save.Split(',').Select(v => int.Parse(v)).ToArray();
+                    return new BitArray(packed);
+                }
             }
         }
 
