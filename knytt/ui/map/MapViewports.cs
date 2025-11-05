@@ -13,6 +13,7 @@ public class MapViewports : Node2D
     private PackedScene viewport_scene;
     private KnyttWorld KWorld;
     private string cache_dir;
+    private bool internal_cache;
 
     public override void _Ready()
     {
@@ -22,7 +23,10 @@ public class MapViewports : Node2D
     public void init(KnyttWorld world)
     {
         this.KWorld = world;
-        cache_dir = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
+        string internal_cache_dir = $"res://knytt/data/Compiled/Maps/{KWorld.WorldDirectoryName}";
+        internal_cache = new Directory().DirExists(internal_cache_dir);
+        cache_dir = internal_cache ? internal_cache_dir :
+            GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
     }
 
@@ -51,7 +55,10 @@ public class MapViewports : Node2D
             AddChild(tile);
             viewports.Add(key, tile);
         }
-        viewports[key].addArea(area);
+        if (!internal_cache)
+        {
+            viewports[key].addArea(area);
+        }
     }
 
     public (Rect2, Texture) getArea(KnyttPoint coord)
@@ -92,7 +99,7 @@ public class MapViewports : Node2D
 
     public async void saveAll()
     {
-        if (KWorld == null) { return; }
+        if (KWorld == null || internal_cache) { return; }
         if (IsInsideTree())
         {
             await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
