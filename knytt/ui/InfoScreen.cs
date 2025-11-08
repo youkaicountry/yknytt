@@ -50,12 +50,13 @@ public class InfoScreen : BasicScreen
         if (new Directory().DirExists(world_entry.Path))
         {
             kworld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
+            kworld.setBinMode(null);
         }
         else
         {
             var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path));
-            kworld.setBinMode(loader);
             kworld.setDirectory(world_entry.Path, loader.RootDirectory);
+            kworld.setBinMode(loader);
         }
         string ini = GDKnyttAssetManager.loadTextFileRaw(kworld.getWorldData("World.ini"));
         kworld.loadWorldConfig(ini);

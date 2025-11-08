@@ -67,10 +67,9 @@ namespace YKnyttLib
             this.Info = new KnyttWorldInfo(INIData["World"]);
         }
 
-        public void setBinMode(KnyttBinWorldLoader loader)
+        public virtual void setBinMode(KnyttBinWorldLoader loader)
         {
-            this.BinMode = true;
-            if (loader == null) { return; }
+            this.BinMode = loader != null;
             this.BinLoader = loader;
         }
 

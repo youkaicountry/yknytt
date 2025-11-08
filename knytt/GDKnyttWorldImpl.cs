@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using YKnyttLib;
 
@@ -17,14 +18,16 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override bool externalFileExists(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
+        filepath = case_insensitive != null ? case_insensitive[filepath.ToLower()] : filepath.ToLower();
+        var full_path = WorldDirectory.PlusFile(filepath);
         var f = new File();
         return f.FileExists(full_path);
     }
 
     protected override object getExternalSound(string filepath, bool loop)
     {
-        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
+        filepath = case_insensitive != null ? case_insensitive[filepath.ToLower()] : filepath.ToLower();
+        var full_path = WorldDirectory.PlusFile(filepath);
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalSound(full_path, loop);
@@ -32,7 +35,8 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getExternalTexture(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
+        filepath = case_insensitive != null ? case_insensitive[filepath.ToLower()] : filepath.ToLower();
+        var full_path = WorldDirectory.PlusFile(filepath);
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalTexture(full_path);
@@ -40,7 +44,8 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected sealed override byte[] getExternalWorldData(string filepath)
     {
-        var full_path = this.WorldDirectory + "/" + filepath.ToLower();
+        filepath = case_insensitive != null ? case_insensitive[filepath.ToLower()] : filepath.ToLower();
+        var full_path = WorldDirectory.PlusFile(filepath);
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadFile(full_path);
@@ -60,6 +65,43 @@ public class GDKnyttWorldImpl : KnyttWorld
     protected sealed override byte[] getSystemWorldData(string filepath)
     {
         return GDKnyttAssetManager.loadFile("res://knytt/data/" + filepath);
+    }
+
+    public override void setBinMode(KnyttBinWorldLoader loader)
+    {
+        base.setBinMode(loader);
+
+        if (!BinMode &&
+            OS.GetName() == "X11" &&
+            !WorldDirectory.StartsWith(GDKnyttDataStore.BaseDataDirectory))
+        {
+            GD.Print("list ", WorldDirectory);
+            case_insensitive = new Dictionary<string, string>();
+            listDirectory(WorldDirectory);
+        }
+    }
+
+    private Dictionary<string, string> case_insensitive;
+
+    private void listDirectory(string dir_name)
+    {
+        var dir = new Directory();
+        if (!dir.DirExists(dir_name)) { return; }
+        dir.Open(dir_name);
+        dir.ListDirBegin(skipNavigational: true);
+        for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
+        {
+            string full_name = dir_name.PlusFile(filename);
+            if (dir.FileExists(filename))
+            {
+                case_insensitive.Add(full_name.ToLower(), full_name);
+            }
+            else
+            {
+                listDirectory(full_name);
+            }
+        }
+        dir.ListDirEnd();
     }
 
     // Call this if you don't want a level placed in RAM
@@ -91,7 +133,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
-        BinMode = false;
+        setBinMode(null);
         GDKnyttDataStore.ProgressHint = "Unpacking completed.";
     }
 

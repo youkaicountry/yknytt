@@ -89,8 +89,8 @@ public class MainMenu : BasicScreen
         bool bin = !new Directory().DirExists(path);
         var binloader = bin ? new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path)) : null;
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
-        if (bin) { world.setBinMode(binloader); }
         world.setDirectory(path, bin ? binloader.RootDirectory : path.GetFile());
+        world.setBinMode(binloader);
         string world_txt = GDKnyttAssetManager.loadTextFileRaw(world.getWorldData("World.ini"));
         world.loadWorldConfig(world_txt);
         var save_file = GDKnyttSettings.Saves.PlusFile($"{world.WorldDirectoryName} {slot}.ini");
