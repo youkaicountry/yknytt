@@ -222,13 +222,19 @@ public class InfoScreen : BasicScreen
         List<int> cutscenes_count = new List<int>();
         List<string> endings = new List<string>();
         List<int> endings_count = new List<int>();
+        List<string> final_cutscenes = new List<string>();
 
         var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "cutscenes");
         foreach (Godot.Collections.Dictionary record in cutscene_infos)
         {
             bool is_ending = HTTPUtil.jsonBool(record, "ending");
-            (is_ending ? endings : cutscenes).Add(HTTPUtil.jsonValue<string>(record, "name"));
-            (is_ending ? endings_count : cutscenes_count).Add(HTTPUtil.jsonInt(record, "counter"));
+            bool is_final = HTTPUtil.jsonBool(record, "final");
+            string name = HTTPUtil.jsonValue<string>(record, "name");
+            int counter = HTTPUtil.jsonInt(record, "counter");
+
+            (is_ending ? endings : cutscenes).Add(name);
+            (is_ending ? endings_count : cutscenes_count).Add(counter);
+            if (is_final) { final_cutscenes.Add(name); }
         }
 
         int winexits = HTTPUtil.jsonInt(json.Result, "winexits");
@@ -277,7 +283,7 @@ public class InfoScreen : BasicScreen
         string endings_flag_name = GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(KWorld.WorldDirectoryName).PlusFile("Endings.flag");
         if (!new File().FileExists(endings_flag_name))
         {
-            setIniValue("Endings", string.Join("/", endings));
+            setIniValue("Endings", string.Join("/", endings), "Final", string.Join("/", final_cutscenes));
             var f = new File();
             f.Open(endings_flag_name, File.ModeFlags.Write);
             f.Close();
@@ -322,7 +328,7 @@ public class InfoScreen : BasicScreen
         sendRating(40 + id);
     }
 
-    private void setIniValue(string key, string value)
+    private void setIniValue(string key, string value, string key2 = null, string value2 = null) // transform to varargs if required
     {
         string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
         var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
@@ -336,6 +342,11 @@ public class InfoScreen : BasicScreen
         else
         {
             worlds_cache_ini.Sections.GetSectionData(KWorld.WorldDirectory).SectionName = value;
+        }
+
+        if (value2 != null)
+        {
+            worlds_cache_ini[KWorld.WorldDirectory][key2] = value2;
         }
 
         var f = new File();

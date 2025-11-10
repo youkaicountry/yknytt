@@ -176,7 +176,12 @@ public class Shift : Switch
             game.saveGame(shift.AbsoluteArea, shift.AbsolutePosition, true);
         }
 
-        if (shift.SaveFile != null && shift.SaveFile != "true" && shift.SaveFile != "false" && 
+        if (shift.Cutscene != null)
+        {
+            Win.checkLevelCompleted(game.GDWorld.KWorld, juni, shift.Cutscene);
+        }
+
+        if (shift.SaveFile != null && shift.SaveFile != "true" && shift.SaveFile != "false" &&
             game.GDWorld.KWorld.worldFileExists($"savegame{shift.SaveFile}.ini"))
         {
             try
@@ -188,7 +193,7 @@ public class Shift : Switch
                 save.SourcePowers = new JuniValues();
                 save.SourcePowers.readFromSave(save);
             }
-            catch (Exception) {}
+            catch (Exception) { }
         }
     }
 }
