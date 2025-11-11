@@ -159,6 +159,13 @@ public class GDKnyttKeys : Node
         applyAction("debug_die");
         applyKey("debug_die", "r", ctrl: true);
         applyKey("down", "Enter");
+        if (GDKnyttSettings.LeftStickMovement)
+        {
+            applyAxis("up", "-2");
+            applyAxis("down", "2");
+            applyAxis("left", "-1");
+            applyAxis("right", "1");
+        }
     }
 
     private static void applyAction(string name)
