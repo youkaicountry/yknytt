@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://knytt/ui/img/slider_pip_hover.png" type="Texture" id=6]
 [ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
+[ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -31,6 +32,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 focus_neighbour_left = NodePath("../KSSettingsContainer/FromBackLeft")
 focus_neighbour_top = NodePath("../KSSettingsContainer/FromBack")
+focus_neighbour_right = NodePath("../KSSettingsContainer/FromBackLeft")
 focus_previous = NodePath("../KSSettingsContainer/FromBack")
 text = "Back"
 
@@ -85,7 +87,7 @@ anchor_bottom = 0.0
 margin_top = 116.0
 margin_right = 248.0
 margin_bottom = 141.0
-focus_neighbour_left = NodePath("../../KSSettingsContainer/DieSetting")
+focus_neighbour_left = NodePath("../../StickContainter/LeftStick")
 Action = "jump"
 ActionLabel = "Jump"
 
@@ -95,7 +97,7 @@ anchor_bottom = 0.0
 margin_top = 145.0
 margin_right = 248.0
 margin_bottom = 170.0
-focus_neighbour_left = NodePath("../../BackButton")
+focus_neighbour_left = NodePath("../../StickContainter/SensitivitySlider")
 Action = "umbrella"
 ActionLabel = "Umbrella"
 
@@ -193,39 +195,60 @@ margin_right = 248.0
 margin_bottom = 166.0
 focus_mode = 2
 
-[node name="FromBackLeft" type="Label" parent="KSSettingsContainer"]
+[node name="FromStickLeft" type="Label" parent="KSSettingsContainer"]
 margin_top = 170.0
 margin_right = 248.0
 margin_bottom = 184.0
 focus_mode = 2
 
-[node name="Sensitivity" type="Control" parent="."]
-margin_left = 267.0
-margin_top = 130.0
+[node name="FromBackLeft" type="Label" parent="KSSettingsContainer"]
+margin_top = 188.0
+margin_right = 248.0
+margin_bottom = 202.0
+focus_mode = 2
 
-[node name="Label" type="Label" parent="Sensitivity"]
-margin_top = 7.0
+[node name="StickContainter" type="Control" parent="."]
+margin_left = 267.0
+margin_top = 122.0
+
+[node name="LeftStick" parent="StickContainter" instance=ExtResource( 8 )]
+margin_left = 65.0
+margin_right = 247.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_left = NodePath("../../KSSettingsContainer/FromStickLeft")
+focus_neighbour_top = NodePath("../../KSSettingsContainer/FromSlider")
+focus_neighbour_right = NodePath("../../KSSettingsContainer/FromStickLeft")
+focus_neighbour_bottom = NodePath("../SensitivitySlider")
+focus_next = NodePath("../SensitivitySlider")
+focus_previous = NodePath("../../KSSettingsContainer/FromSlider")
+text = "Use Left Stick for Movement"
+
+[node name="Label" type="Label" parent="StickContainter"]
+margin_top = 37.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 5 )
 text = "Stick Sensitivity"
 
-[node name="Slider" type="HSlider" parent="Sensitivity"]
+[node name="SensitivitySlider" type="HSlider" parent="StickContainter"]
 margin_left = 85.0
+margin_top = 30.0
 margin_right = 235.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 164, 24 )
-focus_neighbour_left = NodePath("../../SettingsContainer/JumpSetting")
-focus_neighbour_top = NodePath("../../KSSettingsContainer/FromSlider")
+focus_neighbour_left = NodePath("../../SettingsContainer/UmbrellaSetting")
+focus_neighbour_top = NodePath("../LeftStick")
+focus_neighbour_right = NodePath("../../SettingsContainer/UmbrellaSetting")
 focus_neighbour_bottom = NodePath("../../BackButton")
 focus_next = NodePath("../../BackButton")
-focus_previous = NodePath("../../KSSettingsContainer/FromSlider")
+focus_previous = NodePath("../LeftStick")
 custom_icons/grabber_highlight = ExtResource( 6 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 1 )
 custom_styles/grabber_area = SubResource( 2 )
 min_value = 0.02
-max_value = 1.0
+max_value = 0.98
 step = 0.02
 value = 0.02
 
@@ -269,7 +292,9 @@ one_shot = true
 [connection signal="focus_entered" from="KSSettingsContainer/ToBack" to="." method="_on_ToBack_focus_entered"]
 [connection signal="focus_entered" from="KSSettingsContainer/FromSlider" to="." method="_on_FromSlider_focus_entered"]
 [connection signal="focus_entered" from="KSSettingsContainer/FromBack" to="." method="_on_FromBack_focus_entered"]
+[connection signal="focus_entered" from="KSSettingsContainer/FromStickLeft" to="." method="_on_FromStickLeft_focus_entered"]
 [connection signal="focus_entered" from="KSSettingsContainer/FromBackLeft" to="." method="_on_FromBackLeft_focus_entered"]
-[connection signal="value_changed" from="Sensitivity/Slider" to="." method="_on_Slider_value_changed"]
+[connection signal="pressed" from="StickContainter/LeftStick" to="." method="_on_LeftStick_pressed"]
+[connection signal="value_changed" from="StickContainter/SensitivitySlider" to="." method="_on_Slider_value_changed"]
 [connection signal="pressed" from="KeyPrompt/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="KeyPrompt/ClearButton" to="." method="_on_ClearButton_pressed"]

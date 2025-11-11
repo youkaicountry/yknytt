@@ -297,6 +297,12 @@ public class GDKnyttSettings : Node
 
     public static string Saves => SavesDirectory == "" ? GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves") : SavesDirectory;
 
+    public static bool LeftStickMovement
+    {
+        get { return ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false; }
+        set { ini["Misc"]["Left Stick Movement"] = value ? "1" : "0"; }
+    }
+
     public static float StickSensitivity
     {
         get { return float.Parse(ini["Misc"]["Stick Sensitivity"]); }
@@ -374,6 +380,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Directories", "For Download", "0");
 
         modified |= ensureSetting("Misc", "Stick Sensitivity", (0.7f).ToString());
+        modified |= ensureSetting("Misc", "Left Stick Movement", "1");
 
         modified |= TouchSettings.ensureSettings();
 
@@ -399,6 +406,7 @@ public class GDKnyttSettings : Node
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
         EffectsPanning = float.Parse(ini["Audio"]["Effects Panning"]);
         StickSensitivity = float.Parse(ini["Misc"]["Stick Sensitivity"]);
+        LeftStickMovement = ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false;
     }
 
     public static void saveSettings()

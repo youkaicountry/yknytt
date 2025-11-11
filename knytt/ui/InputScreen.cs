@@ -10,8 +10,8 @@ public class InputScreen : BasicScreen
         base._Ready();
         connectSettings(GetNode<Node>("SettingsContainer"));
         connectSettings(GetNode<Node>("KSSettingsContainer"));
-        GetNode<HSlider>("Sensitivity/Slider").Value = GDKnyttSettings.StickSensitivity;
-        GetNode<Control>("Sensitivity").Visible = GDKnyttKeys.HasAxis;
+        GetNode<HSlider>("StickContainter/SensitivitySlider").Value = GDKnyttSettings.StickSensitivity;
+        GetNode<CheckBox>("StickContainter/LeftStick").Pressed = GDKnyttSettings.LeftStickMovement;
         initFocus();
     }
 
@@ -62,7 +62,7 @@ public class InputScreen : BasicScreen
         GetNode<Control>("KeyPrompt").Visible = true;
         GetNode<Button>("BackButton").Disabled = true;
         GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.None;
-        GetNode<Control>("Sensitivity").Visible = false;
+        GetNode<Control>("StickContainter").Visible = false;
     }
 
     private void finishCollecting()
@@ -74,7 +74,7 @@ public class InputScreen : BasicScreen
         GetNode<Control>("KeyPrompt").Visible = false;
         GetNode<Button>("BackButton").Disabled = false;
         GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.All;
-        GetNode<Control>("Sensitivity").Visible = GDKnyttKeys.HasAxis;
+        GetNode<Control>("StickContainter").Visible = true;
     }
 
     public void _on_CancelButton_pressed()
@@ -92,22 +92,33 @@ public class InputScreen : BasicScreen
 
     private void _on_ToBack_focus_entered()
     {
-        GetNode<Control>(GetNode<Control>("Sensitivity").Visible ? "Sensitivity/Slider" : "BackButton").GrabFocus();
+        GetNode<Control>("StickContainter/LeftStick").GrabFocus();
     }
 
     private void _on_FromBack_focus_entered()
     {
-        GetNode<Control>(GetNode<Control>("Sensitivity").Visible ? "Sensitivity/Slider" : "KSSettingsContainer/DieSetting/Button0").GrabFocus();
+        GetNode<Control>("StickContainter/SensitivitySlider").GrabFocus();
     }
 
     private void _on_FromBackLeft_focus_entered()
     {
-        GetNode<Button>("SettingsContainer/WalkSetting/Button1").GrabFocus();
+        GetNode<Button>("SettingsContainer/WalkSetting/Button0").GrabFocus();
+    }
+
+    private void _on_FromStickLeft_focus_entered()
+    {
+        GetNode<Button>("SettingsContainer/JumpSetting/Button0").GrabFocus();
     }
 
     private void _on_FromSlider_focus_entered()
     {
         GetNode<Control>("KSSettingsContainer/DieSetting/Button0").GrabFocus();
+    }
+
+    private void _on_LeftStick_pressed()
+    {
+        GDKnyttSettings.LeftStickMovement = GetNode<CheckBox>("StickContainter/LeftStick").Pressed;
+        GDKnyttKeys.applyAllSettings();
     }
 
     private void _on_Slider_value_changed(float value)
