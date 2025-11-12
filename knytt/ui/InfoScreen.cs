@@ -69,8 +69,8 @@ public class InfoScreen : BasicScreen
         hint_label = GetNode<Label>("InfoRect/HintLabel");
         complete_option = GetNode<OptionButton>("%CompleteOption");
 
-        GetNode<Button>("%Uninstall/MainButton").Disabled = 
-        GetNode<Button>("%OptimizeButton").Disabled = 
+        GetNode<Button>("%Uninstall/MainButton").Disabled =
+        GetNode<Button>("%OptimizeButton").Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
 
         if (world_entry == null)
@@ -88,9 +88,10 @@ public class InfoScreen : BasicScreen
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 
-        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile = 
-        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile = 
-        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile = GDKnyttSettings.Saves.PlusFile(KWorld.WorldDirectoryName);
+        GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile =
+        GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile =
+        GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile =
+            GDKnyttSettings.Saves.PlusFile(KWorld.WorldDirectoryName);
         updateRates();
     }
 
@@ -158,8 +159,8 @@ public class InfoScreen : BasicScreen
 
                 var total_deaths = save.TotalDeaths;
                 var total_time = save.TotalTime;
-                GetNode<SlotButton>($"InfoRect/Slot{slot}Button").hint = 
-                    total_time > 0 ? $"Time: {total_time / 60} min {total_time % 60:D2} sec, respawns: {total_deaths}" : 
+                GetNode<SlotButton>($"InfoRect/Slot{slot}Button").hint =
+                    total_time > 0 ? $"Time: {total_time / 60} min {total_time % 60:D2} sec, respawns: {total_deaths}" :
                     total_deaths > 0 ? $"Respawns: {total_deaths}" : null;
             }
         }
@@ -431,7 +432,7 @@ public class InfoScreen : BasicScreen
             world_entry.Complains++;
             hint_label.Text = "Your latest save was sent to the server.";
         }
-        
+
         updateRates();
     }
 
@@ -445,7 +446,7 @@ public class InfoScreen : BasicScreen
         complete_option.SetItemText(0, world_entry.HasSaves ? "In Progress" : "Not Started");
 
         var complain_button = GetNode<GDKnyttButton>("%ComplainButton");
-        complain_button.hint = "The latest save will be sent to the server as a bug report" + 
+        complain_button.hint = "The latest save will be sent to the server as a bug report" +
                (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
     }
 
@@ -465,8 +466,8 @@ public class InfoScreen : BasicScreen
 
     private void optimize()
     {
-        string[] nodes_to_disable = { "InfoRect/BackButton", 
-            "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button", 
+        string[] nodes_to_disable = { "InfoRect/BackButton",
+            "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button",
             "%OptimizeButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
@@ -514,5 +515,17 @@ public class InfoScreen : BasicScreen
     private void _on_ShowHint(string hint)
     {
         hint_label.Text = hint ?? "";
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
+        var button = GetNode<Button>("InfoRect/RatePanel/VBoxContainer/StatsButton");
+
+        if (button.HasFocus() && stat_panel.Visible)
+        {
+            if (Input.IsActionJustPressed("ui_up")) { stat_panel.scroll(-1); GetViewport().SetInputAsHandled(); }
+            if (Input.IsActionJustPressed("ui_down")) { stat_panel.scroll(1); GetViewport().SetInputAsHandled(); }
+        }
     }
 }

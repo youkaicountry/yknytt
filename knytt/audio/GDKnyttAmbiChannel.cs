@@ -28,7 +28,8 @@ public class GDKnyttAmbiChannel : Node
     public void setTrack(int num, bool has_custom_volume = false)
     {
         // if coming from muted area, set volume to normal
-        if (CurrentTrack.AmbiNum == num && this.has_custom_volume && !has_custom_volume) { CurrentTrack.fadeIn(force: true); }
+        if (CurrentTrack.AmbiNum == num && this.has_custom_volume && !has_custom_volume) { CurrentTrack.fadeIn(smart: true); }
+        if (CurrentTrack.AmbiNum == num && has_custom_volume) { CurrentTrack.fadeOut(mute: true, smart: true); }
 
         this.has_custom_volume = has_custom_volume;
 
@@ -68,6 +69,9 @@ public class GDKnyttAmbiChannel : Node
     {
         if (has_custom_volume)
         {
+            // if volume is set externally, override fading process
+            if (CurrentTrack.fading && Volume > -100) { CurrentTrack.SetDeferred("volume_db", Volume); }
+            // or just set volume_db if there is no fading process
             CurrentTrack.VolumeDb = Volume;
             Volume = -100;
         }

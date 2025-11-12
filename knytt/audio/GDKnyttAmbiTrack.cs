@@ -7,7 +7,8 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
 
     float fade_i = 0f;
     float fade_target = 0f;
-    bool fading = false;
+    public bool fading = false;
+    public bool muting = false;
 
     // Set the track
     public void changeTrack(int num, AudioStream stream)
@@ -22,17 +23,20 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         Play();
     }
 
-    public void fadeIn(bool force = false)
+    public void fadeIn(bool smart = false)
     {
-        if (force) { fade_i = 0; }
+        if (smart) { fade_i = Mathf.Clamp(Mathf.InverseLerp(-15f, 0f, VolumeDb), 0, 1); }
         fade_target = 1f;
         fading = true;
+        muting = false;
     }
 
-    public void fadeOut()
+    public void fadeOut(bool mute = false, bool smart = false)
     {
+        if (smart) { fade_i = Mathf.Clamp(Mathf.InverseLerp(-15f, 0f, VolumeDb), 0, 1); }
         fade_target = 0f;
         fading = true;
+        muting = mute;
     }
 
     public void mute()
@@ -48,7 +52,7 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         if (MathTools.MoveTowards(ref fade_i, fade_target, .8f * delta))
         {
             fading = false;
-            if (fade_i == 0)
+            if (fade_i == 0 && !muting)
             {
                 AmbiNum = 0;
                 Stop();
@@ -57,5 +61,6 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         }
 
         VolumeDb = Mathf.Lerp(-15f, 0f, fade_i);
+        if (muting && !fading) { muting = false; VolumeDb = -100; }
     }
 }

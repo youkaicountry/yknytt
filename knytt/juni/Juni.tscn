@@ -552,7 +552,6 @@ z_as_relative = false
 visible = false
 material = SubResource( 41 )
 position = Vector2( 0, 14 )
-z_index = 17
 texture = ExtResource( 29 )
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
