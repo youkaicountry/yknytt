@@ -75,6 +75,8 @@ public class GDKnyttArea : Node2D
         Background = GetNode<GDKnyttBackground>("Control/Background");
         Background.initialize(world.AssetManager.getGradient(area.Empty ? EMPTY_AREA_GRADIENT : area.Background));
 
+        setBorderVisible(GDKnyttSettings.Border);
+
         // If it's an empty area, quit loading here
         if (area.Empty) { return; }
 
@@ -85,8 +87,6 @@ public class GDKnyttArea : Node2D
 
         // Area should start deactivated
         this.deactivateArea();
-
-        setBorderVisible(GDKnyttSettings.Border);
     }
 
     public void activateArea(bool regenerate_same = false)

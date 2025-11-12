@@ -50,4 +50,9 @@ public class StatPanel : Panel
         if (achieved) { node.AddStyleboxOverride("panel", achievedStyle); }
         container.AddChild(node);
     }
+
+    public void scroll(int pos)
+    {
+        GetNode<ScrollContainer>("ScrollContainer").ScrollVertical += pos * 19;
+    }
 }

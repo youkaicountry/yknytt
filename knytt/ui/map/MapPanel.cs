@@ -176,6 +176,7 @@ public class MapPanel : Panel
         }
 
         KnyttPoint cur_pos = juni.GDArea.Area.MapPosition - world.MinBounds;
+        // Godot fails to draw simple rect here sometimes, 4 x DrawLine doesn't help. Maybe later it will be fixed...
         DrawRect(new Rect2(cur_pos.x * XSIZE, cur_pos.y * YSIZE, XSIZE, YSIZE), CURRENT_BORDER, filled: false, width: 2);
     }
 
