@@ -858,7 +858,7 @@ public class Juni : KinematicBody2D
 
     public void executeJump(bool air_jump = false, bool sound = true, bool reset_jumps = false, bool check_stow = true)
     {
-        if (TouchSettings.UmbrellaCheat && check_stow && Umbrella.Deployed)
+        if (GDKnyttSettings.UmbrellaCheat && check_stow && Umbrella.Deployed)
         {
             Umbrella.Deployed = false;
             Umbrella.DeployOnFall = true;

@@ -35,12 +35,6 @@ public class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value.ToString(); }
     }
 
-    public static bool UmbrellaCheat
-    {
-        get { return GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"].Equals("1"); }
-        set { GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"] = value ? "1" : "0"; }
-    }
-
     public static float Scale
     {
         get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
