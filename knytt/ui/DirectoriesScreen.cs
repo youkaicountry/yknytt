@@ -3,7 +3,7 @@ using System;
 using System.IO.Compression;
 
 
-public class DirectoriesScreen : BasicScreen
+public class DirectoriesScreen : Control
 {
     Label error_label;
     CheckBox download_box;
@@ -11,26 +11,20 @@ public class DirectoriesScreen : BasicScreen
     public override void _Ready()
     {
         base._Ready();
-        error_label = GetNode<Label>("VBoxContainer/ErrorLabel");
-        download_box = GetNode<CheckBox>("VBoxContainer/WorldsContainer/DownloadBox");
-        initFocus();
+        error_label = GetNode<Label>("ErrorLabel");
+        download_box = GetNode<CheckBox>("WorldsContainer/DownloadBox");
         updatePaths();
         disableKeyboard(this);
-        if (OS.GetName() == "X11") { GetNode<Label>("VBoxContainer/Label2").Text += "On Linux, unpacked world files must be lowercase."; }
-    }
-
-    public override void initFocus()
-    {
-        GetNode<Button>("VBoxContainer/WorldsContainer/ChangeButton").GrabFocus();
+        if (OS.GetName() == "X11" || OS.GetName() == "Unix") { GetNode<Label>("Label2").Text += "On Linux, unpacked world files must be lowercase."; }
     }
 
     private void updatePaths()
     {
-        GetNode<Label>("VBoxContainer/WorldsContainer/DirLabel").Text = 
+        GetNode<Label>("WorldsContainer/DirLabel").Text = 
             GDKnyttSettings.WorldsDirectory == "" ? "Not set" : GDKnyttSettings.WorldsDirectory;
         download_box.Pressed = GDKnyttSettings.WorldsDirForDownload;
         download_box.Disabled = GDKnyttSettings.WorldsDirectory == "";
-        GetNode<Label>("VBoxContainer/SavesContainer/DirLabel").Text = 
+        GetNode<Label>("SavesContainer/DirLabel").Text = 
             GDKnyttSettings.SavesDirectory == "" ? "Default" : GDKnyttSettings.SavesDirectory;
     }
 
@@ -55,6 +49,7 @@ public class DirectoriesScreen : BasicScreen
 
     private void _on_WorldsChangeButton_pressed()
     {
+        OS.RequestPermissions();
         gamepadArrowsMode(tab: true);
         GetNode<FileDialog>("WorldsFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Downloads);
         GetNode<FileDialog>("WorldsFileDialog").PopupCentered();
@@ -76,6 +71,7 @@ public class DirectoriesScreen : BasicScreen
 
     private void _on_SavesChangeButton_pressed()
     {
+        OS.RequestPermissions();
         gamepadArrowsMode(tab: true);
         GetNode<FileDialog>("SavesFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Documents);
         GetNode<FileDialog>("SavesFileDialog").PopupCentered();
@@ -90,6 +86,7 @@ public class DirectoriesScreen : BasicScreen
 
     private void _on_SavesBackupButton_pressed()
     {
+        OS.RequestPermissions();
         gamepadArrowsMode(tab: true);
         GetNode<FileDialog>("BackupFileDialog").CurrentDir = OS.GetSystemDir(OS.SystemDir.Documents);
         GetNode<FileDialog>("BackupFileDialog").CurrentFile = "yknytt-saves.zip";
@@ -127,9 +124,8 @@ public class DirectoriesScreen : BasicScreen
     {
         if (write ? !checkWritable(dir) : !checkReadable(dir))
         {
-            error_label.Text = "Cannot " + (write ? "write to" : "read") + " selected directory!\n" +
-                (OS.GetName() != "Android" ? "Make sure you have all required permission." :
-                "Please grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage.");
+            error_label.Text = "Cannot " + (write ? "write to" : "read") + " the selected directory! " +
+                "Make sure you have all required permissions.";
             return false;
         }
         error_label.Text = "";
@@ -160,14 +156,13 @@ public class DirectoriesScreen : BasicScreen
         }
         catch (Exception)
         {
-            error_label.Text = "Cannot create zip. Please check that you have access to this directory." + 
-            (OS.GetName() == "Android" ? "\nGrant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : "");
+            error_label.Text = "Cannot create zip. Please check that you have access to this directory.";
         }
     }
 
     private void _on_FileDialog_popup_hide()
     {
         gamepadArrowsMode(tab: false);
-        initFocus();
+        GetNode<Button>("WorldsContainer/ChangeButton").GrabFocus();
     }
 }

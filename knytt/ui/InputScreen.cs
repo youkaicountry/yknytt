@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputScreen : BasicScreen
+public class InputScreen : Control
 {
     InputOption collecting;
     int cnum;
@@ -12,12 +12,6 @@ public class InputScreen : BasicScreen
         connectSettings(GetNode<Node>("KSSettingsContainer"));
         GetNode<HSlider>("StickContainter/SensitivitySlider").Value = GDKnyttSettings.StickSensitivity;
         GetNode<CheckBox>("StickContainter/LeftStick").Pressed = GDKnyttSettings.LeftStickMovement;
-        initFocus();
-    }
-
-    public override void initFocus()
-    {
-        GetNode<Control>("SettingsContainer/UpSetting/Button0").GrabFocus();
     }
 
     private void connectSettings(Node node)
@@ -30,12 +24,6 @@ public class InputScreen : BasicScreen
                 io.Connect("GetActionInput", this, "_onPress");
             }
         }
-    }
-
-    public override void goBack()
-    {
-        GDKnyttKeys.saveSettings();
-        base.goBack();
     }
 
     public void _onPress(InputOption io, int num)
@@ -60,8 +48,7 @@ public class InputScreen : BasicScreen
         cnum = num;
         io.setCollecting(num);
         GetNode<Control>("KeyPrompt").Visible = true;
-        GetNode<Button>("BackButton").Disabled = true;
-        GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.None;
+        GetNode<Button>("../BackButton").Visible = false;
         GetNode<Control>("StickContainter").Visible = false;
     }
 
@@ -69,11 +56,11 @@ public class InputScreen : BasicScreen
     {
         GetNode<Timer>("BounceTimer").Start();
         GDKnyttKeys.applyAllSettings();
+        GDKnyttKeys.saveSettings();
         collecting.refreshButtons();
         collecting = null;
         GetNode<Control>("KeyPrompt").Visible = false;
-        GetNode<Button>("BackButton").Disabled = false;
-        GetNode<Button>("BackButton").FocusMode = Control.FocusModeEnum.All;
+        GetNode<Button>("../BackButton").Visible = true;
         GetNode<Control>("StickContainter").Visible = true;
     }
 
@@ -90,29 +77,29 @@ public class InputScreen : BasicScreen
         finishCollecting();
     }
 
-    private void _on_ToBack_focus_entered()
+    private void _on_ToTab_focus_entered()
     {
-        GetNode<Control>("StickContainter/LeftStick").GrabFocus();
+        GetNode<Button>("../TabsContainer/KeysTab").GrabFocus();
     }
 
-    private void _on_FromBack_focus_entered()
-    {
-        GetNode<Control>("StickContainter/SensitivitySlider").GrabFocus();
-    }
-
-    private void _on_FromBackLeft_focus_entered()
-    {
-        GetNode<Button>("SettingsContainer/WalkSetting/Button0").GrabFocus();
-    }
-
-    private void _on_FromStickLeft_focus_entered()
+    private void _on_FromTab_focus_entered()
     {
         GetNode<Button>("SettingsContainer/JumpSetting/Button0").GrabFocus();
     }
 
-    private void _on_FromSlider_focus_entered()
+    private void _on_ToStick_focus_entered()
+    {
+        GetNode<Control>("StickContainter/LeftStick").GrabFocus();
+    }
+
+    private void _on_FromStickUp_focus_entered()
     {
         GetNode<Control>("KSSettingsContainer/DieSetting/Button0").GrabFocus();
+    }
+
+    private void _on_FromStickSide_focus_entered()
+    {
+        GetNode<Button>("SettingsContainer/MapSetting/Button0").GrabFocus();
     }
 
     private void _on_LeftStick_pressed()

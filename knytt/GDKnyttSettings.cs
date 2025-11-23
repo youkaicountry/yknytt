@@ -20,6 +20,7 @@ public class GDKnyttSettings : Node
         ini = new IniData();
     }
 
+    // Device with touchscreen and virtual keyboard
     public static bool Mobile => OS.GetName() == "Android" || OS.GetName() == "iOS";
 
     public static bool Fullscreen
@@ -60,7 +61,7 @@ public class GDKnyttSettings : Node
 
     public static void setupViewport(bool for_ui = false, bool check_shrink = false)
     {
-        float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 515 : 600;
+        float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 530 : 600;
         tree.SetScreenStretch(
             SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
             for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth :
@@ -192,6 +193,12 @@ public class GDKnyttSettings : Node
                 if (game.Juni.OnPlatform) { game.Juni.showShiftHint(true, jump_hint: true); }
             }
         }
+    }
+
+    public static bool UmbrellaCheat
+    {
+        get { return GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"].Equals("1"); }
+        set { GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"] = value ? "1" : "0"; }
     }
 
     // Calculate the volume in dB from the config value
