@@ -51,8 +51,11 @@ public class StatPanel : Panel
         container.AddChild(node);
     }
 
-    public void scroll(int pos)
+    public bool scroll(int pos)
     {
-        GetNode<ScrollContainer>("ScrollContainer").ScrollVertical += pos * 19;
+        var sc = GetNode<ScrollContainer>("ScrollContainer");
+        var old_scroll = sc.ScrollVertical;
+        sc.ScrollVertical += pos * 19;
+        return sc.ScrollVertical != old_scroll;
     }
 }

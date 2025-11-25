@@ -372,6 +372,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "WSOD", "1");
         modified |= ensureSetting("Graphics", "Interpolation", "0");
         modified |= ensureSetting("Graphics", "DownButtonHint", "1");
+        modified |= ensureSetting("TouchPanel", "UmbrellaCheat", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
         modified |= ensureSetting("Audio", "Music Volume", "80");

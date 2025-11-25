@@ -34,6 +34,8 @@ anchor_bottom = 0.0
 margin_left = 40.0
 margin_right = 120.0
 margin_bottom = 35.0
+focus_neighbour_left = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 text = "Tutorial"
 
 [node name="PlayButton" parent="ButtonRow" instance=ExtResource( 1 )]
@@ -74,6 +76,8 @@ anchor_bottom = 0.0
 margin_left = 480.0
 margin_right = 560.0
 margin_bottom = 35.0
+focus_neighbour_right = NodePath("../TutorialButton")
+focus_next = NodePath("../TutorialButton")
 text = "Quit"
 
 [node name="CloudControl" type="Control" parent="."]
@@ -100,9 +104,6 @@ stream = ExtResource( 5 )
 autoplay = true
 bus = "Music"
 
-[node name="QuitTimer" type="Timer" parent="."]
-wait_time = 1.5
-
 [connection signal="pressed" from="ButtonRow/TutorialButton" to="." method="_on_TutorialButton_pressed"]
 [connection signal="pressed" from="ButtonRow/PlayButton" to="." method="_on_PlayButton_pressed" binds= [ true ]]
 [connection signal="pressed" from="ButtonRow/DownloadButton" to="." method="_on_PlayButton_pressed" binds= [ false ]]
@@ -110,4 +111,3 @@ wait_time = 1.5
 [connection signal="pressed" from="ButtonRow/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="ButtonRow/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="resized" from="CloudControl" to="." method="_on_CloudControl_resized"]
-[connection signal="timeout" from="QuitTimer" to="." method="_on_QuitTimer_timeout"]

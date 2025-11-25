@@ -339,6 +339,8 @@ public class GDKnyttGame : Node2D
 
     public async void quit()
     {
+        CustomObject.clean(); // not neccessary, white screen exit bug is still here
+        GC.Collect();
         GDKnyttDataStore.CurrentSpeed = 1;
         await fade(fast: false, color: null);
 
@@ -485,6 +487,7 @@ public class GDKnyttGame : Node2D
         {
             glass.Material = null;
             glass.Visible = false;
+            Juni.GetNode<Sprite>("ShiftHintSprite").ZIndex = 0;
             return;
         }
 
@@ -498,6 +501,7 @@ public class GDKnyttGame : Node2D
         tint.SetShaderParam("a", a);
         glass.Material = tint;
         glass.Visible = true;
+        Juni.GetNode<Sprite>("ShiftHintSprite").ZIndex = 17;
     }
 
     public void setupBorder()

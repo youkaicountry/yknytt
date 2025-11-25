@@ -29,7 +29,7 @@ public class MainMenu : BasicScreen
 
     public override void initFocus()
     {
-        GetNode<HBoxContainer>("ButtonRow").GrabFocus();
+        GetNode<Control>(OS.GetName() != "Unix" ? "ButtonRow" : "ButtonRow/PlayButton").GrabFocus();
         GetNode<Button>("ButtonRow/DownloadButton").Disabled = GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline;
     }
 
@@ -128,8 +128,12 @@ public class MainMenu : BasicScreen
     {
         if (quitting) { return; }
         quitting = true;
-        GetNode<Timer>("QuitTimer").Start(); // sometimes await fails in Godot 3.6 -- experimental fix
-        fade.startFade(reset:false);
+        fade.startFade(reset: false);
+        // Sometimes quit fails leading to white screen:
+        // ERROR: Mono: Domain finalization timeout. at: _unload_scripts_domain (modules/mono/mono_gd/gd_mono.cpp:1042)
+        // To reproduce it, play Azure Serenity Expansion from start to x1009y1004 on Android or handheld Linux
+        CustomObject.clean();
+        System.GC.Collect();
         await ToSignal(fade, "FadeDone");
         GetTree().Quit();
     }
@@ -143,10 +147,5 @@ public class MainMenu : BasicScreen
     public override void goBack()
     {
         quit();
-    }
-
-    private void _on_QuitTimer_timeout()
-    {
-        GetTree().Quit();
     }
 }

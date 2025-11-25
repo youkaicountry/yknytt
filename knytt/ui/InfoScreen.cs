@@ -519,13 +519,14 @@ public class InfoScreen : BasicScreen
 
     public override void _Input(InputEvent @event)
     {
+        base._Input(@event);
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
         var button = GetNode<Button>("InfoRect/RatePanel/VBoxContainer/StatsButton");
 
         if (button.HasFocus() && stat_panel.Visible)
         {
-            if (Input.IsActionJustPressed("ui_up")) { stat_panel.scroll(-1); GetViewport().SetInputAsHandled(); }
-            if (Input.IsActionJustPressed("ui_down")) { stat_panel.scroll(1); GetViewport().SetInputAsHandled(); }
+            if (Input.IsActionJustPressed("ui_up")) { if (stat_panel.scroll(-1)) { GetViewport().SetInputAsHandled(); } }
+            if (Input.IsActionJustPressed("ui_down")) { if (stat_panel.scroll(1)) { GetViewport().SetInputAsHandled(); } }
         }
     }
 }

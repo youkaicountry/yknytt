@@ -50,11 +50,11 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "right1", "Joy(15)");
         modified |= ensureSetting("Input", "show_info1", "Joy(3)");
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
-        modified |= ensureSetting("Input", "walk1", "Joy(6)");
-        modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
+        modified |= ensureSetting("Input", "walk1", OS.GetName() != "Unix" ? "Joy(6)" : "Joy(4)");
+        modified |= ensureSetting("Input", "umbrella1", OS.GetName() != "Unix" ? "Joy(7)" : "Joy(5)");
         modified |= ensureSetting("Input", "hologram1", "Joy(1)");
-        modified |= ensureSetting("Input", "pause1", "Joy(4)");
-        modified |= ensureSetting("Input", "map1", "Joy(5)");
+        modified |= ensureSetting("Input", "pause1", OS.GetName() != "Unix" ? "Joy(4)" : "Joy(6)");
+        modified |= ensureSetting("Input", "map1", OS.GetName() != "Unix" ? "Joy(5)" : "Joy(7)");
         modified |= ensureSetting("Input", "debug_die1", "Joy(11)");
 
         if (modified) { saveSettings(); }
@@ -89,6 +89,8 @@ public class GDKnyttKeys : Node
         "Home", "XBox Share", "Paddle 1", "Paddle 2", "Paddle 3", "Paddle 4", "Touchpad"
     };
 
+    private static string[] NINTENDO_BUTTONS = {"Nintendo B", "Nintendo A", "Nintendo Y", "Nintendo X"};
+
     private static Dictionary<int, string> AXIS_NAMES = new Dictionary<int, string> {
         [1] = "L Stick Right", [-1] = "L Stick Left", [2] = "L Stick Down", [-2] = "L Stick Up",
         [3] = "R Stick Right", [-3] = "R Stick Left", [4] = "R Stick Down", [-4] = "R Stick Up",
@@ -103,8 +105,11 @@ public class GDKnyttKeys : Node
         switch (groups["type"].Value)
         {
             case "Key": return groups["value"].Value;
-            case "Joy": return int.TryParse(groups["value"].Value, out var i) && i < XBOX_BUTTONS.Length ? 
-                            /*Input.GetJoyButtonString(i)*/ XBOX_BUTTONS[i] : $"Joy {groups["value"]}";
+            case "Joy": 
+                if (!int.TryParse(groups["value"].Value, out var i)) { return $"Joy {groups["value"]}"; }
+                if (i < NINTENDO_BUTTONS.Length && OS.GetName() == "Unix") { return NINTENDO_BUTTONS[i]; }
+                if (i < XBOX_BUTTONS.Length) { return XBOX_BUTTONS[i]; }
+                return $"Joy {groups["value"]}";
             case "Axis": return int.TryParse(groups["value"].Value, out var j) && AXIS_NAMES.ContainsKey(j) ? 
                             AXIS_NAMES[j] : $"Axis {groups["value"]}";
         }
@@ -227,20 +232,37 @@ public class GDKnyttKeys : Node
         return modified;
     }
 
-    public static bool HasAxis => axis_map.Count > 0;
-
     public static float StickTreshold = 0.3f;
+
+    private static HashSet<int> pressed_axis = new HashSet<int>();
 
     public override void _Input(InputEvent @event)
     {
         if (!(@event is InputEventJoypadMotion jm)) { return; }
-        int axis = jm.AxisValue > StickTreshold ? jm.Axis + 1 : jm.AxisValue < -StickTreshold ? -jm.Axis - 1 : 0;
-        if (axis_map.ContainsKey(axis)) { Input.ActionPress(axis_map[axis]); }
-        if (axis_map.ContainsKey(-axis)) { Input.ActionRelease(axis_map[-axis]); }
-        if (Mathf.Abs(jm.AxisValue) <= StickTreshold)
+
+        int axis = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
+        
+        if (axis_map.ContainsKey(axis))
         {
-            if (axis_map.ContainsKey(jm.Axis + 1)) { Input.ActionRelease(axis_map[jm.Axis + 1]); }
-            if (axis_map.ContainsKey(-jm.Axis - 1)) { Input.ActionRelease(axis_map[-jm.Axis - 1]); }
+            if (Mathf.Abs(jm.AxisValue) > StickTreshold)
+            {
+                Input.ActionPress(axis_map[axis]);
+                pressed_axis.Add(axis);
+            }
+            else
+            {
+                if (pressed_axis.Contains(axis))
+                {
+                    Input.ActionRelease(axis_map[axis]);
+                    pressed_axis.Remove(axis);
+                }
+            }
+        }
+
+        if (axis_map.ContainsKey(-axis) && pressed_axis.Contains(-axis))
+        {
+            Input.ActionRelease(axis_map[-axis]);
+            pressed_axis.Remove(-axis);
         }
     }
 }
