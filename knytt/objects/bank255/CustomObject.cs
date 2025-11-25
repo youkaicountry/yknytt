@@ -91,7 +91,7 @@ public class CustomObject : GDKnyttBaseObject
 
     private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size, Vector2 offset)
     {
-        var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ?? 
+        var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ??
                      obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
         var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite");
         if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.y}"); return; }
@@ -101,7 +101,7 @@ public class CustomObject : GDKnyttBaseObject
             sprite.Offset += offset;
             if (obj is BigSpiker)
             {
-                sprite.Offset = new Vector2(offset.x == 0 ? sprite.Offset.x : -24 + offset.x, 
+                sprite.Offset = new Vector2(offset.x == 0 ? sprite.Offset.x : -24 + offset.x,
                                             offset.y == 0 ? sprite.Offset.y : -24 + offset.y);
             }
         }
@@ -117,7 +117,7 @@ public class CustomObject : GDKnyttBaseObject
         var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
         if (image != null && (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)) { return; }
         obj.CustomAnimation = true;
-        
+
         if (static_sprite != null)
         {
             var new_tex = new AtlasTexture();
@@ -138,7 +138,7 @@ public class CustomObject : GDKnyttBaseObject
             for (int i = 0; i < new_frames.GetFrameCount(anim); i++)
             {
                 if (image == null) { new_frames.SetFrame(anim, i, null); continue; }
-                
+
                 var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
                 if (tex == null) { continue; }
                 int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.x;
@@ -172,7 +172,7 @@ public class CustomObject : GDKnyttBaseObject
         {
             if (info.image == null) { return false; }
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
-    
+
             // If texture wasn't loaded, create empty animation, don't try to load it every time
             if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)
             {
@@ -220,5 +220,10 @@ public class CustomObject : GDKnyttBaseObject
         if (counter >= info.anim_repeat && info.anim_repeat > 0) { return; }
         sprite.Frame = info.anim_loopback;
         sprite.Play();
+    }
+
+    public static void clean()
+    {
+        oco_cache.Clear();
     }
 }

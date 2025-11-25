@@ -4,6 +4,7 @@
 
 [node name="DownloadScreenLink" type="LinkButton"]
 anchor_right = 1.0
+focus_mode = 2
 size_flags_horizontal = 4
 custom_colors/font_color_focus = Color( 0, 0, 0.501961, 1 )
 custom_colors/font_color = Color( 0.25098, 0.25098, 1, 1 )

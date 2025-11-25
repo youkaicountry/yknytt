@@ -35,10 +35,11 @@ public class InputScreen : Control
 
     public override void _Input(InputEvent @event)
     {
-        if (collecting == null) { base._Input(@event); return; }
+        if (collecting == null) { return; }
         if (@event.IsActionPressed("pause") || GDKnyttKeys.setAction(collecting.Action + cnum, @event))
         {
             finishCollecting();
+            GetTree().SetInputAsHandled();
         }
     }
 
@@ -47,7 +48,7 @@ public class InputScreen : Control
         collecting = io;
         cnum = num;
         io.setCollecting(num);
-        GetNode<Control>("KeyPrompt").Visible = true;
+        GetNode<Control>(OS.GetName() != "Unix" ? "KeyPrompt" : "KeyPromptNoMouse").Visible = true;
         GetNode<Button>("../BackButton").Visible = false;
         GetNode<Control>("StickContainter").Visible = false;
     }
@@ -59,7 +60,7 @@ public class InputScreen : Control
         GDKnyttKeys.saveSettings();
         collecting.refreshButtons();
         collecting = null;
-        GetNode<Control>("KeyPrompt").Visible = false;
+        GetNode<Control>(OS.GetName() != "Unix" ? "KeyPrompt" : "KeyPromptNoMouse").Visible = false;
         GetNode<Button>("../BackButton").Visible = true;
         GetNode<Control>("StickContainter").Visible = true;
     }

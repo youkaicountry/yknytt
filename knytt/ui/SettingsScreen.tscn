@@ -225,7 +225,7 @@ margin_bottom = 17.0
 rect_min_size = Vector2( 0, 17 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Screen Size:"
+text = "Game Height:"
 valign = 1
 
 [node name="ViewportSlider" type="HSlider" parent="GeneralContainer/Graphics2"]
@@ -315,6 +315,7 @@ margin_left = 336.0
 margin_right = 500.0
 margin_bottom = 237.0
 rect_min_size = Vector2( 164, 0 )
+mouse_filter = 2
 
 [node name="ShaderContainer" type="HBoxContainer" parent="GeneralContainer/Misc"]
 margin_right = 164.0
@@ -491,6 +492,7 @@ valign = 1
 margin_left = 252.0
 margin_right = 513.571
 margin_bottom = 233.0
+mouse_filter = 2
 
 [node name="ToTab" type="ColorRect" parent="KeysContainer/KSSettingsContainer"]
 margin_right = 261.0
@@ -556,22 +558,27 @@ margin_top = 139.0
 margin_right = 261.0
 margin_bottom = 153.0
 focus_mode = 2
-
-[node name="FromStickUp" type="Label" parent="KeysContainer/KSSettingsContainer"]
-margin_top = 157.0
-margin_right = 261.0
-margin_bottom = 171.0
-focus_mode = 2
-
-[node name="FromStickSide" type="Label" parent="KeysContainer/KSSettingsContainer"]
-margin_top = 175.0
-margin_right = 261.0
-margin_bottom = 189.0
-focus_mode = 2
+mouse_filter = 1
 
 [node name="StickContainter" type="Control" parent="KeysContainer"]
 margin_left = 268.0
 margin_top = 120.0
+
+[node name="FromStickUp" type="Label" parent="KeysContainer/StickContainter"]
+margin_left = -16.0
+margin_top = 37.0
+margin_right = -16.0
+margin_bottom = 51.0
+focus_mode = 2
+mouse_filter = 1
+
+[node name="FromStickSide" type="Label" parent="KeysContainer/StickContainter"]
+margin_left = -16.0
+margin_top = 55.0
+margin_right = -16.0
+margin_bottom = 69.0
+focus_mode = 2
+mouse_filter = 1
 
 [node name="LeftStick" parent="KeysContainer/StickContainter" instance=ExtResource( 6 )]
 margin_left = 45.0
@@ -579,12 +586,12 @@ margin_top = 16.0
 margin_right = 222.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 20 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/FromStickSide")
-focus_neighbour_top = NodePath("../../KSSettingsContainer/FromStickUp")
+focus_neighbour_left = NodePath("../FromStickSide")
+focus_neighbour_top = NodePath("../FromStickUp")
 focus_neighbour_right = NodePath("../../../BackButton")
 focus_neighbour_bottom = NodePath("../SensitivitySlider")
 focus_next = NodePath("../SensitivitySlider")
-focus_previous = NodePath("../../KSSettingsContainer/FromStickUp")
+focus_previous = NodePath("../FromStickUp")
 text = "Use Left Stick for Movement"
 
 [node name="Label" type="Label" parent="KeysContainer/StickContainter"]
@@ -618,8 +625,8 @@ value = 0.7
 visible = false
 margin_left = 376.0
 margin_top = 123.0
-margin_right = 511.187
-margin_bottom = 168.813
+margin_right = 376.0
+margin_bottom = 123.0
 
 [node name="MessageLabel" type="Label" parent="KeysContainer/KeyPrompt"]
 margin_left = -8.0
@@ -646,6 +653,16 @@ margin_bottom = 59.3428
 rect_min_size = Vector2( 0, 0 )
 text = "Clear"
 
+[node name="KeyPromptNoMouse" type="Label" parent="KeysContainer"]
+visible = false
+margin_left = 368.0
+margin_top = 153.0
+margin_right = 467.0
+margin_bottom = 167.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Please press a key..."
+
 [node name="BounceTimer" type="Timer" parent="KeysContainer"]
 wait_time = 0.25
 one_shot = true
@@ -662,6 +679,7 @@ script = ExtResource( 11 )
 [node name="EnableContainer" type="HBoxContainer" parent="TouchContainer"]
 margin_right = 553.0
 margin_bottom = 30.0
+mouse_filter = 2
 
 [node name="EnableButton" parent="TouchContainer/EnableContainer" instance=ExtResource( 6 )]
 margin_right = 200.0
@@ -700,6 +718,7 @@ margin_top = 34.0
 margin_right = 553.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 
 [node name="ScaleLabel" type="Label" parent="TouchContainer/ScaleContainer"]
 margin_top = 5.0
@@ -752,6 +771,7 @@ __meta__ = {
 margin_top = 62.0
 margin_right = 553.0
 margin_bottom = 86.0
+mouse_filter = 2
 
 [node name="ViewportLabel" type="Label" parent="TouchContainer/ViewportContainer"]
 margin_top = 5.0
@@ -801,6 +821,7 @@ margin_top = 90.0
 margin_right = 553.0
 margin_bottom = 114.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 
 [node name="JumpLabel" type="Label" parent="TouchContainer/JumpContainer"]
 margin_top = 5.0
@@ -854,6 +875,7 @@ margin_top = 118.0
 margin_right = 553.0
 margin_bottom = 142.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 
 [node name="OpacityLabel" type="Label" parent="TouchContainer/OpacityContainer"]
 margin_top = 5.0
@@ -901,6 +923,7 @@ text = "Set 100%"
 margin_top = 146.0
 margin_right = 553.0
 margin_bottom = 170.0
+mouse_filter = 2
 
 [node name="SwipeLabel" type="Label" parent="TouchContainer/SwipeContainer"]
 margin_top = 5.0
@@ -1337,8 +1360,10 @@ step = 0.02
 [connection signal="focus_entered" from="KeysContainer/SettingsContainer/ToTab" to="KeysContainer" method="_on_ToTab_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/ToTab" to="KeysContainer" method="_on_ToTab_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/ToStick" to="KeysContainer" method="_on_ToStick_focus_entered"]
-[connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/FromStickUp" to="KeysContainer" method="_on_FromStickUp_focus_entered"]
-[connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/FromStickSide" to="KeysContainer" method="_on_FromStickSide_focus_entered"]
+[connection signal="focus_entered" from="KeysContainer/StickContainter/FromStickUp" to="KeysContainer" method="_on_FromStickUp_focus_entered"]
+[connection signal="focus_entered" from="KeysContainer/StickContainter/FromStickSide" to="KeysContainer" method="_on_FromStickSide_focus_entered"]
+[connection signal="pressed" from="KeysContainer/StickContainter/LeftStick" to="KeysContainer" method="_on_LeftStick_pressed"]
+[connection signal="value_changed" from="KeysContainer/StickContainter/SensitivitySlider" to="KeysContainer" method="_on_Slider_value_changed"]
 [connection signal="pressed" from="KeysContainer/KeyPrompt/CancelButton" to="KeysContainer" method="_on_CancelButton_pressed"]
 [connection signal="toggled" from="TouchContainer/EnableContainer/EnableButton" to="TouchContainer" method="_on_EnableButton_toggled"]
 [connection signal="item_selected" from="TouchContainer/EnableContainer/AnchorDropdown" to="TouchContainer" method="_on_AnchorDropdown_item_selected"]

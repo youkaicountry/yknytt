@@ -291,6 +291,10 @@ margin_left = -85.0
 margin_top = -40.0
 margin_right = -5.0
 margin_bottom = -5.0
+focus_neighbour_top = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer7/Label")
+focus_neighbour_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton")
+focus_next = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton")
+focus_previous = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer7/Label")
 text = "Back"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -351,6 +355,9 @@ text = "Repository:"
 margin_left = 62.0
 margin_right = 234.0
 margin_bottom = 13.0
+focus_neighbour_top = NodePath("../../../../../BackButton")
+focus_previous = NodePath("../../../../../BackButton")
+focus_mode = 2
 text = "github.com/youkaicountry/yknytt"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
@@ -368,6 +375,7 @@ text = "Itch.io page:"
 margin_left = 68.0
 margin_right = 210.0
 margin_bottom = 13.0
+focus_mode = 2
 text = "youkaicountry.itch.io/yknytt"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
@@ -405,9 +413,10 @@ text = "Nicklas Nygren (Nifflas),"
 
 [node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
 margin_left = 127.0
-margin_right = 192.0
+margin_right = 194.0
 margin_bottom = 13.0
-text = "nifflas.ni2.se"
+focus_mode = 2
+text = "nifflas.itch.io"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 margin_left = 292.0
@@ -424,6 +433,7 @@ text = "Tim McDowell (egomassive),"
 margin_left = 150.0
 margin_right = 256.0
 margin_bottom = 13.0
+focus_mode = 2
 text = "egomassive.com/ks/"
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
@@ -441,8 +451,6 @@ modulate = Color( 0.25098, 0.25098, 1, 1 )
 margin_right = 13.0
 margin_bottom = 13.0
 rect_pivot_offset = Vector2( 6, 6 )
-mouse_filter = 0
-mouse_default_cursor_shape = 2
 texture = ExtResource( 5 )
 stretch_mode = 4
 
@@ -520,8 +528,6 @@ margin_right = 13.0
 margin_bottom = 13.0
 rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
-mouse_filter = 0
-mouse_default_cursor_shape = 2
 texture = ExtResource( 5 )
 stretch_mode = 4
 
@@ -529,6 +535,7 @@ stretch_mode = 4
 margin_left = 17.0
 margin_right = 55.0
 margin_bottom = 13.0
+focus_mode = 2
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
@@ -615,8 +622,6 @@ margin_right = 13.0
 margin_bottom = 13.0
 rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
-mouse_filter = 0
-mouse_default_cursor_shape = 2
 texture = ExtResource( 5 )
 stretch_mode = 4
 
@@ -624,6 +629,8 @@ stretch_mode = 4
 margin_left = 17.0
 margin_right = 133.0
 margin_bottom = 13.0
+focus_neighbour_bottom = NodePath("../../../../BackButton")
+focus_next = NodePath("../../../../BackButton")
 focus_mode = 2
 text = "Music & Sound Effects"
 
@@ -676,14 +683,8 @@ Studio Box Nature (Best Service), www.bestservice.de"
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://youkaicountry.itch.io/yknytt" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.ni2.se/" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.itch.io" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/LinkButton2" to="." method="_on_LinkButton_pressed" binds= [ "http://egomassive.com/ks/" ]]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer8" to="." method="_on_Testers_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer8/TextureRect" to="." method="_on_Testers_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer8/Label" to="." method="_on_Testers_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6" to="." method="_on_Tilesets_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6/TextureRect" to="." method="_on_Tilesets_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer6/Label" to="." method="_on_Tilesets_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7" to="." method="_on_Music_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7/TextureRect" to="." method="_on_Music_gui_input"]
-[connection signal="gui_input" from="ScrollContainer/VBoxContainer/HBoxContainer7/Label" to="." method="_on_Music_gui_input"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer8/Label" to="." method="_on_Testers_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Label" to="." method="_on_Tilesets_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Label" to="." method="_on_Music_pressed"]

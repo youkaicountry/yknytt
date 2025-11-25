@@ -71,6 +71,8 @@ public class LevelSelection : BasicScreen
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
+        GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible = 
+            GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
 
         worlds_modified = false;
         var ini_text = new File().FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";

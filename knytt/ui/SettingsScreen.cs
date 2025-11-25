@@ -36,8 +36,14 @@ public class SettingsScreen : BasicScreen
         GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Disabled = 
             GDKnyttSettings.Mobile || OS.GetName() == "HTML5" || OS.GetName() == "Unix";
         //GetNode<Button>("TabsContainer/TouchTab").Disabled = GDKnyttSettings.FullHeightScroll;
+        GetNode<Button>("TabsContainer/TouchTab").Visible = OS.GetName() != "Unix";
         GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
         GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
+        if (OS.GetName() == "Unix")
+        {
+            GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
+                .RemoveItem((int)GDKnyttSettings.ShaderType.HQ4X);
+        }
     }
 
     public override void initFocus()

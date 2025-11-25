@@ -138,6 +138,8 @@ margin_top = 47.0
 margin_right = 140.0
 margin_bottom = 77.0
 rect_min_size = Vector2( 0, 30 )
+focus_neighbour_top = NodePath("../../../BackButton")
+focus_neighbour_right = NodePath("../../../BackButton")
 text = "Not Started"
 items = [ "Not Started", null, false, 0, null, "Completed", null, false, 1, null, "Play Later", null, false, 2, null, "Too Hard", null, false, 3, null, "Can't Progress", null, false, 5, null, "Not Interested", null, false, 4, null, "Level Errors", null, false, 6, null ]
 selected = 0
@@ -171,6 +173,7 @@ margin_left = 75.0
 margin_right = 140.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 65, 30 )
+focus_neighbour_right = NodePath("../../../../BackButton")
 custom_styles/disabled = SubResource( 1 )
 text = "Complain"
 
@@ -187,6 +190,7 @@ anchor_bottom = 1.0
 margin_right = 0.0
 margin_bottom = 0.0
 rect_min_size = Vector2( 80, 30 )
+focus_neighbour_right = NodePath("../../../../BackButton")
 custom_styles/disabled = SubResource( 1 )
 text = "Uninstall Level"
 hint = "Uninstall will not delete your save files"
@@ -230,6 +234,7 @@ margin_top = 146.0
 margin_right = 140.0
 margin_bottom = 176.0
 rect_min_size = Vector2( 80, 30 )
+focus_neighbour_right = NodePath("../../../BackButton")
 text = "View Achievements"
 
 [node name="StatHTTPRequest" type="HTTPRequest" parent="."]
