@@ -105,7 +105,7 @@ public class MapViewports : Node2D
             await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
             await ToSignal(GetTree(), "idle_frame");
         }
-        if (OS.GetName() == "HTML5") { CallDeferred("saveAllInternal"); } else { await Task.Run(saveAllInternal); }
+        if (OS.GetName() == "HTML5" || OS.GetName() == "Unix") { CallDeferred("saveAllInternal"); } else { await Task.Run(saveAllInternal); }
     }
 
     private void saveAllInternal()

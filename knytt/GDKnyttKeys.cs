@@ -50,11 +50,11 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "right1", "Joy(15)");
         modified |= ensureSetting("Input", "show_info1", "Joy(3)");
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
-        modified |= ensureSetting("Input", "walk1", OS.GetName() != "Unix" ? "Joy(6)" : "Joy(4)");
-        modified |= ensureSetting("Input", "umbrella1", OS.GetName() != "Unix" ? "Joy(7)" : "Joy(5)");
+        modified |= ensureSetting("Input", "walk1", "Joy(6)");
+        modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
         modified |= ensureSetting("Input", "hologram1", "Joy(1)");
-        modified |= ensureSetting("Input", "pause1", OS.GetName() != "Unix" ? "Joy(4)" : "Joy(6)");
-        modified |= ensureSetting("Input", "map1", OS.GetName() != "Unix" ? "Joy(5)" : "Joy(7)");
+        modified |= ensureSetting("Input", "pause1", "Joy(4)");
+        modified |= ensureSetting("Input", "map1", "Joy(5)");
         modified |= ensureSetting("Input", "debug_die1", "Joy(11)");
 
         if (modified) { saveSettings(); }

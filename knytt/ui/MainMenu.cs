@@ -47,6 +47,7 @@ public class MainMenu : BasicScreen
     public const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
     public const string TOUCH_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Touch Tutorial.knytt.bin";
     public const string WEB_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Original Tutorial.knytt.bin";
+    public const string HANDHELD_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Handheld Tutorial.knytt.bin";
 
     public async void _on_TutorialButton_pressed()
     {
@@ -73,6 +74,7 @@ public class MainMenu : BasicScreen
         if (!load_last_played)
         {
             if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
+            else if (OS.GetName() == "Unix") { task = Task.Run(() => loadLevel(HANDHELD_TUTORIAL_PATH, 0)); }
             else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadLevel(TOUCH_TUTORIAL_PATH, 0)); }
             else { task = Task.Run(() => loadLevel(TUTORIAL_PATH, 0)); }
         }

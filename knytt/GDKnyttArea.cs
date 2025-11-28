@@ -124,11 +124,12 @@ public class GDKnyttArea : Node2D
         }
     }
 
-    public void createFakeObjectLayer()
+    public async void createFakeObjectLayer()
     {
         if (FakeObjects != null || Area.Empty) { return; }
         FakeObjects = fake_objects_scene.Instance<FakeObjectLayer>();
         AddChild(FakeObjects);
+        if (!FakeObjects.IsNodeReady()) { await ToSignal(FakeObjects, "ready"); } // cutscene case
         FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers);
     }
 
