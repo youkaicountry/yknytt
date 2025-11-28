@@ -268,6 +268,7 @@ public class LevelSelection : BasicScreen
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
         binLoad(OS.GetName() == "HTML5" ? MainMenu.WEB_TUTORIAL_PATH :
+                OS.GetName() == "Unix" ? MainMenu.HANDHELD_TUTORIAL_PATH :
                 TouchSettings.EnablePanel ? MainMenu.TOUCH_TUTORIAL_PATH : MainMenu.TUTORIAL_PATH);
     }
 

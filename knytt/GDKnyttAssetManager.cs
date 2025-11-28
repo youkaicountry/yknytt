@@ -132,6 +132,7 @@ public class GDKnyttAssetManager
 
     private static Texture image2Texture(Image image)
     {
+        if (OS.GetName() == "Unix" && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
         var texture = new ImageTexture();
         texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
         var image_back = texture.GetData();

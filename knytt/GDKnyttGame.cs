@@ -366,7 +366,7 @@ public class GDKnyttGame : Node2D
         }
         else if (GDKnyttSettings.SideScroll)
         {
-            adjustCenteredScroll(initial: true);
+            adjustCenteredScroll(initial: true, force_jump: force_jump);
             GDWorld.createFakeObjects();
         }
         else
@@ -377,7 +377,7 @@ public class GDKnyttGame : Node2D
 
     private bool left_area_restricted, right_area_restricted;
 
-    public void adjustCenteredScroll(bool initial = false)
+    public void adjustCenteredScroll(bool initial = false, bool force_jump = false)
     {
         if (GetViewport() == null) { return; }
 
@@ -387,15 +387,16 @@ public class GDKnyttGame : Node2D
         {
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
             left_area_restricted = !GDKnyttSettings.SeamlessScroll || left_area == null || left_area.Area.Empty ||
-                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero()) ||
-                left_area.Area.FlagWarps.Any(w => w != null);
+                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero())/* ||
+                left_area.Area.FlagWarps.Any(w => w != null)*/;
 
             GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(1, 0), out var right_area);
             right_area_restricted = !GDKnyttSettings.SeamlessScroll || right_area == null || right_area.Area.Empty ||
-                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero()) ||
-                right_area.Area.FlagWarps.Any(w => w != null);
-                
-            if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.x; } // fix flickering
+                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero())/* ||
+                right_area.Area.FlagWarps.Any(w => w != null)*/;
+
+            if (force_jump) { camera_global_position_x = CurrentArea.GlobalPosition.x + camera_global_position_x % 600; }
+            else if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.x; } // fix flickering
         }
 
         float juni_in_area = Juni.GlobalPosition.x - CurrentArea.GlobalCenter.x;

@@ -34,7 +34,7 @@ public class Sign : GDKnyttBaseObject
         shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignShift({letter})")) ?? 0;
         triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignTrig({letter})")) ?? 0;
 
-        adjustSign();
+        adjustSign(initial: true);
 
         if (GDArea.GDWorld.Game.SignFont != null)
         {
@@ -56,9 +56,10 @@ public class Sign : GDKnyttBaseObject
         return msg;
     }
 
-    protected void adjustSign()
+    protected void adjustSign(bool initial)
     {
         var sign_rect = GetNode<Control>("Label/SignRect");
+        // Sign top left = Position + label.RectPosition + sign_rect.RectPosition, but we can only adjust label.RectPosition
         var x_pos = label.RectPosition.x;
         var y_pos = label.RectPosition.y;
         var x_diff = Position.x + sign_rect.RectPosition.x;
@@ -67,7 +68,7 @@ public class Sign : GDKnyttBaseObject
 
         float left_limit = 0;
         float right_limit = 600;
-        if (GDKnyttSettings.FullHeightScroll)
+        if (GDKnyttSettings.FullHeightScroll && !initial) // camera is not ready at start
         {
             float camera_in_area = Juni.Game.Camera.GlobalPosition.x - GDArea.GlobalPosition.x;
             float x_viewport = GetViewport().GetVisibleRect().Size.x;
@@ -108,7 +109,6 @@ public class Sign : GDKnyttBaseObject
             GetNode<Control>("Label/SignRect/DownArrow").Visible = messageIndex < texts.Count - 1;
             if (!messageVisible)
             {
-                if (GDKnyttSettings.FullHeightScroll) { adjustSign(); }
                 player.Play("FadeIn");
                 messageVisible = true;
             }
@@ -119,6 +119,11 @@ public class Sign : GDKnyttBaseObject
         }
     }
 
+    public override void _PhysicsProcess(float delta)
+    {
+        if (messageVisible && GDKnyttSettings.FullHeightScroll) { adjustSign(initial: false); }
+    }
+    
     public void OnArea2DBodyEntered(Node body)
     {
         if (!(body is Juni juni)) { return; }

@@ -453,7 +453,7 @@ public class InfoScreen : BasicScreen
     private void _on_OptimizeButton_pressed()
     {
         ClickPlayer.Play();
-        if (OS.GetName() != "HTML5")
+        if (OS.GetName() != "HTML5" && OS.GetName() != "Unix")
         {
             GetNode<Timer>("HintTimer").Start();
             Task.Run(optimize);
@@ -464,13 +464,16 @@ public class InfoScreen : BasicScreen
         }
     }
 
-    private void optimize()
+    private async void optimize()
     {
         string[] nodes_to_disable = { "InfoRect/BackButton",
             "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button",
-            "%OptimizeButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
+            "%OptimizeButton", "%ComplainButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         closeOtherSlots(-1);
+        hint_label.Text = "Unpacking and/or compiling level tilesets.";
+        await ToSignal(GetTree(), "idle_frame");
+        await ToSignal(GetTree(), "idle_frame");
 
         bool from_external = GDKnyttSettings.WorldsDirectory != "" && KWorld.WorldDirectory.StartsWith(GDKnyttSettings.WorldsDirectory);
         bool unpacked = false;
