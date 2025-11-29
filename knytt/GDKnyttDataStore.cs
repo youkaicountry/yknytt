@@ -13,6 +13,8 @@ public class GDKnyttDataStore : Node
     public static string ProgressHint { get; set; }
 
     public static string BaseDataDirectory { get; private set; }
+
+    public static bool GptokeybMode { get; private set; }
     
     static GDKnyttDataStore()
     {
@@ -21,7 +23,7 @@ public class GDKnyttDataStore : Node
         
         // Check for --data command line parameter
         var args = OS.GetCmdlineArgs();
-        for (int i = 0; i < args.Length - 1; i++)
+        for (int i = 0; i < args.Length; i++)
         {
             if (args[i] == "--data" && i + 1 < args.Length)
             {
@@ -34,6 +36,11 @@ public class GDKnyttDataStore : Node
                 BaseDataDirectory = dataPath;
                 GD.Print($"Using custom data directory: {BaseDataDirectory}");
                 break;
+            }
+
+            if (args[i] == "--gptokeyb")
+            {
+                GptokeybMode = true;
             }
         }
     }

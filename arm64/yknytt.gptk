@@ -1,0 +1,32 @@
+[controls]
+a = e
+b = w
+x = s
+y = q
+
+l1 = esc
+l2 = a
+r1 = m
+r2 = d
+
+up = up
+down = down
+left = left
+right = right
+
+left_analog_up = t
+left_analog_down = g
+left_analog_left = f
+left_analog_right = y
+l3 = r
+
+right_analog_up = i
+right_analog_down = k
+right_analog_left = j
+right_analog_right = l
+r3 = u
+
+start = f10
+back = z
+guide = x
+max = c
