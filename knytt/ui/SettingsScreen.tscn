@@ -422,7 +422,7 @@ focus_neighbour_left = NodePath("../../KSSettingsContainer/DownSetting")
 Action = "umbrella"
 ActionLabel = "Umbrella"
 
-[node name="HologramSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
+[node name="WalkSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
@@ -430,10 +430,10 @@ margin_right = 255.0
 margin_bottom = 81.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/LeftSetting")
-Action = "hologram"
-ActionLabel = "Hologram"
+Action = "walk"
+ActionLabel = "Walk"
 
-[node name="WalkSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
+[node name="HologramSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 85.0
@@ -441,8 +441,8 @@ margin_right = 255.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/RightSetting")
-Action = "walk"
-ActionLabel = "Walk"
+Action = "hologram"
+ActionLabel = "Hologram"
 
 [node name="InfoSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
@@ -527,7 +527,7 @@ margin_top = 58.0
 margin_right = 261.0
 margin_bottom = 81.0
 rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/HologramSetting")
+focus_neighbour_left = NodePath("../../SettingsContainer/WalkSetting")
 Action = "left"
 ActionLabel = "Left"
 
@@ -538,7 +538,7 @@ margin_top = 85.0
 margin_right = 261.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/WalkSetting")
+focus_neighbour_left = NodePath("../../SettingsContainer/HologramSetting")
 Action = "right"
 ActionLabel = "Right"
 

@@ -96,22 +96,38 @@ public class GDKnyttKeys : Node
         [3] = "R Stick Right", [-3] = "R Stick Left", [4] = "R Stick Down", [-4] = "R Stick Up",
     };
 
+    private static Dictionary<string, string> GPTOKEYB_MAPPING = new Dictionary<string, string> {
+        ["E"] = "Nintendo B", ["W"] = "Nintendo A", ["S"] = "Nintendo Y", ["Q"] = "Nintendo X",
+        ["Escape"] = "L Bumper", ["M"] = "R Bumper", ["D"] = "R Trigger", ["A"] = "L Trigger",
+        ["F10"] = "Start", ["Z"] = "Select", ["X"] = "Home", ["C"] = "Max", ["V"] = "L3", ["B"] = "R3",
+        ["Up"] = "D-pad Up", ["Down"] = "D-pad Down", ["Left"] = "D-pad Left", ["Right"] = "D-pad Right",
+        ["R"] = "L Stick Push", ["U"] = "R Stick Push",
+        ["Y"] = "L Stick Right", ["F"] = "L Stick Left", ["G"] = "L Stick Down", ["T"] = "L Stick Up",
+        ["L"] = "R Stick Right", ["J"] = "R Stick Left", ["K"] = "R Stick Down", ["I"] = "R Stick Up",
+    };
+
     public static string getValueString(string ini_name)
     {
         if (!ini["Input"].ContainsKey(ini_name)) { return ""; }
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
+        var value = groups["value"].Value;
 
         switch (groups["type"].Value)
         {
-            case "Key": return groups["value"].Value;
-            case "Joy": 
-                if (!int.TryParse(groups["value"].Value, out var i)) { return $"Joy {groups["value"]}"; }
+            case "Key":
+                return GDKnyttDataStore.GptokeybMode && GPTOKEYB_MAPPING.ContainsKey(value) ? 
+                    GPTOKEYB_MAPPING[value] : value;
+            case "Joy":
+                if (GDKnyttDataStore.GptokeybMode) { return ""; }
+                if (!int.TryParse(value, out var i)) { return $"Joy {value}"; }
                 if (i < NINTENDO_BUTTONS.Length && OS.GetName() == "Unix") { return NINTENDO_BUTTONS[i]; }
                 if (i < XBOX_BUTTONS.Length) { return XBOX_BUTTONS[i]; }
-                return $"Joy {groups["value"]}";
-            case "Axis": return int.TryParse(groups["value"].Value, out var j) && AXIS_NAMES.ContainsKey(j) ? 
-                            AXIS_NAMES[j] : $"Axis {groups["value"]}";
+                return $"Joy {value}";
+            case "Axis":
+                if (GDKnyttDataStore.GptokeybMode) { return ""; }
+                return int.TryParse(value, out var j) && AXIS_NAMES.ContainsKey(j) ? 
+                            AXIS_NAMES[j] : $"Axis {value}";
         }
 
         return "";
@@ -166,10 +182,20 @@ public class GDKnyttKeys : Node
         applyKey("down", "Enter");
         if (GDKnyttSettings.LeftStickMovement)
         {
-            applyAxis("up", "-2");
-            applyAxis("down", "2");
-            applyAxis("left", "-1");
-            applyAxis("right", "1");
+            if (!GDKnyttDataStore.GptokeybMode)
+            {
+                applyAxis("up", "-2");
+                applyAxis("down", "2");
+                applyAxis("left", "-1");
+                applyAxis("right", "1");
+            }
+            else
+            {
+                applyKey("up", "t");
+                applyKey("down", "g");
+                applyKey("left", "f");
+                applyKey("right", "y");
+            }
         }
     }
 

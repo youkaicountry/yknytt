@@ -10,6 +10,8 @@ public class InputScreen : Control
         base._Ready();
         connectSettings(GetNode<Node>("SettingsContainer"));
         connectSettings(GetNode<Node>("KSSettingsContainer"));
+        GetNode<Control>("StickContainter/Label").Visible =
+            GetNode<Control>("StickContainter/SensitivitySlider").Visible = !GDKnyttDataStore.GptokeybMode;
         GetNode<HSlider>("StickContainter/SensitivitySlider").Value = GDKnyttSettings.StickSensitivity;
         GetNode<CheckBox>("StickContainter/LeftStick").Pressed = GDKnyttSettings.LeftStickMovement;
     }

@@ -207,7 +207,9 @@ public class SettingsScreen : BasicScreen
         var tab_button = getActiveTab();
         string control_path = 
             tab_button.Name == "GeneralTab" ? "GeneralContainer/Misc/OfflineDropdown" :
-            tab_button.Name == "KeysTab"    ? "KeysContainer/StickContainter/SensitivitySlider" :
+            tab_button.Name == "KeysTab"    ? (GDKnyttDataStore.GptokeybMode ?
+                                                "KeysContainer/StickContainter/LeftStick" :
+                                                "KeysContainer/StickContainter/SensitivitySlider") :
             tab_button.Name == "TouchTab"   ? "TouchContainer/SwipeContainer/SwipeDefaultButton" :
             tab_button.Name == "DirTab"     ? "DirContainer/SavesContainer/BackupButton" :
             tab_button.Name == "AudioTab"   ? "AudioContainer/EffectsPanningSlider" : "BackButton";
