@@ -110,7 +110,10 @@ public class LevelSelection : BasicScreen
 
     private void loadLocalWorlds()
     {
-        discoverWorlds((OS.HasFeature("standalone") ? OS.GetExecutablePath().GetBaseDir() : ".").PlusFile("worlds"));
+        if (GDKnyttDataStore.BaseDataDirectory == OS.GetExecutablePath().GetBaseDir()) { ; }
+        else if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir().PlusFile("worlds")); }
+        else { discoverWorlds("worlds"); }
+
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
         discoverWorlds(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }

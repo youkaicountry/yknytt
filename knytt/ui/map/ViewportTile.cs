@@ -32,9 +32,14 @@ public class ViewportTile : ViewportContainer
 
     public void refresh(Texture tex = null)
     {
-        if (!new Directory().FileExists(filename)) { return; }
-        GetNode<TextureRect>("Viewport/TextureRect").Texture = 
-            tex ?? GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
+        if (filename.StartsWith("res://") ? 
+                !ResourceLoader.Exists(filename) : 
+                !new File().FileExists(filename)) { return; }
+
+        GetNode<TextureRect>("Viewport/TextureRect").Texture = tex ?? 
+            (filename.StartsWith("res://") ?
+                ResourceLoader.Load<Texture>(filename) :
+                GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename)));
     }
 
     public void addArea(GDKnyttArea area)

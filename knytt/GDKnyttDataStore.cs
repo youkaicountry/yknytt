@@ -35,7 +35,6 @@ public class GDKnyttDataStore : Node
                 }
                 BaseDataDirectory = dataPath;
                 GD.Print($"Using custom data directory: {BaseDataDirectory}");
-                break;
             }
 
             if (args[i] == "--gptokeyb")

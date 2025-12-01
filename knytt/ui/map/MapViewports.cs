@@ -71,30 +71,15 @@ public class MapViewports : Node2D
         if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
-        if (!new File().FileExists(filename)) { return (src, null); }
-        map_images[key] = GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
+        if (internal_cache ? 
+            !ResourceLoader.Exists(filename) : 
+            !new File().FileExists(filename)) { return (src, null); }
+        map_images[key] = internal_cache ?
+            ResourceLoader.Load<Texture>(filename) :
+            GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
         latest_images.Enqueue(key);
         if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
         return (src, map_images[key]);
-    }
-
-    public void loadAll()
-    {
-        if (KWorld == null) { return; }
-        var wd = new Directory();
-        var error = wd.Open(cache_dir);
-        wd.ListDirBegin(skipNavigational: true);
-        while (true)
-        {
-            string name = wd.GetNext();
-            if (name.Length == 0) { break; }
-            if (wd.CurrentIsDir() || !name.StartsWith("map_x") || !name.EndsWith(".png")) { continue; }
-            int yp = name.IndexOf('y');
-            var key = new KnyttPoint(int.Parse(name.Substring(5, yp - 5)), int.Parse(name.Substring(yp + 1, name.Length - yp - 1 - 4)));
-            map_images[key] = GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(cache_dir.PlusFile(name)));
-            latest_images.Enqueue(key);
-        }
-        wd.ListDirEnd();
     }
 
     public async void saveAll()

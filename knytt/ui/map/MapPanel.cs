@@ -33,7 +33,6 @@ public class MapPanel : Panel
 
     private static readonly float SCROLL_SPEED = 600;
     private static readonly float BORDER = 20;
-    private static readonly int AREA_PRELOAD_LIMIT = 1000;
     private static readonly float DETAILED_MIN_SCALE = 0.5f;
 
     private Font mark_font;
@@ -186,6 +185,7 @@ public class MapPanel : Panel
 
     public void ShowMap(bool show)
     {
+        GDKnyttSettings.setupViewport(for_ui: show);
         if (show)
         {
             KnyttPoint pos = juni.GDArea.Area.MapPosition;
@@ -196,7 +196,6 @@ public class MapPanel : Panel
                 (world.MinBounds.y - pos.y) * YSIZE + (GetParentAreaSize().y - YSIZE) / 2);
             RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
 
-            if (world.Size.Area < AREA_PRELOAD_LIMIT) { juni.Game.GetNode<MapViewports>("%MapViewports").loadAll(); }
             juni.GDArea?.Objects?.checkCollectables(juni.Powers);
             setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User));
             last_drag_distance = 0;
