@@ -172,7 +172,7 @@ margin_bottom = 33.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../Misc/ShaderContainer/Shader")
 focus_neighbour_top = NodePath("../../../TabsContainer/GeneralTab")
-focus_neighbour_right = NodePath("../../Graphics2/ViewportSlider")
+focus_neighbour_right = NodePath("../../Graphics2/Height/IntScale")
 focus_previous = NodePath("../../../TabsContainer/GeneralTab")
 
 [node name="SmoothScale" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
@@ -181,7 +181,7 @@ margin_right = 164.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../Misc/OfflineDropdown")
-focus_neighbour_right = NodePath("../../Graphics2/ViewportSlider")
+focus_neighbour_right = NodePath("../../Graphics2/Aspect")
 text = "Smooth Scale"
 
 [node name="WSOD" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
@@ -219,63 +219,99 @@ margin_bottom = 237.0
 rect_min_size = Vector2( 164, 0 )
 custom_constants/separation = 0
 
-[node name="Label" type="Label" parent="GeneralContainer/Graphics2"]
+[node name="Height" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
 margin_right = 164.0
-margin_bottom = 17.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 22 )
+custom_constants/separation = 0
+
+[node name="Value" type="Label" parent="GeneralContainer/Graphics2/Height"]
+margin_top = 2.0
+margin_right = 106.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 0, 17 )
+size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Game Height:"
+text = "Used Height: 100%"
 valign = 1
 
-[node name="ViewportSlider" type="HSlider" parent="GeneralContainer/Graphics2"]
-margin_top = 17.0
+[node name="IntScale" parent="GeneralContainer/Graphics2/Height" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 106.0
 margin_right = 164.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 150, 33 )
-focus_neighbour_top = NodePath("../../../TabsContainer/GeneralTab")
+margin_bottom = 22.0
+rect_min_size = Vector2( 58, 0 )
+focus_neighbour_top = NodePath("../../../../TabsContainer/GeneralTab")
+text = "Round"
+
+[node name="Aspect" type="HSlider" parent="GeneralContainer/Graphics2"]
+margin_top = 22.0
+margin_right = 164.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 150, 27 )
 focus_neighbour_bottom = NodePath("../Seamless")
-focus_previous = NodePath("../../Graphics/DownButtonHint")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 2 )
 custom_styles/grabber_area = SubResource( 3 )
+min_value = 0.4
+max_value = 1.0
+step = 0.001
+value = 1.0
 
-[node name="ViewportHint" type="Label" parent="GeneralContainer/Graphics2"]
-margin_top = 50.0
+[node name="Width" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
+margin_top = 49.0
 margin_right = 164.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 0, 22 )
+margin_bottom = 66.0
+custom_constants/separation = 0
+
+[node name="Value" type="Label" parent="GeneralContainer/Graphics2/Width"]
+margin_right = 74.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 17 )
+size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "1600x1240 (x1.75) Width 100%"
+text = "Width: 100%"
+valign = 1
+
+[node name="Resolution" type="Label" parent="GeneralContainer/Graphics2/Width"]
+margin_left = 74.0
+margin_top = 2.0
+margin_right = 164.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "1600x1240 (x1.75)"
 align = 1
 valign = 1
 
 [node name="Seamless" parent="GeneralContainer/Graphics2" instance=ExtResource( 6 )]
-margin_top = 72.0
+margin_top = 66.0
 margin_right = 164.0
-margin_bottom = 105.0
+margin_bottom = 99.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../Graphics/WSOD")
-focus_neighbour_top = NodePath("../ViewportSlider")
+focus_neighbour_top = NodePath("../Aspect")
 focus_neighbour_right = NodePath("../../Misc/OfflineDropdown")
 text = "Seamless Side Scroll"
 
 [node name="Border" parent="GeneralContainer/Graphics2" instance=ExtResource( 6 )]
-margin_top = 105.0
+margin_top = 99.0
 margin_right = 164.0
-margin_bottom = 138.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../Graphics/DownButtonHint")
 focus_neighbour_right = NodePath("../../../BackButton")
 text = "Area Border"
 
 [node name="MapContainer" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
-margin_top = 138.0
+margin_top = 132.0
 margin_right = 164.0
-margin_bottom = 171.0
+margin_bottom = 165.0
 rect_min_size = Vector2( 0, 33 )
 custom_constants/separation = 0
 
@@ -321,7 +357,7 @@ mouse_filter = 2
 margin_right = 164.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 0, 30 )
-focus_neighbour_left = NodePath("../../Graphics2/ViewportSlider")
+focus_neighbour_left = NodePath("../../Graphics2/Aspect")
 focus_neighbour_top = NodePath("../../../TabsContainer/GeneralTab")
 focus_neighbour_right = NodePath("../../Graphics/FullScreen")
 focus_previous = NodePath("../../Graphics2/MapContainer/DetailedMap")
@@ -477,10 +513,22 @@ focus_neighbour_left = NodePath("../../../BackButton")
 Action = "pause"
 ActionLabel = "Pause / Cancel"
 
-[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
+[node name="ToBack" type="Label" parent="KeysContainer/SettingsContainer"]
 margin_top = 193.0
 margin_right = 255.0
 margin_bottom = 208.0
+rect_min_size = Vector2( 0, 15 )
+focus_mode = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Info + Up/Down to adjust height "
+align = 2
+valign = 1
+
+[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
+margin_top = 212.0
+margin_right = 255.0
+margin_bottom = 227.0
 rect_min_size = Vector2( 0, 15 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
@@ -1350,6 +1398,9 @@ step = 0.02
 [connection signal="pressed" from="GeneralContainer/Graphics/WSOD" to="." method="_on_WSOD_pressed"]
 [connection signal="pressed" from="GeneralContainer/Graphics/DownButtonHint" to="." method="_on_DownButtonHint_pressed"]
 [connection signal="pressed" from="GeneralContainer/Graphics/UmbrellaCheat" to="." method="_on_UmbrellaCheat_pressed"]
+[connection signal="pressed" from="GeneralContainer/Graphics2/Height/IntScale" to="." method="_on_IntScale_pressed"]
+[connection signal="value_changed" from="GeneralContainer/Graphics2/Aspect" to="." method="_on_Aspect_value_changed"]
+[connection signal="pressed" from="GeneralContainer/Graphics2/Seamless" to="." method="_on_Seamless_pressed"]
 [connection signal="pressed" from="GeneralContainer/Graphics2/Border" to="." method="_on_Border_pressed"]
 [connection signal="pressed" from="GeneralContainer/Graphics2/MapContainer/ForcedMap" to="." method="_on_ForcedMap_pressed"]
 [connection signal="pressed" from="GeneralContainer/Graphics2/MapContainer/DetailedMap" to="." method="_on_DetailedMap_pressed"]
@@ -1358,6 +1409,7 @@ step = 0.02
 [connection signal="item_selected" from="GeneralContainer/Misc/OfflineDropdown" to="." method="_on_OfflineDropdown_item_selected"]
 [connection signal="focus_entered" from="KeysContainer/FromTab" to="KeysContainer" method="_on_FromTab_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/SettingsContainer/ToTab" to="KeysContainer" method="_on_ToTab_focus_entered"]
+[connection signal="focus_entered" from="KeysContainer/SettingsContainer/ToBack" to="KeysContainer" method="_on_ToBack_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/ToTab" to="KeysContainer" method="_on_ToTab_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/KSSettingsContainer/ToStick" to="KeysContainer" method="_on_ToStick_focus_entered"]
 [connection signal="focus_entered" from="KeysContainer/StickContainter/FromStickUp" to="KeysContainer" method="_on_FromStickUp_focus_entered"]

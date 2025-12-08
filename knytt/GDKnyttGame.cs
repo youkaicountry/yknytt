@@ -360,11 +360,7 @@ public class GDKnyttGame : Node2D
         UI.Location.updateLocation(this.CurrentArea.Area.Position);
 
         // Camera
-        if (GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Smooth && !force_jump)
-        {
-            this.Camera.scrollTo(this.CurrentArea.GlobalCenter, edgeScrollSpeed);
-        }
-        else if (GDKnyttSettings.SideScroll)
+        if (GDKnyttSettings.SideScroll)
         {
             adjustCenteredScroll(initial: true, force_jump: force_jump);
             GDWorld.createFakeObjects();
@@ -403,7 +399,7 @@ public class GDKnyttGame : Node2D
         float juni_on_camera = Juni.GlobalPosition.x - camera_global_position_x;
         float camera_in_area = camera_global_position_x - CurrentArea.GlobalCenter.x;
 
-        float x_viewport = GDKnyttSettings.FullHeightScroll ? GetViewport().GetVisibleRect().Size.x : 600;
+        float x_viewport = GetViewport().GetVisibleRect().Size.x * TouchSettings.ViewportNow;
         float camera_restriction = (600 - x_viewport) / 2;
         float camera_threshold = x_viewport * 72f / 600f;
 
@@ -419,6 +415,10 @@ public class GDKnyttGame : Node2D
         if (left_area_restricted && camera_in_area < -camera_restriction)
         {
             camera_in_area = -camera_restriction;
+        }
+        if (left_area_restricted && right_area_restricted && camera_restriction < 0)
+        {
+            camera_in_area = 0;
         }
 
         Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, CurrentArea.GlobalCenter.y);
@@ -558,6 +558,61 @@ public class GDKnyttGame : Node2D
         {
             GetNode<Label>("%Title/SubtitleLabel").AddFontOverride("font", subtitle_font);
             GetNode<Label>("%Title/SubtitleLabel").RemoveStyleboxOverride("normal");
+        }
+    }
+
+    private const float ASPECT_STEP = 0.04f;
+
+    public async void processAspectChange()
+    {
+        if (Input.IsActionPressed("show_info") && (Input.IsActionJustPressed("down") || Input.IsActionJustPressed("up")))
+        {
+            float aspect = GDKnyttSettings.Aspect;
+            float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+            var aspects = 
+                Enumerable.Range(1, 20) // should be the same if written/read from ini
+                    .Select(i => float.Parse((i * 240 / window_x_fixed).ToString())) // integer scales
+                    .Append(float.Parse((1 / OS.WindowSize.Aspect()).ToString()))    // height = 100%
+                    .Append(0.4f)                                                    // width = 100%
+                    .Append(aspect)
+                    .Distinct()
+                    .ToList();
+            aspects.Sort();
+            int cur_index = aspects.IndexOf(aspect);
+
+            if (Input.IsActionJustPressed("up"))
+            {
+                if (cur_index + 1 < aspects.Count && aspects[cur_index + 1] - aspect < ASPECT_STEP)
+                {
+                    aspect = aspects[cur_index + 1];
+                }
+                else { aspect += ASPECT_STEP; }
+                Input.ActionRelease("up");
+            }
+            else
+            {
+                if (cur_index - 1 >= 0 && aspect - aspects[cur_index - 1] < ASPECT_STEP)
+                {
+                    aspect = aspects[cur_index - 1];
+                }
+                else { aspect -= ASPECT_STEP; }
+                Input.ActionRelease("down");
+            }
+            
+            float min_value = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
+            if (min_value == 0) { min_value = 0.4f; }
+            float max_value = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
+            if (aspect < min_value) { aspect = min_value; }
+            if (aspect > max_value) { aspect = max_value; }
+            
+            UI.closePanel();
+            GDKnyttSettings.Aspect = aspect;
+            GDKnyttSettings.saveSettings();
+            GDKnyttSettings.setupViewport();
+            GDKnyttSettings.setupCamera();
+            UI.Location.updateResolution();
+            UI.GetNodeOrNull<TouchPanel>("TouchPanel").CallDeferred("Configure");
+            GetTree().SetInputAsHandled();
         }
     }
 }

@@ -35,6 +35,23 @@ public class LocationLabel : Label
         this.showLabel();
     }
 
+    public async void updateResolution()
+    {
+        bool prev_visible = Visible;
+        Visible = true;
+        var window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        float scale = window_x_fixed * GDKnyttSettings.Aspect / 240;
+        Text = $"{window_x_fixed:F0}x{240 * scale:F0} ({scale:F2}x)";
+        
+        var player = this.GetNode("AnimationPlayer") as AnimationPlayer;
+        bool prev_playing = player.IsPlaying();
+        player.PlaybackSpeed = 1f / showTime;
+        player.Stop();
+        player.Play("FadeOut");
+        await ToSignal(player, "animation_finished");
+        if (!prev_playing) { Visible = prev_visible; }
+    }
+
     public void showLabel()
     {
         if (!Visible) { return; }

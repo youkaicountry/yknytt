@@ -68,10 +68,10 @@ public class Sign : GDKnyttBaseObject
 
         float left_limit = 0;
         float right_limit = 600;
-        if (GDKnyttSettings.FullHeightScroll && !initial) // camera is not ready at start
+        if (GDKnyttSettings.SideScroll && !initial) // camera is not ready at start
         {
             float camera_in_area = Juni.Game.Camera.GlobalPosition.x - GDArea.GlobalPosition.x;
-            float x_viewport = GetViewport().GetVisibleRect().Size.x;
+            float x_viewport = GetViewport().GetVisibleRect().Size.x * TouchSettings.ViewportNow;
             left_limit = camera_in_area - x_viewport / 2;
             right_limit = camera_in_area + x_viewport / 2;
         }
@@ -121,7 +121,7 @@ public class Sign : GDKnyttBaseObject
 
     public override void _PhysicsProcess(float delta)
     {
-        if (messageVisible && GDKnyttSettings.FullHeightScroll) { adjustSign(initial: false); }
+        if (messageVisible && GDKnyttSettings.SideScroll) { adjustSign(initial: false); }
     }
     
     public void OnArea2DBodyEntered(Node body)

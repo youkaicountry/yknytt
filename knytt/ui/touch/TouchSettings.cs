@@ -13,7 +13,7 @@ public class TouchSettings : Node
 
     public static bool EnablePanel
     {
-        get { return GDKnyttSettings.ini["TouchPanel"]["Enable"].Equals("1") && !GDKnyttSettings.FullHeightScroll; }
+        get { return GDKnyttSettings.ini["TouchPanel"]["Enable"].Equals("1"); }
         set { GDKnyttSettings.ini["TouchPanel"]["Enable"] = value ? "1" : "0"; }
     }
 
@@ -46,8 +46,10 @@ public class TouchSettings : Node
         get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Viewport"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["Viewport"] = value.ToString(); }
     }
+
+    public static float ViewportNow => EnablePanel ? Viewport : 1;
     
-    public static float ScreenWidth => EnablePanel ? 600 / Viewport : 600;
+    public static float ScreenWidth => 240 / (GDKnyttSettings.Aspect * ViewportNow);
     
     public static float JumpScale
     {

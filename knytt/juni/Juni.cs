@@ -439,6 +439,8 @@ public class Juni : KinematicBody2D
     {
         if (dead) { return; }
 
+        Game.processAspectChange();
+
         juniInput.Update();
 
         if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }

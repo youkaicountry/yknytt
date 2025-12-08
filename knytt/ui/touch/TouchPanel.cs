@@ -178,14 +178,10 @@ public class TouchPanel : Panel
         camera.Offset = new Vector2(-TouchSettings.ScreenWidth / 2, (TouchSettings.AreaAnchor - 1) * (GetViewport().GetVisibleRect().Size.y - 240) - 120);
 
         var curtain = GetTree().Root.GetNode("GKnyttGame/UICanvasLayer/Curtain");
-        var horizontalCurtain = curtain.GetNode<ColorRect>("HorizontalRect");
         var leftCurtain = curtain.GetNode<ColorRect>("LeftRect");
         var rightCurtain = curtain.GetNode<ColorRect>("RightRect");
-        float curtainHeight = GetViewport().GetVisibleRect().Size.y - 240;
-        horizontalCurtain.RectSize = new Vector2(TouchSettings.ScreenWidth, curtainHeight);
-        horizontalCurtain.RectPosition = new Vector2(0, TouchSettings.AreaAnchor * 240);
         leftCurtain.RectSize = rightCurtain.RectSize = 
-            new Vector2((TouchSettings.ScreenWidth - 600) / 2, GetViewport().GetVisibleRect().Size.y);
+            new Vector2((TouchSettings.ScreenWidth - 240 / GDKnyttSettings.Aspect) / 2, GetViewport().GetVisibleRect().Size.y);
         rightCurtain.RectPosition = new Vector2(TouchSettings.ScreenWidth - rightCurtain.RectSize.x, 0);
     }
 
