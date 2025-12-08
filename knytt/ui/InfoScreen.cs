@@ -27,8 +27,12 @@ public class InfoScreen : BasicScreen
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
-            GetNode<StarRate>("%Rate").Visible = false;
             GetNode<Button>("%ComplainButton").Disabled = GetNode<Button>("%StatsButton").Disabled = true;
+        }
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline || OS.GetName() == "Unix")
+        {
+            GetNode<StarRate>("%Rate").Visible = false;
+            GetNode<StarRate>("%NoRate").Visible = true;
         }
     }
 
@@ -71,6 +75,7 @@ public class InfoScreen : BasicScreen
 
         GetNode<Button>("%Uninstall/MainButton").Disabled =
         GetNode<Button>("%OptimizeButton").Disabled =
+        GetNode<Button>("%ComplainButton").Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
 
         if (world_entry == null)
@@ -528,8 +533,8 @@ public class InfoScreen : BasicScreen
 
         if (button.HasFocus() && stat_panel.Visible)
         {
-            if (Input.IsActionJustPressed("ui_up")) { if (stat_panel.scroll(-1)) { GetViewport().SetInputAsHandled(); } }
-            if (Input.IsActionJustPressed("ui_down")) { if (stat_panel.scroll(1)) { GetViewport().SetInputAsHandled(); } }
+            if (Input.IsActionPressed("ui_up")) { if (stat_panel.scroll(-1)) { GetViewport().SetInputAsHandled(); } }
+            if (Input.IsActionPressed("ui_down")) { if (stat_panel.scroll(1)) { GetViewport().SetInputAsHandled(); } }
         }
     }
 }

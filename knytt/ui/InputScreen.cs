@@ -105,6 +105,11 @@ public class InputScreen : Control
         GetNode<Button>("SettingsContainer/MapSetting/Button0").GrabFocus();
     }
 
+    private void _on_ToBack_focus_entered()
+    {
+        GetNode<Button>("../BackButton").GrabFocus();
+    }
+
     private void _on_LeftStick_pressed()
     {
         GDKnyttSettings.LeftStickMovement = GetNode<CheckBox>("StickContainter/LeftStick").Pressed;

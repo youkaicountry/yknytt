@@ -15,8 +15,7 @@ public class PausePanel : Control
         info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
         pause();
         bounceWait();
-        RectScale = Vector2.One;
-        if (TouchSettings.EnablePanel) { RectScale /= TouchSettings.Viewport; }
+        RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         GetParent<BasicScreen>().initFocus();
     }
 
@@ -79,6 +78,7 @@ public class PausePanel : Control
 
     public void backEvent()
     {
+        RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         in_settings = false;
         GDKnyttSettings.setupViewport(for_ui: false);
     }

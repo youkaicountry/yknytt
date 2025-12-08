@@ -61,6 +61,7 @@ public class TouchSettingsScreen : Control
     {
         TouchSettings.Viewport = value;
         GetNode<Label>("ViewportContainer/ValueLabel").Text = $"{value * 100}%";
+        GetParent<SettingsScreen>()._on_Aspect_value_changed(GDKnyttSettings.Aspect);
     }
 
     private void _on_ViewportMaxButton_pressed()

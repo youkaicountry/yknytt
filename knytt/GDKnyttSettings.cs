@@ -7,11 +7,8 @@ using System.Linq;
 
 public class GDKnyttSettings : Node
 {
-    //OS.set_window_maximized(true), and then OS.set_borderless_window(true)
     public static IniData ini { get; private set; }
     static SceneTree tree;
-
-    public enum ScrollTypes { Original, FullHeightSide, SeamlessSide, SmallHeightSide, Smooth }
 
     public enum ShaderType { NoShader, HQ4X, CRT, Sepia, VHS, }
 
@@ -64,49 +61,48 @@ public class GDKnyttSettings : Node
         float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 530 : 600;
         tree.SetScreenStretch(
             SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth :
-                FullHeightScroll ? SceneTree.StretchAspect.KeepHeight : SceneTree.StretchAspect.Keep,
-            new Vector2(for_ui ? ui_width : FullHeightScroll ? 240 : TouchSettings.ScreenWidth, 240));
+            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
+            new Vector2(for_ui ? ui_width : TouchSettings.ScreenWidth, 240));
     }
 
-    public static ScrollTypes ScrollType
+    public static void setupCamera()
     {
-        get { return Enum.TryParse<ScrollTypes>(ini["Graphics"]["Scroll Type"], out var s) ? s : ScrollTypes.Original; }
-        set
+        var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
+        if (game != null)
         {
-            ini["Graphics"]["Scroll Type"] = value.ToString();
+            game.GDWorld.Areas.BorderSize =
+                SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
 
-            var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
-            if (game != null)
+            game.setupCamera();
+
+            if (SideScroll)
             {
-                game.GDWorld.Areas.BorderSize =
-                    value == ScrollTypes.Original ? new KnyttPoint(0, 0) :
-                    value == ScrollTypes.Smooth ? new KnyttPoint(1, 1) :
-                    SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
-
-                game.setupCamera();
-
-                if (SideScroll)
+                game.adjustCenteredScroll(initial: true);
+            }
+            else
+            {
+                game.Camera.jumpTo(game.CurrentArea.GlobalCenter);
+                foreach (var area in game.GDWorld.Areas.Areas.Values)
                 {
-                    game.adjustCenteredScroll(initial: true);
-                }
-                else
-                {
-                    game.Camera.jumpTo(game.CurrentArea.GlobalCenter);
-                    foreach (var area in game.GDWorld.Areas.Areas.Values)
-                    {
-                        area.Background.Position = Vector2.Zero;
-                    }
+                    area.Background.Position = Vector2.Zero;
                 }
             }
         }
     }
 
-    public static bool SideScroll { get { var s = ScrollType; return s != ScrollTypes.Original && s != ScrollTypes.Smooth; } }
+    public static bool SideScroll => SeamlessScroll || Aspect > 0.4f;
 
-    public static bool SeamlessScroll { get { var s = ScrollType; return s == ScrollTypes.SeamlessSide || s == ScrollTypes.SmallHeightSide; } }
+    public static float Aspect
+    {
+        get { return float.Parse(ini["Graphics"]["Aspect"]); }
+        set { ini["Graphics"]["Aspect"] = $"{value}"; }
+    }
 
-    public static bool FullHeightScroll { get { var s = ScrollType; return s == ScrollTypes.FullHeightSide || s == ScrollTypes.SeamlessSide; } }
+    public static bool SeamlessScroll
+    {
+        get { return ini["Graphics"]["Seamless"].Equals("1"); }
+        set { ini["Graphics"]["Seamless"] = value ? "1" : "0"; }
+    }
 
     public static bool Border
     {
@@ -182,10 +178,10 @@ public class GDKnyttSettings : Node
 
     public static bool DownButtonHint
     {
-        get { return ini["Graphics"]["DownButtonHint"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Down Button Hint"].Equals("1") ? true : false; }
         set
         {
-            ini["Graphics"]["DownButtonHint"] = value ? "1" : "0";
+            ini["Graphics"]["Down Button Hint"] = value ? "1" : "0";
             var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game != null)
             {
@@ -197,8 +193,8 @@ public class GDKnyttSettings : Node
 
     public static bool UmbrellaCheat
     {
-        get { return GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"].Equals("1"); }
-        set { GDKnyttSettings.ini["TouchPanel"]["UmbrellaCheat"] = value ? "1" : "0"; }
+        get { return ini["TouchPanel"]["UmbrellaCheat"].Equals("1"); }
+        set { ini["TouchPanel"]["UmbrellaCheat"] = value ? "1" : "0"; }
     }
 
     // Calculate the volume in dB from the config value
@@ -364,14 +360,15 @@ public class GDKnyttSettings : Node
 
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
-        modified |= ensureSetting("Graphics", "Scroll Type", ScrollTypes.Original.ToString());
+        modified |= ensureSetting("Graphics", "Seamless", "0");
+        modified |= ensureSetting("Graphics", "Aspect", "0.4");
         modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
         modified |= ensureSetting("Graphics", "Forced Map", "1");
         modified |= ensureSetting("Graphics", "Detailed Map", "1");
         modified |= ensureSetting("Graphics", "Shader Type", ShaderType.NoShader.ToString());
         modified |= ensureSetting("Graphics", "WSOD", "1");
         modified |= ensureSetting("Graphics", "Interpolation", "0");
-        modified |= ensureSetting("Graphics", "DownButtonHint", "1");
+        modified |= ensureSetting("Graphics", "Down Button Hint", "1");
         modified |= ensureSetting("TouchPanel", "UmbrellaCheat", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
@@ -400,14 +397,15 @@ public class GDKnyttSettings : Node
     {
         Fullscreen = ini["Graphics"]["Fullscreen"].Equals("1") ? true : false;
         SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
-        ScrollType = Enum.TryParse<ScrollTypes>(ini["Graphics"]["Scroll Type"], out var s) ? s : ScrollTypes.Original;
+        Aspect = float.Parse(ini["Graphics"]["Aspect"]);
+        SeamlessScroll = ini["Graphics"]["Seamless"].Equals("1") ? true : false;
         Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
         ForcedMap = ini["Graphics"]["Forced Map"].Equals("1") ? true : false;
         DetailedMap = ini["Graphics"]["Detailed Map"].Equals("1") ? true : false;
         Shader = Enum.TryParse<ShaderType>(ini["Graphics"]["Shader Type"], out var f) ? f : ShaderType.NoShader;
         WSOD = ini["Graphics"]["WSOD"].Equals("1") ? true : false;
         Interpolation = ini["Graphics"]["Interpolation"].Equals("1") ? true : false;
-        DownButtonHint = ini["Graphics"]["DownButtonHint"].Equals("1") ? true : false;
+        DownButtonHint = ini["Graphics"]["Down Button Hint"].Equals("1") ? true : false;
         MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);

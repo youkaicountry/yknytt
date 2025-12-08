@@ -20,9 +20,7 @@ public class GDKnyttWorld : Node2D
     public GDKnyttWorld()
     {
         this.AssetManager = new GDKnyttAssetManager(this, tile_cache: 32, gradient_cache: 16, song_cache: 4, ambiance_cache: 8, object_cache: 64);
-        var border_size = GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Original ? new KnyttPoint(0, 0) :
-                          GDKnyttSettings.ScrollType == GDKnyttSettings.ScrollTypes.Smooth ? new KnyttPoint(1, 1) :
-                          GDKnyttSettings.SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
+        var border_size = GDKnyttSettings.SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
         this.Areas = new KnyttRectPaging<GDKnyttArea>(border_size);
         this.Areas.OnPageIn = (KnyttPoint loc) => instantiateArea(loc);
         this.Areas.OnPageOut = (KnyttPoint loc, GDKnyttArea area) => area?.destroyArea();

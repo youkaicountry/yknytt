@@ -99,7 +99,9 @@ public class UICanvasLayer : CanvasLayer
             }
             else
             {
-                float xscreen = GDKnyttSettings.FullHeightScroll ? GetViewport().GetVisibleRect().Size.x : 600;
+                float xscreen = GetViewport().GetVisibleRect().Size.x;
+                if (xscreen > 600 && !GDKnyttSettings.SeamlessScroll) { xscreen = 600; }
+                xscreen *= TouchSettings.ViewportNow;
                 float xinfo = infoPanel.RectSize.x;
                 infoPanel.MarginLeft = -xscreen / 2 - 3;
                 infoPanel.MarginRight = infoPanel.MarginLeft + xinfo;
