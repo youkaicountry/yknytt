@@ -75,8 +75,8 @@ public class InfoScreen : BasicScreen
 
         GetNode<Button>("%Uninstall/MainButton").Disabled =
         GetNode<Button>("%OptimizeButton").Disabled =
-        GetNode<Button>("%ComplainButton").Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
+        GetNode<Button>("%ComplainButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
 
         if (world_entry == null)
         {

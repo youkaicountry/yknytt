@@ -41,6 +41,7 @@ public class LocationLabel : Label
         Visible = true;
         var window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
         float scale = window_x_fixed * GDKnyttSettings.Aspect / 240;
+        if (!GDKnyttSettings.SideScroll) { window_x_fixed *= GDKnyttSettings.Aspect / 0.4f; }
         Text = $"{window_x_fixed:F0}x{240 * scale:F0} ({scale:F2}x)";
         
         var player = this.GetNode("AnimationPlayer") as AnimationPlayer;

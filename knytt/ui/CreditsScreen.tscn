@@ -109,7 +109,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 370 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
@@ -121,7 +121,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -90.0 ]
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -192,7 +192,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 170 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
@@ -204,7 +204,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -90.0 ]
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -308,7 +308,7 @@ theme = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 580.0
-margin_bottom = 215.0
+margin_bottom = 234.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 
@@ -359,6 +359,7 @@ focus_neighbour_top = NodePath("../../../../../BackButton")
 focus_previous = NodePath("../../../../../BackButton")
 focus_mode = 2
 text = "github.com/youkaicountry/yknytt"
+uri = "https://github.com/youkaicountry/yknytt"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 292.0
@@ -377,6 +378,7 @@ margin_right = 210.0
 margin_bottom = 13.0
 focus_mode = 2
 text = "youkaicountry.itch.io/yknytt"
+uri = "https://youkaicountry.itch.io/yknytt"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 57.0
@@ -417,6 +419,7 @@ margin_right = 194.0
 margin_bottom = 13.0
 focus_mode = 2
 text = "nifflas.itch.io"
+uri = "https://nifflas.itch.io"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 margin_left = 292.0
@@ -435,16 +438,53 @@ margin_right = 256.0
 margin_bottom = 13.0
 focus_mode = 2
 text = "egomassive.com/ks/"
+uri = "http://egomassive.com/ks/"
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 95.0
 margin_right = 580.0
-margin_bottom = 95.0
+margin_bottom = 108.0
 
-[node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 101.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 288.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+text = "Linux ARM64 Port by clichev2, inaya, 0xAda.3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_right = 98.0
+margin_bottom = 13.0
+text = "Uses some parts of"
+
+[node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 102.0
+margin_right = 159.0
+margin_bottom = 13.0
+focus_mode = 2
+text = "KnyttSharp"
+uri = "https://github.com/andrewmd5/KnyttSharp"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 163.0
+margin_right = 240.0
+margin_bottom = 13.0
+text = "by andrewmd5"
+
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 114.0
 margin_right = 580.0
 margin_bottom = 114.0
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 580.0
+margin_bottom = 133.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -462,9 +502,9 @@ focus_mode = 2
 text = "Beta Testers"
 
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 120.0
+margin_top = 139.0
 margin_right = 580.0
-margin_bottom = 165.0
+margin_bottom = 184.0
 rect_min_size = Vector2( 580, 45 )
 rect_clip_content = true
 mouse_filter = 1
@@ -515,18 +555,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "LumicatRB
 Someone65
-yainaya"
+diegopau"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 171.0
+margin_top = 190.0
 margin_right = 580.0
-margin_bottom = 184.0
+margin_bottom = 203.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
 margin_right = 13.0
 margin_bottom = 13.0
-rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 stretch_mode = 4
@@ -539,10 +578,10 @@ focus_mode = 2
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 190.0
+margin_top = 209.0
 margin_right = 580.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 580, 0 )
+margin_bottom = 209.0
+rect_min_size = Vector2( 580, 370 )
 rect_clip_content = true
 mouse_filter = 1
 
@@ -612,15 +651,14 @@ Zonhin
 Zé Pedro Quintanilha (PONTO)"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 196.0
+margin_top = 215.0
 margin_right = 580.0
-margin_bottom = 209.0
+margin_bottom = 228.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
 margin_right = 13.0
 margin_bottom = 13.0
-rect_rotation = -90.0
 rect_pivot_offset = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 stretch_mode = 4
@@ -635,10 +673,10 @@ focus_mode = 2
 text = "Music & Sound Effects"
 
 [node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 215.0
+margin_top = 234.0
 margin_right = 580.0
-margin_bottom = 215.0
-rect_min_size = Vector2( 580, 0 )
+margin_bottom = 234.0
+rect_min_size = Vector2( 580, 170 )
 rect_clip_content = true
 mouse_filter = 1
 
@@ -681,10 +719,6 @@ iFX Games (Zero-G), www.zero-g.co.uk4
 Studio Box Nature (Best Service), www.bestservice.de"
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://github.com/youkaicountry/yknytt" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://youkaicountry.itch.io/yknytt" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer/LinkButton" to="." method="_on_LinkButton_pressed" binds= [ "https://nifflas.itch.io" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2/LinkButton2" to="." method="_on_LinkButton_pressed" binds= [ "http://egomassive.com/ks/" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer8/Label" to="." method="_on_Testers_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Label" to="." method="_on_Tilesets_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Label" to="." method="_on_Music_pressed"]
