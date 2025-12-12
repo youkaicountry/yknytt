@@ -496,7 +496,12 @@ public class GDKnyttSettings : Node
     public override void _Process(float delta)
     {
         if (Input.IsActionJustPressed("fullscreen")) { Fullscreen = !Fullscreen; }
-        if (Input.IsActionJustPressed("border")) { Border = !Border; }
+
+        if (Input.IsActionJustPressed("border"))
+        {
+            Border = !Border;
+            saveSettings();
+        }
 
         if (Input.IsActionJustPressed("zoom") && ! Fullscreen)
         {

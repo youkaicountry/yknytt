@@ -230,6 +230,12 @@ public class GDKnyttGame : Node2D
         if (this.viewMode) { this.editorControls(); }
 
         if (Input.IsActionJustPressed("pause") && !GetNode<Console>("/root/Console").IsOpen) { pause(); }
+
+        if (Input.IsActionPressed("show_info") && Input.IsActionPressed("umbrella") && Input.IsActionJustPressed("down"))
+        {
+            saveGame(Juni, true);
+            Juni.playSound("save");
+        }
     }
 
     // TODO: Difference between Paged areas, active areas, and current area.
@@ -565,54 +571,54 @@ public class GDKnyttGame : Node2D
 
     public async void processAspectChange()
     {
-        if (Input.IsActionPressed("show_info") && (Input.IsActionJustPressed("down") || Input.IsActionJustPressed("up")))
-        {
-            float aspect = GDKnyttSettings.Aspect;
-            float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
-            var aspects = 
-                Enumerable.Range(1, 20) // should be the same if written/read from ini
-                    .Select(i => float.Parse((i * 240 / window_x_fixed).ToString())) // integer scales
-                    .Append(float.Parse((1 / OS.WindowSize.Aspect()).ToString()))    // height = 100%
-                    .Append(0.4f)                                                    // width = 100%
-                    .Append(aspect)
-                    .Distinct()
-                    .ToList();
-            aspects.Sort();
-            int cur_index = aspects.IndexOf(aspect);
+        if (!(Input.IsActionPressed("show_info") && Input.IsActionPressed("umbrella") &&
+             (Input.IsActionJustPressed("left") || Input.IsActionJustPressed("right")))) { return; }
 
-            if (Input.IsActionJustPressed("up"))
+        float aspect = GDKnyttSettings.Aspect;
+        float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        var aspects = 
+            Enumerable.Range(1, 20) // should be the same if written/read from ini
+                .Select(i => float.Parse((i * 240 / window_x_fixed).ToString())) // integer scales
+                .Append(float.Parse((1 / OS.WindowSize.Aspect()).ToString()))    // height = 100%
+                .Append(0.4f)                                                    // width = 100%
+                .Append(aspect)
+                .Distinct()
+                .ToList();
+        aspects.Sort();
+        int cur_index = aspects.IndexOf(aspect);
+
+        if (Input.IsActionJustPressed("left"))
+        {
+            if (cur_index + 1 < aspects.Count && aspects[cur_index + 1] - aspect < ASPECT_STEP)
             {
-                if (cur_index + 1 < aspects.Count && aspects[cur_index + 1] - aspect < ASPECT_STEP)
-                {
-                    aspect = aspects[cur_index + 1];
-                }
-                else { aspect += ASPECT_STEP; }
-                Input.ActionRelease("up");
+                aspect = aspects[cur_index + 1];
             }
-            else
-            {
-                if (cur_index - 1 >= 0 && aspect - aspects[cur_index - 1] < ASPECT_STEP)
-                {
-                    aspect = aspects[cur_index - 1];
-                }
-                else { aspect -= ASPECT_STEP; }
-                Input.ActionRelease("down");
-            }
-            
-            float min_value = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
-            if (min_value == 0) { min_value = 0.4f; }
-            float max_value = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
-            if (aspect < min_value) { aspect = min_value; }
-            if (aspect > max_value) { aspect = max_value; }
-            
-            UI.closePanel();
-            GDKnyttSettings.Aspect = aspect;
-            GDKnyttSettings.saveSettings();
-            GDKnyttSettings.setupViewport();
-            GDKnyttSettings.setupCamera();
-            UI.Location.updateResolution();
-            UI.GetNodeOrNull<TouchPanel>("TouchPanel").CallDeferred("Configure");
-            GetTree().SetInputAsHandled();
+            else { aspect += ASPECT_STEP; }
+            Input.ActionRelease("left");
         }
+        else
+        {
+            if (cur_index - 1 >= 0 && aspect - aspects[cur_index - 1] < ASPECT_STEP)
+            {
+                aspect = aspects[cur_index - 1];
+            }
+            else { aspect -= ASPECT_STEP; }
+            Input.ActionRelease("right");
+        }
+        
+        float min_value = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
+        if (min_value == 0) { min_value = 0.4f; }
+        float max_value = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
+        if (aspect < min_value) { aspect = min_value; }
+        if (aspect > max_value) { aspect = max_value; }
+        
+        UI.closePanel();
+        GDKnyttSettings.Aspect = aspect;
+        GDKnyttSettings.saveSettings();
+        GDKnyttSettings.setupViewport();
+        GDKnyttSettings.setupCamera();
+        UI.Location.updateResolution();
+        UI.GetNodeOrNull<TouchPanel>("TouchPanel").CallDeferred("Configure");
+        GetTree().SetInputAsHandled();
     }
 }

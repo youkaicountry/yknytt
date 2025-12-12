@@ -433,14 +433,14 @@ margin_right = 255.477
 margin_bottom = 233.322
 
 [node name="ToTab" type="ColorRect" parent="KeysContainer/SettingsContainer"]
-margin_right = 255.0
+margin_right = 301.0
 focus_mode = 2
 
 [node name="JumpSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 4.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/UpSetting")
@@ -451,7 +451,7 @@ ActionLabel = "Jump"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 31.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 54.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/DownSetting")
@@ -462,7 +462,7 @@ ActionLabel = "Umbrella"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 58.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 81.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/LeftSetting")
@@ -473,7 +473,7 @@ ActionLabel = "Walk"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 85.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/RightSetting")
@@ -484,7 +484,7 @@ ActionLabel = "Hologram"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 112.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 135.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../KSSettingsContainer/DieSetting")
@@ -495,7 +495,7 @@ ActionLabel = "Info"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 139.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 162.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../StickContainter/LeftStick")
@@ -506,7 +506,7 @@ ActionLabel = "Map"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 166.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 189.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../../BackButton")
@@ -515,25 +515,36 @@ ActionLabel = "Pause / Cancel"
 
 [node name="ToBack" type="Label" parent="KeysContainer/SettingsContainer"]
 margin_top = 193.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 208.0
 rect_min_size = Vector2( 0, 15 )
 focus_mode = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Info + Up/Down to adjust height "
-align = 2
+text = "Info + Umbrella + Left/Right to adjust height"
+align = 1
 valign = 1
 
-[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
+[node name="Label2" type="Label" parent="KeysContainer/SettingsContainer"]
 margin_top = 212.0
-margin_right = 255.0
+margin_right = 301.0
 margin_bottom = 227.0
 rect_min_size = Vector2( 0, 15 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
+text = "Info + Umbrella + Down for emergency save (use carefully)"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
+margin_top = 231.0
+margin_right = 301.0
+margin_bottom = 246.0
+rect_min_size = Vector2( 0, 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Info + Pause (or `) to show console"
-align = 2
+align = 1
 valign = 1
 
 [node name="KSSettingsContainer" type="VBoxContainer" parent="KeysContainer"]
@@ -629,7 +640,7 @@ focus_mode = 2
 mouse_filter = 1
 
 [node name="LeftStick" parent="KeysContainer/StickContainter" instance=ExtResource( 6 )]
-margin_left = 45.0
+margin_left = 47.0
 margin_top = 16.0
 margin_right = 222.0
 margin_bottom = 24.0

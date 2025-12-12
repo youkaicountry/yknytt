@@ -3,8 +3,8 @@ using Godot;
 public class CreditsScreen : BasicScreen
 {
     private bool testers_open = true;
-    private bool tilesets_open;
-    private bool music_open;
+    private bool tilesets_open = true;
+    private bool music_open = true;
 
     public override void _Ready()
     {
@@ -39,10 +39,5 @@ public class CreditsScreen : BasicScreen
         GetNode<AnimationPlayer>("ScrollContainer/VBoxContainer/MusicPanel/AnimationPlayer").Play(
             music_open ? "collapse" : "expand");
         music_open = !music_open;
-    }
-
-    private void _on_LinkButton_pressed(string url)
-    {
-        OS.ShellOpen(url);
     }
 }

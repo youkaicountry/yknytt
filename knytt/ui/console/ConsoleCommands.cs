@@ -54,7 +54,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("trail", "Toggle debug trails", null, false, TrailCommand.NewTrailCommand, 
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
-        cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, true, DeathCommand.NewDeathCommand));
+        cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, false, DeathCommand.NewDeathCommand));
         cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
         cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
         cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,

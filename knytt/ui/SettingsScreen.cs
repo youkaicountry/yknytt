@@ -112,6 +112,7 @@ public class SettingsScreen : BasicScreen
             $"Used Height: {OS.WindowSize.Aspect() * value * 100:F0}%";
         float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
         float scale = window_x_fixed * value / 240;
+        if (!GDKnyttSettings.SideScroll) { window_x_fixed *= GDKnyttSettings.Aspect / 0.4f; }
         GetNode<Label>("GeneralContainer/Graphics2/Width/Resolution").Text = 
             $"{window_x_fixed:F0}x{240 * scale:F0} ({scale:F2}x)";
         GetNode<Label>("GeneralContainer/Graphics2/Width/Value").Text = $"Width: {100 * 0.4f / value:F0}%";
