@@ -48,9 +48,6 @@ margin_right = 294.0
 margin_bottom = -10.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer"]
 margin_right = 590.0
@@ -91,7 +88,8 @@ margin_right = 100.0
 margin_bottom = 36.2149
 rect_min_size = Vector2( 100, 0 )
 focus_neighbour_left = NodePath("../../../../BackButton")
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
+focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
 selected = 0
@@ -118,7 +116,8 @@ margin_top = 17.0
 margin_right = 80.0
 margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
+focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
 selected = 0
@@ -145,7 +144,8 @@ margin_top = 17.0
 margin_right = 80.0
 margin_bottom = 36.2149
 rect_min_size = Vector2( 80, 0 )
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
+focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
 selected = 0
@@ -172,8 +172,9 @@ margin_top = 17.0
 margin_right = 90.0
 margin_bottom = 36.2149
 rect_min_size = Vector2( 90, 0 )
+focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
 focus_neighbour_right = NodePath("../../Search/SearchEdit")
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
 text = "[Default]"
 items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 5, null, "Color Status", null, false, 6, null ]
 selected = 0
@@ -188,8 +189,9 @@ margin_top = 40.0
 margin_right = 90.0
 margin_bottom = 59.2149
 rect_min_size = Vector2( 90, 0 )
+focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
 focus_neighbour_right = NodePath("../../Search/SearchEdit")
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/GameContainer")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
 text = "Downloads"
 items = [ "Downloads", null, false, 5, null, "Rating", null, false, 8, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
 selected = 0
@@ -213,8 +215,9 @@ margin_top = 19.0
 margin_right = 120.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 120, 15 )
+focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
 focus_neighbour_right = NodePath("../../../../BackButton")
-focus_neighbour_bottom = NodePath("../../../../BackButton")
+focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
 focus_next = NodePath("../../../../BackButton")
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -233,9 +236,9 @@ margin_top = -40.0
 margin_right = -5.36902
 margin_bottom = -5.0
 focus_neighbour_left = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
-focus_neighbour_top = NodePath("../MainContainer/ScrollContainer/GameContainer")
+focus_neighbour_top = NodePath("../ToBottomLevelRight")
 focus_neighbour_right = NodePath("../MainContainer/FilterContainer/Category/CategoryDropdown")
-focus_neighbour_bottom = NodePath("../MainContainer/ScrollContainer/GameContainer")
+focus_neighbour_bottom = NodePath("../ToTopLevelRight")
 focus_next = NodePath("../MainContainer/ScrollContainer/GameContainer")
 focus_previous = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
 text = "Back"
@@ -270,6 +273,26 @@ __meta__ = {
 wait_time = 0.5
 one_shot = true
 
+[node name="ToBottomLevelLeft" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+
+[node name="ToBottomLevelRight" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+
+[node name="ToTopLevelLeft" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+
+[node name="ToTopLevelRight" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+focus_mode = 2
+
 [connection signal="focus_entered" from="MainContainer/ScrollContainer/GameContainer" to="." method="_on_GameContainer_focus_entered"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Category/CategoryDropdown" to="." method="_on_CategoryDropdown_item_selected"]
 [connection signal="item_selected" from="MainContainer/FilterContainer/Difficulty/DifficultyDropdown" to="." method="_on_DifficultyDropdown_item_selected"]
@@ -285,3 +308,7 @@ one_shot = true
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]
 [connection signal="timeout" from="DownloadMonitor" to="." method="_on_DownloadMonitor_timeout"]
 [connection signal="timeout" from="SearchEditTimer" to="." method="_on_SearchEditTimer_timeout"]
+[connection signal="focus_entered" from="ToBottomLevelLeft" to="." method="_on_ToLevel_focus_entered" binds= [ false, 0 ]]
+[connection signal="focus_entered" from="ToBottomLevelRight" to="." method="_on_ToLevel_focus_entered" binds= [ false, 1 ]]
+[connection signal="focus_entered" from="ToTopLevelLeft" to="." method="_on_ToLevel_focus_entered" binds= [ true, 0 ]]
+[connection signal="focus_entered" from="ToTopLevelRight" to="." method="_on_ToLevel_focus_entered" binds= [ true, 1 ]]

@@ -29,20 +29,10 @@ namespace YKnyttLib
             this.setWorldDirectory(World.WorldDirectoryName);
         }
 
-        public KnyttSave(KnyttWorld world, int slot = 0)
-        {
-            World = world;
-            Slot = slot;
-            data = new IniData();
-            setWorldDirectory(World.WorldDirectoryName);
-            setArea(new KnyttPoint(1000, 1000));
-            setAreaPosition(new KnyttPoint(6, 6));
-        }
-
         public bool getPower(int power_id)
         {
             var presult = getValue("Powers", string.Format("Power{0}", power_id));
-            return presult == null ? false : (int.Parse(presult) == 0 ? false : true);
+            return presult != null && int.TryParse(presult, out var p) && p != 0;
         }
 
         public void setPower(int power_id, bool value)
@@ -58,7 +48,7 @@ namespace YKnyttLib
         public bool getFlag(int flag_id)
         {
             var fresult = getValue("Flags", string.Format("Flag{0}", flag_id));
-            return fresult == null ? false : (int.Parse(fresult) == 0 ? false : true);
+            return fresult != null && int.TryParse(fresult, out var f) && f != 0;
         }
 
         private readonly string[] keyNames = {"Creatures 1", "Creatures 2", "Coins 1", "Coins 2", "Coins 3", "Coins 4", "Artifacts 1", "Artifacts 2"};
@@ -250,7 +240,9 @@ namespace YKnyttLib
 
         public KnyttPoint getArea()
         {
-            return new KnyttPoint(int.Parse(data["Positions"]["X Map"]), int.Parse(data["Positions"]["Y Map"]));
+            return new KnyttPoint(
+                int.TryParse(data["Positions"]["X Map"], out var x) ? x : 0, 
+                int.TryParse(data["Positions"]["Y Map"], out var y) ? y : 0);
         }
 
         public void setArea(KnyttPoint location)
@@ -261,7 +253,9 @@ namespace YKnyttLib
 
         public KnyttPoint getAreaPosition()
         {
-            return new KnyttPoint(int.Parse(data["Positions"]["X Pos"]), int.Parse(data["Positions"]["Y Pos"]));
+            return new KnyttPoint(
+                int.TryParse(data["Positions"]["X Pos"], out var x) ? x : 0, 
+                int.TryParse(data["Positions"]["Y Pos"], out var y) ? y : 0);
         }
 
         public void setAreaPosition(KnyttPoint location)

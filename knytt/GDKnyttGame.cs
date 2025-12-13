@@ -234,6 +234,8 @@ public class GDKnyttGame : Node2D
         if (Input.IsActionPressed("show_info") && Input.IsActionPressed("umbrella") && Input.IsActionJustPressed("down"))
         {
             saveGame(Juni, true);
+            UI.closePanel();
+            Juni.Umbrella.Deployed = false;
             Juni.playSound("save");
         }
     }

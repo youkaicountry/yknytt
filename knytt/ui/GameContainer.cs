@@ -44,11 +44,13 @@ public class GameContainer : VBoxContainer
         if (focus) { game_node.forceGrabFocus(); }
         game_node.refreshCompletion(); // workaround, should be done in initalize
         if (mark_completed) { game_node.markCompleted(); }
-        if (GamesCount < 2)
-        { 
-            game_node.FocusNeighbourTop = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown");
-            if (GamesCount == 0) { game_node.FocusPrevious = game_node.FocusNeighbourLeft = new NodePath("../../../../../BackButton"); }
-        }
+
+        if (GamesCount == 0) { game_node.FocusNeighbourTop = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
+        if (GamesCount == 1) { game_node.FocusNeighbourTop = new NodePath("../../../../../BackButton"); }
+        if (GamesCount == 0) { game_node.FocusPrevious = new NodePath("../../../../../BackButton"); }
+        if (GamesCount % 2 == 0) { game_node.FocusNeighbourLeft = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
+        if (GamesCount % 2 == 1) { game_node.FocusNeighbourRight = new NodePath("../../../../../BackButton"); }
+
         GamesCount++;
     }
 
