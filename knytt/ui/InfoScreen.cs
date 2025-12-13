@@ -32,7 +32,7 @@ public class InfoScreen : BasicScreen
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline || OS.GetName() == "Unix")
         {
             GetNode<StarRate>("%Rate").Visible = false;
-            GetNode<StarRate>("%NoRate").Visible = true;
+            GetNode<Control>("%NoRate").Visible = true;
         }
     }
 

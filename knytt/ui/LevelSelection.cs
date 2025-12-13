@@ -666,11 +666,42 @@ public class LevelSelection : BasicScreen
         games_scrollbar.Value = 0;
     }
 
+    private void _on_ToLevel_focus_entered(bool top, int column)
+    {
+        int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).RectSize.y + 4;
+        int line = Mathf.Min(game_container.GetChildCount() - 1,
+            ((int)(games_scrollbar.Value + (top ? 0 : games_scrollbar.RectSize.y))) / button_height);
+        column = Math.Min(column, game_container.GetChild(line).GetChildCount() - 1);
+        game_container.GetChild(line).GetChild<GameButton>(column).GrabFocus();
+    }
+
     private void enableFilter(bool enable)
     {
         var parent = GetNode<Control>("MainContainer/FilterContainer");
         string[] childs = {"Category/CategoryDropdown", "Difficulty/DifficultyDropdown", "Size/SizeDropdown", "Sort/SortDropdown", "Sort/RemoteSortDropdown"};
         foreach (var child in childs) { parent.GetNode<OptionButton>(child).Disabled = !enable; }
         parent.GetNode<LineEdit>("Search/SearchEdit").Editable = enable;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+        if (game_container.GetFocusOwner() is GameButton cur_button &&
+            (Input.IsActionPressed("ui_page_up") || Input.IsActionPressed("ui_page_down")))
+        {
+            int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).RectSize.y + 4;
+            int step = (int)games_scrollbar.RectSize.y / button_height;
+            
+            int line = game_container.GetChildren().IndexOf(cur_button.GetParent());
+            int column = cur_button.GetParent().GetChildren().IndexOf(cur_button);
+            
+            if (Input.IsActionPressed("ui_page_up")) { line -= step; }
+            if (Input.IsActionPressed("ui_page_down")) { line += step; }
+            
+            line = Math.Min(game_container.GetChildCount() - 1, Math.Max(0, line));
+            column = Math.Min(column, game_container.GetChild(line).GetChildCount() - 1);
+            
+            game_container.GetChild(line).GetChild<GameButton>(column).GrabFocus();
+        }
     }
 }

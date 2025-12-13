@@ -1,4 +1,4 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 using System.Collections.Generic;
 
 namespace YKnyttLib
@@ -31,7 +31,7 @@ namespace YKnyttLib
             this.Author = world_data["Author"];
             this.Description = world_data["Description"];
             this.Size = world_data["Size"];
-            this.Format = int.Parse(world_data["Format"]);
+            this.Format = int.TryParse(world_data["Format"], out int f) ? f : 2;
 
             this.Clothes = KnyttUtil.parseBGRString(world_data["Clothes"], -1);
             this.Skin = KnyttUtil.parseBGRString(world_data["Skin"], -1);
