@@ -22,7 +22,7 @@ config/icon="res://knytt/icons/icon64.png"
 config/windows_native_icon="res://knytt/icons/winicon.ico"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/project_settings_override.arm64="res://arm64/override_arm64.cfg"
+config/project_settings_override.arm64="res://override_arm64.cfg"
 
 [autoload]
 

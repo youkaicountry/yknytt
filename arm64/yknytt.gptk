@@ -4,9 +4,9 @@ b = e
 x = q
 y = s
 
-l1 = esc
-l2 = a
-r1 = m
+l1 = z
+l2 = m
+r1 = a
 r2 = d
 
 up = up
@@ -26,7 +26,7 @@ right_analog_left = j
 right_analog_right = l
 r3 = u
 
-start = f10
-back = z
+start = esc
+back = f10
 guide = x
 max = c

@@ -40,8 +40,9 @@ $ESUDO mkdir -p "$monodir"
 $ESUDO umount "$monofile" || true
 $ESUDO mount "$monofile" "$monodir"
 
-cp -u $monodir/lib/libmono-btls-shared.so $monodir/lib/libmono-native.so $monodir/lib/libMonoPosixHelper.so $monodir/lib/libmono-profiler-aot.so data_YKnytt/Mono/lib
-cp -u $monodir/lib/libmono-profiler-coverage.so $monodir/lib/libmono-profiler-log.so $monodir/lib/libMonoSupportW.so data_YKnytt/Mono/lib
+cp -u $monodir/lib/libmono-btls-shared.so $monodir/lib/libmono-native.so $monodir/lib/libMonoPosixHelper.so \
+$monodir/lib/libmono-profiler-aot.so $monodir/lib/libmono-profiler-coverage.so $monodir/lib/libmono-profiler-log.so \
+$monodir/lib/libMonoSupportW.so data_YKnytt/Mono/lib
 
 export LD_LIBRARY_PATH="${monodir}/lib":$LD_LIBRARY_PATH
 

@@ -50,12 +50,12 @@ public class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "right1", "Joy(15)");
         modified |= ensureSetting("Input", "show_info1", "Joy(3)");
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
-        modified |= ensureSetting("Input", "walk1", "Joy(6)");
+        modified |= ensureSetting("Input", "walk1", OS.GetName() != "Unix" ? "Joy(6)" : "Joy(5)");
         modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
         modified |= ensureSetting("Input", "hologram1", "Joy(1)");
-        modified |= ensureSetting("Input", "pause1", "Joy(4)");
-        modified |= ensureSetting("Input", "map1", "Joy(5)");
-        modified |= ensureSetting("Input", "debug_die1", "Joy(11)");
+        modified |= ensureSetting("Input", "pause1", OS.GetName() != "Unix" ? "Joy(4)" : "Joy(11)");
+        modified |= ensureSetting("Input", "map1", OS.GetName() != "Unix" ? "Joy(5)" : "Joy(6)");
+        modified |= ensureSetting("Input", "debug_die1", "Joy(10)");
 
         if (modified) { saveSettings(); }
         applyAllSettings();
@@ -98,8 +98,8 @@ public class GDKnyttKeys : Node
 
     private static Dictionary<string, string> GPTOKEYB_MAPPING = new Dictionary<string, string> {
         ["E"] = "Nintendo B", ["W"] = "Nintendo A", ["S"] = "Nintendo Y", ["Q"] = "Nintendo X",
-        ["Escape"] = "L Bumper", ["M"] = "R Bumper", ["D"] = "R Trigger", ["A"] = "L Trigger",
-        ["F10"] = "Start", ["Z"] = "Select", ["X"] = "Home", ["C"] = "Max", ["V"] = "L3", ["B"] = "R3",
+        ["Z"] = "L Bumper", ["M"] = "L Trigger", ["D"] = "R Trigger", ["A"] = "R Bumper",
+        ["F10"] = "Select", ["Escape"] = "Start", ["X"] = "Home", ["C"] = "Max", ["V"] = "L3", ["B"] = "R3",
         ["Up"] = "D-pad Up", ["Down"] = "D-pad Down", ["Left"] = "D-pad Left", ["Right"] = "D-pad Right",
         ["R"] = "L Stick Push", ["U"] = "R Stick Push",
         ["Y"] = "L Stick Right", ["F"] = "L Stick Left", ["G"] = "L Stick Down", ["T"] = "L Stick Up",
