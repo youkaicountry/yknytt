@@ -23,6 +23,7 @@ public class TouchSettingsScreen : Control
     private void _on_EnableButton_toggled(bool button_pressed)
     {
         TouchSettings.EnablePanel = button_pressed;
+        GetParent<SettingsScreen>()._on_Aspect_value_changed(GDKnyttSettings.Aspect);
     }
 
     private void _on_SwapButton_toggled(bool button_pressed)
