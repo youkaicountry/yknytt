@@ -40,7 +40,7 @@ public class SettingsScreen : BasicScreen
         GetNode<Button>("TabsContainer/TouchTab").Visible = OS.GetName() != "Unix";
         GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
         GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
-        if (OS.GetName() == "Unix")
+        if (OS.GetName() == "Unix" || OS.GetName() == "HTML5")
         {
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
                 .RemoveItem((int)GDKnyttSettings.ShaderType.HQ4X);
@@ -51,6 +51,28 @@ public class SettingsScreen : BasicScreen
     {
         GetNode<Control>("TabsContainer/GeneralTab").GrabFocus();
     }
+
+    /* Use it after theme is adjusted
+    +hint_tooltip = "Toggle between fullscreen and windowed mode"
+    +hint_tooltip = "Use smooth high resolution scaling instead of pixelated (nearest neighbor)"
+    +hint_tooltip = "Show a white screen when respawning instead of instant teleport"
+    +hint_tooltip = "Show an arrow under Juni on switches and jump platforms"
+    +hint_tooltip = "Fold the umbrella for higher jumps"
+    +hint_tooltip = "Use integer resolution scales, or take 100% width or height"
+    +hint_tooltip = "Amount of visible area"
+    +hint_tooltip = "Smoothly scroll the camera between areas"
+    +hint_tooltip = "Show a border around the game area"
+    +hint_tooltip = "Show the map in levels that don't have it, but don't hide it intentionally"
+    +hint_tooltip = "Show the map as an image"
+    +hint_tooltip = "Apply a visual filter to the game"
+    +hint_tooltip = "Download all save files in a zip"
+    +hint_tooltip = "Control online features and achievement tracking"
+    +hint_tooltip = "Overall game volume"
+    +hint_tooltip = "Background music volume"
+    +hint_tooltip = "Ambient sound effects volume"
+    +hint_tooltip = "Sound effects volume"
+    +hint_tooltip = "How much sound effects pan left/right based on position"
+    */
 
     public override void goBack()
     {

@@ -361,7 +361,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Fullscreen", "0");
         modified |= ensureSetting("Graphics", "Smooth Scaling", "1");
         modified |= ensureSetting("Graphics", "Seamless", "0");
-        modified |= ensureSetting("Graphics", "Aspect", "0.4");
+        modified |= ensureSetting("Graphics", "Aspect", (0.4f).ToString());
         modified |= ensureSetting("Graphics", "Border", Mobile && TouchSettings.isHandsOverlapping() ? "1" : "0");
         modified |= ensureSetting("Graphics", "Forced Map", "1");
         modified |= ensureSetting("Graphics", "Detailed Map", "1");

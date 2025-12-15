@@ -73,7 +73,7 @@ public class TouchSettings : Node
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Enable", GDKnyttSettings.Mobile ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swap", "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", "1");
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", OS.GetName() != "HTML5" ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (GDKnyttSettings.Mobile && !isHandsOverlapping() ? 1 : 0.85).ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");

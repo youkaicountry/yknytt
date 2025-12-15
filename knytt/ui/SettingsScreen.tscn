@@ -210,7 +210,7 @@ rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../../BackButton")
 focus_neighbour_right = NodePath("../../Graphics2/MapContainer/ForcedMap")
 focus_neighbour_bottom = NodePath("../../../BackButton")
-text = "Stow Umbrella On Jump"
+text = "Fold Umbrella on Jump"
 
 [node name="Graphics2" type="VBoxContainer" parent="GeneralContainer"]
 margin_left = 168.0

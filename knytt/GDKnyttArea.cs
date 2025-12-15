@@ -167,7 +167,7 @@ public class GDKnyttArea : Node2D
 
     public void destroyArea()
     {
-        if (Area.Empty) { return; }
+        if (Area.Empty) { QueueFree(); return; }
         if (active && this.Objects != null) { Objects.returnObjects(); }
         GDWorld.AssetManager.returnTileSet(Area.TilesetA);
         GDWorld.AssetManager.returnTileSet(Area.TilesetB);
