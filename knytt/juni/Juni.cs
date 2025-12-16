@@ -424,7 +424,7 @@ public class Juni : KinematicBody2D
     
     private void checkDebugInput()
     {
-        if (Input.IsActionJustPressed("debug_die")) { die(); }
+        if (Input.IsActionJustPressed("debug_die") && Input.IsActionPressed("debug_die")) { die(); }
         if (Input.IsActionJustPressed("debug_save")) { Game.saveGame(this, true); }
         if (Input.IsActionJustPressed("debug_iddqd")) { Immune = !Immune; }
         if (Input.IsActionJustPressed("debug_ui")) { Game.UI.Location.toggle(); }

@@ -146,10 +146,11 @@ public class DirectoriesScreen : Control
         updatePaths();
     }
 
-    private void _on_BackupFileDialog_file_selected(String path)
+    private void _on_BackupFileDialog_dir_selected(String dir)
     {
         try
         {
+            string path = dir.PlusFile("yknytt-saves.zip");
             if (new Directory().FileExists(path)) { new Directory().Remove(path); }
             ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, path);
             error_label.Text = $"{path} was successfully created.";
@@ -164,5 +165,16 @@ public class DirectoriesScreen : Control
     {
         gamepadArrowsMode(tab: false);
         GetNode<Button>("WorldsContainer/ChangeButton").GrabFocus();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (GDKnyttDataStore.GptokeybMode && GetFocusOwner().FindParent("*FileDialog") != null)
+        {
+            Control next_focus = null;
+            if (Input.IsActionPressed("ui_left")) { next_focus = GetFocusOwner().FindPrevValidFocus(); }
+            if (Input.IsActionPressed("ui_right")) { next_focus = GetFocusOwner().FindNextValidFocus(); }
+            if (next_focus != null) {  next_focus.GrabFocus(); GetTree().SetInputAsHandled(); }
+        }
     }
 }

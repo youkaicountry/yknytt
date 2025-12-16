@@ -70,7 +70,7 @@ public class UICanvasLayer : CanvasLayer
 
         if (Input.IsActionJustPressed("map") && Game.hasMap()) { mapPanel.ShowMap(true); }
 
-        if (Input.IsActionJustPressed("show_info"))
+        if (Input.IsActionJustPressed("show_info") && Input.IsActionPressed("show_info"))
         {
             togglePanel();
             GetNode<Timer>("StayTimer").Start();

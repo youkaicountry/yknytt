@@ -36,6 +36,7 @@ public abstract class BasicScreen : CanvasLayer
         {
             GetTree().SetInputAsHandled();
             if (focused is PopupMenu pm) { pm.Hide(); return; }
+            if (focused?.FindParent("*FileDialog") is FileDialog fd) { fd.Hide(); return; }
             goBack();
         }
     }

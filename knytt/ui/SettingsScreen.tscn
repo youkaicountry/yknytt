@@ -1208,8 +1208,9 @@ access = 2
 margin_right = 216.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 500, 210 )
-window_title = "Backup all save files in a zip"
+window_title = "Backup all save files in yknytt-saves.zip"
 mode_overrides_title = false
+mode = 2
 access = 2
 
 [node name="AudioContainer" type="VBoxContainer" parent="."]
@@ -1451,7 +1452,7 @@ step = 0.02
 [connection signal="popup_hide" from="DirContainer/WorldsFileDialog" to="DirContainer" method="_on_FileDialog_popup_hide"]
 [connection signal="dir_selected" from="DirContainer/SavesFileDialog" to="DirContainer" method="_on_SavesFileDialog_dir_selected"]
 [connection signal="popup_hide" from="DirContainer/SavesFileDialog" to="DirContainer" method="_on_FileDialog_popup_hide"]
-[connection signal="file_selected" from="DirContainer/BackupFileDialog" to="DirContainer" method="_on_BackupFileDialog_file_selected"]
+[connection signal="dir_selected" from="DirContainer/BackupFileDialog" to="DirContainer" method="_on_BackupFileDialog_dir_selected"]
 [connection signal="popup_hide" from="DirContainer/BackupFileDialog" to="DirContainer" method="_on_FileDialog_popup_hide"]
 [connection signal="value_changed" from="AudioContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
 [connection signal="value_changed" from="AudioContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
