@@ -27,7 +27,7 @@ public class InfoScreen : BasicScreen
 
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
         {
-            GetNode<Button>("%ComplainButton").Disabled = GetNode<Button>("%StatsButton").Disabled = true;
+            GetNode<Button>("%StatsButton").Disabled = true;
         }
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline || OS.GetName() == "Unix")
         {
@@ -76,7 +76,6 @@ public class InfoScreen : BasicScreen
         GetNode<Button>("%Uninstall/MainButton").Disabled =
         GetNode<Button>("%OptimizeButton").Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
-        GetNode<Button>("%ComplainButton").Disabled = KWorld.WorldDirectory.StartsWith("res://");
 
         if (world_entry == null)
         {
@@ -294,6 +293,8 @@ public class InfoScreen : BasicScreen
             f.Open(endings_flag_name, File.ModeFlags.Write);
             f.Close();
         }
+
+        if (!KWorld.WorldDirectory.StartsWith("res://")) { GetNode<Button>("%ComplainButton").Disabled = false; }
     }
 
     private void _on_StatsButton_pressed()
@@ -473,8 +474,9 @@ public class InfoScreen : BasicScreen
     {
         string[] nodes_to_disable = { "InfoRect/BackButton",
             "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button",
-            "%OptimizeButton", "%ComplainButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
+            "%OptimizeButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
+        bool complain_disabled = GetNode<Button>("%ComplainButton").Disabled;
         closeOtherSlots(-1);
         hint_label.Text = "Unpacking and/or compiling level tilesets.";
         await ToSignal(GetTree(), "idle_frame");
@@ -497,6 +499,7 @@ public class InfoScreen : BasicScreen
         GDKnyttDataStore.ProgressHint = unpacked ? "Level was unpacked and compiled." : "Level tilesets have been compiled.";
         _on_HintTimer_timeout();
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = false; }
+        GetNode<Button>("%ComplainButton").Disabled = complain_disabled;
     }
 
     private void _on_HintTimer_timeout()

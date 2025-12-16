@@ -48,6 +48,7 @@ public class PausePanel : Control
     {
         GetTree().Paused = false;
         Input.ActionRelease("pause");
+        foreach (var a in Cutscene.actions) if (Input.IsActionJustPressed(a)) { Input.ActionRelease(a); }
         GetNode<GDKnyttGame>("../../..").Juni.Powers.adjustPlayingTime((int)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - start_time));
         GetParent().QueueFree();
     }

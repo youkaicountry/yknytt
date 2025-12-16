@@ -126,7 +126,7 @@ public class Cutscene : Control
         }
     }
 
-    private static readonly string[] actions = {"left", "right", "up", "down",
+    public static readonly string[] actions = {"left", "right", "up", "down",
         "show_info", "debug_die", "umbrella", "walk", "jump", "hologram"};
 
     public static void releaseAll()
