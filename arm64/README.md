@@ -9,7 +9,7 @@
 |Info|X|
 |Hologram|A or press Down twice|
 |Map|L Trigger|
-|Pause / Escape|Start|
+|Pause|Start|
 |Die|Select|
 |UI Accept|Y, B, A|
 |UI Back|X|

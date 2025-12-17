@@ -511,7 +511,7 @@ margin_bottom = 189.0
 rect_min_size = Vector2( 0, 23 )
 focus_neighbour_left = NodePath("../../../BackButton")
 Action = "pause"
-ActionLabel = "Pause / Cancel"
+ActionLabel = "Pause"
 
 [node name="ToBack" type="Label" parent="KeysContainer/SettingsContainer"]
 margin_top = 193.0
@@ -521,14 +521,25 @@ rect_min_size = Vector2( 0, 15 )
 focus_mode = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Info + Umbrella + Left/Right to adjust height"
+text = "Accept - Enter, XBox X/A; Back - Backspace, XBox B"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
+margin_top = 212.0
+margin_right = 301.0
+margin_bottom = 227.0
+rect_min_size = Vector2( 0, 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Info + Pause (or `) to show console"
 align = 1
 valign = 1
 
 [node name="Label2" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 212.0
+margin_top = 231.0
 margin_right = 301.0
-margin_bottom = 227.0
+margin_bottom = 246.0
 rect_min_size = Vector2( 0, 15 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
@@ -536,14 +547,14 @@ text = "Info + Umbrella + Down for emergency save (use carefully)"
 align = 1
 valign = 1
 
-[node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 231.0
+[node name="Label3" type="Label" parent="KeysContainer/SettingsContainer"]
+margin_top = 250.0
 margin_right = 301.0
-margin_bottom = 246.0
+margin_bottom = 265.0
 rect_min_size = Vector2( 0, 15 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Info + Pause (or `) to show console"
+text = "Info + Umbrella + Left/Right to adjust height"
 align = 1
 valign = 1
 

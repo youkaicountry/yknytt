@@ -270,7 +270,9 @@ public class MapPanel : Panel
 
     public override void _Process(float delta)
     {
-        if (Input.IsActionJustPressed("map") || Input.IsActionJustPressed("pause")) { ShowMap(false); }
+        if (Input.IsActionJustPressed("map") || 
+            Input.IsActionJustPressed("pause") || 
+            Input.IsActionJustPressed("ui_back")) { ShowMap(false); }
     }
 
     private void drag(Vector2 diff)

@@ -38,7 +38,7 @@ public class InputScreen : Control
     public override void _Input(InputEvent @event)
     {
         if (collecting == null) { return; }
-        if (@event.IsActionPressed("pause") || GDKnyttKeys.setAction(collecting.Action + cnum, @event))
+        if (/*@event.IsActionPressed("pause") || */GDKnyttKeys.setAction(collecting.Action + cnum, @event))
         {
             finishCollecting();
             GetTree().SetInputAsHandled();
