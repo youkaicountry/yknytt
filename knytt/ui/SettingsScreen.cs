@@ -45,6 +45,10 @@ public class SettingsScreen : BasicScreen
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
                 .RemoveItem((int)GDKnyttSettings.ShaderType.HQ4X);
         }
+        if (OS.GetName() == "Unix")
+        { 
+            GetNode<Label>("KeysContainer/SettingsContainer/ToBack").Text = "Accept - Nintendo A/B/Y; Back - Nintendo X";
+        }
     }
 
     public override void initFocus()
@@ -116,11 +120,10 @@ public class SettingsScreen : BasicScreen
     {
         float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
         if (window_x_fixed < 600) { window_x_fixed = 600; }
-        GetNode<Slider>("GeneralContainer/Graphics2/Aspect").MinValue = 
-            Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
-        GetNode<Slider>("GeneralContainer/Graphics2/Aspect").MaxValue = 
-            1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
-        GetNode<Slider>("GeneralContainer/Graphics2/Aspect").Value = value;
+        Slider slider = GetNode<Slider>("GeneralContainer/Graphics2/Aspect");
+        slider.MinValue = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
+        slider.MaxValue = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
+        slider.Value = value;
     }
 
     public void _on_Aspect_value_changed(float value)
