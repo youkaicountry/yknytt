@@ -7,6 +7,7 @@ public abstract class BasicScreen : CanvasLayer
     public override void _Ready()
     {
         ActiveScreen = this;
+        if (OS.GetName() == "Unix" && BackButton != null) { BackButton.Text = "Back (X)"; }
     }
 
     public abstract void initFocus();
@@ -28,9 +29,11 @@ public abstract class BasicScreen : CanvasLayer
 
     protected virtual void backEvent() {}
 
+    private Button BackButton => GetNodeOrNull<Button>("BackButton") ?? GetNodeOrNull<Button>("%BackButton");
+
     public override void _Input(InputEvent @event)
     {
-        var focused = GetNodeOrNull<Button>("BackButton")?.GetFocusOwner();
+        var focused = BackButton?.GetFocusOwner();
         if ((@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu")) && 
             ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {

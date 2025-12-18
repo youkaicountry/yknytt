@@ -76,6 +76,8 @@ public class InfoScreen : BasicScreen
         GetNode<Button>("%Uninstall/MainButton").Disabled =
         GetNode<Button>("%OptimizeButton").Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
+        GetNode<Button>("%OptimizeButton").Disabled |=
+            !KWorld.BinMode && KWorld.WorldDirectory.StartsWith(GDKnyttDataStore.BaseDataDirectory);
 
         if (world_entry == null)
         {
@@ -456,31 +458,32 @@ public class InfoScreen : BasicScreen
                (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
     }
 
-    private void _on_OptimizeButton_pressed()
+    private async void _on_OptimizeButton_pressed()
     {
         ClickPlayer.Play();
         if (OS.GetName() != "HTML5" && OS.GetName() != "Unix")
         {
             GetNode<Timer>("HintTimer").Start();
-            Task.Run(optimize);
+            _ = Task.Run(optimize);
         }
         else
         {
+            hint_label.Text = "Unpacking and/or compiling level tilesets...";
+            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "idle_frame");
             optimize();
         }
     }
 
-    private async void optimize()
+    private void optimize()
     {
+        GetNode<Button>("%OptimizeButton").Disabled = true;
         string[] nodes_to_disable = { "InfoRect/BackButton",
             "InfoRect/Slot1Button", "InfoRect/Slot2Button", "InfoRect/Slot3Button",
-            "%OptimizeButton", "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
+            "%Uninstall/MainButton", "%Uninstall/ConfirmButton" };
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = true; }
         bool complain_disabled = GetNode<Button>("%ComplainButton").Disabled;
         closeOtherSlots(-1);
-        hint_label.Text = "Unpacking and/or compiling level tilesets.";
-        await ToSignal(GetTree(), "idle_frame");
-        await ToSignal(GetTree(), "idle_frame");
 
         bool from_external = GDKnyttSettings.WorldsDirectory != "" && KWorld.WorldDirectory.StartsWith(GDKnyttSettings.WorldsDirectory);
         bool unpacked = false;
