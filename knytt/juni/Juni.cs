@@ -16,7 +16,7 @@ public class Juni : KinematicBody2D
     LOW_JUMP_HOLD_POWER = 125f,                 // Y Force exerted while holding jump (125 in original)
     HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power (550 in original)
     LOW_JUMP_EXTRA_GRAVITY = 100f,              // Y Force added to gravity when Juni has no high jump power (not from the original)
-    JUST_CLIMBED_TIME = .085f,                  // Time after a jump considered (just jumped)
+    JUST_CLIMBED_TIME = .085f,                  // Time for horizontal movement after climbing
     FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump (4 in original + 1 extra frame)
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
     MAX_SPEED_RUN = 175f,                       // Max speed while running

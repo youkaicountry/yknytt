@@ -59,8 +59,14 @@ public class GameButton : GDKnyttButton
         if (HasFocus()) { _on_GameButton_ShowHint(hint); }
     }
 
-    public void _on_GameButton_pressed()
+    public async void _on_GameButton_pressed()
     {
+        GetNode<AnimatedSprite>("AnimatedSprite").Visible = true;
+        GetNode<AnimatedSprite>("AnimatedSprite").Frame = 0;
+        GetNode<Control>("MainContainer").Visible = false;
+        if (worldEntry.HasServerInfo) { ratingControl.Visible = false; }
+        await ToSignal(GetTree(), "idle_frame");
+        await ToSignal(GetTree(), "idle_frame");
         EmitSignal(nameof(GamePressed), this);
     }
 
@@ -101,6 +107,13 @@ public class GameButton : GDKnyttButton
         setProgress(1, new Color(1f, 1f, 1f, 0));
     }
 
+    public void refreshLoaded()
+    {
+        GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
+        GetNode<Control>("MainContainer").Visible = true;
+        if (worldEntry.HasServerInfo) { ratingControl.Visible = true; }
+    }
+    
     public void incDownloads()
     {
         var label = GetNode<Label>("RatingControl/DownloadsLabel");

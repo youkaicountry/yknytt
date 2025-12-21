@@ -126,7 +126,6 @@ align = 1
 
 [node name="NoRate" type="Label" parent="InfoRect/RatePanel/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 margin_top = 16.0
 margin_right = 140.0
 margin_bottom = 44.0
@@ -134,6 +133,7 @@ rect_min_size = Vector2( 0, 28 )
 
 [node name="Rate" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 9 )]
 unique_name_in_owner = true
+visible = false
 margin_top = 16.0
 margin_bottom = 44.0
 

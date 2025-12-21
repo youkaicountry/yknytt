@@ -29,11 +29,6 @@ public class InfoScreen : BasicScreen
         {
             GetNode<Button>("%StatsButton").Disabled = true;
         }
-        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline || OS.GetName() == "Unix")
-        {
-            GetNode<StarRate>("%Rate").Visible = false;
-            GetNode<Control>("%NoRate").Visible = true;
-        }
     }
 
     public override void initFocus()
@@ -183,11 +178,23 @@ public class InfoScreen : BasicScreen
                 $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
             return;
         }
+
+        if ((response_code == 200 || response_code == 404) && !KWorld.WorldDirectory.StartsWith("res://"))
+        {
+            GetNode<Button>("%ComplainButton").Disabled = false;
+        }
+
         var stat_panel = GetNode<StatPanel>("InfoRect/StatPanel");
         if (response_code != 200)
         {
             stat_panel.addLabel("Level not found");
             return;
+        }
+
+        if (OS.GetName() != "Unix")
+        {
+            GetNode<StarRate>("%Rate").Visible = true;
+            GetNode<Control>("%NoRate").Visible = false;
         }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
@@ -295,8 +302,6 @@ public class InfoScreen : BasicScreen
             f.Open(endings_flag_name, File.ModeFlags.Write);
             f.Close();
         }
-
-        if (!KWorld.WorldDirectory.StartsWith("res://")) { GetNode<Button>("%ComplainButton").Disabled = false; }
     }
 
     private void _on_StatsButton_pressed()

@@ -40,14 +40,11 @@ public class SettingsScreen : BasicScreen
         GetNode<Button>("TabsContainer/TouchTab").Visible = OS.GetName() != "Unix";
         GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
         GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
+        GetNode<Label>("KeysContainer/SettingsContainer/LabelExit").Visible = GDKnyttDataStore.GptokeybMode;
         if (OS.GetName() == "Unix" || OS.GetName() == "HTML5")
         {
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
                 .RemoveItem((int)GDKnyttSettings.ShaderType.HQ4X);
-        }
-        if (OS.GetName() == "Unix")
-        { 
-            GetNode<Label>("KeysContainer/SettingsContainer/ToBack").Text = "Accept - Nintendo A/B/Y; Back - Nintendo X";
         }
     }
 
