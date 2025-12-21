@@ -93,7 +93,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=21]
-radius = 8.0
+radius = 5.5
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 11.8, 11.8 )
@@ -146,7 +146,7 @@ centered = false
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Circle/Area2D"]
-position = Vector2( 12, 12 )
+position = Vector2( 12.5, 12.5 )
 shape = SubResource( 21 )
 
 [node name="Square" type="Node2D" parent="Shapes"]

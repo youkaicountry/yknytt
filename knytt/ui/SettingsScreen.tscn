@@ -547,6 +547,17 @@ text = "Info + Umbrella + Down for emergency save (use carefully)"
 align = 1
 valign = 1
 
+[node name="LabelExit" type="Label" parent="KeysContainer/SettingsContainer"]
+margin_top = 462.0
+margin_right = 301.0
+margin_bottom = 477.0
+rect_min_size = Vector2( 0, 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Select + Start for emergency exit"
+align = 1
+valign = 1
+
 [node name="KSSettingsContainer" type="VBoxContainer" parent="KeysContainer"]
 margin_left = 252.0
 margin_right = 513.571

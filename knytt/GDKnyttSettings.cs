@@ -4,6 +4,7 @@ using IniParser.Model;
 using IniParser.Parser;
 using YKnyttLib;
 using System.Linq;
+using System.Globalization;
 
 public class GDKnyttSettings : Node
 {
@@ -397,7 +398,7 @@ public class GDKnyttSettings : Node
     {
         Fullscreen = ini["Graphics"]["Fullscreen"].Equals("1") ? true : false;
         SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
-        Aspect = float.Parse(ini["Graphics"]["Aspect"]);
+        Aspect = floatParse(ini["Graphics"]["Aspect"]);
         SeamlessScroll = ini["Graphics"]["Seamless"].Equals("1") ? true : false;
         Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
         ForcedMap = ini["Graphics"]["Forced Map"].Equals("1") ? true : false;
@@ -410,9 +411,15 @@ public class GDKnyttSettings : Node
         MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
-        EffectsPanning = float.Parse(ini["Audio"]["Effects Panning"]);
-        StickSensitivity = float.Parse(ini["Misc"]["Stick Sensitivity"]);
+        EffectsPanning = floatParse(ini["Audio"]["Effects Panning"]);
+        StickSensitivity = floatParse(ini["Misc"]["Stick Sensitivity"]);
         LeftStickMovement = ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false;
+    }
+
+    private static float floatParse(string s)
+    {
+        var sep = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        return float.Parse(s.Replace(".", sep).Replace(",", sep));
     }
 
     public static void saveSettings()

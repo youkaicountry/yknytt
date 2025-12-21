@@ -494,6 +494,7 @@ public class LevelSelection : BasicScreen
         {
             var info_screen = info_scene.Instance() as InfoScreen;
             info_screen.initialize(button.worldEntry);
+            button.refreshLoaded();
             loadScreen(info_screen);
         }
     }
