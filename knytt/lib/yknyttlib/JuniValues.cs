@@ -57,6 +57,7 @@ namespace YKnyttLib
         public int TotalTimeNow { get { return TotalTime + (int)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - current_time_start); } }
         private long current_time_start;
         public void adjustPlayingTime(int delay) { current_time_start += delay; }
+        public bool KSSave { get; private set; }
 
         private static readonly int VISITED_LIMIT = 160_000_000; // TODO: visited areas don't work on large levels // max save file size ~= 10MB
 
@@ -250,6 +251,7 @@ namespace YKnyttLib
             HardestPlace = save.HardestPlace;
             TotalTime = save.TotalTime;
             current_time_start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            KSSave = save.KSSave;
         }
     }
 }

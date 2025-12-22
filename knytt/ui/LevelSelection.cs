@@ -462,7 +462,7 @@ public class LevelSelection : BasicScreen
         finished_entries = new ConcurrentQueue<WorldEntry>(worlds);
     }
 
-    public void _on_GamePressed(GameButton button)
+    public async void _on_GamePressed(GameButton button)
     {
         if (button.worldEntry.Path == null)
         {
@@ -492,9 +492,13 @@ public class LevelSelection : BasicScreen
         }
         else
         {
+            button.refreshLoaded(before: true);
+            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "idle_frame");
             var info_screen = info_scene.Instance() as InfoScreen;
-            info_screen.initialize(button.worldEntry);
-            button.refreshLoaded();
+            info_screen.initialize(button.worldEntry); // can be done in another thread, and you will see an animation
+            info_screen.initialize(info_screen.KWorld);
+            button.refreshLoaded(before: false);
             loadScreen(info_screen);
         }
     }

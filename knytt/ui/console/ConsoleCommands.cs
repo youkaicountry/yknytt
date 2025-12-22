@@ -218,6 +218,7 @@ public static class ConsoleCommands
                     }
                     save.SourcePowers = new JuniValues();
                     save.SourcePowers.readFromSave(save);
+                    if (save.SourcePowers.KSSave) { game.sendCheat(); }
                     game.GDWorld.KWorld.CurrentSave = save;
                     game.saveGame(save);
                     game.Juni.die();

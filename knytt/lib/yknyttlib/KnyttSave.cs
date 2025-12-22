@@ -238,6 +238,10 @@ namespace YKnyttLib
             set { setValue("Extras", "Total Time", value.ToString()); }
         }
 
+        public bool KSSave => data["Extras"].ContainsKey("Show Edge");
+        
+        public void RemoveKSMark() { data["Extras"].RemoveKey("Show Edge"); }
+
         public KnyttPoint getArea()
         {
             return new KnyttPoint(
