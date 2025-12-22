@@ -44,21 +44,20 @@ public class InfoScreen : BasicScreen
 
     public void initialize(WorldEntry world_entry)
     {
-        var kworld = new GDKnyttWorldImpl();
+        KWorld = new GDKnyttWorldImpl();
         this.world_entry = world_entry;
         if (new Directory().DirExists(world_entry.Path))
         {
-            kworld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
+            KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
         else
         {
             var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path));
-            kworld.setBinMode(loader);
-            kworld.setDirectory(world_entry.Path, loader.RootDirectory);
+            KWorld.setBinMode(loader);
+            KWorld.setDirectory(world_entry.Path, loader.RootDirectory);
         }
-        string ini = GDKnyttAssetManager.loadTextFileRaw(kworld.getWorldData("World.ini"));
-        kworld.loadWorldConfig(ini);
-        initialize(kworld);
+        string ini = GDKnyttAssetManager.loadTextFileRaw(KWorld.getWorldData("World.ini"));
+        KWorld.loadWorldConfig(ini);
     }
 
     public void initialize(GDKnyttWorldImpl kworld)
@@ -68,11 +67,22 @@ public class InfoScreen : BasicScreen
         hint_label = GetNode<Label>("InfoRect/HintLabel");
         complete_option = GetNode<OptionButton>("%CompleteOption");
 
-        GetNode<Button>("%Uninstall/MainButton").Disabled =
-        GetNode<Button>("%OptimizeButton").Disabled =
+        var optimize_button = GetNode<GDKnyttButton>("%OptimizeButton");
+        GetNode<Button>("%Uninstall/MainButton").Disabled = optimize_button.Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");
-        GetNode<Button>("%OptimizeButton").Disabled |=
-            !KWorld.BinMode && KWorld.WorldDirectory.StartsWith(GDKnyttDataStore.BaseDataDirectory);
+
+        if (!KWorld.BinMode)
+        {
+            if (KWorld.WorldDirectory.StartsWith(GDKnyttDataStore.BaseDataDirectory))
+            { 
+                optimize_button.Disabled = true;
+            }
+            else 
+            { 
+                optimize_button.Text = "Compile"; 
+                optimize_button.hint = "Compile level tilesets into polygons (faster screen transition)";
+            }
+        }
 
         if (world_entry == null)
         {
@@ -126,6 +136,7 @@ public class InfoScreen : BasicScreen
                                     GDKnyttAssetManager.loadTextFile(filename),
                                     slot);
 
+        if (new_save) { save.RemoveKSMark(); }
         KWorld.CurrentSave = save;
         GDKnyttDataStore.KWorld = KWorld;
         GDKnyttDataStore.startGame(new_save);
@@ -490,10 +501,8 @@ public class InfoScreen : BasicScreen
         bool complain_disabled = GetNode<Button>("%ComplainButton").Disabled;
         closeOtherSlots(-1);
 
-        bool from_external = GDKnyttSettings.WorldsDirectory != "" && KWorld.WorldDirectory.StartsWith(GDKnyttSettings.WorldsDirectory);
         bool unpacked = false;
-        // if (KWorld.BinMode && (!from_external || GDKnyttSettings.WorldsDirForDownload)) // use as downloader
-        if (KWorld.BinMode && !from_external)
+        if (KWorld.BinMode)
         {
             string dir = KWorld.WorldDirectory.GetBaseDir().PlusFile(KWorld.WorldDirectoryName);
             setIniValue(null, dir);

@@ -101,6 +101,7 @@ public class GDKnyttGame : Node2D
         Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
         Juni.Connect(nameof(Juni.PowerChanged), this, nameof(sendPowerUpdate));
         Juni.Connect(nameof(Juni.Died), Deaths, nameof(Deaths.onDied));
+        if (Juni.Powers.KSSave) { sendCheat(); }
     }
 
     public async void respawnJuniWithWSOD()

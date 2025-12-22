@@ -164,7 +164,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 65, 30 )
-text = "Optimize"
+text = "Unpack+"
 hint = "Use this to avoid keeping a large level in memory"
 
 [node name="Label" type="Label" parent="InfoRect/RatePanel/VBoxContainer/CompContainer"]
