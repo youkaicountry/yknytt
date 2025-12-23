@@ -14,6 +14,7 @@ public class MapViewports : Node2D
     private KnyttWorld KWorld;
     private string cache_dir;
     private bool internal_cache;
+    private KnyttPoint last_area_key;
 
     public override void _Ready()
     {
@@ -46,7 +47,7 @@ public class MapViewports : Node2D
 
     public void addArea(GDKnyttArea area)
     {
-        if (KWorld == null || area == null) { return; }
+        if (KWorld == null || area == null || internal_cache) { return; }
         var key = getKey(area.Area.MapPosition);
         if (!viewports.ContainsKey(key))
         {
@@ -55,10 +56,8 @@ public class MapViewports : Node2D
             AddChild(tile);
             viewports.Add(key, tile);
         }
-        if (!internal_cache)
-        {
-            viewports[key].addArea(area);
-        }
+        viewports[key].addArea(area);
+        last_area_key = key;
     }
 
     public (Rect2, Texture) getArea(KnyttPoint coord)
@@ -100,7 +99,14 @@ public class MapViewports : Node2D
             if (viewports[key].dump())
             {
                 viewports[key].reset();
-                viewports[key].refresh();
+                map_images[key] = viewports[key].refresh();
+                if (!latest_images.Contains(key)) { latest_images.Enqueue(key); }
+                if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
+            }
+            else if (!key.Equals(last_area_key))
+            {
+                viewports[key].QueueFree();
+                viewports.Remove(key);
             }
         }
     }
