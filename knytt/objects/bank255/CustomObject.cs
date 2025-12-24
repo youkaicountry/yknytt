@@ -25,14 +25,12 @@ public class CustomObject : GDKnyttBaseObject
     protected AnimatedSprite sprite;
     public GDKnyttBaseObject node;
     private int counter = 0;
-    private static Dictionary<(string, int), SpriteFrames> oco_cache = new Dictionary<(string, int), SpriteFrames>();
+    private int cache_key;
+    private static Dictionary<int, SpriteFrames> oco_cache = new Dictionary<int, SpriteFrames>();
+    private static SpriteFrames custom_frames;
+    private static Dictionary<int, int> not_used = new Dictionary<int, int>();
+    private static int AREAS_BEFORE_CLEAN = 10; // more than distance to an average next checkpoint
 
-    // TODO: load textures in _Initialize and loadArea in a background thread, because loading may take a long time
-    // Currently _Initialize is called in activateArea, and there is no way to do some initializations before it
-    // GDKnyttObjectLayer.addObject should be split in two: getNode for loadArea, and addChild for activateArea
-    // Nodes must be stored somehow, since they are not in the tree (to prevent _Ready execution)
-    // Or just give up, because it's a lot of changes and seems it's noticable only for image loading in custom objects
-    // (and only first time, because cache is implemented)
     public override void _Ready()
     {
         string mod = ObjectID.x == 254 ? "B" : "";
@@ -41,6 +39,8 @@ public class CustomObject : GDKnyttBaseObject
         if (section == null) { QueueFree(); Deleted = true; return; }
 
         sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        custom_frames = sprite.Frames;
+        cache_key = ObjectID.y + (ObjectID.x == 254 ? 256 : 0);
 
         int bank = getInt(section, "Bank", -1);
         int obj = getInt(section, "Object", -1);
@@ -76,7 +76,7 @@ public class CustomObject : GDKnyttBaseObject
         info.anim_to = getInt(section, "Init AnimTo", info.anim_to);
         info.anim_loopback = getInt(section, "Init AnimLoopback", info.anim_loopback);
 
-        if (fillAnimation($"{GDArea.GDWorld.KWorld.WorldDirectoryName} custom{mod}{ObjectID.y}")) { sprite.Play(); }
+        if (fillAnimation(cache_key.ToString())) { sprite.Play(); }
     }
 
     private static string getString(KeyDataCollection section, string key)
@@ -106,7 +106,6 @@ public class CustomObject : GDKnyttBaseObject
             }
         }
 
-        var cache_key = (GDArea.GDWorld.KWorld.WorldDirectoryName, ObjectID.y + (ObjectID.x == 254 ? 256 : 0));
         if (oco_cache.ContainsKey(cache_key))
         {
             obj.CustomAnimation = true;
@@ -164,6 +163,8 @@ public class CustomObject : GDKnyttBaseObject
 
     protected bool fillAnimation(string animation_name)
     {
+        if (not_used.TryGetValue(cache_key, out int i) && i == -1) { return false; }
+
         bool has_alpha_animation = sprite.Frames.HasAnimation(animation_name);
         bool has_replace_animation = sprite.Frames.HasAnimation(animation_name + " replace");
         if (has_replace_animation) { animation_name += " replace"; }
@@ -173,10 +174,10 @@ public class CustomObject : GDKnyttBaseObject
             if (info.image == null) { return false; }
             var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
 
-            // If texture wasn't loaded, create empty animation, don't try to load it every time
+            // If texture wasn't loaded, don't try to load it every time
             if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)
             {
-                sprite.Frames.AddAnimation(animation_name);
+                not_used[cache_key] = -1;
                 return false;
             }
 
@@ -192,6 +193,7 @@ public class CustomObject : GDKnyttBaseObject
         sprite.Animation = animation_name;
         sprite.Frame = info.anim_from;
         if (!has_replace_animation) { sprite.Material = null; } // or if (has_alpha_animation)
+        not_used[cache_key] = 0;
         return true;
     }
 
@@ -222,8 +224,25 @@ public class CustomObject : GDKnyttBaseObject
         sprite.Play();
     }
 
+    public static void cleanUnused()
+    {
+        foreach (var key in not_used.Keys.ToArray())
+        {
+            if (key != 0 && not_used[key] != -1) { not_used[key]++; } // not coins, artifacts, failed images
+            if (not_used[key] > AREAS_BEFORE_CLEAN)
+            {
+                if (custom_frames.HasAnimation($"{key}")) { custom_frames.RemoveAnimation($"{key}"); }
+                if (custom_frames.HasAnimation($"{key} replace")) { custom_frames.RemoveAnimation($"{key} replace"); }
+                not_used.Remove(key);
+            }
+        }
+    }
+
     public static void clean()
     {
         oco_cache.Clear();
+        not_used.Clear();
+        custom_frames?.ClearAll();
+        custom_frames = null;
     }
 }
