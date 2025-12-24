@@ -320,6 +320,7 @@ public class GDKnyttGame : Node2D
         if (old_area_swim && !CurrentArea.Swim) { Juni.Swim = true; Juni.Swim = false; } // boost when exit swim area
         if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
         checkTint(area);
+        CustomObject.cleanUnused();
 
         if (Juni.DebugFlyMode) { return; }
         Juni.Powers.setVisited(CurrentArea.Area);
@@ -348,8 +349,8 @@ public class GDKnyttGame : Node2D
 
     public async void quit()
     {
-        CustomObject.clean(); // not neccessary, white screen exit bug is still here
-        GC.Collect();
+        CustomObject.clean();
+        GC.Collect(); // not neccessary, white screen exit bug is still here
         GDKnyttDataStore.CurrentSpeed = 1;
         await fade(fast: false, color: null);
 
