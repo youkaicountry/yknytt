@@ -21,6 +21,7 @@ public class MainMenu : BasicScreen
         initFocus();
         VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
+        if (OS.GetName() == "Unix") { OS.WindowSize = OS.GetScreenSize(); OS.WindowBorderless = OS.WindowMaximized = true; }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
         GetNode<Button>("ButtonRow/TutorialButton").Text =
             new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini")) ? "Continue" : "Tutorial";
