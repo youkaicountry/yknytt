@@ -181,7 +181,7 @@ margin_right = 164.0
 margin_bottom = 66.0
 rect_min_size = Vector2( 0, 33 )
 focus_neighbour_left = NodePath("../../Misc/OfflineDropdown")
-focus_neighbour_right = NodePath("../../Graphics2/Aspect")
+focus_neighbour_right = NodePath("../../Graphics2/Height/IntScale")
 text = "Smooth Scale"
 
 [node name="WSOD" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
@@ -357,10 +357,6 @@ mouse_filter = 2
 margin_right = 164.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 0, 30 )
-focus_neighbour_left = NodePath("../../Graphics2/Aspect")
-focus_neighbour_top = NodePath("../../../TabsContainer/GeneralTab")
-focus_neighbour_right = NodePath("../../Graphics/FullScreen")
-focus_previous = NodePath("../../Graphics2/MapContainer/DetailedMap")
 
 [node name="Shader" parent="GeneralContainer/Misc/ShaderContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0
@@ -406,7 +402,7 @@ margin_right = 164.0
 margin_bottom = 101.0
 rect_min_size = Vector2( 0, 31 )
 focus_neighbour_left = NodePath("../../Graphics2/Seamless")
-focus_neighbour_right = NodePath("../../Graphics/SmoothScale")
+focus_neighbour_right = NodePath("../../Graphics/WSOD")
 focus_neighbour_bottom = NodePath("../../Graphics2/MapContainer/DetailedMap")
 focus_next = NodePath("../../../BackButton")
 text = "Server Interaction: On"
