@@ -3,8 +3,8 @@
   <game>
     <path>./YKnytt.sh</path>
     <name>YKnytt</name>
-    <desc>A remake of the atmospheric platformer Knytt Stories, originally developed by Nifflas. With over 1200 levels!</desc>
-    <releasedate>20180125T000000</releasedate>
+    <desc>A remake of the atmospheric platformer Knytt Stories. With over 1200 community levels!</desc>
+    <releasedate>20260108T000000</releasedate>
     <developer>YoukaiCountry, up-left; Nifflas, egomassive</developer>
     <publisher>-</publisher>
     <genre>Platformer</genre>

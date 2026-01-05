@@ -2,6 +2,7 @@ public class TwoWayPlatform : OneWayPlatform
 {
     private void _on_EnterArea_body_entered(Juni juni)
     {
+        if (juni.juniInput.DownHeld && juni.juniInput.JumpHeld) { disablePlatform(true); }
         juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
         juni.OnPlatform = true;
     }
