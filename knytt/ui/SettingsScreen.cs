@@ -41,6 +41,8 @@ public class SettingsScreen : BasicScreen
         GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
         GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
         GetNode<Label>("KeysContainer/SettingsContainer/LabelExit").Visible = GDKnyttDataStore.GptokeybMode;
+        GetNode<Label>("GeneralContainer/Misc/LabelDetailed").Visible = GDKnyttSettings.DetailedMap;
+        GetNode<Label>("GeneralContainer/Misc/LabelEmpty").RectMinSize = new Vector2(0, OS.GetName() == "HTML5" ? 17 : 52);
         if (OS.GetName() == "Unix" || OS.GetName() == "HTML5")
         {
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
@@ -170,7 +172,9 @@ public class SettingsScreen : BasicScreen
 
     private void _on_DetailedMap_pressed()
     {
-        GDKnyttSettings.DetailedMap = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").Pressed;
+        var detailed = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").Pressed;
+        GetNode<Label>("GeneralContainer/Misc/LabelDetailed").Visible = detailed;
+        GDKnyttSettings.DetailedMap = detailed;
     }
     
     private void _on_Shader_item_selected(int index)

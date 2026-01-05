@@ -807,6 +807,8 @@ public class Juni : KinematicBody2D
         JustClimbed = false;
         CanFreeJump = false;
 
+        Visible = true;
+        StopMotion = false;
         Umbrella.reset();
         stopHologram(cleanup: true);
         enableAttachment(Powers.Attachment);

@@ -409,6 +409,22 @@ text = "Server Interaction: On"
 items = [ "Server Interaction: On", null, false, 0, null, "Achievements Off", null, false, 1, null, "Completely Offline", null, false, 2, null ]
 selected = 0
 
+[node name="LabelEmpty" type="Label" parent="GeneralContainer/Misc"]
+margin_top = 105.0
+margin_right = 164.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 0, 17 )
+
+[node name="LabelDetailed" type="Label" parent="GeneralContainer/Misc"]
+margin_top = 126.0
+margin_right = 164.0
+margin_bottom = 171.0
+custom_colors/font_color = Color( 0.376471, 0.376471, 0.376471, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "If you are experiencing lags at save points, you can turn off detailed maps."
+valign = 1
+autowrap = true
+
 [node name="KeysContainer" type="Control" parent="."]
 visible = false
 margin_left = 20.0

@@ -16,8 +16,14 @@ public class Trigger : Switch
     protected override void _execute(Juni juni)
     {
         juni.juniInput.SwitchHeld = true;
+        KnyttPoint effect_pos;
         
-        if (sound != null) { juni.playSound(sound); }
+        if (sound != null)
+        {
+            var player = GetNode<StandartSoundPlayer>("SoundPlayer");
+            player.KWorld = GDArea.GDWorld.KWorld;
+            player.playSound(sound);
+        }
 
         if (!trigger.ObjectID.Equals(new KnyttPoint(0, 0)))
         {
@@ -25,17 +31,23 @@ public class Trigger : Switch
             if (spawn_points.Count > 0)
             {
                 foreach (var spawn_point in spawn_points) { addObject(spawn_point.Coords); }
+                effect_pos = spawn_points[0].Coords; // only one effect per area, sorry
             }
             else
             {
                 addObject(trigger.AbsolutePosition);
-
-                if (trigger.Effect)
-                {
-                    var offset = new Vector2(trigger.EffectOffset.x, trigger.EffectOffset.y);
-                    GDArea.playEffect(trigger.AbsolutePosition, offset);
-                }
+                effect_pos = trigger.AbsolutePosition;
             }
+        }
+        else
+        {
+            effect_pos = Coords;
+        }
+
+        if (trigger.Effect)
+        {
+            var offset = new Vector2(trigger.EffectOffset.x, trigger.EffectOffset.y);
+            GDArea.playEffect(effect_pos, offset);
         }
 
         var delete_points = GDArea.Objects.findObjects(new KnyttPoint(0, ObjectID.y + 13));
