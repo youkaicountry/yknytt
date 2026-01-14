@@ -263,9 +263,50 @@ custom_styles/normal = SubResource( 2 )
 text = "Cannot connect to the server"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Failsafe" type="VBoxContainer" parent="ConnectionLostLabel"]
+anchor_right = 1.0
+margin_top = 120.0
+
+[node name="Line" type="HBoxContainer" parent="ConnectionLostLabel/Failsafe"]
+margin_right = 600.0
+margin_bottom = 13.0
+alignment = 1
+
+[node name="Label" type="Label" parent="ConnectionLostLabel/Failsafe/Line"]
+margin_left = 127.0
+margin_right = 246.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "If $url is not accessible,"
+
+[node name="LinkButton" type="LinkButton" parent="ConnectionLostLabel/Failsafe/Line"]
+margin_left = 250.0
+margin_right = 396.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0, 0, 1, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0.501961, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "get levels.json from github"
+uri = "https://raw.githubusercontent.com/youkaicountry/yknytt/refs/heads/master/levels.json"
+
+[node name="Label2" type="Label" parent="ConnectionLostLabel/Failsafe/Line"]
+margin_left = 400.0
+margin_right = 473.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "and place it in"
+
+[node name="LevelsFileDir" type="Label" parent="ConnectionLostLabel/Failsafe"]
+margin_top = 17.0
+margin_right = 600.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "{yknytt_dir}"
+align = 1
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
 
