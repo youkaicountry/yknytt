@@ -74,6 +74,12 @@ public class LevelSelection : BasicScreen
         GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible = 
             GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
 
+        if (OS.GetName() == "HTML5") { GetNode<CanvasItem>("ConnectionLostLabel/Failsafe").Visible = false; }
+        GetNode<Label>("ConnectionLostLabel/Failsafe/LevelsFileDir").Text = getLevelsFileDir();
+        var lost_label = GetNode<Label>("ConnectionLostLabel/Failsafe/Line/Label");
+        string server_url = GDKnyttSettings.ServerURL.Replace("http://", "").Replace("https://", "");
+        lost_label.Text = lost_label.Text.Replace("$url", server_url);
+
         worlds_modified = false;
         var ini_text = new File().FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
         var parser = new IniDataParser();
@@ -130,6 +136,7 @@ public class LevelSelection : BasicScreen
         games_scrollbar.Value = 0;
         connectionLost(lost: false);
         remotes_grab_focus = grab_focus;
+        if (loadServerDump()) { return; }
 
         request_url = GDKnyttSettings.ServerURL + "/levels/?";
         if (filter_category_int != FILTER_ALL) { request_url += $"category={filter_category_int}&"; }
@@ -143,6 +150,26 @@ public class LevelSelection : BasicScreen
         request_retry = 1;
         var error = http_levels_node.Request(request_url);
         if (error != Error.Ok) { connectionLost(); }
+    }
+
+    private bool loadServerDump()
+    {
+        string levels_file = getLevelsFileDir().PlusFile("levels.json");
+        if (!new File().FileExists(levels_file)) { return false; }
+        var f = new File();
+        var error = f.Open(levels_file, File.ModeFlags.Read);
+        if (error != Error.Ok) { return false; }
+        var levels_json = f.GetBuffer((long)f.GetLen());
+        f.Close();
+        enableFilter(false);
+        _on_HTTPRequest_request_completed((int)HTTPRequest.Result.Success, 200, null, levels_json);
+        return true;
+    }
+
+    private string getLevelsFileDir()
+    {
+        return OS.GetName() == "Android" ? OS.GetSystemDir(OS.SystemDir.Documents) :
+               OS.GetName() == "HTML5" ? "" : OS.GetExecutablePath().GetBaseDir();
     }
 
     private void connectionLost(bool lost = true)
