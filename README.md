@@ -8,11 +8,11 @@ An open source implementation of Knytt Stories in C# using Godot Engine
 
 [Download YKnytt v0.7.0 for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_win.zip)
 
-[Download YKnytt v0.7.0 for Linux](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_linux.zip)
-
-[Download YKnytt v0.7.0 for Linux ARM64 handhelds](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_linux_arm64_handhelds.zip)
-
 [Download YKnytt v0.7.0 for macOS](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_macos.zip)
+
+[Download YKnytt v0.7.0 for Linux x86_64 desktops](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_linux.zip)
+
+[Download YKnytt v0.7.0 for Linux ARM64 handhelds](https://github.com/youkaicountry/yknytt/releases/download/0.7.0/YKnytt_v0.7.0_linux_arm64_handhelds.zip) | [Available in PortMaster](https://portmaster.games/detail.html?name=yknytt)
 
 [Web version: play YKnytt v0.7.0 on itch.io](https://youkaicountry.itch.io/yknytt)
 
