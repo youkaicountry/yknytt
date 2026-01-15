@@ -571,6 +571,12 @@ public class GDKnyttGame : Node2D
         }
     }
 
+    public void pauseMusicMode(bool pause)
+    {
+        GetNode("Ambi1Channel").PauseMode = GetNode("Ambi2Channel").PauseMode = 
+            GetNode("MusicChannel").PauseMode = pause ? PauseModeEnum.Inherit : PauseModeEnum.Process;
+    }
+
     private const float ASPECT_STEP = 0.04f;
 
     public async void processAspectChange()
