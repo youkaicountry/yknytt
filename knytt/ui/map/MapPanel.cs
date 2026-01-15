@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class MapPanel : Panel
+public class MapPanel : Control
 {
     private KnyttWorld world;
     private Juni juni;
@@ -203,6 +203,8 @@ public class MapPanel : Panel
         }
         GetParent<Panel>().Visible = show;
         GetTree().Paused = show;
+        GetParent<Panel>().Modulate = new Color(1, 1, 1, 0);
+        if (show) { GetNode<AnimationPlayer>("../AnimationPlayer").Play("open"); }
         SetProcess(show);
         SetProcessInput(show);
         SetPhysicsProcess(show);
