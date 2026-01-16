@@ -855,7 +855,7 @@ public class Juni : KinematicBody2D
         {
             doubleJumpEffect();
             if (sound) {
-                string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" :"Audio/JumpPlayer2D";
+                string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" : "Audio/JumpPlayer2D";
                 GetNode<AudioStreamPlayer2D>(sound_path).Play();
             }
         }

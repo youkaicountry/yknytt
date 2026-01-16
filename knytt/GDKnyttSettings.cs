@@ -260,10 +260,7 @@ public class GDKnyttSettings : Node
     public static bool ClassicDoubleJumpSound
     {
         get { return ini["Audio"]["Classic Double Jump Sound"].Equals("1") ? true : false; }
-        set
-        {
-            ini["Audio"]["Classic Double Jump Sound"] = value ? "1" : "0";
-        }
+        set { ini["Audio"]["Classic Double Jump Sound"] = value ? "1" : "0"; }
     }
 
     public static string UUID
