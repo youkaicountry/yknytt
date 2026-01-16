@@ -257,6 +257,15 @@ public class GDKnyttSettings : Node
         }
     }
 
+    public static bool ClassicDoubleJumpSound
+    {
+        get { return ini["Audio"]["Classic Double Jump Sound"].Equals("1") ? true : false; }
+        set
+        {
+            ini["Audio"]["Classic Double Jump Sound"] = value ? "1" : "0";
+        }
+    }
+
     public static string UUID
     {
         get
@@ -377,6 +386,7 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Audio", "Environment Volume", "80");
         modified |= ensureSetting("Audio", "Effects Volume", "70");
         modified |= ensureSetting("Audio", "Effects Panning", "1");
+        modified |= ensureSetting("Audio", "Classic Double Jump Sound", "1");
 
         modified |= ensureSetting("Server", "URL", "https://yknytt.pythonanywhere.com");
         modified |= ensureSetting("Server", "Connection", "Online");
@@ -412,6 +422,7 @@ public class GDKnyttSettings : Node
         EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
         EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
         EffectsPanning = floatParse(ini["Audio"]["Effects Panning"]);
+        ClassicDoubleJumpSound = ini["Audio"]["Classic Double Jump Sound"].Equals("1") ? true : false;
         StickSensitivity = floatParse(ini["Misc"]["Stick Sensitivity"]);
         LeftStickMovement = ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false;
     }

@@ -147,7 +147,7 @@ margin_right = 416.0
 margin_bottom = 30.0
 focus_neighbour_top = NodePath("../../BackButton")
 focus_neighbour_right = NodePath("../GeneralTab")
-focus_neighbour_bottom = NodePath("../../AudioContainer/MasterVolumeSlider")
+focus_neighbour_bottom = NodePath("../../AudioContainer/SlidersContainer/MasterVolumeSlider")
 focus_next = NodePath("../GeneralTab")
 custom_styles/focus = ExtResource( 9 )
 toggle_mode = true
@@ -1236,27 +1236,33 @@ mode_overrides_title = false
 mode = 2
 access = 2
 
-[node name="AudioContainer" type="VBoxContainer" parent="."]
+[node name="AudioContainer" type="HBoxContainer" parent="."]
 visible = false
 margin_left = 23.0
 margin_top = 50.0
-margin_right = 270.0
+margin_right = 523.0
 margin_bottom = 234.0
+mouse_filter = 2
+
+[node name="SlidersContainer" type="VBoxContainer" parent="AudioContainer"]
+margin_right = 247.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 247, 0 )
 mouse_filter = 2
 custom_constants/separation = 1
 
-[node name="MasterVolumeLabel" type="HBoxContainer" parent="AudioContainer"]
+[node name="MasterVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
 margin_right = 247.0
 margin_bottom = 13.0
 
-[node name="Label" type="Label" parent="AudioContainer/MasterVolumeLabel"]
+[node name="Label" type="Label" parent="AudioContainer/SlidersContainer/MasterVolumeLabel"]
 margin_right = 81.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Master Volume:"
 
-[node name="Value" type="Label" parent="AudioContainer/MasterVolumeLabel"]
+[node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MasterVolumeLabel"]
 margin_left = 85.0
 margin_right = 247.0
 margin_bottom = 13.0
@@ -1266,32 +1272,33 @@ custom_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
-[node name="MasterVolumeSlider" type="HSlider" parent="AudioContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
 margin_top = 14.0
 margin_right = 247.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 150, 22 )
-focus_neighbour_top = NodePath("../../TabsContainer/AudioTab")
-focus_previous = NodePath("../../TabsContainer/AudioTab")
+focus_neighbour_top = NodePath("../../../TabsContainer/AudioTab")
+focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+focus_previous = NodePath("../../../TabsContainer/AudioTab")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 2 )
 custom_styles/grabber_area = SubResource( 3 )
 
-[node name="MusicVolumeLabel" type="HBoxContainer" parent="AudioContainer"]
+[node name="MusicVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
 margin_top = 37.0
 margin_right = 247.0
 margin_bottom = 50.0
 
-[node name="Label" type="Label" parent="AudioContainer/MusicVolumeLabel"]
+[node name="Label" type="Label" parent="AudioContainer/SlidersContainer/MusicVolumeLabel"]
 margin_right = 76.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Music Volume:"
 
-[node name="Value" type="Label" parent="AudioContainer/MusicVolumeLabel"]
+[node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MusicVolumeLabel"]
 margin_left = 80.0
 margin_right = 247.0
 margin_bottom = 13.0
@@ -1301,30 +1308,31 @@ custom_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
-[node name="MusicVolumeSlider" type="HSlider" parent="AudioContainer"]
+[node name="MusicVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
 margin_top = 51.0
 margin_right = 247.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 150, 22 )
+focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 4 )
 custom_styles/grabber_area = SubResource( 5 )
 
-[node name="EnvironmentVolumeLabel" type="HBoxContainer" parent="AudioContainer"]
+[node name="EnvironmentVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
 margin_top = 74.0
 margin_right = 247.0
 margin_bottom = 87.0
 
-[node name="Label" type="Label" parent="AudioContainer/EnvironmentVolumeLabel"]
+[node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EnvironmentVolumeLabel"]
 margin_right = 113.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Environment Volume:"
 
-[node name="Value" type="Label" parent="AudioContainer/EnvironmentVolumeLabel"]
+[node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EnvironmentVolumeLabel"]
 margin_left = 117.0
 margin_right = 247.0
 margin_bottom = 13.0
@@ -1334,30 +1342,31 @@ custom_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
-[node name="EnvironmentVolumeSlider" type="HSlider" parent="AudioContainer"]
+[node name="EnvironmentVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
 margin_top = 88.0
 margin_right = 247.0
 margin_bottom = 110.0
 rect_min_size = Vector2( 150, 22 )
+focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 8 )
 custom_styles/grabber_area = SubResource( 9 )
 
-[node name="EffectsVolumeLabel" type="HBoxContainer" parent="AudioContainer"]
+[node name="EffectsVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
 margin_top = 111.0
 margin_right = 247.0
 margin_bottom = 124.0
 
-[node name="Label" type="Label" parent="AudioContainer/EffectsVolumeLabel"]
+[node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EffectsVolumeLabel"]
 margin_right = 80.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Effects Volume:"
 
-[node name="Value" type="Label" parent="AudioContainer/EffectsVolumeLabel"]
+[node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsVolumeLabel"]
 margin_left = 84.0
 margin_right = 247.0
 margin_bottom = 13.0
@@ -1367,30 +1376,31 @@ custom_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
-[node name="EffectsVolumeSlider" type="HSlider" parent="AudioContainer"]
+[node name="EffectsVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
 margin_top = 125.0
 margin_right = 247.0
 margin_bottom = 147.0
 rect_min_size = Vector2( 150, 22 )
+focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
 custom_styles/grabber_area_highlight = SubResource( 6 )
 custom_styles/grabber_area = SubResource( 7 )
 
-[node name="EffectsPanningLabel" type="HBoxContainer" parent="AudioContainer"]
+[node name="EffectsPanningLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
 margin_top = 148.0
 margin_right = 247.0
 margin_bottom = 161.0
 
-[node name="Label" type="Label" parent="AudioContainer/EffectsPanningLabel"]
+[node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EffectsPanningLabel"]
 margin_right = 83.0
 margin_bottom = 13.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Effects Panning:"
 
-[node name="Value" type="Label" parent="AudioContainer/EffectsPanningLabel"]
+[node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsPanningLabel"]
 margin_left = 87.0
 margin_right = 247.0
 margin_bottom = 13.0
@@ -1400,13 +1410,14 @@ custom_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
-[node name="EffectsPanningSlider" type="HSlider" parent="AudioContainer"]
+[node name="EffectsPanningSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
 margin_top = 162.0
 margin_right = 247.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 150, 22 )
-focus_neighbour_bottom = NodePath("../../BackButton")
-focus_next = NodePath("../../BackButton")
+focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+focus_neighbour_bottom = NodePath("../../../BackButton")
+focus_next = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
 custom_icons/grabber_highlight = ExtResource( 8 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = ExtResource( 7 )
@@ -1414,6 +1425,23 @@ custom_styles/grabber_area_highlight = SubResource( 6 )
 custom_styles/grabber_area = SubResource( 7 )
 max_value = 1.5
 step = 0.02
+
+[node name="OptionsContainer" type="VBoxContainer" parent="AudioContainer"]
+margin_left = 251.0
+margin_right = 498.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 247, 0 )
+
+[node name="ClassicDoubleJumpSound" parent="AudioContainer/OptionsContainer" instance=ExtResource( 6 )]
+margin_right = 247.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 33 )
+focus_neighbour_left = NodePath("../../SlidersContainer/MasterVolumeSlider")
+focus_neighbour_top = NodePath("../../../TabsContainer/AudioTab")
+focus_neighbour_bottom = NodePath("../../../BackButton")
+focus_next = NodePath("../../../BackButton")
+focus_previous = NodePath("../../SlidersContainer/EffectsPanningSlider")
+text = "Classic double-jump sound"
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="focus_entered" from="ActiveTab" to="." method="_on_ActiveTab_focus_entered"]
@@ -1477,8 +1505,9 @@ step = 0.02
 [connection signal="popup_hide" from="DirContainer/SavesFileDialog" to="DirContainer" method="_on_FileDialog_popup_hide"]
 [connection signal="dir_selected" from="DirContainer/BackupFileDialog" to="DirContainer" method="_on_BackupFileDialog_dir_selected"]
 [connection signal="popup_hide" from="DirContainer/BackupFileDialog" to="DirContainer" method="_on_FileDialog_popup_hide"]
-[connection signal="value_changed" from="AudioContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
-[connection signal="value_changed" from="AudioContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
-[connection signal="value_changed" from="AudioContainer/EnvironmentVolumeSlider" to="." method="_on_EnvironmentVolumeSlider_value_changed"]
-[connection signal="value_changed" from="AudioContainer/EffectsVolumeSlider" to="." method="_on_EffectsVolumeSlider_value_changed"]
-[connection signal="value_changed" from="AudioContainer/EffectsPanningSlider" to="." method="_on_EffectsPanningSlider_value_changed"]
+[connection signal="value_changed" from="AudioContainer/SlidersContainer/MasterVolumeSlider" to="." method="_on_MasterVolumeSlider_value_changed"]
+[connection signal="value_changed" from="AudioContainer/SlidersContainer/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
+[connection signal="value_changed" from="AudioContainer/SlidersContainer/EnvironmentVolumeSlider" to="." method="_on_EnvironmentVolumeSlider_value_changed"]
+[connection signal="value_changed" from="AudioContainer/SlidersContainer/EffectsVolumeSlider" to="." method="_on_EffectsVolumeSlider_value_changed"]
+[connection signal="value_changed" from="AudioContainer/SlidersContainer/EffectsPanningSlider" to="." method="_on_EffectsPanningSlider_value_changed"]
+[connection signal="pressed" from="AudioContainer/OptionsContainer/ClassicDoubleJumpSound" to="." method="_on_ClassicDoubleJumpSound_pressed"]

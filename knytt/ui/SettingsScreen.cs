@@ -29,11 +29,12 @@ public class SettingsScreen : BasicScreen
         GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader").Select((int)GDKnyttSettings.Shader);
         GetNode<OptionButton>("GeneralContainer/Misc/OfflineDropdown").Select((int)GDKnyttSettings.Connection);
         
-        GetNode<Slider>("AudioContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
-        GetNode<Slider>("AudioContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
-        GetNode<Slider>("AudioContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
-        GetNode<Slider>("AudioContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
-        GetNode<Slider>("AudioContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
+        GetNode<Slider>("AudioContainer/SlidersContainer/MasterVolumeSlider").Value = GDKnyttSettings.MasterVolume;
+        GetNode<Slider>("AudioContainer/SlidersContainer/MusicVolumeSlider").Value = GDKnyttSettings.MusicVolume;
+        GetNode<Slider>("AudioContainer/SlidersContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
+        GetNode<Slider>("AudioContainer/SlidersContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
+        GetNode<Slider>("AudioContainer/SlidersContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
+        GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").Pressed = GDKnyttSettings.ClassicDoubleJumpSound;
 
         GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Disabled = 
             GDKnyttSettings.Mobile || OS.GetName() == "HTML5" || OS.GetName() == "Unix";
@@ -205,7 +206,7 @@ public class SettingsScreen : BasicScreen
 
     private void updateVolumeLabel(string item, int value)
     {
-        GetNode<Label>($"AudioContainer/{item}VolumeLabel/Value").Text = $"{value}%";
+        GetNode<Label>($"AudioContainer/SlidersContainer/{item}VolumeLabel/Value").Text = $"{value}%";
     }
 
     private void _on_MasterVolumeSlider_value_changed(float value)
@@ -235,7 +236,12 @@ public class SettingsScreen : BasicScreen
     private void _on_EffectsPanningSlider_value_changed(float value)
     {
         GDKnyttSettings.EffectsPanning = value;
-        GetNode<Label>("AudioContainer/EffectsPanningLabel/Value").Text = $"{value:F2}x";
+        GetNode<Label>("AudioContainer/SlidersContainer/EffectsPanningLabel/Value").Text = $"{value:F2}x";
+    }
+    
+    private void _on_ClassicDoubleJumpSound_pressed()
+    {
+        GDKnyttSettings.ClassicDoubleJumpSound = GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").Pressed;
     }
 
     private void _on_Tab_focus_entered(string container_name)
@@ -277,7 +283,7 @@ public class SettingsScreen : BasicScreen
                                                 "KeysContainer/StickContainter/SensitivitySlider") :
             tab_button.Name == "TouchTab"   ? "TouchContainer/SwipeContainer/SwipeDefaultButton" :
             tab_button.Name == "DirTab"     ? "DirContainer/SavesContainer/BackupButton" :
-            tab_button.Name == "AudioTab"   ? "AudioContainer/EffectsPanningSlider" : "BackButton";
+            tab_button.Name == "AudioTab"   ? "AudioContainer/OptionsContainer/ClassicDoubleJumpSound" : "BackButton";
         GetNode<Control>(control_path).GrabFocus();
     }
 
