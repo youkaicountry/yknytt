@@ -848,10 +848,17 @@ public class Juni : KinematicBody2D
     {
         transitionState(new JumpState(this));
         Anim.Play(jump_speed < 0 ? "Jump" : "StartFall");
-        if (sound) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
+        if (sound && !air_jump) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
         velocity.y = jump_speed;
 
-        if (air_jump && jumps > 0) { doubleJumpEffect(); }
+        if (air_jump && jumps > 0)
+        {
+            doubleJumpEffect();
+            if (sound) {
+                string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" : "Audio/JumpPlayer2D";
+                GetNode<AudioStreamPlayer2D>(sound_path).Play();
+            }
+        }
 
         jumps = reset_jumps ? 1 : jumps + 1;
         JustClimbed = false;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://knytt/data/Sfx/Knytt Climb (troupe).wav" type="AudioStream" id=27]
 [ext_resource path="res://knytt/data/Sfx/Knytt Walk (troupe).wav" type="AudioStream" id=28]
 [ext_resource path="res://knytt/juni/down_hint.png" type="Texture" id=29]
+[ext_resource path="res://knytt/data/Sfx/Knytt Double Jump.wav" type="AudioStream" id=30]
 
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 1, 7.8 )
@@ -348,6 +349,10 @@ max_distance = 1000.0
 
 [node name="JumpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
 stream = ExtResource( 14 )
+max_distance = 1000.0
+
+[node name="DoubleJumpPlayer2D" parent="Audio" instance=ExtResource( 1 )]
+stream = ExtResource( 30 )
 max_distance = 1000.0
 
 [node name="LandPlayer2D" parent="Audio" instance=ExtResource( 1 )]
