@@ -1,10 +1,14 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/CreditsScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/styles/ScrollbarTrack.tres" type="StyleBox" id=6]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabber.tres" type="StyleBox" id=7]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberHighlight.tres" type="StyleBox" id=8]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberPressed.tres" type="StyleBox" id=9]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 4 )
@@ -13,6 +17,14 @@ LinkButton/colors/font_color = Color( 0.25098, 0.25098, 1, 1 )
 LinkButton/colors/font_color_focus = Color( 0, 0, 0.501961, 1 )
 LinkButton/colors/font_color_hover = Color( 0, 0, 0.501961, 1 )
 LinkButton/colors/font_color_pressed = Color( 0, 0, 0.501961, 1 )
+VScrollBar/styles/scroll = ExtResource( 6 )
+VScrollBar/styles/grabber = ExtResource( 7 )
+VScrollBar/styles/grabber_highlight = ExtResource( 8 )
+VScrollBar/styles/grabber_pressed = ExtResource( 9 )
+HScrollBar/styles/scroll = ExtResource( 6 )
+HScrollBar/styles/grabber = ExtResource( 7 )
+HScrollBar/styles/grabber_highlight = ExtResource( 8 )
+HScrollBar/styles/grabber_pressed = ExtResource( 9 )
 
 [sub_resource type="Animation" id=8]
 length = 0.001
