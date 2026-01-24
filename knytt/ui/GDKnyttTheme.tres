@@ -1,9 +1,13 @@
-[gd_resource type="Theme" load_steps=10 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://knytt/ui/img/checked.png" type="Texture" id=2]
 [ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture" id=3]
 [ext_resource path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://knytt/ui/styles/ScrollbarTrack.tres" type="StyleBox" id=5]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabber.tres" type="StyleBox" id=6]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberHighlight.tres" type="StyleBox" id=7]
+[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberPressed.tres" type="StyleBox" id=8]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -61,3 +65,11 @@ PopupMenu/styles/labeled_separator_right = SubResource( 4 )
 PopupMenu/styles/panel = ExtResource( 4 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = SubResource( 5 )
+VScrollBar/styles/scroll = ExtResource( 5 )
+VScrollBar/styles/grabber = ExtResource( 6 )
+VScrollBar/styles/grabber_highlight = ExtResource( 7 )
+VScrollBar/styles/grabber_pressed = ExtResource( 8 )
+HScrollBar/styles/scroll = ExtResource( 5 )
+HScrollBar/styles/grabber = ExtResource( 6 )
+HScrollBar/styles/grabber_highlight = ExtResource( 7 )
+HScrollBar/styles/grabber_pressed = ExtResource( 8 )
