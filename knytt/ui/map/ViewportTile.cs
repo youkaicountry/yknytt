@@ -32,7 +32,7 @@ public partial class ViewportTile : SubViewportContainer
 
     public Texture2D refresh(Texture2D tex = null)
     {
-        if (!new DirAccess().FileExists(filename)) { return null; }
+        if (!FileAccess.FileExists(filename)) { return null; }
         var reloaded_tex = tex ?? GDKnyttAssetManager.loadTexture2D(GDKnyttAssetManager.loadFile(filename));
         GetNode<TextureRect>("Viewport/TextureRect").Texture = reloaded_tex;
         return reloaded_tex;

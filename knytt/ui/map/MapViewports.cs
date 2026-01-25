@@ -25,7 +25,7 @@ public partial class MapViewports : Node2D
     {
         this.KWorld = world;
         string internal_cache_dir = $"res://knytt/data/Compiled/Maps/{KWorld.WorldDirectoryName}";
-        internal_cache = new DirAccess().DirExists(internal_cache_dir);
+        internal_cache = DirAccess.DirExistsAbsolute(internal_cache_dir);
         cache_dir = internal_cache ? internal_cache_dir :
             GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);

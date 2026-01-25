@@ -11,7 +11,7 @@ public partial class FileHttpRequest : HttpRequest
     {
         if (DownloadFile != null && FileAccess.FileExists(DownloadFile))
         {
-            new DirAccess().Remove(DownloadFile);
+            DirAccess.RemoveAbsolute(DownloadFile);
         }
     }
 }
