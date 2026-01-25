@@ -109,8 +109,7 @@ public partial class SlotButton : GDKnyttButton
     public void _on_ConfirmButton_pressed()
     {
         ClickPlayer.Play();
-        var dir = new DirAccess();
-        dir.Remove(FullFilename);
+        DirAccess.RemoveAbsolute(FullFilename);
         checkSlot();
         GrabFocus();
     }

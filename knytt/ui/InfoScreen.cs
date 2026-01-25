@@ -46,7 +46,7 @@ public partial class InfoScreen : BasicScreen
     {
         KWorld = new GDKnyttWorldImpl();
         this.world_entry = world_entry;
-        if (new DirAccess().DirExists(world_entry.Path))
+        if (DirAccess.DirExistsAbsolute(world_entry.Path))
         {
             KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
@@ -122,14 +122,12 @@ public partial class InfoScreen : BasicScreen
     {
         string cache_dir = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
-        var f = new File();
-        f.Open(cache_dir.PathJoin("LastPlayed.flag"), FileAccess.ModeFlags.Write);
-        f.Close();
+        using (var f = FileAccess.Open(cache_dir.PathJoin("LastPlayed.flag"), FileAccess.ModeFlags.Write)) { }
 
-        f = new File();
-        f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Write);
-        f.StoreString($"{KWorld.WorldDirectory}/{slot}");
-        f.Close();
+        using (var f = FileAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Write))
+        {
+            f?.StoreString($"{KWorld.WorldDirectory}/{slot}");
+        }
 
         KnyttSave save = new KnyttSave(KWorld,
                          new_save ? GDKnyttAssetManager.loadTextFile(KWorld.getWorldData("DefaultSavegame.ini")) :
@@ -309,9 +307,7 @@ public partial class InfoScreen : BasicScreen
         if (!FileAccess.FileExists(endings_flag_name))
         {
             setIniValue("Endings", string.Join("/", endings), "Final", string.Join("/", final_cutscenes));
-            var f = new File();
-            f.Open(endings_flag_name, FileAccess.ModeFlags.Write);
-            f.Close();
+            using (var f = FileAccess.Open(endings_flag_name, FileAccess.ModeFlags.Write)) { }
         }
     }
 
@@ -374,10 +370,8 @@ public partial class InfoScreen : BasicScreen
             worlds_cache_ini[KWorld.WorldDirectory][key2] = value2;
         }
 
-        var f = new File();
-        f.Open(INI_PATH, FileAccess.ModeFlags.Write);
-        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
-        f.Close();
+        using var f = FileAccess.Open(INI_PATH, FileAccess.ModeFlags.Write);
+        f?.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
     }
 
     private static readonly string[] hints =
