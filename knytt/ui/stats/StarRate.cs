@@ -40,7 +40,7 @@ public partial class StarRate : HBoxContainer
     {
         // TODO: don't know how to recieve mouse events when left mouse button is pressed
         // if (@event is InputEventMouseButton st && st.ButtonPressed) { GD.Print("workaround"); }
-        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).ButtonPressed;
+        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
         if (released) { EmitSignal(nameof(RateEvent), n); }
     }
 }

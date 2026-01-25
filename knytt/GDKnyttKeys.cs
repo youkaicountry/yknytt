@@ -106,7 +106,7 @@ public partial class GDKnyttKeys : Node
 
     public static string getValueString(string ini_name)
     {
-        if (!ini["Input"].Contains(ini_name)) { return ""; }
+        if (!ini["Input"].ContainsKey(ini_name)) { return ""; }
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
         var value = groups["value"].Value;
@@ -114,7 +114,7 @@ public partial class GDKnyttKeys : Node
         switch (groups["type"].Value)
         {
             case "Key":
-                return GDKnyttDataStore.GptokeybMode && GPTOKEYB_MAPPING.Contains(value) ? 
+                return GDKnyttDataStore.GptokeybMode && GPTOKEYB_MAPPING.ContainsKey(value) ? 
                     GPTOKEYB_MAPPING[value] : value;
             case "Joy":
                 if (GDKnyttDataStore.GptokeybMode) { return ""; }
@@ -124,7 +124,7 @@ public partial class GDKnyttKeys : Node
                 return $"Joy {value}";
             case "Axis":
                 if (GDKnyttDataStore.GptokeybMode) { return ""; }
-                return int.TryParse(value, out var j) && AXIS_NAMES.Contains(j) ? 
+                return int.TryParse(value, out var j) && AXIS_NAMES.ContainsKey(j) ? 
                             AXIS_NAMES[j] : $"Axis {value}";
         }
 
@@ -207,7 +207,7 @@ public partial class GDKnyttKeys : Node
 
     private static void applyInput(string action_name, string ini_name)
     {
-        if (!ini["Input"].Contains(ini_name)) { return; }
+        if (!ini["Input"].ContainsKey(ini_name)) { return; }
         Match match = key_rx.Match(ini["Input"][ini_name]);
         var groups = match.Groups;
 
@@ -234,7 +234,7 @@ public partial class GDKnyttKeys : Node
 
     private static void applyAxis(string action_name, string key)
     {
-        if (axis_map.Contains(int.Parse(key))) { return; }
+        if (axis_map.ContainsKey(int.Parse(key))) { return; }
         axis_map.Add(int.Parse(key), action_name);
     }
 
@@ -247,7 +247,7 @@ public partial class GDKnyttKeys : Node
             modified = true;
         }
 
-        if (!ini[section].Contains(setting))
+        if (!ini[section].ContainsKey(setting))
         {
             ini[section][setting] = value;
             modified = true;
@@ -266,7 +266,7 @@ public partial class GDKnyttKeys : Node
 
         int axis = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
         
-        if (axis_map.Contains(axis))
+        if (axis_map.ContainsKey(axis))
         {
             if (Mathf.Abs(jm.AxisValue) > StickTreshold)
             {
@@ -283,7 +283,7 @@ public partial class GDKnyttKeys : Node
             }
         }
 
-        if (axis_map.Contains(-axis) && pressed_axis.Contains(-axis))
+        if (axis_map.ContainsKey(-axis) && pressed_axis.Contains(-axis))
         {
             Input.ActionRelease(axis_map[-axis]);
             pressed_axis.Remove(-axis);

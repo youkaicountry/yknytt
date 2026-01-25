@@ -91,7 +91,7 @@ public partial class MapPanel : Control
         SetProcess(false);
         SetPhysicsProcess(false);
 
-        mark_font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/map/MarkFont.tres");
+        mark_font = ResourceLoader.Load<Font>("res://knytt/ui/map/MarkFont.tres");
         
         if (world == null || juni == null) { return; }
         this.world = world;
@@ -168,9 +168,10 @@ public partial class MapPanel : Control
             {
                 Vector2 p = new Vector2((coord.X - world.MinBounds.X) * XSIZE + 4, (coord.Y - world.MinBounds.Y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
-                DrawChar(mark_font, p, markChar(m[0]), "", markColor(m[0]));
-                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), "", markColor(m[1])); }
-                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", "", markColor('+')); }
+                // Godot 4: DrawChar signature changed - 4th param is fontSize instead of nextChar
+                DrawChar(mark_font, p, markChar(m[0]), -1, markColor(m[0]));
+                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), -1, markColor(m[1])); }
+                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), '+', -1, markColor('+')); }
             }
         }
 
@@ -247,8 +248,8 @@ public partial class MapPanel : Control
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {
-            if (mouse_event.ButtonIndex == (int)MouseButton.WheelDown) { scale(0.9f); }
-            if (mouse_event.ButtonIndex == (int)MouseButton.WheelUp) { scale(10 / 9f); }
+            if (mouse_event.ButtonIndex == MouseButton.WheelDown) { scale(0.9f); }
+            if (mouse_event.ButtonIndex == MouseButton.WheelUp) { scale(10 / 9f); }
         }
     }
 
@@ -260,10 +261,10 @@ public partial class MapPanel : Control
     public override void _PhysicsProcess(double delta)
     {
         var new_offset = Vector2.Zero;
-        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta / Scale; }
-        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta / Scale; }
-        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta / Scale; }
-        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta / Scale; }
+        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * (float)delta / Scale; }
+        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * (float)delta / Scale; }
+        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * (float)delta / Scale; }
+        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * (float)delta / Scale; }
         if (Input.IsActionJustPressed("walk")) { scale(0.9f); }
         if (Input.IsActionJustPressed("umbrella")) { scale(10 / 9f); }
         if (Input.IsActionJustPressed("jump")) { mark(); }

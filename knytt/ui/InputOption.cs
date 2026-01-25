@@ -43,7 +43,7 @@ public partial class InputOption : HBoxContainer
 
     private void _on_Label_focus_entered()
     {
-        var node = GetNodeOrNull<Control>(FocusNeighbourLeft)?.GetNodeOrNull<Button>("Button0");
-        (node ?? GetNodeOrNull<Control>(FocusNeighbourLeft))?.GrabFocus();
+        var node = GetNodeOrNull<Control>(FocusNeighborLeft)?.GetNodeOrNull<Button>("Button0");
+        (node ?? GetNodeOrNull<Control>(FocusNeighborLeft))?.GrabFocus();
     }
 }

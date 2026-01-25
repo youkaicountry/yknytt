@@ -169,11 +169,11 @@ public partial class DirectoriesScreen : Control
 
     public override void _Input(InputEvent @event)
     {
-        if (GDKnyttDataStore.GptokeybMode && GetFocusOwner().FindParent("*FileDialog") != null)
+        if (GDKnyttDataStore.GptokeybMode && GetViewport().GuiGetFocusOwner()?.FindParent("*FileDialog") != null)
         {
             Control next_focus = null;
-            if (Input.IsActionPressed("ui_left")) { next_focus = GetFocusOwner().FindPrevValidFocus(); }
-            if (Input.IsActionPressed("ui_right")) { next_focus = GetFocusOwner().FindNextValidFocus(); }
+            if (Input.IsActionPressed("ui_left")) { next_focus = GetViewport().GuiGetFocusOwner()?.FindPrevValidFocus(); }
+            if (Input.IsActionPressed("ui_right")) { next_focus = GetViewport().GuiGetFocusOwner()?.FindNextValidFocus(); }
             if (next_focus != null) {  next_focus.GrabFocus(); GetViewport().SetInputAsHandled(); }
         }
     }

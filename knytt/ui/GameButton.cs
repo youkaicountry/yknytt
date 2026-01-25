@@ -44,10 +44,10 @@ public partial class GameButton : GDKnyttButton
             CustomMinimumSize = new Vector2(CustomMinimumSize.X, 55);
             ratingControl.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
             ratingControl.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
-            ratingControl.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);
+            ratingControl.GetNode<Label>("RatingLabel").AddThemeColorOverride("font_color", worldEntry.ScoreColor);
             ratingControl.GetNode<Label>("DownloadsLabel").Text = $"{worldEntry.Downloads}";
             ratingControl.GetNode<Label>("VerifiedLabel").Text = worldEntry.StatusDescription;
-            ratingControl.GetNode<Label>("VerifiedLabel").AddColorOverride("font_color", worldEntry.StatusColor);
+            ratingControl.GetNode<Label>("VerifiedLabel").AddThemeColorOverride("font_color", worldEntry.StatusColor);
         }
 
         string difficulties = string.Join("/", worldEntry.Difficulties.Where(s => !string.IsNullOrWhiteSpace(s)));
@@ -125,7 +125,7 @@ public partial class GameButton : GDKnyttButton
     {
         if (ignore_focus) { ignore_focus = false; return; }
         descriptionLabel.Text = hint == null ? worldEntry.Description : hint;
-        descriptionLabel.AddColorOverride("font_color", hint == null ? new Color(0, 0, 0) : new Color(0, 0.5f, 0));
+        descriptionLabel.AddThemeColorOverride("font_color", hint == null ? new Color(0, 0, 0) : new Color(0, 0.5f, 0));
     }
 
     bool ignore_focus;

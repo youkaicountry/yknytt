@@ -56,7 +56,7 @@ public partial class LocationLabel : Label
     public void showLabel()
     {
         if (!Visible) { return; }
-        Text = $"x{location.x}y{location.y}";
+        Text = $"x{location.X}y{location.Y}";
         if (ShowFlags)
         {
             Text += $" {(flags[0]?1:0)}{(flags[1]?1:0)} {(flags[2]?1:0)}{(flags[3]?1:0)} " + 

@@ -81,7 +81,7 @@ public partial class ParticleCircle : Node2D
 
     public override void _Process(double delta)
     {
-        if (this.cloud) { cloudProcess(delta); } else { circleProcess(delta); }
+        if (this.cloud) { cloudProcess((float)delta); } else { circleProcess((float)delta); }
     }
 
     public void circleProcess(float delta)
