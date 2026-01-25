@@ -41,10 +41,11 @@ public partial class DirectoriesScreen : Control
 
     private void gamepadArrowsMode(bool tab)
     {
-        InputMap.ActionEraseEvent(tab ? "ui_left" : "ui_focus_prev", new InputEventJoypadButton() { ButtonIndex = (int)JoyButton.DpadLeft, Device = -1 });
-        InputMap.ActionEraseEvent(tab ? "ui_right" : "ui_focus_next", new InputEventJoypadButton() { ButtonIndex = (int)JoyButton.DpadRight, Device = -1 });
-        InputMap.ActionAddEvent(tab ? "ui_focus_prev" : "ui_left", new InputEventJoypadButton() { ButtonIndex = (int)JoyButton.DpadLeft, Device = -1 });
-        InputMap.ActionAddEvent(tab ? "ui_focus_next" : "ui_right", new InputEventJoypadButton() { ButtonIndex = (int)JoyButton.DpadRight, Device = -1 });
+        // Godot 4: ButtonIndex is now JoyButton enum directly, no casting needed
+        InputMap.ActionEraseEvent(tab ? "ui_left" : "ui_focus_prev", new InputEventJoypadButton() { ButtonIndex = JoyButton.DpadLeft, Device = -1 });
+        InputMap.ActionEraseEvent(tab ? "ui_right" : "ui_focus_next", new InputEventJoypadButton() { ButtonIndex = JoyButton.DpadRight, Device = -1 });
+        InputMap.ActionAddEvent(tab ? "ui_focus_prev" : "ui_left", new InputEventJoypadButton() { ButtonIndex = JoyButton.DpadLeft, Device = -1 });
+        InputMap.ActionAddEvent(tab ? "ui_focus_next" : "ui_right", new InputEventJoypadButton() { ButtonIndex = JoyButton.DpadRight, Device = -1 });
     }
 
     private void _on_WorldsChangeButton_pressed()

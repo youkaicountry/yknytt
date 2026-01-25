@@ -54,16 +54,17 @@ public partial class SceneCPUParticleInstance : Node2D
         if (stopped) { return; }
 
         base._PhysicsProcess(delta);
-        _time += delta;
+        float dt = (float)delta;
+        _time += dt;
         if (_time >= Lifetime) { parent?.returnParticle(this); }
 
-        if (_brownian) { calcBrownianForces(delta); }
+        if (_brownian) { calcBrownianForces(dt); }
 
         // Simple Euler Integration
         _acceleration = Force / Mass;
         _acceleration += Gravity;
-        Velocity += (_acceleration - (Drag * Velocity)) * delta;
-        Translate(Velocity * delta);
+        Velocity += (_acceleration - (Drag * Velocity)) * dt;
+        Translate(Velocity * dt);
 
         Force = Vector2.Zero;
     }
@@ -72,7 +73,7 @@ public partial class SceneCPUParticleInstance : Node2D
     {
         _brownian_t += BrownianSpeed * delta;
 
-        var bm = new Vector2(_noise.GetNoise1d(_brownian_t.X), _noise.GetNoise1d(_brownian_t.Y)) * BrownianForce;
+        var bm = new Vector2(_noise.GetNoise1D(_brownian_t.X), _noise.GetNoise1D(_brownian_t.Y)) * BrownianForce;
         bm.X = Mathf.Pow(Mathf.Abs(bm.X), BrownianExponent) * Mathf.Sign(bm.X);
         bm.Y = Mathf.Pow(Mathf.Abs(bm.Y), BrownianExponent) * Mathf.Sign(bm.Y);
         Force += bm;
