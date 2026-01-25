@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class GhostWalker : Muff
+public partial class GhostWalker : Muff
 {
     [Export] protected float wallSpeed = 5;
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class WalkingBouncer : Muff
+public abstract partial class WalkingBouncer : Muff
 {
     [Export] protected float initialJumpSpeed = 0;
     [Export] protected float jumpGravity = 0;

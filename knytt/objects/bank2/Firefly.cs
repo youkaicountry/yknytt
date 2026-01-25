@@ -2,7 +2,7 @@ using Godot;
 using System;
 using YUtil.Random;
 
-public class Firefly : GDKnyttBaseObject
+public partial class Firefly : GDKnyttBaseObject
 {
     [Export] protected float limitSpeed = 0;
     [Export] protected float resetSpeed = 0;

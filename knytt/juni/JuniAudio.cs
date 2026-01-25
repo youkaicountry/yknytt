@@ -1,6 +1,6 @@
 using Godot;
 
-public class JuniAudio : Node2D
+public partial class JuniAudio : Node2D
 {
     public void stopAll()
     {

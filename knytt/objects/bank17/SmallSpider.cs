@@ -1,6 +1,6 @@
 using Godot;
 
-public class SmallSpider : Muff
+public partial class SmallSpider : Muff
 {
     private void _on_Area2D_body_entered(object body)
     {

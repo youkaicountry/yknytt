@@ -5,7 +5,7 @@ using YKnyttLib;
 using System.Collections.Generic;
 using YKnyttLib.Logging;
 
-public class CustomObject : GDKnyttBaseObject
+public partial class CustomObject : GDKnyttBaseObject
 {
     public class CustomObjectInfo
     {
@@ -34,7 +34,7 @@ public class CustomObject : GDKnyttBaseObject
     public override void _Ready()
     {
         string mod = ObjectID.X == 254 ? "B" : "";
-        string key = $"Custom Object {mod}{ObjectID.y}";
+        string key = $"Custom Object {mod}{ObjectID.Y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); Deleted = true; return; }
 
@@ -94,7 +94,7 @@ public class CustomObject : GDKnyttBaseObject
         var sprite = obj.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D") ??
                      obj.GetNodeOrNull<AnimatedSprite2D>("PathFollow2D/AnimatedSprite2D");
         var static_sprite = obj.GetNodeOrNull<Sprite2D>("Sprite2D");
-        if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.y}"); return; }
+        if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.Y}"); return; }
 
         if (sprite != null)
         {

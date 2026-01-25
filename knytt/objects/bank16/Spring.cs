@@ -1,7 +1,7 @@
 using Godot;
 using static YKnyttLib.JuniValues;
 
-public class Spring : GDKnyttBaseObject
+public partial class Spring : GDKnyttBaseObject
 {
     Juni juni;
 

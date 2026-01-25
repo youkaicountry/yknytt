@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class ItemInfo : Control
+public partial class ItemInfo : Control
 {
     [Export] public int ItemID;
 

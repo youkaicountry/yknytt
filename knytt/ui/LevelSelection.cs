@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class LevelSelection : BasicScreen
+public partial class LevelSelection : BasicScreen
 {
     private WorldManager Manager { get; } = new WorldManager();
 
@@ -108,10 +108,8 @@ public class LevelSelection : BasicScreen
 
     private void flushCache()
     {
-        var f = new File();
-        f.Open(CACHE_INI_PATH, FileAccess.ModeFlags.Write);
-        f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
-        f.Close();
+        using var f = FileAccess.Open(CACHE_INI_PATH, FileAccess.ModeFlags.Write);
+        f?.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
     }
 
     private void loadLocalWorlds()
@@ -156,11 +154,9 @@ public class LevelSelection : BasicScreen
     {
         string levels_file = getLevelsFileDir().PathJoin("levels.json");
         if (!FileAccess.FileExists(levels_file)) { return false; }
-        var f = new File();
-        var error = f.Open(levels_file, FileAccess.ModeFlags.Read);
-        if (error != Error.Ok) { return false; }
-        var levels_json = f.GetBuffer((long)f.GetLen());
-        f.Close();
+        using var f = FileAccess.Open(levels_file, FileAccess.ModeFlags.Read);
+        if (f == null) { return false; }
+        var levels_json = f.GetBuffer((long)f.GetLength());
         enableFilter(false);
         _on_HTTPRequest_request_completed((int)HttpRequest.Result.Success, 200, null, levels_json);
         return true;
@@ -191,7 +187,7 @@ public class LevelSelection : BasicScreen
         if (response_code != 200) { connectionLost(); return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
+        var json = Json.ParseString(response);
         if (json.Error != Error.Ok) { connectionLost(); return; }
 
         var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "results");
@@ -243,7 +239,7 @@ public class LevelSelection : BasicScreen
     {
         if (ActiveScreen != this) { return; }
         prev_scroll = games_scrollbar.Value;
-        prev_focus_owner = game_container.GetFocusOwner();
+        prev_focus_owner = game_container.GetViewport().GuiGetFocusOwner();
         if (prev_focus_owner == null) { game_container.GrabFocus(); }
 
         if (localLoad && finished_entries.Count == 0 && local_load_task?.IsCompleted != false)
@@ -269,7 +265,7 @@ public class LevelSelection : BasicScreen
                 if (!finished_entries.TryDequeue(out var entry)) { return; }
                 if (manager_completed || Manager.addWorld(entry))
                 {
-                    game_container.addWorld(entry, focus: !this.IsAParentOf(prev_focus_owner) && game_container.Count == 0);
+                    game_container.addWorld(entry, focus: !this.IsAncestorOf(prev_focus_owner) && game_container.Count == 0);
                 }
             }
         }
@@ -305,16 +301,16 @@ public class LevelSelection : BasicScreen
     // Search the given directory for worlds
     private void discoverWorlds(string path)
     {
-        var wd = new DirAccess();
-        if (!wd.DirExists(path)) { return; }
-        var error = wd.Open(path);
-        if (error != Error.Ok) { return; }
+        if (!DirAccess.DirExistsAbsolute(path)) { return; }
+        using var wd = DirAccess.Open(path);
+        if (wd == null) { return; }
 
-        wd.ListDirBegin(skipNavigational: true);
+        wd.ListDirBegin();
         while (true)
         {
             string name = wd.GetNext();
             if (name.Length == 0) { break; }
+            if (name == "." || name == "..") { continue; }
 
             if (wd.CurrentIsDir())
             {
@@ -399,10 +395,8 @@ public class LevelSelection : BasicScreen
             worlds_modified = true;
 
             GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}"));
-            var f = new File();
-            f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png"), FileAccess.ModeFlags.Write);
-            f.StoreBuffer(icon_bin);
-            f.Close();
+            using var f = FileAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png"), FileAccess.ModeFlags.Write);
+            f?.StoreBuffer(icon_bin);
         }
 
         return getWorldEntry(world_file, icon_bin, world_info);
@@ -540,7 +534,7 @@ public class LevelSelection : BasicScreen
         if (result == (int)HttpRequest.Result.Success && response_code == 200)
         {
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
-            new DirAccess().Rename(http_node.DownloadFile, final_filename);
+            DirAccess.RenameAbsolute(http_node.DownloadFile, final_filename);
             var entry = generateBinWorld(final_filename);
             flushCache();
 
@@ -554,7 +548,7 @@ public class LevelSelection : BasicScreen
             }
             else
             {
-                new DirAccess().Remove(final_filename);
+                DirAccess.RemoveAbsolute(final_filename);
                 download_button.markFailed();
             }
         }
@@ -578,11 +572,12 @@ public class LevelSelection : BasicScreen
 
     private void cleanUnfinished()
     {
-        var dir = new DirAccess();
-        dir.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds"));
-        dir.ListDirBegin(skipNavigational: true);
+        using var dir = DirAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds"));
+        if (dir == null) { return; }
+        dir.ListDirBegin();
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {
+            if (filename == "." || filename == "..") { continue; }
             if (filename.EndsWith(".part") && dir.FileExists(filename)) { dir.Remove(filename); }
         }
     }
@@ -688,7 +683,7 @@ public class LevelSelection : BasicScreen
             GetNode<Button>("MainContainer/FilterContainer/Category/CategoryDropdown").GrabFocus();
             return;
         }
-        if (prev_focus_owner != null && game_container.IsAParentOf(prev_focus_owner)) // to prevent scrolling to top
+        if (prev_focus_owner != null && game_container.IsAncestorOf(prev_focus_owner)) // to prevent scrolling to top
         {
             prev_focus_owner.GrabFocus();
             games_scrollbar.Value = prev_scroll;
@@ -718,7 +713,7 @@ public class LevelSelection : BasicScreen
     public override void _Input(InputEvent @event)
     {
         base._Input(@event);
-        if (game_container.GetFocusOwner() is GameButton cur_button &&
+        if (game_container.GetViewport().GuiGetFocusOwner() is GameButton cur_button &&
             (Input.IsActionPressed("ui_page_up") || Input.IsActionPressed("ui_page_down")))
         {
             int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).Size.Y + 4;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class Ninja : WalkingShooter
+public partial class Ninja : WalkingShooter
 {
     public override void _Ready()
     {

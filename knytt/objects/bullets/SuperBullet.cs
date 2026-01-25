@@ -1,6 +1,6 @@
 using Godot;
 
-public class SuperBullet : BaseBullet
+public partial class SuperBullet : BaseBullet
 {
     public override void _PhysicsProcess(double delta)
     {

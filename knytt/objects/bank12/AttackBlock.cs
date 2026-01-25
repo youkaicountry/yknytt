@@ -1,6 +1,6 @@
 using Godot;
 
-public class AttackBlock : GDKnyttBaseObject
+public partial class AttackBlock : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
     private CollisionShape2D shape;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class CeilingDropCrawler : DropCrawler
+public partial class CeilingDropCrawler : DropCrawler
 {
     public override void _Ready()
     {

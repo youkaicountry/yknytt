@@ -2,7 +2,7 @@ using Godot;
 using YKnyttLib;
 using YKnyttLib.Paging;
 
-public class GDKnyttWorld : Node2D
+public partial class GDKnyttWorld : Node2D
 {
     PackedScene area_scene;
 

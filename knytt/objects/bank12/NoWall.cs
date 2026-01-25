@@ -1,4 +1,4 @@
-public class NoWall : GDKnyttBaseObject
+public partial class NoWall : GDKnyttBaseObject
 {
     public override void _Ready()
     {

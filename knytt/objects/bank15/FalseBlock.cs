@@ -1,6 +1,6 @@
 using Godot;
 
-public class FalseBlock : GDKnyttBaseObject
+public partial class FalseBlock : GDKnyttBaseObject
 {
     protected AnimationPlayer animationPlayer;
 

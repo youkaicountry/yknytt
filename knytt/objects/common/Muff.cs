@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Muff : GDKnyttBaseObject
+public partial class Muff : GDKnyttBaseObject
 {
     protected enum DirectionChange { Random, TowardsJuni, AwayFromJuni }
 

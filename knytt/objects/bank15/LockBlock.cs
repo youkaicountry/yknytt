@@ -1,6 +1,6 @@
 using Godot;
 
-public class LockBlock : GDKnyttBaseObject
+public partial class LockBlock : GDKnyttBaseObject
 {
     public bool opened;
     

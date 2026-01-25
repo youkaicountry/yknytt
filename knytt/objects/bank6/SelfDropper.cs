@@ -1,6 +1,6 @@
 using Godot;
 
-public class SelfDropper : GDKnyttBaseObject
+public partial class SelfDropper : GDKnyttBaseObject
 {
     private const int DISTANCE_TO_DROP = 12;
     private float dropSpeed;

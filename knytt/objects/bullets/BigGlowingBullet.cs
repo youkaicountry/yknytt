@@ -1,6 +1,6 @@
 using Godot;
 
-public class BigGlowingBullet : BaseBullet
+public partial class BigGlowingBullet : BaseBullet
 {
     public override void _Ready()
     {

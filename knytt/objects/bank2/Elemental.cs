@@ -1,6 +1,6 @@
 using Godot;
 
-public class Elemental : GDKnyttBaseObject
+public partial class Elemental : GDKnyttBaseObject
 {
     bool exploded;
     Vector2 prev_juni_pos = Vector2.Zero;

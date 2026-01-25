@@ -1,6 +1,6 @@
 using Godot;
 
-public class Crumble : GDKnyttBaseObject
+public partial class Crumble : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
     private Timer destroy_timer;

@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class GDKnyttBackground : Sprite2D
+public partial class GDKnyttBackground : Sprite2D
 {
     public void initialize(Texture2D t)
     {

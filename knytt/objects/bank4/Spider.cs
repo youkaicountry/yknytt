@@ -1,6 +1,6 @@
 using Godot;
 
-public class Spider : GDKnyttBaseObject
+public partial class Spider : GDKnyttBaseObject
 {
     [Export] protected float speed = 50;
     [Export] protected float centerOffset = 12;

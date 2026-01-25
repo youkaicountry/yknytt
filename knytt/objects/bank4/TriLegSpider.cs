@@ -1,4 +1,4 @@
-public class TriLegSpider : Spider
+public partial class TriLegSpider : Spider
 {
     private void _on_RunTimer_timeout()
     {

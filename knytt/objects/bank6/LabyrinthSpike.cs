@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class LabyrinthSpike : GDKnyttBaseObject
+public partial class LabyrinthSpike : GDKnyttBaseObject
 {
     protected Vector2 direction = Vector2.Up;
     protected bool wasFree = false;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class OneWayPlatform : GDKnyttBaseObject
+public partial class OneWayPlatform : GDKnyttBaseObject
 {
     private void _on_Area2D_body_entered(object body)
     {

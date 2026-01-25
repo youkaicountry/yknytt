@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Math;
 
-public class PathCreature : GDKnyttBaseObject
+public partial class PathCreature : GDKnyttBaseObject
 {
     [Export] protected float speed = 30f;
 

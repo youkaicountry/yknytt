@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class CeilingMadSpider : TrapFlower
+public partial class CeilingMadSpider : TrapFlower
 {
     public override void _Ready()
     {

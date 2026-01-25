@@ -1,7 +1,7 @@
 using YUtil.Math;
 using YUtil.Random;
 
-public class SunRay : GDKnyttBaseObject
+public partial class SunRay : GDKnyttBaseObject
 {
     const float MIN_BRIGHTNESS = 0f;
     const float MAX_BRIGHTNESS = .25f;

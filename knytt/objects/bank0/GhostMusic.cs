@@ -1,7 +1,7 @@
 using YKnyttLib;
 using Godot;
 
-public class GhostMusic : GDKnyttBaseObject
+public partial class GhostMusic : GDKnyttBaseObject
 {
     public override void _Ready()
     {

@@ -1,5 +1,5 @@
 
-public class ClearBlock : Password
+public partial class ClearBlock : Password
 {
     public override void _Ready()
     {

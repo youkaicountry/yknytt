@@ -1,6 +1,6 @@
 using Godot;
 
-public class Title : GDKnyttBaseObject
+public partial class Title : GDKnyttBaseObject
 {
     public override void _Ready()
     {

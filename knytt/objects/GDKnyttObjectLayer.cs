@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class GDKnyttObjectLayer : Node2D
+public partial class GDKnyttObjectLayer : Node2D
 {
     public GDObjectLayers ObjectLayers { get; private set; }
 

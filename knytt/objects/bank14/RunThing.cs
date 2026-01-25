@@ -1,6 +1,6 @@
 using Godot;
 
-public class RunThing : Muff
+public partial class RunThing : Muff
 {
     [Export] float safeDistance = 0;
     [Export] int attackSpeed = 0;

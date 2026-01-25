@@ -2,7 +2,7 @@ using Godot;
 using System;
 using YKnyttLib;
 
-public class GDKnyttBaseObject : Node2D
+public partial class GDKnyttBaseObject : Node2D
 {
     [Export] public string objectName;
 

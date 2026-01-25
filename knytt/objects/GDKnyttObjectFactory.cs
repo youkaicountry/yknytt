@@ -448,11 +448,11 @@ public static class GDKnyttObjectFactory
     {
         if (!ObjectLookup.ContainsKey(object_id))
         {
-            KnyttLogger.Warn($"Object {object_id.x}:{object_id.y} unimplemented");
+            KnyttLogger.Warn($"Object {object_id.X}:{object_id.Y} unimplemented");
             return null;
         }
 
-        string fname = $"res://knytt/objects/bank{object_id.x}/{ObjectLookup[object_id]}.tscn";
+        string fname = $"res://knytt/objects/bank{object_id.X}/{ObjectLookup[object_id]}.tscn";
         var scene = ResourceLoader.Load<PackedScene>(fname);
         return new GDKnyttObjectBundle(object_id, scene);
     }

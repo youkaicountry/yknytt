@@ -1,6 +1,6 @@
 using Godot;
 
-public class ClickPlayer : Node
+public partial class ClickPlayer : Node
 {
     public static AudioStreamPlayer AudioPlayer { get; private set; }
 

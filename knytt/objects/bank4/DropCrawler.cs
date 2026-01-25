@@ -1,6 +1,6 @@
 using Godot;
 
-public class DropCrawler : Crawler
+public partial class DropCrawler : Crawler
 {
     protected void shoot()
     {

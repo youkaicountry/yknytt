@@ -1,6 +1,6 @@
 using Godot;
 
-public class SmartWalkingBouncer : WalkingBouncer
+public partial class SmartWalkingBouncer : WalkingBouncer
 {
     public override void _Ready()
     {

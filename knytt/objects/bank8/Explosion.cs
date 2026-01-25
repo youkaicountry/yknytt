@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Explosion : GDKnyttBaseObject
+public partial class Explosion : GDKnyttBaseObject
 {
     private Sprite2D sprite;
 

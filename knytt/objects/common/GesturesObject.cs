@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YUtil.Random;
 
-public class GesturesObject : GDKnyttBaseObject
+public partial class GesturesObject : GDKnyttBaseObject
 {
     [Export] float minTime = 1;
     [Export] float maxTime = 2;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class GDAreaLayer : Node2D
+public partial class GDAreaLayer : Node2D
 {
     public TileMap A { get; private set; }
     public TileMap B { get; private set; }

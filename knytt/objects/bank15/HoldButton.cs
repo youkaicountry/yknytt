@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class HoldButton : Password // inheritance for destroyWalls() function
+public partial class HoldButton : Password // inheritance for destroyWalls() function
 {
     private float timer = 0;
     private bool entered = false;

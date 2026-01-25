@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YKnyttLib;
 
-public class Sign : GDKnyttBaseObject
+public partial class Sign : GDKnyttBaseObject
 {
     private List<string> texts = new List<string>();
     private int messageIndex;

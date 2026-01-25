@@ -1,6 +1,6 @@
 using Godot;
 
-public class BigSpiker : GesturesObject
+public partial class BigSpiker : GesturesObject
 {
     private void _on_SpikerMod_EnterEvent()
     {

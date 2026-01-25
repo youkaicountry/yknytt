@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class UpCannon : GDKnyttBaseObject
+public partial class UpCannon : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
 

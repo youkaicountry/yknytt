@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class InfoScreen : BasicScreen
+public partial class InfoScreen : BasicScreen
 {
     [Export] string complainURL;
 
@@ -209,7 +209,7 @@ public class InfoScreen : BasicScreen
         }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
+        var json = Json.ParseString(response);
         if (json.Error != Error.Ok) { return; }
 
         world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
@@ -417,7 +417,7 @@ public class InfoScreen : BasicScreen
             KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(latest_save), 0);
             short_save = string.Join("", Enumerable.Range(0, 13).Select(i => save.getPower(i) ? "1" : "0")) + "," +
                 string.Join("", Enumerable.Range(0, 10).Select(i => save.getFlag(i) ? "1" : "0")) +
-                $";{save.getArea().x} {save.getArea().y} {save.getAreaPosition().x} {save.getAreaPosition().y}";
+                $";{save.getArea().X} {save.getArea().Y} {save.getAreaPosition().X} {save.getAreaPosition().Y}";
         }
 
         sendRating((int)RateHttpRequest.Action.Complain, additional: short_save);

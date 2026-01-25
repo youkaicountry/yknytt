@@ -1,6 +1,6 @@
 using Godot;
 
-public class CollectionDoor : Door
+public partial class CollectionDoor : Door
 {
     [Export] int creaturesRequired = 0;
 

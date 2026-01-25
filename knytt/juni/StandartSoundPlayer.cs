@@ -2,7 +2,7 @@ using Godot;
 using System;
 using YKnyttLib;
 
-public class StandartSoundPlayer : Node2D
+public partial class StandartSoundPlayer : Node2D
 {
     public KnyttWorld KWorld { get; set; }
 

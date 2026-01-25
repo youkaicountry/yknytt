@@ -1,6 +1,6 @@
 using Godot;
 
-public class Password : GDKnyttBaseObject
+public partial class Password : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
     protected int current_char = 13;

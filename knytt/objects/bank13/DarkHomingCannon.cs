@@ -1,6 +1,6 @@
 using Godot;
 
-public class DarkHomingCannon : Cannon
+public partial class DarkHomingCannon : Cannon
 {
     public override void _Ready()
     {

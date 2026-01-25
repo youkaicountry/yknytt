@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingEnemy : GDKnyttBaseObject
+public partial class HomingEnemy : GDKnyttBaseObject
 {
     [Export] protected int initialSpeed = 0;
     [Export] protected int wallSpeed = 0;

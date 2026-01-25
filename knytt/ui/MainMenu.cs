@@ -2,7 +2,7 @@ using Godot;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class MainMenu : BasicScreen
+public partial class MainMenu : BasicScreen
 {
     PackedScene level_select_scene;
     PackedScene settings_scene;
@@ -19,9 +19,9 @@ public class MainMenu : BasicScreen
         this.credits_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/CreditsScreen.tscn");
         fade = GetNode<FadeLayer>("Fade");
         initFocus();
-        VisualServer.SetDefaultClearColor(new Color(0, 0, 0));
+        RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
-        if (OS.GetName() == "Unix") { OS.WindowSize = OS.GetScreenSize(); OS.WindowBorderless = OS.WindowMaximized = true; }
+        if (OS.GetName() == "Linux") { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
         GetNode<Button>("ButtonRow/TutorialButton").Text =
             FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")) ? "Continue" : "Tutorial";
@@ -36,11 +36,11 @@ public class MainMenu : BasicScreen
 
     public override void _Notification(int what)
     {
-        if (what == MainLoop.NotificationWmQuitRequest) { quit(); }
-        if (what == MainLoop.NotificationWmGoBackRequest)
+        if (what == NotificationWMCloseRequest) { quit(); }
+        if (what == NotificationWMGoBackRequest)
         {
             if (GetNode<Console>("/root/Console").IsOpen) { GetNode<Console>("/root/Console").toggleConsole(); return; }
-            if (GetNode<HBoxContainer>("ButtonRow").GetFocusOwner() is LineEdit) { ActiveScreen.initFocus(); return; }
+            if (GetViewport().GuiGetFocusOwner() is LineEdit) { ActiveScreen.initFocus(); return; }
             ActiveScreen.goBack();
         }
     }
@@ -57,14 +57,12 @@ public class MainMenu : BasicScreen
         bool load_last_played = false;
         if (FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")))
         {
-            var f = new File();
-            f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Read);
+            using var f = FileAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Read);
             string path = f.GetAsText();
-            f.Close();
             string file = path.Substring(0, path.LastIndexOf('/'));
             int slot = int.Parse(path.Substring(file.Length + 1));
 
-            if (FileAccess.FileExists(file) || new DirAccess().DirExists(file))
+            if (FileAccess.FileExists(file) || DirAccess.DirExistsAbsolute(file))
             {
                 load_last_played = true;
                 if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
@@ -89,7 +87,7 @@ public class MainMenu : BasicScreen
 
     public void loadLevel(string path, int slot)
     {
-        bool bin = !new DirAccess().DirExists(path);
+        bool bin = !DirAccess.DirExistsAbsolute(path);
         var binloader = bin ? new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path)) : null;
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         if (bin) { world.setBinMode(binloader); }

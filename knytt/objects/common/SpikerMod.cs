@@ -1,6 +1,6 @@
 using Godot;
 
-public class SpikerMod : DistanceMod
+public partial class SpikerMod : DistanceMod
 {
     [Export] NodePath areaPath = null;
     [Export] bool playSound = true;

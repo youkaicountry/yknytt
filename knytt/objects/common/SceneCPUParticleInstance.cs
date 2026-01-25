@@ -1,6 +1,6 @@
 using Godot;
 
-public class SceneCPUParticleInstance : Node2D
+public partial class SceneCPUParticleInstance : Node2D
 {
     public Vector2 Velocity;
     public float Mass;

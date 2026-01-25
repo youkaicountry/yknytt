@@ -1,6 +1,6 @@
 using Godot;
 
-public class DistanceMod : Node2D
+public partial class DistanceMod : Node2D
 {
     enum DistanceMethod { Distance, ManhattanDistance, DistanceByX };
 

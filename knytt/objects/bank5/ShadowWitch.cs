@@ -1,6 +1,6 @@
 using Godot;
 
-public class ShadowWitch : GDKnyttBaseObject
+public partial class ShadowWitch : GDKnyttBaseObject
 {
     private CollisionShape2D collisionShape;
     private AnimatedSprite2D sprite;

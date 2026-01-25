@@ -1,6 +1,6 @@
 using Godot;
 
-public class CloudParticles : Node2D
+public partial class CloudParticles : Node2D
 {
     CpuParticles2D particles;
 

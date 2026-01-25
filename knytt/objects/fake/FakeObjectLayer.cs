@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using YKnyttLib;
 
-public class FakeObjectLayer : Node2D
+public partial class FakeObjectLayer : Node2D
 {
     private static int[] IMAGE_BANK_CAPACITY = 
         { 10, 24, 32, 44, 22, 0, 17, 0, 14, 5, 13, 11, 16, 14, 24, 38, 0, 12, 5, 51 };

@@ -1,5 +1,5 @@
 
-public class SmallGlowingBullet : BaseBullet
+public partial class SmallGlowingBullet : BaseBullet
 {
     public override void _PhysicsProcess(double delta)
     {

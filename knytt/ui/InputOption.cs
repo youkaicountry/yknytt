@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputOption : HBoxContainer
+public partial class InputOption : HBoxContainer
 {
     [Export] public string Action;
     [Export] public string ActionLabel;

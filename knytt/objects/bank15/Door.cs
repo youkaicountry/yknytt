@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class Door : GDKnyttBaseObject
+public abstract partial class Door : GDKnyttBaseObject
 {
     private Juni juni;
 

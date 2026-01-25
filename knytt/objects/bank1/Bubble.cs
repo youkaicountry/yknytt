@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class Bubble : GDKnyttBaseObject
+public partial class Bubble : GDKnyttBaseObject
 {
     const float MIN_DELAY = 4f;
     const float MAX_DELAY = 10f;

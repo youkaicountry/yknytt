@@ -11,7 +11,7 @@ public class JuniInput
         public bool justReleased;
         public bool lastState;
 
-        public void Update()
+        public void QueueRedraw()
         {
             var state = Input.IsActionPressed(action);
             justPressed = !lastState && state;
@@ -72,12 +72,12 @@ public class JuniInput
     public bool WalkHeld => checkPressed("walk"); 
     public bool UmbrellaHeld => checkPressed("umbrella"); 
 
-    public void Update()
+    public void QueueRedraw()
     {
-        pressEdges["down"].Update();
-        pressEdges["umbrella"].Update();
-        pressEdges["hologram"].Update();
-        pressEdges["jump"].Update();
+        pressEdges["down"].QueueRedraw();
+        pressEdges["umbrella"].QueueRedraw();
+        pressEdges["hologram"].QueueRedraw();
+        pressEdges["jump"].QueueRedraw();
 
         // Handle Switch
         if (SwitchHeld)

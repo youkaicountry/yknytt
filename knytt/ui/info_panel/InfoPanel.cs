@@ -2,7 +2,7 @@ using System;
 using Godot;
 using static YKnyttLib.JuniValues;
 
-public class InfoPanel : Panel
+public partial class InfoPanel : Panel
 {
     bool hasCoins;
     bool hasCreatures;

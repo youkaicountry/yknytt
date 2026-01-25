@@ -4,7 +4,7 @@ using YKnyttLib.Logging;
 using System.Collections.Generic;
 using YKnyttLib.Parser;
 
-public class Console : CanvasLayer, IKnyttLoggerTarget
+public partial class Console : CanvasLayer, IKnyttLoggerTarget
 {
     [Signal] public delegate void ConsoleOpenEventHandler();
     [Signal] public delegate void ConsoleClosedEventHandler();
@@ -95,7 +95,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (@event.IsActionPressed("ui_accept") && IsOpen)
         {
             if (@event is InputEventKey ek && (ek.Scancode == (int)KeyList.Space || ek.Scancode == (int)KeyList.Enter)) { return; }
-            if (lineEdit.GetFocusOwner() is Button) { return; }
+            if (lineEdit.GetViewport().GuiGetFocusOwner() is Button) { return; }
             _on_LineEdit_text_entered(null);
         }
     }
@@ -130,7 +130,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void handleOpen()
     {
-        prevFocusControl = lineEdit.GetFocusOwner();
+        prevFocusControl = lineEdit.GetViewport().GuiGetFocusOwner();
         GetNode<Control>("ConsoleContainer/Panel/VBox/HBox").Visible = true;
         GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/GoButton").Visible = 
         GetNode<Control>("ConsoleContainer/Panel/VBox/HBox/HistoryButton").Visible = TouchSettings.EnablePanel;

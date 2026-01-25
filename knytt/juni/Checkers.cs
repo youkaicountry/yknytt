@@ -1,6 +1,6 @@
 using Godot;
 
-public class Checkers : Node2D
+public partial class Checkers : Node2D
 {
     public bool Disabled 
     { 

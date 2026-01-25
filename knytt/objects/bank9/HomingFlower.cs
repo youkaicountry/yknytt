@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingFlower : GDKnyttBaseObject
+public partial class HomingFlower : GDKnyttBaseObject
 {
     public override void _Ready()
     {

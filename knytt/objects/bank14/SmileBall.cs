@@ -1,6 +1,6 @@
 using Godot;
 
-public class SmileBall : Crawler
+public partial class SmileBall : Crawler
 {
     public override void _PhysicsProcess(double delta)
     {

@@ -1,6 +1,6 @@
 using Godot;
 
-public class CreditsScreen : BasicScreen
+public partial class CreditsScreen : BasicScreen
 {
     private bool testers_open = true;
     private bool tilesets_open = true;

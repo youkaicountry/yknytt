@@ -1,4 +1,4 @@
-public class HomingBullet : BaseBullet
+public partial class HomingBullet : BaseBullet
 {
     public Juni globalJuni { protected get; set; }
 

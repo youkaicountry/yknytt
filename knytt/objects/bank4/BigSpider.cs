@@ -1,6 +1,6 @@
 using Godot;
 
-public class BigSpider : Spider
+public partial class BigSpider : Spider
 {
     private const int RADAR_BOTTOM = 8;
     private const int RADAR_TOP = -1;

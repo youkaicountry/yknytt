@@ -182,7 +182,7 @@ namespace YKnyttLib
         public KnyttArea getArea(KnyttPoint coords)
         {
             return Map.ContainsKey(coords) ? Map[coords] : 
-                INIData.Sections.ContainsSection($"x{coords.x}y{coords.y}") ? new KnyttArea(coords, this) : null;
+                INIData.Sections.ContainsSection($"x{coords.X}y{coords.Y}") ? new KnyttArea(coords, this) : null;
         }
 
         public int getMapIndex(KnyttPoint coords)

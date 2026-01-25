@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class Cutscene : Control
+public partial class Cutscene : Control
 {
     private int current_scene = 0;
     private bool last_page;

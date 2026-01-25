@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using YKnyttLib;
 
-public class CollectMod : Node2D
+public partial class CollectMod : Node2D
 {
     [Export] NodePath collisionPath = new NodePath("CollisionShape2D");
 

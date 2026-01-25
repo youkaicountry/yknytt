@@ -1,6 +1,6 @@
 using Godot;
 
-public class DeletePoint : GDKnyttBaseObject
+public partial class DeletePoint : GDKnyttBaseObject
 {
     public void activate()
     {

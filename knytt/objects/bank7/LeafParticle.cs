@@ -1,6 +1,6 @@
 using Godot;
 
-public class LeafParticle : SceneCPUParticleInstance
+public partial class LeafParticle : SceneCPUParticleInstance
 {
     public override void _Ready()
     {

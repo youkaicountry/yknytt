@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class MapPanel : Control
+public partial class MapPanel : Control
 {
     private KnyttWorld world;
     private Juni juni;
@@ -135,12 +135,12 @@ public class MapPanel : Control
     {
         var map_viewports = juni.Game.GetNode<MapViewports>("%MapViewports");
         KnyttPoint screen_min_bounds = new KnyttPoint(
-            world.MinBounds.X - (int)(GetGlobalRect().Position.X / RectScale.X) / XSIZE,
-            world.MinBounds.Y - (int)(GetGlobalRect().Position.Y / RectScale.Y) / YSIZE);
+            world.MinBounds.X - (int)(GetGlobalRect().Position.X / Scale.X) / XSIZE,
+            world.MinBounds.Y - (int)(GetGlobalRect().Position.Y / Scale.Y) / YSIZE);
         KnyttPoint screen_max_bounds = screen_min_bounds + new KnyttPoint(
-            (int)(GetViewportRect().Size.X / RectScale.X) / XSIZE + 1,
-            (int)(GetViewportRect().Size.Y / RectScale.Y) / YSIZE + 1); // not sure about it
-        bool draw_detailed = GDKnyttSettings.DetailedMap && RectScale.X > DETAILED_MIN_SCALE;
+            (int)(GetViewportRect().Size.X / Scale.X) / XSIZE + 1,
+            (int)(GetViewportRect().Size.Y / Scale.Y) / YSIZE + 1); // not sure about it
+        bool draw_detailed = GDKnyttSettings.DetailedMap && Scale.X > DETAILED_MIN_SCALE;
 
         foreach (var area in world.Map.Values)
         {
@@ -190,16 +190,16 @@ public class MapPanel : Control
         {
             KnyttPoint pos = juni.GDArea.Area.MapPosition;
 
-            RectScale = Vector2.One;
-            RectPosition = new Vector2(
+            Scale = Vector2.One;
+            Position = new Vector2(
                 (world.MinBounds.X - pos.X) * XSIZE + (GetParentAreaSize().X - XSIZE) / 2,
                 (world.MinBounds.Y - pos.Y) * YSIZE + (GetParentAreaSize().Y - YSIZE) / 2);
-            RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
+            PivotOffset = -Position + GetParentAreaSize() / 2;
 
             juni.GDArea?.Objects?.checkCollectables(juni.Powers);
             setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User));
             last_drag_distance = 0;
-            Update();
+            QueueRedraw();
         }
         GetParent<Panel>().Visible = show;
         GetTree().Paused = show;
@@ -222,7 +222,7 @@ public class MapPanel : Control
         {
             if (drag_event.Index == 0)
             {
-                drag(drag_event.Relative / RectScale);
+                drag(drag_event.Relative / Scale);
                 drag_pos0 = drag_event.Position;
             }
             else if (drag_event.Index == 1)
@@ -247,23 +247,23 @@ public class MapPanel : Control
 
         if (@event is InputEventMouseButton mouse_event && mouse_event.IsPressed())
         {
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelDown) { scale(0.9f); }
-            if (mouse_event.ButtonIndex == (int)ButtonList.WheelUp) { scale(10 / 9f); }
+            if (mouse_event.ButtonIndex == (int)MouseButton.WheelDown) { scale(0.9f); }
+            if (mouse_event.ButtonIndex == (int)MouseButton.WheelUp) { scale(10 / 9f); }
         }
     }
 
     private void scale(float k)
     {
-        RectScale *= k;
+        Scale *= k;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         var new_offset = Vector2.Zero;
-        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta / RectScale; }
-        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta / RectScale; }
-        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta / RectScale; }
-        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta / RectScale; }
+        if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta / Scale; }
+        if (Input.IsActionPressed("down")) { new_offset += new Vector2(0, -1) * SCROLL_SPEED * delta / Scale; }
+        if (Input.IsActionPressed("left")) { new_offset += new Vector2(1, 0) * SCROLL_SPEED * delta / Scale; }
+        if (Input.IsActionPressed("right")) { new_offset += new Vector2(-1, 0) * SCROLL_SPEED * delta / Scale; }
         if (Input.IsActionJustPressed("walk")) { scale(0.9f); }
         if (Input.IsActionJustPressed("umbrella")) { scale(10 / 9f); }
         if (Input.IsActionJustPressed("jump")) { mark(); }
@@ -279,15 +279,15 @@ public class MapPanel : Control
 
     private void drag(Vector2 diff)
     {
-        var candidate = RectPosition + diff;
-        Vector2 up_left = new Vector2(BORDER, BORDER) + RectPivotOffset * (RectScale - Vector2.One);
-        Vector2 bottom_right = -(new Vector2(BORDER, BORDER) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - Vector2.One);
+        var candidate = Position + diff;
+        Vector2 up_left = new Vector2(BORDER, BORDER) + PivotOffset * (Scale - Vector2.One);
+        Vector2 bottom_right = -(new Vector2(BORDER, BORDER) + Size - GetParentAreaSize()) - (Size - PivotOffset) * (Scale - Vector2.One);
         if (diff.X > 0 && candidate.X > up_left.X) { diff = new Vector2(0, diff.Y); }
         if (diff.Y > 0 && candidate.Y > up_left.Y) { diff = new Vector2(diff.X, 0); }
         if (diff.X < 0 && candidate.X < bottom_right.X)  { diff = new Vector2(0, diff.Y); }
         if (diff.Y < 0 && candidate.Y < bottom_right.Y)  { diff = new Vector2(diff.X, 0); }
-        if (diff != Vector2.Zero) { RectPosition += diff; }
-        RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
+        if (diff != Vector2.Zero) { Position += diff; }
+        PivotOffset = -Position + GetParentAreaSize() / 2;
     }
 
     private void setMarkButtonText(bool has_mark) => GetNode<Button>("../MarkButton").Text = has_mark ? "M–" : "M+";
@@ -307,6 +307,6 @@ public class MapPanel : Control
             base_powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
         }
         setMarkButtonText(!marked);
-        Update();
+        QueueRedraw();
     }
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public class Coin : CustomObject
+public partial class Coin : CustomObject
 {
     public override void _Ready()
     {

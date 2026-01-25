@@ -1,6 +1,6 @@
 using Godot;
 
-public class RoofBlob : Muff
+public partial class RoofBlob : Muff
 {
     private bool shootFast = false;
 

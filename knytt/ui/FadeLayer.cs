@@ -1,6 +1,6 @@
 using Godot;
 
-public class FadeLayer : Control
+public partial class FadeLayer : Control
 {
     [Signal] public delegate void FadeDoneEventHandler();
 

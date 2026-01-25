@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BulletLayer : Node2D
+public partial class BulletLayer : Node2D
 {
     public delegate void InitBulletEvent(BaseBullet bullet, int i);
 

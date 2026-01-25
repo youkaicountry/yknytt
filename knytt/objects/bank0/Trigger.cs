@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class Trigger : Switch
+public partial class Trigger : Switch
 {
     KnyttTrigger trigger;
 

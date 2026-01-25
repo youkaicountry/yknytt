@@ -179,7 +179,7 @@ namespace YKnyttLib
 
         public bool hasMark(KnyttPoint pos, Collectable c)
         {
-            return Marked != null && Marked.ContainsKey(pos) && Marked[pos].Contains(COLLECT_CHAR[(int)c]);
+            return Marked != null && Marked.ContainsKey(pos) && Marked[pos].ContainsKey(COLLECT_CHAR[(int)c]);
         }
 
         public void resetMarks(KnyttPoint pos)
@@ -201,7 +201,7 @@ namespace YKnyttLib
             current_place_deaths++;
             if (current_place_deaths > HardestPlaceDeaths)
             {
-                HardestPlace = $"x{respawn_area.x}y{respawn_area.y}:x{respawn_position.x}y{respawn_position.y}";
+                HardestPlace = $"x{respawn_area.X}y{respawn_area.Y}:x{respawn_position.X}y{respawn_position.Y}";
                 HardestPlaceDeaths = current_place_deaths;
             }
         }

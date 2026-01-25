@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class BasicScreen : CanvasLayer
+public abstract partial class BasicScreen : CanvasLayer
 {
     public static BasicScreen ActiveScreen;
 
@@ -33,7 +33,7 @@ public abstract class BasicScreen : CanvasLayer
 
     public override void _Input(InputEvent @event)
     {
-        var focused = BackButton?.GetFocusOwner();
+        var focused = BackButton?.GetViewport().GuiGetFocusOwner();
         if ((@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu")) && 
             ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {

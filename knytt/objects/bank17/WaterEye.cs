@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class WaterEye : BaseWaterMonster
+public partial class WaterEye : BaseWaterMonster
 {
     public override void _Ready()
     {

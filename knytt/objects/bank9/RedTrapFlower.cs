@@ -1,6 +1,6 @@
 using Godot;
 
-public class RedTrapFlower : TrapFlower
+public partial class RedTrapFlower : TrapFlower
 {
     public override void _Ready()
     {

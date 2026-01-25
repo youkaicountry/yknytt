@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class CollectionInfo : ItemInfo
+public abstract partial class CollectionInfo : ItemInfo
 {
     public abstract string IconFilename { get; }
 

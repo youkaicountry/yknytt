@@ -1,6 +1,6 @@
 using Godot;
 
-public class Bouncer : GDKnyttBaseObject
+public partial class Bouncer : GDKnyttBaseObject
 {
     [Export] float initialSpeed = 0;
     [Export] float gravity = 0.2f;

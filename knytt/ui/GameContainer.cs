@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class GameContainer : VBoxContainer
+public partial class GameContainer : VBoxContainer
 {
     private PackedScene game_scene;
 

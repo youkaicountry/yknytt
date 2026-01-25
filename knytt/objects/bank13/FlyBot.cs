@@ -1,6 +1,6 @@
 using Godot;
 
-public class FlyBot : GDKnyttBaseObject
+public partial class FlyBot : GDKnyttBaseObject
 {
     PathFollow2D path;
 

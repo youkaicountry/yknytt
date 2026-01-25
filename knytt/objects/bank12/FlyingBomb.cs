@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class FlyingBomb : GDKnyttBaseObject
+public partial class FlyingBomb : GDKnyttBaseObject
 {
     protected float xSpeed;
     protected float ySpeed;

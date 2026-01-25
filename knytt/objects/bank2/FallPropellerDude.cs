@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-public class FallPropellerDude : BuzzFlyer
+public partial class FallPropellerDude : BuzzFlyer
 {
     private static readonly Vector2[] directionsOverride = Directions.Where(d => d.Y <= 0 && d != Vector2.Zero).ToArray();
 

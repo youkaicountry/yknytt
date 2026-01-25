@@ -6,7 +6,7 @@ using YUtil.Math;
 using YUtil.Random;
 using static YKnyttLib.JuniValues;
 
-public class Juni : CharacterBody2D
+public partial class Juni : CharacterBody2D
 {
     /*[Export] public*/internal const float 
     JUMP_SPEED_HIGH = -243f,                    // Speed of jump with high jump power (-238.5 in original)
@@ -441,7 +441,7 @@ public class Juni : CharacterBody2D
 
         Game.processAspectChange();
 
-        juniInput.Update();
+        juniInput.QueueRedraw();
 
         if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
 

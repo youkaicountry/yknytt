@@ -17,7 +17,7 @@ public class ObjectSelector
     public void Register(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        if (!allObjects.ContainsKey(type))
+        if (!allObjects.Contains(type))
         {
             allObjects[type] = new List<object>();
             counters[type] = 0;
@@ -29,7 +29,7 @@ public class ObjectSelector
     public void Unregister(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        if (!allObjects.ContainsKey(type)) { return; }
+        if (!allObjects.Contains(type)) { return; }
         allObjects[type].Remove(obj);
         counters[type] = 0;
         selections[type] = null;
@@ -39,7 +39,7 @@ public class ObjectSelector
     {
         var type = getKey(obj, by_type);
         // Reset might be called sooner than an object is disposed, or object may be not registered
-        if (!IsOpen || !allObjects.ContainsKey(type) || !allObjects[type].Contains(obj)) { return false; }
+        if (!IsOpen || !allObjects.Contains(type) || !allObjects[type].Contains(obj)) { return false; }
 
         if (selections[type] == null)
         {
@@ -61,14 +61,14 @@ public class ObjectSelector
     public int GetIndex(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        if (!allObjects.ContainsKey(type)) { return 0; }
+        if (!allObjects.Contains(type)) { return 0; }
         return allObjects[type].IndexOf(obj);
     }
 
     public int GetSize(object obj, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        return allObjects.ContainsKey(type) ? allObjects[type].Count : 0;
+        return allObjects.Contains(type) ? allObjects[type].Count : 0;
     }
 
     private Dictionary<object, float> randomValues = new Dictionary<object, float>();
@@ -76,7 +76,7 @@ public class ObjectSelector
     public float GetRandomValue(object obj, float maxValue, bool by_type = false)
     {
         var type = getKey(obj, by_type);
-        if (!randomValues.ContainsKey(type))
+        if (!randomValues.Contains(type))
         {
             randomValues.Add(type, GDKnyttDataStore.random.NextFloat(maxValue));
         }

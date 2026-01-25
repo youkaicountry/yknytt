@@ -161,24 +161,21 @@ public class GDKnyttAssetManager
 
     public static byte[] loadFile(string path)
     {
-        var f = new File();
-        
         // Handle res:// paths for bundled resources
         if (path.StartsWith("res://"))
         {
-            var error = f.Open(path, FileAccess.ModeFlags.Read);
-            if (error != Error.Ok) { return null; }
+            using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+            if (f == null) { return null; }
+            return f.GetBuffer((long)f.GetLength());
         }
         else
         {
             // Handle regular filesystem paths
-            if (!f.FileExists(path)) { return null; }
-            f.Open(path, FileAccess.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+            if (!FileAccess.FileExists(path)) { return null; }
+            using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+            if (f == null) { return null; }
+            return f.GetBuffer((long)f.GetLength());
         }
-        
-        var buffer = f.GetBuffer((int)f.GetLen());
-        f.Close();
-        return buffer;
     }
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
@@ -188,8 +185,7 @@ public class GDKnyttAssetManager
 
     public static void ensureDirExists(string dir_name)
     {
-        var dir = new DirAccess();
-        if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
+        if (!DirAccess.DirExistsAbsolute(dir_name)) { DirAccess.MakeDirRecursiveAbsolute(dir_name); }
     }
 
     public static Texture2D preprocessTilesetTexture2D(Texture2D texture, Color? from = null)

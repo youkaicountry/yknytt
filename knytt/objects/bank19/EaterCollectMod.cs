@@ -1,6 +1,6 @@
 using Godot;
 
-public class EaterCollectMod : CollectMod
+public partial class EaterCollectMod : CollectMod
 {
     public override async void _body_entered(Node body)
     {

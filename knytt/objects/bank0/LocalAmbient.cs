@@ -1,6 +1,6 @@
 using Godot;
 
-public class LocalAmbient : GDKnyttBaseObject
+public partial class LocalAmbient : GDKnyttBaseObject
 {
     GDKnyttAmbiChannel channel = null;
 
