@@ -100,7 +100,7 @@ namespace YKnyttLib
             while (start_byte == 'x')
             {
                 var area = new KnyttArea(gz, this);
-                if (area.Position.x == int.MinValue || area.Position.y == int.MinValue) { start_byte = gz.ReadByte(); continue; }
+                if (area.Position.X == int.MinValue || area.Position.Y == int.MinValue) { start_byte = gz.ReadByte(); continue; }
 
                 this.Map.Add(area.Position, area);
 
@@ -111,7 +111,7 @@ namespace YKnyttLib
             }
 
             // Set the map
-            this.Size = new KnyttPoint((MaxBounds.x - MinBounds.x) + 1, (MaxBounds.y - MinBounds.y) + 1);
+            this.Size = new KnyttPoint((MaxBounds.X - MinBounds.X) + 1, (MaxBounds.Y - MinBounds.Y) + 1);
         }
 
         public byte[] getWorldData(string filepath)
@@ -140,24 +140,24 @@ namespace YKnyttLib
 
         protected abstract bool externalFileExists(string filepath);
 
-        public object getWorldTexture(string filepath)
+        public object getWorldTexture2D(string filepath)
         {
             if (BinMode) 
             { 
                 var data = BinLoader.GetFile(filepath);
-                if (data != null) { return bytesToTexture(data); }
+                if (data != null) { return bytesToTexture2D(data); }
             } 
             else 
             { 
-                var t = getExternalTexture(filepath);
+                var t = getExternalTexture2D(filepath);
                 if (t != null) { return t; }
             }
-            return getSystemTexture(filepath);
+            return getSystemTexture2D(filepath);
         }
 
-        protected abstract object bytesToTexture(byte[] data);
-        protected abstract object getExternalTexture(string filepath);
-        protected abstract object getSystemTexture(string filepath);
+        protected abstract object bytesToTexture2D(byte[] data);
+        protected abstract object getExternalTexture2D(string filepath);
+        protected abstract object getSystemTexture2D(string filepath);
 
         public object getWorldSound(string filepath, bool loop)
         {
@@ -187,7 +187,7 @@ namespace YKnyttLib
 
         public int getMapIndex(KnyttPoint coords)
         {
-            return (coords.y - MinBounds.y) * Size.x + (coords.x - MinBounds.x);
+            return (coords.Y - MinBounds.Y) * Size.X + (coords.X - MinBounds.X);
         }
 
         public int getMapLength() => Size.Area;

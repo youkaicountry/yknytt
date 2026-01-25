@@ -19,7 +19,7 @@ public class FlyingBomb : GDKnyttBaseObject
         attackTimer = GetNode<Timer>("AttackTimer");
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         xSpeed = random.NextBoolean() ? 100 : -100;
-        originalY = GlobalPosition.y;
+        originalY = GlobalPosition.Y;
         sprite.Play("walk");
         sprite.FlipH = xSpeed < 0;
     }
@@ -28,7 +28,7 @@ public class FlyingBomb : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
 
-        if (!inAttack && Mathf.Abs(Juni.ApparentPosition.x - Center.x) < 100 && attackTimer.IsStopped())
+        if (!inAttack && Mathf.Abs(Juni.ApparentPosition.X - Center.X) < 100 && attackTimer.IsStopped())
         {
             inAttack = true;
             ySpeed = random.Next(150, 200);
@@ -42,14 +42,14 @@ public class FlyingBomb : GDKnyttBaseObject
 
         Translate(new Vector2(xSpeed * delta, ySpeed * delta));
 
-        float pos = Center.x - GDArea.GlobalPosition.x;
+        float pos = Center.X - GDArea.GlobalPosition.X;
         if (pos < 10) { xSpeed = 100; sprite.FlipH = false; }
         if (pos > 590) { xSpeed = -100; sprite.FlipH = true; }
 
-        if (GlobalPosition.y < originalY)
+        if (GlobalPosition.Y < originalY)
         {
             inAttack = false;
-            GlobalPosition = new Vector2(GlobalPosition.x, originalY);
+            GlobalPosition = new Vector2(GlobalPosition.X, originalY);
             ySpeed = 0;
             sprite.Play("walk");
             attackTimer.Start();

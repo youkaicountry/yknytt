@@ -80,9 +80,9 @@ public class MapPanel : Control
     
     public void initSize()
     {
-        this.RectSize = new Vector2(
-            (world.MaxBounds.x - world.MinBounds.x + 1) * XSIZE,
-            (world.MaxBounds.y - world.MinBounds.y + 1) * YSIZE);
+        this.Size = new Vector2(
+            (world.MaxBounds.X - world.MinBounds.X + 1) * XSIZE,
+            (world.MaxBounds.Y - world.MinBounds.Y + 1) * YSIZE);
     }
 
     public void init(KnyttWorld world, Juni juni)
@@ -110,7 +110,7 @@ public class MapPanel : Control
             int? map_y = KnyttUtil.parseIniInt(area.ExtraData["MapY"]);
             if (map_x != null || map_y != null)
             {
-                area.Spoofing = new KnyttPoint(map_x ?? coord.x, map_y ?? coord.y);
+                area.Spoofing = new KnyttPoint(map_x ?? coord.X, map_y ?? coord.Y);
             }
 
             if (area.ExtraData["MapVisible"]?.ToLower() == "true") { visible[coord] = true; }
@@ -135,38 +135,38 @@ public class MapPanel : Control
     {
         var map_viewports = juni.Game.GetNode<MapViewports>("%MapViewports");
         KnyttPoint screen_min_bounds = new KnyttPoint(
-            world.MinBounds.x - (int)(GetGlobalRect().Position.x / RectScale.x) / XSIZE,
-            world.MinBounds.y - (int)(GetGlobalRect().Position.y / RectScale.y) / YSIZE);
+            world.MinBounds.X - (int)(GetGlobalRect().Position.X / RectScale.X) / XSIZE,
+            world.MinBounds.Y - (int)(GetGlobalRect().Position.Y / RectScale.Y) / YSIZE);
         KnyttPoint screen_max_bounds = screen_min_bounds + new KnyttPoint(
-            (int)(GetViewportRect().Size.x / RectScale.x) / XSIZE + 1,
-            (int)(GetViewportRect().Size.y / RectScale.y) / YSIZE + 1); // not sure about it
-        bool draw_detailed = GDKnyttSettings.DetailedMap && RectScale.x > DETAILED_MIN_SCALE;
+            (int)(GetViewportRect().Size.X / RectScale.X) / XSIZE + 1,
+            (int)(GetViewportRect().Size.Y / RectScale.Y) / YSIZE + 1); // not sure about it
+        bool draw_detailed = GDKnyttSettings.DetailedMap && RectScale.X > DETAILED_MIN_SCALE;
 
         foreach (var area in world.Map.Values)
         {
             var coord = area.MapPosition;
 
-            if (coord.x < screen_min_bounds.x || coord.y < screen_min_bounds.y || 
-                coord.x > screen_max_bounds.x || coord.y > screen_max_bounds.y) { continue; }
+            if (coord.X < screen_min_bounds.X || coord.Y < screen_min_bounds.Y || 
+                coord.X > screen_max_bounds.X || coord.Y > screen_max_bounds.Y) { continue; }
 
             bool is_visited = juni.Powers.isVisited(area);
             if (!juni.Powers.getPower(JuniValues.PowerNames.Map) && !is_visited) { continue; }
 
             if (visible.ContainsKey(coord) && !visible[coord]) { continue; }
 
-            Rect2 r = new Rect2((coord.x - world.MinBounds.x) * XSIZE + 1, (coord.y - world.MinBounds.y) * YSIZE + 1, XSIZE - 2, YSIZE - 2);
+            Rect2 r = new Rect2((coord.X - world.MinBounds.X) * XSIZE + 1, (coord.Y - world.MinBounds.Y) * YSIZE + 1, XSIZE - 2, YSIZE - 2);
             DrawRect(r, is_visited ? (colors.ContainsKey(coord) ? colors[coord] : VISITED_COLOR) : NOT_VISITED_COLOR);
 
             if (draw_detailed && is_visited)
             {
-                Rect2 r2 = new Rect2((coord.x - world.MinBounds.x) * XSIZE, (coord.y - world.MinBounds.y) * YSIZE, XSIZE, YSIZE);
-                (Rect2 src, Texture tex) = map_viewports.getArea(coord);
+                Rect2 r2 = new Rect2((coord.X - world.MinBounds.X) * XSIZE, (coord.Y - world.MinBounds.Y) * YSIZE, XSIZE, YSIZE);
+                (Rect2 src, Texture2D tex) = map_viewports.getArea(coord);
                 if (tex != null) { DrawTextureRectRegion(tex, r2, src); }
             }
 
             if (is_visited && juni.Powers.Marked?.ContainsKey(coord) == true)
             {
-                Vector2 p = new Vector2((coord.x - world.MinBounds.x) * XSIZE + 4, (coord.y - world.MinBounds.y) * YSIZE + 12);
+                Vector2 p = new Vector2((coord.X - world.MinBounds.X) * XSIZE + 4, (coord.Y - world.MinBounds.Y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
                 DrawChar(mark_font, p, markChar(m[0]), "", markColor(m[0]));
                 if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), "", markColor(m[1])); }
@@ -176,10 +176,10 @@ public class MapPanel : Control
 
         KnyttPoint cur_pos = juni.GDArea.Area.MapPosition - world.MinBounds;
         // Godot fails to draw simple rect here sometimes, 4 x DrawLine doesn't help. Maybe later it will be fixed...
-        DrawRect(new Rect2(cur_pos.x * XSIZE, cur_pos.y * YSIZE, XSIZE, YSIZE), CURRENT_BORDER, filled: false, width: 2);
+        DrawRect(new Rect2(cur_pos.X * XSIZE, cur_pos.Y * YSIZE, XSIZE, YSIZE), CURRENT_BORDER, filled: false, width: 2);
     }
 
-    private Color makeBright(Color c) => new Color(0.5f + signedSqrt(c.r - 0.5f), 0.5f + signedSqrt(c.g - 0.5f), 0.5f + signedSqrt(c.b - 0.5f));
+    private Color makeBright(Color c) => new Color(0.5f + signedSqrt(c.R - 0.5f), 0.5f + signedSqrt(c.G - 0.5f), 0.5f + signedSqrt(c.B - 0.5f));
 
     private float signedSqrt(float f) => f > 0 ? Mathf.Sqrt(f) : -Mathf.Sqrt(-f);
 
@@ -192,8 +192,8 @@ public class MapPanel : Control
 
             RectScale = Vector2.One;
             RectPosition = new Vector2(
-                (world.MinBounds.x - pos.x) * XSIZE + (GetParentAreaSize().x - XSIZE) / 2,
-                (world.MinBounds.y - pos.y) * YSIZE + (GetParentAreaSize().y - YSIZE) / 2);
+                (world.MinBounds.X - pos.X) * XSIZE + (GetParentAreaSize().X - XSIZE) / 2,
+                (world.MinBounds.Y - pos.Y) * YSIZE + (GetParentAreaSize().Y - YSIZE) / 2);
             RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
 
             juni.GDArea?.Objects?.checkCollectables(juni.Powers);
@@ -282,10 +282,10 @@ public class MapPanel : Control
         var candidate = RectPosition + diff;
         Vector2 up_left = new Vector2(BORDER, BORDER) + RectPivotOffset * (RectScale - Vector2.One);
         Vector2 bottom_right = -(new Vector2(BORDER, BORDER) + RectSize - GetParentAreaSize()) - (RectSize - RectPivotOffset) * (RectScale - Vector2.One);
-        if (diff.x > 0 && candidate.x > up_left.x) { diff = new Vector2(0, diff.y); }
-        if (diff.y > 0 && candidate.y > up_left.y) { diff = new Vector2(diff.x, 0); }
-        if (diff.x < 0 && candidate.x < bottom_right.x)  { diff = new Vector2(0, diff.y); }
-        if (diff.y < 0 && candidate.y < bottom_right.y)  { diff = new Vector2(diff.x, 0); }
+        if (diff.X > 0 && candidate.X > up_left.X) { diff = new Vector2(0, diff.Y); }
+        if (diff.Y > 0 && candidate.Y > up_left.Y) { diff = new Vector2(diff.X, 0); }
+        if (diff.X < 0 && candidate.X < bottom_right.X)  { diff = new Vector2(0, diff.Y); }
+        if (diff.Y < 0 && candidate.Y < bottom_right.Y)  { diff = new Vector2(diff.X, 0); }
         if (diff != Vector2.Zero) { RectPosition += diff; }
         RectPivotOffset = -RectPosition + GetParentAreaSize() / 2;
     }

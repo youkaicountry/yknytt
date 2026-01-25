@@ -34,16 +34,16 @@ public class Title : GDKnyttBaseObject
         label.Text = ""; // complex workaround to update label size
         label.Hide();
         label.Show();
-        label.RectSize = Vector2.Zero;
+        label.Size = Vector2.Zero;
         label.Text = text;
         label.Hide();
         label.Show();
         
-        label.RectPosition = new Vector2(
-            Coords.x < 8 ?  -300 + Position.x :                            // left align
-            Coords.x > 16 ? -300 + Position.x + 24 - label.RectSize.x :    // right align
-                            -300 + Position.x + 12 - label.RectSize.x / 2, // center align
-            Position.y - 120
+        label.Position = new Vector2(
+            Coords.X < 8 ?  -300 + Position.X :                            // left align
+            Coords.X > 16 ? -300 + Position.X + 24 - label.Size.X :    // right align
+                            -300 + Position.X + 12 - label.Size.X / 2, // center align
+            Position.Y - 120
         );
     }
 }

@@ -38,7 +38,7 @@ public class GhostMod : Node2D
         }
 
         var m = parent.Modulate;
-        m.a += (flip_target - m.a) * change_fraction * delta;
+        m.A += (flip_target - m.A) * change_fraction * delta;
         parent.Modulate = m;
     }
 }

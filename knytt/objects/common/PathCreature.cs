@@ -48,9 +48,9 @@ public class PathCreature : GDKnyttBaseObject
         path.Offset += speed * delta * (forward ? 1f : -1f);
 
         var new_pos = path.GlobalPosition;
-        if (!new_pos.x.AlmostEqualsWithAbsTolerance(old_pos.x, delta * .01f))
+        if (!new_pos.x.AlmostEqualsWithAbsTolerance(old_pos.X, delta * .01f))
         {
-            sprite.FlipH = (new_pos.x < old_pos.x);
+            sprite.FlipH = (new_pos.X < old_pos.X);
         }
     }
 

@@ -13,7 +13,7 @@ public class GhostLookMuff : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        if (Juni.ApparentPosition.x - 8 > Center.x) { sprite.FlipH = false; }
-        if (Juni.ApparentPosition.x + 8 < Center.x) { sprite.FlipH = true; }
+        if (Juni.ApparentPosition.X - 8 > Center.X) { sprite.FlipH = false; }
+        if (Juni.ApparentPosition.X + 8 < Center.X) { sprite.FlipH = true; }
     }
 }

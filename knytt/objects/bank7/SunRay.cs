@@ -14,7 +14,7 @@ public class SunRay : GDKnyttBaseObject
     {
         base._Ready();
         var m = Modulate;
-        m.a = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+        m.A = random.NextFloat(MIN_BRIGHTNESS, MAX_BRIGHTNESS);
         Modulate = m;
 
         chooseTarget();
@@ -25,7 +25,7 @@ public class SunRay : GDKnyttBaseObject
         base._PhysicsProcess(delta);
 
         var m = Modulate;
-        if (MathTools.MoveTowards(ref m.a, target, CHANGE_SPEED * delta)) { chooseTarget(); }
+        if (MathTools.MoveTowards(ref m.A, target, CHANGE_SPEED * delta)) { chooseTarget(); }
         Modulate = m;
     }
 

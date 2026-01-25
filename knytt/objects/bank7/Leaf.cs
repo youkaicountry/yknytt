@@ -8,11 +8,11 @@ public class Leaf : GDKnyttBaseObject
     public override void _Ready()
     {
         base._Ready();
-        if (ObjectID.y == yGenegrator)
+        if (ObjectID.Y == yGenegrator)
         {
             GetNode<TimerExt>("SpawnTimer").RunTimer();
         }
-        if (ObjectID.y == ySingle)
+        if (ObjectID.Y == ySingle)
         {
             GetNode<SceneCPUParticles>("SceneCPUParticles").spawnParticles();
         }

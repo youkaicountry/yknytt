@@ -27,7 +27,7 @@ public class InfoPanel : Panel
             if (child.ItemID == item_id && item_id != -1) { return; }
         }
         MarginRight += 24;
-        var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instance<ItemInfo>();
+        var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instantiate<ItemInfo>();
         item_node.ItemID = item_id;
         var item_container = GetNode<Container>("ItemContainer");
         item_container.AddChild(item_node);
@@ -47,7 +47,7 @@ public class InfoPanel : Panel
             var new_anim = $"{game.GDWorld.KWorld.WorldDirectoryName} {power_fixed} icon";
             if (frames.HasAnimation(new_anim)) { continue; }
             frames.AddAnimation(new_anim);
-            frames.AddFrame(new_anim, game.GDWorld.KWorld.getWorldTexture(icon_path) as Texture);
+            frames.AddFrame(new_anim, game.GDWorld.KWorld.getWorldTexture2D(icon_path) as Texture2D);
         }
 
         foreach (ItemInfo child in GetNode<Node>("ItemContainer").GetChildren())
@@ -57,7 +57,7 @@ public class InfoPanel : Panel
 
         string sheet = game.GDWorld.KWorld.INIData["World"]["Powers"];
         if (sheet == null || !game.GDWorld.KWorld.worldFileExists("custom objects/" + sheet)) { return; }
-        var sheet_tex = game.GDWorld.KWorld.getWorldTexture("custom objects/" + sheet) as Texture;
+        var sheet_tex = game.GDWorld.KWorld.getWorldTexture2D("custom objects/" + sheet) as Texture2D;
         if (sheet_tex == null) { return; }
 
         for (int power = 0; power <= (int)PowerNames.RedKey; power++)

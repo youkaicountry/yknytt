@@ -20,28 +20,28 @@ public class GameButton : GDKnyttButton
         GetNode<AnimatedSprite2D>("AnimatedSprite2D").Visible = false;
         GetNode<Control>("MainContainer").Visible = true;
 
-        if (info.IconTexture == null) { info.IconTexture = GDKnyttAssetManager.loadTexture(info.Icon); } 
-        GetNode<TextureRect>("MainContainer/IconTexture").Texture = info.IconTexture;
-        GetNode<TextureRect>("MainContainer/IconTexture").RectSize = new Vector2(30, 30);
+        if (info.IconTexture2D == null) { info.IconTexture2D = GDKnyttAssetManager.loadTexture2D(info.Icon); } 
+        GetNode<TextureRect>("MainContainer/IconTexture2D").Texture = info.IconTexture2D;
+        GetNode<TextureRect>("MainContainer/IconTexture2D").Size = new Vector2(30, 30);
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";
         descriptionLabel = GetNode<Label>("MainContainer/TextContainer/DescriptionLabel");
         descriptionLabel.Text = info.Description;
 
         progressRect = GetNode<ColorRect>("ProgressRect");
-        startProgressLength = progressRect.RectSize.x - progressRect.MarginLeft;
-        varProgressLength = RectSize.x - startProgressLength - progressRect.MarginLeft * 2;
+        startProgressLength = progressRect.Size.X - progressRect.OffsetLeft;
+        varProgressLength = RectSize.X - startProgressLength - progressRect.OffsetLeft * 2;
 
         ratingControl = GetNode<Control>("RatingControl");
         if (!worldEntry.HasServerInfo)
         {
             ratingControl.Visible = false;
-            RectMinSize = new Vector2(RectMinSize.x, 45);
+            RectMinSize = new Vector2(RectMinSize.X, 45);
             setProgress(1, worldEntry.CompletionColor);
         }
         else
         {
             ratingControl.Visible = true;
-            RectMinSize = new Vector2(RectMinSize.x, 55);
+            RectMinSize = new Vector2(RectMinSize.X, 55);
             ratingControl.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
             ratingControl.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
             ratingControl.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);
@@ -68,7 +68,7 @@ public class GameButton : GDKnyttButton
     {
         progressRect.Visible = true;
         progressRect.Color = color;
-        progressRect.RectSize = new Vector2(startProgressLength + varProgressLength * progress, 49); // TODO: not clear for small buttons
+        progressRect.Size = new Vector2(startProgressLength + varProgressLength * progress, 49); // TODO: not clear for small buttons
     }
 
     public void setDownloaded(int bytes_count)

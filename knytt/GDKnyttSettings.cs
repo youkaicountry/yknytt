@@ -523,8 +523,8 @@ public class GDKnyttSettings : Node
             Vector2 max_size = OS.GetScreenSize(), cur_size = OS.WindowSize,
                 min_size = new Vector2((int)ProjectSettings.GetSetting("display/window/size/width"), 
                                        (int)ProjectSettings.GetSetting("display/window/size/height"));
-            int scale = (int)Mathf.Min(cur_size.x / min_size.x, cur_size.y / min_size.y);
-            int max_scale = (int)Mathf.Min(max_size.x / min_size.x, max_size.y / min_size.y);
+            int scale = (int)Mathf.Min(cur_size.X / min_size.X, cur_size.Y / min_size.Y);
+            int max_scale = (int)Mathf.Min(max_size.X / min_size.X, max_size.Y / min_size.Y);
             
             scale++;
             if (scale > max_scale) { scale = 1; }

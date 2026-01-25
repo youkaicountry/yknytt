@@ -17,7 +17,7 @@ public class GDKnyttAssetManager
     public GDKnyttWorld GDWorld { get; }
 
     ObjectCache<int, TileSet> TileSetCache;
-    ObjectCache<int, Texture> GradientCache;
+    ObjectCache<int, Texture2D> GradientCache;
     ObjectCache<int, AudioStream> SongCache;
     ObjectCache<int, AudioStream> AmbianceCache;
     ObjectCache<KnyttPoint, GDKnyttObjectBundle> ObjectCache;
@@ -26,7 +26,7 @@ public class GDKnyttAssetManager
     {
         this.GDWorld = gdworld;
         TileSetCache  = new ObjectCache<int, TileSet>(tile_cache)         { OnCreate = buildTileSet };
-        GradientCache = new ObjectCache<int, Texture>(gradient_cache)     { OnCreate = buildGradient };
+        GradientCache = new ObjectCache<int, Texture2D>(gradient_cache)     { OnCreate = buildGradient };
         SongCache     = new ObjectCache<int, AudioStream>(song_cache)     { OnCreate = buildSong };
         AmbianceCache = new ObjectCache<int, AudioStream>(ambiance_cache) { OnCreate = buildAmbiance };
         ObjectCache   = new ObjectCache<KnyttPoint, GDKnyttObjectBundle>(object_cache) 
@@ -36,7 +36,7 @@ public class GDKnyttAssetManager
     public TileSet getTileSet(int num) { return TileSetCache.IncObject(num); }
     public void returnTileSet(int num) { TileSetCache.DecObject(num); }
 
-    public Texture getGradient(int num) { return GradientCache.IncObject(num); }
+    public Texture2D getGradient(int num) { return GradientCache.IncObject(num); }
     public void returnGradient(int num) { GradientCache.DecObject(num); }
 
     public AudioStream getSong(int num) { return SongCache.IncObject(num); }
@@ -53,12 +53,12 @@ public class GDKnyttAssetManager
         string cached_path = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res");
         if (FileAccess.FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
-        var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
+        var texture = GDWorld.KWorld.getWorldTexture2D($"Tilesets/Tileset{num}.png");
         switch (texture)
         {
-            case Texture t:
+            case Texture2D t:
                 // Preprocess the texture if no alpha channel
-                TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture(t));
+                TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture2D(t));
                 ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{GDWorld.KWorld.WorldDirectoryName}"));
                 ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
@@ -67,9 +67,9 @@ public class GDKnyttAssetManager
         }
     }
 
-    private Texture buildGradient(int num)
+    private Texture2D buildGradient(int num)
     {
-        return (Texture)GDWorld.KWorld.getWorldTexture($"Gradients/Gradient{num}.png");
+        return (Texture2D)GDWorld.KWorld.getWorldTexture2D($"Gradients/Gradient{num}.png");
     }
 
     public AudioStream buildSong(int num)
@@ -90,27 +90,27 @@ public class GDKnyttAssetManager
         return (AudioStream)GDWorld.KWorld.getWorldSound($"Ambiance/Ambi{num}.ogg", loop: true);
     }
 
-    public static Texture loadExternalTexture(string path)
+    public static Texture2D loadExternalTexture2D(string path)
     {
         if (!FileAccess.FileExists(path)) { return null; }
         var image = new Image();
         var error = image.Load(path);
         if (error != Error.Ok) { return null; }
-        return image2Texture(image);
+        return image2Texture2D(image);
     }
 
-    public static Texture loadInternalTexture(string path)
+    public static Texture2D loadInternalTexture2D(string path)
     {
-        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture>(path) : null;
+        return ResourceLoader.Exists(path) ? ResourceLoader.Load<Texture2D>(path) : null;
     }
 
-    public static Texture loadTexture(byte[] buffer)
+    public static Texture2D loadTexture2D(byte[] buffer)
     {
         if (buffer == null || buffer.Length == 0) { return null; }
         var image = new Image();
         var error = image.LoadPngFromBuffer(buffer);
         if (error != Error.Ok) { return null; }
-        return image2Texture(image);
+        return image2Texture2D(image);
     }
 
     public static TileSet loadInternalTileset(string path)
@@ -130,11 +130,11 @@ public class GDKnyttAssetManager
         return loadOGG(loadFile(path), loop);
     }
 
-    private static Texture image2Texture(Image image)
+    private static Texture2D image2Texture2D(Image image)
     {
         if (OS.GetName() == "Unix" && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
         var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
+        texture.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
         var image_back = texture.GetData();
         if (image_back == null || texture.GetWidth() != image_back.GetWidth() || 
             texture.GetHeight() != image_back.GetHeight()) { return null; }
@@ -192,7 +192,7 @@ public class GDKnyttAssetManager
         if (!dir.DirExists(dir_name)) { dir.MakeDirRecursive(dir_name); }
     }
 
-    public static Texture preprocessTilesetTexture(Texture texture, Color? from = null)
+    public static Texture2D preprocessTilesetTexture2D(Texture2D texture, Color? from = null)
     {
         var image = texture.GetData();
         if (image == null) { return texture; }
@@ -202,14 +202,14 @@ public class GDKnyttAssetManager
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
             var it = new ImageTexture();
-            it.CreateFromImage(image, (int)Texture.FlagsEnum.Repeat);
+            it.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
             texture = it;
         }
 
         return texture;
     }
 
-    public static TileSet makeTileset(Texture texture)
+    public static TileSet makeTileset(Texture2D texture)
     {
         Bitmap bitmap = new Bitmap();
         bitmap.CreateFromImageAlpha(texture.GetData(), .001f);
@@ -222,7 +222,7 @@ public class GDKnyttAssetManager
             for (int x = 0; x < TILESET_WIDTH; x++)
             {
                 ts.CreateTile(i);
-                ts.TileSetTexture(i, texture);
+                ts.TileSetTexture2D(i, texture);
                 var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
 
@@ -268,7 +268,7 @@ public class GDKnyttAssetManager
             for (int x = 0; x < TILESET_WIDTH; x++)
             {
                 ts.CreateTile(i);
-                ts.TileSetTexture(i, texture);
+                ts.TileSetTexture2D(i, texture);
                 var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 ts.TileSetRegion(i, region);
                 i++;
@@ -281,11 +281,11 @@ public class GDKnyttAssetManager
     private static IEnumerable<Vector2[]> tilePolygons(Bitmap bitmap, Rect2 region)
     {
         // Makes points of contact thicker. Some polygons disappear without this (Godot bug).
-        for (float i = region.Position.y; i < region.End.y - 1; i++)
+        for (float i = region.Position.Y; i < region.End.Y - 1; i++)
         {
-            bool ulbit = bitmap.GetBit(new Vector2(region.Position.x, i));
-            bool dlbit = bitmap.GetBit(new Vector2(region.Position.x, i + 1));
-            for (float j = region.Position.x + 1; j < region.End.x; j++)
+            bool ulbit = bitmap.GetBit(new Vector2(region.Position.X, i));
+            bool dlbit = bitmap.GetBit(new Vector2(region.Position.X, i + 1));
+            for (float j = region.Position.X + 1; j < region.End.X; j++)
             {
                 bool urbit = bitmap.GetBit(new Vector2(j, i));
                 bool drbit = bitmap.GetBit(new Vector2(j, i + 1));
@@ -309,7 +309,7 @@ public class GDKnyttAssetManager
 
         var polygons = bitmap.OpaqueToPolygons(region, 0.99f).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
-        return polygons.Select(p => p.Select(v => new Vector2(v.x, v.y - (region.Position.y * 2))).ToArray());
+        return polygons.Select(p => p.Select(v => new Vector2(v.X, v.Y - (region.Position.Y * 2))).ToArray());
     }
 
     private static bool isConvex(Vector2[] vertices)
@@ -396,7 +396,7 @@ public class GDKnyttAssetManager
 
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {
-        return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
+        return (va.X - vb.X) * (vc.Y - vb.Y) - (va.Y - vb.Y) * (vc.X - vb.X);
     }
 
     public static float distanceToLine(Vector2 p, Vector2 lp1, Vector2 lp2)
@@ -441,10 +441,10 @@ public class GDKnyttAssetManager
             string cached_path = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world.WorldDirectoryName}/Tileset{num}.res");
             if (!recompile && FileAccess.FileExists(cached_path)) { continue; }
 
-            var texture = world.getWorldTexture(tileset_path);
-            if (texture is Texture t)
+            var texture = world.getWorldTexture2D(tileset_path);
+            if (texture is Texture2D t)
             {
-                if (!t.HasAlpha()) { t = preprocessTilesetTexture(t); }
+                if (!t.HasAlpha()) { t = preprocessTilesetTexture2D(t); }
                 ResourceSaver.Save(cached_path, makeTileset(t), ResourceSaver.SaverFlags.Compress);
             }
         }
@@ -458,7 +458,7 @@ public class GDKnyttAssetManager
         for (int i = 0; i < 256; i++)
         {
             KnyttLogger.Info($"Compiling tileset #{i}");
-            var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
+            var texture = loadInternalTexture2D($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
             GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/Tileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
         }

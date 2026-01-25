@@ -55,8 +55,8 @@ public class Cutscene : Control
     private void changeScene(int delta)
     {
         current_scene += delta;
-        Texture t = GDKnyttDataStore.KWorld.getWorldTexture(makeScenePath(current_scene)) as Texture;
-        //if (t != null) { t.Flags |= (uint)Texture.FlagsEnum.Filter; }
+        Texture2D t = GDKnyttDataStore.KWorld.getWorldTexture2D(makeScenePath(current_scene)) as Texture2D;
+        //if (t != null) { t.Flags |= (uint)Texture2D.FlagsEnum.Filter; }
         GetNode<TextureRect>("Image").Texture = t;
         setupBackButton();
         setupNextButton();
@@ -111,7 +111,7 @@ public class Cutscene : Control
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {
-            GDKnyttDataStore.Tree.ChangeScene(GDKnyttDataStore.CutsceneAfter);
+            GDKnyttDataStore.Tree.ChangeSceneToFile(GDKnyttDataStore.CutsceneAfter);
             releaseAll();
         }
         else

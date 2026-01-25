@@ -210,7 +210,7 @@ public class LevelSelection : BasicScreen
         game_container.fillStubs(worlds_total);
 
         requested_level = Math.Max(requested_level,
-            2 * (((int)games_scrollbar.RectSize.y) / GameContainer.BUTTON_HEIGHT) + 2);
+            2 * (((int)games_scrollbar.Size.Y) / GameContainer.BUTTON_HEIGHT) + 2);
 
         next_page = HTTPUtil.jsonValue<string>(json.Result, "next");
         if (next_page != null && requested_level > game_container.GamesCount + world_infos.Count)
@@ -222,7 +222,7 @@ public class LevelSelection : BasicScreen
 
     private void _on_GameContainter_scrolling(float value)
     {
-        requested_level = 2 * (((int)(value + games_scrollbar.RectSize.y)) / GameContainer.BUTTON_HEIGHT) + 2;
+        requested_level = 2 * (((int)(value + games_scrollbar.Size.Y)) / GameContainer.BUTTON_HEIGHT) + 2;
         if (next_page != null && requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
         {
             http_levels_node.Request(next_page);
@@ -700,9 +700,9 @@ public class LevelSelection : BasicScreen
 
     private void _on_ToLevel_focus_entered(bool top, int column)
     {
-        int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).RectSize.y + 4;
+        int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).Size.Y + 4;
         int line = Mathf.Min(game_container.GetChildCount() - 1,
-            ((int)(games_scrollbar.Value + (top ? 0 : games_scrollbar.RectSize.y))) / button_height);
+            ((int)(games_scrollbar.Value + (top ? 0 : games_scrollbar.Size.Y))) / button_height);
         column = Math.Min(column, game_container.GetChild(line).GetChildCount() - 1);
         game_container.GetChild(line).GetChild<GameButton>(column).GrabFocus();
     }
@@ -721,8 +721,8 @@ public class LevelSelection : BasicScreen
         if (game_container.GetFocusOwner() is GameButton cur_button &&
             (Input.IsActionPressed("ui_page_up") || Input.IsActionPressed("ui_page_down")))
         {
-            int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).RectSize.y + 4;
-            int step = (int)games_scrollbar.RectSize.y / button_height;
+            int button_height = (int)game_container.GetChild(0).GetChild<GameButton>(0).Size.Y + 4;
+            int step = (int)games_scrollbar.Size.Y / button_height;
             
             int line = game_container.GetChildren().IndexOf(cur_button.GetParent());
             int column = cur_button.GetParent().GetChildren().IndexOf(cur_button);

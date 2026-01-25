@@ -3,9 +3,9 @@ using YKnyttLib;
 
 public class GDKnyttBackground : Sprite2D
 {
-    public void initialize(Texture t)
+    public void initialize(Texture2D t)
     {
-        Texture = t;
+        Texture2D = t;
 
         var px = KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH;
         var py = KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT;

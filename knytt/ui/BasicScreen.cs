@@ -37,7 +37,7 @@ public abstract class BasicScreen : CanvasLayer
         if ((@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu")) && 
             ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {
-            GetTree().SetInputAsHandled();
+            GetViewport().SetInputAsHandled();
             if (focused is PopupMenu pm) { pm.Hide(); return; }
             if (focused?.FindParent("*FileDialog") is FileDialog fd) { fd.Hide(); return; }
             goBack();

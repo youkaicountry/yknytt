@@ -8,7 +8,7 @@ public class WorldEntry
     public string Author;
     public string Description;
     public byte[] Icon;
-    public Texture IconTexture;
+    public Texture2D IconTexture2D;
     public string Size;
     public List<string> Difficulties = new List<string>();
     public List<string> Categories = new List<string>();

@@ -47,7 +47,7 @@ public class WalkingShooter : Muff
                 }
             }
 
-            if (sprite.Frames.HasAnimation("aftershot")) { sprite.Play("aftershot"); }
+            if (sprite.SpriteFrames.HasAnimation("aftershot")) { sprite.Play("aftershot"); }
         }
         else
         {

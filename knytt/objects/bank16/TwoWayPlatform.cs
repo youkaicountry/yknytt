@@ -17,6 +17,6 @@ public class TwoWayPlatform : OneWayPlatform
     {
         if (!juni.juniInput.DownHeld) { return; }
         disablePlatform(true);
-        if (juni.velocity.y != 0) { juni.executeJump(0, sound: false, reset_jumps: true); }
+        if (juni.velocity.Y != 0) { juni.executeJump(0, sound: false, reset_jumps: true); }
     }
 }

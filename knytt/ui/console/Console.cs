@@ -46,8 +46,8 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         displayBuffer = new LinkedList<string>();
         backBuffer = new List<string>();
         var consoleContainer = GetNode<Control>("ConsoleContainer");
-        consoleContainer.MarginTop = -240;
-        consoleContainer.MarginBottom = -240;
+        consoleContainer.OffsetTop = -240;
+        consoleContainer.OffsetBottom = -240;
         if (GDKnyttSettings.Mobile)
         {
             GetNode<Control>("ConsoleContainer/Panel/VBox").MoveChild(GetNode<Control>("ConsoleContainer/Panel/VBox/HBox"), 0);
@@ -81,15 +81,15 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         {
             historyIndex = (historyIndex + history.Count - 1) % history.Count;
             lineEdit.Text = history[historyIndex];
-            lineEdit.CaretPosition = lineEdit.Text.Length;
-            GetTree().SetInputAsHandled();
+            lineEdit.CaretColumn = lineEdit.Text.Length;
+            GetViewport().SetInputAsHandled();
         }
         
         if (@event.IsActionPressed("ui_down") && IsOpen)
         {
             historyIndex = historyIndex < history.Count - 1 ? historyIndex + 1 : 0;
             lineEdit.Text = history[historyIndex];
-            lineEdit.CaretPosition = lineEdit.Text.Length;
+            lineEdit.CaretColumn = lineEdit.Text.Length;
         }
 
         if (@event.IsActionPressed("ui_accept") && IsOpen)
@@ -184,7 +184,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
     public void _on_LineEdit_text_changed(string newText)
     {
-        var caretPosition = lineEdit.CaretPosition;
+        var caretPosition = lineEdit.CaretColumn;
 
         StringBuilder sb = new StringBuilder();
         foreach (var c in newText)
@@ -193,7 +193,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         }
 
         lineEdit.Text = sb.ToString();
-        lineEdit.CaretPosition = caretPosition;
+        lineEdit.CaretColumn = caretPosition;
     }
 
     public void RunCommand(string command)
@@ -231,7 +231,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (!IsOpen) { return; }
         lineEdit.VirtualKeyboardEnabled = !lineEdit.VirtualKeyboardEnabled;
         lineEdit.GrabFocus();
-        lineEdit.CaretPosition = lineEdit.Text.Length;
+        lineEdit.CaretColumn = lineEdit.Text.Length;
     }
 
     private void _on_LineEdit_gui_input(object @event)
@@ -249,7 +249,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         if (!IsOpen) { return; }
         historyIndex = (historyIndex + history.Count - 1) % history.Count;
         lineEdit.Text = history[historyIndex];
-        lineEdit.CaretPosition = lineEdit.Text.Length;
+        lineEdit.CaretColumn = lineEdit.Text.Length;
     }
 
     private void _on_CloseButton_pressed()

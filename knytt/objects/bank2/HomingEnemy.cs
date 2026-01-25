@@ -20,7 +20,7 @@ public class HomingEnemy : GDKnyttBaseObject
     {
         speed = initialSpeed;
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        hasWallAnimation = sprite.Frames.HasAnimation("wall");
+        hasWallAnimation = sprite.SpriteFrames.HasAnimation("wall");
         sprite.Play("default");
     }
 

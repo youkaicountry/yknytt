@@ -23,9 +23,9 @@ namespace YKnyttLib.Paging
             }
 
             // Iterate over the new area and add any that aren't in this.Areas
-            for (int y = location.y - BorderSize.y; y <= location.y + BorderSize.y; y++)
+            for (int y = location.Y - BorderSize.Y; y <= location.Y + BorderSize.Y; y++)
             {
-                for (int x = location.x - BorderSize.x; x <= location.x + BorderSize.x; x++)
+                for (int x = location.X - BorderSize.X; x <= location.X + BorderSize.X; x++)
                 {
                     var kp = new KnyttPoint(x, y);
                     if (!Areas.ContainsKey(kp)) { q_add.Add(kp); }
@@ -46,8 +46,8 @@ namespace YKnyttLib.Paging
 
         private bool isIn(KnyttPoint location, KnyttPoint test_location)
         {
-            return location.x >= (test_location.x - BorderSize.x) && location.x <= (test_location.x + BorderSize.x) &&
-                   location.y >= (test_location.y - BorderSize.y) && location.y <= (test_location.y + BorderSize.y);
+            return location.X >= (test_location.X - BorderSize.X) && location.X <= (test_location.X + BorderSize.X) &&
+                   location.Y >= (test_location.Y - BorderSize.Y) && location.Y <= (test_location.Y + BorderSize.Y);
         }
     }
 }

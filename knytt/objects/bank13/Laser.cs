@@ -12,7 +12,7 @@ public class Laser : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        int index = ObjectID.y - 7;
+        int index = ObjectID.Y - 7;
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
         climbCollisionShape = horizontal[index] ? null : GetNode<CollisionShape2D>("ClimbArea2D/CollisionShape2D");

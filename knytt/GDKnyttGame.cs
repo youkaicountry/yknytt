@@ -175,12 +175,12 @@ public class GDKnyttGame : Node2D
         var wc = area.Warp.getWarpCoords(new_coords, area.Position);
 
         // Apply the warp
-        jgp += new Vector2(GDKnyttArea.Width * wc.x, GDKnyttArea.Height * wc.y);
+        jgp += new Vector2(GDKnyttArea.Width * wc.X, GDKnyttArea.Height * wc.Y);
         var after_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
         // Apply flag warps
         var found_warp = getFlagWarp(after_warp_coords, juni);
-        if (found_warp != null) { jgp += new Vector2(GDKnyttArea.Width * found_warp.Value.x, GDKnyttArea.Height * found_warp.Value.y); }
+        if (found_warp != null) { jgp += new Vector2(GDKnyttArea.Width * found_warp.Value.X, GDKnyttArea.Height * found_warp.Value.Y); }
         var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
         juni.GlobalPosition = jgp;
@@ -205,8 +205,8 @@ public class GDKnyttGame : Node2D
                         if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
                     }
                     found_warp = found_warp ?? new KnyttPoint(
-                        flag_warp.xArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.x - 1) : flag_warp.x,
-                        flag_warp.yArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.y - 1) : flag_warp.y);
+                        flag_warp.xArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.X - 1) : flag_warp.X,
+                        flag_warp.yArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.Y - 1) : flag_warp.Y);
                 }
                 else
                 {
@@ -355,7 +355,7 @@ public class GDKnyttGame : Node2D
         await fade(fast: false, color: null);
 
         GetTree().Paused = false;
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        GetTree().ChangeSceneToFile("res://knytt/ui/MainMenu.tscn");
     }
 
     // Handles transition effects
@@ -387,7 +387,7 @@ public class GDKnyttGame : Node2D
     {
         if (GetViewport() == null) { return; }
 
-        float camera_global_position_x = Camera.GlobalPosition.x;
+        float camera_global_position_x = Camera.GlobalPosition.X;
         
         if (initial)
         {
@@ -401,15 +401,15 @@ public class GDKnyttGame : Node2D
                 (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero())/* ||
                 right_area.Area.FlagWarps.Any(w => w != null)*/;
 
-            if (force_jump) { camera_global_position_x = CurrentArea.GlobalPosition.x + camera_global_position_x % 600; }
-            else if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.x; } // fix flickering
+            if (force_jump) { camera_global_position_x = CurrentArea.GlobalPosition.X + camera_global_position_x % 600; }
+            else if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.X; } // fix flickering
         }
 
-        float juni_in_area = Juni.GlobalPosition.x - CurrentArea.GlobalCenter.x;
-        float juni_on_camera = Juni.GlobalPosition.x - camera_global_position_x;
-        float camera_in_area = camera_global_position_x - CurrentArea.GlobalCenter.x;
+        float juni_in_area = Juni.GlobalPosition.X - CurrentArea.GlobalCenter.X;
+        float juni_on_camera = Juni.GlobalPosition.X - camera_global_position_x;
+        float camera_in_area = camera_global_position_x - CurrentArea.GlobalCenter.X;
 
-        float x_viewport = GetViewport().GetVisibleRect().Size.x * TouchSettings.ViewportNow;
+        float x_viewport = GetViewport().GetVisibleRect().Size.X * TouchSettings.ViewportNow;
         float camera_restriction = (600 - x_viewport) / 2;
         float camera_threshold = x_viewport * 72f / 600f;
 
@@ -431,13 +431,13 @@ public class GDKnyttGame : Node2D
             camera_in_area = 0;
         }
 
-        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.x + camera_in_area, CurrentArea.GlobalCenter.y);
+        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.X + camera_in_area, CurrentArea.GlobalCenter.Y);
 
         if (x_viewport <= 600)
         {
             foreach (var area in GDWorld.Areas.Areas.Values)
             {
-                float juni_in_this_area = Juni.GlobalPosition.x - area.GlobalCenter.x;
+                float juni_in_this_area = Juni.GlobalPosition.X - area.GlobalCenter.X;
                 area.Background.Position = new Vector2((juni_in_this_area - juni_on_camera) * 0.5f, 0);
             }
         }
@@ -505,11 +505,11 @@ public class GDKnyttGame : Node2D
         int r = 0xFF & bgr, g = (0xFF00 & bgr) >> 8, b = (0xFF0000 & bgr) >> 16;
         float a = 1.0f - trans / 127.0f;
 
-        tint.SetShaderParam("mode", mode);
-        tint.SetShaderParam("r", r);
-        tint.SetShaderParam("g", g);
-        tint.SetShaderParam("b", b);
-        tint.SetShaderParam("a", a);
+        tint.SetShaderParameter("mode", mode);
+        tint.SetShaderParameter("r", r);
+        tint.SetShaderParameter("g", g);
+        tint.SetShaderParameter("b", b);
+        tint.SetShaderParameter("a", a);
         glass.Material = tint;
         glass.Visible = true;
         Juni.GetNode<Sprite2D>("ShiftHintSprite").ZIndex = 17;
@@ -538,11 +538,11 @@ public class GDKnyttGame : Node2D
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
         string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
-        var t = GDWorld.KWorld.getWorldTexture(font_path) as Texture;
+        var t = GDWorld.KWorld.getWorldTexture2D(font_path) as Texture2D;
         if (t == null) { return null; }
         var font = new Font();
         font.Height = height;
-        font.AddTexture(t);
+        font.AddTexture2D(t);
         for (int y = 0; y < 7; y++)
         {
             for (int x = 0; x < 32; x++)
@@ -585,7 +585,7 @@ public class GDKnyttGame : Node2D
              (Input.IsActionJustPressed("left") || Input.IsActionJustPressed("right")))) { return; }
 
         float aspect = GDKnyttSettings.Aspect;
-        float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
         var aspects = 
             Enumerable.Range(1, 20) // should be the same if written/read from ini
                 .Select(i => float.Parse((i * 240 / window_x_fixed).ToString())) // integer scales
@@ -629,6 +629,6 @@ public class GDKnyttGame : Node2D
         GDKnyttSettings.setupCamera();
         UI.Location.updateResolution();
         UI.GetNodeOrNull<TouchPanel>("TouchPanel").CallDeferred("Configure");
-        GetTree().SetInputAsHandled();
+        GetViewport().SetInputAsHandled();
     }
 }

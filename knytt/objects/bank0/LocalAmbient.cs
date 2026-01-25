@@ -6,7 +6,7 @@ public class LocalAmbient : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        if (ObjectID.y == 37)
+        if (ObjectID.Y == 37)
         {
             GDArea.Ambiance1CustomVolume = true;
             channel = GDArea.GDWorld.Game.AmbianceChannel1;

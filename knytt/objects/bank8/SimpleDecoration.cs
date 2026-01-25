@@ -6,7 +6,7 @@ public class SimpleDecoration : GDKnyttBaseObject
     {
         base._Ready();
         var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        if (ObjectID.y == 12) { sprite.Material = null; }
+        if (ObjectID.Y == 12) { sprite.Material = null; }
         sprite.Play(ObjectID.y.ToString());
     }
 }

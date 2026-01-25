@@ -10,9 +10,9 @@ public class GDKnyttWorldImpl : KnyttWorld
         return GDKnyttAssetManager.loadOGG(data, loop);
     }
 
-    protected override object bytesToTexture(byte[] data)
+    protected override object bytesToTexture2D(byte[] data)
     {
-        return GDKnyttAssetManager.loadTexture(data);
+        return GDKnyttAssetManager.loadTexture2D(data);
     }
 
     protected override bool externalFileExists(string filepath)
@@ -30,12 +30,12 @@ public class GDKnyttWorldImpl : KnyttWorld
         return GDKnyttAssetManager.loadExternalSound(full_path, loop);
     }
 
-    protected override object getExternalTexture(string filepath)
+    protected override object getExternalTexture2D(string filepath)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
         var f = new File();
         if (!f.FileExists(full_path)) { return null; }
-        return GDKnyttAssetManager.loadExternalTexture(full_path);
+        return GDKnyttAssetManager.loadExternalTexture2D(full_path);
     }
 
     protected sealed override byte[] getExternalWorldData(string filepath)
@@ -51,10 +51,10 @@ public class GDKnyttWorldImpl : KnyttWorld
         return GDKnyttAssetManager.loadInternalSound("res://knytt/data/" + filepath, loop);
     }
 
-    protected override object getSystemTexture(string filepath)
+    protected override object getSystemTexture2D(string filepath)
     {
         return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
-            GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
+            GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
     }
 
     protected sealed override byte[] getSystemWorldData(string filepath)

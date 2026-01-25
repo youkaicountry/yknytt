@@ -44,7 +44,7 @@ public class StatPanel : Panel
     private void addItem(string texture, string label, int count, bool achieved)
     {
         var node = itemScene.Instantiate() as Control;
-        node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture>(texture);
+        node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture2D>(texture);
         node.GetNode<Label>("HBoxContainer/VBoxContainer/ItemLabel").Text = label;
         node.GetNode<Label>("HBoxContainer/VBoxContainer/CountLabel").Text = $"Achieved {count} times";
         if (achieved) { node.AddStyleboxOverride("panel", achievedStyle); }

@@ -34,7 +34,7 @@ public class DistanceMod : Node2D
         var distance =
             method == DistanceMethod.Distance ? globalJuni.distance(GlobalPosition) :
             method == DistanceMethod.ManhattanDistance ? globalJuni.manhattanDistance(GlobalPosition) :
-                Mathf.Abs(GlobalPosition.x - globalJuni.ApparentPosition.x);
+                Mathf.Abs(GlobalPosition.X - globalJuni.ApparentPosition.X);
 
         if (!IsEntered && distance < openDistance) { updateSpikes(show: true); }
         if (IsEntered && distance > closeDistance) { updateSpikes(show: false); }

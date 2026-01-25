@@ -174,7 +174,7 @@ public class DirectoriesScreen : Control
             Control next_focus = null;
             if (Input.IsActionPressed("ui_left")) { next_focus = GetFocusOwner().FindPrevValidFocus(); }
             if (Input.IsActionPressed("ui_right")) { next_focus = GetFocusOwner().FindNextValidFocus(); }
-            if (next_focus != null) {  next_focus.GrabFocus(); GetTree().SetInputAsHandled(); }
+            if (next_focus != null) {  next_focus.GrabFocus(); GetViewport().SetInputAsHandled(); }
         }
     }
 }

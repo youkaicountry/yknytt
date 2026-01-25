@@ -60,6 +60,6 @@ public class Password : GDKnyttBaseObject
 
     public bool IsCorrect()
     {
-        return current_char == ObjectID.y;
+        return current_char == ObjectID.Y;
     }
 }

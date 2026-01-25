@@ -14,12 +14,12 @@ public class PowerItem : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        this.Power = Object2Power[ObjectID.y];
+        this.Power = Object2Power[ObjectID.Y];
         // Check if Juni has the powerup, hide if it is so.
         if (Juni.Powers.getPower(Power)) { QueueFree(); Deleted = true; }
         var anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         string custom_anim = $"{GDArea.GDWorld.KWorld.WorldDirectoryName} {Power}";
-        anim.Animation = anim.Frames.HasAnimation(custom_anim) ? custom_anim : $"Power{Power}";
+        anim.Animation = anim.SpriteFrames.HasAnimation(custom_anim) ? custom_anim : $"Power{Power}";
     }
 
     public void _on_Area2D_body_entered(Node body)

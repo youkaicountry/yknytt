@@ -32,7 +32,7 @@ public class BouncerEnemy : GDKnyttBaseObject
 
     public void launch()
     {
-        start_y = Position.y;
+        start_y = Position.Y;
         vel = -(Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_jump_force : jump_force);
         in_air = true;
         GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
@@ -44,7 +44,7 @@ public class BouncerEnemy : GDKnyttBaseObject
         if (in_air || !real) { return; }
 
         // Calculate and test jump chance
-        if (Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
+        if (Mathf.Abs(juni.ApparentPosition.X - Center.X) < 150 + random.Next(80))
         {
             launch();
         }
@@ -64,7 +64,7 @@ public class BouncerEnemy : GDKnyttBaseObject
 
         in_air = false;
 
-        Position = new Vector2(Position.x, start_y);
+        Position = new Vector2(Position.X, start_y);
 
         GetNodeOrNull<AudioStreamPlayer2D>("BouncePlayer")?.Play();
         sprite.Play("stop", true);

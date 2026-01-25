@@ -27,7 +27,7 @@ public class IdleState : JuniState
         // Do climb check first so jump will override it.
         if (juni.juniInput.UpHeld && juni.CanClimb)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -75,7 +75,7 @@ public class WalkRunState : JuniState
         // Do climb check first so jump will override it.
         if (juni.juniInput.UpHeld && juni.CanClimb)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
 
@@ -142,12 +142,12 @@ public class ClimbState : JuniState
 
     public override void PostProcess(float delta)
     {
-        if (juni.juniInput.UpHeld) { juni.velocity.y = Juni.CLIMB_SPEED; }
-        else if (juni.velocity.y > 0f) { juni.transitionState(new SlideState(juni)); }
+        if (juni.juniInput.UpHeld) { juni.velocity.Y = Juni.CLIMB_SPEED; }
+        else if (juni.velocity.Y > 0f) { juni.transitionState(new SlideState(juni)); }
 
         if (juni.juniInput.JumpEdge)
         {
-            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
+            juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump(check_stow: false);
         }
     }
@@ -190,12 +190,12 @@ public class SlideState : ClimbState
     {
         if (juni.juniInput.UpHeld)
         {
-            juni.velocity.y = Juni.CLIMB_SPEED;
+            juni.velocity.Y = Juni.CLIMB_SPEED;
             juni.transitionState(new ClimbState(juni));
         }
         else if (!juni.juniInput.DownHeld)
         {
-            juni.velocity.y = Juni.SLIDE_SPEED;
+            juni.velocity.Y = Juni.SLIDE_SPEED;
             if (slide_sound.Playing) { slide_sound.Stop(); }
             juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.NONE;
         }
@@ -208,7 +208,7 @@ public class SlideState : ClimbState
 
         if (juni.juniInput.JumpEdge)
         {
-            juni.velocity.x = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
+            juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump(check_stow: false);
         }
     }
@@ -238,9 +238,9 @@ public class JumpState : JuniState
     public override void PostProcess(float delta)
     {
         if (juni.CanClimb) { juni.transitionState(new ClimbState(juni)); }
-        else if (juni.velocity.y >= 0) { juni.transitionState(new FallState(juni)); }
+        else if (juni.velocity.Y >= 0) { juni.transitionState(new FallState(juni)); }
 
-        if ((juni.CanClimb || juni.velocity.y >= 0) && juni.Umbrella.DeployOnFall)
+        if ((juni.CanClimb || juni.velocity.Y >= 0) && juni.Umbrella.DeployOnFall)
         {
             juni.Umbrella.Deployed = true;
             juni.Umbrella.DeployOnFall = false;

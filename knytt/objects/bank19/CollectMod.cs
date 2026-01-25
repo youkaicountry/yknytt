@@ -17,7 +17,7 @@ public class CollectMod : Node2D
         }
         parent = candidate as GDKnyttBaseObject;
 
-        if (parent.Juni.Powers.getCollectable(parent.ObjectID.y))
+        if (parent.Juni.Powers.getCollectable(parent.ObjectID.Y))
         {
             parent.QueueFree();
             parent.Deleted = true;
@@ -30,7 +30,7 @@ public class CollectMod : Node2D
     public virtual void _body_entered(Node body)
     {
         if (!(body is Juni juni)) { return; }
-        juni.Powers.setCollectable(parent.ObjectID.y, true);
+        juni.Powers.setCollectable(parent.ObjectID.Y, true);
         juni.updateCollectables();
         parent.GDArea.playEffect(offset: GlobalPosition - parent.GDArea.GlobalPosition);
         juni.playSound("powerup");

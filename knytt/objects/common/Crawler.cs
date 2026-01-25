@@ -14,13 +14,13 @@ public class Crawler : GDKnyttBaseObject
         var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         var jgp = Juni.ApparentPosition;
 
-        float juni_radar_value = horizontal ? jgp.y : jgp.x;
-        float obj_radar_value = horizontal ? Center.y : Center.x;
+        float juni_radar_value = horizontal ? jgp.Y : jgp.X;
+        float obj_radar_value = horizontal ? Center.Y : Center.X;
         bool out_of_radar = (radarTop != 0 && juni_radar_value < obj_radar_value - radarTop) ||
                             (radarBottom != 0 && juni_radar_value > obj_radar_value + radarBottom);
 
-        float juni_coord_value = horizontal ? jgp.x : jgp.y;
-        float obj_coord_value = horizontal ? Center.x : Center.y;
+        float juni_coord_value = horizontal ? jgp.X : jgp.Y;
+        float obj_coord_value = horizontal ? Center.X : Center.Y;
         bool too_close = Mathf.Abs(juni_coord_value - obj_coord_value) < keepDistance;
         bool stop = out_of_radar || too_close;
 

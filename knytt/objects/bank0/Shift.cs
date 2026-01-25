@@ -11,8 +11,8 @@ public class Shift : Switch
     public override void _Ready()
     {
         @switch = shift = GDArea.Area.ExtraData != null ? 
-            new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.y - 14)) :
-            new KnyttShift(GDArea.Area.Position, Coords, (SwitchID)(ObjectID.y - 14)); // just show shift spot (original game has also effect)
+            new KnyttShift(GDArea.Area, Coords, (SwitchID)(ObjectID.Y - 14)) :
+            new KnyttShift(GDArea.Area.Position, Coords, (SwitchID)(ObjectID.Y - 14)); // just show shift spot (original game has also effect)
         base._Ready();
     }
 
@@ -41,7 +41,7 @@ public class Shift : Switch
                 juni.Visible = false;
                 GDArea.BlockInput = true;
                 juni.StopMotion = true;
-                Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 18)) as Trigger;
+                Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.Y + 18)) as Trigger;
                 trigger?.executeAnyway(juni);
             }
 
@@ -117,12 +117,12 @@ public class Shift : Switch
         {
             var jgp = juni.GlobalPosition;
             // Move Juni to the same spot in the new area
-            jgp.x += relative_area.x * GDKnyttArea.Width;
-            jgp.y += relative_area.y * GDKnyttArea.Height;
+            jgp.X += relative_area.X * GDKnyttArea.Width;
+            jgp.Y += relative_area.Y * GDKnyttArea.Height;
 
             var relative_pos = shift.RelativePosition;
-            jgp.x += relative_pos.x * GDKnyttAssetManager.TILE_WIDTH;
-            jgp.y += relative_pos.y * GDKnyttAssetManager.TILE_HEIGHT;
+            jgp.X += relative_pos.X * GDKnyttAssetManager.TILE_WIDTH;
+            jgp.Y += relative_pos.Y * GDKnyttAssetManager.TILE_HEIGHT;
             juni.GlobalPosition = jgp;
         }
 

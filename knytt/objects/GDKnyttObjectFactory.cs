@@ -462,9 +462,9 @@ public class GDKnyttObjectBundle
 {
     public KnyttPoint object_id;
     PackedScene scene;
-    public Texture icon;
+    public Texture2D icon;
 
-    public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture icon = null)
+    public GDKnyttObjectBundle(KnyttPoint object_id, PackedScene scene, Texture2D icon = null)
     {
         this.object_id = object_id;
         this.scene = scene;

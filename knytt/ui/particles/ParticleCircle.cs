@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ParticleCircle : Node2D
 {
     [Export]
-    public Texture particleTexture;
+    public Texture2D particleTexture2D;
 
     [Export]
     public bool cloud;
@@ -71,7 +71,7 @@ public class ParticleCircle : Node2D
     {
         Node2D arm = new Node2D();
         Sprite2D s = new Sprite2D();
-        s.Texture = particleTexture;
+        s.Texture = particleTexture2D;
         s.Position = new Vector2(radius, 0f);
         s.Scale = new Vector2(spriteScale, spriteScale);
         arm.AddChild(s);
@@ -100,6 +100,6 @@ public class ParticleCircle : Node2D
 
     private float getRangeValue(Vector2 range)
     {
-        return ((float)R.NextDouble()) * (range.y - range.x) + range.x;
+        return ((float)R.NextDouble()) * (range.Y - range.X) + range.X;
     }
 }

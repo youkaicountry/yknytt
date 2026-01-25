@@ -10,7 +10,7 @@ public class SmartWalkingBouncer : WalkingBouncer
 
     public void juniJumped(Juni juni, bool real)
     {
-        if (!inAir && real && Mathf.Abs(juni.ApparentPosition.x - Center.x) < 150 + random.Next(80))
+        if (!inAir && real && Mathf.Abs(juni.ApparentPosition.X - Center.X) < 150 + random.Next(80))
         {
             jump();
         }

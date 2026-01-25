@@ -32,7 +32,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         if (Juni.dead) { return; }
-        if (Mathf.Abs(Juni.ApparentPosition.x - Center.x) < distanceToShot && readyToShoot)
+        if (Mathf.Abs(Juni.ApparentPosition.X - Center.X) < distanceToShot && readyToShoot)
         {
             sprite.Frame = 0;
             sprite.Play("launch");

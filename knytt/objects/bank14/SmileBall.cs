@@ -7,9 +7,9 @@ public class SmileBall : Crawler
         base._PhysicsProcess(delta);
 
         var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        bool too_close = Mathf.Abs(Juni.GlobalPosition.x - Center.x) < keepDistance;
+        bool too_close = Mathf.Abs(Juni.GlobalPosition.X - Center.X) < keepDistance;
         if (too_close && sprite.Animation != "smile") { sprite.Play("smile"); }
         if (!too_close && sprite.Animation == "smile") { sprite.Play("default"); }
-        sprite.FlipH = Juni.GlobalPosition.x < Center.x;
+        sprite.FlipH = Juni.GlobalPosition.X < Center.X;
     }
 }
