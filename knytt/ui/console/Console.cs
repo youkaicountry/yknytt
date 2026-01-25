@@ -94,7 +94,8 @@ public partial class Console : CanvasLayer, IKnyttLoggerTarget
 
         if (@event.IsActionPressed("ui_accept") && IsOpen)
         {
-            if (@event is InputEventKey ek && (ek.Scancode == (int)KeyList.Space || ek.Scancode == (int)KeyList.Enter)) { return; }
+            // Godot 4: Scancode → Keycode, KeyList → Key
+            if (@event is InputEventKey ek && (ek.Keycode == Key.Space || ek.Keycode == Key.Enter)) { return; }
             if (lineEdit.GetViewport().GuiGetFocusOwner() is Button) { return; }
             _on_LineEdit_text_entered(null);
         }
@@ -117,7 +118,7 @@ public partial class Console : CanvasLayer, IKnyttLoggerTarget
 
         if (!anim.IsPlaying())
         {
-            anim.SpeedScale = SlideSpeed * (1f/Godot.Engine.TimeScale);
+            anim.SpeedScale = SlideSpeed * (1f/(float)Godot.Engine.TimeScale);
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
