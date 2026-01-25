@@ -36,9 +36,10 @@ public partial class Muff : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        float dt = (float)delta;
 
         // Check for collisions with ObjectsCollide and area bounds
-        var diff = speed * direction * SPEED_SCALE * delta;
+        var diff = speed * direction * SPEED_SCALE * dt;
         var diff_vec = vertical ? new Vector2(0, diff) : new Vector2(diff, 0);
         // Sometimes collision can be detected with zero movement! Muff got stuck after this.
         if (diff != 0 && (!GDArea.isIn(Center + diff_vec, x_border: xBorder) || moveAndCollide(diff_vec) != null))
@@ -46,7 +47,7 @@ public partial class Muff : GDKnyttBaseObject
             collide();
         }
 
-        var new_speed = speed - _deceleration * delta;
+        var new_speed = speed - _deceleration * dt;
         if (speed > 0 && new_speed <= 0) { changeSpeed(0); } else { speed = new_speed; }
     }
 

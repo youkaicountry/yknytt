@@ -7,7 +7,7 @@ public partial class LaserRobot : GDKnyttBaseObject
 
     public override void _PhysicsProcess(double delta)
     {
-        var diff = new Vector2(speed * delta, 0);
+        var diff = new Vector2(speed * (float)delta, 0);
         Translate(diff);
 
         var new_pos = Center + diff;

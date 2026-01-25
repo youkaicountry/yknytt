@@ -171,7 +171,7 @@ public partial class MapPanel : Control
                 // Godot 4: DrawChar signature changed - 4th param is fontSize instead of nextChar
                 DrawChar(mark_font, p, markChar(m[0]), -1, markColor(m[0]));
                 if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), -1, markColor(m[1])); }
-                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), '+', -1, markColor('+')); }
+                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", -1, markColor('+')); }
             }
         }
 

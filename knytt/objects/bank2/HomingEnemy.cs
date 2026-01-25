@@ -27,14 +27,15 @@ public partial class HomingEnemy : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        float dt = (float)delta;
         float distance = Juni.distance(Center);
         if (distance > JUNI_MIN_DISTANCE)
         {
-            var inertia = 0.9f - delta * 3; // TODO: replace this magic formula with more correct and fps-independent behaviour
+            var inertia = 0.9f - dt * 3; // TODO: replace this magic formula with more correct and fps-independent behaviour
             var new_speed_vector = speed * SPEED_SCALE * (Juni.ApparentPosition - Center) / distance;
             speedVector = speedVector * inertia + new_speed_vector * (1 - inertia);
         }
-        Translate(speedVector * delta);
+        Translate(speedVector * dt);
     }
 
     private void _on_Area2D_body_entered(object body)

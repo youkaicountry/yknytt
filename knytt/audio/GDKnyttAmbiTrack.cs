@@ -49,7 +49,11 @@ public partial class GDKnyttAmbiTrack : AudioStreamPlayer
     {
         if (!fading) { return; }
 
-        if (MathTools.MoveTowards(ref fade_i, fade_target, .8f * delta))
+        double fade_d = fade_i;
+        bool reached = MathTools.MoveTowards(ref fade_d, fade_target, .8f * delta);
+        fade_i = (float)fade_d;
+
+        if (reached)
         {
             fading = false;
             if (fade_i == 0 && !muting)

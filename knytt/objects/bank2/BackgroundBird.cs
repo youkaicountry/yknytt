@@ -17,7 +17,7 @@ public partial class BackgroundBird : GDKnyttBaseObject
     {
         if (Position.X + 12 > 640) { Position = new Vector2(-24 - 12, Position.Y); randomize(); }
         if (Position.X + 12 < -40) { Position = new Vector2(624 - 12, Position.Y); randomize(); }
-        Translate(new Vector2(speed, 0) * direction * delta);
+        Translate(new Vector2(speed, 0) * direction * (float)delta);
     }
 
     private void randomize()

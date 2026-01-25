@@ -11,7 +11,7 @@ public partial class GameButton : GDKnyttButton
     private float varProgressLength;
 
     [Signal]
-    public delegate void GamePressed();
+    public delegate void GamePressedEventHandler();
 
     public void initialize(WorldEntry info)
     {
@@ -61,7 +61,7 @@ public partial class GameButton : GDKnyttButton
 
     public void _on_GameButton_pressed()
     {
-        EmitSignal(nameof(GamePressed), this);
+        EmitSignal(SignalName.GamePressed, this);
     }
 
     private void setProgress(float progress, Color color)

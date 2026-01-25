@@ -12,6 +12,7 @@ public partial class FlyBot : GDKnyttBaseObject
 
     public override void _PhysicsProcess(double delta)
     {
-        path.Offset += 80f * delta;
+        // Godot 4: Offset → Progress
+        path.Progress += 80f * (float)delta;
     }
 }

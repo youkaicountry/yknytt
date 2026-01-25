@@ -26,8 +26,9 @@ public partial class BouncerEnemy : GDKnyttBaseObject
         base._PhysicsProcess(delta);
         if (!in_air) { return; }
 
-        vel += (Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_gravity : gravity) * delta;
-        Translate(new Vector2(0f, vel * delta));
+        float dt = (float)delta;
+        vel += (Juni.Powers.getPower(JuniValues.PowerNames.DoubleJump) ? extra_gravity : gravity) * dt;
+        Translate(new Vector2(0f, vel * dt));
     }
 
     public void launch()
@@ -67,6 +68,6 @@ public partial class BouncerEnemy : GDKnyttBaseObject
         Position = new Vector2(Position.X, start_y);
 
         GetNodeOrNull<AudioStreamPlayer2D>("BouncePlayer")?.Play();
-        sprite.Play("stop", true);
+        sprite.PlayBackwards("stop");
     }
 }

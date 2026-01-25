@@ -27,6 +27,7 @@ public partial class FlyingBomb : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        float dt = (float)delta;
 
         if (!inAttack && Mathf.Abs(Juni.ApparentPosition.X - Center.X) < 100 && attackTimer.IsStopped())
         {
@@ -37,10 +38,10 @@ public partial class FlyingBomb : GDKnyttBaseObject
 
         if (inAttack)
         {
-            ySpeed -= 250 * delta;
+            ySpeed -= 250 * dt;
         }
 
-        Translate(new Vector2(xSpeed * delta, ySpeed * delta));
+        Translate(new Vector2(xSpeed * dt, ySpeed * dt));
 
         float pos = Center.X - GDArea.GlobalPosition.X;
         if (pos < 10) { xSpeed = 100; sprite.FlipH = false; }

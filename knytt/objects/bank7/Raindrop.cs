@@ -44,7 +44,7 @@ public partial class Raindrop : Node2D
     {
         if (init) { initialize(); }
 
-        var mv = speed * delta;
+        float mv = speed * (float)delta;
         this.Translate(new Vector2(0, mv));
         distance += mv;
         if (distance >= max_distance) { retire(); }

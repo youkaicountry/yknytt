@@ -526,9 +526,13 @@ public partial class GDKnyttSettings : Node
             
             scale++;
             if (scale > max_scale) { scale = 1; }
-            DisplayServer.WindowGetSize() = min_size * scale;
-            DisplayServer.WindowGetPosition() = (max_size - DisplayServer.WindowGetSize()) / 2;
-            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Maximized = false;
+            Vector2I newSize = (Vector2I)(min_size * scale);
+            DisplayServer.WindowSetSize(newSize);
+            DisplayServer.WindowSetPosition((Vector2I)((Vector2)(max_size - newSize) / 2));
+            if (DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Maximized)
+            {
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+            }
         }
     }
 }

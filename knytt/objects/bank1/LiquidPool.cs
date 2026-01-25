@@ -20,7 +20,9 @@ public partial class LiquidPool : GDKnyttBaseObject
     public void _on_AnimatedSprite_animation_finished()
     {
         player.Stop();
-        player.Play(backwards: ping);
+        // Godot 4: backwards parameter removed, use PlayBackwards() instead
+        if (ping) player.PlayBackwards();
+        else player.Play();
         ping = !ping;
     }
 }

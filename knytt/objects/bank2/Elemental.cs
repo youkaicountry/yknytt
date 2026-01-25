@@ -27,11 +27,11 @@ public partial class Elemental : GDKnyttBaseObject
 
     private void _on_AnimatedSprite_animation_finished()
     {
-        if (!sprite.Animation.StartsWith("idle")) { sprite.Play($"idle{random.Next(4)}"); }
+        if (!((string)sprite.Animation).StartsWith("idle")) { sprite.Play($"idle{random.Next(4)}"); }
     }
 
     private void _on_Timer_timeout()
     {
-        if (sprite.Animation.StartsWith("idle")) { sprite.Play("change"); }
+        if (((string)sprite.Animation).StartsWith("idle")) { sprite.Play("change"); }
     }
 }

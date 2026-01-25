@@ -27,7 +27,7 @@ public partial class Crawler : GDKnyttBaseObject
         if (!stop)
         {
             int direction = juni_coord_value < obj_coord_value ? -1 : 1;
-            float diff = speed * direction * delta;
+            float diff = speed * direction * (float)delta;
             var diff_vec = horizontal ? new Vector2(diff, 0) : new Vector2(0, diff);
             if (!GDArea.isIn(Center + diff_vec, x_border: 10) || moveAndCollide(diff_vec) != null)
             {

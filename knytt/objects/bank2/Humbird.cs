@@ -27,8 +27,8 @@ public partial class Humbird : GDKnyttBaseObject
         if (Juni.ApparentPosition.X + 8 < Center.X) { sprite.FlipH = true; }
 
         if (runTimer.TimeLeft > 0) { return; }
-        
-        time += delta;
+
+        time += (float)delta;
         float new_y = originY - (1 - Mathf.Abs(Mathf.Pow(1 - time / T, POW))) * H;
         
         if (new_y < originY)

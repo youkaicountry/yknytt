@@ -24,9 +24,10 @@ public partial class BuzzFlyer : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        float dt = (float)delta;
         var buzz = new Vector2(random.NextFloat(-buzzStrength, buzzStrength),
                                random.NextFloat(-buzzStrength, buzzStrength));
-        var movement = currentDirection * speed * delta + buzz * delta;
+        var movement = currentDirection * speed * dt + buzz * dt;
         var collision = moveAndCollide(movement, testOnly: true);
         var offscreen = !GDArea.isIn(Center + movement, x_border: border, y_border: border);
         if (collision == null && !offscreen) { Translate(movement); }

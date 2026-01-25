@@ -11,7 +11,8 @@ public partial class LabyrinthSpike : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        var collision = moveAndCollide(delta * speed * direction, testOnly: !wasFree);
+        float dt = (float)delta;
+        var collision = moveAndCollide(dt * speed * direction, testOnly: !wasFree);
         if (collision != null)
         {
             int retry = 5;
@@ -20,7 +21,7 @@ public partial class LabyrinthSpike : GDKnyttBaseObject
                 direction = direction == Vector2.Up || direction == Vector2.Down ?
                     (random.NextBoolean() ? Vector2.Left : Vector2.Right) :
                     (random.NextBoolean() ? Vector2.Down : Vector2.Up);
-                collision = moveAndCollide(delta * speed * direction, testOnly: true);
+                collision = moveAndCollide(dt * speed * direction, testOnly: true);
                 if (retry-- <= 0) { return; }
             }
             onCollide();

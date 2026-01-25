@@ -6,7 +6,7 @@ public partial class SlotButton : GDKnyttButton
     public int slot = 1;
 
     [Signal]
-    public delegate void StartGame();
+    public delegate void StartGameEventHandler();
 
     public bool ConfirmActive
     {
@@ -118,7 +118,7 @@ public partial class SlotButton : GDKnyttButton
     {
         ClickPlayer.Play();
         // Message up to the level selection with a new? flag, the filename, and the slot number
-        EmitSignal(nameof(StartGame), NewMode, FullFilename, slot);
+        EmitSignal(SignalName.StartGame, NewMode, FullFilename, slot);
     }
 
     public void _on_Button_ShowHint(string h)

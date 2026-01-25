@@ -18,9 +18,10 @@ public abstract partial class WalkingBouncer : Muff
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        float dt = (float)delta;
         if (inAir)
         {
-            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
+            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * dt)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
@@ -30,7 +31,7 @@ public abstract partial class WalkingBouncer : Muff
             }
             else
             {
-                jumpSpeed += jumpGravity * JUMP_SCALE * delta;
+                jumpSpeed += jumpGravity * JUMP_SCALE * dt;
             }
         }
     }

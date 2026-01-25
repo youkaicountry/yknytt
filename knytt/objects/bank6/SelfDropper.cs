@@ -27,13 +27,14 @@ public partial class SelfDropper : GDKnyttBaseObject
         }
         if (state == State.Dropping)
         {
-            if (moveAndCollide(new Vector2(0, delta * dropSpeed)) != null)
+            float dt = (float)delta;
+            if (moveAndCollide(new Vector2(0, dt * dropSpeed)) != null)
             {
                 state = State.Dropped;
                 collisionShape.SetDeferred("disabled", true);
                 GetNode<AudioStreamPlayer2D>("DropPlayer").Play();
             }
-            if (dropSpeed < 450) { dropSpeed += 14 * 50 * delta; }
+            if (dropSpeed < 450) { dropSpeed += 14 * 50 * dt; }
         }
     }
 

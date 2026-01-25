@@ -59,15 +59,15 @@ public abstract partial class Switch : GDKnyttBaseObject
 
         if (@switch.AsOne) { GDArea.Selector.Unregister(this); }
 
-        if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), new Callable(new Callable(this, nameof(execute)))))
+        if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), new Callable(this, nameof(execute))))
         {
-            juni.Disconnect(nameof(Juni.DownEvent), new Callable(new Callable(this, nameof(execute))));
+            juni.Disconnect(nameof(Juni.DownEvent), new Callable(this, nameof(execute)));
             juni.OnShift = false;
         }
 
-        if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), new Callable(new Callable(this, nameof(execute)))))
+        if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), new Callable(this, nameof(execute))))
         {
-            juni.Disconnect(nameof(Juni.HologramStopped), new Callable(new Callable(this, nameof(execute))));
+            juni.Disconnect(nameof(Juni.HologramStopped), new Callable(this, nameof(execute)));
         }
     }
 

@@ -28,20 +28,21 @@ public partial class Firefly : GDKnyttBaseObject
 
     public override void _PhysicsProcess(double delta)
     {
+        float dt = (float)delta;
         // TODO: not very accurate (no reappear, different speed, etc). Rewrite if required.
-        speed += random.NextFloat(-speedBuzz + speedOffset, speedBuzz + speedOffset) * delta;
+        speed += random.NextFloat(-speedBuzz + speedOffset, speedBuzz + speedOffset) * dt;
         if (speed > limitSpeed) { speed = resetSpeed; }
-        
-        direction += random.NextFloat(-directionBuzz, directionBuzz) * delta;
-        
-        opacity += random.NextFloat(-opacityBuzz, opacityBuzz) * delta;
+
+        direction += random.NextFloat(-directionBuzz, directionBuzz) * dt;
+
+        opacity += random.NextFloat(-opacityBuzz, opacityBuzz) * dt;
         opacity = Mathf.Max(0, Mathf.Min(1, opacity));
-        
+
         var diff = new Vector2(speed, 0).Rotated(direction);
-        var collision = moveAndCollide(diff * delta * SPEED_SCALE);
-        if (collision != null) { direction = diff.Bounce(collision.Normal).Angle(); }
+        var collision = moveAndCollide(diff * dt * SPEED_SCALE);
+        if (collision != null) { direction = diff.Bounce(collision.GetNormal()).Angle(); }
         if (!GDArea.isIn(Center)) { direction = (GDArea.GlobalPosition + new Vector2(300, 120)).AngleToPoint(Center); }
-        
+
         sprite.Rotation = direction;
         Modulate = new Color(1, 1, 1, opacity);
 

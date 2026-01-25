@@ -6,7 +6,7 @@ namespace YKnyttLib.Logging
     {
         public void NewMessage(KnyttLogMessage message)
         {
-            Console.WriteLine(message.Render());
+            System.Console.WriteLine(message.Render());
         }
     }
 }
