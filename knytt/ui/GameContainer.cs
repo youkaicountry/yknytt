@@ -38,7 +38,7 @@ public partial class GameContainer : VBoxContainer
         var game_node = replace_stub ? stubs.First.Value : this.game_scene.Instantiate() as GameButton;
         if (replace_stub) { stubs.RemoveFirst(); }
         game_node.initialize(world_entry);
-        game_node.Connect("GamePressed", GetNode<LevelSelection>("../../.."), "_on_GamePressed");
+        game_node.Connect("GamePressed", new Callable(GetNode<LevelSelection>("../../.."), "_on_GamePressed"));
         if (!replace_stub) { addButton(game_node); }
         
         if (focus) { game_node.forceGrabFocus(); }

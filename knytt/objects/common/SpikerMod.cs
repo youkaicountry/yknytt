@@ -17,9 +17,9 @@ public partial class SpikerMod : DistanceMod
         area = GetNode<Area2D>(areaPath);
         openPlayer = GetNode<AudioStreamPlayer2D>("OpenPlayer");
         closePlayer = GetNode<AudioStreamPlayer2D>("ClosePlayer");
-        area.Connect("body_entered", this, nameof(_body_entered));
-        area.Connect("body_exited", this, nameof(_body_exited));
-        sprite.Connect("animation_finished", this, nameof(_animation_finished));
+        area.Connect("body_entered", new Callable(this, nameof(_body_entered)));
+        area.Connect("body_exited", new Callable(this, nameof(_body_exited)));
+        sprite.Connect("animation_finished", new Callable(this, nameof(_animation_finished)));
     }
 
     public void _body_entered(Node body)
@@ -33,16 +33,16 @@ public partial class SpikerMod : DistanceMod
         }
         else if (juni.Hologram != null)
         {
-            juni.Connect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
+            juni.Connect(nameof(Juni.HologramStopped), new Callable(this, nameof(hologramStopped)));
         }
     }
 
     public void _body_exited(Node body)
     {
         if (!(body is Juni juni)) { return; }
-        if (juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(hologramStopped)))
+        if (juni.IsConnected(nameof(Juni.HologramStopped), new Callable(this, nameof(hologramStopped))))
         {
-            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(hologramStopped));
+            juni.Disconnect(nameof(Juni.HologramStopped), new Callable(this, nameof(hologramStopped)));
         }
         delayedDeath = false;
     }

@@ -23,7 +23,7 @@ public partial class InputScreen : Control
             if (child is InputOption io)
             {
                 io.Screen = this;
-                io.Connect("GetActionInput", this, "_onPress");
+                io.Connect("GetActionInput", new Callable(this, "_onPress"));
             }
         }
     }
