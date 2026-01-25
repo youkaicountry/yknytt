@@ -29,7 +29,8 @@ public partial class GDKnyttDataStore : Node
             {
                 string dataPath = args[i + 1];
                 // Convert relative paths to absolute paths
-                if (!dataPath.IsAbsPath())
+                // Godot 4: IsAbsPath() is no longer available as string extension
+                if (!System.IO.Path.IsPathRooted(dataPath))
                 {
                     dataPath = OS.GetExecutablePath().GetBaseDir().PathJoin(dataPath);
                 }
@@ -57,18 +58,20 @@ public partial class GDKnyttDataStore : Node
     const int BaseIterations = 60;
     public static float CurrentSpeed
     {
-        get { return Godot.Engine.TimeScale; }
+        get { return (float)Godot.Engine.TimeScale; }
         set
         {
             int iterations = (int)(BaseIterations * value);
             Godot.Engine.TimeScale = value;
-            Godot.Engine.IterationsPerSecond = iterations;
+            // Godot 4: IterationsPerSecond → PhysicsTicksPerSecond
+            Godot.Engine.PhysicsTicksPerSecond = iterations;
         }
     }
 
     public static void setTitle(string level_name)
     {
-        OS.SetWindowTitle("YKnytt" + (level_name == null ? "" : $" | {level_name}"));
+        // Godot 4: OS.SetWindowTitle → DisplayServer.WindowSetTitle
+        DisplayServer.WindowSetTitle("YKnytt" + (level_name == null ? "" : $" | {level_name}"));
     }
 
     public override void _Ready()

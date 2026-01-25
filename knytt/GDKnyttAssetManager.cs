@@ -60,7 +60,8 @@ public class GDKnyttAssetManager
                 // Preprocess the texture if no alpha channel
                 TileSet new_tileset = makeTileset(t.HasAlpha() ? t : preprocessTilesetTexture2D(t));
                 ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{GDWorld.KWorld.WorldDirectoryName}"));
-                ResourceSaver.Save(cached_path, new_tileset, ResourceSaver.SaverFlags.Compress);
+                // Godot 4: ResourceSaver.Save parameter order changed to (resource, path, flags)
+                ResourceSaver.Save(new_tileset, cached_path, ResourceSaver.SaverFlags.Compress);
                 return new_tileset;
             case TileSet ts: return ts;
             default: return null;
@@ -120,7 +121,7 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadInternalSound(string path, bool loop)
     {
-        var stream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStreamOGGVorbis>(path) : null;
+        var stream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStreamOggVorbis>(path) : null;
         if (stream != null) { stream.Loop = loop; }
         return stream;
     }
@@ -133,10 +134,11 @@ public class GDKnyttAssetManager
     private static Texture2D image2Texture2D(Image image)
     {
         if (OS.GetName() == "Unix" && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
-        var texture = new ImageTexture();
-        texture.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
+        // Godot 4: CreateFromImage is now a static factory method, no flags parameter
+        // Texture flags (repeat, filter) are now handled via shader/material settings
+        var texture = ImageTexture.CreateFromImage(image);
         var image_back = texture.GetImage();
-        if (image_back == null || texture.GetWidth() != image_back.GetWidth() || 
+        if (image_back == null || texture.GetWidth() != image_back.GetWidth() ||
             texture.GetHeight() != image_back.GetHeight()) { return null; }
         return texture;
     }
@@ -180,7 +182,7 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
     {
-        return new AudioStreamOGGVorbis() { Data = buffer, Loop = loop };
+        return new AudioStreamOggVorbis() { Data = buffer, Loop = loop };
     }
 
     public static void ensureDirExists(string dir_name)
@@ -197,9 +199,8 @@ public class GDKnyttAssetManager
 
         if (replaceColor(image, from ?? new Color(1f, 0f, 1f), new Color(0f, 0f, 0f, 0f)))
         {
-            var it = new ImageTexture();
-            it.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
-            texture = it;
+            // Godot 4: CreateFromImage is a static factory method
+            texture = ImageTexture.CreateFromImage(image);
         }
 
         return texture;
@@ -231,7 +232,7 @@ public class GDKnyttAssetManager
                     bool convex = isConvex(p);
                     if (!convex)
                     {
-                        if (!Geometry.IsPolygonClockwise(p)) { Array.Reverse(p); }
+                        if (!Geometry2D.IsPolygonClockwise(p)) { Array.Reverse(p); }
                         p = smoothPolygon(p);
                         if (p == null) { GD.Print($"Error in smoothing {x}, {y}"); continue; } // should never happen
                         convex = isConvex(p);
@@ -245,7 +246,7 @@ public class GDKnyttAssetManager
                     }
                     else
                     {
-                        int[] triangles = Geometry.TriangulatePolygon(p);
+                        int[] triangles = Geometry2D.TriangulatePolygon(p);
                         for (int t = 0; t < triangles.Length; t += 3)
                         {
                             Vector2[] triangle = { p[triangles[t]], p[triangles[t + 1]], p[triangles[t + 2]] };
@@ -330,7 +331,7 @@ public class GDKnyttAssetManager
 
     private static Vector2[] smoothPolygon(Vector2[] full_polygon)
     {
-        var convex_hull = Geometry.ConvexHull2d(full_polygon).Reverse().ToList();
+        var convex_hull = Geometry2D.ConvexHull2d(full_polygon).Reverse().ToList();
 
         int result_size = 0;
         while (result_size != convex_hull.Count)

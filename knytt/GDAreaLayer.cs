@@ -27,21 +27,27 @@ public partial class GDAreaLayer : Node2D
             umap = this.A;
         }
 
-        umap.SetCell(x, y, tilenum + (collisions ? 0 : 128));
+        // Godot 4 TileMap API: SetCell(layer, coords, sourceId, atlasCoords, alternativeTile)
+        // The collision handling needs to be done differently in Godot 4 via the TileSet
+        umap.SetCell(0, new Vector2I(x, y), tilenum + (collisions ? 0 : 128));
     }
 
     public void deactivate()
     {
-        // TODO: Godot 4 TileMap no longer has CollisionLayer property
-        // Need to migrate to TileMapLayer or handle via TileSet physics layers
-        // For now, use CollisionEnabled property on the tilemap
-        A.CollisionEnabled = false;
-        B.CollisionEnabled = false;
+        // TODO: Godot 4 - TileMap collision is now controlled via TileSet physics layers
+        // For now, we disable collision by setting the collision visibility mode
+        // A proper solution would involve manipulating the TileSet's physics layers
+        A.CollisionVisibilityMode = TileMap.VisibilityMode.ForceHide;
+        B.CollisionVisibilityMode = TileMap.VisibilityMode.ForceHide;
+        A.SetLayerEnabled(0, false);
+        B.SetLayerEnabled(0, false);
     }
 
     public void activate()
     {
-        A.CollisionEnabled = true;
-        B.CollisionEnabled = true;
+        A.CollisionVisibilityMode = TileMap.VisibilityMode.Default;
+        B.CollisionVisibilityMode = TileMap.VisibilityMode.Default;
+        A.SetLayerEnabled(0, true);
+        B.SetLayerEnabled(0, true);
     }
 }
