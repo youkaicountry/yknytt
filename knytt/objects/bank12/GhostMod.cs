@@ -25,7 +25,7 @@ public partial class GhostMod : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (flickering) { handleFlicker(delta); }
+        if (flickering) { handleFlicker((float)delta); }
     }
 
     private void handleFlicker(float delta)

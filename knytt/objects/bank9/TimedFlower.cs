@@ -29,7 +29,10 @@ public partial class TimedFlower : GDKnyttBaseObject
         {
             GetNode<Timer>("ShotTimer").Stop();
         }
-        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("open", backwards: !isShooting);
+        // Godot 4: backwards parameter removed
+        var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        if (isShooting) sprite.Play("open");
+        else sprite.PlayBackwards("open");
     }
 
     private void _on_ShotTimer_timeout()

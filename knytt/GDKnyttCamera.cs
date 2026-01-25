@@ -37,7 +37,12 @@ public partial class GDKnyttCamera : Camera2D
         {
             var gp = this.GlobalPosition;
             var s = speed * delta;
-            this.Scrolling = !(MathTools.MoveTowards(ref gp.X, Target.X, s) & MathTools.MoveTowards(ref gp.Y, Target.Y, s));
+            double gpX = gp.X, gpY = gp.Y;
+            bool reachedX = MathTools.MoveTowards(ref gpX, Target.X, s);
+            bool reachedY = MathTools.MoveTowards(ref gpY, Target.Y, s);
+            gp.X = (float)gpX;
+            gp.Y = (float)gpY;
+            this.Scrolling = !(reachedX & reachedY);
 
             this.GlobalPosition = gp;
         }

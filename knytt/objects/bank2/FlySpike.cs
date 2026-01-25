@@ -41,7 +41,7 @@ public partial class FlySpike : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         if (wait_timer.TimeLeft > 0f) { return; }
-        Translate(new Vector2(speed * delta * (FacingRight ? 1f : -1f), 0f));
+        Translate(new Vector2(speed * (float)delta * (FacingRight ? 1f : -1f), 0f));
     }
 
     public void _on_WallHitArea_body_entered(Node body)

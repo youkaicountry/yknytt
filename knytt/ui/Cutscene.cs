@@ -27,7 +27,7 @@ public partial class Cutscene : Control
 
     public static Color getCutsceneColor(string name = null)
     {
-        return new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
+        return Juni.RgbaIntToColor(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(
                 GDKnyttDataStore.KWorld.INIData["Cutscene Color"][name ?? GDKnyttDataStore.CutsceneName], 0xFFFFFF)));
     }
 

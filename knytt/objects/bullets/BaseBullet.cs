@@ -91,18 +91,19 @@ public partial class BaseBullet : CharacterBody2D
             return;
         }
 
-        velocity_x -= deceleration_x * delta * deceleration_correction_x;
+        float dt = (float)delta;
+        velocity_x -= deceleration_x * dt * deceleration_correction_x;
         if (deceleration_x > 0 && velocity_x < 0) { velocity_x = 0; }
         if (deceleration_x < 0 && velocity_x > 0) { velocity_x = 0; }
 
         if (velocity_y > 0)
         {
-            velocity_y -= deceleration_y * delta * deceleration_correction_down;
+            velocity_y -= deceleration_y * dt * deceleration_correction_down;
             if (gravity == 0 && velocity_y < 0) { velocity_y = 0; }
         }
         else if (velocity_y < 0)
         {
-            velocity_y += deceleration_y * delta * deceleration_correction_up;
+            velocity_y += deceleration_y * dt * deceleration_correction_up;
             if (gravity == 0 && velocity_y > 0) { velocity_y = 0; }
         }
 
@@ -111,11 +112,11 @@ public partial class BaseBullet : CharacterBody2D
             disappear(collide: false);
         }
 
-        velocity_y += gravity * delta;
+        velocity_y += gravity * dt;
 
         if (EnableRotation) { Rotation = Mathf.Atan2(-velocity_y, -velocity_x); }
 
-        var collision = MoveAndCollide(new Vector2(delta * velocity_x, delta * velocity_y));
+        var collision = MoveAndCollide(new Vector2(dt * velocity_x, dt * velocity_y));
         if (!GDArea.isIn(GlobalPosition, x_border: 2, y_border: 2))
         {
             disappear_countdown = 1;

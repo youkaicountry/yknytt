@@ -36,17 +36,19 @@ public partial class FakeObjectLayer : Node2D
 
     private void setCell(int layer, int x, int y, KnyttPoint obj)
     {
+        // Godot 4: TileMap SetCell API changed - takes layer, Vector2I coords, sourceId, atlasCoords
+        var coords = new Godot.Vector2I(x, y);
         int big_index = BIG_OBJECTS.IndexOf(obj);
         if (big_index != -1)
         {
-            layers[layer].SetCell(x, y, big_index + 1);
+            layers[layer].SetCell(0, coords, big_index + 1);
         }
         else
         {
             if (obj.X == 19 && obj.Y >= 51 && obj.Y <= 150) { obj = new KnyttPoint(19, 51); }
             if (obj.X >= IMAGE_BANK_CAPACITY.Length || obj.Y > IMAGE_BANK_CAPACITY[obj.X]) { return; }
             int tile_index = IMAGE_BANK_INDEX[obj.X] + obj.Y - 1;
-            layers[layer].SetCell(x, y, 0, autotileCoord: new Vector2(tile_index % 16, tile_index / 16));
+            layers[layer].SetCell(0, coords, 0, new Godot.Vector2I(tile_index % 16, tile_index / 16));
         }
     }
 

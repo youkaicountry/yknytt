@@ -31,8 +31,9 @@ public partial class Fly : GDKnyttBaseObject
 
         if (!flying) { return; }
 
-        Vector2 diff = new Vector2(random.NextFloat(-xBuzz, xBuzz), 
-            random.NextFloat(-53, 78) - (flyUpTimer.IsStopped() ? 0 : 50)) * delta;
+        float dt = (float)delta;
+        Vector2 diff = new Vector2(random.NextFloat(-xBuzz, xBuzz),
+            random.NextFloat(-53, 78) - (flyUpTimer.IsStopped() ? 0 : 50)) * dt;
 
         if (moveAndCollide(diff, testOnly: true) == null)
         {

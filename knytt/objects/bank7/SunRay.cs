@@ -25,7 +25,9 @@ public partial class SunRay : GDKnyttBaseObject
         base._PhysicsProcess(delta);
 
         var m = Modulate;
-        if (MathTools.MoveTowards(ref m.A, target, CHANGE_SPEED * delta)) { chooseTarget(); }
+        double mA = m.A;
+        if (MathTools.MoveTowards(ref mA, target, CHANGE_SPEED * delta)) { chooseTarget(); }
+        m.A = (float)mA;
         Modulate = m;
     }
 

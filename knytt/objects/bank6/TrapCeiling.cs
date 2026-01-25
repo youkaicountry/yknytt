@@ -10,7 +10,7 @@ public partial class TrapCeiling : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        var move_speed = delta * (moving_up ? -UP_SPEED : DOWN_SPEED);
+        var move_speed = (float)delta * (moving_up ? -UP_SPEED : DOWN_SPEED);
         Translate(new Vector2(0, move_speed));
     }
 

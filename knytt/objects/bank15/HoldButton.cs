@@ -16,7 +16,7 @@ public partial class HoldButton : Password // inheritance for destroyWalls() fun
     {
         base._PhysicsProcess(delta);
 
-        if (entered) { timer += delta; }
+        if (entered) { timer += (float)delta; }
 
         int frame = Math.Min((int)(timer + 1.9f), 7);
         string state = entered ? "inc" : "stop";

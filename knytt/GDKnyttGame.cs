@@ -203,8 +203,8 @@ public partial class GDKnyttGame : Node2D
                         if (some_check_failed) { continue; } else { found_warp = null; } // Use previous found warp; else override
                     }
                     found_warp = found_warp ?? new KnyttPoint(
-                        flag_warp.xArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.X - 1) : flag_warp.X,
-                        flag_warp.yArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.Y - 1) : flag_warp.Y);
+                        flag_warp.xArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.x - 1) : flag_warp.x,
+                        flag_warp.yArtifactMode ? juni.Powers.getArtifactsCount(flag_warp.y - 1) : flag_warp.y);
                 }
                 else
                 {
@@ -252,8 +252,9 @@ public partial class GDKnyttGame : Node2D
 
     public override void _Notification(int what)
     {
-        if (what == MainLoop.NotificationWmQuitRequest) { pause(); }
-        if (what == MainLoop.NotificationWmGoBackRequest)
+        // Godot 4: Notification constants moved to Node with different naming
+        if (what == NotificationWMCloseRequest) { pause(); }
+        if (what == NotificationWMGoBackRequest)
         {
             if (GetNode<Console>("/root/Console").IsOpen) { GetNode<Console>("/root/Console").toggleConsole(); return; }
             pause();
@@ -503,7 +504,7 @@ public partial class GDKnyttGame : Node2D
         int r = 0xFF & bgr, g = (0xFF00 & bgr) >> 8, b = (0xFF0000 & bgr) >> 16;
         float a = 1.0f - trans / 127.0f;
 
-        tint.SetShaderParameter("mode", mode);
+        tint.SetShaderParameter("mode", (int)mode);
         tint.SetShaderParameter("r", r);
         tint.SetShaderParameter("g", g);
         tint.SetShaderParameter("b", b);

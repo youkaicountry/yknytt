@@ -5,7 +5,7 @@ public partial class GDKnyttBackground : Sprite2D
 {
     public void initialize(Texture2D t)
     {
-        Texture2D = t;
+        Texture = t;
 
         var px = KnyttArea.AREA_WIDTH * GDKnyttAssetManager.TILE_WIDTH;
         var py = KnyttArea.AREA_HEIGHT * GDKnyttAssetManager.TILE_HEIGHT;

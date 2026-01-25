@@ -44,6 +44,8 @@ public partial class DistanceMod : Node2D
     {
         IsEntered = show;
         EmitSignal(show ? nameof(EnterEvent) : nameof(ExitEvent));
-        sprite?.Play(openAnimation, backwards: !show);
+        // Godot 4: backwards parameter removed
+        if (show) sprite?.Play(openAnimation);
+        else sprite?.PlayBackwards(openAnimation);
     }
 }

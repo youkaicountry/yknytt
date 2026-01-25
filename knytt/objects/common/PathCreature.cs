@@ -29,11 +29,13 @@ public partial class PathCreature : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         if (stopped) { return; }
+        float dt = (float)delta;
 
-        bool end_reached = path.UnitOffset.AlmostEqualsWithAbsTolerance(forward ? 1f : 0f, delta * .05f);
+        // Godot 4: UnitOffset → ProgressRatio, Offset → Progress
+        bool end_reached = path.ProgressRatio.AlmostEqualsWithAbsTolerance(forward ? 1f : 0f, dt * .05f);
         if (end_reached)
         {
-            path.UnitOffset = forward && !path.Loop ? 1 : 0;
+            path.ProgressRatio = forward && !path.Loop ? 1 : 0;
             if (!path.Loop) { forward = !forward; }
 
             if (flipTimer != null) { flipTimer.Start(); stop(true); return; }
@@ -45,10 +47,10 @@ public partial class PathCreature : GDKnyttBaseObject
         if (collided) { forward = !forward; }
 
         var old_pos = path.GlobalPosition;
-        path.Offset += speed * delta * (forward ? 1f : -1f);
+        path.Progress += speed * dt * (forward ? 1f : -1f);
 
         var new_pos = path.GlobalPosition;
-        if (!new_pos.x.AlmostEqualsWithAbsTolerance(old_pos.X, delta * .01f))
+        if (!new_pos.X.AlmostEqualsWithAbsTolerance(old_pos.X, dt * .01f))
         {
             sprite.FlipH = (new_pos.X < old_pos.X);
         }

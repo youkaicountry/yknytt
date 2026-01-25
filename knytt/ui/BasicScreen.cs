@@ -38,7 +38,8 @@ public abstract partial class BasicScreen : CanvasLayer
             ActiveScreen == this && !(focused is LineEdit) && !GetNode<Console>("/root/Console").IsOpen)
         {
             GetViewport().SetInputAsHandled();
-            if (focused is PopupMenu pm) { pm.Hide(); return; }
+            // Godot 4: PopupMenu is now a Window subclass, check differently
+            if (focused?.GetParent() is PopupMenu pm) { pm.Hide(); return; }
             if (focused?.FindParent("*FileDialog") is FileDialog fd) { fd.Hide(); return; }
             goBack();
         }

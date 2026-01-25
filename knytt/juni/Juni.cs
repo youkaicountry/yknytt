@@ -385,10 +385,10 @@ public partial class Juni : CharacterBody2D
 
         int clothes = Game.GDWorld.KWorld.Info.Clothes;
         JuniClothesSkip = clothes == -1;
-        if (clothes != -1) { JuniClothes = new Color(KnyttUtil.BGRToRGBA(clothes)); }
+        if (clothes != -1) { JuniClothes = RgbaIntToColor(KnyttUtil.BGRToRGBA(clothes)); }
         int skin = Game.GDWorld.KWorld.Info.Skin;
         JuniSkinSkip = skin == -1;
-        if (skin != -1) { JuniSkin = new Color(KnyttUtil.BGRToRGBA(skin)); }
+        if (skin != -1) { JuniSkin = RgbaIntToColor(KnyttUtil.BGRToRGBA(skin)); }
     }
 
     public void setPower(PowerNames name, bool value)
@@ -399,7 +399,7 @@ public partial class Juni : CharacterBody2D
             if (name == PowerNames.Hologram && !value && Hologram != null) { stopHologram(); }
         }
         Powers.setPower(name, value);
-        EmitSignal(nameof(PowerChanged), name, value);
+        EmitSignal(nameof(PowerChanged), (int)name, value);
     }
 
     public void setPower(int power, bool value)
@@ -443,7 +443,7 @@ public partial class Juni : CharacterBody2D
 
         juniInput.QueueRedraw();
 
-        if (DebugFlyMode) { processFlyMode(delta); } else { processMotion(delta); }
+        if (DebugFlyMode) { processFlyMode((float)delta); } else { processMotion((float)delta); }
 
         if (GDArea.HasAltInput) { juniInput.FinishFrame(); }
     }
@@ -528,11 +528,24 @@ public partial class Juni : CharacterBody2D
         if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1))); }
         else
         {
+            // Godot 4: Configure CharacterBody2D properties for movement
+            UpDirection = Godot.Vector2.Up;
+            FloorStopOnSlope = true;
+            FloorMaxAngle = SLOPE_MAX_ANGLE;
+
             // Do the movement in two steps to avoid hanging up on tile seams
-            velocity.X = MoveAndSlideWithSnap(new Godot.Vector2(velocity.X, 0), 5 * Godot.Vector2.Down, Godot.Vector2.Up,
-                                              stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).X;
-            velocity.Y = MoveAndSlide(new Godot.Vector2(0, velocity.Y), Godot.Vector2.Up,
-                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE, maxSlides: 1).Y;
+            // X movement with snap
+            FloorSnapLength = 5f;
+            Velocity = new Godot.Vector2(velocity.X, 0);
+            MoveAndSlide();
+            velocity.X = Velocity.X;
+
+            // Y movement without snap
+            FloorSnapLength = 0f;
+            Velocity = new Godot.Vector2(0, velocity.Y);
+            MoveAndSlide();
+            velocity.Y = Velocity.Y;
+
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
         
@@ -911,5 +924,15 @@ public partial class Juni : CharacterBody2D
             detector_reverse_distance = rev_distance;
             detector_color = color;
         }
+    }
+
+    // Helper to convert packed RGBA int (0xRRGGBBAA) to Color
+    public static Color RgbaIntToColor(int rgba)
+    {
+        return new Color(
+            ((rgba >> 24) & 0xFF) / 255f,
+            ((rgba >> 16) & 0xFF) / 255f,
+            ((rgba >> 8) & 0xFF) / 255f,
+            (rgba & 0xFF) / 255f);
     }
 }

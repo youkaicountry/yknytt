@@ -35,7 +35,7 @@ public partial class SmallTimedFlower : GDKnyttBaseObject
         shotsLeft--;
         if (shotsLeft == 0)
         {
-            GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("open", backwards: true);
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").PlayBackwards("open");
             GetNode<Timer>("ShotTimer").Stop();
             GetNode<Timer>("ShotPlayerTimer").Stop();
         }

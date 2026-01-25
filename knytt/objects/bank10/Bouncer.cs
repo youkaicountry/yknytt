@@ -21,7 +21,8 @@ public partial class Bouncer : GDKnyttBaseObject
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        speed += gravity * 50 * delta;
+        float dt = (float)delta;
+        speed += gravity * 50 * dt;
         Translate(new Vector2(0, speed));
     }
 

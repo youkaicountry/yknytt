@@ -25,7 +25,7 @@ public partial class TimerExt : Timer
         base._Ready();
 
         if (syncedRandomDelay || pickOne) { parent = GetParent<GDKnyttBaseObject>(); }
-        if (syncedRandomDelay) { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, WaitTime); }
+        if (syncedRandomDelay) { firstDelay = parent.GDArea.Selector.GetRandomValue(parent, (float)WaitTime); }
         if (pickOne && !manualRegister) { parent.GDArea.Selector.Register(parent); }
 
         if (_autostart) { RunTimer(); }

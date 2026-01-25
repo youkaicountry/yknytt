@@ -46,7 +46,7 @@ public partial class CustomObject : GDKnyttBaseObject
         int obj = getInt(section, "Object", -1);
         bool safe = getString(section, "Hurts")?.ToLower() == "false";
         string image = getString(section, "Image");
-        Color color = new Color(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
+        Color color = Juni.RgbaIntToColor(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
         if (bank != -1 && obj != -1)
         {
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
@@ -138,7 +138,7 @@ public partial class CustomObject : GDKnyttBaseObject
             {
                 if (image == null) { new_frames.SetFrame(anim, i, null); continue; }
 
-                var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
+                var tex = new_frames.GetFrameTexture(anim, i) as AtlasTexture;
                 if (tex == null) { continue; }
                 int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.X;
                 int row = (int)tex.Region.Position.Y / (int)tex.Region.Size.Y;

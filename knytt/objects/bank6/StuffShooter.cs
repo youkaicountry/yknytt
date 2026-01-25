@@ -40,7 +40,7 @@ public abstract partial class StuffShooter : GDKnyttBaseObject
             alreadyShot = false;
             shotDelayTimer.Start();
         }
-        if (sprite.Playing && sprite.Frame >= 2 && !alreadyShot)
+        if (sprite.IsPlaying() && sprite.Frame >= 2 && !alreadyShot)
         {
             alreadyShot = true;
             player.Play();

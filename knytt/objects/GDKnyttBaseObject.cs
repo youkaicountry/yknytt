@@ -90,6 +90,8 @@ public partial class GDKnyttBaseObject : Node2D
     protected KinematicCollision2D moveAndCollide(Vector2 relVec, bool infiniteInertia = true,
         bool excludeRaycastShapes = true, bool testOnly = false)
     {
-        return Call("move_and_collide", relVec, infiniteInertia, excludeRaycastShapes, testOnly) as KinematicCollision2D;
+        // Godot 4: Call returns Variant, use AsGodotObject() to convert
+        var result = Call("move_and_collide", relVec, testOnly);
+        return result.AsGodotObject() as KinematicCollision2D;
     }
 }
