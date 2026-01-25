@@ -43,16 +43,16 @@ public partial class MapViewports : Node2D
     private KnyttPoint getKey(KnyttPoint area_coord) => 
         area_coord / new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE) * new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
 
-    private string getFilename(KnyttPoint key) => $"{cache_dir}/map_x{key.x}y{key.y}.png";
+    private string getFilename(KnyttPoint key) => $"{cache_dir}/map_x{key.X}y{key.Y}.png";
 
     public void addArea(GDKnyttArea area)
     {
         if (KWorld == null || area == null || internal_cache) { return; }
         var key = getKey(area.Area.MapPosition);
-        if (!viewports.Contains(key))
+        if (!viewports.ContainsKey(key))
         {
             ViewportTile tile = viewport_scene.Instantiate<ViewportTile>();
-            tile.init(key, getFilename(key), map_images.Contains(key) ? map_images[key] : null);
+            tile.init(key, getFilename(key), map_images.ContainsKey(key) ? map_images[key] : null);
             AddChild(tile);
             viewports.Add(key, tile);
         }
@@ -66,8 +66,8 @@ public partial class MapViewports : Node2D
         KnyttPoint tile_coord = coord % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
         Rect2 src = new Rect2(new Vector2(tile_coord.X, tile_coord.Y) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
 
-        if (viewports.Contains(key)) { return (src, viewports[key].getTexture2D()); }
-        if (map_images.Contains(key)) { return (src, map_images[key]); }
+        if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture()); }
+        if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
         if (internal_cache ? 

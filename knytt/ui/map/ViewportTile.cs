@@ -45,7 +45,7 @@ public partial class ViewportTile : SubViewportContainer
         KnyttPoint tile_coord = area.Area.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
         Vector2 pos = new Vector2(TILE_SIZE.X * tile_coord.X, 240 * TILE_SCALE - TILE_SIZE.Y * tile_coord.Y);
         var image = GetNode<TextureRect>("Viewport/TextureRect").Texture?.GetImage();
-        image?.Lock();
+        // Note: Image.Lock() is no longer needed in Godot 4
         if (image != null && image.GetPixel((int)pos.X, 240 * TILE_SCALE - (int)pos.Y).A > 0) { return; }
 
         Viewport vp = GetNode<Viewport>("Viewport");
@@ -71,8 +71,9 @@ public partial class ViewportTile : SubViewportContainer
         foreach (GDKnyttBaseObject obj in area.Objects.findObjects(VISIBLE_OBJECT_IDS))
         {
             if (obj.ObjectID.X == 12 && !obj.Juni.Powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
-            tilemap.SetCell(obj.Coords.X, obj.Coords.Y, 0, 
-                autotileCoord: new Vector2(VISIBLE_OBJECT_IDS.IndexOf(obj.ObjectID), 0));
+            // Godot 4 TileMap API: SetCell(layer, coords, sourceId, atlasCoords)
+            tilemap.SetCell(0, new Vector2I(obj.Coords.X, obj.Coords.Y), 0,
+                new Vector2I(VISIBLE_OBJECT_IDS.IndexOf(obj.ObjectID), 0));
         }
         return tilemap;
     }
@@ -80,7 +81,7 @@ public partial class ViewportTile : SubViewportContainer
     public bool dump()
     {
         if (added_backgrounds.Count == 0) { return false; }
-        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture2D()?.GetImage()?.SavePng(filename);
+        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture()?.GetImage()?.SavePng(filename);
         return err == Error.Ok;
     }
 
@@ -95,8 +96,8 @@ public partial class ViewportTile : SubViewportContainer
         added_areas.Clear();
     }
 
-    public ViewportTexture getTexture2D()
+    public ViewportTexture getTexture()
     {
-        return GetNode<Viewport>("Viewport").GetTexture2D();
+        return GetNode<Viewport>("Viewport").GetTexture();
     }
 }

@@ -47,13 +47,10 @@ public partial class GDKnyttSettings : Node
             setupViewport(for_ui: true, check_shrink: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
 
-            var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
-            font.FontData = ResourceLoader.Load<DynamicFontData>(
-                    "res://knytt/fonts/" + (value ? "segan/Segan-Light.ttf" : "silver/Silver-Light.ttf"));
-            font.Size = value ? 12 : 17;
-            font.ExtraSpacingTop = value ? 1 : 0;
-            font.ExtraSpacingBottom = value ? 0 : -6;
-            font.UseFilter = value;
+            // TODO: Godot 4 font system changed - DynamicFont replaced with FontFile
+            // Font customization needs to be reimplemented with the new font system
+            // var font = ResourceLoader.Load<Font>("res://knytt/ui/UIDynamicFont.tres");
+            // font.FontData, font.Size, font.ExtraSpacing*, font.UseFilter all need new approach
         }
     }
 

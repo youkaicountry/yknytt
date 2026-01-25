@@ -90,8 +90,8 @@ public partial class TouchPanel : Panel
         var height = arrowsMainPanel.Size.Y - 2; // correction to hide the border at the edge
 
         AnchorTop = AnchorBottom = 1 - anchor_top;
-        MarginTop = (1 - anchor_top) * -height;
-        MarginBottom = anchor_top * height;
+        OffsetTop = (1 - anchor_top) * -height;
+        OffsetBottom = anchor_top * height;
 
         int jump_width_excess = (int)(120 * (TouchSettings.JumpScale - 1));
         jumpMainPanel.OffsetLeft = -240 - jump_width_excess;
@@ -198,7 +198,7 @@ public partial class TouchPanel : Panel
             (@event as InputEventScreenTouch).Position :
             (@event as InputEventScreenDrag).Position;
 
-        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).ButtonPressed;
+        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
 
         if (released)
         {

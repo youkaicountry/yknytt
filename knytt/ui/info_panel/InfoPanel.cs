@@ -26,7 +26,7 @@ public partial class InfoPanel : Panel
         {
             if (child.ItemID == item_id && item_id != -1) { return; }
         }
-        MarginRight += 24;
+        OffsetRight += 24;
         var item_node = ResourceLoader.Load<PackedScene>($"res://knytt/ui/info_panel/{scene}.tscn").Instantiate<ItemInfo>();
         item_node.ItemID = item_id;
         var item_container = GetNode<Container>("ItemContainer");

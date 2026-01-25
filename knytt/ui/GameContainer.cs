@@ -45,11 +45,11 @@ public partial class GameContainer : VBoxContainer
         game_node.refreshCompletion(); // workaround, should be done in initalize
         if (mark_completed) { game_node.markCompleted(); }
 
-        if (GamesCount == 0) { game_node.FocusNeighbourTop = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
-        if (GamesCount == 1) { game_node.FocusNeighbourTop = new NodePath("../../../../../BackButton"); }
+        if (GamesCount == 0) { game_node.FocusNeighborTop = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
+        if (GamesCount == 1) { game_node.FocusNeighborTop = new NodePath("../../../../../BackButton"); }
         if (GamesCount == 0) { game_node.FocusPrevious = new NodePath("../../../../../BackButton"); }
-        if (GamesCount % 2 == 0) { game_node.FocusNeighbourLeft = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
-        if (GamesCount % 2 == 1) { game_node.FocusNeighbourRight = new NodePath("../../../../../BackButton"); }
+        if (GamesCount % 2 == 0) { game_node.FocusNeighborLeft = new NodePath("../../../../../MainContainer/FilterContainer/Category/CategoryDropdown"); }
+        if (GamesCount % 2 == 1) { game_node.FocusNeighborRight = new NodePath("../../../../../BackButton"); }
 
         GamesCount++;
     }

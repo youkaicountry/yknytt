@@ -32,15 +32,16 @@ public partial class GDAreaLayer : Node2D
 
     public void deactivate()
     {
-        a_col = A.CollisionLayer;
-        b_col = B.CollisionLayer;
-        A.CollisionLayer = 0;
-        B.CollisionLayer = 0;
+        // TODO: Godot 4 TileMap no longer has CollisionLayer property
+        // Need to migrate to TileMapLayer or handle via TileSet physics layers
+        // For now, use CollisionEnabled property on the tilemap
+        A.CollisionEnabled = false;
+        B.CollisionEnabled = false;
     }
 
     public void activate()
     {
-        A.CollisionLayer = a_col;
-        B.CollisionLayer = b_col;
+        A.CollisionEnabled = true;
+        B.CollisionEnabled = true;
     }
 }

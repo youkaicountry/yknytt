@@ -35,7 +35,8 @@ public partial class PausePanel : Control
     public override void _Notification(int what)
     {
         if (bounce) { return; }
-        if (what == MainLoop.NotificationWmGoBackRequest) { BasicScreen.ActiveScreen.goBack(); }
+        // Godot 4: Notification constant changed
+        if (what == Node.NotificationWMGoBackRequest) { BasicScreen.ActiveScreen.goBack(); }
     }
 
     private void pause()

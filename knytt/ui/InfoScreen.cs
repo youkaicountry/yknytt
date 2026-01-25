@@ -208,25 +208,26 @@ public partial class InfoScreen : BasicScreen
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = Json.ParseString(response);
-        if (json.Error != Error.Ok) { return; }
+        if (json.VariantType == Variant.Type.Nil) { return; }
 
-        world_entry.Upvotes = HTTPUtil.jsonInt(json.Result, "upvotes");
-        world_entry.Downvotes = HTTPUtil.jsonInt(json.Result, "downvotes");
-        world_entry.Complains = HTTPUtil.jsonInt(json.Result, "complains");
-        world_entry.OverallScore = HTTPUtil.jsonFloat(json.Result, "score");
-        world_entry.Voters = HTTPUtil.jsonInt(json.Result, "voters");
-        world_entry.Completions[1] = HTTPUtil.jsonInt(json.Result, "completions");
-        world_entry.Completions[2] = HTTPUtil.jsonInt(json.Result, "backlogged");
-        world_entry.Completions[3] = HTTPUtil.jsonInt(json.Result, "too_hard");
-        world_entry.Completions[4] = HTTPUtil.jsonInt(json.Result, "not_interested");
-        world_entry.Completions[5] = HTTPUtil.jsonInt(json.Result, "cant_progress");
-        world_entry.Completions[6] = HTTPUtil.jsonInt(json.Result, "level_errors");
+        var jsonDict = json.AsGodotDictionary();
+        world_entry.Upvotes = HTTPUtil.jsonInt(jsonDict, "upvotes");
+        world_entry.Downvotes = HTTPUtil.jsonInt(jsonDict, "downvotes");
+        world_entry.Complains = HTTPUtil.jsonInt(jsonDict, "complains");
+        world_entry.OverallScore = HTTPUtil.jsonFloat(jsonDict, "score");
+        world_entry.Voters = HTTPUtil.jsonInt(jsonDict, "voters");
+        world_entry.Completions[1] = HTTPUtil.jsonInt(jsonDict, "completions");
+        world_entry.Completions[2] = HTTPUtil.jsonInt(jsonDict, "backlogged");
+        world_entry.Completions[3] = HTTPUtil.jsonInt(jsonDict, "too_hard");
+        world_entry.Completions[4] = HTTPUtil.jsonInt(jsonDict, "not_interested");
+        world_entry.Completions[5] = HTTPUtil.jsonInt(jsonDict, "cant_progress");
+        world_entry.Completions[6] = HTTPUtil.jsonInt(jsonDict, "level_errors");
         updateRates();
 
         int[] powers_count = new int[13];
         for (int i = 0; i < 13; i++)
         {
-            powers_count[i] = HTTPUtil.jsonInt(json.Result, $"power{i}");
+            powers_count[i] = HTTPUtil.jsonInt(jsonDict, $"power{i}");
         }
 
         if (powers_count.Any(c => c > 0))
@@ -247,7 +248,7 @@ public partial class InfoScreen : BasicScreen
         List<int> endings_count = new List<int>();
         List<string> final_cutscenes = new List<string>();
 
-        var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "cutscenes");
+        var cutscene_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(jsonDict, "cutscenes");
         foreach (Godot.Collections.Dictionary record in cutscene_infos)
         {
             bool is_ending = HTTPUtil.jsonBool(record, "ending");
@@ -260,7 +261,7 @@ public partial class InfoScreen : BasicScreen
             if (is_final) { final_cutscenes.Add(name); }
         }
 
-        int winexits = HTTPUtil.jsonInt(json.Result, "winexits");
+        int winexits = HTTPUtil.jsonInt(jsonDict, "winexits");
         if (endings.Count > 0)
         {
             stat_panel.addLabel("Endings:");

@@ -29,7 +29,7 @@ public partial class RateHttpRequest : HttpRequest
         while (is_requesting)
         {
             await ToSignal(this, "request_completed");
-            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "process_frame");
         }
 
         string serverURL = GDKnyttSettings.ServerURL;
@@ -43,7 +43,7 @@ public partial class RateHttpRequest : HttpRequest
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
         retry = 1;
-        var error = Request($"{serverURL}/rate/", method: HttpClient.Method.Post, requestData: JSON.Print(dict));
+        var error = Request($"{serverURL}/rate/", method: HttpClient.Method.Post, requestData: Json.Stringify(dict));
         if (error == Error.Ok) { is_requesting = true; }
     }
 
@@ -53,7 +53,7 @@ public partial class RateHttpRequest : HttpRequest
         {
             if (retry-- <= 0) { is_requesting = false; return; }
             CancelRequest();
-            Request($"{GDKnyttSettings.ServerURL}/rate/", method: HttpClient.Method.Post, requestData: JSON.Print(dict));
+            Request($"{GDKnyttSettings.ServerURL}/rate/", method: HttpClient.Method.Post, requestData: Json.Stringify(dict));
             return;
         }
         is_requesting = false;
@@ -61,13 +61,14 @@ public partial class RateHttpRequest : HttpRequest
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = Json.ParseString(response);
-        if (json.Error != Error.Ok) { return; }
+        if (json.VariantType == Variant.Type.Nil) { return; }
 
-        int action = HTTPUtil.jsonInt(json.Result, "action");
+        var jsonDict = json.AsGodotDictionary();
+        int action = HTTPUtil.jsonInt(jsonDict, "action");
         sent_actions.Add(action);
-        if (HTTPUtil.jsonInt(json.Result, "added") == 1)
+        if (HTTPUtil.jsonInt(jsonDict, "added") == 1)
         {
-            EmitSignal(nameof(RateAdded), action);
+            EmitSignal(SignalName.RateAdded, action);
         }
     }
 

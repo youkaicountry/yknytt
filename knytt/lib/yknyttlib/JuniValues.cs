@@ -179,7 +179,7 @@ namespace YKnyttLib
 
         public bool hasMark(KnyttPoint pos, Collectable c)
         {
-            return Marked != null && Marked.ContainsKey(pos) && Marked[pos].ContainsKey(COLLECT_CHAR[(int)c]);
+            return Marked != null && Marked.ContainsKey(pos) && Marked[pos].Contains(COLLECT_CHAR[(int)c]);
         }
 
         public void resetMarks(KnyttPoint pos)

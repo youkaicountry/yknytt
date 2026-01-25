@@ -532,15 +532,23 @@ public partial class GDKnyttGame : Node2D
             ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
     }
 
+    // TODO: Godot 4 - BitmapFont API completely changed. Need to reimplementwith FontFile
+    // The old code created a bitmap font from a texture atlas for custom level fonts
     private Font loadFont(string key, int width, int height)
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
         string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
         var t = GDWorld.KWorld.getWorldTexture2D(font_path) as Texture2D;
         if (t == null) { return null; }
-        var font = new Font();
+
+        // Godot 4 uses FontFile for bitmap fonts - needs different implementation
+        GD.PrintErr($"Custom font loading not yet implemented for Godot 4: {key}");
+        return null;
+
+        /* Old Godot 3 code:
+        var font = new BitmapFont();
         font.Height = height;
-        font.AddTexture2D(t);
+        font.AddTexture(t);
         for (int y = 0; y < 7; y++)
         {
             for (int x = 0; x < 32; x++)
@@ -548,8 +556,9 @@ public partial class GDKnyttGame : Node2D
                 font.AddChar(32 + y * 32 + x, 0, new Rect2(x * width, y * height, width, height));
             }
         }
-        font.AddChar(0x100, 0, new Rect2(0, 0, width, height)); // workaround for space char (godot just skips it)
+        font.AddChar(0x100, 0, new Rect2(0, 0, width, height));
         return font;
+        */
     }
 
     public void loadFonts()
@@ -558,21 +567,21 @@ public partial class GDKnyttGame : Node2D
         var title_font = loadFont("title", 13, 24);
         if (title_font != null)
         {
-            GetNode<Label>("%Title/TitleLabel").AddFontOverride("font", title_font);
-            GetNode<Label>("%Title/TitleLabel").RemoveStyleboxOverride("normal");
+            GetNode<Label>("%Title/TitleLabel").AddThemeFontOverride("font", title_font);
+            GetNode<Label>("%Title/TitleLabel").RemoveThemeStyleboxOverride("normal");
         }
         var subtitle_font = loadFont("subtitle", 7, 13);
         if (subtitle_font != null)
         {
-            GetNode<Label>("%Title/SubtitleLabel").AddFontOverride("font", subtitle_font);
-            GetNode<Label>("%Title/SubtitleLabel").RemoveStyleboxOverride("normal");
+            GetNode<Label>("%Title/SubtitleLabel").AddThemeFontOverride("font", subtitle_font);
+            GetNode<Label>("%Title/SubtitleLabel").RemoveThemeStyleboxOverride("normal");
         }
     }
 
     public void pauseMusicMode(bool pause)
     {
         GetNode("Ambi1Channel").ProcessMode = GetNode("Ambi2Channel").ProcessMode = 
-            GetNode("MusicChannel").ProcessMode = pause ? ProcessModeEnum.Inherit : ProcessModeEnum.Process;
+            GetNode("MusicChannel").ProcessMode = pause ? ProcessModeEnum.Inherit : ProcessModeEnum.Always;
     }
 
     private const float ASPECT_STEP = 0.04f;

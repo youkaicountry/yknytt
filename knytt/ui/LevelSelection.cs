@@ -64,7 +64,7 @@ public partial class LevelSelection : BasicScreen
         this.download_link_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DownloadScreenLink.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
-        games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
+        games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollBar();
         if (!localLoad) { games_scrollbar.Connect("value_changed", new Callable(this, nameof(_on_GameContainter_scrolling))); }
         http_node = GetNode<FileHttpRequest>("FileHttpRequest");
         http_levels_node = GetNode<HttpRequest>("RestHttpRequest");
@@ -188,9 +188,10 @@ public partial class LevelSelection : BasicScreen
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
         var json = Json.ParseString(response);
-        if (json.Error != Error.Ok) { connectionLost(); return; }
+        if (json.VariantType == Variant.Type.Nil) { connectionLost(); return; }
 
-        var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(json.Result, "results");
+        var jsonDict = json.AsGodotDictionary();
+        var world_infos = HTTPUtil.jsonValue<Godot.Collections.Array>(jsonDict, "results");
         if (world_infos == null) { connectionLost(); return; }
         connectionLost(lost: false);
 
@@ -202,13 +203,13 @@ public partial class LevelSelection : BasicScreen
             if (remote_finished_entries.Last() == null) { return; } // function is async, so 'this' can be disposed at any time
         }
 
-        var worlds_total = HTTPUtil.jsonInt(json.Result, "count");
+        var worlds_total = HTTPUtil.jsonInt(jsonDict, "count");
         game_container.fillStubs(worlds_total);
 
         requested_level = Math.Max(requested_level,
             2 * (((int)games_scrollbar.Size.Y) / GameContainer.BUTTON_HEIGHT) + 2);
 
-        next_page = HTTPUtil.jsonValue<string>(json.Result, "next");
+        next_page = HTTPUtil.jsonValue<string>(jsonDict, "next");
         if (next_page != null && requested_level > game_container.GamesCount + world_infos.Count)
         {
             http_levels_node.Request(next_page);

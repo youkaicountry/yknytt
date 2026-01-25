@@ -238,7 +238,7 @@ namespace YKnyttLib
                 sb.Append(c);
                 c = (char)map.ReadByte();
             }
-            if (sb.ToString().ContainsKey('.')) { return int.MinValue; }
+            if (sb.ToString().Contains('.')) { return int.MinValue; }
             return int.Parse(sb.ToString());
         }
 

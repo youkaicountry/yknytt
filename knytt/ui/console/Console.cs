@@ -172,7 +172,7 @@ public partial class Console : CanvasLayer, IKnyttLoggerTarget
 
     private void render()
     {
-        textLabel.BbcodeText = string.Join("\n", displayBuffer);
+        textLabel.Text = string.Join("\n", displayBuffer);
     }
 
     public void _on_AnimationPlayer_animation_finished(string name)

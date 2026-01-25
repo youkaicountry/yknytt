@@ -248,7 +248,8 @@ public partial class SettingsScreen : BasicScreen
     {
         foreach (Button tab_button in GetNode<Control>("TabsContainer").GetChildren())
         {
-            string short_name = tab_button.Name.Left(tab_button.Name.Length - 3);
+            string name = tab_button.Name.ToString();
+            string short_name = name.Left(name.Length - 3);
             if (short_name == container_name) { continue; }
             tab_button.ButtonPressed = false;
             GetNode<Control>(short_name + "Container").Visible = false;
