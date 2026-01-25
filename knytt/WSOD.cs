@@ -2,7 +2,7 @@ using Godot;
 
 public class WSOD : ColorRect
 {
-    [Signal] public delegate void WSODFinished();
+    [Signal] public delegate void WSODFinishedEventHandler();
 
     public void startWSOD()
     {

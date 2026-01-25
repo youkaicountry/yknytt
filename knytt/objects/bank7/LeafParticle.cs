@@ -4,7 +4,7 @@ public class LeafParticle : SceneCPUParticleInstance
 {
     public override void _Ready()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Animation = Params;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = Params;
     }
 
     public void _on_Area2D_entered(object body_or_area)

@@ -10,21 +10,21 @@ public class FlyingBomb : GDKnyttBaseObject
 
     protected GhostMod ghostMod;
     protected Timer attackTimer;
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         base._Ready();
         ghostMod = GetNode<GhostMod>("GhostMod");
         attackTimer = GetNode<Timer>("AttackTimer");
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         xSpeed = random.NextBoolean() ? 100 : -100;
         originalY = GlobalPosition.y;
         sprite.Play("walk");
         sprite.FlipH = xSpeed < 0;
     }
     
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 

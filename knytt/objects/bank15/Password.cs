@@ -2,12 +2,12 @@ using Godot;
 
 public class Password : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     protected int current_char = 13;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
     private async void _on_Area2D_body_entered(object body)

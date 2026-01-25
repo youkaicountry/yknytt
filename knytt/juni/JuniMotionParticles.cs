@@ -99,7 +99,7 @@ public class JuniMotionParticles : Node2D
     public void emitParticles(int p, Vector2 global_pos)
     {
         if (p < 0) { return; }
-        var p_node = ParticleScenes[p].Instance() as Node2D;
+        var p_node = ParticleScenes[p].Instantiate() as Node2D;
         p_node.GlobalPosition = global_pos;
         GetNode("Particles").AddChild(p_node);
     }

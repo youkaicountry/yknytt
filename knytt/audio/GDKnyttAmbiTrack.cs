@@ -45,7 +45,7 @@ public class GDKnyttAmbiTrack : AudioStreamPlayer
         fading = false;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!fading) { return; }
 

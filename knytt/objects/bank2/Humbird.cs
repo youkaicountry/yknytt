@@ -3,7 +3,7 @@ using System;
 
 public class Humbird : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private Timer runTimer;
     private float originY;
     private float time;
@@ -16,12 +16,12 @@ public class Humbird : GDKnyttBaseObject
     {
         base._Ready();
         runTimer = GetNode<Timer>("RunTimer");
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         originY = GlobalPosition.y;
         runTimer.Start();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (Juni.ApparentPosition.x - 8 > Center.x) { sprite.FlipH = false; }
         if (Juni.ApparentPosition.x + 8 < Center.x) { sprite.FlipH = true; }

@@ -42,7 +42,7 @@ public class GDKnyttBaseObject : Node2D
 
     protected virtual void _Initialize() { }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         // TODO: Check mode ( edit should be paused )
         if (OrganicEnemy) { updateOrganicEnemy(); }

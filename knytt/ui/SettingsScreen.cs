@@ -185,12 +185,12 @@ public class SettingsScreen : BasicScreen
 
     private void _on_DownloadSaves_pressed()
     {
-        string dest_zip = GDKnyttDataStore.BaseDataDirectory.PlusFile("yknytt-saves.zip");
+        string dest_zip = GDKnyttDataStore.BaseDataDirectory.PathJoin("yknytt-saves.zip");
         if (System.IO.File.Exists(dest_zip)) { System.IO.File.Delete(dest_zip); }
 
         try
         {
-            ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves"), dest_zip);
+            ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Saves"), dest_zip);
         }
         catch (Exception e)
         {
@@ -287,7 +287,7 @@ public class SettingsScreen : BasicScreen
         GetNode<Control>(control_path).GrabFocus();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (OS.GetName() == "Unix" && GetNode<Control>("BackButton").GetFocusOwner() is Slider slider)
         {

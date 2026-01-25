@@ -46,7 +46,7 @@ public class InfoScreen : BasicScreen
     {
         KWorld = new GDKnyttWorldImpl();
         this.world_entry = world_entry;
-        if (new Directory().DirExists(world_entry.Path))
+        if (new DirAccess().DirExists(world_entry.Path))
         {
             KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
@@ -102,7 +102,7 @@ public class InfoScreen : BasicScreen
         GetNode<SlotButton>("InfoRect/Slot1Button").BaseFile =
         GetNode<SlotButton>("InfoRect/Slot2Button").BaseFile =
         GetNode<SlotButton>("InfoRect/Slot3Button").BaseFile =
-            GDKnyttSettings.Saves.PlusFile(KWorld.WorldDirectoryName);
+            GDKnyttSettings.Saves.PathJoin(KWorld.WorldDirectoryName);
         updateRates();
     }
 
@@ -120,14 +120,14 @@ public class InfoScreen : BasicScreen
 
     public void _on_SlotButton_StartGame(bool new_save, string filename, int slot)
     {
-        string cache_dir = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
+        string cache_dir = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
         var f = new File();
-        f.Open(cache_dir.PlusFile("LastPlayed.flag"), File.ModeFlags.Write);
+        f.Open(cache_dir.PathJoin("LastPlayed.flag"), FileAccess.ModeFlags.Write);
         f.Close();
 
         f = new File();
-        f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"), File.ModeFlags.Write);
+        f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Write);
         f.StoreString($"{KWorld.WorldDirectory}/{slot}");
         f.Close();
 
@@ -153,7 +153,7 @@ public class InfoScreen : BasicScreen
         loadSaves();
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
         string serverURL = GDKnyttSettings.ServerURL;
-        GetNode<HTTPRequest>("StatHTTPRequest").Request(
+        GetNode<HttpRequest>("StatHttpRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
     }
 
@@ -162,7 +162,7 @@ public class InfoScreen : BasicScreen
         for (int slot = 1; slot <= 3; slot++)
         {
             string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
-            if (new File().FileExists(savename))
+            if (FileAccess.FileExists(savename))
             {
                 KnyttSave save = new KnyttSave(KWorld, GDKnyttAssetManager.loadTextFile(savename), slot);
                 for (int i = 0; i < 13; i++) { if (save.getPower(i)) { my_powers.Add(i); } }
@@ -180,12 +180,12 @@ public class InfoScreen : BasicScreen
 
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
+        if (result != (int)HttpRequest.Result.Success || response_code == 500)
         {
             if (stat_retry-- <= 0) { return; }
-            GetNode<HTTPRequest>("StatHTTPRequest").CancelRequest();
+            GetNode<HttpRequest>("StatHttpRequest").CancelRequest();
             string serverURL = GDKnyttSettings.ServerURL;
-            GetNode<HTTPRequest>("StatHTTPRequest").Request(
+            GetNode<HttpRequest>("StatHttpRequest").Request(
                 $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
             return;
         }
@@ -305,12 +305,12 @@ public class InfoScreen : BasicScreen
             sendRating(41);
         }
 
-        string endings_flag_name = GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(KWorld.WorldDirectoryName).PlusFile("Endings.flag");
-        if (!new File().FileExists(endings_flag_name))
+        string endings_flag_name = GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(KWorld.WorldDirectoryName).PathJoin("Endings.flag");
+        if (!FileAccess.FileExists(endings_flag_name))
         {
             setIniValue("Endings", string.Join("/", endings), "Final", string.Join("/", final_cutscenes));
             var f = new File();
-            f.Open(endings_flag_name, File.ModeFlags.Write);
+            f.Open(endings_flag_name, FileAccess.ModeFlags.Write);
             f.Close();
         }
     }
@@ -355,7 +355,7 @@ public class InfoScreen : BasicScreen
 
     private void setIniValue(string key, string value, string key2 = null, string value2 = null) // transform to varargs if required
     {
-        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
+        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PathJoin("worlds.ini");
         var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
         var parser = new IniDataParser();
         var worlds_cache_ini = parser.Parse(ini_text);
@@ -375,7 +375,7 @@ public class InfoScreen : BasicScreen
         }
 
         var f = new File();
-        f.Open(INI_PATH, File.ModeFlags.Write);
+        f.Open(INI_PATH, FileAccess.ModeFlags.Write);
         f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
         f.Close();
     }
@@ -404,10 +404,10 @@ public class InfoScreen : BasicScreen
         for (int slot = 1; slot <= 3; slot++)
         {
             string savename = $"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {slot}.ini";
-            if (new File().FileExists(savename) && new File().GetModifiedTime(savename) > latest_time)
+            if (FileAccess.FileExists(savename) && FileAccess.GetModifiedTime(savename) > latest_time)
             {
                 latest_save = savename;
-                latest_time = new File().GetModifiedTime(savename);
+                latest_time = FileAccess.GetModifiedTime(savename);
             }
         }
 
@@ -420,7 +420,7 @@ public class InfoScreen : BasicScreen
                 $";{save.getArea().x} {save.getArea().y} {save.getAreaPosition().x} {save.getAreaPosition().y}";
         }
 
-        sendRating((int)RateHTTPRequest.Action.Complain, additional: short_save);
+        sendRating((int)RateHttpRequest.Action.Complain, additional: short_save);
         complain_visit = true;
         GetNode<Button>("%ComplainButton").Text = "To GitHub";
     }
@@ -428,7 +428,7 @@ public class InfoScreen : BasicScreen
     private void sendRating(int action, string additional = null)
     {
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional, once: false);
+        GetNode<RateHttpRequest>("RateHttpRequest").send(KWorld.Info.Name, KWorld.Info.Author, action, cutscene: additional, once: false);
     }
 
     private void _on_RateHTTPRequest_RateAdded(int action)
@@ -451,7 +451,7 @@ public class InfoScreen : BasicScreen
             }
             hint_label.Text = "Your completion status was set.";
         }
-        if (action == (int)RateHTTPRequest.Action.Complain)
+        if (action == (int)RateHttpRequest.Action.Complain)
         {
             world_entry.Complains++;
             hint_label.Text = "Your latest save was sent to the server.";
@@ -504,7 +504,7 @@ public class InfoScreen : BasicScreen
         bool unpacked = false;
         if (KWorld.BinMode)
         {
-            string dir = KWorld.WorldDirectory.GetBaseDir().PlusFile(KWorld.WorldDirectoryName);
+            string dir = KWorld.WorldDirectory.GetBaseDir().PathJoin(KWorld.WorldDirectoryName);
             setIniValue(null, dir);
             KWorld.unpackWorld(dir);
             world_entry.Path = KWorld.WorldDirectory;

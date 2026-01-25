@@ -81,7 +81,7 @@ public class GDKnyttArea : Node2D
         if (area.Empty) { return; }
 
         // Initialize the Layers
-        Tiles = tiles_scene.Instance() as GDAreaTiles;
+        Tiles = tiles_scene.Instantiate() as GDAreaTiles;
         this.Tiles.initTiles(this);
         AddChild(Tiles);
 
@@ -110,7 +110,7 @@ public class GDKnyttArea : Node2D
 
     private void createObjectLayers()
     {
-        Objects = objects_scene.Instance() as GDObjectLayers;
+        Objects = objects_scene.Instantiate() as GDObjectLayers;
         Objects.initLayers(this);
         AddChild(Objects);
     }
@@ -177,7 +177,7 @@ public class GDKnyttArea : Node2D
 
     public void playEffect(KnyttPoint point = default(KnyttPoint), Vector2 offset = default(Vector2))
     {
-        var sprite = GetNode<Sprite>("EffectSprite");
+        var sprite = GetNode<Sprite2D>("EffectSprite");
         var player = sprite.GetNode<AnimationPlayer>("AnimationPlayer");
         sprite.GlobalPosition = getTileLocation(point) + offset;
         player.Stop();

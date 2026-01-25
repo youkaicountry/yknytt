@@ -29,8 +29,8 @@ public class LevelSelection : BasicScreen
 
     GameContainer game_container;
     ScrollBar games_scrollbar;
-    FileHTTPRequest http_node;
-    HTTPRequest http_levels_node;
+    FileHttpRequest http_node;
+    HttpRequest http_levels_node;
     GameButton download_button;
 
     public bool localLoad = false;
@@ -52,7 +52,7 @@ public class LevelSelection : BasicScreen
     private IniData worlds_cache_ini;
     private HashSet<string> old_levels_paths;
     private bool worlds_modified;
-    private string CACHE_INI_PATH => GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
+    private string CACHE_INI_PATH => GDKnyttDataStore.BaseDataDirectory.PathJoin("worlds.ini");
 
     private PackedScene download_link_scene;
     private bool download_link_added;
@@ -66,8 +66,8 @@ public class LevelSelection : BasicScreen
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
         if (!localLoad) { games_scrollbar.Connect("value_changed", this, nameof(_on_GameContainter_scrolling)); }
-        http_node = GetNode<FileHTTPRequest>("FileHTTPRequest");
-        http_levels_node = GetNode<HTTPRequest>("RestHTTPRequest");
+        http_node = GetNode<FileHttpRequest>("FileHttpRequest");
+        http_levels_node = GetNode<HttpRequest>("RestHttpRequest");
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
@@ -81,7 +81,7 @@ public class LevelSelection : BasicScreen
         lost_label.Text = lost_label.Text.Replace("$url", server_url);
 
         worlds_modified = false;
-        var ini_text = new File().FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
+        var ini_text = FileAccess.FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
         var parser = new IniDataParser();
         worlds_cache_ini = parser.Parse(ini_text);
         old_levels_paths = worlds_cache_ini.Sections.Select(s => s.SectionName).ToHashSet();
@@ -109,7 +109,7 @@ public class LevelSelection : BasicScreen
     private void flushCache()
     {
         var f = new File();
-        f.Open(CACHE_INI_PATH, File.ModeFlags.Write);
+        f.Open(CACHE_INI_PATH, FileAccess.ModeFlags.Write);
         f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
         f.Close();
     }
@@ -117,11 +117,11 @@ public class LevelSelection : BasicScreen
     private void loadLocalWorlds()
     {
         if (GDKnyttDataStore.BaseDataDirectory == OS.GetExecutablePath().GetBaseDir()) { ; }
-        else if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir().PlusFile("worlds")); }
+        else if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir().PathJoin("worlds")); }
         else { discoverWorlds("worlds"); }
 
         if (OS.HasFeature("standalone")) { discoverWorlds(OS.GetExecutablePath().GetBaseDir()); }
-        discoverWorlds(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
+        discoverWorlds(GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds"));
         if (GDKnyttSettings.WorldsDirectory != "") { discoverWorlds(GDKnyttSettings.WorldsDirectory); }
 
         foreach (string path in old_levels_paths) { worlds_cache_ini.Sections.RemoveSection(path); }
@@ -154,15 +154,15 @@ public class LevelSelection : BasicScreen
 
     private bool loadServerDump()
     {
-        string levels_file = getLevelsFileDir().PlusFile("levels.json");
-        if (!new File().FileExists(levels_file)) { return false; }
+        string levels_file = getLevelsFileDir().PathJoin("levels.json");
+        if (!FileAccess.FileExists(levels_file)) { return false; }
         var f = new File();
-        var error = f.Open(levels_file, File.ModeFlags.Read);
+        var error = f.Open(levels_file, FileAccess.ModeFlags.Read);
         if (error != Error.Ok) { return false; }
         var levels_json = f.GetBuffer((long)f.GetLen());
         f.Close();
         enableFilter(false);
-        _on_HTTPRequest_request_completed((int)HTTPRequest.Result.Success, 200, null, levels_json);
+        _on_HTTPRequest_request_completed((int)HttpRequest.Result.Success, 200, null, levels_json);
         return true;
     }
 
@@ -181,7 +181,7 @@ public class LevelSelection : BasicScreen
 
     private async void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
+        if (result != (int)HttpRequest.Result.Success || response_code == 500)
         {
             if (request_retry-- <= 0) { connectionLost(); return; }
             http_levels_node.CancelRequest();
@@ -239,7 +239,7 @@ public class LevelSelection : BasicScreen
         return null;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (ActiveScreen != this) { return; }
         prev_scroll = games_scrollbar.Value;
@@ -251,7 +251,7 @@ public class LevelSelection : BasicScreen
             enableFilter(true);
             if (!download_link_added && game_container.GamesCount <= 6)
             {
-                var download_link = download_link_scene.Instance();
+                var download_link = download_link_scene.Instantiate();
                 download_link.Connect("pressed", this, "_on_DownloadLinkPressed");
                 game_container.AddChild(download_link);
             }
@@ -305,7 +305,7 @@ public class LevelSelection : BasicScreen
     // Search the given directory for worlds
     private void discoverWorlds(string path)
     {
-        var wd = new Directory();
+        var wd = new DirAccess();
         if (!wd.DirExists(path)) { return; }
         var error = wd.Open(path);
         if (error != Error.Ok) { return; }
@@ -372,7 +372,7 @@ public class LevelSelection : BasicScreen
         if (worlds_cache_ini.Sections.ContainsSection(world_file) && worlds_cache_ini[world_file].ContainsKey("Name"))
         {
             world_info = new KnyttWorldInfo(worlds_cache_ini[world_file]);
-            icon_bin = GDKnyttAssetManager.loadFile(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/Icon.png"));
+            icon_bin = GDKnyttAssetManager.loadFile(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png"));
         }
         else
         {
@@ -398,9 +398,9 @@ public class LevelSelection : BasicScreen
             worlds_cache_ini[world_file]["File Size"] = world_bin.Length.ToString();
             worlds_modified = true;
 
-            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}"));
+            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}"));
             var f = new File();
-            f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/Icon.png"), File.ModeFlags.Write);
+            f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png"), FileAccess.ModeFlags.Write);
             f.StoreBuffer(icon_bin);
             f.Close();
         }
@@ -419,17 +419,17 @@ public class LevelSelection : BasicScreen
 
     private WorldEntry getWorldEntry(string world_dir, byte[] icon, KnyttWorldInfo world_info)
     {
-        string played_flag_name = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_info.Folder}/LastPlayed.flag");
+        string played_flag_name = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/LastPlayed.flag");
         var result = new WorldEntry(world_info)
         { 
             Icon = icon,
-            LastPlayedTime = new File().FileExists(played_flag_name) ? new File().GetModifiedTime(played_flag_name) : 0,
-            HasSaves = Enumerable.Range(1, 3).Any(i => new File().FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini")),
+            LastPlayedTime = FileAccess.FileExists(played_flag_name) ? FileAccess.GetModifiedTime(played_flag_name) : 0,
+            HasSaves = Enumerable.Range(1, 3).Any(i => FileAccess.FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini")),
             Path = world_dir,
-            InstalledTime = new File().GetModifiedTime(world_dir)
+            InstalledTime = FileAccess.GetModifiedTime(world_dir)
         };
         
-        if (result.Completed == -1 && new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world_dir.GetFile()}/Completed.flag"))) { result.Completed = 1; } // backwards compatability
+        if (result.Completed == -1 && FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_dir.GetFile()}/Completed.flag"))) { result.Completed = 1; } // backwards compatability
         return result;
     }
 
@@ -469,7 +469,7 @@ public class LevelSelection : BasicScreen
         };
     }
 
-    private bool verifyDirWorld(Directory dir, string name)
+    private bool verifyDirWorld(DirAccess dir, string name)
     {
         if (name.Equals(".") || name.Equals("..")) { return false; }
         if (dir.FileExists($"{name}/_do_not_load_")) { return false; }
@@ -496,7 +496,7 @@ public class LevelSelection : BasicScreen
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }
 
-            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
+            GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds"));
             cleanUnfinished();
 
             string filename = button.worldEntry.Link;
@@ -505,8 +505,8 @@ public class LevelSelection : BasicScreen
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename).Replace("+", " ");
             string download_dir = GDKnyttSettings.WorldsDirectory != "" && GDKnyttSettings.WorldsDirForDownload ? 
-                GDKnyttSettings.WorldsDirectory : GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds");
-            http_node.DownloadFile = download_dir.PlusFile($"{filename}.part");
+                GDKnyttSettings.WorldsDirectory : GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds");
+            http_node.DownloadFile = download_dir.PathJoin($"{filename}.part");
 
             var error = http_node.Request(button.worldEntry.Link);
             if (error != Error.Ok) { download_button.markFailed(); return; }
@@ -522,7 +522,7 @@ public class LevelSelection : BasicScreen
             button.refreshLoaded(before: true);
             await ToSignal(GetTree(), "idle_frame");
             await ToSignal(GetTree(), "idle_frame");
-            var info_screen = info_scene.Instance() as InfoScreen;
+            var info_screen = info_scene.Instantiate() as InfoScreen;
             info_screen.initialize(button.worldEntry); // can be done in another thread, and you will see an animation
             info_screen.initialize(info_screen.KWorld);
             button.refreshLoaded(before: false);
@@ -537,10 +537,10 @@ public class LevelSelection : BasicScreen
 
     private void _on_FileHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result == (int)HTTPRequest.Result.Success && response_code == 200)
+        if (result == (int)HttpRequest.Result.Success && response_code == 200)
         {
             string final_filename = http_node.DownloadFile.Substring(0, http_node.DownloadFile.Length - 5);
-            new Directory().Rename(http_node.DownloadFile, final_filename);
+            new DirAccess().Rename(http_node.DownloadFile, final_filename);
             var entry = generateBinWorld(final_filename);
             flushCache();
 
@@ -554,7 +554,7 @@ public class LevelSelection : BasicScreen
             }
             else
             {
-                new Directory().Remove(final_filename);
+                new DirAccess().Remove(final_filename);
                 download_button.markFailed();
             }
         }
@@ -572,14 +572,14 @@ public class LevelSelection : BasicScreen
 
     private void sendDownload()
     {
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(
-            download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHTTPRequest.Action.Download, once: false);
+        GetNode<RateHttpRequest>("RateHttpRequest").send(
+            download_button.worldEntry.Name, download_button.worldEntry.Author, (int)RateHttpRequest.Action.Download, once: false);
     }
 
     private void cleanUnfinished()
     {
-        var dir = new Directory();
-        dir.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds"));
+        var dir = new DirAccess();
+        dir.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("Worlds"));
         dir.ListDirBegin(skipNavigational: true);
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {

@@ -305,7 +305,7 @@ public class GDKnyttSettings : Node
         set { ini["Directories"]["Saves"] = value; }
     }
 
-    public static string Saves => SavesDirectory == "" ? GDKnyttDataStore.BaseDataDirectory.PlusFile("Saves") : SavesDirectory;
+    public static string Saves => SavesDirectory == "" ? GDKnyttDataStore.BaseDataDirectory.PathJoin("Saves") : SavesDirectory;
 
     public static bool LeftStickMovement
     {
@@ -334,22 +334,22 @@ public class GDKnyttSettings : Node
     {
         if (OS.GetName() == "Windows" || OS.GetName() == "X11")
         {
-            string prev_data_dir = OS.GetUserDataDir().PlusFile("../godot/app_userdata/YKnytt");
-            if (System.IO.File.Exists(prev_data_dir.PlusFile("input.ini")) && !new Directory().FileExists("user://input.ini"))
+            string prev_data_dir = OS.GetUserDataDir().PathJoin("../godot/app_userdata/YKnytt");
+            if (System.IO.File.Exists(prev_data_dir.PathJoin("input.ini")) && !new DirAccess().FileExists("user://input.ini"))
             {
-                System.IO.File.Move(prev_data_dir.PlusFile("input.ini"), OS.GetUserDataDir().PlusFile("input.ini"));
+                System.IO.File.Move(prev_data_dir.PathJoin("input.ini"), OS.GetUserDataDir().PathJoin("input.ini"));
             }
-            if (System.IO.File.Exists(prev_data_dir.PlusFile("settings.ini")) && !new Directory().FileExists("user://settings.ini"))
+            if (System.IO.File.Exists(prev_data_dir.PathJoin("settings.ini")) && !new DirAccess().FileExists("user://settings.ini"))
             {
-                System.IO.File.Move(prev_data_dir.PlusFile("settings.ini"), OS.GetUserDataDir().PlusFile("settings.ini"));
+                System.IO.File.Move(prev_data_dir.PathJoin("settings.ini"), OS.GetUserDataDir().PathJoin("settings.ini"));
             }
-            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Saves")) && !new Directory().DirExists("user://Saves"))
+            if (System.IO.DirAccess.Exists(prev_data_dir.PathJoin("Saves")) && !new DirAccess().DirExists("user://Saves"))
             {
-                System.IO.Directory.Move(prev_data_dir.PlusFile("Saves"), OS.GetUserDataDir().PlusFile("Saves"));
+                System.IO.DirAccess.Move(prev_data_dir.PathJoin("Saves"), OS.GetUserDataDir().PathJoin("Saves"));
             }
-            if (System.IO.Directory.Exists(prev_data_dir.PlusFile("Worlds")) && !new Directory().DirExists("user://Worlds"))
+            if (System.IO.DirAccess.Exists(prev_data_dir.PathJoin("Worlds")) && !new DirAccess().DirExists("user://Worlds"))
             {
-                System.IO.Directory.Move(prev_data_dir.PlusFile("Worlds"), OS.GetUserDataDir().PlusFile("Worlds"));
+                System.IO.DirAccess.Move(prev_data_dir.PathJoin("Worlds"), OS.GetUserDataDir().PathJoin("Worlds"));
             }
         }
     }
@@ -434,7 +434,7 @@ public class GDKnyttSettings : Node
     {
         var text = ini.ToString();
         var f = new File();
-        f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("settings.ini"), File.ModeFlags.Write);
+        f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Write);
         f.StoreString(text);
         f.Close();
     }
@@ -443,7 +443,7 @@ public class GDKnyttSettings : Node
     public static bool loadSettings()
     {
         var f = new File();
-        var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("settings.ini"), File.ModeFlags.Read);
+        var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Read);
         if (error != Error.Ok) { return true; }
         var ini_text = f.GetAsText();
         f.Close();
@@ -488,7 +488,7 @@ public class GDKnyttSettings : Node
             ini["Server"]?.RemoveKey("URL");
             if (OS.GetName() == "HTML5") { ini["Graphics"]?.RemoveKey("Detailed Map"); }
             
-            if (new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("input.ini")))
+            if (FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("input.ini")))
             {
                 GDKnyttKeys.loadSettings();
                 if (GDKnyttKeys.ini["Input"]["hologram1"] == "Joy(0)" &&
@@ -508,7 +508,7 @@ public class GDKnyttSettings : Node
         return false;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("fullscreen")) { Fullscreen = !Fullscreen; }
 

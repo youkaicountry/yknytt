@@ -3,7 +3,7 @@ using YUtil.Random;
 
 public class FlySpike : GDKnyttBaseObject
 {
-    AnimatedSprite animated;
+    AnimatedSprite2D animated;
     Timer wait_timer;
     [Export] public bool FacingRight = true;
 
@@ -13,7 +13,7 @@ public class FlySpike : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        animated = GetNode<AnimatedSprite>("AnimatedSprite");
+        animated = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         wait_timer = GetNode<Timer>("WaitTimer");
         animated.FlipH = !FacingRight;
         start();
@@ -37,7 +37,7 @@ public class FlySpike : GDKnyttBaseObject
         animated.Play();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (wait_timer.TimeLeft > 0f) { return; }

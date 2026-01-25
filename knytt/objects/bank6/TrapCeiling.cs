@@ -7,7 +7,7 @@ public class TrapCeiling : GDKnyttBaseObject
 
     bool moving_up = true;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         var move_speed = delta * (moving_up ? -UP_SPEED : DOWN_SPEED);

@@ -17,11 +17,11 @@ public class BuzzFlyer : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Play();
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play();
         changeDirection();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         var buzz = new Vector2(random.NextFloat(-buzzStrength, buzzStrength),

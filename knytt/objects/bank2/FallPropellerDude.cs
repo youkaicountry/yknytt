@@ -5,11 +5,11 @@ public class FallPropellerDude : BuzzFlyer
 {
     private static readonly Vector2[] directionsOverride = Directions.Where(d => d.y <= 0 && d != Vector2.Zero).ToArray();
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         base._Ready();
     }
 

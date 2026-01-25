@@ -17,7 +17,7 @@ public class GameButton : GDKnyttButton
     {
         worldEntry = info;
 
-        GetNode<AnimatedSprite>("AnimatedSprite").Visible = false;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Visible = false;
         GetNode<Control>("MainContainer").Visible = true;
 
         if (info.IconTexture == null) { info.IconTexture = GDKnyttAssetManager.loadTexture(info.Icon); } 
@@ -103,8 +103,8 @@ public class GameButton : GDKnyttButton
 
     public void refreshLoaded(bool before)
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Frame = 0;
-        GetNode<AnimatedSprite>("AnimatedSprite").Visible = before;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Frame = 0;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Visible = before;
         GetNode<Control>("MainContainer").Visible = !before;
         if (worldEntry.HasServerInfo) { ratingControl.Visible = !before; }
     }

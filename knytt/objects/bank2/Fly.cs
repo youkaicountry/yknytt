@@ -4,7 +4,7 @@ using YUtil.Random;
 
 public class Fly : GDKnyttBaseObject
 {
-    private AnimatedSprite player;
+    private AnimatedSprite2D player;
     private Timer flyUpTimer;
     private int triggerDistance;
     private float xBuzz;
@@ -13,14 +13,14 @@ public class Fly : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        player = GetNode<AnimatedSprite>("AnimatedSprite");
+        player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         flyUpTimer = GetNode<Timer>("FlyUpTimer");
         player.Play($"stop{ObjectID.y}");
         triggerDistance = ObjectID.y == 3 ? 50 : 80;
         xBuzz = ObjectID.y == 3 ? 120 : 66;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!flying && Juni.manhattanDistance(Center) < triggerDistance)
         {

@@ -10,10 +10,10 @@ public class DistanceMod : Node2D
     [Export] NodePath spritePath = null;
     [Export] public string openAnimation = "open";
 
-    [Signal] public delegate void EnterEvent();
-    [Signal] public delegate void ExitEvent();
+    [Signal] public delegate void EnterEventEventHandler();
+    [Signal] public delegate void ExitEventEventHandler();
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     protected GDKnyttBaseObject parent;
     protected Juni globalJuni;
@@ -24,10 +24,10 @@ public class DistanceMod : Node2D
     {
         parent = GetParent<GDKnyttBaseObject>();
         globalJuni = parent.Juni;
-        sprite = spritePath != null ? GetNode<AnimatedSprite>(spritePath) : null;
+        sprite = spritePath != null ? GetNode<AnimatedSprite2D>(spritePath) : null;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (globalJuni.dead) { return; }
 

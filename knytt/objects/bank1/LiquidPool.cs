@@ -3,15 +3,15 @@ using YUtil.Random;
 
 public class LiquidPool : GDKnyttBaseObject
 {
-    protected AnimatedSprite player;
+    protected AnimatedSprite2D player;
     bool ping = true;
 
     public override void _Ready()
     {
         base._Ready();
-        GetNodeOrNull<AnimatedSprite>("Halo")?.Play();
+        GetNodeOrNull<AnimatedSprite2D>("Halo")?.Play();
         
-        player = GetNode<AnimatedSprite>("AnimatedSprite");
+        player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         player.SpeedScale = random.NextFloat(.6f, 1f);
         player.Play();
         player.Frame = random.Next(player.Frames.GetFrameCount(player.Animation));

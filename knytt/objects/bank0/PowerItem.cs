@@ -17,7 +17,7 @@ public class PowerItem : GDKnyttBaseObject
         this.Power = Object2Power[ObjectID.y];
         // Check if Juni has the powerup, hide if it is so.
         if (Juni.Powers.getPower(Power)) { QueueFree(); Deleted = true; }
-        var anim = GetNode<AnimatedSprite>("AnimatedSprite");
+        var anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         string custom_anim = $"{GDArea.GDWorld.KWorld.WorldDirectoryName} {Power}";
         anim.Animation = anim.Frames.HasAnimation(custom_anim) ? custom_anim : $"Power{Power}";
     }

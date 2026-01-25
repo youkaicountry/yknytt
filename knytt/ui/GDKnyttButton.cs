@@ -2,7 +2,7 @@ using Godot;
 
 public class GDKnyttButton : Button
 {
-    [Signal] public delegate void ShowHint();
+    [Signal] public delegate void ShowHintEventHandler();
 
     [Export] public string hint;
 

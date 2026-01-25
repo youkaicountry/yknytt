@@ -5,14 +5,14 @@ public class HoldButton : Password // inheritance for destroyWalls() function
 {
     private float timer = 0;
     private bool entered = false;
-    private AnimatedSprite animatedSprite;
+    private AnimatedSprite2D animatedSprite;
 
     public override void _Ready()
     {
-        animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 

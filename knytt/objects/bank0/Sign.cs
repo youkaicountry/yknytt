@@ -119,7 +119,7 @@ public class Sign : GDKnyttBaseObject
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (messageVisible && GDKnyttSettings.SideScroll) { adjustSign(initial: false); }
     }

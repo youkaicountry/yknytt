@@ -134,7 +134,7 @@ public class Cutscene : Control
         foreach (string a in actions) { Input.ActionRelease(a); }
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("left") && current_scene > 1) { _on_PreviousButton_pressed(); }
         if (Input.IsActionJustPressed("right")) { _on_NextButton_pressed(); }
@@ -146,19 +146,19 @@ public class Cutscene : Control
 
         var action = GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Middle &&
                      GDKnyttDataStore.CutsceneName.ToLower() != "ending" ?
-                        RateHTTPRequest.Action.Cutscene : RateHTTPRequest.Action.Ending;
+                        RateHttpRequest.Action.Cutscene : RateHttpRequest.Action.Ending;
 
         if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
 
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(
+        GetNode<RateHttpRequest>("RateHttpRequest").send(
             GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author,
             (int)action, GDKnyttDataStore.CutsceneName);
 
         if (GDKnyttDataStore.Mode == GDKnyttDataStore.CutsceneMode.Ending)
         {
-            GetNode<RateHTTPRequest>("RateHTTPRequest").send(
+            GetNode<RateHttpRequest>("RateHttpRequest").send(
                 GDKnyttDataStore.KWorld.Info.Name, GDKnyttDataStore.KWorld.Info.Author,
-                (int)RateHTTPRequest.Action.WinExit, GDKnyttDataStore.Statistics); // second time - in case of slow internet
+                (int)RateHttpRequest.Action.WinExit, GDKnyttDataStore.Statistics); // second time - in case of slow internet
         }
     }
 }

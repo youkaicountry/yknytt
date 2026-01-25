@@ -54,20 +54,20 @@ public class TrailContainer : Node2D
         Visible = false;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (step++ % TrailFrames == 0)
         {
-            Sprite s;
+            Sprite2D s;
             var children = GetChildCount();
             if (children >= TrailCount)
             {
                 if (replace >= children) { replace = 0; }
-                s = GetChild<Sprite>(replace++);
+                s = GetChild<Sprite2D>(replace++);
             }
             else
             {
-                s = trail_scene.Instance<Sprite>();
+                s = trail_scene.Instance<Sprite2D>();
                 AddChild(s);
             }
             
@@ -76,10 +76,10 @@ public class TrailContainer : Node2D
         }
     }
 
-    private void positionTrail(Sprite s, Juni juni)
+    private void positionTrail(Sprite2D s, Juni juni)
     {
         s.Position = juni.Position;
-        s.Frame = juni.Sprite.Frame;
+        s.Frame = juni.Sprite2D.Frame;
         s.FlipH = !juni.FacingRight;
     }
 }

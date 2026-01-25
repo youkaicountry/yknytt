@@ -2,15 +2,15 @@ using Godot;
 
 public class GhostLookMuff : GDKnyttBaseObject
 {
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         sprite.Play();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (Juni.ApparentPosition.x - 8 > Center.x) { sprite.FlipH = false; }

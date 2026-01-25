@@ -6,7 +6,7 @@ public class FalseBlock : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        animationPlayer = GetNode<AnimationPlayer>("Sprite/AnimationPlayer");
+        animationPlayer = GetNode<AnimationPlayer>("Sprite2D/AnimationPlayer");
     }
 
     private void _on_Area2D_body_entered(object body)

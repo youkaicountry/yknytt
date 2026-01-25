@@ -29,7 +29,7 @@ public class TimedFlower : GDKnyttBaseObject
         {
             GetNode<Timer>("ShotTimer").Stop();
         }
-        GetNode<AnimatedSprite>("AnimatedSprite").Play("open", backwards: !isShooting);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("open", backwards: !isShooting);
     }
 
     private void _on_ShotTimer_timeout()

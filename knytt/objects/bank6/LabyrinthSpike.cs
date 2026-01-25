@@ -8,7 +8,7 @@ public class LabyrinthSpike : GDKnyttBaseObject
 
     [Export] protected float speed = 50f;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         var collision = moveAndCollide(delta * speed * direction, testOnly: !wasFree);

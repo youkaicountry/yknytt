@@ -6,7 +6,7 @@ public class PathCreature : GDKnyttBaseObject
     [Export] protected float speed = 30f;
 
     protected PathFollow2D path;
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     protected Timer flipTimer;
     protected Timer runTimer;
     protected Area2D wallChecker;
@@ -18,14 +18,14 @@ public class PathCreature : GDKnyttBaseObject
     {
         base._Ready();
         path = GetNode<PathFollow2D>("PathFollow2D");
-        sprite = path.GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = path.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         flipTimer = GetNodeOrNull<Timer>("FlipTimer");
         runTimer = GetNodeOrNull<Timer>("RunTimer");
         wallChecker = GetNodeOrNull<Area2D>("PathFollow2D/WallChecker");
         if (runTimer != null) { runTimer.Start(); } else { stop(false); }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (stopped) { return; }

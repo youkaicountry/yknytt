@@ -6,14 +6,14 @@ public class Laser : GDKnyttBaseObject
     private bool[] alwaysOn = { false, false, true, false, false, true };
     private bool[] onAtStart = { false, true, false, false, true, false };
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private CollisionShape2D collisionShape, climbCollisionShape;
     private bool is_on;
 
     public override void _Ready()
     {
         int index = ObjectID.y - 7;
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
         climbCollisionShape = horizontal[index] ? null : GetNode<CollisionShape2D>("ClimbArea2D/CollisionShape2D");
 

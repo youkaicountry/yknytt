@@ -14,7 +14,7 @@ public class Firefly : GDKnyttBaseObject
     [Export] protected float opacityBuzz = 0;
     private float SPEED_SCALE = 50 / 8f;
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     protected float speed = 0;
     protected float direction = 0;
@@ -22,11 +22,11 @@ public class Firefly : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         direction = random.NextFloat(2 * Mathf.Pi);
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         // TODO: not very accurate (no reappear, different speed, etc). Rewrite if required.
         speed += random.NextFloat(-speedBuzz + speedOffset, speedBuzz + speedOffset) * delta;

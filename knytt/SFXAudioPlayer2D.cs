@@ -9,7 +9,7 @@ public class SFXAudioPlayer2D : AudioStreamPlayer2D
         PanningStrength = GlobalPanningStrength;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (PanningStrength != GlobalPanningStrength) { PanningStrength = GlobalPanningStrength; }
     }

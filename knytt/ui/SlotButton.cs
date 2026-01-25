@@ -44,13 +44,11 @@ public class SlotButton : GDKnyttButton
 
     public bool NewMode { get; private set; }
 
-    public File SlotFile
+    public FileAccess SlotFile
     {
         get
         {
-            var f = new File();
-            f.Open(FullFilename, File.ModeFlags.Read);
-            return f;
+            return FileAccess.Open(FullFilename, FileAccess.ModeFlags.Read);
         }
     }
 
@@ -111,7 +109,7 @@ public class SlotButton : GDKnyttButton
     public void _on_ConfirmButton_pressed()
     {
         ClickPlayer.Play();
-        var dir = new Directory();
+        var dir = new DirAccess();
         dir.Remove(FullFilename);
         checkSlot();
         GrabFocus();

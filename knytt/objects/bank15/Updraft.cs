@@ -4,7 +4,7 @@ public class Updraft : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        GetNode<AnimatedSprite>("AnimatedSprite").Frame = random.Next(21);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Frame = random.Next(21);
     }
 
     public void _on_Area2D_body_entered(Node body)

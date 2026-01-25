@@ -22,7 +22,7 @@ public class CustomObject : GDKnyttBaseObject
     }
 
     protected CustomObjectInfo info;
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     public GDKnyttBaseObject node;
     private int counter = 0;
     private int cache_key;
@@ -38,7 +38,7 @@ public class CustomObject : GDKnyttBaseObject
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); Deleted = true; return; }
 
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         custom_frames = sprite.Frames;
         cache_key = ObjectID.y + (ObjectID.x == 254 ? 256 : 0);
 
@@ -91,9 +91,9 @@ public class CustomObject : GDKnyttBaseObject
 
     private void overrideAnimation(GDKnyttBaseObject obj, string image, Vector2 tile_size, Vector2 offset)
     {
-        var sprite = obj.GetNodeOrNull<AnimatedSprite>("AnimatedSprite") ??
-                     obj.GetNodeOrNull<AnimatedSprite>("PathFollow2D/AnimatedSprite");
-        var static_sprite = obj.GetNodeOrNull<Sprite>("Sprite");
+        var sprite = obj.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D") ??
+                     obj.GetNodeOrNull<AnimatedSprite2D>("PathFollow2D/AnimatedSprite2D");
+        var static_sprite = obj.GetNodeOrNull<Sprite2D>("Sprite2D");
         if (sprite == null && static_sprite == null) { KnyttLogger.Error($"No sprite found for custom object {ObjectID.y}"); return; }
 
         if (sprite != null)

@@ -2,8 +2,8 @@ using Godot;
 
 public class StarRate : HBoxContainer
 {
-    [Signal] public delegate void RateEvent(int n);
-    [Signal] public delegate void HoverEvent(string hint);
+    [Signal] public delegate void RateEventEventHandler(int n);
+    [Signal] public delegate void HoverEventEventHandler(string hint);
 
     private int _rate;
     public int Rate { set { _rate = value; update(-2); } }

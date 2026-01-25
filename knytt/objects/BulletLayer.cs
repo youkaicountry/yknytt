@@ -61,7 +61,7 @@ public class BulletLayer : Node2D
         }
         else if (queue.Count == 0 || queue.Peek().Visible)
         {
-            bullet = bulletScenes[bullet_scene].Instance() as BaseBullet;
+            bullet = bulletScenes[bullet_scene].Instantiate() as BaseBullet;
             bullet.GDArea = GetParent<GDKnyttArea>();
             AddChild(bullet);
         }

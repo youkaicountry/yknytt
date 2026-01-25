@@ -3,9 +3,9 @@ using Godot.Collections;
 using System.Text;
 using System.Collections.Generic;
 
-public class RateHTTPRequest : HTTPRequest
+public class RateHttpRequest : HttpRequest
 {
-    [Signal] public delegate void RateAdded(int action);
+    [Signal] public delegate void RateAddedEventHandler(int action);
 
     public enum Action
     {
@@ -49,7 +49,7 @@ public class RateHTTPRequest : HTTPRequest
 
     private void _on_HTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
-        if (result != (int)HTTPRequest.Result.Success || response_code == 500)
+        if (result != (int)HttpRequest.Result.Success || response_code == 500)
         {
             if (retry-- <= 0) { is_requesting = false; return; }
             CancelRequest();

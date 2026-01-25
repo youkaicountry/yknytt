@@ -16,7 +16,7 @@ public class GDKnyttGame : Node2D
     public GDKnyttArea CurrentArea { get; private set; }
     public GDKnyttWorld GDWorld { get; private set; }
     public GDKnyttCamera Camera { get; private set; }
-    public BitmapFont SignFont { get; private set; }
+    public Font SignFont { get; private set; }
     public TrailContainer Trails { get; private set; }
     public DeathContainer Deaths { get; private set; }
 
@@ -95,7 +95,7 @@ public class GDKnyttGame : Node2D
     // On load a save file
     public void createJuni()
     {
-        Juni = juni_scene.Instance() as Juni;
+        Juni = juni_scene.Instantiate() as Juni;
         this.AddChild(Juni);
         Juni.initialize(this);
         Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
@@ -147,8 +147,8 @@ public class GDKnyttGame : Node2D
     {
         GDKnyttAssetManager.ensureDirExists(GDKnyttSettings.Saves);
         var f = new File();
-        var fname = GDKnyttSettings.Saves.PlusFile(save.SaveFileName);
-        f.Open(fname, File.ModeFlags.Write);
+        var fname = GDKnyttSettings.Saves.PathJoin(save.SaveFileName);
+        f.Open(fname, FileAccess.ModeFlags.Write);
         f.StoreString(save.ToString());
         f.Close();
 
@@ -226,7 +226,7 @@ public class GDKnyttGame : Node2D
         return world_section["Format"] == "4";
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (this.viewMode) { this.editorControls(); }
 
@@ -243,7 +243,7 @@ public class GDKnyttGame : Node2D
 
     // TODO: Difference between Paged areas, active areas, and current area.
     // Current area is per-Juni
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         // TODO: Do this only if the local player
         if (!CurrentArea.isIn(Juni.GlobalPosition))
@@ -265,7 +265,7 @@ public class GDKnyttGame : Node2D
     private void pause()
     {
         if (GetTree().Paused) { return; }
-        var node = pause_scene.Instance();
+        var node = pause_scene.Instantiate();
         GetNode<Node>("UICanvasLayer").CallDeferred("add_child", node);
     }
 
@@ -333,8 +333,8 @@ public class GDKnyttGame : Node2D
                             $"{Juni.Powers.HardestPlace} {Juni.Powers.HardestPlaceDeaths}d";
         if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Online)
         {
-            GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author,
-                (int)RateHTTPRequest.Action.WinExit, statistics);
+            GetNode<RateHttpRequest>("RateHttpRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author,
+                (int)RateHttpRequest.Action.WinExit, statistics);
         }
         await fade(fast: false, color: Cutscene.getCutsceneColor(ending));
         GDKnyttDataStore.winGame(ending, statistics);
@@ -462,14 +462,14 @@ public class GDKnyttGame : Node2D
         if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
         if (power < 0 || !value) { return; }
         if (GetNodeOrNull<Console>("/root/Console")?.IsOpen ?? false) { return; }
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
+        GetNode<RateHttpRequest>("RateHttpRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 100 + power);
     }
 
     public void sendCheat()
     {
         if (GDKnyttSettings.Connection != GDKnyttSettings.ConnectionType.Online) { return; }
-        GetNode<RateHTTPRequest>("RateHTTPRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
-            (int)RateHTTPRequest.Action.Cheat);
+        GetNode<RateHttpRequest>("RateHttpRequest").send(GDWorld.KWorld.Info.Name, GDWorld.KWorld.Info.Author, 
+            (int)RateHttpRequest.Action.Cheat);
     }
 
     enum TintInk { TRANS, ADD, SUB, AND, OR, XOR };
@@ -498,7 +498,7 @@ public class GDKnyttGame : Node2D
         {
             glass.Material = null;
             glass.Visible = false;
-            Juni.GetNode<Sprite>("ShiftHintSprite").ZIndex = 0;
+            Juni.GetNode<Sprite2D>("ShiftHintSprite").ZIndex = 0;
             return;
         }
 
@@ -512,7 +512,7 @@ public class GDKnyttGame : Node2D
         tint.SetShaderParam("a", a);
         glass.Material = tint;
         glass.Visible = true;
-        Juni.GetNode<Sprite>("ShiftHintSprite").ZIndex = 17;
+        Juni.GetNode<Sprite2D>("ShiftHintSprite").ZIndex = 17;
     }
 
     public void setupBorder()
@@ -534,13 +534,13 @@ public class GDKnyttGame : Node2D
             ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
     }
 
-    private BitmapFont loadFont(string key, int width, int height)
+    private Font loadFont(string key, int width, int height)
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
         string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
         var t = GDWorld.KWorld.getWorldTexture(font_path) as Texture;
         if (t == null) { return null; }
-        var font = new BitmapFont();
+        var font = new Font();
         font.Height = height;
         font.AddTexture(t);
         for (int y = 0; y < 7; y++)

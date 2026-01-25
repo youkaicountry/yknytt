@@ -473,7 +473,7 @@ public class GDKnyttObjectBundle
 
     public GDKnyttBaseObject getNode(GDKnyttObjectLayer layer, KnyttPoint coords)
     {
-        var node = scene.Instance() as GDKnyttBaseObject;
+        var node = scene.Instantiate() as GDKnyttBaseObject;
         node.initialize(object_id, layer, coords);
         return node;
     }

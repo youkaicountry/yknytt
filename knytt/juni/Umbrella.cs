@@ -1,6 +1,6 @@
 using Godot;
 
-public class Umbrella : Sprite
+public class Umbrella : Sprite2D
 {
     public bool FacingRight
     {

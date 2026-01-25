@@ -12,16 +12,16 @@ public class BouncerEnemy : GDKnyttBaseObject
     bool in_air = false;
     float start_y;
 
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         base._Ready();
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (!in_air) { return; }

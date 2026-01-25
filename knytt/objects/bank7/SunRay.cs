@@ -20,7 +20,7 @@ public class SunRay : GDKnyttBaseObject
         chooseTarget();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 

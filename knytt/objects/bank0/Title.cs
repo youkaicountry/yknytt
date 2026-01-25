@@ -12,8 +12,8 @@ public class Title : GDKnyttBaseObject
         var subtitle_label = title_node.GetNode<Label>("SubtitleLabel");
         var anim_player = title_node.GetNode<AnimationPlayer>("AnimationPlayer");
 
-        if (title_label.GetFont("font")    is BitmapFont) { title    = title?.Replace(' ', '\x100'); }
-        if (subtitle_label.GetFont("font") is BitmapFont) { subtitle = subtitle?.Replace(' ', '\x100'); }
+        if (title_label.GetFont("font")    is Font) { title    = title?.Replace(' ', '\x100'); }
+        if (subtitle_label.GetFont("font") is Font) { subtitle = subtitle?.Replace(' ', '\x100'); }
 
         if (title_label.Text == title) { title = null; }
         if (subtitle_label.Text == subtitle) { subtitle = null; }

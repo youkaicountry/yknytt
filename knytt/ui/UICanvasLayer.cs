@@ -64,7 +64,7 @@ public class UICanvasLayer : CanvasLayer
         Location = GetNode<LocationLabel>("LocationLabel");
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (GetNode<Console>("/root/Console").IsOpen) { return; }
 
@@ -89,8 +89,8 @@ public class UICanvasLayer : CanvasLayer
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed);
-            if (anim2 != null) { anim2.PlaybackSpeed = Mathf.Abs(anim.PlaybackSpeed); }
+            anim.SpeedScale = Mathf.Abs(anim.SpeedScale);
+            if (anim2 != null) { anim2.SpeedScale = Mathf.Abs(anim.SpeedScale); }
             if (showing)
             {
                 anim.PlayBackwards("SlideOut");
@@ -114,8 +114,8 @@ public class UICanvasLayer : CanvasLayer
         }
         else
         {
-            anim.PlaybackSpeed *= -1f;
-            if (anim2 != null) { anim2.PlaybackSpeed *= -1f; }
+            anim.SpeedScale *= -1f;
+            if (anim2 != null) { anim2.SpeedScale *= -1f; }
             sliding_out = !sliding_out;
         }
     }

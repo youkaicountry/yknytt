@@ -70,7 +70,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
         string marker_name = $"{dir}/_do_not_load_";
         File marker = new File();
-        marker.Open(marker_name, File.ModeFlags.Write);
+        marker.Open(marker_name, FileAccess.ModeFlags.Write);
         marker.Close();
 
         foreach (string filename in BinLoader.GetFileNames())
@@ -80,14 +80,14 @@ public class GDKnyttWorldImpl : KnyttWorld
             GDKnyttAssetManager.ensureDirExists(fullname.Substring(0, fullname.LastIndexOf('/')));
 
             File f = new File();
-            f.Open(fullname, File.ModeFlags.Write);
+            f.Open(fullname, FileAccess.ModeFlags.Write);
             f.StoreBuffer(BinLoader.GetFile(filename));
             f.Close();
         }
 
         GDKnyttDataStore.ProgressHint = "Finishing unpacking...";
-        new Directory().Remove(marker_name);
-        new Directory().Remove(WorldDirectory);
+        new DirAccess().Remove(marker_name);
+        new DirAccess().Remove(WorldDirectory);
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
@@ -97,7 +97,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     public static void removeDirectory(string dir_name)
     {
-        var dir = new Directory();
+        var dir = new DirAccess();
         if (!dir.DirExists(dir_name)) { return; }
         dir.Open(dir_name);
         dir.ListDirBegin(skipNavigational: true);
@@ -106,20 +106,20 @@ public class GDKnyttWorldImpl : KnyttWorld
             if (dir.FileExists(filename)) { dir.Remove(filename); } else { removeDirectory($"{dir_name}/{filename}"); }
         }
         dir.ListDirEnd();
-        new Directory().Remove(dir_name);
+        new DirAccess().Remove(dir_name);
     }
 
     public void uninstallWorld()
     {
         if (BinMode)
         {
-            new Directory().Remove(WorldDirectory);
+            new DirAccess().Remove(WorldDirectory);
         }
         else
         {
             removeDirectory(WorldDirectory);
         }
-        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName));
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName));
     }
 
     public void refreshWorld()
@@ -128,6 +128,6 @@ public class GDKnyttWorldImpl : KnyttWorld
         {
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
-        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName));
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName));
     }
 }

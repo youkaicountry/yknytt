@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YKnyttLib;
 
-public class ViewportTile : ViewportContainer
+public class ViewportTile : SubViewportContainer
 {
     private string filename;
     private KnyttPoint coord;
@@ -32,7 +32,7 @@ public class ViewportTile : ViewportContainer
 
     public Texture refresh(Texture tex = null)
     {
-        if (!new Directory().FileExists(filename)) { return null; }
+        if (!new DirAccess().FileExists(filename)) { return null; }
         var reloaded_tex = tex ?? GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
         GetNode<TextureRect>("Viewport/TextureRect").Texture = reloaded_tex;
         return reloaded_tex;

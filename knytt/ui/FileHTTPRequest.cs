@@ -1,6 +1,6 @@
 using Godot;
 
-public class FileHTTPRequest : HTTPRequest
+public class FileHttpRequest : HttpRequest
 {
     public override void _ExitTree()
     {
@@ -9,9 +9,9 @@ public class FileHTTPRequest : HTTPRequest
 
     public void cleanup()
     {
-        if (DownloadFile != null && new File().FileExists(DownloadFile))
+        if (DownloadFile != null && FileAccess.FileExists(DownloadFile))
         {
-            new Directory().Remove(DownloadFile);
+            new DirAccess().Remove(DownloadFile);
         }
     }
 }

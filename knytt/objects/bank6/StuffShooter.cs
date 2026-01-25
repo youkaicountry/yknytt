@@ -9,13 +9,13 @@ public abstract class StuffShooter : GDKnyttBaseObject
 
     private bool readyToShoot = true;
     private bool alreadyShot = false;
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private AudioStreamPlayer2D player;
     private Timer shotDelayTimer;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         player = GetNode<AudioStreamPlayer2D>("ShotPlayer");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
@@ -28,7 +28,7 @@ public abstract class StuffShooter : GDKnyttBaseObject
             });
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (Juni.dead) { return; }

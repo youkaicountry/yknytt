@@ -20,20 +20,20 @@ public class Muff : GDKnyttBaseObject
     protected int direction;
     protected float _deceleration;
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     public override void _Ready()
     {
         if (speedChangeTime > 0) { GetNode<Timer>("SpeedTimer").Start(speedChangeTime); }
         if (directionChangeTime > 0) { GetNode<Timer>("DirectionTimer").Start(directionChangeTime); }
 
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         changeSpeed(initialSpeed);
         changeDirection(getDirection(DirectionChange.Random));
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 

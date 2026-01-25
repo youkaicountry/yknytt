@@ -7,10 +7,10 @@ public class Spring : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        GetNode<Sprite>("Sprite").Modulate *= new Color(1, 1, 1, 0);
+        GetNode<Sprite2D>("Sprite2D").Modulate *= new Color(1, 1, 1, 0);
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (juni == null) { return; }
         if (juni.GlobalPosition.y > GlobalPosition.y + 10f) { return; }

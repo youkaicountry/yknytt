@@ -25,9 +25,9 @@ public class MapViewports : Node2D
     {
         this.KWorld = world;
         string internal_cache_dir = $"res://knytt/data/Compiled/Maps/{KWorld.WorldDirectoryName}";
-        internal_cache = new Directory().DirExists(internal_cache_dir);
+        internal_cache = new DirAccess().DirExists(internal_cache_dir);
         cache_dir = internal_cache ? internal_cache_dir :
-            GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{KWorld.WorldDirectoryName}");
+            GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{KWorld.WorldDirectoryName}");
         GDKnyttAssetManager.ensureDirExists(cache_dir);
     }
 
@@ -72,7 +72,7 @@ public class MapViewports : Node2D
         var filename = getFilename(key);
         if (internal_cache ? 
             !ResourceLoader.Exists(filename) : 
-            !new File().FileExists(filename)) { return (src, null); }
+            !FileAccess.FileExists(filename)) { return (src, null); }
         map_images[key] = internal_cache ?
             ResourceLoader.Load<Texture>(filename) :
             GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));

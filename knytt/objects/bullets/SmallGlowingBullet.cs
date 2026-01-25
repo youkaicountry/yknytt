@@ -1,7 +1,7 @@
 
 public class SmallGlowingBullet : BaseBullet
 {
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!Enabled) { return; }
         VelocityMMF2 += delta * 20;

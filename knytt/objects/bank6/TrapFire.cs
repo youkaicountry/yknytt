@@ -2,12 +2,12 @@ using Godot;
 
 public class TrapFire : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private Timer shotDelayTimer;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         shotDelayTimer = GetNode<Timer>("ShotDelayTimer");
 
         GDArea.Selector.Register(this);
