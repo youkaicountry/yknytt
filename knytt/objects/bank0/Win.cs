@@ -36,7 +36,7 @@ public partial class Win : GDKnyttBaseObject
         var worlds_cache_ini = parser.Parse(ini_text);
         var section = worlds_cache_ini[kworld.WorldDirectory];
 
-        if (!section.Contains("Endings") && !section.Contains("Final")) { return; }
+        if (!section.ContainsKey("Endings") && !section.ContainsKey("Final")) { return; }
 
         var all_endings = (section["Endings"] ?? "").Split('/');
         var final_cutscenes = (section["Final"] ?? "").Split('/');

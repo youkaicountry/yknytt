@@ -1,6 +1,7 @@
 using Godot;
 using IniParser.Model;
 using IniParser.Parser;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -136,18 +137,22 @@ public partial class GDKnyttKeys : Node
         switch (ev)
         {
             case InputEventKey key:
-                var keyname = OS.GetScancodeString(key.Scancode);
+                // Godot 4: Scancode → Keycode, OS.GetScancodeString → OS.GetKeycodeString
+                var keyname = OS.GetKeycodeString(key.Keycode);
                 ini["Input"][ini_name] = $"Key({keyname})";
                 break;
 
             case InputEventJoypadButton jb:
-                ini["Input"][ini_name] = $"Joy({jb.ButtonIndex})";
+                // Godot 4: ButtonIndex is now JoyButton enum
+                ini["Input"][ini_name] = $"Joy({(int)jb.ButtonIndex})";
                 break;
 
             case InputEventJoypadMotion jm:
-                if (jm.Axis == 6 || jm.Axis == 7) { return false; }
+                // Godot 4: Axis is now JoyAxis enum
+                int axisIndex = (int)jm.Axis;
+                if (axisIndex == 6 || axisIndex == 7) { return false; }
                 if (Mathf.Abs(jm.AxisValue) <= StickTreshold) { return false; }
-                int value = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
+                int value = jm.AxisValue > 0 ? axisIndex + 1 : -axisIndex - 1;
                 ini["Input"][ini_name] = $"Axis({value})";
                 break;
 
@@ -221,14 +226,20 @@ public partial class GDKnyttKeys : Node
 
     private static void applyKey(string action_name, string key, bool ctrl = false)
     {
-        int scancode = OS.FindScancodeFromString(key);
-        var e = new InputEventKey() { Scancode = (uint)scancode, Control = ctrl };
+        // Godot 4: Use Enum.TryParse to convert key name string to Key enum
+        if (!Enum.TryParse<Key>(key, ignoreCase: true, out Key keycode))
+        {
+            GD.PrintErr($"Unknown key: {key}");
+            return;
+        }
+        var e = new InputEventKey() { Keycode = keycode, CtrlPressed = ctrl };
         InputMap.ActionAddEvent(action_name, e);
     }
 
     private static void applyJoy(string action_name, string key)
     {
-        var e = new InputEventJoypadButton() { ButtonIndex = int.Parse(key), Device = -1 };
+        // Godot 4: ButtonIndex is now JoyButton enum
+        var e = new InputEventJoypadButton() { ButtonIndex = (JoyButton)int.Parse(key), Device = -1 };
         InputMap.ActionAddEvent(action_name, e);
     }
 
@@ -264,7 +275,9 @@ public partial class GDKnyttKeys : Node
     {
         if (!(@event is InputEventJoypadMotion jm)) { return; }
 
-        int axis = jm.AxisValue > 0 ? jm.Axis + 1 : -jm.Axis - 1;
+        // Godot 4: Axis is now JoyAxis enum, need to cast to int for arithmetic
+        int axisIndex = (int)jm.Axis;
+        int axis = jm.AxisValue > 0 ? axisIndex + 1 : -axisIndex - 1;
         
         if (axis_map.ContainsKey(axis))
         {

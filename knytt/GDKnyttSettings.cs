@@ -26,13 +26,15 @@ public partial class GDKnyttSettings : Node
         get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
         set
         {
-            DisplayServer.WindowGetFlag(DisplayServer.WindowFlags.Borderless) = value;
-            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Maximized = value;
+            // Godot 4: Use Set methods instead of trying to assign to Get methods
+            DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, value);
+            DisplayServer.WindowSetMode(value ? DisplayServer.WindowMode.Maximized : DisplayServer.WindowMode.Windowed);
             if (!value && OS.GetName() == "Windows")
             {
-                DisplayServer.WindowGetSize() = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"),
-                                            (int)ProjectSettings.GetSetting("display/window/size/test_height"));
-                DisplayServer.WindowGetPosition() = (DisplayServer.ScreenGetSize() - DisplayServer.WindowGetSize()) / 2;
+                var size = new Vector2I((int)(long)ProjectSettings.GetSetting("display/window/size/viewport_width"),
+                                        (int)(long)ProjectSettings.GetSetting("display/window/size/viewport_height"));
+                DisplayServer.WindowSetSize(size);
+                DisplayServer.WindowSetPosition((DisplayServer.ScreenGetSize() - size) / 2);
             }
             ini["Graphics"]["Fullscreen"] = value ? "1" : "0";
         }
@@ -56,11 +58,12 @@ public partial class GDKnyttSettings : Node
 
     public static void setupViewport(bool for_ui = false, bool check_shrink = false)
     {
+        // Godot 4: Stretch settings are now on the root Window, not SceneTree
         float ui_width = check_shrink && DisplayServer.WindowGetSize().Aspect() <= 1.5f ? 530 : 600;
-        tree.SetScreenStretch(
-            SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
-            new Vector2(for_ui ? ui_width : TouchSettings.ScreenWidth, 240));
+        var root = tree.Root;
+        root.ContentScaleMode = SmoothScaling ? Window.ContentScaleModeEnum.CanvasItems : Window.ContentScaleModeEnum.Viewport;
+        root.ContentScaleAspect = for_ui || TouchSettings.EnablePanel ? Window.ContentScaleAspectEnum.KeepWidth : Window.ContentScaleAspectEnum.Keep;
+        root.ContentScaleSize = new Vector2I((int)(for_ui ? ui_width : TouchSettings.ScreenWidth), 240);
     }
 
     public static void setupCamera()

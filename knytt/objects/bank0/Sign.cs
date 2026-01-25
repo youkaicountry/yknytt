@@ -38,8 +38,9 @@ public partial class Sign : GDKnyttBaseObject
 
         if (GDArea.GDWorld.Game.SignFont != null)
         {
-            label.AddFontOverride("font", GDArea.GDWorld.Game.SignFont);
-            label.RemoveColorOverride("font_color");
+            // Godot 4: AddFontOverride → AddThemeFontOverride, RemoveColorOverride → RemoveThemeColorOverride
+            label.AddThemeFontOverride("font", GDArea.GDWorld.Game.SignFont);
+            label.RemoveThemeColorOverride("font_color");
         }
     }
 
