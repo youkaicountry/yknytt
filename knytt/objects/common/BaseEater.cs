@@ -1,6 +1,6 @@
 using Godot;
 
-public class BaseEater : GDKnyttBaseObject
+public partial class BaseEater : GDKnyttBaseObject
 {
     private void _on_Area2D_body_entered(object body)
     {

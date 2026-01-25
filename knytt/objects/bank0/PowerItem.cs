@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class PowerItem : GDKnyttBaseObject
+public partial class PowerItem : GDKnyttBaseObject
 {
     public static readonly Dictionary<int, int> Object2Power = new Dictionary<int, int>()
     {

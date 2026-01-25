@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class SmallTimedFlower : GDKnyttBaseObject
+public partial class SmallTimedFlower : GDKnyttBaseObject
 {
     private const int SHOTS = 10;
 

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using YUtil.Random;
 
-public class Fly : GDKnyttBaseObject
+public partial class Fly : GDKnyttBaseObject
 {
     private AnimatedSprite2D player;
     private Timer flyUpTimer;
@@ -15,7 +15,7 @@ public class Fly : GDKnyttBaseObject
     {
         player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         flyUpTimer = GetNode<Timer>("FlyUpTimer");
-        player.Play($"stop{ObjectID.y}");
+        player.Play($"stop{ObjectID.Y}");
         triggerDistance = ObjectID.Y == 3 ? 50 : 80;
         xBuzz = ObjectID.Y == 3 ? 120 : 66;
     }
@@ -25,7 +25,7 @@ public class Fly : GDKnyttBaseObject
         if (!flying && Juni.manhattanDistance(Center) < triggerDistance)
         {
             if (!timerIsOver) { flyUpTimer.Start(); }
-            player.Play($"fly{ObjectID.y}");
+            player.Play($"fly{ObjectID.Y}");
             flying = true;
         }
 
@@ -41,7 +41,7 @@ public class Fly : GDKnyttBaseObject
 
         if (moveAndCollide(Vector2.Down, testOnly: true) != null)
         {
-            player.Play($"stop{ObjectID.y}");
+            player.Play($"stop{ObjectID.Y}");
             flying = false;
         }
     } // TODO: destroy if touch water

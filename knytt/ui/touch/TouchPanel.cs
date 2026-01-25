@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public class TouchPanel : Panel
+public partial class TouchPanel : Panel
 {
     private StyleBox normalStylebox;
     private StyleBox pressedStylebox;
@@ -84,7 +84,7 @@ public class TouchPanel : Panel
 
         Modulate = new Color(Modulate.R, Modulate.G, Modulate.B, TouchSettings.Opacity);
         
-        RectSize = new Vector2(TouchSettings.ScreenWidth + 4, RectSize.Y);
+        Size = new Vector2(TouchSettings.ScreenWidth + 4, Size.Y);
     
         var anchor_top = TouchSettings.PanelAnchor;
         var height = arrowsMainPanel.Size.Y - 2; // correction to hide the border at the edge
@@ -96,11 +96,11 @@ public class TouchPanel : Panel
         int jump_width_excess = (int)(120 * (TouchSettings.JumpScale - 1));
         jumpMainPanel.OffsetLeft = -240 - jump_width_excess;
         down2Panel.OffsetRight = jumpPanel.OffsetRight = 240 + jump_width_excess;
-        jumpPanel.GetNode<Control>("Label").RectPivotOffset = jumpPanel.Size / 2;
-        down2Panel.GetNode<Control>("Label").RectPivotOffset = down2Panel.Size / 2;
+        jumpPanel.GetNode<Control>("Label").PivotOffset = jumpPanel.Size / 2;
+        down2Panel.GetNode<Control>("Label").PivotOffset = down2Panel.Size / 2;
 
-        arrowsMainPanel.RectPivotOffset = new Vector2(0, (1 - anchor_top) * height);
-        jumpMainPanel.RectPivotOffset = new Vector2(jumpMainPanel.Size.X, (1 - anchor_top) * height);
+        arrowsMainPanel.PivotOffset = new Vector2(0, (1 - anchor_top) * height);
+        jumpMainPanel.PivotOffset = new Vector2(jumpMainPanel.Size.X, (1 - anchor_top) * height);
         
         var swap = TouchSettings.SwapHands;
         arrowsMainPanel.AnchorLeft = arrowsMainPanel.AnchorRight = swap ? 1f : 0f;
@@ -115,9 +115,9 @@ public class TouchPanel : Panel
 
     private float getScale()
     {
-        float window_x = GDKnyttSettings.SmoothScaling ? GetViewport().Size.X : OS.WindowSize.X;
-        float correction = 0.55f + 0.075f * window_x / OS.GetScreenDpi(); // slighly bigger for bigger devices
-        return Mathf.Min(0.01f * OS.GetScreenDpi() * TouchSettings.Scale * correction * GetViewport().GetVisibleRect().Size.X / window_x, 1.4f / TouchSettings.Viewport);
+        float window_x = GDKnyttSettings.SmoothScaling ? GetViewport().GetVisibleRect().Size.X : DisplayServer.WindowGetSize().X;
+        float correction = 0.55f + 0.075f * window_x / DisplayServer.ScreenGetDpi(); // slighly bigger for bigger devices
+        return Mathf.Min(0.01f * DisplayServer.ScreenGetDpi() * TouchSettings.Scale * correction * GetViewport().GetVisibleRect().Size.X / window_x, 1.4f / TouchSettings.Viewport);
     }
 
     // Returns rectangle for the button with excess space
@@ -125,11 +125,11 @@ public class TouchPanel : Panel
                                bool grow_right = false, bool grow_bottom = false,
                                bool flip_left = false)
     {
-        // "Scale" doesn't affect RectSize, needs to calculate it manually
+        // "Scale" doesn't affect Size, needs to calculate it manually
         // Also "flip_left" is a workaround when scale < 0
         var scale = getScale();
-        float x = c.RectGlobalPosition.X - (grow_left ? X_EXCESS * scale : 0);
-        float y = c.RectGlobalPosition.Y - (grow_top ? TOP_EXCESS * scale : 0);
+        float x = c.GlobalPosition.X - (grow_left ? X_EXCESS * scale : 0);
+        float y = c.GlobalPosition.Y - (grow_top ? TOP_EXCESS * scale : 0);
         float x_size = c.Size.X * scale + (grow_left ? X_EXCESS * scale : 0)
                                             + (grow_right ? X_EXCESS * scale : 0);
         float y_size = c.Size.Y * scale + (grow_top ? TOP_EXCESS * scale : 0)
@@ -187,7 +187,7 @@ public class TouchPanel : Panel
 
     private void ChangeOpacity(Control c, bool pressed)
     {
-        c.AddStyleboxOverride("panel", pressed ? pressedStylebox : normalStylebox);
+        c.AddThemeStyleboxOverride("panel", pressed ? pressedStylebox : normalStylebox);
     }
 
     public override void _Input(InputEvent @event)
@@ -198,7 +198,7 @@ public class TouchPanel : Panel
             (@event as InputEventScreenTouch).Position :
             (@event as InputEventScreenDrag).Position;
 
-        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
+        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).ButtonPressed;
 
         if (released)
         {
@@ -217,7 +217,7 @@ public class TouchPanel : Panel
         }
         else if (@event is InputEventScreenDrag drag_event)
         {
-            var speed = drag_event.Speed;
+            var speed = drag_event.Velocity;
             var rel = drag_event.Relative;
             var old_position = drag_event.Position - drag_event.Relative;
 

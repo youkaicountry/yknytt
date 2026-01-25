@@ -1,6 +1,6 @@
 using Godot;
 
-public class WallNinja : Muff
+public partial class WallNinja : Muff
 {
     [Export] string bulletScene = null;
     [Export] int bulletVelocity = 0;

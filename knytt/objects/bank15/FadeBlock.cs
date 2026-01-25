@@ -1,6 +1,6 @@
 using Godot;
 
-public class FadeBlock : GDKnyttBaseObject
+public partial class FadeBlock : GDKnyttBaseObject
 {
     private float pos;
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class LookMuff : GDKnyttBaseObject
+public partial class LookMuff : GDKnyttBaseObject
 {
     protected Sprite2D sprite;
 

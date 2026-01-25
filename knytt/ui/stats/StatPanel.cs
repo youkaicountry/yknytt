@@ -1,6 +1,6 @@
 using Godot;
 
-public class StatPanel : Panel
+public partial class StatPanel : Panel
 {
     private static readonly string[] powers = {"Run", "Climb", "Double Jump", "High Jump", "Eye", "Radar", "Umbrella", "Hologram",
         "Red Key", "Yellow Key", "Blue Key", "Purple Key", "Map"};
@@ -47,7 +47,7 @@ public class StatPanel : Panel
         node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture2D>(texture);
         node.GetNode<Label>("HBoxContainer/VBoxContainer/ItemLabel").Text = label;
         node.GetNode<Label>("HBoxContainer/VBoxContainer/CountLabel").Text = $"Achieved {count} times";
-        if (achieved) { node.AddStyleboxOverride("panel", achievedStyle); }
+        if (achieved) { node.AddThemeStyleboxOverride("panel", achievedStyle); }
         container.AddChild(node);
     }
 

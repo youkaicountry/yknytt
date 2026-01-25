@@ -1,6 +1,6 @@
 using Godot;
 
-public class Raindrop : Node2D
+public partial class Raindrop : Node2D
 {
     [Export] float baseFallspeed = 420f;
     [Export] float variance = 60f;

@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public class PausePanel : Control
+public partial class PausePanel : Control
 {
     PackedScene settings_scene;
     PackedScene info_scene;
@@ -15,7 +15,7 @@ public class PausePanel : Control
         info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
         pause();
         bounceWait();
-        RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
+        Scale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         GetParent<BasicScreen>().initFocus();
     }
 
@@ -79,7 +79,7 @@ public class PausePanel : Control
 
     public void backEvent()
     {
-        RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
+        Scale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         in_settings = false;
         GDKnyttSettings.setupViewport(for_ui: false);
     }

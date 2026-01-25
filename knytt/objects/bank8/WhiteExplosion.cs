@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class WhiteExplosion : GDKnyttBaseObject
+public partial class WhiteExplosion : GDKnyttBaseObject
 {
     public override void _Ready()
     {

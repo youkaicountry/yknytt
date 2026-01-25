@@ -1,6 +1,6 @@
 using Godot;
 
-public class Insect : Muff
+public partial class Insect : Muff
 {
     [Export] DirectionChange runTo = DirectionChange.Random;
 

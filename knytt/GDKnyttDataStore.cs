@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GDKnyttDataStore : Node
+public partial class GDKnyttDataStore : Node
 {
     public static Random random = new Random();
     public static GDKnyttWorldImpl KWorld { get; set; }

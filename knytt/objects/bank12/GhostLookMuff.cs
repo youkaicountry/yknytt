@@ -1,6 +1,6 @@
 using Godot;
 
-public class GhostLookMuff : GDKnyttBaseObject
+public partial class GhostLookMuff : GDKnyttBaseObject
 {
     protected AnimatedSprite2D sprite;
 

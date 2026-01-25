@@ -1,6 +1,6 @@
 using Godot;
 
-public class GDKnyttButton : Button
+public partial class GDKnyttButton : Button
 {
     [Signal] public delegate void ShowHintEventHandler();
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class WSOD : ColorRect
+public partial class WSOD : ColorRect
 {
     [Signal] public delegate void WSODFinishedEventHandler();
 

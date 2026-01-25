@@ -1,6 +1,6 @@
 using Godot;
 
-public class Bee : Muff
+public partial class Bee : Muff
 {
     [Export] protected int chance = 0;
     [Export] protected Color bulletModulate = default(Color);

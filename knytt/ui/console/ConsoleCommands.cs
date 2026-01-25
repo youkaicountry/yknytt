@@ -201,7 +201,7 @@ public static class ConsoleCommands
 
                 case "copy":
                     if (game == null) { return "No game is loaded"; }
-                    OS.Clipboard = game.GDWorld.KWorld.CurrentSave.ToString();
+                    DisplayServer.ClipboardSet(game.GDWorld.KWorld.CurrentSave.ToString());
                     env.Console.AddMessage("Save file was copied to clipboard.");
                     break;
 
@@ -210,7 +210,7 @@ public static class ConsoleCommands
                     KnyttSave save;
                     try
                     {
-                        save = new KnyttSave(game.GDWorld.KWorld, OS.Clipboard, game.GDWorld.KWorld.CurrentSave.Slot);
+                        save = new KnyttSave(game.GDWorld.KWorld, DisplayServer.ClipboardGet(), game.GDWorld.KWorld.CurrentSave.Slot);
                     }
                     catch (Exception)
                     {
@@ -227,7 +227,7 @@ public static class ConsoleCommands
                 case "backup":
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
                     string dest_zip = dest_path.PathJoin("yknytt-saves.zip");
-                    if (!new DirAccess().DirExists(dest_path)) { return $"DirAccess {dest_path} does not exist."; }
+                    if (!DirAccess.DirExistsAbsolute(dest_path)) { return $"DirAccess {dest_path} does not exist."; }
                     if (FileAccess.FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
                     try
@@ -279,7 +279,7 @@ public static class ConsoleCommands
                 case "copy":
                     if (game == null) { return "No game is loaded"; }
                     var c_code = KnyttUtil.CompressString(game.GDWorld.KWorld.CurrentSave.ToString());
-                    OS.Clipboard = c_code;
+                    DisplayServer.ClipboardSet(c_code);
                     env.Console.AddMessage("Password was copied to clipboard.");
                     break;
 
@@ -288,7 +288,7 @@ public static class ConsoleCommands
                     KnyttSave save;
                     try
                     {
-                        var ini = KnyttUtil.DecompressString(OS.Clipboard);
+                        var ini = KnyttUtil.DecompressString(DisplayServer.ClipboardGet());
                         GD.Print(ini);
                         save = new KnyttSave(game.GDWorld.KWorld, ini, game.GDWorld.KWorld.CurrentSave.Slot);
                     }
@@ -631,13 +631,12 @@ public static class ConsoleCommands
             string path = null;
 
             // Check for file internally first
-            var f = new File();
             var internal_path = $"res://knytt/worlds/{this.world}";
-            if (f.FileExists(internal_path)) { path = internal_path; }
+            if (FileAccess.FileExists(internal_path)) { path = internal_path; }
             else
             {
                 var external_path = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Worlds/{this.world}");
-                if (f.FileExists(external_path)) { path = external_path; }
+                if (FileAccess.FileExists(external_path)) { path = external_path; }
             }
 
             if (path == null) { return $"Cannot find world: \"{this.world}\""; }
@@ -768,10 +767,13 @@ public static class ConsoleCommands
         public string Execute(object environment)
         {
             var env = (ConsoleExecutionEnvironment)environment;
-            var f = new File();
-            var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Read);
-            var ini_text = f.GetAsText();
-            f.Close();
+            var path = GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini");
+            string ini_text = "";
+            if (FileAccess.FileExists(path))
+            {
+                using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+                ini_text = f?.GetAsText() ?? "";
+            }
 
             switch (section)
             {
@@ -780,7 +782,7 @@ public static class ConsoleCommands
                     return null;
 
                 case "copy":
-                    OS.Clipboard = ini_text;
+                    DisplayServer.ClipboardSet(ini_text);
                     env.Console.AddMessage("Settings were copied to clipboard.");
                     return null;
 

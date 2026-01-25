@@ -4,7 +4,7 @@ using Godot;
 using YKnyttLib;
 using YKnyttLib.Logging;
 
-public class GDKnyttGame : Node2D
+public partial class GDKnyttGame : Node2D
 {
     PackedScene juni_scene;
     PackedScene pause_scene;
@@ -146,11 +146,9 @@ public class GDKnyttGame : Node2D
     public void saveGame(KnyttSave save, bool save_map = true)
     {
         GDKnyttAssetManager.ensureDirExists(GDKnyttSettings.Saves);
-        var f = new File();
         var fname = GDKnyttSettings.Saves.PathJoin(save.SaveFileName);
-        f.Open(fname, FileAccess.ModeFlags.Write);
+        using var f = FileAccess.Open(fname, FileAccess.ModeFlags.Write);
         f.StoreString(save.ToString());
-        f.Close();
 
         if (save_map) { viewports.saveAll(); }
         KnyttLogger.Debug($"Game saved to {fname}");
@@ -585,11 +583,11 @@ public class GDKnyttGame : Node2D
              (Input.IsActionJustPressed("left") || Input.IsActionJustPressed("right")))) { return; }
 
         float aspect = GDKnyttSettings.Aspect;
-        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
+        float window_x_fixed = DisplayServer.WindowGetSize().X * TouchSettings.ViewportNow;
         var aspects = 
             Enumerable.Range(1, 20) // should be the same if written/read from ini
                 .Select(i => float.Parse((i * 240 / window_x_fixed).ToString())) // integer scales
-                .Append(float.Parse((1 / OS.WindowSize.Aspect()).ToString()))    // height = 100%
+                .Append(float.Parse((1 / DisplayServer.WindowGetSize().Aspect()).ToString()))    // height = 100%
                 .Append(0.4f)                                                    // width = 100%
                 .Append(aspect)
                 .Distinct()
@@ -618,7 +616,7 @@ public class GDKnyttGame : Node2D
         
         float min_value = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
         if (min_value == 0) { min_value = 0.4f; }
-        float max_value = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
+        float max_value = 1 / (DisplayServer.WindowGetSize().Aspect() * TouchSettings.ViewportNow);
         if (aspect < min_value) { aspect = min_value; }
         if (aspect > max_value) { aspect = max_value; }
         

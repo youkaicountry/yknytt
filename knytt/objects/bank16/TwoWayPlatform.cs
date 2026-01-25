@@ -1,4 +1,4 @@
-public class TwoWayPlatform : OneWayPlatform
+public partial class TwoWayPlatform : OneWayPlatform
 {
     private void _on_EnterArea_body_entered(Juni juni)
     {

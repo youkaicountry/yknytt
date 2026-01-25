@@ -1,6 +1,6 @@
 using Godot;
 
-public class BaseBullet : CharacterBody2D
+public partial class BaseBullet : CharacterBody2D
 {
     private float velocity;
     private float velocity_x;

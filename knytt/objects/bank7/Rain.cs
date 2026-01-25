@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using YKnyttLib;
 using YUtil.Random;
 
-public class Rain : GDKnyttBaseObject
+public partial class Rain : GDKnyttBaseObject
 {
     PackedScene drop_scene;
     Queue<Raindrop> _drop_q;

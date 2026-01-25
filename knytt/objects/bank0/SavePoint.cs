@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class SavePoint : GDKnyttBaseObject
+public partial class SavePoint : GDKnyttBaseObject
 {
     HashSet<Juni> junis;
     AnimatedSprite2D animation;

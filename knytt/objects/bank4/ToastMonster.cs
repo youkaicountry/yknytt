@@ -1,4 +1,4 @@
-public class ToastMonster : GesturesObject
+public partial class ToastMonster : GesturesObject
 {
     private void _on_SpikerMod_EnterEvent()
     {

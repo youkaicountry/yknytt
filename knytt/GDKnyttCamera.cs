@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Math;
 
-public class GDKnyttCamera : Camera2D
+public partial class GDKnyttCamera : Camera2D
 {
     public GDKnyttGame Game { get; private set; }
 

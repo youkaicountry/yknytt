@@ -1,4 +1,4 @@
-public class FireBullet2 : BaseBullet
+public partial class FireBullet2 : BaseBullet
 {
     public override void _PhysicsProcess(double delta)
     {

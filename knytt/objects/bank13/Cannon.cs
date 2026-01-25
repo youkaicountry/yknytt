@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class Cannon : GDKnyttBaseObject
+public abstract partial class Cannon : GDKnyttBaseObject
 {
     [Export] int bulletsCount = 0;
     [Export] float audioPosition = 0;

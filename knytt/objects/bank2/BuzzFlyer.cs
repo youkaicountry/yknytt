@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class BuzzFlyer : GDKnyttBaseObject
+public partial class BuzzFlyer : GDKnyttBaseObject
 {
     [Export] protected float speed = 48;
     [Export] protected float buzzStrength = 66;

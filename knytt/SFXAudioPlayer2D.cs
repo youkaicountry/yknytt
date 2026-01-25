@@ -1,6 +1,6 @@
 using Godot;
 
-public class SFXAudioPlayer2D : AudioStreamPlayer2D
+public partial class SFXAudioPlayer2D : AudioStreamPlayer2D
 {
     public static float GlobalPanningStrength;
 

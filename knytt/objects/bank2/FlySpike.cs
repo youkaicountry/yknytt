@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class FlySpike : GDKnyttBaseObject
+public partial class FlySpike : GDKnyttBaseObject
 {
     AnimatedSprite2D animated;
     Timer wait_timer;

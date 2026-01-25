@@ -1,6 +1,6 @@
 using Godot;
 
-public class SwimZone : GDKnyttBaseObject
+public partial class SwimZone : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class RoofDropper : GDKnyttBaseObject
+public partial class RoofDropper : GDKnyttBaseObject
 {
     private Timer shotTimer;
     private AnimatedSprite2D sprite;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class Crawler : GDKnyttBaseObject
+public partial class Crawler : GDKnyttBaseObject
 {
     [Export] protected bool horizontal = true;
     [Export] protected float speed = 50;

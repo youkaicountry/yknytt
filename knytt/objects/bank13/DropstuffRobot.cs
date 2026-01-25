@@ -1,6 +1,6 @@
 using Godot;
 
-public class DropstuffRobot : Muff
+public partial class DropstuffRobot : Muff
 {
     public override void _Ready()
     {

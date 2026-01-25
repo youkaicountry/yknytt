@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class DarkRandomizer : WalkingShooter
+public partial class DarkRandomizer : WalkingShooter
 {
     public override void _Ready()
     {

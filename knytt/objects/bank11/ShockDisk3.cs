@@ -1,6 +1,6 @@
 using Godot;
 
-public class ShockDisk3 : ShockDisk
+public partial class ShockDisk3 : ShockDisk
 {
     public override void _Ready()
     {

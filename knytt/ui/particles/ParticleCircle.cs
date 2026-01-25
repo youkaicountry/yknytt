@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class ParticleCircle : Node2D
+public partial class ParticleCircle : Node2D
 {
     [Export]
     public Texture2D particleTexture2D;

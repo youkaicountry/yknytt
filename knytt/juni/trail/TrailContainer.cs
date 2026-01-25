@@ -1,6 +1,6 @@
 using Godot;
 
-public class TrailContainer : Node2D
+public partial class TrailContainer : Node2D
 {
     [Export] public int TrailCount {get; set;} = 100;
     [Export] public int TrailFrames {get; set;} = 5;

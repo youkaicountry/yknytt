@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class TouchSettings : Node
+public partial class TouchSettings : Node
 {
     public enum VerticalPosition
     {
@@ -90,8 +90,8 @@ public class TouchSettings : Node
     // tries to determine tablets or any other device with enough space for touch panel
     public static bool isHandsOverlapping()
     {
-        var curtain_height = 600 * OS.GetScreenSize().Y / OS.GetScreenSize().X - 240;
-        var scale = Mathf.Min(6 * OS.GetScreenDpi() / OS.GetScreenSize().X, 1.4f);
+        var curtain_height = 600 * DisplayServer.ScreenGetSize().Y / DisplayServer.ScreenGetSize().X - 240;
+        var scale = Mathf.Min(6 * DisplayServer.ScreenGetDpi() / DisplayServer.ScreenGetSize().X, 1.4f);
         return 120 * scale > curtain_height;
     }
 }

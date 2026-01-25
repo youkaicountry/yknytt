@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class TrapFlower : GDKnyttBaseObject
+public abstract partial class TrapFlower : GDKnyttBaseObject
 {
     private void _on_ShotTimer_timeout()
     {

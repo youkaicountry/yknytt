@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class ShockDisk : Muff
+public abstract partial class ShockDisk : Muff
 {
     private void _on_ShotTimer_timeout_ext()
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public class Automation : GDKnyttBaseObject
+public partial class Automation : GDKnyttBaseObject
 {
     private static Dictionary<int, string> actionNames = new Dictionary<int, string>()
     {

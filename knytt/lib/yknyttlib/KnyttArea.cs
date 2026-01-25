@@ -150,7 +150,7 @@ namespace YKnyttLib
                             FlagWarps[(int)id].xArtifactMode = true;
                             value = value.Substring(8);
                         }
-                        FlagWarps[(int)id].X = KnyttUtil.parseIniInt(value) ?? 0;
+                        FlagWarps[(int)id].x = KnyttUtil.parseIniInt(value) ?? 0;
                     }
 
                     if (ExtraData.ContainsKey(y_key))
@@ -161,7 +161,7 @@ namespace YKnyttLib
                             FlagWarps[(int)id].yArtifactMode = true;
                             value = value.Substring(8);
                         }
-                        FlagWarps[(int)id].Y = KnyttUtil.parseIniInt(value) ?? 0;
+                        FlagWarps[(int)id].y = KnyttUtil.parseIniInt(value) ?? 0;
                     }
                 }
             }
@@ -238,7 +238,7 @@ namespace YKnyttLib
                 sb.Append(c);
                 c = (char)map.ReadByte();
             }
-            if (sb.ToString().Contains('.')) { return int.MinValue; }
+            if (sb.ToString().ContainsKey('.')) { return int.MinValue; }
             return int.Parse(sb.ToString());
         }
 

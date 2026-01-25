@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class BackgroundBird : GDKnyttBaseObject
+public partial class BackgroundBird : GDKnyttBaseObject
 {
     private float speed;
     private int direction;

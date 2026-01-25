@@ -1,6 +1,6 @@
 using Godot;
 
-public class Laser : GDKnyttBaseObject
+public partial class Laser : GDKnyttBaseObject
 {
     private bool[] horizontal = { true, true, true, false, false, false };
     private bool[] alwaysOn = { false, false, true, false, false, true };

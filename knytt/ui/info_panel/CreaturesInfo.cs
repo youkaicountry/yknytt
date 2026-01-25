@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class CreaturesInfo : CollectionInfo
+public partial class CreaturesInfo : CollectionInfo
 {
     public override string IconFilename { get; } = "Custom Objects/CreatureIcon.png";
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class SuperShot : GesturesObject
+public partial class SuperShot : GesturesObject
 {
     [Export] int[] shotDirections = null;
     [Export] Vector2 shotPosition = Vector2.Zero;

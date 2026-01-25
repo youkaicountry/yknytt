@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ArtifactsPanel : Control
+public partial class ArtifactsPanel : Control
 {
     private static string COIN_ICON_PATH = "Custom Objects/CoinIcon.png";
     public override void _Ready()

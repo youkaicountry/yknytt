@@ -1,6 +1,6 @@
 using Godot;
 
-public class SecretDetector : GDKnyttBaseObject
+public partial class SecretDetector : GDKnyttBaseObject
 {
     public override void _Ready()
     {

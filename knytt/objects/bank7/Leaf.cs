@@ -1,6 +1,6 @@
 using Godot;
 
-public class Leaf : GDKnyttBaseObject
+public partial class Leaf : GDKnyttBaseObject
 {
     [Export] int yGenegrator;
     [Export] int ySingle;

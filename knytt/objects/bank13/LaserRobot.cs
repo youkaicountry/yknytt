@@ -1,6 +1,6 @@
 using Godot;
 
-public class LaserRobot : GDKnyttBaseObject
+public partial class LaserRobot : GDKnyttBaseObject
 {
     private bool isOn = false;
     private float speed = -100;

@@ -1,6 +1,6 @@
 using Godot;
 
-public class AllowHologram : GDKnyttBaseObject
+public partial class AllowHologram : GDKnyttBaseObject
 {
     public override void _Ready()
     {

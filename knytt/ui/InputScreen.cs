@@ -1,6 +1,6 @@
 using Godot;
 
-public class InputScreen : Control
+public partial class InputScreen : Control
 {
     InputOption collecting;
     int cnum;
@@ -13,7 +13,7 @@ public class InputScreen : Control
         GetNode<Control>("StickContainter/Label").Visible =
             GetNode<Control>("StickContainter/SensitivitySlider").Visible = !GDKnyttDataStore.GptokeybMode;
         GetNode<HSlider>("StickContainter/SensitivitySlider").Value = GDKnyttSettings.StickSensitivity;
-        GetNode<CheckBox>("StickContainter/LeftStick").Pressed = GDKnyttSettings.LeftStickMovement;
+        GetNode<CheckBox>("StickContainter/LeftStick").ButtonPressed = GDKnyttSettings.LeftStickMovement;
     }
 
     private void connectSettings(Node node)
@@ -112,7 +112,7 @@ public class InputScreen : Control
 
     private void _on_LeftStick_pressed()
     {
-        GDKnyttSettings.LeftStickMovement = GetNode<CheckBox>("StickContainter/LeftStick").Pressed;
+        GDKnyttSettings.LeftStickMovement = GetNode<CheckBox>("StickContainter/LeftStick").ButtonPressed;
         GDKnyttKeys.applyAllSettings();
     }
 

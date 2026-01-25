@@ -1,6 +1,6 @@
 using Godot;
 
-public class WalkingShooter : Muff
+public partial class WalkingShooter : Muff
 {
     [Export] bool waitForTimer = false;
     [Export] int bulletsCount = 0;

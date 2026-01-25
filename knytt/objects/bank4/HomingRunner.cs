@@ -1,6 +1,6 @@
 using Godot;
 
-public class HomingRunner : WalkingShooter
+public partial class HomingRunner : WalkingShooter
 {
     public override void _Ready()
     {

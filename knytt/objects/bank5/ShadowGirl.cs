@@ -1,6 +1,6 @@
 using Godot;
 
-public class ShadowGirl : Muff
+public partial class ShadowGirl : Muff
 {
     private bool visible = true;
 

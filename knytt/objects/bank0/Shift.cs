@@ -4,7 +4,7 @@ using YKnyttLib;
 using YKnyttLib.Logging;
 using static YKnyttLib.KnyttSwitch;
 
-public class Shift : Switch
+public partial class Shift : Switch
 {
     KnyttShift shift;
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class StarRate : HBoxContainer
+public partial class StarRate : HBoxContainer
 {
     [Signal] public delegate void RateEventEventHandler(int n);
     [Signal] public delegate void HoverEventEventHandler(string hint);
@@ -39,8 +39,8 @@ public class StarRate : HBoxContainer
     private void _on_Star_gui_input(InputEvent @event, int n)
     {
         // TODO: don't know how to recieve mouse events when left mouse button is pressed
-        // if (@event is InputEventMouseButton st && st.Pressed) { GD.Print("workaround"); }
-        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).Pressed;
+        // if (@event is InputEventMouseButton st && st.ButtonPressed) { GD.Print("workaround"); }
+        bool released = @event is InputEventScreenTouch && !(@event as InputEventScreenTouch).ButtonPressed;
         if (released) { EmitSignal(nameof(RateEvent), n); }
     }
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-public class GameButton : GDKnyttButton
+public partial class GameButton : GDKnyttButton
 {
     public WorldEntry worldEntry;
     private ColorRect progressRect;
@@ -29,19 +29,19 @@ public class GameButton : GDKnyttButton
 
         progressRect = GetNode<ColorRect>("ProgressRect");
         startProgressLength = progressRect.Size.X - progressRect.OffsetLeft;
-        varProgressLength = RectSize.X - startProgressLength - progressRect.OffsetLeft * 2;
+        varProgressLength = Size.X - startProgressLength - progressRect.OffsetLeft * 2;
 
         ratingControl = GetNode<Control>("RatingControl");
         if (!worldEntry.HasServerInfo)
         {
             ratingControl.Visible = false;
-            RectMinSize = new Vector2(RectMinSize.X, 45);
+            CustomMinimumSize = new Vector2(CustomMinimumSize.X, 45);
             setProgress(1, worldEntry.CompletionColor);
         }
         else
         {
             ratingControl.Visible = true;
-            RectMinSize = new Vector2(RectMinSize.X, 55);
+            CustomMinimumSize = new Vector2(CustomMinimumSize.X, 55);
             ratingControl.GetNode<Label>("SizeLabel").Text = $"{(worldEntry.FileSize / 1024f / 1024f):0.#} MB";
             ratingControl.GetNode<Label>("RatingLabel").Text = $"Rating: {worldEntry.OverallScore:0.0}";
             ratingControl.GetNode<Label>("RatingLabel").AddColorOverride("font_color", worldEntry.ScoreColor);

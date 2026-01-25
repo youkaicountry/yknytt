@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using YKnyttLib.Logging;
 
-public class SettingsScreen : BasicScreen
+public partial class SettingsScreen : BasicScreen
 {
     public override void _Ready()
     {
@@ -16,16 +16,16 @@ public class SettingsScreen : BasicScreen
 
     public void fillControls()
     {
-        GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Pressed = GDKnyttSettings.Fullscreen;
-        GetNode<CheckBox>("GeneralContainer/Graphics/SmoothScale").Pressed = GDKnyttSettings.SmoothScaling;
-        GetNode<CheckBox>("GeneralContainer/Graphics/WSOD").Pressed = GDKnyttSettings.WSOD;
-        GetNode<CheckBox>("GeneralContainer/Graphics/DownButtonHint").Pressed = GDKnyttSettings.DownButtonHint;
-        GetNode<CheckBox>("GeneralContainer/Graphics/UmbrellaCheat").Pressed = GDKnyttSettings.UmbrellaCheat;
+        GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").ButtonPressed = GDKnyttSettings.Fullscreen;
+        GetNode<CheckBox>("GeneralContainer/Graphics/SmoothScale").ButtonPressed = GDKnyttSettings.SmoothScaling;
+        GetNode<CheckBox>("GeneralContainer/Graphics/WSOD").ButtonPressed = GDKnyttSettings.WSOD;
+        GetNode<CheckBox>("GeneralContainer/Graphics/DownButtonHint").ButtonPressed = GDKnyttSettings.DownButtonHint;
+        GetNode<CheckBox>("GeneralContainer/Graphics/UmbrellaCheat").ButtonPressed = GDKnyttSettings.UmbrellaCheat;
         setAspectClamped(GDKnyttSettings.Aspect);
-        GetNode<CheckBox>("GeneralContainer/Graphics2/Seamless").Pressed = GDKnyttSettings.SeamlessScroll;
-        GetNode<CheckBox>("GeneralContainer/Graphics2/Border").Pressed = GDKnyttSettings.Border;
-        GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/ForcedMap").Pressed = GDKnyttSettings.ForcedMap;
-        GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").Pressed = GDKnyttSettings.DetailedMap;
+        GetNode<CheckBox>("GeneralContainer/Graphics2/Seamless").ButtonPressed = GDKnyttSettings.SeamlessScroll;
+        GetNode<CheckBox>("GeneralContainer/Graphics2/Border").ButtonPressed = GDKnyttSettings.Border;
+        GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/ForcedMap").ButtonPressed = GDKnyttSettings.ForcedMap;
+        GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").ButtonPressed = GDKnyttSettings.DetailedMap;
         GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader").Select((int)GDKnyttSettings.Shader);
         GetNode<OptionButton>("GeneralContainer/Misc/OfflineDropdown").Select((int)GDKnyttSettings.Connection);
         
@@ -34,7 +34,7 @@ public class SettingsScreen : BasicScreen
         GetNode<Slider>("AudioContainer/SlidersContainer/EnvironmentVolumeSlider").Value = GDKnyttSettings.EnvironmentVolume;
         GetNode<Slider>("AudioContainer/SlidersContainer/EffectsVolumeSlider").Value = GDKnyttSettings.EffectsVolume;
         GetNode<Slider>("AudioContainer/SlidersContainer/EffectsPanningSlider").Value = GDKnyttSettings.EffectsPanning;
-        GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").Pressed = GDKnyttSettings.ClassicDoubleJumpSound;
+        GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").ButtonPressed = GDKnyttSettings.ClassicDoubleJumpSound;
 
         GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Disabled = 
             GDKnyttSettings.Mobile || OS.GetName() == "HTML5" || OS.GetName() == "Unix";
@@ -88,41 +88,41 @@ public class SettingsScreen : BasicScreen
 
     public void _on_FullScreen_pressed()
     {
-        GDKnyttSettings.Fullscreen = GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Pressed;
+        GDKnyttSettings.Fullscreen = GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").ButtonPressed;
     }
 
     public void _on_SmoothScale_pressed()
     {
-        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("GeneralContainer/Graphics/SmoothScale").Pressed;
+        GDKnyttSettings.SmoothScaling = GetNode<CheckBox>("GeneralContainer/Graphics/SmoothScale").ButtonPressed;
     }
 
     private void _on_Border_pressed()
     {
-        GDKnyttSettings.Border = GetNode<CheckBox>("GeneralContainer/Graphics2/Border").Pressed;
+        GDKnyttSettings.Border = GetNode<CheckBox>("GeneralContainer/Graphics2/Border").ButtonPressed;
     }
 
     private void _on_WSOD_pressed()
     {
-        GDKnyttSettings.WSOD = GetNode<CheckBox>("GeneralContainer/Graphics/WSOD").Pressed;
+        GDKnyttSettings.WSOD = GetNode<CheckBox>("GeneralContainer/Graphics/WSOD").ButtonPressed;
     }
 
     private void _on_DownButtonHint_pressed()
     {
-        GDKnyttSettings.DownButtonHint = GetNode<CheckBox>("GeneralContainer/Graphics/DownButtonHint").Pressed;
+        GDKnyttSettings.DownButtonHint = GetNode<CheckBox>("GeneralContainer/Graphics/DownButtonHint").ButtonPressed;
     }
 
     private void _on_UmbrellaCheat_pressed()
     {
-        GDKnyttSettings.UmbrellaCheat = GetNode<CheckBox>("GeneralContainer/Graphics/UmbrellaCheat").Pressed;
+        GDKnyttSettings.UmbrellaCheat = GetNode<CheckBox>("GeneralContainer/Graphics/UmbrellaCheat").ButtonPressed;
     }
 
     private void setAspectClamped(float value)
     {
-        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
+        float window_x_fixed = DisplayServer.WindowGetSize().X * TouchSettings.ViewportNow;
         if (window_x_fixed < 600) { window_x_fixed = 600; }
         Slider slider = GetNode<Slider>("GeneralContainer/Graphics2/Aspect");
         slider.MinValue = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
-        slider.MaxValue = 1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow);
+        slider.MaxValue = 1 / (DisplayServer.WindowGetSize().Aspect() * TouchSettings.ViewportNow);
         slider.Value = value;
     }
 
@@ -134,8 +134,8 @@ public class SettingsScreen : BasicScreen
         GDKnyttSettings.setupCamera();
 
         GetNode<Label>("GeneralContainer/Graphics2/Height/Value").Text = 
-            $"Used Height: {OS.WindowSize.Aspect() * value * 100:F0}%";
-        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
+            $"Used Height: {DisplayServer.WindowGetSize().Aspect() * value * 100:F0}%";
+        float window_x_fixed = DisplayServer.WindowGetSize().X * TouchSettings.ViewportNow;
         float scale = window_x_fixed * value / 240;
         if (!GDKnyttSettings.SideScroll) { window_x_fixed *= GDKnyttSettings.Aspect / 0.4f; }
         GetNode<Label>("GeneralContainer/Graphics2/Width/Resolution").Text = 
@@ -145,10 +145,10 @@ public class SettingsScreen : BasicScreen
 
     private void _on_IntScale_pressed()
     {
-        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
+        float window_x_fixed = DisplayServer.WindowGetSize().X * TouchSettings.ViewportNow;
         var aspects = Enumerable.Range(1, 20).Select(i => i * 240 / window_x_fixed).ToList(); // integer scales
-        aspects.Add(1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow)); // height = max
-        aspects.Add(1 / OS.WindowSize.Aspect()); // height = 100%
+        aspects.Add(1 / (DisplayServer.WindowGetSize().Aspect() * TouchSettings.ViewportNow)); // height = max
+        aspects.Add(1 / DisplayServer.WindowGetSize().Aspect()); // height = 100%
         aspects.Add(0.4f);                       // width = 100%
         var cur_value = (float)GetNode<Slider>("GeneralContainer/Graphics2/Aspect").Value;
         GetNode<Slider>("GeneralContainer/Graphics2/Aspect").Value =
@@ -157,23 +157,23 @@ public class SettingsScreen : BasicScreen
 
     private void _on_Seamless_pressed()
     {
-        GDKnyttSettings.SeamlessScroll = GetNode<CheckBox>("GeneralContainer/Graphics2/Seamless").Pressed;
+        GDKnyttSettings.SeamlessScroll = GetNode<CheckBox>("GeneralContainer/Graphics2/Seamless").ButtonPressed;
         GDKnyttSettings.setupCamera();
         if (GDKnyttSettings.SeamlessScroll)
         {
-            GetNode<CheckBox>("GeneralContainer/Graphics2/Border").Pressed = true;
+            GetNode<CheckBox>("GeneralContainer/Graphics2/Border").ButtonPressed = true;
             GDKnyttSettings.Border = true;
         }
     }
 
     private void _on_ForcedMap_pressed()
     {
-        GDKnyttSettings.ForcedMap = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/ForcedMap").Pressed;
+        GDKnyttSettings.ForcedMap = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/ForcedMap").ButtonPressed;
     }
 
     private void _on_DetailedMap_pressed()
     {
-        var detailed = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").Pressed;
+        var detailed = GetNode<CheckBox>("GeneralContainer/Graphics2/MapContainer/DetailedMap").ButtonPressed;
         GetNode<Label>("GeneralContainer/Misc/LabelDetailed").Visible = detailed;
         GDKnyttSettings.DetailedMap = detailed;
     }
@@ -196,7 +196,7 @@ public class SettingsScreen : BasicScreen
         {
             KnyttLogger.Error(e.Message);
         }
-        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-saves.zip");
+        JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-saves.zip");
     }
 
     private void _on_OfflineDropdown_item_selected(int index)
@@ -241,7 +241,7 @@ public class SettingsScreen : BasicScreen
     
     private void _on_ClassicDoubleJumpSound_pressed()
     {
-        GDKnyttSettings.ClassicDoubleJumpSound = GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").Pressed;
+        GDKnyttSettings.ClassicDoubleJumpSound = GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").ButtonPressed;
     }
 
     private void _on_Tab_focus_entered(string container_name)
@@ -250,22 +250,22 @@ public class SettingsScreen : BasicScreen
         {
             string short_name = tab_button.Name.Left(tab_button.Name.Length - 3);
             if (short_name == container_name) { continue; }
-            tab_button.Pressed = false;
+            tab_button.ButtonPressed = false;
             GetNode<Control>(short_name + "Container").Visible = false;
         }
-        GetNode<Button>($"TabsContainer/{container_name}Tab").Pressed = true;
+        GetNode<Button>($"TabsContainer/{container_name}Tab").ButtonPressed = true;
         GetNode<Control>(container_name + "Container").Visible = true;
     }
 
     private void _on_Tab_toggled(bool button_pressed, string container_name)
     {
         var tab_button = GetNode<Button>($"TabsContainer/{container_name}Tab");
-        if (tab_button.HasFocus() && !button_pressed) { tab_button.Pressed = true; }
+        if (tab_button.HasFocus() && !button_pressed) { tab_button.ButtonPressed = true; }
     }
 
     private Control getActiveTab()
     {
-        return GetNode<Control>("TabsContainer").GetChildren().Cast<Button>().First(b => b.Pressed);
+        return GetNode<Control>("TabsContainer").GetChildren().Cast<Button>().First(b => b.ButtonPressed);
     }
 
     private void _on_ActiveTab_focus_entered()
@@ -289,7 +289,7 @@ public class SettingsScreen : BasicScreen
 
     public override void _PhysicsProcess(double delta)
     {
-        if (OS.GetName() == "Unix" && GetNode<Control>("BackButton").GetFocusOwner() is Slider slider)
+        if (OS.GetName() == "Unix" && GetNode<Control>("BackButton").GetViewport().GuiGetFocusOwner() is Slider slider)
         {
             if (Input.IsActionPressed("ui_left")) { slider.Value -= slider.Step; }
             if (Input.IsActionPressed("ui_right")) { slider.Value += slider.Step; }

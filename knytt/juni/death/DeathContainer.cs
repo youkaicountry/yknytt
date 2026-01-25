@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class DeathContainer : Node2D
+public partial class DeathContainer : Node2D
 {
     List<Vector2> DeathPositions = new List<Vector2>();
 

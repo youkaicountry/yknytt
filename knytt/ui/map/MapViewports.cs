@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using YKnyttLib;
 
-public class MapViewports : Node2D
+public partial class MapViewports : Node2D
 {
     public Dictionary<KnyttPoint, ViewportTile> viewports = new Dictionary<KnyttPoint, ViewportTile>();
     public Dictionary<KnyttPoint, Texture2D> map_images = new Dictionary<KnyttPoint, Texture2D>();
@@ -49,10 +49,10 @@ public class MapViewports : Node2D
     {
         if (KWorld == null || area == null || internal_cache) { return; }
         var key = getKey(area.Area.MapPosition);
-        if (!viewports.ContainsKey(key))
+        if (!viewports.Contains(key))
         {
             ViewportTile tile = viewport_scene.Instantiate<ViewportTile>();
-            tile.init(key, getFilename(key), map_images.ContainsKey(key) ? map_images[key] : null);
+            tile.init(key, getFilename(key), map_images.Contains(key) ? map_images[key] : null);
             AddChild(tile);
             viewports.Add(key, tile);
         }
@@ -66,8 +66,8 @@ public class MapViewports : Node2D
         KnyttPoint tile_coord = coord % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
         Rect2 src = new Rect2(new Vector2(tile_coord.X, tile_coord.Y) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
 
-        if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture2D()); }
-        if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
+        if (viewports.Contains(key)) { return (src, viewports[key].getTexture2D()); }
+        if (map_images.Contains(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
         if (internal_cache ? 

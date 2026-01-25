@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib.Logging;
 
-public class GodotLoggerTarget : IKnyttLoggerTarget
+public partial class GodotLoggerTarget : IKnyttLoggerTarget
 {
     public void NewMessage(KnyttLogMessage message)
     {

@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Random;
 
-public class MultiShot : DistanceMuff
+public partial class MultiShot : DistanceMuff
 {
     [Export] int[] additionalDirections = null;
     [Export] Vector2[] shotPositions = null;

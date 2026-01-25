@@ -1,4 +1,4 @@
-public class SwimScreen : GDKnyttBaseObject
+public partial class SwimScreen : GDKnyttBaseObject
 {
     public override void _Ready()
     {

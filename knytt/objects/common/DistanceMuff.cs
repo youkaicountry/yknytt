@@ -1,4 +1,4 @@
-public class DistanceMuff : Muff
+public partial class DistanceMuff : Muff
 {
     protected DistanceMod distanceMod;
 

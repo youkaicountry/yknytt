@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using YUtil.Random;
 
-public class SceneCPUParticles : Node2D
+public partial class SceneCPUParticles : Node2D
 {
     [Export] public int Particles = 1;
 

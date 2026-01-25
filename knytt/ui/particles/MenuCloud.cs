@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MenuCloud : Node2D
+public partial class MenuCloud : Node2D
 {
     public Random R { get; }
 

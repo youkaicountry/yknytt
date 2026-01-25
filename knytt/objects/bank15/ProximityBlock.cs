@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class ProximityBlock : GDKnyttBaseObject
+public partial class ProximityBlock : GDKnyttBaseObject
 {
     private const float RADIUS = 132f;
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class BlueBullet : BaseBullet
+public partial class BlueBullet : BaseBullet
 {
     public override void _Ready()
     {

@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public abstract class Switch : GDKnyttBaseObject
+public abstract partial class Switch : GDKnyttBaseObject
 {
     protected KnyttSwitch @switch;
 

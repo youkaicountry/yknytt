@@ -1,4 +1,4 @@
-public class HoloAutomation : Automation
+public partial class HoloAutomation : Automation
 {
     private bool late_holo;
 

@@ -1,6 +1,6 @@
 using Godot;
 
-public class TrapFire : GDKnyttBaseObject
+public partial class TrapFire : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
     private Timer shotDelayTimer;

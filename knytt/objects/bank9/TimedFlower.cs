@@ -1,6 +1,6 @@
 using Godot;
 
-public class TimedFlower : GDKnyttBaseObject
+public partial class TimedFlower : GDKnyttBaseObject
 {
     private bool isShooting = false;
 

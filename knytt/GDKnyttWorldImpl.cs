@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class GDKnyttWorldImpl : KnyttWorld
+public partial class GDKnyttWorldImpl : KnyttWorld
 {
     public GDKnyttWorldImpl() : base() { }
 
@@ -18,31 +18,27 @@ public class GDKnyttWorldImpl : KnyttWorld
     protected override bool externalFileExists(string filepath)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
-        var f = new File();
-        return f.FileExists(full_path);
+        return FileAccess.FileExists(full_path);
     }
 
     protected override object getExternalSound(string filepath, bool loop)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
-        var f = new File();
-        if (!f.FileExists(full_path)) { return null; }
+        if (!FileAccess.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalSound(full_path, loop);
     }
 
     protected override object getExternalTexture2D(string filepath)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
-        var f = new File();
-        if (!f.FileExists(full_path)) { return null; }
+        if (!FileAccess.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadExternalTexture2D(full_path);
     }
 
     protected sealed override byte[] getExternalWorldData(string filepath)
     {
         var full_path = this.WorldDirectory + "/" + filepath.ToLower();
-        var f = new File();
-        if (!f.FileExists(full_path)) { return null; }
+        if (!FileAccess.FileExists(full_path)) { return null; }
         return GDKnyttAssetManager.loadFile(full_path);
     }
 
@@ -69,9 +65,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         GDKnyttAssetManager.ensureDirExists(dir);
 
         string marker_name = $"{dir}/_do_not_load_";
-        File marker = new File();
-        marker.Open(marker_name, FileAccess.ModeFlags.Write);
-        marker.Close();
+        using (var marker = FileAccess.Open(marker_name, FileAccess.ModeFlags.Write)) { }
 
         foreach (string filename in BinLoader.GetFileNames())
         {
@@ -79,15 +73,13 @@ public class GDKnyttWorldImpl : KnyttWorld
             string fullname = $"{dir}/{filename}";
             GDKnyttAssetManager.ensureDirExists(fullname.Substring(0, fullname.LastIndexOf('/')));
 
-            File f = new File();
-            f.Open(fullname, FileAccess.ModeFlags.Write);
+            using var f = FileAccess.Open(fullname, FileAccess.ModeFlags.Write);
             f.StoreBuffer(BinLoader.GetFile(filename));
-            f.Close();
         }
 
         GDKnyttDataStore.ProgressHint = "Finishing unpacking...";
-        new DirAccess().Remove(marker_name);
-        new DirAccess().Remove(WorldDirectory);
+        DirAccess.RemoveAbsolute(marker_name);
+        DirAccess.RemoveAbsolute(WorldDirectory);
 
         purgeBinFile();
         setDirectory(dir, WorldDirectoryName);
@@ -97,23 +89,24 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     public static void removeDirectory(string dir_name)
     {
-        var dir = new DirAccess();
-        if (!dir.DirExists(dir_name)) { return; }
-        dir.Open(dir_name);
-        dir.ListDirBegin(skipNavigational: true);
+        if (!DirAccess.DirExistsAbsolute(dir_name)) { return; }
+        using var dir = DirAccess.Open(dir_name);
+        if (dir == null) { return; }
+        dir.ListDirBegin();
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {
+            if (filename == "." || filename == "..") { continue; }
             if (dir.FileExists(filename)) { dir.Remove(filename); } else { removeDirectory($"{dir_name}/{filename}"); }
         }
         dir.ListDirEnd();
-        new DirAccess().Remove(dir_name);
+        DirAccess.RemoveAbsolute(dir_name);
     }
 
     public void uninstallWorld()
     {
         if (BinMode)
         {
-            new DirAccess().Remove(WorldDirectory);
+            DirAccess.RemoveAbsolute(WorldDirectory);
         }
         else
         {

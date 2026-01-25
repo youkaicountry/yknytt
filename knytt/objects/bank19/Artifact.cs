@@ -1,6 +1,6 @@
 using Godot;
 
-public class Artifact : CustomObject
+public partial class Artifact : CustomObject
 {
     public override void _Ready()
     {

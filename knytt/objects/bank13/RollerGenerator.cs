@@ -1,6 +1,6 @@
 using Godot;
 
-public class RollerGenerator : GDKnyttBaseObject
+public partial class RollerGenerator : GDKnyttBaseObject
 {
     public override void _Ready()
     {

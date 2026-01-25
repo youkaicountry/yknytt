@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class SignArea : GDKnyttBaseObject
+public partial class SignArea : GDKnyttBaseObject
 {
     protected Sign attachedSign = null;
 

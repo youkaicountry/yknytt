@@ -6,7 +6,7 @@ using YKnyttLib;
 using System.Linq;
 using System.Globalization;
 
-public class GDKnyttSettings : Node
+public partial class GDKnyttSettings : Node
 {
     public static IniData ini { get; private set; }
     static SceneTree tree;
@@ -26,13 +26,13 @@ public class GDKnyttSettings : Node
         get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
         set
         {
-            OS.WindowBorderless = value;
-            OS.WindowMaximized = value;
+            DisplayServer.WindowGetFlag(DisplayServer.WindowFlags.Borderless) = value;
+            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Maximized = value;
             if (!value && OS.GetName() == "Windows")
             {
-                OS.WindowSize = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"),
+                DisplayServer.WindowGetSize() = new Vector2((int)ProjectSettings.GetSetting("display/window/size/test_width"),
                                             (int)ProjectSettings.GetSetting("display/window/size/test_height"));
-                OS.WindowPosition = (OS.GetScreenSize() - OS.WindowSize) / 2;
+                DisplayServer.WindowGetPosition() = (DisplayServer.ScreenGetSize() - DisplayServer.WindowGetSize()) / 2;
             }
             ini["Graphics"]["Fullscreen"] = value ? "1" : "0";
         }
@@ -59,7 +59,7 @@ public class GDKnyttSettings : Node
 
     public static void setupViewport(bool for_ui = false, bool check_shrink = false)
     {
-        float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 530 : 600;
+        float ui_width = check_shrink && DisplayServer.WindowGetSize().Aspect() <= 1.5f ? 530 : 600;
         tree.SetScreenStretch(
             SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
             for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
@@ -332,24 +332,24 @@ public class GDKnyttSettings : Node
 
     private static void moveUserDir()
     {
-        if (OS.GetName() == "Windows" || OS.GetName() == "X11")
+        if (OS.GetName() == "Windows" || OS.GetName() == "Linux")
         {
             string prev_data_dir = OS.GetUserDataDir().PathJoin("../godot/app_userdata/YKnytt");
-            if (System.IO.File.Exists(prev_data_dir.PathJoin("input.ini")) && !new DirAccess().FileExists("user://input.ini"))
+            if (System.IO.File.Exists(prev_data_dir.PathJoin("input.ini")) && !FileAccess.FileExists("user://input.ini"))
             {
                 System.IO.File.Move(prev_data_dir.PathJoin("input.ini"), OS.GetUserDataDir().PathJoin("input.ini"));
             }
-            if (System.IO.File.Exists(prev_data_dir.PathJoin("settings.ini")) && !new DirAccess().FileExists("user://settings.ini"))
+            if (System.IO.File.Exists(prev_data_dir.PathJoin("settings.ini")) && !FileAccess.FileExists("user://settings.ini"))
             {
                 System.IO.File.Move(prev_data_dir.PathJoin("settings.ini"), OS.GetUserDataDir().PathJoin("settings.ini"));
             }
-            if (System.IO.DirAccess.Exists(prev_data_dir.PathJoin("Saves")) && !new DirAccess().DirExists("user://Saves"))
+            if (System.IO.Directory.Exists(prev_data_dir.PathJoin("Saves")) && !DirAccess.DirExistsAbsolute("user://Saves"))
             {
-                System.IO.DirAccess.Move(prev_data_dir.PathJoin("Saves"), OS.GetUserDataDir().PathJoin("Saves"));
+                System.IO.Directory.Move(prev_data_dir.PathJoin("Saves"), OS.GetUserDataDir().PathJoin("Saves"));
             }
-            if (System.IO.DirAccess.Exists(prev_data_dir.PathJoin("Worlds")) && !new DirAccess().DirExists("user://Worlds"))
+            if (System.IO.Directory.Exists(prev_data_dir.PathJoin("Worlds")) && !DirAccess.DirExistsAbsolute("user://Worlds"))
             {
-                System.IO.DirAccess.Move(prev_data_dir.PathJoin("Worlds"), OS.GetUserDataDir().PathJoin("Worlds"));
+                System.IO.Directory.Move(prev_data_dir.PathJoin("Worlds"), OS.GetUserDataDir().PathJoin("Worlds"));
             }
         }
     }
@@ -433,20 +433,18 @@ public class GDKnyttSettings : Node
     public static void saveSettings()
     {
         var text = ini.ToString();
-        var f = new File();
-        f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Write);
+        using var f = FileAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Write);
         f.StoreString(text);
-        f.Close();
     }
 
     // returns true if error
     public static bool loadSettings()
     {
-        var f = new File();
-        var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Read);
-        if (error != Error.Ok) { return true; }
+        var path = GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini");
+        if (!FileAccess.FileExists(path)) { return true; }
+        using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (f == null) { return true; }
         var ini_text = f.GetAsText();
-        f.Close();
         var parser = new IniDataParser();
         ini = parser.Parse(ini_text); // TODO: Handle malformed text (catch Exception, return true)
         return false;
@@ -520,7 +518,7 @@ public class GDKnyttSettings : Node
 
         if (Input.IsActionJustPressed("zoom") && ! Fullscreen)
         {
-            Vector2 max_size = OS.GetScreenSize(), cur_size = OS.WindowSize,
+            Vector2 max_size = DisplayServer.ScreenGetSize(), cur_size = DisplayServer.WindowGetSize(),
                 min_size = new Vector2((int)ProjectSettings.GetSetting("display/window/size/width"), 
                                        (int)ProjectSettings.GetSetting("display/window/size/height"));
             int scale = (int)Mathf.Min(cur_size.X / min_size.X, cur_size.Y / min_size.Y);
@@ -528,9 +526,9 @@ public class GDKnyttSettings : Node
             
             scale++;
             if (scale > max_scale) { scale = 1; }
-            OS.WindowSize = min_size * scale;
-            OS.WindowPosition = (max_size - OS.WindowSize) / 2;
-            OS.WindowMaximized = false;
+            DisplayServer.WindowGetSize() = min_size * scale;
+            DisplayServer.WindowGetPosition() = (max_size - DisplayServer.WindowGetSize()) / 2;
+            DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Maximized = false;
         }
     }
 }

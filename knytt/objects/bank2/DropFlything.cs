@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-public class DropFlything : BuzzFlyer
+public partial class DropFlything : BuzzFlyer
 {
     [Export] protected int[] directions = null;
     [Export] protected int bulletsCount = 0;

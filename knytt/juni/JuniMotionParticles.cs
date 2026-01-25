@@ -1,6 +1,6 @@
 using Godot;
 
-public class JuniMotionParticles : Node2D
+public partial class JuniMotionParticles : Node2D
 {
     int _climb_particle;
     int _climb_areas;

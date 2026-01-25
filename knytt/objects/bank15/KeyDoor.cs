@@ -1,6 +1,6 @@
 using Godot;
 
-public class KeyDoor : Door
+public partial class KeyDoor : Door
 {
     [Export] public YKnyttLib.JuniValues.PowerNames power = 0;
 

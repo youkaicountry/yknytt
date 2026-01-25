@@ -1,4 +1,4 @@
-public class RandomLabyrinthSpike : LabyrinthSpike
+public partial class RandomLabyrinthSpike : LabyrinthSpike
 {
     protected override void onCollide()
     {

@@ -1,7 +1,7 @@
 using Godot;
 using static YKnyttLib.JuniValues;
 
-public class UICanvasLayer : CanvasLayer
+public partial class UICanvasLayer : CanvasLayer
 {
     public GDKnyttGame Game { get; private set; }
     bool showing = false;

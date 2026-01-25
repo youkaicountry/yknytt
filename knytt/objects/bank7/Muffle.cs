@@ -1,6 +1,6 @@
 using Godot;
 
-public class Muffle : GDKnyttBaseObject
+public partial class Muffle : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {

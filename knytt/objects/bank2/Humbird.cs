@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Humbird : GDKnyttBaseObject
+public partial class Humbird : GDKnyttBaseObject
 {
     private AnimatedSprite2D sprite;
     private Timer runTimer;

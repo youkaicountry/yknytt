@@ -1,6 +1,6 @@
 using Godot;
 
-public class DeathParticles : Node2D
+public partial class DeathParticles : Node2D
 {
     public void Play()
     {

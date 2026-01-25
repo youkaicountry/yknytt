@@ -1,6 +1,6 @@
 using Godot;
 
-public class Cauldron : Bouncer
+public partial class Cauldron : Bouncer
 {
     public override void _Ready()
     {

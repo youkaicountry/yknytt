@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YKnyttLib;
 
-public class ViewportTile : SubViewportContainer
+public partial class ViewportTile : SubViewportContainer
 {
     private string filename;
     private KnyttPoint coord;

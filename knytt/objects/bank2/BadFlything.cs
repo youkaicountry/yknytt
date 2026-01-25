@@ -1,6 +1,6 @@
 using Godot;
 
-public class BadFlything : BuzzFlyer
+public partial class BadFlything : BuzzFlyer
 {
     [Export] public int[] directions = null;
 

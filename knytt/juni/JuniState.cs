@@ -1,6 +1,6 @@
 using Godot;
 
-public class IdleState : JuniState
+public partial class IdleState : JuniState
 {
     public override bool StickToGround => true; 
 
@@ -41,7 +41,7 @@ public class IdleState : JuniState
 }
 
 // TODO: Have a juni function that checks if walk or run
-public class WalkRunState : JuniState
+public partial class WalkRunState : JuniState
 {
     bool walk_run;
 
@@ -103,7 +103,7 @@ public class WalkRunState : JuniState
     }
 }
 
-public class ClimbState : JuniState
+public partial class ClimbState : JuniState
 {
     public ClimbState(Juni juni) : base(juni) { }
 
@@ -159,7 +159,7 @@ public class ClimbState : JuniState
     }
 }
 
-public class SlideState : ClimbState
+public partial class SlideState : ClimbState
 {
     private AudioStreamPlayer2D slide_sound;
 
@@ -220,7 +220,7 @@ public class SlideState : ClimbState
     }
 }
 
-public class JumpState : JuniState
+public partial class JumpState : JuniState
 {
     public JumpState(Juni juni) : base(juni) { }
 
@@ -248,7 +248,7 @@ public class JumpState : JuniState
     }
 }
 
-public class FallState : JuniState
+public partial class FallState : JuniState
 {
     public FallState(Juni juni) : base(juni) { }
 

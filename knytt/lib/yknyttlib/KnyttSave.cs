@@ -158,7 +158,7 @@ namespace YKnyttLib
             set
             {
                 if (value == null || value.Count == 0) { return; }
-                setValue("Extras", "Marked", String.Join(",", value.Select(kv => $"{kv.Value}x{kv.Key.x}y{kv.Key.y}")));
+                setValue("Extras", "Marked", String.Join(",", value.Select(kv => $"{kv.Value}x{kv.Key.X}y{kv.Key.Y}")));
             }
 
             get
@@ -238,7 +238,7 @@ namespace YKnyttLib
             set { setValue("Extras", "Total Time", value.ToString()); }
         }
 
-        public bool KSSave => data["Extras"].ContainsKey("Show Edge");
+        public bool KSSave => data["Extras"].Contains("Show Edge");
         
         public void RemoveKSMark() { data["Extras"].RemoveKey("Show Edge"); }
 
@@ -251,8 +251,8 @@ namespace YKnyttLib
 
         public void setArea(KnyttPoint location)
         {
-            data["Positions"]["X Map"] = location.x.ToString();
-            data["Positions"]["Y Map"] = location.y.ToString();
+            data["Positions"]["X Map"] = location.X.ToString();
+            data["Positions"]["Y Map"] = location.Y.ToString();
         }
 
         public KnyttPoint getAreaPosition()
@@ -264,8 +264,8 @@ namespace YKnyttLib
 
         public void setAreaPosition(KnyttPoint location)
         {
-            data["Positions"]["X Pos"] = location.x.ToString();
-            data["Positions"]["Y Pos"] = location.y.ToString();
+            data["Positions"]["X Pos"] = location.X.ToString();
+            data["Positions"]["Y Pos"] = location.Y.ToString();
         }
 
         public void setWorldDirectory(string dir)

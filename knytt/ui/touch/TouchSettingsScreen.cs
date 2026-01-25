@@ -1,6 +1,6 @@
 using Godot;
 
-public class TouchSettingsScreen : Control
+public partial class TouchSettingsScreen : Control
 {
     public override void _Ready()
     {
@@ -10,8 +10,8 @@ public class TouchSettingsScreen : Control
 
     public void fillControls()
     {
-        GetNode<CheckBox>("EnableContainer/EnableButton").Pressed = TouchSettings.EnablePanel;
-        GetNode<CheckBox>("EnableContainer/SwapButton").Pressed = TouchSettings.SwapHands;
+        GetNode<CheckBox>("EnableContainer/EnableButton").ButtonPressed = TouchSettings.EnablePanel;
+        GetNode<CheckBox>("EnableContainer/SwapButton").ButtonPressed = TouchSettings.SwapHands;
         GetNode<OptionButton>("EnableContainer/AnchorDropdown").Select((int)TouchSettings.Position);
         GetNode<HSlider>("SwipeContainer/SwipeSlider").Value = TouchSettings.Swipe;
         GetNode<HSlider>("ScaleContainer/ScaleSlider").Value = TouchSettings.Scale;

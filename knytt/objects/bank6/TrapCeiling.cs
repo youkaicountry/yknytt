@@ -1,6 +1,6 @@
 using Godot;
 
-public class TrapCeiling : GDKnyttBaseObject
+public partial class TrapCeiling : GDKnyttBaseObject
 {
     const float DOWN_SPEED = 100f;
     const float UP_SPEED = 50f;

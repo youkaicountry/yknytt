@@ -1,6 +1,6 @@
 using Godot;
 
-public class DoubleJump : AnimatedSprite2D
+public partial class DoubleJump : AnimatedSprite2D
 {
     public override void _Ready()
     {

@@ -1,7 +1,7 @@
 using Godot;
 using YKnyttLib;
 
-public class BouncerEnemy : GDKnyttBaseObject
+public partial class BouncerEnemy : GDKnyttBaseObject
 {
     [Export] float gravity;
     [Export] float jump_force;

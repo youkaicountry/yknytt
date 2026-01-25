@@ -3,7 +3,7 @@ using System;
 using System.IO.Compression;
 
 
-public class DirectoriesScreen : Control
+public partial class DirectoriesScreen : Control
 {
     Label error_label;
     CheckBox download_box;
@@ -22,7 +22,7 @@ public class DirectoriesScreen : Control
     {
         GetNode<Label>("WorldsContainer/DirLabel").Text = 
             GDKnyttSettings.WorldsDirectory == "" ? "Not set" : GDKnyttSettings.WorldsDirectory;
-        download_box.Pressed = GDKnyttSettings.WorldsDirForDownload;
+        download_box.ButtonPressed = GDKnyttSettings.WorldsDirForDownload;
         download_box.Disabled = GDKnyttSettings.WorldsDirectory == "";
         GetNode<Label>("SavesContainer/DirLabel").Text = 
             GDKnyttSettings.SavesDirectory == "" ? "Default" : GDKnyttSettings.SavesDirectory;

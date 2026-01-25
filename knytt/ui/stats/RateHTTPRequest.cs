@@ -3,7 +3,7 @@ using Godot.Collections;
 using System.Text;
 using System.Collections.Generic;
 
-public class RateHttpRequest : HttpRequest
+public partial class RateHttpRequest : HttpRequest
 {
     [Signal] public delegate void RateAddedEventHandler(int action);
 
@@ -43,7 +43,7 @@ public class RateHttpRequest : HttpRequest
         };
         if (cutscene != null) { dict.Add("cutscene", cutscene); }
         retry = 1;
-        var error = Request($"{serverURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+        var error = Request($"{serverURL}/rate/", method: HttpClient.Method.Post, requestData: JSON.Print(dict));
         if (error == Error.Ok) { is_requesting = true; }
     }
 
@@ -53,14 +53,14 @@ public class RateHttpRequest : HttpRequest
         {
             if (retry-- <= 0) { is_requesting = false; return; }
             CancelRequest();
-            Request($"{GDKnyttSettings.ServerURL}/rate/", method: HTTPClient.Method.Post, requestData: JSON.Print(dict));
+            Request($"{GDKnyttSettings.ServerURL}/rate/", method: HttpClient.Method.Post, requestData: JSON.Print(dict));
             return;
         }
         is_requesting = false;
         if (response_code != 200) { return; }
 
         var response = Encoding.UTF8.GetString(body, 0, body.Length);
-        var json = JSON.Parse(response);
+        var json = Json.ParseString(response);
         if (json.Error != Error.Ok) { return; }
 
         int action = HTTPUtil.jsonInt(json.Result, "action");

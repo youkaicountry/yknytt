@@ -1,6 +1,6 @@
 using Godot;
 
-public class GhostMod : Node2D
+public partial class GhostMod : Node2D
 {
     [Export] bool flickering = true;
 

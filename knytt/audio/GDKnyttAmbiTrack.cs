@@ -1,7 +1,7 @@
 using Godot;
 using YUtil.Math;
 
-public class GDKnyttAmbiTrack : AudioStreamPlayer
+public partial class GDKnyttAmbiTrack : AudioStreamPlayer
 {
     public int AmbiNum { get; set; }
 

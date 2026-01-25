@@ -1,6 +1,6 @@
 using Godot;
 
-public class TimerExt : Timer
+public partial class TimerExt : Timer
 {
     [Signal] public delegate void timeout_extEventHandler();
 

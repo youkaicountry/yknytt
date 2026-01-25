@@ -4,7 +4,7 @@ using Godot;
 using IniParser.Parser;
 using YKnyttLib;
 
-public class Win : GDKnyttBaseObject
+public partial class Win : GDKnyttBaseObject
 {
     public void _on_Area2D_body_entered(Node body)
     {
@@ -36,7 +36,7 @@ public class Win : GDKnyttBaseObject
         var worlds_cache_ini = parser.Parse(ini_text);
         var section = worlds_cache_ini[kworld.WorldDirectory];
 
-        if (!section.ContainsKey("Endings") && !section.ContainsKey("Final")) { return; }
+        if (!section.Contains("Endings") && !section.Contains("Final")) { return; }
 
         var all_endings = (section["Endings"] ?? "").Split('/');
         var final_cutscenes = (section["Final"] ?? "").Split('/');
@@ -45,10 +45,8 @@ public class Win : GDKnyttBaseObject
             || final_cutscenes.Contains(cutscene))
         {
             section["Completed"] = "1";
-            var f = new File();
-            f.Open(INI_PATH, FileAccess.ModeFlags.Write);
+            using var f = FileAccess.Open(INI_PATH, FileAccess.ModeFlags.Write);
             f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
-            f.Close();
         }
     }
 }

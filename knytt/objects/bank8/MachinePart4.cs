@@ -1,4 +1,4 @@
-public class MachinePart4 : GDKnyttBaseObject
+public partial class MachinePart4 : GDKnyttBaseObject
 {
     public override void _Ready()
     {
