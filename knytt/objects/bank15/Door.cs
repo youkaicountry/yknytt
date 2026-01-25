@@ -12,7 +12,7 @@ public abstract class Door : GDKnyttBaseObject
             if (GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled) { return; }
             GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").SetDeferred("disabled", true);
             juni.playSound("electronic");
-            var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+            var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             sprite.Play("open");
             await ToSignal(sprite, "animation_finished");
             QueueFree();

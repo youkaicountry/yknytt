@@ -13,18 +13,18 @@ public class HomingEnemy : GDKnyttBaseObject
     protected int speed;
     protected Vector2 speedVector;
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     protected bool hasWallAnimation;
 
     public override void _Ready()
     {
         speed = initialSpeed;
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         hasWallAnimation = sprite.Frames.HasAnimation("wall");
         sprite.Play("default");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         float distance = Juni.distance(Center);

@@ -2,7 +2,7 @@ public class HomingBullet : BaseBullet
 {
     public Juni globalJuni { protected get; set; }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!Enabled) { return; }
         VelocityX += 2.5f * (globalJuni.ApparentPosition.x < GlobalPosition.x ? -1 : 1);

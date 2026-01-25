@@ -18,7 +18,7 @@ public class LocalAmbient : GDKnyttBaseObject
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         channel.Volume = Mathf.Max(channel.Volume, -Mathf.Pow(40, Juni.distance(Center) / 240));
     }

@@ -65,7 +65,7 @@ public class GDKnyttAmbiChannel : Node
         on_track1 = !on_track1;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (has_custom_volume)
         {

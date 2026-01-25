@@ -18,7 +18,7 @@ public static class ConsoleCommands
             "save print: prints save file\n" +
             "save copy: copies save to clipboard\n" +
             "save paste: pastes save from clipboard\n" +
-            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip"), 
+            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PathJoin("yknytt-saves.zip"), 
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
             "pass: prints the current password\n" +
@@ -191,7 +191,7 @@ public static class ConsoleCommands
                     if (game == null) { return "No game is loaded"; }
                     game.saveGame(game.Juni, write: true);
                     env.Console.AddMessage("Game was saved to " + 
-                        GDKnyttSettings.Saves.PlusFile(game.GDWorld.KWorld.CurrentSave.SaveFileName));
+                        GDKnyttSettings.Saves.PathJoin(game.GDWorld.KWorld.CurrentSave.SaveFileName));
                     break;
 
                 case "print":
@@ -226,9 +226,9 @@ public static class ConsoleCommands
 
                 case "backup":
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-                    string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
-                    if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
-                    if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
+                    string dest_zip = dest_path.PathJoin("yknytt-saves.zip");
+                    if (!new DirAccess().DirExists(dest_path)) { return $"DirAccess {dest_path} does not exist."; }
+                    if (FileAccess.FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
                     try
                     {
@@ -636,7 +636,7 @@ public static class ConsoleCommands
             if (f.FileExists(internal_path)) { path = internal_path; }
             else
             {
-                var external_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Worlds/{this.world}");
+                var external_path = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Worlds/{this.world}");
                 if (f.FileExists(external_path)) { path = external_path; }
             }
 
@@ -769,7 +769,7 @@ public static class ConsoleCommands
         {
             var env = (ConsoleExecutionEnvironment)environment;
             var f = new File();
-            var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("settings.ini"), File.ModeFlags.Read);
+            var error = f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("settings.ini"), FileAccess.ModeFlags.Read);
             var ini_text = f.GetAsText();
             f.Close();
 

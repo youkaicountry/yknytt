@@ -5,7 +5,7 @@ public class SimpleDecoration : GDKnyttBaseObject
     public override void _Ready()
     {
         base._Ready();
-        var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         if (ObjectID.y == 12) { sprite.Material = null; }
         sprite.Play(ObjectID.y.ToString());
     }

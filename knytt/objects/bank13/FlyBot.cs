@@ -10,7 +10,7 @@ public class FlyBot : GDKnyttBaseObject
         path = GetNode<PathFollow2D>("PathFollow2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         path.Offset += 80f * delta;
     }

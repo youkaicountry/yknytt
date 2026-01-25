@@ -257,7 +257,7 @@ public class MapPanel : Control
         RectScale *= k;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         var new_offset = Vector2.Zero;
         if (Input.IsActionPressed("up")) { new_offset += new Vector2(0, 1) * SCROLL_SPEED * delta / RectScale; }
@@ -270,7 +270,7 @@ public class MapPanel : Control
         if (new_offset != Vector2.Zero) { drag(new_offset); }
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("map") || 
             Input.IsActionJustPressed("pause") || 

@@ -5,7 +5,7 @@ public class LaserRobot : GDKnyttBaseObject
     private bool isOn = false;
     private float speed = -100;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         var diff = new Vector2(speed * delta, 0);
         Translate(diff);
@@ -21,7 +21,7 @@ public class LaserRobot : GDKnyttBaseObject
         GetNode<CollisionShape2D>("LaserArea/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<CollisionShape2D>("LeftLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
         GetNode<CollisionShape2D>("RightLaserChecker/CollisionShape2D").SetDeferred("disabled", !is_on);
-        GetNode<AnimatedSprite>("AnimatedSprite").Play(is_on ? "on" : "off");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play(is_on ? "on" : "off");
         GetNode<AudioStreamPlayer2D>(is_on ? "OnPlayer" : "OffPlayer").Play();
     }
 }

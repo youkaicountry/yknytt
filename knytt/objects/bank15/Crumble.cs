@@ -2,13 +2,13 @@ using Godot;
 
 public class Crumble : GDKnyttBaseObject
 {
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
     private Timer destroy_timer;
     private Juni juni;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         destroy_timer = GetNode<Timer>("DestroyTimer");
     }
 
@@ -29,7 +29,7 @@ public class Crumble : GDKnyttBaseObject
         juni = null;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (juni == null || destroy_timer.IsStopped() || !juni.Checkers.IsInside) { return; }
         destroy_timer.Stop();

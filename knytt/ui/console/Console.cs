@@ -6,8 +6,8 @@ using YKnyttLib.Parser;
 
 public class Console : CanvasLayer, IKnyttLoggerTarget
 {
-    [Signal] public delegate void ConsoleOpen();
-    [Signal] public delegate void ConsoleClosed();
+    [Signal] public delegate void ConsoleOpenEventHandler();
+    [Signal] public delegate void ConsoleClosedEventHandler();
 
     [Export] public int HistoryLength = 256;
     [Export] public float SlideSpeed = 5f;
@@ -117,13 +117,13 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
 
         if (!anim.IsPlaying())
         {
-            anim.PlaybackSpeed = SlideSpeed * (1f/Godot.Engine.TimeScale);
+            anim.SpeedScale = SlideSpeed * (1f/Godot.Engine.TimeScale);
             if (showing) { anim.PlayBackwards("SlideOut"); sliding_out = false; }
             else { anim.Play("SlideOut"); sliding_out = true; }
         }
         else
         {
-            anim.PlaybackSpeed *= -1f;
+            anim.SpeedScale *= -1f;
             sliding_out = !sliding_out;
         }
     }

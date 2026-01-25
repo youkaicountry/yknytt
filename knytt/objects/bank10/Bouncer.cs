@@ -9,16 +9,16 @@ public class Bouncer : GDKnyttBaseObject
     [Export] int counter = 0;
 
     protected float speed;
-    protected AnimatedSprite animatedSprite;
+    protected AnimatedSprite2D animatedSprite;
 
     public override void _Ready()
     {
         base._Ready();
         speed = -initialSpeed;
-        animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         speed += gravity * 50 * delta;

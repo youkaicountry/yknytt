@@ -4,7 +4,7 @@ public class FadeBlock : GDKnyttBaseObject
 {
     private float pos;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         pos += delta * (random.Next(5) - 1) * 50 * Mathf.Pi / 90;

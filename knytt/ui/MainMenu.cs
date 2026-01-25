@@ -24,7 +24,7 @@ public class MainMenu : BasicScreen
         if (OS.GetName() == "Unix") { OS.WindowSize = OS.GetScreenSize(); OS.WindowBorderless = OS.WindowMaximized = true; }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
         GetNode<Button>("ButtonRow/TutorialButton").Text =
-            new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini")) ? "Continue" : "Tutorial";
+            FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")) ? "Continue" : "Tutorial";
         GDKnyttDataStore.setTitle(null);
     }
 
@@ -55,16 +55,16 @@ public class MainMenu : BasicScreen
         ClickPlayer.Play();
         Task task = null;
         bool load_last_played = false;
-        if (new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini")))
+        if (FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")))
         {
             var f = new File();
-            f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"), File.ModeFlags.Read);
+            f.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Read);
             string path = f.GetAsText();
             f.Close();
             string file = path.Substring(0, path.LastIndexOf('/'));
             int slot = int.Parse(path.Substring(file.Length + 1));
 
-            if (new File().FileExists(file) || new Directory().DirExists(file))
+            if (FileAccess.FileExists(file) || new DirAccess().DirExists(file))
             {
                 load_last_played = true;
                 if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
@@ -89,15 +89,15 @@ public class MainMenu : BasicScreen
 
     public void loadLevel(string path, int slot)
     {
-        bool bin = !new Directory().DirExists(path);
+        bool bin = !new DirAccess().DirExists(path);
         var binloader = bin ? new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path)) : null;
         GDKnyttWorldImpl world = new GDKnyttWorldImpl();
         if (bin) { world.setBinMode(binloader); }
         world.setDirectory(path, bin ? binloader.RootDirectory : path.GetFile());
         string world_txt = GDKnyttAssetManager.loadTextFileRaw(world.getWorldData("World.ini"));
         world.loadWorldConfig(world_txt);
-        var save_file = GDKnyttSettings.Saves.PlusFile($"{world.WorldDirectoryName} {slot}.ini");
-        var save_txt = new File().FileExists(save_file) ? 
+        var save_file = GDKnyttSettings.Saves.PathJoin($"{world.WorldDirectoryName} {slot}.ini");
+        var save_txt = FileAccess.FileExists(save_file) ? 
             GDKnyttAssetManager.loadTextFile(save_file) : 
             GDKnyttAssetManager.loadTextFile(world.getWorldData("DefaultSavegame.ini"));
         world.CurrentSave = new KnyttSave(world, save_txt, slot != 0 ? slot : 1);
@@ -106,19 +106,19 @@ public class MainMenu : BasicScreen
 
     public void _on_PlayButton_pressed(bool local_load)
     {
-        var level_node = this.level_select_scene.Instance() as LevelSelection;
+        var level_node = this.level_select_scene.Instantiate() as LevelSelection;
         level_node.localLoad = local_load;
         loadScreen(level_node);
     }
 
     public void _on_SettingsButton_pressed()
     {
-        loadScreen(this.settings_scene.Instance() as SettingsScreen);
+        loadScreen(this.settings_scene.Instantiate() as SettingsScreen);
     }
 
     private void _on_CreditsButton_pressed()
     {
-        loadScreen(this.credits_scene.Instance() as CreditsScreen);
+        loadScreen(this.credits_scene.Instantiate() as CreditsScreen);
     }
 
     public void _on_QuitButton_pressed()

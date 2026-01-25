@@ -15,7 +15,7 @@ public class TouchSettingsScreen : Control
         GetNode<OptionButton>("EnableContainer/AnchorDropdown").Select((int)TouchSettings.Position);
         GetNode<HSlider>("SwipeContainer/SwipeSlider").Value = TouchSettings.Swipe;
         GetNode<HSlider>("ScaleContainer/ScaleSlider").Value = TouchSettings.Scale;
-        GetNode<HSlider>("ViewportContainer/ViewportSlider").Value = TouchSettings.Viewport;
+        GetNode<HSlider>("SubViewportContainer/ViewportSlider").Value = TouchSettings.Viewport;
         GetNode<HSlider>("JumpContainer/JumpSlider").Value = TouchSettings.JumpScale;
         GetNode<HSlider>("OpacityContainer/OpacitySlider").Value = TouchSettings.Opacity;
     }
@@ -61,13 +61,13 @@ public class TouchSettingsScreen : Control
     private void _on_ViewportSlider_value_changed(float value)
     {
         TouchSettings.Viewport = value;
-        GetNode<Label>("ViewportContainer/ValueLabel").Text = $"{value * 100}%";
+        GetNode<Label>("SubViewportContainer/ValueLabel").Text = $"{value * 100}%";
         GetParent<SettingsScreen>()._on_Aspect_value_changed(GDKnyttSettings.Aspect);
     }
 
     private void _on_ViewportMaxButton_pressed()
     {
-        GetNode<HSlider>("ViewportContainer/ViewportSlider").Value = 1;
+        GetNode<HSlider>("SubViewportContainer/ViewportSlider").Value = 1;
     }
 
     private void _on_JumpSlider_value_changed(float value)

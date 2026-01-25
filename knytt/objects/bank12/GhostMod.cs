@@ -23,7 +23,7 @@ public class GhostMod : Node2D
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (flickering) { handleFlicker(delta); }
     }

@@ -16,7 +16,7 @@ public class BigSpider : Spider
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         var jgp = Juni.ApparentPosition;
         float juni_radar_value = jgp.y;

@@ -16,13 +16,13 @@ public class SelfDropper : GDKnyttBaseObject
         dropSpeed = 0; // 50;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (state == State.Ready && Mathf.Abs(Juni.ApparentPosition.x - Center.x) < DISTANCE_TO_DROP)
         {
             state = State.Dropping;
-            GetNode<AnimatedSprite>("AnimatedSprite").Play("launch");
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("launch");
             collisionShape.SetDeferred("disabled", false);
         }
         if (state == State.Dropping)
@@ -39,7 +39,7 @@ public class SelfDropper : GDKnyttBaseObject
 
     private void _on_AnimatedSprite_frame_changed()
     {
-        int frame = GetNode<AnimatedSprite>("AnimatedSprite").Frame;
+        int frame = GetNode<AnimatedSprite2D>("AnimatedSprite2D").Frame;
         collisionShape.Scale = new Vector2(new float[] { 0.4f, 0.4f, 0.5f, 0.9f, 1f }[frame], 1);
     }
 }

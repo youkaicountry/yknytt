@@ -5,7 +5,7 @@ public class InputOption : HBoxContainer
     [Export] public string Action;
     [Export] public string ActionLabel;
 
-    [Signal] public delegate void GetActionInput();
+    [Signal] public delegate void GetActionInputEventHandler();
 
     public InputScreen Screen { get; set; }
 

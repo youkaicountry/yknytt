@@ -31,7 +31,7 @@ public class GDKnyttDataStore : Node
                 // Convert relative paths to absolute paths
                 if (!dataPath.IsAbsPath())
                 {
-                    dataPath = OS.GetExecutablePath().GetBaseDir().PlusFile(dataPath);
+                    dataPath = OS.GetExecutablePath().GetBaseDir().PathJoin(dataPath);
                 }
                 BaseDataDirectory = dataPath;
                 GD.Print($"Using custom data directory: {BaseDataDirectory}");

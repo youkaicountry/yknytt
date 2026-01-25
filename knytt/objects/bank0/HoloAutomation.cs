@@ -14,7 +14,7 @@ public class HoloAutomation : Automation
         late_holo = false;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (juni != null && late_holo && (juni.CurrentState is WalkRunState || juni.CurrentState is IdleState))
         {

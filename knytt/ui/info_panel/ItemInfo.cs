@@ -7,7 +7,7 @@ public class ItemInfo : Control
 
     public override void _Ready()
     {
-        var anim = GetNode<AnimatedSprite>("ItemInfo");
+        var anim = GetNode<AnimatedSprite2D>("ItemInfo");
         anim.Animation = $"Power{ItemID}";
         anim.Play();
         string world_name = GetNodeOrNull<GDKnyttGame>("/root/GKnyttGame")?.GDWorld?.KWorld?.WorldDirectoryName;
@@ -23,7 +23,7 @@ public class ItemInfo : Control
 
     public void checkCustomIcon(string prefix)
     {
-        var anim = GetNode<AnimatedSprite>("ItemInfo");
+        var anim = GetNode<AnimatedSprite2D>("ItemInfo");
         var new_anim = $"{prefix} {ItemID} icon";
         if (anim.Frames.HasAnimation(new_anim)) { anim.Animation = new_anim; }
     }

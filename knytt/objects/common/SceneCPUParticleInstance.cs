@@ -8,7 +8,7 @@ public class SceneCPUParticleInstance : Node2D
     public Vector2 Gravity;
     public float Drag;
 
-    public OpenSimplexNoise _noise;
+    public FastNoiseLite _noise;
 
     public SceneCPUParticles parent;
 
@@ -24,7 +24,7 @@ public class SceneCPUParticleInstance : Node2D
             {
                 if (_noise == null)
                 {
-                    _noise = new OpenSimplexNoise();
+                    _noise = new FastNoiseLite();
                     _noise.Seed = GDKnyttDataStore.random.Next();
                 }
             }
@@ -49,7 +49,7 @@ public class SceneCPUParticleInstance : Node2D
         _brownian_t = new Vector2(0f, 999999f);
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (stopped) { return; }
 

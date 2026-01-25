@@ -20,8 +20,8 @@ public class StatPanel : Panel
 
     public void addLabel(string text)
     {
-        GetNodeOrNull<AnimatedSprite>("ScrollContainer/VBoxContainer/AnimatedSprite")?.QueueFree();
-        var label = labelScene.Instance() as Label;
+        GetNodeOrNull<AnimatedSprite2D>("ScrollContainer/VBoxContainer/AnimatedSprite2D")?.QueueFree();
+        var label = labelScene.Instantiate() as Label;
         label.Text = text;
         container.AddChild(label);
     }
@@ -43,7 +43,7 @@ public class StatPanel : Panel
 
     private void addItem(string texture, string label, int count, bool achieved)
     {
-        var node = itemScene.Instance() as Control;
+        var node = itemScene.Instantiate() as Control;
         node.GetNode<TextureRect>("HBoxContainer/TextureRect").Texture = ResourceLoader.Load<Texture>(texture);
         node.GetNode<Label>("HBoxContainer/VBoxContainer/ItemLabel").Text = label;
         node.GetNode<Label>("HBoxContainer/VBoxContainer/CountLabel").Text = $"Achieved {count} times";

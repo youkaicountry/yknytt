@@ -98,11 +98,11 @@ public class DirectoriesScreen : Control
         try
         {
             File f = new File();
-            var err = f.Open(dir.PlusFile("test.ini"), File.ModeFlags.Write);
+            var err = f.Open(dir.PathJoin("test.ini"), FileAccess.ModeFlags.Write);
             if (err != Error.Ok) { return false; }
             f.StoreLine("test");
             f.Close();
-            err = new Directory().Remove(dir.PlusFile("test.ini"));
+            err = new DirAccess().Remove(dir.PathJoin("test.ini"));
             if (err != Error.Ok) { return false; }
         }
         catch (Exception)
@@ -114,7 +114,7 @@ public class DirectoriesScreen : Control
 
     private bool checkReadable(string dir)
     {
-        var d = new Directory();
+        var d = new DirAccess();
         if (d.Open(dir) != Error.Ok || d.ListDirBegin() != Error.Ok) { return false; }
         d.ListDirEnd();
         return true;
@@ -150,8 +150,8 @@ public class DirectoriesScreen : Control
     {
         try
         {
-            string path = dir.PlusFile("yknytt-saves.zip");
-            if (new Directory().FileExists(path)) { new Directory().Remove(path); }
+            string path = dir.PathJoin("yknytt-saves.zip");
+            if (new DirAccess().FileExists(path)) { new DirAccess().Remove(path); }
             ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, path);
             error_label.Text = $"{path} was successfully created.";
         }

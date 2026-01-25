@@ -8,10 +8,10 @@ public class Crawler : GDKnyttBaseObject
     [Export] protected int radarBottom = 0;
     [Export] protected int radarTop = 0;
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        var sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         var jgp = Juni.ApparentPosition;
 
         float juni_radar_value = horizontal ? jgp.y : jgp.x;

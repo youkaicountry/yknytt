@@ -70,7 +70,7 @@ public class ParticleCircle : Node2D
     private void addParticle(float radius, float angle)
     {
         Node2D arm = new Node2D();
-        Sprite s = new Sprite();
+        Sprite2D s = new Sprite2D();
         s.Texture = particleTexture;
         s.Position = new Vector2(radius, 0f);
         s.Scale = new Vector2(spriteScale, spriteScale);
@@ -79,7 +79,7 @@ public class ParticleCircle : Node2D
         AddChild(arm);
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (this.cloud) { cloudProcess(delta); } else { circleProcess(delta); }
     }

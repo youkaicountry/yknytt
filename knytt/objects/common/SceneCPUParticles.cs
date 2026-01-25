@@ -66,7 +66,7 @@ public class SceneCPUParticles : Node2D
         }
         else
         {
-            p = ParticleScene.Instance() as SceneCPUParticleInstance;
+            p = ParticleScene.Instantiate() as SceneCPUParticleInstance;
             p.parent = this;
             p.Params = this.ParticleParams;
             AddChild(p);

@@ -2,7 +2,7 @@ using Godot;
 
 public class FadeLayer : Control
 {
-    [Signal] public delegate void FadeDone();
+    [Signal] public delegate void FadeDoneEventHandler();
 
     private bool reset;
 

@@ -3,17 +3,17 @@ using Godot;
 public class ShadowWitch : GDKnyttBaseObject
 {
     private CollisionShape2D collisionShape;
-    private AnimatedSprite sprite;
+    private AnimatedSprite2D sprite;
 
     private float value = 0;
 
     public override void _Ready()
     {
         collisionShape = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         bool juni_at_right = Juni.ApparentPosition.x > Center.x;

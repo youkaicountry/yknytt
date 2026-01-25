@@ -46,7 +46,7 @@ public class LocationLabel : Label
         
         var player = this.GetNode("AnimationPlayer") as AnimationPlayer;
         bool prev_playing = player.IsPlaying();
-        player.PlaybackSpeed = 1f / showTime;
+        player.SpeedScale = 1f / showTime;
         player.Stop();
         player.Play("FadeOut");
         await ToSignal(player, "animation_finished");
@@ -65,7 +65,7 @@ public class LocationLabel : Label
 
         if (!Flash) { Modulate = new Color(1, 1, 1, 1); return; }
         var player = this.GetNode("AnimationPlayer") as AnimationPlayer;
-        player.PlaybackSpeed = 1f / showTime;
+        player.SpeedScale = 1f / showTime;
         player.Stop();
         player.Play("FadeOut");
     }
@@ -73,6 +73,6 @@ public class LocationLabel : Label
     public void startFadeOut()
     {
         var player = this.GetNode("AnimationPlayer") as AnimationPlayer;
-        player.PlaybackSpeed = 1f / fadeOutTime;
+        player.SpeedScale = 1f / fadeOutTime;
     }
 }

@@ -6,17 +6,17 @@ public class Spider : GDKnyttBaseObject
     [Export] protected float centerOffset = 12;
     [Export] protected float border = 12;
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
 
     protected int direction = 1;
     protected bool isRunning;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
         if (!isRunning) { return; }

@@ -27,7 +27,7 @@ public class PausePanel : Control
         bounce = false;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("pause") && !in_settings) { unpause(); }
     }

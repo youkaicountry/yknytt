@@ -7,7 +7,7 @@ public class Raindrop : Node2D
     [Export] public float max_distance = 100f;
     float speed;
     float distance = 0f;
-    Sprite sprite;
+    Sprite2D sprite;
     Rain rain;
     bool init;
 
@@ -15,7 +15,7 @@ public class Raindrop : Node2D
 
     public override void _Ready()
     {
-        sprite = GetNode<Sprite>("Sprite");
+        sprite = GetNode<Sprite2D>("Sprite2D");
         if (rain == null) { reset(null); }
     }
 
@@ -40,7 +40,7 @@ public class Raindrop : Node2D
         this.init = false;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (init) { initialize(); }
 
@@ -67,7 +67,7 @@ public class Raindrop : Node2D
     {
         speed = 0f;
         sprite.Visible = false;
-        var splash = GetNode<AnimatedSprite>("Splash");
+        var splash = GetNode<AnimatedSprite2D>("Splash");
         splash.Frame = 0;
         splash.Play();
         await ToSignal(splash, "animation_finished");

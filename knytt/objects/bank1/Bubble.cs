@@ -14,7 +14,7 @@ public class Bubble : GDKnyttBaseObject
 
     public void _on_DelayTimer_timeout()
     {
-        GetNode<CPUParticles2D>("CPUParticles2D").Emitting = true;
+        GetNode<CpuParticles2D>("CpuParticles2D").Emitting = true;
         startTimer();
     }
 

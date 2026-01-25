@@ -43,7 +43,7 @@ public class DeathContainer : Node2D
 
     private void spawnAt(Vector2 pos)
     {
-        var marker = marker_scene.Instance<Sprite>();
+        var marker = marker_scene.Instance<Sprite2D>();
         marker.Position = pos;
         AddChild(marker);
     }
@@ -66,7 +66,7 @@ public class DeathContainer : Node2D
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
+//  public override void _Process(double delta)
 //  {
 //      
 //  }

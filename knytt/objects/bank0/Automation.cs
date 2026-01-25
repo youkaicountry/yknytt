@@ -43,7 +43,7 @@ public class Automation : GDKnyttBaseObject
         }
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (juni != null && (action == "left" || action == "right") && 
             !juni.juniInput.altInput.IsActionPressed("left") && 

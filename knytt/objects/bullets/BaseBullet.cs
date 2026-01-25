@@ -1,6 +1,6 @@
 using Godot;
 
-public class BaseBullet : KinematicBody2D
+public class BaseBullet : CharacterBody2D
 {
     private float velocity;
     private float velocity_x;
@@ -64,21 +64,21 @@ public class BaseBullet : KinematicBody2D
 
     public GDKnyttArea GDArea { protected get; set; }
 
-    protected AnimatedSprite sprite;
+    protected AnimatedSprite2D sprite;
     protected CollisionShape2D collisionShape;
     protected AudioStreamPlayer2D hitPlayer;
     protected bool hasDisappear;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         hitPlayer = GetNodeOrNull<AudioStreamPlayer2D>("HitPlayer");
         hasDisappear = sprite.Frames.HasAnimation("disappear");
         sprite.Play("default");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (!Enabled) { return; }
         // Workaround to make sure that Translate was made before actual enabling
@@ -151,7 +151,7 @@ public class BaseBullet : KinematicBody2D
         set
         {
             enabled = value;
-            if (value && hasDisappear) { GetNode<AnimatedSprite>("AnimatedSprite").Play("default"); }
+            if (value && hasDisappear) { GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default"); }
             if (!value) { collisionShape.SetDeferred("disabled", true); } else { enable_countdown = 2; }
         }
     }

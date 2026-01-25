@@ -2,7 +2,7 @@ using Godot;
 
 public class TimerExt : Timer
 {
-    [Signal] public delegate void timeout_ext();
+    [Signal] public delegate void timeout_extEventHandler();
 
     // Delay before firing first timeout_ext event. Set firstDelay = 0 to start main timer instead.
     [Export] float firstDelay = 0;

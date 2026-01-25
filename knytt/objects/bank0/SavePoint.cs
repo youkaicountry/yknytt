@@ -4,16 +4,16 @@ using System.Collections.Generic;
 public class SavePoint : GDKnyttBaseObject
 {
     HashSet<Juni> junis;
-    AnimatedSprite animation;
+    AnimatedSprite2D animation;
 
     public override void _Ready()
     {
         junis = new HashSet<Juni>();
-        animation = GetNode<AnimatedSprite>("AnimatedSprite");
+        animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animation.Play("Idle");
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (junis.Count == 0 || animation.Animation.Equals("Save")) { return; }
         foreach (var juni in junis)
