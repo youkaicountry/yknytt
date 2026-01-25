@@ -341,8 +341,8 @@ public partial class Juni : CharacterBody2D
 
     public override void _Ready()
     {
-        GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
-        GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
+        GetNode("/root/Console").Connect("ConsoleOpen", new Callable(this, nameof(OnConsoleOpen)));
+        GetNode("/root/Console").Connect("ConsoleClosed", new Callable(this, nameof(OnConsoleClosed)));
 
         _collision_polygons = new Node2D[]
         {

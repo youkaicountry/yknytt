@@ -18,7 +18,7 @@ public partial class BouncerEnemy : GDKnyttBaseObject
     {
         base._Ready();
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
+        Juni.Connect(nameof(Juni.Jumped), new Callable(this, nameof(juniJumped)));
     }
 
     public override void _PhysicsProcess(double delta)

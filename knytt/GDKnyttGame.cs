@@ -98,9 +98,9 @@ public partial class GDKnyttGame : Node2D
         Juni = juni_scene.Instantiate() as Juni;
         this.AddChild(Juni);
         Juni.initialize(this);
-        Juni.Connect(nameof(Juni.PowerChanged), UI, nameof(UI.powerUpdate));
-        Juni.Connect(nameof(Juni.PowerChanged), this, nameof(sendPowerUpdate));
-        Juni.Connect(nameof(Juni.Died), Deaths, nameof(Deaths.onDied));
+        Juni.Connect(nameof(Juni.PowerChanged), new Callable(UI, nameof(UI.powerUpdate)));
+        Juni.Connect(nameof(Juni.PowerChanged), new Callable(this, nameof(sendPowerUpdate)));
+        Juni.Connect(nameof(Juni.Died), new Callable(Deaths, nameof(Deaths.onDied)));
         if (Juni.Powers.KSSave) { sendCheat(); }
     }
 
@@ -571,8 +571,8 @@ public partial class GDKnyttGame : Node2D
 
     public void pauseMusicMode(bool pause)
     {
-        GetNode("Ambi1Channel").PauseMode = GetNode("Ambi2Channel").PauseMode = 
-            GetNode("MusicChannel").PauseMode = pause ? PauseModeEnum.Inherit : PauseModeEnum.Process;
+        GetNode("Ambi1Channel").ProcessMode = GetNode("Ambi2Channel").ProcessMode = 
+            GetNode("MusicChannel").ProcessMode = pause ? ProcessModeEnum.Inherit : ProcessModeEnum.Process;
     }
 
     private const float ASPECT_STEP = 0.04f;

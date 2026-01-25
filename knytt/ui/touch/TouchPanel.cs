@@ -61,9 +61,9 @@ public partial class TouchPanel : Panel
         };
         jumpActionNames = actionNames.Skip(4).ToArray();
 
-        GetTree().Root.Connect("size_changed", this, nameof(_on_viewport_size_changed));
-        GetNode("/root/Console").Connect("ConsoleOpen", this, nameof(OnConsoleOpen));
-        GetNode("/root/Console").Connect("ConsoleClosed", this, nameof(OnConsoleClosed));
+        GetTree().Root.Connect("size_changed", new Callable(this, nameof(_on_viewport_size_changed)));
+        GetNode("/root/Console").Connect("ConsoleOpen", new Callable(this, nameof(OnConsoleOpen)));
+        GetNode("/root/Console").Connect("ConsoleClosed", new Callable(this, nameof(OnConsoleClosed)));
 
         // must be deferred because calling this right after setupViewport causes positioning bugs on Android
         CallDeferred("Configure");

@@ -65,7 +65,7 @@ public partial class LevelSelection : BasicScreen
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
         games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollbar();
-        if (!localLoad) { games_scrollbar.Connect("value_changed", this, nameof(_on_GameContainter_scrolling)); }
+        if (!localLoad) { games_scrollbar.Connect("value_changed", new Callable(this, nameof(_on_GameContainter_scrolling))); }
         http_node = GetNode<FileHttpRequest>("FileHttpRequest");
         http_levels_node = GetNode<HttpRequest>("RestHttpRequest");
 
@@ -248,7 +248,7 @@ public partial class LevelSelection : BasicScreen
             if (!download_link_added && game_container.GamesCount <= 6)
             {
                 var download_link = download_link_scene.Instantiate();
-                download_link.Connect("pressed", this, "_on_DownloadLinkPressed");
+                download_link.Connect("pressed", new Callable(this, "_on_DownloadLinkPressed"));
                 game_container.AddChild(download_link);
             }
             download_link_added = true;

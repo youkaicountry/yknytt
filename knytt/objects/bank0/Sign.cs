@@ -147,10 +147,10 @@ public partial class Sign : GDKnyttBaseObject
             nextMessage(juni);
         }
 
-        if (!juni.IsConnected(nameof(Juni.DownEvent), this, nameof(nextMessage)) && 
+        if (!juni.IsConnected(nameof(Juni.DownEvent), new Callable(this, nameof(nextMessage))) && 
             (texts.Count > 1 || shiftMessageIndex > 0 || triggerMessageIndex > 0))
         {
-            juni.Connect(nameof(Juni.DownEvent), this, nameof(nextMessage));
+            juni.Connect(nameof(Juni.DownEvent), new Callable(this, nameof(nextMessage)));
         }
     }
 
@@ -161,9 +161,9 @@ public partial class Sign : GDKnyttBaseObject
 
         if (areaCount == 0)
         {
-            if (juni.IsConnected(nameof(Juni.DownEvent), this, nameof(nextMessage)))
+            if (juni.IsConnected(nameof(Juni.DownEvent), new Callable(this, nameof(nextMessage))))
             {
-                juni.Disconnect(nameof(Juni.DownEvent), this, nameof(nextMessage));
+                juni.Disconnect(nameof(Juni.DownEvent), new Callable(this, nameof(nextMessage)));
             }
             messageIndex = -2;
             nextMessage(juni);

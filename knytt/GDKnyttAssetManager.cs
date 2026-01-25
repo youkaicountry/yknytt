@@ -135,7 +135,7 @@ public class GDKnyttAssetManager
         if (OS.GetName() == "Unix" && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
         var texture = new ImageTexture();
         texture.CreateFromImage(image, (int)Texture2D.FlagsEnum.Repeat);
-        var image_back = texture.GetData();
+        var image_back = texture.GetImage();
         if (image_back == null || texture.GetWidth() != image_back.GetWidth() || 
             texture.GetHeight() != image_back.GetHeight()) { return null; }
         return texture;
@@ -190,7 +190,7 @@ public class GDKnyttAssetManager
 
     public static Texture2D preprocessTilesetTexture2D(Texture2D texture, Color? from = null)
     {
-        var image = texture.GetData();
+        var image = texture.GetImage();
         if (image == null) { return texture; }
 
         if (image.DetectAlpha() == Image.AlphaMode.None) { image.Convert(Image.Format.Rgba8); }
@@ -208,7 +208,7 @@ public class GDKnyttAssetManager
     public static TileSet makeTileset(Texture2D texture)
     {
         Bitmap bitmap = new Bitmap();
-        bitmap.CreateFromImageAlpha(texture.GetData(), .001f);
+        bitmap.CreateFromImageAlpha(texture.GetImage(), .001f);
         
         var ts = new TileSet();
 

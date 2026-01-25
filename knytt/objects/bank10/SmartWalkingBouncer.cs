@@ -5,7 +5,7 @@ public partial class SmartWalkingBouncer : WalkingBouncer
     public override void _Ready()
     {
         base._Ready();
-        Juni.Connect(nameof(Juni.Jumped), this, nameof(juniJumped));
+        Juni.Connect(nameof(Juni.Jumped), new Callable(this, nameof(juniJumped)));
     }
 
     public void juniJumped(Juni juni, bool real)

@@ -30,7 +30,7 @@ public abstract partial class Switch : GDKnyttBaseObject
         {
             if (@switch.DenyHologram && juni.Hologram != null)
             {
-                juni.Connect(nameof(Juni.HologramStopped), this, nameof(execute));
+                juni.Connect(nameof(Juni.HologramStopped), new Callable(this, nameof(execute)));
             }
             else
             {
@@ -46,7 +46,7 @@ public abstract partial class Switch : GDKnyttBaseObject
             }
             else
             {
-                juni.Connect(nameof(Juni.DownEvent), this, nameof(execute));
+                juni.Connect(nameof(Juni.DownEvent), new Callable(this, nameof(execute)));
                 juni.OnShift = true;
             }
         }
@@ -59,15 +59,15 @@ public abstract partial class Switch : GDKnyttBaseObject
 
         if (@switch.AsOne) { GDArea.Selector.Unregister(this); }
 
-        if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), this, nameof(execute)))
+        if (!@switch.OnTouch && juni.IsConnected(nameof(Juni.DownEvent), new Callable(new Callable(this, nameof(execute)))))
         {
-            juni.Disconnect(nameof(Juni.DownEvent), this, nameof(execute));
+            juni.Disconnect(nameof(Juni.DownEvent), new Callable(new Callable(this, nameof(execute))));
             juni.OnShift = false;
         }
 
-        if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), this, nameof(execute)))
+        if (@switch.DenyHologram && juni.IsConnected(nameof(Juni.HologramStopped), new Callable(new Callable(this, nameof(execute)))))
         {
-            juni.Disconnect(nameof(Juni.HologramStopped), this, nameof(execute));
+            juni.Disconnect(nameof(Juni.HologramStopped), new Callable(new Callable(this, nameof(execute))));
         }
     }
 
