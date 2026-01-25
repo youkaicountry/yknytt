@@ -22,7 +22,7 @@ public class ViewportTile : SubViewportContainer
     public static readonly int TILE_SCALE = 2;
     public static readonly Vector2 TILE_SIZE = TILE_SCALE * new Vector2(MapPanel.XSIZE, MapPanel.YSIZE);
 
-    public void init(KnyttPoint coord, string filename, Texture tex = null)
+    public void init(KnyttPoint coord, string filename, Texture2D tex = null)
     {
         this.coord = coord;
         this.filename = filename;
@@ -30,10 +30,10 @@ public class ViewportTile : SubViewportContainer
         refresh(tex);
     }
 
-    public Texture refresh(Texture tex = null)
+    public Texture2D refresh(Texture2D tex = null)
     {
         if (!new DirAccess().FileExists(filename)) { return null; }
-        var reloaded_tex = tex ?? GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
+        var reloaded_tex = tex ?? GDKnyttAssetManager.loadTexture2D(GDKnyttAssetManager.loadFile(filename));
         GetNode<TextureRect>("Viewport/TextureRect").Texture = reloaded_tex;
         return reloaded_tex;
     }
@@ -43,10 +43,10 @@ public class ViewportTile : SubViewportContainer
         if (added_areas.Contains(area.Area.MapPosition) || area.Area.Empty) { return; }
         
         KnyttPoint tile_coord = area.Area.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
-        Vector2 pos = new Vector2(TILE_SIZE.x * tile_coord.x, 240 * TILE_SCALE - TILE_SIZE.y * tile_coord.y);
+        Vector2 pos = new Vector2(TILE_SIZE.X * tile_coord.X, 240 * TILE_SCALE - TILE_SIZE.Y * tile_coord.Y);
         var image = GetNode<TextureRect>("Viewport/TextureRect").Texture?.GetData();
         image?.Lock();
-        if (image != null && image.GetPixel((int)pos.x, 240 * TILE_SCALE - (int)pos.y).a > 0) { return; }
+        if (image != null && image.GetPixel((int)pos.X, 240 * TILE_SCALE - (int)pos.Y).A > 0) { return; }
 
         Viewport vp = GetNode<Viewport>("Viewport");
         var bg = area.Background.Duplicate() as GDKnyttBackground;
@@ -67,11 +67,11 @@ public class ViewportTile : SubViewportContainer
 
     private TileMap createObjectTiles(GDKnyttArea area)
     {
-        var tilemap = objects_tilemap.Instance<TileMap>();
+        var tilemap = objects_tilemap.Instantiate<TileMap>();
         foreach (GDKnyttBaseObject obj in area.Objects.findObjects(VISIBLE_OBJECT_IDS))
         {
-            if (obj.ObjectID.x == 12 && !obj.Juni.Powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
-            tilemap.SetCell(obj.Coords.x, obj.Coords.y, 0, 
+            if (obj.ObjectID.X == 12 && !obj.Juni.Powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
+            tilemap.SetCell(obj.Coords.X, obj.Coords.Y, 0, 
                 autotileCoord: new Vector2(VISIBLE_OBJECT_IDS.IndexOf(obj.ObjectID), 0));
         }
         return tilemap;
@@ -80,7 +80,7 @@ public class ViewportTile : SubViewportContainer
     public bool dump()
     {
         if (added_backgrounds.Count == 0) { return false; }
-        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture()?.GetData()?.SavePng(filename);
+        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture2D()?.GetData()?.SavePng(filename);
         return err == Error.Ok;
     }
 
@@ -95,8 +95,8 @@ public class ViewportTile : SubViewportContainer
         added_areas.Clear();
     }
 
-    public ViewportTexture getTexture()
+    public ViewportTexture getTexture2D()
     {
-        return GetNode<Viewport>("Viewport").GetTexture();
+        return GetNode<Viewport>("Viewport").GetTexture2D();
     }
 }

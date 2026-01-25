@@ -8,8 +8,8 @@ public class Trigger : Switch
     public override void _Ready()
     {
         @switch = trigger = GDArea.Area.ExtraData != null ? 
-            new KnyttTrigger(GDArea.Area, Coords, (KnyttSwitch.SwitchID)(ObjectID.y - 32)) :
-            new KnyttTrigger(GDArea.Area.Position, (KnyttSwitch.SwitchID)(ObjectID.y - 32));
+            new KnyttTrigger(GDArea.Area, Coords, (KnyttSwitch.SwitchID)(ObjectID.Y - 32)) :
+            new KnyttTrigger(GDArea.Area.Position, (KnyttSwitch.SwitchID)(ObjectID.Y - 32));
         base._Ready();
     }
 
@@ -27,7 +27,7 @@ public class Trigger : Switch
 
         if (!trigger.ObjectID.Equals(new KnyttPoint(0, 0)))
         {
-            var spawn_points = GDArea.Objects.findObjects(new KnyttPoint(0, ObjectID.y + 10));
+            var spawn_points = GDArea.Objects.findObjects(new KnyttPoint(0, ObjectID.Y + 10));
             if (spawn_points.Count > 0)
             {
                 foreach (var spawn_point in spawn_points) { addObject(spawn_point.Coords); }
@@ -46,11 +46,11 @@ public class Trigger : Switch
 
         if (trigger.Effect)
         {
-            var offset = new Vector2(trigger.EffectOffset.x, trigger.EffectOffset.y);
+            var offset = new Vector2(trigger.EffectOffset.X, trigger.EffectOffset.Y);
             GDArea.playEffect(effect_pos, offset);
         }
 
-        var delete_points = GDArea.Objects.findObjects(new KnyttPoint(0, ObjectID.y + 13));
+        var delete_points = GDArea.Objects.findObjects(new KnyttPoint(0, ObjectID.Y + 13));
         foreach (var delete_point in delete_points)
         {
             (delete_point as DeletePoint).activate();

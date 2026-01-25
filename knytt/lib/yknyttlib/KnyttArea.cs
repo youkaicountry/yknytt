@@ -116,7 +116,7 @@ namespace YKnyttLib
 
         private void fetchAreaExtraData()
         {
-            string index = string.Format("x{0}y{1}", Position.x, Position.y);
+            string index = string.Format("x{0}y{1}", Position.X, Position.Y);
             if (!this.World.INIData.Sections.ContainsSection(index)) { return; }
             this.ExtraData = World.INIData[index];
         }
@@ -150,7 +150,7 @@ namespace YKnyttLib
                             FlagWarps[(int)id].xArtifactMode = true;
                             value = value.Substring(8);
                         }
-                        FlagWarps[(int)id].x = KnyttUtil.parseIniInt(value) ?? 0;
+                        FlagWarps[(int)id].X = KnyttUtil.parseIniInt(value) ?? 0;
                     }
 
                     if (ExtraData.ContainsKey(y_key))
@@ -161,7 +161,7 @@ namespace YKnyttLib
                             FlagWarps[(int)id].yArtifactMode = true;
                             value = value.Substring(8);
                         }
-                        FlagWarps[(int)id].y = KnyttUtil.parseIniInt(value) ?? 0;
+                        FlagWarps[(int)id].Y = KnyttUtil.parseIniInt(value) ?? 0;
                     }
                 }
             }
@@ -191,7 +191,7 @@ namespace YKnyttLib
             this.Song = map.ReadByte();
             this.Background = map.ReadByte();
 
-            //Console.WriteLine(string.Format("Pos: ({0}, {1}), T: ({2}, {3})", this.Position.x, this.Position.y, this.TilesetB, this.TilesetA));
+            //Console.WriteLine(string.Format("Pos: ({0}, {1}), T: ({2}, {3})", this.Position.X, this.Position.Y, this.TilesetB, this.TilesetA));
         }
 
         private void parseSize(Stream map)

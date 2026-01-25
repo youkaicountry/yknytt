@@ -7,7 +7,7 @@ public class Artifact : CustomObject
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Enable custom animation
-        int artifact_number = (ObjectID.y - 151) / 7 + 1;
+        int artifact_number = (ObjectID.Y - 151) / 7 + 1;
         var artifact_key = $"Artifact{artifact_number}";
         if (!GDArea.GDWorld.KWorld.INIData["World"].ContainsKey(artifact_key)) { sprite.Play($"default{artifact_number}"); return; }
 

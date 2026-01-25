@@ -18,7 +18,7 @@ public class GesturesObject : GDKnyttBaseObject
     {
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         timer = GetNode<Timer>("IdleTimer");
-        animations = sprite.Frames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
+        animations = sprite.SpriteFrames.GetAnimationNames().Where(s => !s.StartsWith("_")).ToList();
 
         nextAnimation();
     }

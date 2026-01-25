@@ -152,11 +152,11 @@ public class GDObjectLayers : Node2D
                     int color = knytt_object is KeyDoor keydoor ? keydoor.power - JuniValues.PowerNames.RedKey + 1 : 0;
                     powers.setMark(GDArea.Area.MapPosition, JuniValues.Collectable.Door + color);
                 }
-                if (knytt_object.ObjectID.x == 19 && !powers.getCollectable(knytt_object.ObjectID.y))
+                if (knytt_object.ObjectID.X == 19 && !powers.getCollectable(knytt_object.ObjectID.Y))
                 {
                     powers.setMark(GDArea.Area.MapPosition, 
-                        knytt_object.ObjectID.y <= 50 ? JuniValues.Collectable.Creature :
-                        knytt_object.ObjectID.y <= 150 ? JuniValues.Collectable.Coin : JuniValues.Collectable.Artifact);
+                        knytt_object.ObjectID.Y <= 50 ? JuniValues.Collectable.Creature :
+                        knytt_object.ObjectID.Y <= 150 ? JuniValues.Collectable.Coin : JuniValues.Collectable.Artifact);
                 }
             }
         }

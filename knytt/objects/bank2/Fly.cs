@@ -16,8 +16,8 @@ public class Fly : GDKnyttBaseObject
         player = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         flyUpTimer = GetNode<Timer>("FlyUpTimer");
         player.Play($"stop{ObjectID.y}");
-        triggerDistance = ObjectID.y == 3 ? 50 : 80;
-        xBuzz = ObjectID.y == 3 ? 120 : 66;
+        triggerDistance = ObjectID.Y == 3 ? 50 : 80;
+        xBuzz = ObjectID.Y == 3 ? 120 : 66;
     }
 
     public override void _PhysicsProcess(double delta)

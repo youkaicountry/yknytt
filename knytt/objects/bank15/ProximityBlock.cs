@@ -14,7 +14,7 @@ public class ProximityBlock : GDKnyttBaseObject
         set
         {
             var m = Modulate;
-            m.a = real ? value : (1f - value);
+            m.A = real ? value : (1f - value);
             Modulate = m;
         }
     }
@@ -23,7 +23,7 @@ public class ProximityBlock : GDKnyttBaseObject
     {
         junis = new HashSet<Juni>();
         _center = Center;
-        real = ObjectID.y == 6;
+        real = ObjectID.Y == 6;
         if (!real) { GetNode<Node>("StaticBody2D").QueueFree(); }
         Proximity = 0f;
     }

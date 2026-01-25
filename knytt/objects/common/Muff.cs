@@ -63,8 +63,8 @@ public class Muff : GDKnyttBaseObject
     protected int getDirection(DirectionChange dir_change)
     {
         return dir_change == DirectionChange.Random ? (random.NextBoolean() ? -1 : 1) :
-               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.x > Center.x ? 1 : -1) :
-                    (Juni.ApparentPosition.x > Center.x ? -1 : 1);
+               dir_change == DirectionChange.TowardsJuni ? (Juni.ApparentPosition.X > Center.X ? 1 : -1) :
+                    (Juni.ApparentPosition.X > Center.X ? -1 : 1);
     }
 
     protected virtual void collide()

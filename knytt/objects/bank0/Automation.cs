@@ -16,7 +16,7 @@ public class Automation : GDKnyttBaseObject
     public override void _Ready()
     {
         GDArea.HasAltInput = true;
-        action = actionNames[ObjectID.y];
+        action = actionNames[ObjectID.Y];
     }
 
     protected virtual void _on_Area2D_body_entered(Juni juni)

@@ -91,11 +91,11 @@ public class InfoScreen : BasicScreen
             // TODO: fill world_entry.Completed && .UserScore
         }
 
-        Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
-                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
+        Texture2D info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture2D("Info+.png") :
+                        KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture2D("Info.png") : null) as Texture2D;
         if (info != null)
         {
-            //info.Flags |= (uint)Texture.FlagsEnum.Filter;
+            //info.Flags |= (uint)Texture2D.FlagsEnum.Filter;
             GetNode<TextureRect>("InfoRect").Texture = info;
         }
 

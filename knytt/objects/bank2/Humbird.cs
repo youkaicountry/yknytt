@@ -17,14 +17,14 @@ public class Humbird : GDKnyttBaseObject
         base._Ready();
         runTimer = GetNode<Timer>("RunTimer");
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        originY = GlobalPosition.y;
+        originY = GlobalPosition.Y;
         runTimer.Start();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Juni.ApparentPosition.x - 8 > Center.x) { sprite.FlipH = false; }
-        if (Juni.ApparentPosition.x + 8 < Center.x) { sprite.FlipH = true; }
+        if (Juni.ApparentPosition.X - 8 > Center.X) { sprite.FlipH = false; }
+        if (Juni.ApparentPosition.X + 8 < Center.X) { sprite.FlipH = true; }
 
         if (runTimer.TimeLeft > 0) { return; }
         
@@ -33,11 +33,11 @@ public class Humbird : GDKnyttBaseObject
         
         if (new_y < originY)
         {
-            GlobalPosition = new Vector2(GlobalPosition.x, new_y);
+            GlobalPosition = new Vector2(GlobalPosition.X, new_y);
         }
         else
         {
-            GlobalPosition = new Vector2(GlobalPosition.x, originY);
+            GlobalPosition = new Vector2(GlobalPosition.X, originY);
             runTimer.Start();
             sprite.Play("stop");
         }

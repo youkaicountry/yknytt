@@ -119,10 +119,10 @@ public class Juni : CharacterBody2D
         set { _updrafts += (value ? 1 : -1); }
     }
 
-    public Color JuniClothes     { set { material.SetShaderParam("clothes_color", value); } }
-    private bool JuniClothesSkip { set { material.SetShaderParam("clothes_skip", value); } }
-    public Color JuniSkin        { set { material.SetShaderParam("skin_color", value); } }
-    private bool JuniSkinSkip    { set { material.SetShaderParam("skin_skip", value); } }
+    public Color JuniClothes     { set { material.SetShaderParameter("clothes_color", value); } }
+    private bool JuniClothesSkip { set { material.SetShaderParameter("clothes_skip", value); } }
+    public Color JuniSkin        { set { material.SetShaderParameter("skin_color", value); } }
+    private bool JuniSkinSkip    { set { material.SetShaderParameter("skin_skip", value); } }
 
     public float TerminalVelocity
     {
@@ -154,7 +154,7 @@ public class Juni : CharacterBody2D
     public bool FacingRight
     {
         set { if (FacingRight != value) { Rotation = 0; Scale = new Godot.Vector2(value ? 1 : -1, 1); } }
-        get { return Scale.x > 0 && Scale.y > 0; }
+        get { return Scale.X > 0 && Scale.Y > 0; }
     }
     public bool ApparentFacingRight => Hologram != null ? !(Hologram as Sprite2D).FlipH : FacingRight; 
     public bool DidAirJump => juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); 
@@ -196,10 +196,10 @@ public class Juni : CharacterBody2D
         set
         {
             swim_zones += (value ? 1 : -1);
-            if (!value && swim_zones == 0 && !GDArea.Swim && velocity.y < 0 && CurrentState is JumpState)
+            if (!value && swim_zones == 0 && !GDArea.Swim && velocity.Y < 0 && CurrentState is JumpState)
             {
                 float speed_limit = Powers.getPower(PowerNames.HighJump) ? JUMP_SPEED_HIGH : JUMP_SPEED_LOW;
-                velocity.y = Mathf.Max(speed_limit, velocity.y * SWIM_EXIT_BOOST);
+                velocity.Y = Mathf.Max(speed_limit, velocity.Y * SWIM_EXIT_BOOST);
             }
         }
     }
@@ -233,9 +233,9 @@ public class Juni : CharacterBody2D
         var sprite = GetNode<Sprite2D>("ShiftHintSprite");
         if (!GDKnyttSettings.DownButtonHint || !show) { sprite.Visible = false; return; }
 
-        (sprite.Material as ShaderMaterial).SetShaderParam(
+        (sprite.Material as ShaderMaterial).SetShaderParameter(
             "dark_hint", jump_hint ? new Color(0, 0, 0.25f, 1) : new Color(0, 0, 0, 1));
-        (sprite.Material as ShaderMaterial).SetShaderParam(
+        (sprite.Material as ShaderMaterial).SetShaderParameter(
             "light_hint", jump_hint ? new Color(0.75f, 1, 0.75f, 1) : new Color(1, 1, 1, 1));
         sprite.Visible = true;
     }
@@ -464,7 +464,7 @@ public class Juni : CharacterBody2D
         {
             Detector.Visible = true;
             var m = detector_color;
-            m.a = GDKnyttDataStore.random.NextFloat(.25f, detector_reverse_distance * .65f);
+            m.A = GDKnyttDataStore.random.NextFloat(.25f, detector_reverse_distance * .65f);
             Detector.Modulate = m;
         }
         else { Detector.Visible = false; }
@@ -494,22 +494,22 @@ public class Juni : CharacterBody2D
         {
             if (_just_climbed == JUST_CLIMBED_TIME)
             {
-                climbed_with_pull_over = velocity.y < 0;
+                climbed_with_pull_over = velocity.Y < 0;
                 if (climbed_with_pull_over)
                 {
                     if (Checkers.Bump)
                     {
-                        velocity.y = 0;
+                        velocity.Y = 0;
                     }
                     else
                     {
-                        velocity.y = Mathf.Max(Swim ? SWIM_PULL_OVER_SPEED_Y : PULL_OVER_SPEED_Y, velocity.y);
+                        velocity.Y = Mathf.Max(Swim ? SWIM_PULL_OVER_SPEED_Y : PULL_OVER_SPEED_Y, velocity.Y);
                     }
                 }
             }
             if (climbed_with_pull_over)
             {
-                velocity.x = FacingRight ? Mathf.Max(velocity.x, PULL_OVER_FORCE_X) : Mathf.Min(velocity.x, -PULL_OVER_FORCE_X);
+                velocity.X = FacingRight ? Mathf.Max(velocity.X, PULL_OVER_FORCE_X) : Mathf.Min(velocity.X, -PULL_OVER_FORCE_X);
             }
             _just_climbed -= delta;
             if (_can_free_jump <= 0f) { JustClimbed = false; }
@@ -523,16 +523,16 @@ public class Juni : CharacterBody2D
         }
 
         // Limit falling speed to terminal velocity
-        velocity.y = Mathf.Min(TerminalVelocity, velocity.y);
+        velocity.Y = Mathf.Min(TerminalVelocity, velocity.Y);
 
         if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1))); }
         else
         {
             // Do the movement in two steps to avoid hanging up on tile seams
-            velocity.x = MoveAndSlideWithSnap(new Godot.Vector2(velocity.x, 0), 5 * Godot.Vector2.Down, Godot.Vector2.Up,
-                                              stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).x;
-            velocity.y = MoveAndSlide(new Godot.Vector2(0, velocity.y), Godot.Vector2.Up,
-                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE, maxSlides: 1).y;
+            velocity.X = MoveAndSlideWithSnap(new Godot.Vector2(velocity.X, 0), 5 * Godot.Vector2.Down, Godot.Vector2.Up,
+                                              stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE).X;
+            velocity.Y = MoveAndSlide(new Godot.Vector2(0, velocity.Y), Godot.Vector2.Up,
+                                      stopOnSlope: true, floorMaxAngle: SLOPE_MAX_ANGLE, maxSlides: 1).Y;
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
         
@@ -543,10 +543,10 @@ public class Juni : CharacterBody2D
     {
         if (!juniInput.Enabled) { return; }
         var dir = new Godot.Vector2();
-        if (Input.IsActionPressed("up")) { dir.y -= 1f; }
-        if (Input.IsActionPressed("down")) { dir.y += 1f; }
-        if (Input.IsActionPressed("left")) { dir.x -= 1f; }
-        if (Input.IsActionPressed("right")) { dir.x += 1f; }
+        if (Input.IsActionPressed("up")) { dir.Y -= 1f; }
+        if (Input.IsActionPressed("down")) { dir.Y += 1f; }
+        if (Input.IsActionPressed("left")) { dir.X -= 1f; }
+        if (Input.IsActionPressed("right")) { dir.X += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta / GDKnyttDataStore.CurrentSpeed);
         if (GDKnyttSettings.SideScroll) { Game.adjustCenteredScroll(); }
@@ -571,25 +571,25 @@ public class Juni : CharacterBody2D
         bool jump_held = juniInput.JumpHeld || (Umbrella.Deployed && juniInput.UmbrellaHeld);
         if (InUpdraft && Umbrella.Deployed)
         {
-            velocity.y -= GRAVITY * delta * (Swim ? SWIM_UPDRAFT_FORCE :
+            velocity.Y -= GRAVITY * delta * (Swim ? SWIM_UPDRAFT_FORCE :
                                              jump_held ? UPDRAFT_FORCE_HOLD : UPDRAFT_FORCE);
-            velocity.y = Mathf.Max(Swim ? SWIM_MAX_UPDRAFT_SPEED :
-                                   jump_held ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.y);
+            velocity.Y = Mathf.Max(Swim ? SWIM_MAX_UPDRAFT_SPEED :
+                                   jump_held ? MAX_UPDRAFT_SPEED_HOLD : MAX_UPDRAFT_SPEED, velocity.Y);
         }
         else
         {
-            if (!Grounded) { velocity.y += GRAVITY * delta; }
-            else if (!(juniInput.JumpEdge && CanAnyJump)) { velocity.y = GRAVITY * delta; }
+            if (!Grounded) { velocity.Y += GRAVITY * delta; }
+            else if (!(juniInput.JumpEdge && CanAnyJump)) { velocity.Y = GRAVITY * delta; }
             if (jump_held)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ?
                     (Swim ? SWIM_HIGH_JUMP_HOLD_POWER : HIGH_JUMP_HOLD_POWER) :
                     (Swim ? SWIM_LOW_JUMP_HOLD_POWER : LOW_JUMP_HOLD_POWER);
-                velocity.y -= jump_hold * delta;
+                velocity.Y -= jump_hold * delta;
             }
             else if (!Powers.getPower(PowerNames.HighJump))
             {
-                velocity.y += LOW_JUMP_EXTRA_GRAVITY * delta;
+                velocity.Y += LOW_JUMP_EXTRA_GRAVITY * delta;
             }
         }
     }
@@ -634,8 +634,8 @@ public class Juni : CharacterBody2D
         node.Hframes = Sprite2D.Hframes;
         node.Vframes = Sprite2D.Vframes;
         Hologram = node;
-        var m = Modulate; m.a = .45f; Modulate = m;
-        GetNode<Sprite2D>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.a);
+        var m = Modulate; m.A = .45f; Modulate = m;
+        GetNode<Sprite2D>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1 / m.A);
     }
 
     public void stopHologram(bool cleanup = false)
@@ -652,7 +652,7 @@ public class Juni : CharacterBody2D
 
         Hologram.QueueFree();
         Hologram = null;
-        var m = Modulate; m.a = 1f; Modulate = m;
+        var m = Modulate; m.A = 1f; Modulate = m;
         GetNode<Sprite2D>("AttachmentSprite").Modulate = new Color(1, 1, 1, 1);
     }
 
@@ -675,7 +675,7 @@ public class Juni : CharacterBody2D
         {
             case "true":
             case "":
-                torch_sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/Attach.png");
+                torch_sprite.Texture = GDKnyttAssetManager.loadInternalTexture2D("res://knytt/juni/Attach.png");
                 torch_sprite.Visible = true;
                 Powers.Attachment = "true";
                 break;
@@ -685,7 +685,7 @@ public class Juni : CharacterBody2D
                 Powers.Attachment = "false";
                 break;
             default:
-                torch_sprite.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{attachment}") as Texture;
+                torch_sprite.Texture = Game.GDWorld.KWorld.getWorldTexture2D($"Custom Objects/{attachment}") as Texture2D;
                 torch_sprite.Visible = torch_sprite.Texture != null;
                 Powers.Attachment = attachment;
                 break;
@@ -700,8 +700,8 @@ public class Juni : CharacterBody2D
         {
             if (character != "juni")
             {
-                Sprite2D.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/juni.png");
-                Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png");
+                Sprite2D.Texture = GDKnyttAssetManager.loadInternalTexture2D("res://knytt/juni/juni.png");
+                Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture2D("res://knytt/juni/umbrella_item.png");
                 Umbrella.Custom = false;
                 JuniClothesSkip = Game.GDWorld.KWorld.Info.Clothes != -1;
                 JuniSkinSkip = Game.GDWorld.KWorld.Info.Skin != -1;
@@ -712,23 +712,23 @@ public class Juni : CharacterBody2D
         {
             if (character != name)
             {
-                Sprite2D.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/{name}.png") as Texture;
-                Umbrella.Texture = Game.GDWorld.KWorld.getWorldTexture($"Custom Objects/u{name}.png") as Texture;
+                Sprite2D.Texture = Game.GDWorld.KWorld.getWorldTexture2D($"Custom Objects/{name}.png") as Texture2D;
+                Umbrella.Texture = Game.GDWorld.KWorld.getWorldTexture2D($"Custom Objects/u{name}.png") as Texture2D;
                 Umbrella.Custom = Umbrella.Texture != null;
-                if (Umbrella.Texture == null) { Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png"); }
+                if (Umbrella.Texture == null) { Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture2D("res://knytt/juni/umbrella_item.png"); }
                 JuniClothesSkip = true;
                 JuniSkinSkip = true;
                 Powers.Character = character = name;
             }
         }
         var frames = Sprite2D.Texture.GetSize() / 24;
-        Sprite2D.Hframes = (int)frames.x;
-        Sprite2D.Vframes = (int)frames.y;
+        Sprite2D.Hframes = (int)frames.X;
+        Sprite2D.Vframes = (int)frames.Y;
         Sprite2D.RegionRect = new Rect2(0, 0, 24 * Sprite2D.Hframes, 24 * Sprite2D.Vframes);
 
         var uframes = Umbrella.Texture.GetSize() / 24;
-        Umbrella.Hframes = (int)uframes.x;
-        Umbrella.Vframes = (int)uframes.y;
+        Umbrella.Hframes = (int)uframes.X;
+        Umbrella.Vframes = (int)uframes.Y;
         Umbrella.RegionRect = new Rect2(0, 0, 24 * Umbrella.Hframes, 24 * Umbrella.Vframes);
     }
 
@@ -779,7 +779,7 @@ public class Juni : CharacterBody2D
 
     public void moveToPosition(GDKnyttArea area, KnyttPoint position, bool up_correction = false)
     {
-        GlobalPosition = area.getTileLocation(position) + (velocity.y < 0 && up_correction ? -1 : 1) * BaseCorrection;
+        GlobalPosition = area.getTileLocation(position) + (velocity.Y < 0 && up_correction ? -1 : 1) * BaseCorrection;
     }
 
     public void win(string ending)
@@ -823,11 +823,11 @@ public class Juni : CharacterBody2D
         {
             var uspeed = Umbrella.Deployed ?
                 (Mathf.Min(MaxSpeed, (Swim ? SWIM_MAX_X_SPEED_UMBRELLA : MAX_X_SPEED_UMBRELLA))) : MaxSpeed;
-            MathTools.MoveTowards(ref velocity.x, dir * uspeed, MAX_X_MOVING_DELTA * delta);
+            MathTools.MoveTowards(ref velocity.X, dir * uspeed, MAX_X_MOVING_DELTA * delta);
         }
         else
         {
-            MathTools.MoveTowards(ref velocity.x, 0f, MAX_X_DECAY_DELTA * delta); // deceleration
+            MathTools.MoveTowards(ref velocity.X, 0f, MAX_X_DECAY_DELTA * delta); // deceleration
         }
     }
 
@@ -849,7 +849,7 @@ public class Juni : CharacterBody2D
         transitionState(new JumpState(this));
         Anim.Play(jump_speed < 0 ? "Jump" : "StartFall");
         if (sound && !air_jump) { GetNode<AudioStreamPlayer2D>("Audio/JumpPlayer2D").Play(); }
-        velocity.y = jump_speed;
+        velocity.Y = jump_speed;
 
         if (air_jump && jumps > 0)
         {
@@ -889,7 +889,7 @@ public class Juni : CharacterBody2D
     public float manhattanDistance(Godot.Vector2 p, bool apparent = true)
     {
         var jp = apparent ? ApparentPosition : GlobalPosition;
-        return Math.Abs(p.x - jp.x) + Math.Abs(p.y - jp.y);
+        return Math.Abs(p.X - jp.X) + Math.Abs(p.Y - jp.Y);
     }
 
     public float distance(Godot.Vector2 p, bool apparent = true)

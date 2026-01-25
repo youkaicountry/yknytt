@@ -84,7 +84,7 @@ public class MainMenu : BasicScreen
         await ToSignal(fade, "FadeDone");
         task?.Wait();
         GDKnyttDataStore.setTitle(GDKnyttDataStore.KWorld.WorldDirectoryName);
-        GetTree().ChangeScene("res://knytt/GDKnyttGame.tscn");
+        GetTree().ChangeSceneToFile("res://knytt/GDKnyttGame.tscn");
     }
 
     public void loadLevel(string path, int slot)
@@ -144,7 +144,7 @@ public class MainMenu : BasicScreen
     private void _on_CloudControl_resized()
     {
         GetNode<MenuCloud>("CloudControl/Control2/MenuCloud").Scale = 
-            Vector2.One * GetNode<Control>("CloudControl").RectSize.y / (240 + GetNode<Control>("CloudControl").MarginBottom);
+            Vector2.One * GetNode<Control>("CloudControl").Size.Y / (240 + GetNode<Control>("CloudControl").OffsetBottom);
     }
 
     public override void goBack()

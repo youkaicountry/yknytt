@@ -44,22 +44,22 @@ public class GDKnyttArea : Node2D
     public Vector2 getTileLocation(KnyttPoint point)
     {
         var gp = GlobalPosition;
-        return new Vector2(gp.x + GDKnyttAssetManager.TILE_WIDTH * point.x + GDKnyttAssetManager.TILE_WIDTH / 2f,
-                       gp.y + GDKnyttAssetManager.TILE_HEIGHT * point.y + GDKnyttAssetManager.TILE_HEIGHT / 2f);
+        return new Vector2(gp.X + GDKnyttAssetManager.TILE_WIDTH * point.X + GDKnyttAssetManager.TILE_WIDTH / 2f,
+                       gp.Y + GDKnyttAssetManager.TILE_HEIGHT * point.Y + GDKnyttAssetManager.TILE_HEIGHT / 2f);
     }
 
     public KnyttPoint getPosition(Vector2 p)
     {
         var gp = GlobalPosition;
-        return new KnyttPoint((int)((p.x - GlobalPosition.x) / ((float)GDKnyttAssetManager.TILE_WIDTH)),
-                              (int)((p.y - GlobalPosition.y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
+        return new KnyttPoint((int)((p.X - GlobalPosition.X) / ((float)GDKnyttAssetManager.TILE_WIDTH)),
+                              (int)((p.Y - GlobalPosition.Y) / ((float)GDKnyttAssetManager.TILE_HEIGHT)));
     }
 
     public bool isIn(Vector2 global_pos, float x_border = 0, float y_border = 0)
     {
         var gp = GlobalPosition;
-        return (global_pos.x >= gp.x + x_border && global_pos.x <= gp.x + Width - x_border &&
-                global_pos.y >= gp.y + y_border && global_pos.y <= gp.y + Height - y_border);
+        return (global_pos.X >= gp.X + x_border && global_pos.X <= gp.X + Width - x_border &&
+                global_pos.Y >= gp.Y + y_border && global_pos.Y <= gp.Y + Height - y_border);
     }
 
     public void loadArea(GDKnyttWorld world, KnyttArea area)
@@ -69,7 +69,7 @@ public class GDKnyttArea : Node2D
 
         this.Name = area.Position.ToString();
 
-        this.Position = new Vector2(area.Position.x * Width, area.Position.y * Height);
+        this.Position = new Vector2(area.Position.X * Width, area.Position.Y * Height);
 
         // Setup gradient
         Background = GetNode<GDKnyttBackground>("Control/Background");
@@ -127,7 +127,7 @@ public class GDKnyttArea : Node2D
     public async void createFakeObjectLayer()
     {
         if (FakeObjects != null || Area.Empty) { return; }
-        FakeObjects = fake_objects_scene.Instance<FakeObjectLayer>();
+        FakeObjects = fake_objects_scene.Instantiate<FakeObjectLayer>();
         AddChild(FakeObjects);
         if (!FakeObjects.IsNodeReady()) { await ToSignal(FakeObjects, "ready"); } // cutscene case
         FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers);

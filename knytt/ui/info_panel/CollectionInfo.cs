@@ -10,7 +10,7 @@ public abstract class CollectionInfo : ItemInfo
         if (world.worldFileExists(IconFilename))
         {
             GetNode<Sprite2D>("Sprite2D").Offset = new Vector2(0, 2);
-            GetNode<Sprite2D>("Sprite2D").Texture = world.getWorldTexture(IconFilename) as Texture;
+            GetNode<Sprite2D>("Sprite2D").Texture = world.getWorldTexture2D(IconFilename) as Texture2D;
         }
     }
 }

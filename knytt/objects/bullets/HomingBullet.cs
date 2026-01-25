@@ -5,8 +5,8 @@ public class HomingBullet : BaseBullet
     public override void _PhysicsProcess(double delta)
     {
         if (!Enabled) { return; }
-        VelocityX += 2.5f * (globalJuni.ApparentPosition.x < GlobalPosition.x ? -1 : 1);
-        VelocityY += 2.5f * (globalJuni.ApparentPosition.y < GlobalPosition.y ? -1 : 1);
+        VelocityX += 2.5f * (globalJuni.ApparentPosition.X < GlobalPosition.X ? -1 : 1);
+        VelocityY += 2.5f * (globalJuni.ApparentPosition.Y < GlobalPosition.Y ? -1 : 1);
         base._PhysicsProcess(delta);
     }
 }

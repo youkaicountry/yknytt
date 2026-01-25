@@ -148,8 +148,8 @@ namespace YKnyttLib
         public void setVisited(KnyttArea area)
         {
             if (area.World.getMapLength() > VISITED_LIMIT) { return; }
-            if (area.MapPosition.x < area.World.MinBounds.x || area.MapPosition.x > area.World.MaxBounds.x ||
-                area.MapPosition.y < area.World.MinBounds.y || area.MapPosition.y > area.World.MaxBounds.y) { return; }
+            if (area.MapPosition.X < area.World.MinBounds.X || area.MapPosition.X > area.World.MaxBounds.X ||
+                area.MapPosition.Y < area.World.MinBounds.Y || area.MapPosition.Y > area.World.MaxBounds.Y) { return; }
             if (VisitedAreas == null || VisitedAreas.Length < area.World.getMapLength()) { VisitedAreas = new BitArray(area.World.getMapLength(), false); }
             VisitedAreas.Set(area.World.getMapIndex(area.MapPosition), true);
         }

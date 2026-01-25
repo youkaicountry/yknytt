@@ -43,7 +43,7 @@ public class SettingsScreen : BasicScreen
         GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
         GetNode<Label>("KeysContainer/SettingsContainer/LabelExit").Visible = GDKnyttDataStore.GptokeybMode;
         GetNode<Label>("GeneralContainer/Misc/LabelDetailed").Visible = GDKnyttSettings.DetailedMap;
-        GetNode<Label>("GeneralContainer/Misc/LabelEmpty").RectMinSize = new Vector2(0, OS.GetName() == "HTML5" ? 17 : 52);
+        GetNode<Label>("GeneralContainer/Misc/LabelEmpty").CustomMinimumSize = new Vector2(0, OS.GetName() == "HTML5" ? 17 : 52);
         if (OS.GetName() == "Unix" || OS.GetName() == "HTML5")
         {
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
@@ -118,7 +118,7 @@ public class SettingsScreen : BasicScreen
 
     private void setAspectClamped(float value)
     {
-        float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
         if (window_x_fixed < 600) { window_x_fixed = 600; }
         Slider slider = GetNode<Slider>("GeneralContainer/Graphics2/Aspect");
         slider.MinValue = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
@@ -135,7 +135,7 @@ public class SettingsScreen : BasicScreen
 
         GetNode<Label>("GeneralContainer/Graphics2/Height/Value").Text = 
             $"Used Height: {OS.WindowSize.Aspect() * value * 100:F0}%";
-        float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
         float scale = window_x_fixed * value / 240;
         if (!GDKnyttSettings.SideScroll) { window_x_fixed *= GDKnyttSettings.Aspect / 0.4f; }
         GetNode<Label>("GeneralContainer/Graphics2/Width/Resolution").Text = 
@@ -145,7 +145,7 @@ public class SettingsScreen : BasicScreen
 
     private void _on_IntScale_pressed()
     {
-        float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        float window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
         var aspects = Enumerable.Range(1, 20).Select(i => i * 240 / window_x_fixed).ToList(); // integer scales
         aspects.Add(1 / (OS.WindowSize.Aspect() * TouchSettings.ViewportNow)); // height = max
         aspects.Add(1 / OS.WindowSize.Aspect()); // height = 100%

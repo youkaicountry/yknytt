@@ -28,7 +28,7 @@ public class SpikerMod : DistanceMod
         if (IsEntered)
         {
             bool is_opening = delayDeath && sprite.Animation == openAnimation && 
-                sprite.Frame < sprite.Frames.GetFrameCount(openAnimation) - 1; // sprite.Playing doesn't work
+                sprite.Frame < sprite.SpriteFrames.GetFrameCount(openAnimation) - 1; // sprite.Playing doesn't work
             if (!is_opening) { parent.juniDie(juni); } else { delayedDeath = true; }
         }
         else if (juni.Hologram != null)

@@ -11,8 +11,8 @@ public class LaserRobot : GDKnyttBaseObject
         Translate(diff);
 
         var new_pos = Center + diff;
-        if (new_pos.x < GDArea.GlobalPosition.x) { collide(null, true); }
-        if (new_pos.x > GDArea.GlobalPosition.x + GDKnyttArea.Width) { collide(null, false); }
+        if (new_pos.X < GDArea.GlobalPosition.X) { collide(null, true); }
+        if (new_pos.X > GDArea.GlobalPosition.X + GDKnyttArea.Width) { collide(null, false); }
     }
 
     private void collide(object body, bool is_on)

@@ -67,7 +67,7 @@ public class TrailContainer : Node2D
             }
             else
             {
-                s = trail_scene.Instance<Sprite2D>();
+                s = trail_scene.Instantiate<Sprite2D>();
                 AddChild(s);
             }
             

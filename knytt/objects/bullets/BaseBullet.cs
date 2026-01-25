@@ -74,7 +74,7 @@ public class BaseBullet : CharacterBody2D
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
         hitPlayer = GetNodeOrNull<AudioStreamPlayer2D>("HitPlayer");
-        hasDisappear = sprite.Frames.HasAnimation("disappear");
+        hasDisappear = sprite.SpriteFrames.HasAnimation("disappear");
         sprite.Play("default");
     }
 

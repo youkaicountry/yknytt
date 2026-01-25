@@ -41,10 +41,10 @@ namespace YKnyttLib
 
         public KnyttPoint getWarpCoords(KnyttPoint new_area, KnyttPoint current_area)
         {
-            if (new_area.x < current_area.x) { return WarpLeft; }
-            if (new_area.x > current_area.x) { return WarpRight; }
-            if (new_area.y > current_area.y) { return WarpDown; }
-            if (new_area.y < current_area.y) { return WarpUp; }
+            if (new_area.X < current_area.X) { return WarpLeft; }
+            if (new_area.X > current_area.X) { return WarpRight; }
+            if (new_area.Y > current_area.Y) { return WarpDown; }
+            if (new_area.Y < current_area.Y) { return WarpUp; }
             throw (new SystemException("Invalid warp!"));
         }
 

@@ -99,13 +99,13 @@ public class UICanvasLayer : CanvasLayer
             }
             else
             {
-                float xscreen = GetViewport().GetVisibleRect().Size.x;
+                float xscreen = GetViewport().GetVisibleRect().Size.X;
                 if (xscreen > 600 && !GDKnyttSettings.SeamlessScroll) { xscreen = 600; }
                 xscreen *= TouchSettings.ViewportNow;
-                float xinfo = infoPanel.RectSize.x;
-                infoPanel.MarginLeft = -xscreen / 2 - 3;
-                infoPanel.MarginRight = infoPanel.MarginLeft + xinfo;
-                if (artifactsPanel != null) { artifactsPanel.RectScale = Vector2.One * Mathf.Min(xscreen / 600, 1); }
+                float xinfo = infoPanel.Size.X;
+                infoPanel.OffsetLeft = -xscreen / 2 - 3;
+                infoPanel.OffsetRight = infoPanel.OffsetLeft + xinfo;
+                if (artifactsPanel != null) { artifactsPanel.Scale = Vector2.One * Mathf.Min(xscreen / 600, 1); }
 
                 anim.Play("SlideOut");
                 anim2?.Play("SlideOut");
@@ -145,7 +145,7 @@ public class UICanvasLayer : CanvasLayer
                 Game.Juni.Powers.getCoinCount() > 0 || 
                 Game.Juni.Powers.getArtifactsCount() > 0))
         {
-            artifactsPanel = ResourceLoader.Load<PackedScene>("res://knytt/ui/info_panel/ArtifactsPanel.tscn").Instance<ArtifactsPanel>();
+            artifactsPanel = ResourceLoader.Load<PackedScene>("res://knytt/ui/info_panel/ArtifactsPanel.tscn").Instantiate<ArtifactsPanel>();
             artifactsPanel.Modulate = new Color(1, 1, 1, 0);
             Game.GetNode<Node2D>("%TintNode").AddChild(artifactsPanel);
         }

@@ -43,9 +43,9 @@ public class FakeObjectLayer : Node2D
         }
         else
         {
-            if (obj.x == 19 && obj.y >= 51 && obj.y <= 150) { obj = new KnyttPoint(19, 51); }
-            if (obj.x >= IMAGE_BANK_CAPACITY.Length || obj.y > IMAGE_BANK_CAPACITY[obj.x]) { return; }
-            int tile_index = IMAGE_BANK_INDEX[obj.x] + obj.y - 1;
+            if (obj.X == 19 && obj.Y >= 51 && obj.Y <= 150) { obj = new KnyttPoint(19, 51); }
+            if (obj.X >= IMAGE_BANK_CAPACITY.Length || obj.Y > IMAGE_BANK_CAPACITY[obj.X]) { return; }
+            int tile_index = IMAGE_BANK_INDEX[obj.X] + obj.Y - 1;
             layers[layer].SetCell(x, y, 0, autotileCoord: new Vector2(tile_index % 16, tile_index / 16));
         }
     }
@@ -60,10 +60,10 @@ public class FakeObjectLayer : Node2D
                 {
                     var oid = layers[i].getObjectID(x, y);
                     if (oid.isZero()) { continue; }
-                    if (oid.x == 12 && !powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
-                    if (oid.x == 0 && PowerItem.Object2Power.TryGetValue(oid.y, out var power) &&
+                    if (oid.X == 12 && !powers.getPower(JuniValues.PowerNames.Eye)) { continue; }
+                    if (oid.X == 0 && PowerItem.Object2Power.TryGetValue(oid.Y, out var power) &&
                         powers.getPower(power)) { continue; }
-                    if (oid.x == 19 && powers.getCollectable(oid.y)) { continue; }
+                    if (oid.X == 19 && powers.getCollectable(oid.Y)) { continue; }
                     setCell(i, x, y, oid);
                 }
             }

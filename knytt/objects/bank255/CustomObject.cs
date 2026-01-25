@@ -33,14 +33,14 @@ public class CustomObject : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        string mod = ObjectID.x == 254 ? "B" : "";
+        string mod = ObjectID.X == 254 ? "B" : "";
         string key = $"Custom Object {mod}{ObjectID.y}";
         var section = GDArea.GDWorld.KWorld.INIData[key];
         if (section == null) { QueueFree(); Deleted = true; return; }
 
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        custom_frames = sprite.Frames;
-        cache_key = ObjectID.y + (ObjectID.x == 254 ? 256 : 0);
+        custom_frames = sprite.SpriteFrames;
+        cache_key = ObjectID.Y + (ObjectID.X == 254 ? 256 : 0);
 
         int bank = getInt(section, "Bank", -1);
         int obj = getInt(section, "Object", -1);
@@ -101,19 +101,19 @@ public class CustomObject : GDKnyttBaseObject
             sprite.Offset += offset;
             if (obj is BigSpiker)
             {
-                sprite.Offset = new Vector2(offset.x == 0 ? sprite.Offset.x : -24 + offset.x,
-                                            offset.y == 0 ? sprite.Offset.y : -24 + offset.y);
+                sprite.Offset = new Vector2(offset.X == 0 ? sprite.Offset.X : -24 + offset.X,
+                                            offset.Y == 0 ? sprite.Offset.Y : -24 + offset.Y);
             }
         }
 
         if (oco_cache.ContainsKey(cache_key))
         {
             obj.CustomAnimation = true;
-            sprite.Frames = oco_cache[cache_key];
+            sprite.SpriteFrames = oco_cache[cache_key];
             return;
         }
 
-        var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + image) as Texture;
+        var image_texture = GDArea.GDWorld.KWorld.getWorldTexture2D("Custom Objects/" + image) as Texture2D;
         if (image != null && (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)) { return; }
         obj.CustomAnimation = true;
 
@@ -127,9 +127,9 @@ public class CustomObject : GDKnyttBaseObject
             return;
         }
 
-        var new_frames = sprite.Frames.Duplicate() as SpriteFrames;
-        sprite.Frames = oco_cache[cache_key] = new_frames;
-        int obj_y = !(obj is PowerItem) ? obj.ObjectID.y : PowerItem.Object2Power[obj.ObjectID.y];
+        var new_frames = sprite.SpriteFrames.Duplicate() as SpriteFrames;
+        sprite.SpriteFrames = oco_cache[cache_key] = new_frames;
+        int obj_y = !(obj is PowerItem) ? obj.ObjectID.Y : PowerItem.Object2Power[obj.ObjectID.Y];
         bool one_animation_mode = new_frames.GetAnimationNames().Any(a => a.EndsWith(obj_y.ToString()));
         foreach (var anim in new_frames.GetAnimationNames())
         {
@@ -140,13 +140,13 @@ public class CustomObject : GDKnyttBaseObject
 
                 var tex = new_frames.GetFrame(anim, i) as AtlasTexture;
                 if (tex == null) { continue; }
-                int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.x;
-                int row = (int)tex.Region.Position.y / (int)tex.Region.Size.y;
-                int column = (int)tex.Region.Position.x / (int)tex.Region.Size.x;
+                int columns = tex.Atlas.GetWidth() / (int)tex.Region.Size.X;
+                int row = (int)tex.Region.Position.Y / (int)tex.Region.Size.Y;
+                int column = (int)tex.Region.Position.X / (int)tex.Region.Size.X;
                 int index = row * columns + column;
 
-                int tile_width = tile_size.x == 0 ? (int)tex.Region.Size.x : (int)tile_size.x;
-                int tile_height = tile_size.y == 0 ? (int)tex.Region.Size.y : (int)tile_size.y;
+                int tile_width = tile_size.X == 0 ? (int)tex.Region.Size.X : (int)tile_size.X;
+                int tile_height = tile_size.Y == 0 ? (int)tex.Region.Size.Y : (int)tile_size.Y;
                 int new_columns = Mathf.Max(1, image_texture.GetWidth() / tile_width);
                 int new_row = index / new_columns;
                 int new_column = index % new_columns;
@@ -154,7 +154,7 @@ public class CustomObject : GDKnyttBaseObject
                 var new_tex = new AtlasTexture();
                 new_tex.Atlas = image_texture;
                 Vector2 corner = new Vector2(new_column * tile_width, new_row * tile_height);
-                if (corner.y + tile_height > image_texture.GetHeight()) { corner.y %= (image_texture.GetHeight() / tile_height) * tile_height; }
+                if (corner.Y + tile_height > image_texture.GetHeight()) { corner.Y %= (image_texture.GetHeight() / tile_height) * tile_height; }
                 new_tex.Region = new Rect2(corner, tile_width, tile_height);
                 new_frames.SetFrame(anim, i, new_tex);
             }
@@ -165,14 +165,14 @@ public class CustomObject : GDKnyttBaseObject
     {
         if (not_used.TryGetValue(cache_key, out int i) && i == -1) { return false; }
 
-        bool has_alpha_animation = sprite.Frames.HasAnimation(animation_name);
-        bool has_replace_animation = sprite.Frames.HasAnimation(animation_name + " replace");
+        bool has_alpha_animation = sprite.SpriteFrames.HasAnimation(animation_name);
+        bool has_replace_animation = sprite.SpriteFrames.HasAnimation(animation_name + " replace");
         if (has_replace_animation) { animation_name += " replace"; }
 
         if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
-            var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
+            var image_texture = GDArea.GDWorld.KWorld.getWorldTexture2D("Custom Objects/" + info.image) as Texture2D;
 
             // If texture wasn't loaded, don't try to load it every time
             if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)
@@ -184,10 +184,10 @@ public class CustomObject : GDKnyttBaseObject
             if (image_texture.HasAlpha()) { has_alpha_animation = true; }
             else { has_replace_animation = true; animation_name += " replace"; }
 
-            sprite.Frames.AddAnimation(animation_name);
+            sprite.SpriteFrames.AddAnimation(animation_name);
             fillAnimationInternal(image_texture, animation_name);
-            sprite.Frames.SetAnimationSpeed(animation_name, info.anim_speed / 20.0f);
-            sprite.Frames.SetAnimationLoop(animation_name, info.anim_repeat == 0 && info.anim_loopback == 0);
+            sprite.SpriteFrames.SetAnimationSpeed(animation_name, info.anim_speed / 20.0f);
+            sprite.SpriteFrames.SetAnimationLoop(animation_name, info.anim_repeat == 0 && info.anim_loopback == 0);
         }
         sprite.Offset = new Vector2(info.offset_x, info.offset_y);
         sprite.Animation = animation_name;
@@ -197,7 +197,7 @@ public class CustomObject : GDKnyttBaseObject
         return true;
     }
 
-    private void fillAnimationInternal(Texture image_texture, string animation_name)
+    private void fillAnimationInternal(Texture2D image_texture, string animation_name)
     {
         int pos = 0;
         if (image_texture.GetHeight() < info.tile_height) { info.tile_height = image_texture.GetHeight(); }
@@ -209,7 +209,7 @@ public class CustomObject : GDKnyttBaseObject
                 var tile = new AtlasTexture();
                 tile.Atlas = image_texture;
                 tile.Region = new Rect2(j * info.tile_width, i * info.tile_height, info.tile_width, info.tile_height);
-                sprite.Frames.AddFrame(animation_name, tile, pos++);
+                sprite.SpriteFrames.AddFrame(animation_name, tile, pos++);
                 if (pos > info.anim_to) { return; }
             }
         }
@@ -217,7 +217,7 @@ public class CustomObject : GDKnyttBaseObject
 
     private void _on_AnimatedSprite_animation_finished()
     {
-        if (sprite.Frames.GetAnimationLoop(sprite.Animation)) { return; }
+        if (sprite.SpriteFrames.GetAnimationLoop(sprite.Animation)) { return; }
         counter++;
         if (counter >= info.anim_repeat && info.anim_repeat > 0) { return; }
         sprite.Frame = info.anim_loopback;

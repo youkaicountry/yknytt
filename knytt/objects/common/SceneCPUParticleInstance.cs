@@ -72,9 +72,9 @@ public class SceneCPUParticleInstance : Node2D
     {
         _brownian_t += BrownianSpeed * delta;
 
-        var bm = new Vector2(_noise.GetNoise1d(_brownian_t.x), _noise.GetNoise1d(_brownian_t.y)) * BrownianForce;
-        bm.x = Mathf.Pow(Mathf.Abs(bm.x), BrownianExponent) * Mathf.Sign(bm.x);
-        bm.y = Mathf.Pow(Mathf.Abs(bm.y), BrownianExponent) * Mathf.Sign(bm.y);
+        var bm = new Vector2(_noise.GetNoise1d(_brownian_t.X), _noise.GetNoise1d(_brownian_t.Y)) * BrownianForce;
+        bm.X = Mathf.Pow(Mathf.Abs(bm.X), BrownianExponent) * Mathf.Sign(bm.X);
+        bm.Y = Mathf.Pow(Mathf.Abs(bm.Y), BrownianExponent) * Mathf.Sign(bm.Y);
         Force += bm;
     }
 

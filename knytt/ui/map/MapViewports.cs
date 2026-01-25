@@ -7,7 +7,7 @@ using YKnyttLib;
 public class MapViewports : Node2D
 {
     public Dictionary<KnyttPoint, ViewportTile> viewports = new Dictionary<KnyttPoint, ViewportTile>();
-    public Dictionary<KnyttPoint, Texture> map_images = new Dictionary<KnyttPoint, Texture>();
+    public Dictionary<KnyttPoint, Texture2D> map_images = new Dictionary<KnyttPoint, Texture2D>();
     public Queue<KnyttPoint> latest_images = new Queue<KnyttPoint>();
     private static readonly int IMAGES_LIMIT = 50;
     private PackedScene viewport_scene;
@@ -51,7 +51,7 @@ public class MapViewports : Node2D
         var key = getKey(area.Area.MapPosition);
         if (!viewports.ContainsKey(key))
         {
-            ViewportTile tile = viewport_scene.Instance<ViewportTile>();
+            ViewportTile tile = viewport_scene.Instantiate<ViewportTile>();
             tile.init(key, getFilename(key), map_images.ContainsKey(key) ? map_images[key] : null);
             AddChild(tile);
             viewports.Add(key, tile);
@@ -60,13 +60,13 @@ public class MapViewports : Node2D
         last_area_key = key;
     }
 
-    public (Rect2, Texture) getArea(KnyttPoint coord)
+    public (Rect2, Texture2D) getArea(KnyttPoint coord)
     {
         var key = getKey(coord);
         KnyttPoint tile_coord = coord % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
-        Rect2 src = new Rect2(new Vector2(tile_coord.x, tile_coord.y) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
+        Rect2 src = new Rect2(new Vector2(tile_coord.X, tile_coord.Y) * ViewportTile.TILE_SIZE, ViewportTile.TILE_SIZE);
 
-        if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture()); }
+        if (viewports.ContainsKey(key)) { return (src, viewports[key].getTexture2D()); }
         if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
@@ -74,8 +74,8 @@ public class MapViewports : Node2D
             !ResourceLoader.Exists(filename) : 
             !FileAccess.FileExists(filename)) { return (src, null); }
         map_images[key] = internal_cache ?
-            ResourceLoader.Load<Texture>(filename) :
-            GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));
+            ResourceLoader.Load<Texture2D>(filename) :
+            GDKnyttAssetManager.loadTexture2D(GDKnyttAssetManager.loadFile(filename));
         latest_images.Enqueue(key);
         if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
         return (src, map_images[key]);

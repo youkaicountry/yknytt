@@ -43,7 +43,7 @@ public class DeathContainer : Node2D
 
     private void spawnAt(Vector2 pos)
     {
-        var marker = marker_scene.Instance<Sprite2D>();
+        var marker = marker_scene.Instantiate<Sprite2D>();
         marker.Position = pos;
         AddChild(marker);
     }

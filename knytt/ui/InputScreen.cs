@@ -41,7 +41,7 @@ public class InputScreen : Control
         if (/*@event.IsActionPressed("pause") || */GDKnyttKeys.setAction(collecting.Action + cnum, @event))
         {
             finishCollecting();
-            GetTree().SetInputAsHandled();
+            GetViewport().SetInputAsHandled();
         }
     }
 

@@ -39,7 +39,7 @@ public class LocationLabel : Label
     {
         bool prev_visible = Visible;
         Visible = true;
-        var window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
+        var window_x_fixed = OS.WindowSize.X * TouchSettings.ViewportNow;
         float scale = window_x_fixed * GDKnyttSettings.Aspect / 240;
         if (!GDKnyttSettings.SideScroll) { window_x_fixed *= GDKnyttSettings.Aspect / 0.4f; }
         Text = $"{window_x_fixed:F0}x{240 * scale:F0} ({scale:F2}x)";

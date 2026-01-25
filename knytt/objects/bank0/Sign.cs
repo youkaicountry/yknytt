@@ -19,7 +19,7 @@ public class Sign : GDKnyttBaseObject
         player = GetNode<AnimationPlayer>("AnimationPlayer");
         label = GetNode<Label>("Label");
 
-        char letter = "ABC"[ObjectID.y - 17];
+        char letter = "ABC"[ObjectID.Y - 17];
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
         texts.Add(preprocess(text));
@@ -59,19 +59,19 @@ public class Sign : GDKnyttBaseObject
     protected void adjustSign(bool initial)
     {
         var sign_rect = GetNode<Control>("Label/SignRect");
-        // Sign top left = Position + label.RectPosition + sign_rect.RectPosition, but we can only adjust label.RectPosition
-        var x_pos = label.RectPosition.x;
-        var y_pos = label.RectPosition.y;
-        var x_diff = Position.x + sign_rect.RectPosition.x;
-        var y_diff = Position.y + sign_rect.RectPosition.y;
-        var size = sign_rect.RectSize;
+        // Sign top left = Position + label.Position + sign_rect.Position, but we can only adjust label.Position
+        var x_pos = label.Position.X;
+        var y_pos = label.Position.Y;
+        var x_diff = Position.X + sign_rect.Position.X;
+        var y_diff = Position.Y + sign_rect.Position.Y;
+        var size = sign_rect.Size;
 
         float left_limit = 0;
         float right_limit = 600;
         if (GDKnyttSettings.SideScroll && !initial) // camera is not ready at start
         {
-            float camera_in_area = Juni.Game.Camera.GlobalPosition.x - GDArea.GlobalPosition.x;
-            float x_viewport = GetViewport().GetVisibleRect().Size.x * TouchSettings.ViewportNow;
+            float camera_in_area = Juni.Game.Camera.GlobalPosition.X - GDArea.GlobalPosition.X;
+            float x_viewport = GetViewport().GetVisibleRect().Size.X * TouchSettings.ViewportNow;
             left_limit = camera_in_area - x_viewport / 2;
             right_limit = camera_in_area + x_viewport / 2;
         }
@@ -79,10 +79,10 @@ public class Sign : GDKnyttBaseObject
         // TODO: original game doesn't overlap object area when showing sign
         if (x_diff + x_pos < left_limit) { x_pos = left_limit - x_diff; }
         if (y_diff + y_pos < 0) { y_pos = -y_diff; }
-        if (x_diff + x_pos + size.x > right_limit) { x_pos = right_limit - x_diff - size.x; }
-        if (y_diff + y_pos + size.y > 240) { y_pos = 240 - y_diff - size.y; }
+        if (x_diff + x_pos + size.X > right_limit) { x_pos = right_limit - x_diff - size.X; }
+        if (y_diff + y_pos + size.Y > 240) { y_pos = 240 - y_diff - size.Y; }
 
-        label.RectPosition = new Vector2(x_pos, y_pos);
+        label.Position = new Vector2(x_pos, y_pos);
     }
 
     public void nextMessage(Juni juni)
@@ -91,13 +91,13 @@ public class Sign : GDKnyttBaseObject
 
         if (shiftMessageIndex > 0 && messageIndex == shiftMessageIndex)
         {
-            Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y - 3)) as Shift;
+            Shift shift = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.Y - 3)) as Shift;
             shift?.executeAnyway(juni);
         }
 
         if (triggerMessageIndex > 0 && messageIndex == triggerMessageIndex)
         {
-            Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.y + 15)) as Trigger;
+            Trigger trigger = GDArea.Objects.findObject(new KnyttPoint(0, ObjectID.Y + 15)) as Trigger;
             trigger?.executeAnyway(juni);
         }
 
