@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/ui/SettingsScreen.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=4]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=4]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
@@ -233,8 +233,9 @@ custom_minimum_size = Vector2( 0, 17 )
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Used Height: 100%"
-valign = 1
+vertical_alignment = 1
 
 [node name="IntScale" parent="GeneralContainer/Graphics2/Height" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -275,8 +276,9 @@ custom_minimum_size = Vector2( 0, 17 )
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Width: 100%"
-valign = 1
+vertical_alignment = 1
 
 [node name="Resolution" type="Label" parent="GeneralContainer/Graphics2/Width"]
 offset_left = 74.0
@@ -285,9 +287,10 @@ offset_right = 164.0
 offset_bottom = 15.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "1600x1240 (x1.75)"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="Seamless" parent="GeneralContainer/Graphics2" instance=ExtResource( 6 )]
 offset_top = 66.0
@@ -306,7 +309,7 @@ offset_bottom = 132.0
 custom_minimum_size = Vector2( 0, 33 )
 focus_neighbor_left = NodePath("../../Graphics/DownButtonHint")
 focus_neighbor_right = NodePath("../../../BackButton")
-text = "Area3D Border"
+text = "Area Border"
 
 [node name="MapContainer" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
 offset_top = 132.0
@@ -321,6 +324,7 @@ offset_right = 26.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Map:"
 
 [node name="ForcedMap" parent="GeneralContainer/Graphics2/MapContainer" instance=ExtResource( 6 )]
@@ -379,6 +383,7 @@ offset_right = 143.0
 offset_bottom = 22.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Video Filter"
 
 [node name="DownloadSaves" parent="GeneralContainer/Misc" instance=ExtResource( 1 )]
@@ -421,9 +426,10 @@ offset_right = 164.0
 offset_bottom = 171.0
 theme_override_colors/font_color = Color( 0.376471, 0.376471, 0.376471, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "If you are experiencing lags at save points, you can turn off detailed maps."
-valign = 1
-autowrap = true
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="KeysContainer" type="Control" parent="."]
 visible = false
@@ -533,9 +539,10 @@ custom_minimum_size = Vector2( 0, 15 )
 focus_mode = 2
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Info + Pause (or `) to show console"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
 offset_top = 212.0
@@ -544,9 +551,10 @@ offset_bottom = 227.0
 custom_minimum_size = Vector2( 0, 15 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Info + Umbrella + Left/Right to adjust height"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="KeysContainer/SettingsContainer"]
 offset_top = 231.0
@@ -555,9 +563,10 @@ offset_bottom = 246.0
 custom_minimum_size = Vector2( 0, 15 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Info + Umbrella + Down for emergency save (use carefully)"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="LabelExit" type="Label" parent="KeysContainer/SettingsContainer"]
 offset_top = 462.0
@@ -566,9 +575,10 @@ offset_bottom = 477.0
 custom_minimum_size = Vector2( 0, 15 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Select + Start for emergency exit"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="KSSettingsContainer" type="VBoxContainer" parent="KeysContainer"]
 offset_left = 252.0
@@ -681,6 +691,7 @@ offset_left = -15.0
 offset_top = 47.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Stick Sensitivity"
 
 [node name="SensitivitySlider" type="HSlider" parent="KeysContainer/StickContainter"]
@@ -717,6 +728,7 @@ offset_right = 100.888
 offset_bottom = 23.1188
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Please press a key..."
 
 [node name="CancelButton" parent="KeysContainer/KeyPrompt" instance=ExtResource( 1 )]
@@ -743,6 +755,7 @@ offset_right = 467.0
 offset_bottom = 167.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Please press a key..."
 
 [node name="BounceTimer" type="Timer" parent="KeysContainer"]
@@ -809,6 +822,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 105, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Scale buttons:"
 
 [node name="ScaleSlider" type="HSlider" parent="TouchContainer/ScaleContainer"]
@@ -834,6 +848,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 32, 8 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 1
 
@@ -862,6 +877,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 105, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Game viewport:"
 
 [node name="ViewportSlider" type="HSlider" parent="TouchContainer/SubViewportContainer"]
@@ -887,6 +903,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 32, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "80%"
 align = 1
 
@@ -912,6 +929,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 105, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Jump button width:"
 
 [node name="JumpSlider" type="HSlider" parent="TouchContainer/JumpContainer"]
@@ -937,6 +955,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 32, 8 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 1
 
@@ -966,6 +985,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 105, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Opacity:"
 
 [node name="OpacitySlider" type="HSlider" parent="TouchContainer/OpacityContainer"]
@@ -990,6 +1010,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 32, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "50%"
 align = 1
 
@@ -1014,6 +1035,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 105, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Swipe sensitivity:"
 
 [node name="SwipeSlider" type="HSlider" parent="TouchContainer/SwipeContainer"]
@@ -1039,6 +1061,7 @@ offset_bottom = 18.0
 custom_minimum_size = Vector2( 32, 8 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 1
 
@@ -1073,6 +1096,7 @@ offset_right = 570.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "External Worlds DirAccess:"
 
 [node name="WorldsContainer" type="HBoxContainer" parent="DirContainer"]
@@ -1087,6 +1111,7 @@ offset_bottom = 23.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Not set"
 clip_text = true
 
@@ -1127,6 +1152,7 @@ offset_right = 570.0
 offset_bottom = 83.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "You can set it to your Knytt Stories\\Worlds directory or level archive.
 "
 
@@ -1136,6 +1162,7 @@ offset_right = 570.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Saves directory:"
 
 [node name="SavesContainer" type="HBoxContainer" parent="DirContainer"]
@@ -1150,6 +1177,7 @@ offset_bottom = 23.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Default"
 clip_text = true
 
@@ -1199,6 +1227,7 @@ offset_right = 570.0
 offset_bottom = 170.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "You can set it to Knytt Stories\\Saves. Reset goes back to the default directory.
 YKnytt overwrites save files there only during playing."
 
@@ -1208,6 +1237,7 @@ offset_right = 570.0
 offset_bottom = 187.0
 theme_override_colors/font_color = Color( 1, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 
 [node name="WorldsFileDialog" type="FileDialog" parent="DirContainer"]
 offset_right = 216.0
@@ -1261,6 +1291,7 @@ offset_right = 81.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Master Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MasterVolumeLabel"]
@@ -1270,6 +1301,7 @@ offset_bottom = 13.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 2
 
@@ -1296,6 +1328,7 @@ offset_right = 76.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Music Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MusicVolumeLabel"]
@@ -1305,6 +1338,7 @@ offset_bottom = 13.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 2
 
@@ -1331,6 +1365,7 @@ offset_right = 113.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Environment Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EnvironmentVolumeLabel"]
@@ -1340,6 +1375,7 @@ offset_bottom = 13.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 2
 
@@ -1365,6 +1401,7 @@ offset_right = 80.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Effects Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsVolumeLabel"]
@@ -1374,6 +1411,7 @@ offset_bottom = 13.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 2
 
@@ -1399,6 +1437,7 @@ offset_right = 83.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Effects Panning:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsPanningLabel"]
@@ -1408,6 +1447,7 @@ offset_bottom = 13.0
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "100%"
 align = 2
 

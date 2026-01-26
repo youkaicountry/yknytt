@@ -7,7 +7,7 @@
 [ext_resource path="res://knytt/ui/img/small_arrow.png" type="Texture2D" id=5]
 [ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=8]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeOut"
@@ -95,9 +95,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 8 )
+theme_override_font_sizes/font_size = 12
 text = "OK"
 align = 1
-valign = 1
+vertical_alignment = 1
 
 [node name="FadeLayer" parent="." instance=ExtResource( 6 )]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=1]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=1]
 [ext_resource path="res://knytt/ui/stats/Ending.tres" type="Texture2D" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -41,6 +41,7 @@ offset_bottom = 31.0
 offset_right = 105.0
 offset_bottom = 13.0
 theme_override_fonts/font = ExtResource( 1 )
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Red Ball"
 
@@ -49,5 +50,6 @@ offset_top = 17.0
 offset_right = 105.0
 offset_bottom = 30.0
 theme_override_fonts/font = ExtResource( 1 )
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Achieved 9999 times"
