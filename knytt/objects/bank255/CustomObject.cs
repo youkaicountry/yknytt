@@ -7,7 +7,7 @@ using YKnyttLib.Logging;
 
 public partial class CustomObject : GDKnyttBaseObject
 {
-    public class CustomObjectInfo
+    public partial class CustomObjectInfo
     {
         public string image;
         public int tile_width = 24;

@@ -1,9 +1,9 @@
-﻿using System.Linq;
+using System.Linq;
 using YKnyttLib.Logging;
 
 namespace YKnyttLib.Parser
 {
-    public class CommandDeclaration
+    public partial class CommandDeclaration
     {
         public delegate ICommand CommandInstantiation(CommandParseResult result);
 

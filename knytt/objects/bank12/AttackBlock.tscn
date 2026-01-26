@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank12/img/attack_block.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank12/img/attack_block.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/bank12/AttackBlock.cs" type="Script" id=3]
 [ext_resource path="res://knytt/objects/common/DistanceMod.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
@@ -95,7 +95,7 @@ extents = Vector2( 11, 1 )
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 19 )
 centered = false
 
@@ -114,11 +114,11 @@ flickering = false
 openDistance = 60.0
 closeDistance = 10000.0
 method = 2
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 
 [node name="OpenPlayer" parent="." instance=ExtResource( 5 )]
 stream = ExtResource( 6 )
 
-[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
 [connection signal="EnterEvent" from="DistanceMod" to="." method="_on_DistanceMod_EnterEvent"]

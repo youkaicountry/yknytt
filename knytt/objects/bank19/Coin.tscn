@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/objects/bank19/CollectMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/coin.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank19/img/coin.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/bank19/Coin.cs" type="Script" id=3]
 
 
@@ -54,7 +54,7 @@ animations = [ {
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 10 )
 frame = 8
 playing = true

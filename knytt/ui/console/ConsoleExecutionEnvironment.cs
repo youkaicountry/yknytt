@@ -1,6 +1,6 @@
 using YKnyttLib.Parser;
 
-public class ConsoleExecutionEnvironment
+public partial class ConsoleExecutionEnvironment
 {
     public CommandParser Parser { get; }
     public Console Console { get; }

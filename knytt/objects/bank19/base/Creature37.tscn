@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/19-37.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank19/img/19-37.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 2 )
@@ -140,6 +140,6 @@ animations = [ {
 [node name="Node2D" instance=ExtResource( 1 )]
 maxTime = 1.2
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 30 )
 animation = "jump"

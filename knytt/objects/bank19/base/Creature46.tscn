@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://knytt/objects/common/DistanceMod.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/19-46.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank19/img/19-46.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/GDKnyttBaseObject.cs" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=7]
@@ -48,8 +48,8 @@ script = ExtResource( 3 )
 openDistance = 100.0
 closeDistance = 130.0
 method = 1
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 6 )
 centered = false

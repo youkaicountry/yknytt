@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=14 format=2]
 
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://knytt/ui/img/checked.png" type="Texture" id=2]
-[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture" id=3]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=1]
+[ext_resource path="res://knytt/ui/img/checked.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture2D" id=3]
 [ext_resource path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" type="StyleBox" id=4]
 [ext_resource path="res://knytt/ui/styles/ScrollbarTrack.tres" type="StyleBox" id=5]
 [ext_resource path="res://knytt/ui/styles/ScrollbarGrabber.tres" type="StyleBox" id=6]

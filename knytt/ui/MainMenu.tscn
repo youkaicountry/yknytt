@@ -17,12 +17,12 @@ anchor_bottom = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -45.0
-margin_bottom = -10.0
-focus_neighbour_left = NodePath("PlayButton")
-focus_neighbour_top = NodePath("PlayButton")
-focus_neighbour_right = NodePath("PlayButton")
-focus_neighbour_bottom = NodePath("PlayButton")
+offset_top = -45.0
+offset_bottom = -10.0
+focus_neighbor_left = NodePath("PlayButton")
+focus_neighbor_top = NodePath("PlayButton")
+focus_neighbor_right = NodePath("PlayButton")
+focus_neighbor_bottom = NodePath("PlayButton")
 focus_next = NodePath("PlayButton")
 focus_previous = NodePath("PlayButton")
 focus_mode = 2
@@ -31,52 +31,52 @@ alignment = 1
 [node name="TutorialButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 40.0
-margin_right = 120.0
-margin_bottom = 35.0
-focus_neighbour_left = NodePath("../QuitButton")
+offset_left = 40.0
+offset_right = 120.0
+offset_bottom = 35.0
+focus_neighbor_left = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
 text = "Tutorial"
 
 [node name="PlayButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 124.0
-margin_right = 204.0
-margin_bottom = 35.0
+offset_left = 124.0
+offset_right = 204.0
+offset_bottom = 35.0
 text = "Play"
 
 [node name="DownloadButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 208.0
-margin_right = 308.064
-margin_bottom = 35.0
+offset_left = 208.0
+offset_right = 308.064
+offset_bottom = 35.0
 text = " Download Levels "
 
 [node name="CreditsButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 312.0
-margin_right = 392.0
-margin_bottom = 35.0
+offset_left = 312.0
+offset_right = 392.0
+offset_bottom = 35.0
 text = "Credits"
 
 [node name="SettingsButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 396.0
-margin_right = 476.0
-margin_bottom = 35.0
+offset_left = 396.0
+offset_right = 476.0
+offset_bottom = 35.0
 text = "Settings"
 
 [node name="QuitButton" parent="ButtonRow" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 480.0
-margin_right = 560.0
-margin_bottom = 35.0
-focus_neighbour_right = NodePath("../TutorialButton")
+offset_left = 480.0
+offset_right = 560.0
+offset_bottom = 35.0
+focus_neighbor_right = NodePath("../TutorialButton")
 focus_next = NodePath("../TutorialButton")
 text = "Quit"
 
@@ -84,7 +84,7 @@ text = "Quit"
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_bottom = -45.0
+offset_bottom = -45.0
 
 [node name="Control2" type="Control" parent="CloudControl"]
 anchor_top = 0.5
@@ -94,10 +94,10 @@ anchor_bottom = 0.5
 position = Vector2( 0, 0 )
 
 [node name="Fade" parent="." instance=ExtResource( 11 )]
-margin_left = 2.0
-margin_top = -0.8909
-margin_right = 2.0
-margin_bottom = -0.8909
+offset_left = 2.0
+offset_top = -0.8909
+offset_right = 2.0
+offset_bottom = -0.8909
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )

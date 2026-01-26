@@ -5,15 +5,15 @@
 
 
 [node name="ItemInfo0" type="Control"]
-margin_right = 24.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 24, 24 )
+offset_right = 24.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 24, 24 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemInfo" type="AnimatedSprite" parent="."]
+[node name="ItemInfo" type="AnimatedSprite2D" parent="."]
 frames = ExtResource( 2 )
 animation = "Power0"
 centered = false

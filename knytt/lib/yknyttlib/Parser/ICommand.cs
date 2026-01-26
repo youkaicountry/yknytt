@@ -1,4 +1,4 @@
-﻿namespace YKnyttLib.Parser
+namespace YKnyttLib.Parser
 {
     public interface ICommand
     {

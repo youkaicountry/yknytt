@@ -13,7 +13,7 @@ extents = Vector2( 7, 5.5 )
 script = ExtResource( 3 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
 [node name="WallHitArea" type="Area2D" parent="."]

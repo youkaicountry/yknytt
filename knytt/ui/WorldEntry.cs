@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-public class WorldEntry
+public partial class WorldEntry
 {
     public string Name;
     public string Author;
@@ -14,7 +14,7 @@ public class WorldEntry
     public List<string> Categories = new List<string>();
     public ulong InstalledTime;
     public ulong LastPlayedTime;
-    public string Path;
+    public string Path3D;
     public bool HasServerInfo;
     public string Link;
     public long FileSize;
@@ -53,7 +53,7 @@ public class WorldEntry
         Size = info.Size;
         Difficulties = info.Difficulties;
         Categories = info.Categories;
-        Path = info.Path;
+        Path3D = info.Path3D;
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
         HasSaves = info.HasSaves;

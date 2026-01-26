@@ -1,13 +1,13 @@
 [gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/ui/SettingsScreen.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=4]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/ui/GDKnyttCheckBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=7]
-[ext_resource path="res://knytt/ui/img/slider_pip_hover.png" type="Texture" id=8]
+[ext_resource path="res://knytt/ui/img/slider_pip_hover.png" type="Texture2D" id=8]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonDownFocusStyle.tres" type="StyleBox" id=9]
 [ext_resource path="res://knytt/ui/DirectoriesScreen.cs" type="Script" id=10]
 [ext_resource path="res://knytt/ui/touch/TouchSettingsScreen.cs" type="Script" id=11]
@@ -62,334 +62,334 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -40.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../BottomControl")
-focus_neighbour_top = NodePath("../BottomControl")
-focus_neighbour_right = NodePath("../ActiveTab")
-focus_neighbour_bottom = NodePath("../ActiveTab")
+offset_left = -85.0
+offset_top = -40.0
+offset_right = -5.0
+offset_bottom = -5.0
+focus_neighbor_left = NodePath("../BottomControl")
+focus_neighbor_top = NodePath("../BottomControl")
+focus_neighbor_right = NodePath("../ActiveTab")
+focus_neighbor_bottom = NodePath("../ActiveTab")
 focus_next = NodePath("../ActiveTab")
 focus_previous = NodePath("../BottomControl")
 text = "Back"
 
 [node name="ActiveTab" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+offset_right = 40.0
+offset_bottom = 14.0
 focus_mode = 2
 
 [node name="BottomControl" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+offset_right = 40.0
+offset_bottom = 14.0
 focus_mode = 2
 
 [node name="TabsContainer" type="HBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 15.0
-margin_right = 436.0
-margin_bottom = 45.0
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 436.0
+offset_bottom = 45.0
 
 [node name="GeneralTab" parent="TabsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 30.0
-focus_neighbour_left = NodePath("../AudioTab")
-focus_neighbour_top = NodePath("../../BackButton")
-focus_neighbour_bottom = NodePath("../../GeneralContainer/Graphics/FullScreen")
+offset_right = 80.0
+offset_bottom = 30.0
+focus_neighbor_left = NodePath("../AudioTab")
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../../GeneralContainer/Graphics/FullScreen")
 focus_previous = NodePath("../AudioTab")
-custom_styles/focus = ExtResource( 9 )
+theme_override_styles/focus = ExtResource( 9 )
 toggle_mode = true
 text = "General"
 
 [node name="KeysTab" parent="TabsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 84.0
-margin_right = 164.0
-margin_bottom = 30.0
-focus_neighbour_top = NodePath("../../BackButton")
-focus_neighbour_bottom = NodePath("../../KeysContainer/FromTab")
-custom_styles/focus = ExtResource( 9 )
+offset_left = 84.0
+offset_right = 164.0
+offset_bottom = 30.0
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../../KeysContainer/FromTab")
+theme_override_styles/focus = ExtResource( 9 )
 toggle_mode = true
 text = "Input"
 
 [node name="TouchTab" parent="TabsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 168.0
-margin_right = 248.0
-margin_bottom = 30.0
-focus_neighbour_top = NodePath("../../BackButton")
-focus_neighbour_bottom = NodePath("../../TouchContainer/EnableContainer/EnableButton")
-custom_styles/focus = ExtResource( 9 )
+offset_left = 168.0
+offset_right = 248.0
+offset_bottom = 30.0
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../../TouchContainer/EnableContainer/EnableButton")
+theme_override_styles/focus = ExtResource( 9 )
 toggle_mode = true
 text = "Touch Panel"
 
 [node name="DirTab" parent="TabsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 252.0
-margin_right = 332.0
-margin_bottom = 30.0
-focus_neighbour_top = NodePath("../../BackButton")
-focus_neighbour_bottom = NodePath("../../DirContainer/WorldsContainer/ChangeButton")
-custom_styles/focus = ExtResource( 9 )
+offset_left = 252.0
+offset_right = 332.0
+offset_bottom = 30.0
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_bottom = NodePath("../../DirContainer/WorldsContainer/ChangeButton")
+theme_override_styles/focus = ExtResource( 9 )
 toggle_mode = true
 text = "Directories"
 
 [node name="AudioTab" parent="TabsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 336.0
-margin_right = 416.0
-margin_bottom = 30.0
-focus_neighbour_top = NodePath("../../BackButton")
-focus_neighbour_right = NodePath("../GeneralTab")
-focus_neighbour_bottom = NodePath("../../AudioContainer/OptionsContainer/ClassicDoubleJumpSound")
+offset_left = 336.0
+offset_right = 416.0
+offset_bottom = 30.0
+focus_neighbor_top = NodePath("../../BackButton")
+focus_neighbor_right = NodePath("../GeneralTab")
+focus_neighbor_bottom = NodePath("../../AudioContainer/OptionsContainer/ClassicDoubleJumpSound")
 focus_next = NodePath("../GeneralTab")
-custom_styles/focus = ExtResource( 9 )
+theme_override_styles/focus = ExtResource( 9 )
 toggle_mode = true
 text = "Audio"
 
 [node name="GeneralContainer" type="HBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 50.0
-margin_right = 188.388
-margin_bottom = 287.0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 188.388
+offset_bottom = 287.0
 mouse_filter = 2
 
 [node name="Graphics" type="VBoxContainer" parent="GeneralContainer"]
-margin_right = 164.0
-margin_bottom = 237.0
-rect_min_size = Vector2( 164, 0 )
-custom_constants/separation = 0
+offset_right = 164.0
+offset_bottom = 237.0
+custom_minimum_size = Vector2( 164, 0 )
+theme_override_constants/separation = 0
 
 [node name="FullScreen" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
-margin_right = 164.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../Misc/ShaderContainer/Shader")
-focus_neighbour_top = NodePath("../../../TabsContainer/GeneralTab")
-focus_neighbour_right = NodePath("../../Graphics2/Height/IntScale")
+offset_right = 164.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../Misc/ShaderContainer/Shader")
+focus_neighbor_top = NodePath("../../../TabsContainer/GeneralTab")
+focus_neighbor_right = NodePath("../../Graphics2/Height/IntScale")
 focus_previous = NodePath("../../../TabsContainer/GeneralTab")
 
 [node name="SmoothScale" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
-margin_top = 33.0
-margin_right = 164.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../Misc/OfflineDropdown")
-focus_neighbour_right = NodePath("../../Graphics2/Height/IntScale")
+offset_top = 33.0
+offset_right = 164.0
+offset_bottom = 66.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../Misc/OfflineDropdown")
+focus_neighbor_right = NodePath("../../Graphics2/Height/IntScale")
 text = "Smooth Scale"
 
 [node name="WSOD" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
-margin_top = 66.0
-margin_right = 164.0
-margin_bottom = 99.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../Misc/OfflineDropdown")
-focus_neighbour_right = NodePath("../../Graphics2/Seamless")
+offset_top = 66.0
+offset_right = 164.0
+offset_bottom = 99.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../Misc/OfflineDropdown")
+focus_neighbor_right = NodePath("../../Graphics2/Seamless")
 text = "White Respawn Screen"
 
 [node name="DownButtonHint" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
-margin_top = 99.0
-margin_right = 164.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../../BackButton")
-focus_neighbour_right = NodePath("../../Graphics2/Border")
+offset_top = 99.0
+offset_right = 164.0
+offset_bottom = 132.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../../BackButton")
+focus_neighbor_right = NodePath("../../Graphics2/Border")
 text = "Down Button Hint"
 
 [node name="UmbrellaCheat" parent="GeneralContainer/Graphics" instance=ExtResource( 6 )]
-margin_top = 132.0
-margin_right = 164.0
-margin_bottom = 165.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../../BackButton")
-focus_neighbour_right = NodePath("../../Graphics2/MapContainer/ForcedMap")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_top = 132.0
+offset_right = 164.0
+offset_bottom = 165.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../../BackButton")
+focus_neighbor_right = NodePath("../../Graphics2/MapContainer/ForcedMap")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 text = "Fold Umbrella on Jump"
 
 [node name="Graphics2" type="VBoxContainer" parent="GeneralContainer"]
-margin_left = 168.0
-margin_right = 332.0
-margin_bottom = 237.0
-rect_min_size = Vector2( 164, 0 )
-custom_constants/separation = 0
+offset_left = 168.0
+offset_right = 332.0
+offset_bottom = 237.0
+custom_minimum_size = Vector2( 164, 0 )
+theme_override_constants/separation = 0
 
 [node name="Height" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
-margin_right = 164.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 0, 22 )
-custom_constants/separation = 0
+offset_right = 164.0
+offset_bottom = 22.0
+custom_minimum_size = Vector2( 0, 22 )
+theme_override_constants/separation = 0
 
 [node name="Value" type="Label" parent="GeneralContainer/Graphics2/Height"]
-margin_top = 2.0
-margin_right = 106.0
-margin_bottom = 19.0
-rect_min_size = Vector2( 0, 17 )
+offset_top = 2.0
+offset_right = 106.0
+offset_bottom = 19.0
+custom_minimum_size = Vector2( 0, 17 )
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Used Height: 100%"
 valign = 1
 
 [node name="IntScale" parent="GeneralContainer/Graphics2/Height" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 106.0
-margin_right = 164.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 58, 0 )
-focus_neighbour_top = NodePath("../../../../TabsContainer/GeneralTab")
+offset_left = 106.0
+offset_right = 164.0
+offset_bottom = 22.0
+custom_minimum_size = Vector2( 58, 0 )
+focus_neighbor_top = NodePath("../../../../TabsContainer/GeneralTab")
 text = "Round"
 
 [node name="Aspect" type="HSlider" parent="GeneralContainer/Graphics2"]
-margin_top = 22.0
-margin_right = 164.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 150, 27 )
-focus_neighbour_bottom = NodePath("../Seamless")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 2 )
-custom_styles/grabber_area = SubResource( 3 )
+offset_top = 22.0
+offset_right = 164.0
+offset_bottom = 49.0
+custom_minimum_size = Vector2( 150, 27 )
+focus_neighbor_bottom = NodePath("../Seamless")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 2 )
+theme_override_styles/grabber_area = SubResource( 3 )
 min_value = 0.4
 max_value = 1.0
 step = 0.001
 value = 1.0
 
 [node name="Width" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
-margin_top = 49.0
-margin_right = 164.0
-margin_bottom = 66.0
-custom_constants/separation = 0
+offset_top = 49.0
+offset_right = 164.0
+offset_bottom = 66.0
+theme_override_constants/separation = 0
 
 [node name="Value" type="Label" parent="GeneralContainer/Graphics2/Width"]
-margin_right = 74.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 0, 17 )
+offset_right = 74.0
+offset_bottom = 17.0
+custom_minimum_size = Vector2( 0, 17 )
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Width: 100%"
 valign = 1
 
 [node name="Resolution" type="Label" parent="GeneralContainer/Graphics2/Width"]
-margin_left = 74.0
-margin_top = 2.0
-margin_right = 164.0
-margin_bottom = 15.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 74.0
+offset_top = 2.0
+offset_right = 164.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "1600x1240 (x1.75)"
 align = 1
 valign = 1
 
 [node name="Seamless" parent="GeneralContainer/Graphics2" instance=ExtResource( 6 )]
-margin_top = 66.0
-margin_right = 164.0
-margin_bottom = 99.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../Graphics/WSOD")
-focus_neighbour_top = NodePath("../Aspect")
-focus_neighbour_right = NodePath("../../Misc/OfflineDropdown")
+offset_top = 66.0
+offset_right = 164.0
+offset_bottom = 99.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../Graphics/WSOD")
+focus_neighbor_top = NodePath("../Aspect")
+focus_neighbor_right = NodePath("../../Misc/OfflineDropdown")
 text = "Seamless Side Scroll"
 
 [node name="Border" parent="GeneralContainer/Graphics2" instance=ExtResource( 6 )]
-margin_top = 99.0
-margin_right = 164.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../Graphics/DownButtonHint")
-focus_neighbour_right = NodePath("../../../BackButton")
-text = "Area Border"
+offset_top = 99.0
+offset_right = 164.0
+offset_bottom = 132.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../Graphics/DownButtonHint")
+focus_neighbor_right = NodePath("../../../BackButton")
+text = "Area3D Border"
 
 [node name="MapContainer" type="HBoxContainer" parent="GeneralContainer/Graphics2"]
-margin_top = 132.0
-margin_right = 164.0
-margin_bottom = 165.0
-rect_min_size = Vector2( 0, 33 )
-custom_constants/separation = 0
+offset_top = 132.0
+offset_right = 164.0
+offset_bottom = 165.0
+custom_minimum_size = Vector2( 0, 33 )
+theme_override_constants/separation = 0
 
 [node name="Label" type="Label" parent="GeneralContainer/Graphics2/MapContainer"]
-margin_top = 10.0
-margin_right = 26.0
-margin_bottom = 23.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 10.0
+offset_right = 26.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Map:"
 
 [node name="ForcedMap" parent="GeneralContainer/Graphics2/MapContainer" instance=ExtResource( 6 )]
-margin_left = 26.0
-margin_right = 85.0
-margin_bottom = 33.0
-focus_neighbour_left = NodePath("../../../Graphics/UmbrellaCheat")
-focus_neighbour_right = NodePath("../DetailedMap")
-focus_neighbour_bottom = NodePath("../DetailedMap")
+offset_left = 26.0
+offset_right = 85.0
+offset_bottom = 33.0
+focus_neighbor_left = NodePath("../../../Graphics/UmbrellaCheat")
+focus_neighbor_right = NodePath("../DetailedMap")
+focus_neighbor_bottom = NodePath("../DetailedMap")
 focus_next = NodePath("../DetailedMap")
-custom_constants/hseparation = 0
+theme_override_constants/h_separation = 0
 text = "Forced"
 
 [node name="DetailedMap" parent="GeneralContainer/Graphics2/MapContainer" instance=ExtResource( 6 )]
-margin_left = 85.0
-margin_right = 152.0
-margin_bottom = 33.0
-focus_neighbour_left = NodePath("../ForcedMap")
-focus_neighbour_top = NodePath("../ForcedMap")
-focus_neighbour_right = NodePath("../../../../BackButton")
-focus_neighbour_bottom = NodePath("../../../../BackButton")
+offset_left = 85.0
+offset_right = 152.0
+offset_bottom = 33.0
+focus_neighbor_left = NodePath("../ForcedMap")
+focus_neighbor_top = NodePath("../ForcedMap")
+focus_neighbor_right = NodePath("../../../../BackButton")
+focus_neighbor_bottom = NodePath("../../../../BackButton")
 focus_next = NodePath("../../../Misc/ShaderContainer/Shader")
-custom_constants/hseparation = 0
+theme_override_constants/h_separation = 0
 text = "Detailed"
 
 [node name="Misc" type="VBoxContainer" parent="GeneralContainer"]
-margin_left = 336.0
-margin_right = 500.0
-margin_bottom = 237.0
-rect_min_size = Vector2( 164, 0 )
+offset_left = 336.0
+offset_right = 500.0
+offset_bottom = 237.0
+custom_minimum_size = Vector2( 164, 0 )
 mouse_filter = 2
 
 [node name="ShaderContainer" type="HBoxContainer" parent="GeneralContainer/Misc"]
-margin_right = 164.0
-margin_bottom = 31.0
-rect_min_size = Vector2( 0, 30 )
+offset_right = 164.0
+offset_bottom = 31.0
+custom_minimum_size = Vector2( 0, 30 )
 
 [node name="Shader" parent="GeneralContainer/Misc/ShaderContainer" instance=ExtResource( 5 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 80.0
-margin_bottom = 31.0
-rect_min_size = Vector2( 80, 31 )
-focus_neighbour_top = NodePath("../../../../TabsContainer/GeneralTab")
-focus_neighbour_right = NodePath("../../../Graphics/FullScreen")
+offset_right = 80.0
+offset_bottom = 31.0
+custom_minimum_size = Vector2( 80, 31 )
+focus_neighbor_top = NodePath("../../../../TabsContainer/GeneralTab")
+focus_neighbor_right = NodePath("../../../Graphics/FullScreen")
 text = "No"
 items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "Sepia", null, false, 3, null, "VHS", null, false, 4, null ]
 selected = 0
 
 [node name="ShaderLabel" type="Label" parent="GeneralContainer/Misc/ShaderContainer"]
-margin_left = 84.0
-margin_top = 9.0
-margin_right = 143.0
-margin_bottom = 22.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 84.0
+offset_top = 9.0
+offset_right = 143.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Video Filter"
 
 [node name="DownloadSaves" parent="GeneralContainer/Misc" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 35.0
-margin_right = 164.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 80, 31 )
-focus_neighbour_left = NodePath("../../Graphics2/Seamless")
-focus_neighbour_right = NodePath("../../Graphics/SmoothScale")
+offset_top = 35.0
+offset_right = 164.0
+offset_bottom = 66.0
+custom_minimum_size = Vector2( 80, 31 )
+focus_neighbor_left = NodePath("../../Graphics2/Seamless")
+focus_neighbor_right = NodePath("../../Graphics/SmoothScale")
 text = "Download Saves"
 
 [node name="OfflineDropdown" parent="GeneralContainer/Misc" instance=ExtResource( 5 )]
@@ -397,307 +397,307 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 70.0
-margin_right = 164.0
-margin_bottom = 101.0
-rect_min_size = Vector2( 0, 31 )
-focus_neighbour_left = NodePath("../../Graphics2/Seamless")
-focus_neighbour_right = NodePath("../../Graphics/WSOD")
-focus_neighbour_bottom = NodePath("../../Graphics2/MapContainer/DetailedMap")
+offset_top = 70.0
+offset_right = 164.0
+offset_bottom = 101.0
+custom_minimum_size = Vector2( 0, 31 )
+focus_neighbor_left = NodePath("../../Graphics2/Seamless")
+focus_neighbor_right = NodePath("../../Graphics/WSOD")
+focus_neighbor_bottom = NodePath("../../Graphics2/MapContainer/DetailedMap")
 focus_next = NodePath("../../../BackButton")
 text = "Server Interaction: On"
 items = [ "Server Interaction: On", null, false, 0, null, "Achievements Off", null, false, 1, null, "Completely Offline", null, false, 2, null ]
 selected = 0
 
 [node name="LabelEmpty" type="Label" parent="GeneralContainer/Misc"]
-margin_top = 105.0
-margin_right = 164.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 0, 17 )
+offset_top = 105.0
+offset_right = 164.0
+offset_bottom = 122.0
+custom_minimum_size = Vector2( 0, 17 )
 
 [node name="LabelDetailed" type="Label" parent="GeneralContainer/Misc"]
-margin_top = 126.0
-margin_right = 164.0
-margin_bottom = 171.0
-custom_colors/font_color = Color( 0.376471, 0.376471, 0.376471, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 126.0
+offset_right = 164.0
+offset_bottom = 171.0
+theme_override_colors/font_color = Color( 0.376471, 0.376471, 0.376471, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "If you are experiencing lags at save points, you can turn off detailed maps."
 valign = 1
 autowrap = true
 
 [node name="KeysContainer" type="Control" parent="."]
 visible = false
-margin_left = 20.0
-margin_top = 46.0
-margin_right = 100.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 0, 40 )
+offset_left = 20.0
+offset_top = 46.0
+offset_right = 100.0
+offset_bottom = 90.0
+custom_minimum_size = Vector2( 0, 40 )
 mouse_filter = 2
 script = ExtResource( 13 )
 
 [node name="FromTab" type="Label" parent="KeysContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
+offset_right = 40.0
+offset_bottom = 14.0
 focus_mode = 2
 
 [node name="SettingsContainer" type="VBoxContainer" parent="KeysContainer"]
-margin_right = 255.477
-margin_bottom = 233.322
+offset_right = 255.477
+offset_bottom = 233.322
 
 [node name="ToTab" type="ColorRect" parent="KeysContainer/SettingsContainer"]
-margin_right = 301.0
+offset_right = 301.0
 focus_mode = 2
 
 [node name="JumpSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 4.0
-margin_right = 301.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/UpSetting")
+offset_top = 4.0
+offset_right = 301.0
+offset_bottom = 27.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../KSSettingsContainer/UpSetting")
 Action = "jump"
 ActionLabel = "Jump"
 
 [node name="UmbrellaSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 31.0
-margin_right = 301.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/DownSetting")
+offset_top = 31.0
+offset_right = 301.0
+offset_bottom = 54.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../KSSettingsContainer/DownSetting")
 Action = "umbrella"
 ActionLabel = "Umbrella"
 
 [node name="WalkSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 58.0
-margin_right = 301.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/LeftSetting")
+offset_top = 58.0
+offset_right = 301.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../KSSettingsContainer/LeftSetting")
 Action = "walk"
 ActionLabel = "Walk"
 
 [node name="HologramSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 85.0
-margin_right = 301.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/RightSetting")
+offset_top = 85.0
+offset_right = 301.0
+offset_bottom = 108.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../KSSettingsContainer/RightSetting")
 Action = "hologram"
 ActionLabel = "Hologram"
 
 [node name="InfoSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 112.0
-margin_right = 301.0
-margin_bottom = 135.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../KSSettingsContainer/DieSetting")
+offset_top = 112.0
+offset_right = 301.0
+offset_bottom = 135.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../KSSettingsContainer/DieSetting")
 Action = "show_info"
 ActionLabel = "Info"
 
 [node name="MapSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 139.0
-margin_right = 301.0
-margin_bottom = 162.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../StickContainter/LeftStick")
+offset_top = 139.0
+offset_right = 301.0
+offset_bottom = 162.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../StickContainter/LeftStick")
 Action = "map"
 ActionLabel = "Map"
 
 [node name="PauseSetting" parent="KeysContainer/SettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 166.0
-margin_right = 301.0
-margin_bottom = 189.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../../BackButton")
+offset_top = 166.0
+offset_right = 301.0
+offset_bottom = 189.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../../BackButton")
 Action = "pause"
 ActionLabel = "Pause"
 
 [node name="ToBack" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 193.0
-margin_right = 301.0
-margin_bottom = 208.0
-rect_min_size = Vector2( 0, 15 )
+offset_top = 193.0
+offset_right = 301.0
+offset_bottom = 208.0
+custom_minimum_size = Vector2( 0, 15 )
 focus_mode = 2
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Info + Pause (or `) to show console"
 align = 1
 valign = 1
 
 [node name="Label" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 212.0
-margin_right = 301.0
-margin_bottom = 227.0
-rect_min_size = Vector2( 0, 15 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 212.0
+offset_right = 301.0
+offset_bottom = 227.0
+custom_minimum_size = Vector2( 0, 15 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Info + Umbrella + Left/Right to adjust height"
 align = 1
 valign = 1
 
 [node name="Label2" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 231.0
-margin_right = 301.0
-margin_bottom = 246.0
-rect_min_size = Vector2( 0, 15 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 231.0
+offset_right = 301.0
+offset_bottom = 246.0
+custom_minimum_size = Vector2( 0, 15 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Info + Umbrella + Down for emergency save (use carefully)"
 align = 1
 valign = 1
 
 [node name="LabelExit" type="Label" parent="KeysContainer/SettingsContainer"]
-margin_top = 462.0
-margin_right = 301.0
-margin_bottom = 477.0
-rect_min_size = Vector2( 0, 15 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 462.0
+offset_right = 301.0
+offset_bottom = 477.0
+custom_minimum_size = Vector2( 0, 15 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Select + Start for emergency exit"
 align = 1
 valign = 1
 
 [node name="KSSettingsContainer" type="VBoxContainer" parent="KeysContainer"]
-margin_left = 252.0
-margin_right = 513.571
-margin_bottom = 233.0
+offset_left = 252.0
+offset_right = 513.571
+offset_bottom = 233.0
 mouse_filter = 2
 
 [node name="ToTab" type="ColorRect" parent="KeysContainer/KSSettingsContainer"]
-margin_right = 261.0
+offset_right = 261.0
 focus_mode = 2
 
 [node name="UpSetting" parent="KeysContainer/KSSettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 4.0
-margin_right = 261.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/JumpSetting")
+offset_top = 4.0
+offset_right = 261.0
+offset_bottom = 27.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../SettingsContainer/JumpSetting")
 Action = "up"
 ActionLabel = "Up"
 
 [node name="DownSetting" parent="KeysContainer/KSSettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 31.0
-margin_right = 261.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/UmbrellaSetting")
+offset_top = 31.0
+offset_right = 261.0
+offset_bottom = 54.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../SettingsContainer/UmbrellaSetting")
 Action = "down"
 ActionLabel = "Down"
 
 [node name="LeftSetting" parent="KeysContainer/KSSettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 58.0
-margin_right = 261.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/WalkSetting")
+offset_top = 58.0
+offset_right = 261.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../SettingsContainer/WalkSetting")
 Action = "left"
 ActionLabel = "Left"
 
 [node name="RightSetting" parent="KeysContainer/KSSettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 85.0
-margin_right = 261.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/HologramSetting")
+offset_top = 85.0
+offset_right = 261.0
+offset_bottom = 108.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../SettingsContainer/HologramSetting")
 Action = "right"
 ActionLabel = "Right"
 
 [node name="DieSetting" parent="KeysContainer/KSSettingsContainer" instance=ExtResource( 12 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 112.0
-margin_right = 261.0
-margin_bottom = 135.0
-rect_min_size = Vector2( 0, 23 )
-focus_neighbour_left = NodePath("../../SettingsContainer/InfoSetting")
+offset_top = 112.0
+offset_right = 261.0
+offset_bottom = 135.0
+custom_minimum_size = Vector2( 0, 23 )
+focus_neighbor_left = NodePath("../../SettingsContainer/InfoSetting")
 Action = "debug_die"
 ActionLabel = "Die"
 
 [node name="ToStick" type="Label" parent="KeysContainer/KSSettingsContainer"]
-margin_top = 139.0
-margin_right = 261.0
-margin_bottom = 153.0
+offset_top = 139.0
+offset_right = 261.0
+offset_bottom = 153.0
 focus_mode = 2
 mouse_filter = 1
 
 [node name="StickContainter" type="Control" parent="KeysContainer"]
-margin_left = 268.0
-margin_top = 120.0
+offset_left = 268.0
+offset_top = 120.0
 
 [node name="FromStickUp" type="Label" parent="KeysContainer/StickContainter"]
-margin_left = -16.0
-margin_top = 37.0
-margin_right = -16.0
-margin_bottom = 51.0
+offset_left = -16.0
+offset_top = 37.0
+offset_right = -16.0
+offset_bottom = 51.0
 focus_mode = 2
 mouse_filter = 1
 
 [node name="FromStickSide" type="Label" parent="KeysContainer/StickContainter"]
-margin_left = -16.0
-margin_top = 55.0
-margin_right = -16.0
-margin_bottom = 69.0
+offset_left = -16.0
+offset_top = 55.0
+offset_right = -16.0
+offset_bottom = 69.0
 focus_mode = 2
 mouse_filter = 1
 
 [node name="LeftStick" parent="KeysContainer/StickContainter" instance=ExtResource( 6 )]
-margin_left = 47.0
-margin_top = 16.0
-margin_right = 222.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 20 )
-focus_neighbour_left = NodePath("../FromStickSide")
-focus_neighbour_top = NodePath("../FromStickUp")
-focus_neighbour_right = NodePath("../../../BackButton")
-focus_neighbour_bottom = NodePath("../SensitivitySlider")
+offset_left = 47.0
+offset_top = 16.0
+offset_right = 222.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 0, 20 )
+focus_neighbor_left = NodePath("../FromStickSide")
+focus_neighbor_top = NodePath("../FromStickUp")
+focus_neighbor_right = NodePath("../../../BackButton")
+focus_neighbor_bottom = NodePath("../SensitivitySlider")
 focus_next = NodePath("../SensitivitySlider")
 focus_previous = NodePath("../FromStickUp")
 text = "Use Left Stick for Movement"
 
 [node name="Label" type="Label" parent="KeysContainer/StickContainter"]
-margin_left = -15.0
-margin_top = 47.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = -15.0
+offset_top = 47.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Stick Sensitivity"
 
 [node name="SensitivitySlider" type="HSlider" parent="KeysContainer/StickContainter"]
-margin_left = 66.0
-margin_top = 40.0
-margin_right = 220.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 120, 24 )
-focus_neighbour_top = NodePath("../LeftStick")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_left = 66.0
+offset_top = 40.0
+offset_right = 220.0
+offset_bottom = 64.0
+custom_minimum_size = Vector2( 120, 24 )
+focus_neighbor_top = NodePath("../LeftStick")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../BackButton")
 focus_previous = NodePath("../LeftStick")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 15 )
-custom_styles/grabber_area = SubResource( 16 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 15 )
+theme_override_styles/grabber_area = SubResource( 16 )
 min_value = 0.02
 max_value = 0.98
 step = 0.02
@@ -705,44 +705,44 @@ value = 0.7
 
 [node name="KeyPrompt" type="Control" parent="KeysContainer"]
 visible = false
-margin_left = 376.0
-margin_top = 123.0
-margin_right = 376.0
-margin_bottom = 123.0
+offset_left = 376.0
+offset_top = 123.0
+offset_right = 376.0
+offset_bottom = 123.0
 
 [node name="MessageLabel" type="Label" parent="KeysContainer/KeyPrompt"]
-margin_left = -8.0
-margin_top = 15.0
-margin_right = 100.888
-margin_bottom = 23.1188
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = -8.0
+offset_top = 15.0
+offset_right = 100.888
+offset_bottom = 23.1188
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Please press a key..."
 
 [node name="CancelButton" parent="KeysContainer/KeyPrompt" instance=ExtResource( 1 )]
-margin_left = -20.0
-margin_top = 32.0
-margin_right = 36.9703
-margin_bottom = 59.3428
-rect_min_size = Vector2( 60, 0 )
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 36.9703
+offset_bottom = 59.3428
+custom_minimum_size = Vector2( 60, 0 )
 text = "Cancel"
 
 [node name="ClearButton" parent="KeysContainer/KeyPrompt" instance=ExtResource( 1 )]
-margin_left = 44.0
-margin_top = 32.0
-margin_right = 100.97
-margin_bottom = 59.3428
-rect_min_size = Vector2( 0, 0 )
+offset_left = 44.0
+offset_top = 32.0
+offset_right = 100.97
+offset_bottom = 59.3428
+custom_minimum_size = Vector2( 0, 0 )
 text = "Clear"
 
 [node name="KeyPromptNoMouse" type="Label" parent="KeysContainer"]
 visible = false
-margin_left = 368.0
-margin_top = 153.0
-margin_right = 467.0
-margin_bottom = 167.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 368.0
+offset_top = 153.0
+offset_right = 467.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Please press a key..."
 
 [node name="BounceTimer" type="Timer" parent="KeysContainer"]
@@ -751,24 +751,24 @@ one_shot = true
 
 [node name="TouchContainer" type="VBoxContainer" parent="."]
 visible = false
-margin_left = 23.0
-margin_top = 50.0
-margin_right = 573.0
-margin_bottom = 242.0
+offset_left = 23.0
+offset_top = 50.0
+offset_right = 573.0
+offset_bottom = 242.0
 mouse_filter = 2
 script = ExtResource( 11 )
 
 [node name="EnableContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_right = 553.0
-margin_bottom = 30.0
+offset_right = 553.0
+offset_bottom = 30.0
 mouse_filter = 2
 
 [node name="EnableButton" parent="TouchContainer/EnableContainer" instance=ExtResource( 6 )]
-margin_right = 200.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 200, 30 )
-focus_neighbour_left = NodePath("../SwapButton")
-focus_neighbour_top = NodePath("../../../TabsContainer/TouchTab")
+offset_right = 200.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 200, 30 )
+focus_neighbor_left = NodePath("../SwapButton")
+focus_neighbor_top = NodePath("../../../TabsContainer/TouchTab")
 focus_previous = NodePath("../../../TabsContainer/TouchTab")
 text = "Enable touch panel"
 
@@ -777,281 +777,281 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 204.0
-margin_right = 284.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 80, 24 )
-focus_neighbour_top = NodePath("../../../TabsContainer/TouchTab")
+offset_left = 204.0
+offset_right = 284.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 80, 24 )
+focus_neighbor_top = NodePath("../../../TabsContainer/TouchTab")
 text = "At top"
 items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
 selected = 0
 
 [node name="SwapButton" parent="TouchContainer/EnableContainer" instance=ExtResource( 6 )]
-margin_left = 288.0
-margin_right = 553.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 265, 0 )
-focus_neighbour_top = NodePath("../../../TabsContainer/TouchTab")
-focus_neighbour_right = NodePath("../EnableButton")
+offset_left = 288.0
+offset_right = 553.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 265, 0 )
+focus_neighbor_top = NodePath("../../../TabsContainer/TouchTab")
+focus_neighbor_right = NodePath("../EnableButton")
 text = "Arrows on the right side"
 
 [node name="ScaleContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_top = 34.0
-margin_right = 553.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 0, 24 )
+offset_top = 34.0
+offset_right = 553.0
+offset_bottom = 58.0
+custom_minimum_size = Vector2( 0, 24 )
 mouse_filter = 2
 
 [node name="ScaleLabel" type="Label" parent="TouchContainer/ScaleContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 105, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Scale buttons:"
 
 [node name="ScaleSlider" type="HSlider" parent="TouchContainer/ScaleContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 17 )
-custom_styles/grabber_area = SubResource( 18 )
+offset_left = 109.0
+offset_right = 269.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 160, 24 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 17 )
+theme_override_styles/grabber_area = SubResource( 18 )
 min_value = 0.5
 max_value = 2.0
 step = 0.01
 value = 1.0
 
 [node name="ValueLabel" type="Label" parent="TouchContainer/ScaleContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 273.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 32, 8 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 1
 
 [node name="ScaleDefaultButton" parent="TouchContainer/ScaleContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
-custom_styles/disabled = SubResource( 19 )
+offset_left = 309.0
+offset_right = 389.0
+offset_bottom = 24.0
+theme_override_styles/disabled = SubResource( 19 )
 text = "Set 100%"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ViewportContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_top = 62.0
-margin_right = 553.0
-margin_bottom = 86.0
+[node name="SubViewportContainer" type="HBoxContainer" parent="TouchContainer"]
+offset_top = 62.0
+offset_right = 553.0
+offset_bottom = 86.0
 mouse_filter = 2
 
-[node name="ViewportLabel" type="Label" parent="TouchContainer/ViewportContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+[node name="ViewportLabel" type="Label" parent="TouchContainer/SubViewportContainer"]
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 105, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Game viewport:"
 
-[node name="ViewportSlider" type="HSlider" parent="TouchContainer/ViewportContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 20 )
-custom_styles/grabber_area = SubResource( 21 )
+[node name="ViewportSlider" type="HSlider" parent="TouchContainer/SubViewportContainer"]
+offset_left = 109.0
+offset_right = 269.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 160, 24 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 20 )
+theme_override_styles/grabber_area = SubResource( 21 )
 min_value = 0.5
 max_value = 1.0
 step = 0.01
 value = 0.8
 
-[node name="ValueLabel" type="Label" parent="TouchContainer/ViewportContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+[node name="ValueLabel" type="Label" parent="TouchContainer/SubViewportContainer"]
+offset_left = 273.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 32, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "80%"
 align = 1
 
-[node name="ViewportMaxButton" parent="TouchContainer/ViewportContainer" instance=ExtResource( 1 )]
+[node name="ViewportMaxButton" parent="TouchContainer/SubViewportContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
+offset_left = 309.0
+offset_right = 389.0
+offset_bottom = 24.0
 text = "Set 100%"
 
 [node name="JumpContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_top = 90.0
-margin_right = 553.0
-margin_bottom = 114.0
-rect_min_size = Vector2( 0, 24 )
+offset_top = 90.0
+offset_right = 553.0
+offset_bottom = 114.0
+custom_minimum_size = Vector2( 0, 24 )
 mouse_filter = 2
 
 [node name="JumpLabel" type="Label" parent="TouchContainer/JumpContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 105, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Jump button width:"
 
 [node name="JumpSlider" type="HSlider" parent="TouchContainer/JumpContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 17 )
-custom_styles/grabber_area = SubResource( 18 )
+offset_left = 109.0
+offset_right = 269.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 160, 24 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 17 )
+theme_override_styles/grabber_area = SubResource( 18 )
 min_value = 0.5
 max_value = 1.25
 step = 0.01
 value = 1.0
 
 [node name="ValueLabel" type="Label" parent="TouchContainer/JumpContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 273.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 32, 8 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 1
 
 [node name="JumpDefaultButton" parent="TouchContainer/JumpContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
-custom_styles/disabled = SubResource( 19 )
+offset_left = 309.0
+offset_right = 389.0
+offset_bottom = 24.0
+theme_override_styles/disabled = SubResource( 19 )
 text = "Set 100%"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpacityContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_top = 118.0
-margin_right = 553.0
-margin_bottom = 142.0
-rect_min_size = Vector2( 0, 24 )
+offset_top = 118.0
+offset_right = 553.0
+offset_bottom = 142.0
+custom_minimum_size = Vector2( 0, 24 )
 mouse_filter = 2
 
 [node name="OpacityLabel" type="Label" parent="TouchContainer/OpacityContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 105, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Opacity:"
 
 [node name="OpacitySlider" type="HSlider" parent="TouchContainer/OpacityContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 20 )
-custom_styles/grabber_area = SubResource( 21 )
+offset_left = 109.0
+offset_right = 269.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 160, 24 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 20 )
+theme_override_styles/grabber_area = SubResource( 21 )
 max_value = 1.0
 step = 0.01
 value = 0.5
 
 [node name="ValueLabel" type="Label" parent="TouchContainer/OpacityContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 273.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 32, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "50%"
 align = 1
 
 [node name="OpacityMaxButton" parent="TouchContainer/OpacityContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
+offset_left = 309.0
+offset_right = 389.0
+offset_bottom = 24.0
 text = "Set 100%"
 
 [node name="SwipeContainer" type="HBoxContainer" parent="TouchContainer"]
-margin_top = 146.0
-margin_right = 553.0
-margin_bottom = 170.0
+offset_top = 146.0
+offset_right = 553.0
+offset_bottom = 170.0
 mouse_filter = 2
 
 [node name="SwipeLabel" type="Label" parent="TouchContainer/SwipeContainer"]
-margin_top = 5.0
-margin_right = 105.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 105, 0 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 5.0
+offset_right = 105.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 105, 0 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Swipe sensitivity:"
 
 [node name="SwipeSlider" type="HSlider" parent="TouchContainer/SwipeContainer"]
-margin_left = 109.0
-margin_right = 269.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 24 )
-focus_neighbour_bottom = NodePath("../../../BackButton")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 17 )
-custom_styles/grabber_area = SubResource( 18 )
+offset_left = 109.0
+offset_right = 269.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 160, 24 )
+focus_neighbor_bottom = NodePath("../../../BackButton")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 17 )
+theme_override_styles/grabber_area = SubResource( 18 )
 max_value = 2.0
 step = 0.01
 value = 1.0
 
 [node name="ValueLabel" type="Label" parent="TouchContainer/SwipeContainer"]
-margin_left = 273.0
-margin_top = 5.0
-margin_right = 305.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 32, 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = 273.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 18.0
+custom_minimum_size = Vector2( 32, 8 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 1
 
 [node name="SwipeDefaultButton" parent="TouchContainer/SwipeContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 309.0
-margin_right = 389.0
-margin_bottom = 24.0
-focus_neighbour_right = NodePath("../../../BackButton")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_left = 309.0
+offset_right = 389.0
+offset_bottom = 24.0
+focus_neighbor_right = NodePath("../../../BackButton")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../BackButton")
-custom_styles/disabled = SubResource( 19 )
+theme_override_styles/disabled = SubResource( 19 )
 text = "Set 100%"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1061,176 +1061,176 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 23.0
-margin_top = 50.0
-margin_right = -7.0
-margin_bottom = -3.0
+offset_left = 23.0
+offset_top = 50.0
+offset_right = -7.0
+offset_bottom = -3.0
 mouse_filter = 2
 script = ExtResource( 10 )
 
 [node name="Label" type="Label" parent="DirContainer"]
-margin_right = 570.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "External Worlds Directory:"
+offset_right = 570.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
+text = "External Worlds DirAccess:"
 
 [node name="WorldsContainer" type="HBoxContainer" parent="DirContainer"]
-margin_top = 17.0
-margin_right = 570.0
-margin_bottom = 50.0
+offset_top = 17.0
+offset_right = 570.0
+offset_bottom = 50.0
 
 [node name="DirLabel" type="Label" parent="DirContainer/WorldsContainer"]
-margin_top = 10.0
-margin_right = 294.0
-margin_bottom = 23.0
+offset_top = 10.0
+offset_right = 294.0
+offset_bottom = 23.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Not set"
 clip_text = true
 
 [node name="ChangeButton" parent="DirContainer/WorldsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 298.0
-margin_right = 378.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../DownloadBox")
-focus_neighbour_top = NodePath("../../../TabsContainer/DirTab")
+offset_left = 298.0
+offset_right = 378.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 80, 33 )
+focus_neighbor_left = NodePath("../DownloadBox")
+focus_neighbor_top = NodePath("../../../TabsContainer/DirTab")
 focus_previous = NodePath("../../../TabsContainer/DirTab")
 text = "Change"
 
 [node name="ResetButton" parent="DirContainer/WorldsContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 382.0
-margin_right = 462.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_top = NodePath("../../../TabsContainer/DirTab")
+offset_left = 382.0
+offset_right = 462.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 80, 33 )
+focus_neighbor_top = NodePath("../../../TabsContainer/DirTab")
 text = "Reset"
 
 [node name="DownloadBox" parent="DirContainer/WorldsContainer" instance=ExtResource( 6 )]
-margin_left = 466.0
-margin_right = 570.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 104, 0 )
-focus_neighbour_top = NodePath("../../../TabsContainer/DirTab")
-focus_neighbour_right = NodePath("../ChangeButton")
+offset_left = 466.0
+offset_right = 570.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 104, 0 )
+focus_neighbor_top = NodePath("../../../TabsContainer/DirTab")
+focus_neighbor_right = NodePath("../ChangeButton")
 text = "For Download"
 
 [node name="Label2" type="Label" parent="DirContainer"]
-margin_top = 54.0
-margin_right = 570.0
-margin_bottom = 83.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 54.0
+offset_right = 570.0
+offset_bottom = 83.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "You can set it to your Knytt Stories\\Worlds directory or level archive.
 "
 
 [node name="Label3" type="Label" parent="DirContainer"]
-margin_top = 87.0
-margin_right = 570.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 87.0
+offset_right = 570.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Saves directory:"
 
 [node name="SavesContainer" type="HBoxContainer" parent="DirContainer"]
-margin_top = 104.0
-margin_right = 570.0
-margin_bottom = 137.0
+offset_top = 104.0
+offset_right = 570.0
+offset_bottom = 137.0
 
 [node name="DirLabel" type="Label" parent="DirContainer/SavesContainer"]
-margin_top = 10.0
-margin_right = 294.0
-margin_bottom = 23.0
+offset_top = 10.0
+offset_right = 294.0
+offset_bottom = 23.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Default"
 clip_text = true
 
 [node name="ChangeButton" parent="DirContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 298.0
-margin_right = 378.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_left = NodePath("../BackupButton")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_left = 298.0
+offset_right = 378.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 80, 33 )
+focus_neighbor_left = NodePath("../BackupButton")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 text = "Change"
 
 [node name="ResetButton" parent="DirContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 382.0
-margin_right = 462.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_left = 382.0
+offset_right = 462.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 80, 33 )
+focus_neighbor_bottom = NodePath("../../../BackButton")
 text = "Reset"
 
 [node name="BackupButton" parent="DirContainer/SavesContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 466.0
-margin_right = 546.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 80, 33 )
-focus_neighbour_right = NodePath("../ChangeButton")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_left = 466.0
+offset_right = 546.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 80, 33 )
+focus_neighbor_right = NodePath("../ChangeButton")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../BackButton")
 text = "Backup"
 
 [node name="Label" type="Label" parent="DirContainer/SavesContainer"]
-margin_left = 550.0
-margin_top = 9.0
-margin_right = 570.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 20, 0 )
+offset_left = 550.0
+offset_top = 9.0
+offset_right = 570.0
+offset_bottom = 23.0
+custom_minimum_size = Vector2( 20, 0 )
 
 [node name="Label4" type="Label" parent="DirContainer"]
-margin_top = 141.0
-margin_right = 570.0
-margin_bottom = 170.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 141.0
+offset_right = 570.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "You can set it to Knytt Stories\\Saves. Reset goes back to the default directory.
 YKnytt overwrites save files there only during playing."
 
 [node name="ErrorLabel" type="Label" parent="DirContainer"]
-margin_top = 174.0
-margin_right = 570.0
-margin_bottom = 187.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_top = 174.0
+offset_right = 570.0
+offset_bottom = 187.0
+theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 
 [node name="WorldsFileDialog" type="FileDialog" parent="DirContainer"]
-margin_right = 216.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 500, 210 )
+offset_right = 216.0
+offset_bottom = 130.0
+custom_minimum_size = Vector2( 500, 210 )
 window_title = "Select external worlds directory"
 mode_overrides_title = false
 mode = 2
 access = 2
 
 [node name="SavesFileDialog" type="FileDialog" parent="DirContainer"]
-margin_right = 216.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 500, 210 )
+offset_right = 216.0
+offset_bottom = 130.0
+custom_minimum_size = Vector2( 500, 210 )
 window_title = "Select external saves directory"
 mode_overrides_title = false
 mode = 2
 access = 2
 
 [node name="BackupFileDialog" type="FileDialog" parent="DirContainer"]
-margin_right = 216.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 500, 210 )
+offset_right = 216.0
+offset_bottom = 130.0
+custom_minimum_size = Vector2( 500, 210 )
 window_title = "Backup all save files in yknytt-saves.zip"
 mode_overrides_title = false
 mode = 2
@@ -1238,214 +1238,214 @@ access = 2
 
 [node name="AudioContainer" type="HBoxContainer" parent="."]
 visible = false
-margin_left = 23.0
-margin_top = 50.0
-margin_right = 523.0
-margin_bottom = 234.0
+offset_left = 23.0
+offset_top = 50.0
+offset_right = 523.0
+offset_bottom = 234.0
 mouse_filter = 2
-custom_constants/separation = 10
+theme_override_constants/separation = 10
 
 [node name="SlidersContainer" type="VBoxContainer" parent="AudioContainer"]
-margin_right = 247.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 247, 0 )
+offset_right = 247.0
+offset_bottom = 184.0
+custom_minimum_size = Vector2( 247, 0 )
 mouse_filter = 2
-custom_constants/separation = 1
+theme_override_constants/separation = 1
 
 [node name="MasterVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
-margin_right = 247.0
-margin_bottom = 13.0
+offset_right = 247.0
+offset_bottom = 13.0
 
 [node name="Label" type="Label" parent="AudioContainer/SlidersContainer/MasterVolumeLabel"]
-margin_right = 81.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_right = 81.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Master Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MasterVolumeLabel"]
-margin_left = 85.0
-margin_right = 247.0
-margin_bottom = 13.0
+offset_left = 85.0
+offset_right = 247.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
 [node name="MasterVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
-margin_top = 14.0
-margin_right = 247.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 150, 22 )
-focus_neighbour_top = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 2 )
-custom_styles/grabber_area = SubResource( 3 )
+offset_top = 14.0
+offset_right = 247.0
+offset_bottom = 36.0
+custom_minimum_size = Vector2( 150, 22 )
+focus_neighbor_top = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+focus_neighbor_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 2 )
+theme_override_styles/grabber_area = SubResource( 3 )
 
 [node name="MusicVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
-margin_top = 37.0
-margin_right = 247.0
-margin_bottom = 50.0
+offset_top = 37.0
+offset_right = 247.0
+offset_bottom = 50.0
 
 [node name="Label" type="Label" parent="AudioContainer/SlidersContainer/MusicVolumeLabel"]
-margin_right = 76.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_right = 76.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Music Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/MusicVolumeLabel"]
-margin_left = 80.0
-margin_right = 247.0
-margin_bottom = 13.0
+offset_left = 80.0
+offset_right = 247.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
 [node name="MusicVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
-margin_top = 51.0
-margin_right = 247.0
-margin_bottom = 73.0
-rect_min_size = Vector2( 150, 22 )
-focus_neighbour_top = NodePath("../MasterVolumeSlider")
-focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 4 )
-custom_styles/grabber_area = SubResource( 5 )
+offset_top = 51.0
+offset_right = 247.0
+offset_bottom = 73.0
+custom_minimum_size = Vector2( 150, 22 )
+focus_neighbor_top = NodePath("../MasterVolumeSlider")
+focus_neighbor_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 4 )
+theme_override_styles/grabber_area = SubResource( 5 )
 
 [node name="EnvironmentVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
-margin_top = 74.0
-margin_right = 247.0
-margin_bottom = 87.0
+offset_top = 74.0
+offset_right = 247.0
+offset_bottom = 87.0
 
 [node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EnvironmentVolumeLabel"]
-margin_right = 113.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_right = 113.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Environment Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EnvironmentVolumeLabel"]
-margin_left = 117.0
-margin_right = 247.0
-margin_bottom = 13.0
+offset_left = 117.0
+offset_right = 247.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
 [node name="EnvironmentVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
-margin_top = 88.0
-margin_right = 247.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 150, 22 )
-focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 8 )
-custom_styles/grabber_area = SubResource( 9 )
+offset_top = 88.0
+offset_right = 247.0
+offset_bottom = 110.0
+custom_minimum_size = Vector2( 150, 22 )
+focus_neighbor_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 8 )
+theme_override_styles/grabber_area = SubResource( 9 )
 
 [node name="EffectsVolumeLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
-margin_top = 111.0
-margin_right = 247.0
-margin_bottom = 124.0
+offset_top = 111.0
+offset_right = 247.0
+offset_bottom = 124.0
 
 [node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EffectsVolumeLabel"]
-margin_right = 80.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_right = 80.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Effects Volume:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsVolumeLabel"]
-margin_left = 84.0
-margin_right = 247.0
-margin_bottom = 13.0
+offset_left = 84.0
+offset_right = 247.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
 [node name="EffectsVolumeSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
-margin_top = 125.0
-margin_right = 247.0
-margin_bottom = 147.0
-rect_min_size = Vector2( 150, 22 )
-focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 6 )
-custom_styles/grabber_area = SubResource( 7 )
+offset_top = 125.0
+offset_right = 247.0
+offset_bottom = 147.0
+custom_minimum_size = Vector2( 150, 22 )
+focus_neighbor_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 6 )
+theme_override_styles/grabber_area = SubResource( 7 )
 
 [node name="EffectsPanningLabel" type="HBoxContainer" parent="AudioContainer/SlidersContainer"]
-margin_top = 148.0
-margin_right = 247.0
-margin_bottom = 161.0
+offset_top = 148.0
+offset_right = 247.0
+offset_bottom = 161.0
 
 [node name="Label" type="Label" parent="AudioContainer/SlidersContainer/EffectsPanningLabel"]
-margin_right = 83.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_right = 83.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "Effects Panning:"
 
 [node name="Value" type="Label" parent="AudioContainer/SlidersContainer/EffectsPanningLabel"]
-margin_left = 87.0
-margin_right = 247.0
-margin_bottom = 13.0
+offset_left = 87.0
+offset_right = 247.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "100%"
 align = 2
 
 [node name="EffectsPanningSlider" type="HSlider" parent="AudioContainer/SlidersContainer"]
-margin_top = 162.0
-margin_right = 247.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 150, 22 )
-focus_neighbour_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
-focus_neighbour_bottom = NodePath("../../../BackButton")
+offset_top = 162.0
+offset_right = 247.0
+offset_bottom = 184.0
+custom_minimum_size = Vector2( 150, 22 )
+focus_neighbor_right = NodePath("../../OptionsContainer/ClassicDoubleJumpSound")
+focus_neighbor_bottom = NodePath("../../../BackButton")
 focus_next = NodePath("../../../BackButton")
-custom_icons/grabber_highlight = ExtResource( 8 )
-custom_icons/grabber = ExtResource( 2 )
-custom_styles/slider = ExtResource( 7 )
-custom_styles/grabber_area_highlight = SubResource( 6 )
-custom_styles/grabber_area = SubResource( 7 )
+theme_override_icons/grabber_highlight = ExtResource( 8 )
+theme_override_icons/grabber = ExtResource( 2 )
+theme_override_styles/slider = ExtResource( 7 )
+theme_override_styles/grabber_area_highlight = SubResource( 6 )
+theme_override_styles/grabber_area = SubResource( 7 )
 max_value = 1.5
 step = 0.02
 
 [node name="OptionsContainer" type="VBoxContainer" parent="AudioContainer"]
-margin_left = 257.0
-margin_right = 504.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 247, 0 )
+offset_left = 257.0
+offset_right = 504.0
+offset_bottom = 184.0
+custom_minimum_size = Vector2( 247, 0 )
 
 [node name="Placeholder" type="Control" parent="AudioContainer/OptionsContainer"]
-margin_right = 247.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 0, 5 )
+offset_right = 247.0
+offset_bottom = 5.0
+custom_minimum_size = Vector2( 0, 5 )
 
 [node name="ClassicDoubleJumpSound" parent="AudioContainer/OptionsContainer" instance=ExtResource( 6 )]
-margin_top = 9.0
-margin_right = 247.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 0, 33 )
-focus_neighbour_left = NodePath("../../SlidersContainer/MasterVolumeSlider")
-focus_neighbour_top = NodePath("../../../TabsContainer/AudioTab")
-focus_neighbour_bottom = NodePath("../../SlidersContainer/MasterVolumeSlider")
+offset_top = 9.0
+offset_right = 247.0
+offset_bottom = 42.0
+custom_minimum_size = Vector2( 0, 33 )
+focus_neighbor_left = NodePath("../../SlidersContainer/MasterVolumeSlider")
+focus_neighbor_top = NodePath("../../../TabsContainer/AudioTab")
+focus_neighbor_bottom = NodePath("../../SlidersContainer/MasterVolumeSlider")
 focus_next = NodePath("../../SlidersContainer/MasterVolumeSlider")
 focus_previous = NodePath("../../../TabsContainer/AudioTab")
 text = "Classic Double Jump Sound"
@@ -1492,8 +1492,8 @@ text = "Classic Double Jump Sound"
 [connection signal="toggled" from="TouchContainer/EnableContainer/SwapButton" to="TouchContainer" method="_on_SwapButton_toggled"]
 [connection signal="value_changed" from="TouchContainer/ScaleContainer/ScaleSlider" to="TouchContainer" method="_on_ScaleSlider_value_changed"]
 [connection signal="pressed" from="TouchContainer/ScaleContainer/ScaleDefaultButton" to="TouchContainer" method="_on_ScaleDefaultButton_pressed"]
-[connection signal="value_changed" from="TouchContainer/ViewportContainer/ViewportSlider" to="TouchContainer" method="_on_ViewportSlider_value_changed"]
-[connection signal="pressed" from="TouchContainer/ViewportContainer/ViewportMaxButton" to="TouchContainer" method="_on_ViewportMaxButton_pressed"]
+[connection signal="value_changed" from="TouchContainer/SubViewportContainer/ViewportSlider" to="TouchContainer" method="_on_ViewportSlider_value_changed"]
+[connection signal="pressed" from="TouchContainer/SubViewportContainer/ViewportMaxButton" to="TouchContainer" method="_on_ViewportMaxButton_pressed"]
 [connection signal="value_changed" from="TouchContainer/JumpContainer/JumpSlider" to="TouchContainer" method="_on_JumpSlider_value_changed"]
 [connection signal="pressed" from="TouchContainer/JumpContainer/JumpDefaultButton" to="TouchContainer" method="_on_JumpDefaultButton_pressed"]
 [connection signal="value_changed" from="TouchContainer/OpacityContainer/OpacitySlider" to="TouchContainer" method="_on_OpacitySlider_value_changed"]

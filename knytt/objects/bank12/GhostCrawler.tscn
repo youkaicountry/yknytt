@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://knytt/objects/bank12/img/crawler_stop.png" type="Texture" id=1]
-[ext_resource path="res://knytt/objects/bank12/img/crawler_walk.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank12/img/crawler_stop.png" type="Texture2D" id=1]
+[ext_resource path="res://knytt/objects/bank12/img/crawler_walk.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=4]
 
@@ -56,14 +56,14 @@ radarTop = 36
 position = Vector2( 12, 14 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 8 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PoolVector2Array( 7.49455, 23.7476, 3.32763, 12.6358, 8.48668, 3.90506, 16.0268, 3.90506, 20.9875, 12.4373, 16.8205, 23.946 )
+polygon = PackedVector2Array( 7.49455, 23.7476, 3.32763, 12.6358, 8.48668, 3.90506, 16.0268, 3.90506, 20.9875, 12.4373, 16.8205, 23.946 )
 
 [node name="GhostMod" parent="." index="3" instance=ExtResource( 4 )]
 flickerMax = 0.6

@@ -24,7 +24,7 @@ public partial class SavePoint : GDKnyttBaseObject
 
     private async void save(Juni juni)
     {
-        GDArea.GDWorld.Game.saveGame(juni.GDArea.Area.Position, Coords, true);
+        GDArea.GDWorld.Game.saveGame(juni.GDArea.Area3D.Position, Coords, true);
         juni.playSound("save");
         animation.Play("Save");
         await ToSignal(animation, "animation_finished");

@@ -34,21 +34,21 @@ public partial class ViewportTile : SubViewportContainer
     {
         if (!FileAccess.FileExists(filename)) { return null; }
         var reloaded_tex = tex ?? GDKnyttAssetManager.loadTexture2D(GDKnyttAssetManager.loadFile(filename));
-        GetNode<TextureRect>("Viewport/TextureRect").Texture = reloaded_tex;
+        GetNode<TextureRect>("SubViewport/TextureRect").Texture = reloaded_tex;
         return reloaded_tex;
     }
 
     public void addArea(GDKnyttArea area)
     {
-        if (added_areas.Contains(area.Area.MapPosition) || area.Area.Empty) { return; }
+        if (added_areas.Contains(area.Area3D.MapPosition) || area.Area3D.Empty) { return; }
         
-        KnyttPoint tile_coord = area.Area.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+        KnyttPoint tile_coord = area.Area3D.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
         Vector2 pos = new Vector2(TILE_SIZE.X * tile_coord.X, 240 * TILE_SCALE - TILE_SIZE.Y * tile_coord.Y);
-        var image = GetNode<TextureRect>("Viewport/TextureRect").Texture?.GetImage();
+        var image = GetNode<TextureRect>("SubViewport/TextureRect").Texture?.GetImage();
         // Note: Image.Lock() is no longer needed in Godot 4
         if (image != null && image.GetPixel((int)pos.X, 240 * TILE_SCALE - (int)pos.Y).A > 0) { return; }
 
-        Viewport vp = GetNode<Viewport>("Viewport");
+        SubViewport vp = GetNode<SubViewport>("SubViewport");
         var bg = area.Background.Duplicate() as GDKnyttBackground;
         var tiles = area.Tiles.Duplicate() as GDAreaTiles;
         var objects = createObjectTiles(area);
@@ -62,7 +62,7 @@ public partial class ViewportTile : SubViewportContainer
         added_backgrounds.Add(bg);
         added_tiles.Add(tiles);
         added_objects.Add(objects);
-        added_areas.Add(area.Area.MapPosition);
+        added_areas.Add(area.Area3D.MapPosition);
     }
 
     private TileMap createObjectTiles(GDKnyttArea area)
@@ -81,7 +81,7 @@ public partial class ViewportTile : SubViewportContainer
     public bool dump()
     {
         if (added_backgrounds.Count == 0) { return false; }
-        Error? err = GetNodeOrNull<Viewport>("Viewport")?.GetTexture()?.GetImage()?.SavePng(filename);
+        Error? err = GetNodeOrNull<SubViewport>("SubViewport")?.GetTexture()?.GetImage()?.SavePng(filename);
         return err == Error.Ok;
     }
 
@@ -98,6 +98,6 @@ public partial class ViewportTile : SubViewportContainer
 
     public ViewportTexture getTexture()
     {
-        return GetNode<Viewport>("Viewport").GetTexture();
+        return GetNode<SubViewport>("SubViewport").GetTexture();
     }
 }

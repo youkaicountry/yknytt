@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class JuniInput
+public partial class JuniInput
 {
     class PressEdge
     {

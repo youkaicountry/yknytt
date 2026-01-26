@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace YKnyttLib.Parser
 {
-    public class CommandSet
+    public partial class CommandSet
     {
         public List<CommandDeclaration> Commands { get; }
         public Dictionary<string, CommandDeclaration> Name2Command { get; }

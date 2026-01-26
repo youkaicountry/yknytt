@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://knytt/objects/bank6/StuffShooter.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank6/img/6-7.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank6/img/6-7.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
@@ -61,5 +61,5 @@ bulletSpeed = 4.0
 shotPosition = Vector2( 12, 24 )
 distanceToShot = 5
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 10 )

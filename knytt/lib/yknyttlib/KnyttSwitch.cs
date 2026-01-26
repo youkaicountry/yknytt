@@ -3,7 +3,7 @@ using IniParser.Model;
 
 namespace YKnyttLib
 {
-    public class KnyttSwitch
+    public partial class KnyttSwitch
     {
         public enum SwitchID
         {
@@ -22,7 +22,7 @@ namespace YKnyttLib
 
         public KnyttPoint Pos { get; protected set; }
         public SwitchID ID { get; protected set; }
-        public SwitchShape Shape { get; private set; }
+        public SwitchShape Shape3D { get; private set; }
         public bool Visible { get; set; }
         public bool Effect { get; private set; }
         public bool OnTouch { get; private set; }
@@ -55,7 +55,7 @@ namespace YKnyttLib
             OnTouch = getBoolINIValue(data, "Touch", false);
             DenyHologram = getBoolINIValue(data, "DenyHologram", false);
             int shape = getIntINIValue(data, "Type");
-            Shape = shape >= 0 && shape < 4 ? (SwitchShape)shape : SwitchShape.SPOT;
+            Shape3D = shape >= 0 && shape < 4 ? (SwitchShape)shape : SwitchShape.SPOT;
             Sound = getStringINIValue(data, "Sound");
         }
         

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://knytt/objects/bank19/img/19-24.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank19/img/19-24.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/bank4/DropCrawler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/objects/bank4/CeilingDropCrawler.cs" type="Script" id=4]
 
@@ -47,7 +47,7 @@ script = ExtResource( 4 )
 position = Vector2( 12, 7 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 7 )
 
 [node name="DistanceMod" parent="." index="2"]

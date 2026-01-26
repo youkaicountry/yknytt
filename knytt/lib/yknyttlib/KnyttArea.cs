@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace YKnyttLib
 {
-    public class KnyttArea
+    public partial class KnyttArea
     {
         public const int AREA_WIDTH = 25;
         public const int AREA_HEIGHT = 10;
@@ -42,7 +42,7 @@ namespace YKnyttLib
 
         public enum FlagWarpID { A, B, C, All }
 
-        public class FlagWarp
+        public partial class FlagWarp
         {
             public JuniValues.Flag flag;
             public int x;
@@ -262,7 +262,7 @@ namespace YKnyttLib
 
         public override string ToString()
         {
-            return string.Format("[Area {0}]", this.Position);
+            return string.Format("[Area3D {0}]", this.Position);
         }
     }
 }

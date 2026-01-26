@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://knytt/objects/bank1/LiquidPoolDeadly.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank1/img/1-1.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank1/img/1-1.png" type="Texture2D" id=2]
 
 [sub_resource type="RectangleShape2D" id=143]
 extents = Vector2( 12, 5 )
@@ -84,5 +84,5 @@ animations = [ {
 position = Vector2( 12, 19 )
 shape = SubResource( 143 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 142 )

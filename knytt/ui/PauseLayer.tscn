@@ -14,7 +14,7 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 0 )
 
 [node name="PauseMenu" type="CanvasLayer"]
-pause_mode = 2
+process_mode = 3
 script = ExtResource( 3 )
 
 [node name="DarkenRect" type="ColorRect" parent="."]
@@ -30,11 +30,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -55.0
-margin_right = 150.0
-margin_bottom = 55.0
-rect_pivot_offset = Vector2( 150, 55 )
+offset_left = -150.0
+offset_top = -55.0
+offset_right = 150.0
+offset_bottom = 55.0
+pivot_offset = Vector2( 150, 55 )
 script = ExtResource( 2 )
 
 [node name="BounceTimer" type="Timer" parent="PausePanel"]
@@ -56,50 +56,50 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_top = -40.0
-margin_bottom = -5.0
+offset_top = -40.0
+offset_bottom = -5.0
 grow_horizontal = 2
-custom_constants/separation = 8
+theme_override_constants/separation = 8
 
 [node name="ResumeButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 60.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 0 )
-focus_neighbour_left = NodePath("../QuitButton")
-custom_styles/disabled = SubResource( 2 )
+offset_right = 60.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 60, 0 )
+focus_neighbor_left = NodePath("../QuitButton")
+theme_override_styles/disabled = SubResource( 2 )
 text = "Resume"
 
 [node name="SettingsButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 68.0
-margin_right = 128.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 0 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = 68.0
+offset_right = 128.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 60, 0 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "Settings"
 
 [node name="InfoButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 136.0
-margin_right = 205.064
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 0 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = 136.0
+offset_right = 205.064
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 60, 0 )
+theme_override_styles/disabled = SubResource( 2 )
 text = " Select Save "
 
 [node name="QuitButton" parent="PausePanel/ButtonContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 213.0
-margin_right = 273.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 0 )
-focus_neighbour_right = NodePath("../ResumeButton")
-custom_styles/disabled = SubResource( 2 )
+offset_left = 213.0
+offset_right = 273.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 60, 0 )
+focus_neighbor_right = NodePath("../ResumeButton")
+theme_override_styles/disabled = SubResource( 2 )
 text = "Quit"
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 1 )]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bullets/img/bee_bullet.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bullets/img/bee_bullet.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/data/Sfx/Tiny Hit.wav" type="AudioStream" id=4]
 
@@ -48,7 +48,7 @@ collision_mask = 6176
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 7 )
 animation = "disappear"
 

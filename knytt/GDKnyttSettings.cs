@@ -82,7 +82,7 @@ public partial class GDKnyttSettings : Node
             }
             else
             {
-                game.Camera.jumpTo(game.CurrentArea.GlobalCenter);
+                game.Camera3D.jumpTo(game.CurrentArea.GlobalCenter);
                 foreach (var area in game.GDWorld.Areas.Areas.Values)
                 {
                     area.Background.Position = Vector2.Zero;

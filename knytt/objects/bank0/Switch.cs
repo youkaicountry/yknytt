@@ -10,9 +10,9 @@ public abstract partial class Switch : GDKnyttBaseObject
 
     public override void _Ready()
     {
-        var shape = GetNode<Node>("Shapes").GetChild<Node2D>((int)@switch.Shape);
+        var shape = GetNode<Node>("Shapes").GetChild<Node2D>((int)@switch.Shape3D);
         shape.Visible = @switch.Visible;
-        shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", GDArea.Area.ExtraData != null);
+        shape.GetNode<Area2D>("Area2D").SetDeferred("monitoring", GDArea.Area3D.ExtraData != null);
 
         var sound_cmp = @switch.Sound?.ToLower();
         sound = sound_cmp == null || sound_cmp == "" ? "teleport" :

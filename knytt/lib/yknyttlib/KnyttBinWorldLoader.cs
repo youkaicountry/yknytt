@@ -14,7 +14,7 @@ using System.Text;
 
 namespace YKnyttLib
 {
-    public class KnyttBinWorldLoader
+    public partial class KnyttBinWorldLoader
     {
         private readonly Dictionary<string, byte[]> _files;
 

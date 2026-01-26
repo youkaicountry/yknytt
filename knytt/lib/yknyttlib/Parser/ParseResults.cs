@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace YKnyttLib.Parser
 {
-    public class ParseResults
+    public partial class ParseResults
     {
         public List<CommandParseResult> Results { get; }
 

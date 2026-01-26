@@ -1,6 +1,6 @@
 using Godot.Collections;
 
-public class HTTPUtil
+public partial class HTTPUtil
 {
     public static T jsonValue<T>(object obj, string attr) where T : class
     {

@@ -190,7 +190,7 @@ namespace YKnyttLib
             return (coords.Y - MinBounds.Y) * Size.X + (coords.X - MinBounds.X);
         }
 
-        public int getMapLength() => Size.Area;
+        public int getMapLength() => Size.Area3D;
 
         public void setDirectory(string full_dir, string dir_name)
         {

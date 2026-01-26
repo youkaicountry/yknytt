@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=1]
+[ext_resource path="res://knytt/juni/juni.png" type="Texture2D" id=1]
 
-[node name="JuniTrail" type="Sprite"]
+[node name="JuniTrail" type="Sprite2D"]
 modulate = Color( 1, 1, 1, 0.705882 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -3 )

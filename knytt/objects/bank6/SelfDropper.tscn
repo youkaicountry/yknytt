@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://knytt/objects/bank6/SelfDropper.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank6/img/6-8.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank6/img/6-8.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/data/Sfx/Self Dropper Land.wav" type="AudioStream" id=4]
 
@@ -48,13 +48,13 @@ extents = Vector2( 12, 1 )
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 11, 1 )
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2048
 script = ExtResource( 1 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 7 )
 animation = "launch"
 centered = false
@@ -75,5 +75,5 @@ stream = ExtResource( 4 )
 position = Vector2( 12, 16 )
 shape = SubResource( 9 )
 
-[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

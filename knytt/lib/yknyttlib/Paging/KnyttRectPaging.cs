@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace YKnyttLib.Paging
 {
-    public class KnyttRectPaging<T> : KnyttPagingPolicy<T>
+    public partial class KnyttRectPaging<T> : KnyttPagingPolicy<T>
     {
         public KnyttPoint BorderSize { get; set; }
 

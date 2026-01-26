@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/ui/FileHTTPRequest.cs" type="Script" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=3]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/LevelSelection.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/GameContainer.cs" type="Script" id=6]
@@ -44,16 +44,16 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -296.0
-margin_right = 294.0
-margin_bottom = -10.0
+offset_left = -296.0
+offset_right = 294.0
+offset_bottom = -10.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer"]
-margin_right = 590.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 0, 190 )
+offset_right = 590.0
+offset_bottom = 190.0
+custom_minimum_size = Vector2( 0, 190 )
 size_flags_vertical = 3
 theme = ExtResource( 8 )
 follow_focus = true
@@ -64,19 +64,19 @@ focus_mode = 2
 script = ExtResource( 6 )
 
 [node name="FilterContainer" type="HBoxContainer" parent="MainContainer"]
-margin_top = 194.0
-margin_right = 590.0
-margin_bottom = 230.0
+offset_top = 194.0
+offset_right = 590.0
+offset_bottom = 230.0
 
 [node name="Category" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_right = 100.0
-margin_bottom = 36.0
+offset_right = 100.0
+offset_bottom = 36.0
 
 [node name="CategoryLabel" type="Label" parent="MainContainer/FilterContainer/Category"]
-margin_right = 100.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_right = 100.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Category:"
 align = 1
 
@@ -85,27 +85,27 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 100.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 100, 0 )
-focus_neighbour_left = NodePath("../../../../BackButton")
-focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
+offset_top = 17.0
+offset_right = 100.0
+offset_bottom = 36.2149
+custom_minimum_size = Vector2( 100, 0 )
+focus_neighbor_left = NodePath("../../../../BackButton")
+focus_neighbor_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
 selected = 0
 
 [node name="Difficulty" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 104.0
-margin_right = 184.0
-margin_bottom = 36.0
+offset_left = 104.0
+offset_right = 184.0
+offset_bottom = 36.0
 
 [node name="DifficultyLabel" type="Label" parent="MainContainer/FilterContainer/Difficulty"]
-margin_right = 80.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_right = 80.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Difficulty:"
 align = 1
 
@@ -114,26 +114,26 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 80.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 80, 0 )
-focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
+offset_top = 17.0
+offset_right = 80.0
+offset_bottom = 36.2149
+custom_minimum_size = Vector2( 80, 0 )
+focus_neighbor_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
 selected = 0
 
 [node name="Size" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 188.0
-margin_right = 268.0
-margin_bottom = 36.0
+offset_left = 188.0
+offset_right = 268.0
+offset_bottom = 36.0
 
 [node name="SizeLabel" type="Label" parent="MainContainer/FilterContainer/Size"]
-margin_right = 80.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_right = 80.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Size:"
 align = 1
 
@@ -142,26 +142,26 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 80.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 80, 0 )
-focus_neighbour_top = NodePath("../../../../ToBottomLevelLeft")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelLeft")
+offset_top = 17.0
+offset_right = 80.0
+offset_bottom = 36.2149
+custom_minimum_size = Vector2( 80, 0 )
+focus_neighbor_top = NodePath("../../../../ToBottomLevelLeft")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelLeft")
 text = "[All]"
 items = [ "[All]", null, false, 10, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
 selected = 0
 
 [node name="Sort" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 272.0
-margin_right = 362.0
-margin_bottom = 36.0
+offset_left = 272.0
+offset_right = 362.0
+offset_bottom = 36.0
 
 [node name="SortLabel" type="Label" parent="MainContainer/FilterContainer/Sort"]
-margin_right = 90.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_right = 90.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Sort by:"
 align = 1
 
@@ -170,13 +170,13 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 90.0
-margin_bottom = 36.2149
-rect_min_size = Vector2( 90, 0 )
-focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
-focus_neighbour_right = NodePath("../../Search/SearchEdit")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
+offset_top = 17.0
+offset_right = 90.0
+offset_bottom = 36.2149
+custom_minimum_size = Vector2( 90, 0 )
+focus_neighbor_top = NodePath("../../../../ToBottomLevelRight")
+focus_neighbor_right = NodePath("../../Search/SearchEdit")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelRight")
 text = "[Default]"
 items = [ "[Default]", null, false, 0, null, "Last Played", null, false, 1, null, "Last Installed", null, false, 2, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 5, null, "Color Status", null, false, 6, null ]
 selected = 0
@@ -187,45 +187,45 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 40.0
-margin_right = 90.0
-margin_bottom = 59.2149
-rect_min_size = Vector2( 90, 0 )
-focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
-focus_neighbour_right = NodePath("../../Search/SearchEdit")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
+offset_top = 40.0
+offset_right = 90.0
+offset_bottom = 59.2149
+custom_minimum_size = Vector2( 90, 0 )
+focus_neighbor_top = NodePath("../../../../ToBottomLevelRight")
+focus_neighbor_right = NodePath("../../Search/SearchEdit")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelRight")
 text = "Downloads"
 items = [ "Downloads", null, false, 5, null, "Rating", null, false, 8, null, "Name", null, false, 3, null, "Author", null, false, 4, null, "File Size", null, false, 7, null ]
 selected = 0
 
 [node name="Search" type="VBoxContainer" parent="MainContainer/FilterContainer"]
-margin_left = 366.0
-margin_right = 486.0
-margin_bottom = 36.0
-custom_constants/separation = 6
+offset_left = 366.0
+offset_right = 486.0
+offset_bottom = 36.0
+theme_override_constants/separation = 6
 
 [node name="SearchLabel" type="Label" parent="MainContainer/FilterContainer/Search"]
-margin_right = 120.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_right = 120.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "Search:"
 align = 1
 
 [node name="SearchEdit" type="LineEdit" parent="MainContainer/FilterContainer/Search"]
-margin_top = 19.0
-margin_right = 120.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 120, 15 )
-focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
-focus_neighbour_right = NodePath("../../../../BackButton")
-focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
+offset_top = 19.0
+offset_right = 120.0
+offset_bottom = 34.0
+custom_minimum_size = Vector2( 120, 15 )
+focus_neighbor_top = NodePath("../../../../ToBottomLevelRight")
+focus_neighbor_right = NodePath("../../../../BackButton")
+focus_neighbor_bottom = NodePath("../../../../ToTopLevelRight")
 focus_next = NodePath("../../../../BackButton")
-custom_colors/cursor_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
-custom_styles/read_only = SubResource( 3 )
-custom_styles/normal = SubResource( 1 )
+theme_override_colors/cursor_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
+theme_override_styles/read_only = SubResource( 3 )
+theme_override_styles/normal = SubResource( 1 )
 caret_blink = true
 
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
@@ -233,14 +233,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.369
-margin_top = -40.0
-margin_right = -5.36902
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
-focus_neighbour_top = NodePath("../ToBottomLevelRight")
-focus_neighbour_right = NodePath("../MainContainer/FilterContainer/Category/CategoryDropdown")
-focus_neighbour_bottom = NodePath("../ToTopLevelRight")
+offset_left = -85.369
+offset_top = -40.0
+offset_right = -5.36902
+offset_bottom = -5.0
+focus_neighbor_left = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
+focus_neighbor_top = NodePath("../ToBottomLevelRight")
+focus_neighbor_right = NodePath("../MainContainer/FilterContainer/Category/CategoryDropdown")
+focus_neighbor_bottom = NodePath("../ToTopLevelRight")
 focus_next = NodePath("../MainContainer/ScrollContainer/GameContainer")
 focus_previous = NodePath("../MainContainer/FilterContainer/Search/SearchEdit")
 text = "Back"
@@ -258,10 +258,10 @@ wait_time = 0.25
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -50.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
-custom_styles/normal = SubResource( 2 )
+offset_bottom = -50.0
+theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
+theme_override_styles/normal = SubResource( 2 )
 text = "Cannot connect to the server"
 align = 1
 valign = 1
@@ -271,69 +271,69 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 11.0
-margin_right = 600.0
-margin_bottom = 25.0
+offset_top = 11.0
+offset_right = 600.0
+offset_bottom = 25.0
 size_flags_vertical = 6
 
 [node name="Label3" type="Label" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 51.0
-margin_right = 600.0
-margin_bottom = 65.0
+offset_top = 51.0
+offset_right = 600.0
+offset_bottom = 65.0
 size_flags_vertical = 6
 
 [node name="Label4" type="Label" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 91.0
-margin_right = 600.0
-margin_bottom = 105.0
+offset_top = 91.0
+offset_right = 600.0
+offset_bottom = 105.0
 size_flags_vertical = 6
 
 [node name="Line" type="HBoxContainer" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 120.0
-margin_right = 600.0
-margin_bottom = 133.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 133.0
 size_flags_vertical = 4
 alignment = 1
 
 [node name="Label" type="Label" parent="ConnectionLostLabel/Failsafe/Line"]
-margin_left = 130.0
-margin_right = 249.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_left = 130.0
+offset_right = 249.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "If $url is not accessible,"
 
 [node name="LinkButton" type="LinkButton" parent="ConnectionLostLabel/Failsafe/Line"]
-margin_left = 253.0
-margin_right = 393.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0, 0, 1, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0.501961, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_left = 253.0
+offset_right = 393.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 0, 0, 1, 1 )
+theme_override_colors/font_hover_color = Color( 0, 0, 0.501961, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "get levels.json from github"
 uri = "https://raw.githubusercontent.com/youkaicountry/yknytt/refs/heads/master/levels.json"
 
 [node name="Label2" type="Label" parent="ConnectionLostLabel/Failsafe/Line"]
-margin_left = 397.0
-margin_right = 470.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_left = 397.0
+offset_right = 470.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "and place it in"
 
 [node name="LevelsFileDir" type="Label" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 137.0
-margin_right = 600.0
-margin_bottom = 150.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 3 )
+offset_top = 137.0
+offset_right = 600.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 3 )
 text = "{yknytt_dir}"
 align = 1
 
 [node name="Label2" type="Label" parent="ConnectionLostLabel/Failsafe"]
-margin_top = 165.0
-margin_right = 600.0
-margin_bottom = 179.0
+offset_top = 165.0
+offset_right = 600.0
+offset_bottom = 179.0
 size_flags_vertical = 6
 
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 7 )]
@@ -343,23 +343,23 @@ wait_time = 0.5
 one_shot = true
 
 [node name="ToBottomLevelLeft" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 focus_mode = 2
 
 [node name="ToBottomLevelRight" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 focus_mode = 2
 
 [node name="ToTopLevelLeft" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 focus_mode = 2
 
 [node name="ToTopLevelRight" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 focus_mode = 2
 
 [connection signal="focus_entered" from="MainContainer/ScrollContainer/GameContainer" to="." method="_on_GameContainer_focus_entered"]
@@ -371,7 +371,7 @@ focus_mode = 2
 [connection signal="focus_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_entered"]
 [connection signal="focus_exited" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_exited"]
 [connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
-[connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
+[connection signal="text_submitted" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]

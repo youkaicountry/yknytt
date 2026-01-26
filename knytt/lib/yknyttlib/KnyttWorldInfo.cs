@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace YKnyttLib
 {
-    public class KnyttWorldInfo
+    public partial class KnyttWorldInfo
     {
         public string Name { get; }
         public string Author { get; }

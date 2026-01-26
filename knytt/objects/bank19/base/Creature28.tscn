@@ -2,7 +2,7 @@
 
 [ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/common/SpikerMod.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/bank19/img/19-28.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank19/img/19-28.png" type="Texture2D" id=3]
 [ext_resource path="res://knytt/objects/bank4/ToastMonster.cs" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=13]
@@ -67,14 +67,14 @@ OrganicEnemy = true
 minTime = 0.2
 maxTime = 3.8
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 11 )
 
 [node name="SpikerMod" parent="." index="2" instance=ExtResource( 2 )]
 openDistance = 90.0
 closeDistance = 120.0
 method = 1
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 openAnimation = "_open"
 areaPath = NodePath("../Area2D")
 

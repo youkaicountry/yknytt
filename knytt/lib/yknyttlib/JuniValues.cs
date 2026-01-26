@@ -5,7 +5,7 @@ using System;
 
 namespace YKnyttLib
 {
-    public class JuniValues
+    public partial class JuniValues
     {
         public enum PowerNames
         {
@@ -61,7 +61,7 @@ namespace YKnyttLib
 
         private static readonly int VISITED_LIMIT = 160_000_000; // TODO: visited areas don't work on large levels // max save file size ~= 10MB
 
-        public class Flag
+        public partial class Flag
         {
             public bool power;
             public bool coin;

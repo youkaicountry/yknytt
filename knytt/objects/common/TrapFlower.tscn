@@ -10,12 +10,12 @@
 script = ExtResource( 2 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
 [node name="DistanceMod" parent="." instance=ExtResource( 3 )]
 method = 1
-spritePath = NodePath("../AnimatedSprite")
+spritePath = NodePath("../AnimatedSprite2D")
 
 [node name="ShotTimer" type="Timer" parent="."]
 process_mode = 0

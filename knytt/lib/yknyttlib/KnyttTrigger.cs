@@ -2,7 +2,7 @@ using IniParser.Model;
 
 namespace YKnyttLib
 {
-    public class KnyttTrigger : KnyttSwitch
+    public partial class KnyttTrigger : KnyttSwitch
     {
         public KnyttPoint ObjectID { get; private set; }
         public KnyttPoint EffectOffset { get; private set;}

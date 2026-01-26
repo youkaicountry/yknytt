@@ -15,7 +15,7 @@ script = ExtResource( 2 )
 OrganicEnemy = true
 speedChangeTime = 1.1
 initialSpeed = 8
-speedValues = PoolIntArray( 5, 10 )
+speedValues = PackedInt32Array( 5, 10 )
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 16.5 )

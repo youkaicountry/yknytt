@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class WorldManager
+public partial class WorldManager
 {
     public List<WorldEntry> Filtered
     {

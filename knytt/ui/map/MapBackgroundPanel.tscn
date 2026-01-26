@@ -27,8 +27,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
@@ -43,8 +43,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
@@ -59,14 +59,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="MapBackgroundPanel" type="Panel"]
-pause_mode = 2
+process_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -77,59 +77,59 @@ script = ExtResource( 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -47.0
-margin_top = -2.0
-margin_right = 2.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/disabled = SubResource( 1 )
+offset_left = -47.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 45.0
+custom_minimum_size = Vector2( 49, 49 )
+theme_override_styles/hover = ExtResource( 2 )
+theme_override_styles/pressed = ExtResource( 2 )
+theme_override_styles/focus = ExtResource( 2 )
+theme_override_styles/disabled = SubResource( 1 )
 text = "X"
 
 [node name="ExpandButton" parent="." instance=ExtResource( 5 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -92.0
-margin_top = -2.0
-margin_right = -43.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/disabled = SubResource( 1 )
+offset_left = -92.0
+offset_top = -2.0
+offset_right = -43.0
+offset_bottom = 45.0
+custom_minimum_size = Vector2( 49, 49 )
+theme_override_styles/hover = ExtResource( 2 )
+theme_override_styles/pressed = ExtResource( 2 )
+theme_override_styles/focus = ExtResource( 2 )
+theme_override_styles/disabled = SubResource( 1 )
 text = "+"
 
 [node name="ShrinkButton" parent="." instance=ExtResource( 5 )]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -137.0
-margin_top = -2.0
-margin_right = -88.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = -137.0
+offset_top = -2.0
+offset_right = -88.0
+offset_bottom = 45.0
+custom_minimum_size = Vector2( 49, 49 )
+theme_override_styles/hover = ExtResource( 2 )
+theme_override_styles/pressed = ExtResource( 2 )
+theme_override_styles/focus = ExtResource( 2 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "–"
 
 [node name="MarkButton" parent="." instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 47.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 49, 49 )
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/disabled = SubResource( 2 )
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 47.0
+offset_bottom = 45.0
+custom_minimum_size = Vector2( 49, 49 )
+theme_override_styles/hover = ExtResource( 2 )
+theme_override_styles/pressed = ExtResource( 2 )
+theme_override_styles/focus = ExtResource( 2 )
+theme_override_styles/disabled = SubResource( 2 )
 text = "M+"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

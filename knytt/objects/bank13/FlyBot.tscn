@@ -1,11 +1,11 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://knytt/objects/bank13/FlyBot.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank13/img/13-13.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank13/img/13-13.png" type="Texture2D" id=2]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0.0363388, -0.00222492, 0, 0, 0, 0, -102.003, 0.0899425, 0, 0, 0, 0, -71.8774, -23.8907, 0, 0, 0, 0, -167.973, -23.9727, 0, 0, 0, 0, -143.881, 0.13681, 0, 0, 0, 0, -227.899, 0, 0, 0, 0, 0, -168.045, -60.069, 0, 0, 0, 0, -11.9451, -59.9059, 0, 0, 0, 0, -35.9369, -83.9445, 0, 0, 0, 0, -137.982, -83.8049, 0, 0, 0, 0, -59.8851, 0.0199051, 0, 0, 0, 0, -107.986, 0.0848455, 0, 0, 0, 0, -191.998, -83.8911, 0, 0, 0, 0, -246.041, -83.9595, 0, 0, 0, 0, -174.02, -11.9943, 0, 0, 0, 0, -30.0096, -11.996, 0, 0, 0, 0, -59.997, -41.902, 0, 0, 0, 0, -42.0142, -41.8939, 0, 0, 0, 0, 0.0363388, -0.00222492 )
+"points": PackedVector2Array( 0, 0, 0, 0, 0.0363388, -0.00222492, 0, 0, 0, 0, -102.003, 0.0899425, 0, 0, 0, 0, -71.8774, -23.8907, 0, 0, 0, 0, -167.973, -23.9727, 0, 0, 0, 0, -143.881, 0.13681, 0, 0, 0, 0, -227.899, 0, 0, 0, 0, 0, -168.045, -60.069, 0, 0, 0, 0, -11.9451, -59.9059, 0, 0, 0, 0, -35.9369, -83.9445, 0, 0, 0, 0, -137.982, -83.8049, 0, 0, 0, 0, -59.8851, 0.0199051, 0, 0, 0, 0, -107.986, 0.0848455, 0, 0, 0, 0, -191.998, -83.8911, 0, 0, 0, 0, -246.041, -83.9595, 0, 0, 0, 0, -174.02, -11.9943, 0, 0, 0, 0, -30.0096, -11.996, 0, 0, 0, 0, -59.997, -41.902, 0, 0, 0, 0, -42.0142, -41.8939, 0, 0, 0, 0, 0.0363388, -0.00222492 )
 }
 
 [sub_resource type="AtlasTexture" id=20]
@@ -91,17 +91,17 @@ script = ExtResource( 1 )
 position = Vector2( 0.0363388, -0.00222492 )
 rotate = false
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
 frames = SubResource( 18 )
 animation = "FlyBot"
 playing = true
 centered = false
 
-[node name="Area2D" type="Area2D" parent="PathFollow2D/AnimatedSprite"]
+[node name="Area2D" type="Area2D" parent="PathFollow2D/AnimatedSprite2D"]
 position = Vector2( 12, 12.125 )
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/AnimatedSprite/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/AnimatedSprite2D/Area2D"]
 shape = SubResource( 19 )
 
-[connection signal="body_entered" from="PathFollow2D/AnimatedSprite/Area2D" to="." method="onDeadlyAreaEntered"]
+[connection signal="body_entered" from="PathFollow2D/AnimatedSprite2D/Area2D" to="." method="onDeadlyAreaEntered"]

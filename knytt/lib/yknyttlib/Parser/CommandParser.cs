@@ -1,9 +1,9 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace YKnyttLib.Parser
 {
-    public class CommandParser
+    public partial class CommandParser
     {
         public enum TerminationStatus
         {

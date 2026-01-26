@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://knytt/objects/bank4/MultiShot.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank4/img/4-19.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank4/img/4-19.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
@@ -72,10 +72,10 @@ extents = Vector2( 9, 9.5 )
 directionChange = 1
 directionChangeTime = 2.0
 speedChangeTime = 0.76
-additionalDirections = PoolIntArray( 12, 4 )
-shotPositions = PoolVector2Array( 3, 14, 21, 14 )
+additionalDirections = PackedInt32Array( 12, 4 )
+shotPositions = PackedVector2Array( 3, 14, 21, 14 )
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 12 )
 
 [node name="CollisionShape2D" parent="." index="3"]

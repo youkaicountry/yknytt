@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://knytt/objects/bank4/img/4-5.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank4/img/4-5.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -66,7 +66,7 @@ radarTop = 12
 position = Vector2( 12, 20.5 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 11 )
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
