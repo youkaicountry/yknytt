@@ -28,8 +28,11 @@ public partial class GDAreaLayer : Node2D
         }
 
         // Godot 4 TileMap API: SetCell(layer, coords, sourceId, atlasCoords, alternativeTile)
-        // The collision handling needs to be done differently in Godot 4 via the TileSet
-        umap.SetCell(0, new Vector2I(x, y), tilenum + (collisions ? 0 : 128));
+        // Source 0 = tiles with collision, Source 1 = tiles without collision
+        int sourceId = collisions ? 0 : 1;
+        var atlasCoords = new Vector2I(tilenum % GDKnyttAssetManager.TILESET_WIDTH,
+                                        tilenum / GDKnyttAssetManager.TILESET_WIDTH);
+        umap.SetCell(0, new Vector2I(x, y), sourceId, atlasCoords);
     }
 
     public void deactivate()

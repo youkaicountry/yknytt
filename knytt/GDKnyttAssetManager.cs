@@ -182,7 +182,10 @@ public class GDKnyttAssetManager
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
     {
-        return new AudioStreamOggVorbis() { Data = buffer, Loop = loop };
+        // Godot 4: AudioStreamOggVorbis loading from bytes requires creating via LoadFromBuffer
+        var stream = AudioStreamOggVorbis.LoadFromBuffer(buffer);
+        if (stream != null) { stream.Loop = loop; }
+        return stream;
     }
 
     public static void ensureDirExists(string dir_name)
@@ -210,21 +213,40 @@ public class GDKnyttAssetManager
     {
         Bitmap bitmap = new Bitmap();
         bitmap.CreateFromImageAlpha(texture.GetImage(), .001f);
-        
-        var ts = new TileSet();
 
-        int i = 0;
+        var ts = new TileSet();
+        ts.TileSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
+
+        // Add a physics layer for collision
+        ts.AddPhysicsLayer();
+
+        // Godot 4: Create TileSetAtlasSource for atlas-based tiles
+        // Source 0: tiles with collision (tile IDs 0-127)
+        var sourceWithCollision = new TileSetAtlasSource();
+        sourceWithCollision.Texture = texture;
+        sourceWithCollision.TextureRegionSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
+        int sourceIdWithCollision = ts.AddSource(sourceWithCollision);
+
+        // Source 1: tiles without collision (tile IDs 128-255)
+        var sourceNoCollision = new TileSetAtlasSource();
+        sourceNoCollision.Texture = texture;
+        sourceNoCollision.TextureRegionSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
+        int sourceIdNoCollision = ts.AddSource(sourceNoCollision);
+
+        // Create tiles with collision (source 0)
         for (int y = 0; y < TILESET_HEIGHT; y++)
         {
             for (int x = 0; x < TILESET_WIDTH; x++)
             {
-                ts.CreateTile(i);
-                ts.TileSetTexture2D(i, texture);
-                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-                ts.TileSetRegion(i, region);
+                var atlasCoords = new Vector2I(x, y);
+                sourceWithCollision.CreateTile(atlasCoords);
 
+                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
                 var polygons = tilePolygons(bitmap, region);
-                int c = 0;
+
+                // Get tile data for adding collision polygons
+                TileData tileData = sourceWithCollision.GetTileData(atlasCoords, 0);
+                int polygonIndex = 0;
 
                 foreach (Vector2[] polygon in polygons)
                 {
@@ -234,15 +256,14 @@ public class GDKnyttAssetManager
                     {
                         if (!Geometry2D.IsPolygonClockwise(p)) { Array.Reverse(p); }
                         p = smoothPolygon(p);
-                        if (p == null) { GD.Print($"Error in smoothing {x}, {y}"); continue; } // should never happen
+                        if (p == null) { GD.Print($"Error in smoothing {x}, {y}"); continue; }
                         convex = isConvex(p);
                     }
 
                     if (convex)
                     {
-                        var collision = new ConvexPolygonShape2D();
-                        collision.SetPointCloud(p);
-                        ts.TileSetShape(i, c++, collision);
+                        tileData.AddCollisionPolygon(0);
+                        tileData.SetCollisionPolygonPoints(0, polygonIndex++, p);
                     }
                     else
                     {
@@ -250,25 +271,22 @@ public class GDKnyttAssetManager
                         for (int t = 0; t < triangles.Length; t += 3)
                         {
                             Vector2[] triangle = { p[triangles[t]], p[triangles[t + 1]], p[triangles[t + 2]] };
-                            var collision = new ConvexPolygonShape2D();
-                            collision.SetPointCloud(triangle);
-                            ts.TileSetShape(i, c++, collision);
+                            tileData.AddCollisionPolygon(0);
+                            tileData.SetCollisionPolygonPoints(0, polygonIndex++, triangle);
                         }
                     }
                 }
-                i++;
             }
         }
 
+        // Create tiles without collision (source 1)
         for (int y = 0; y < TILESET_HEIGHT; y++)
         {
             for (int x = 0; x < TILESET_WIDTH; x++)
             {
-                ts.CreateTile(i);
-                ts.TileSetTexture2D(i, texture);
-                var region = new Rect2(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-                ts.TileSetRegion(i, region);
-                i++;
+                var atlasCoords = new Vector2I(x, y);
+                sourceNoCollision.CreateTile(atlasCoords);
+                // No collision polygons added - this source has no physics
             }
         }
 
@@ -278,25 +296,26 @@ public class GDKnyttAssetManager
     private static IEnumerable<Vector2[]> tilePolygons(Bitmap bitmap, Rect2 region)
     {
         // Makes points of contact thicker. Some polygons disappear without this (Godot bug).
-        for (float i = region.Position.Y; i < region.End.Y - 1; i++)
+        // Godot 4: Bitmap.GetBit/SetBit now take (int x, int y) instead of Vector2
+        for (int i = (int)region.Position.Y; i < (int)region.End.Y - 1; i++)
         {
-            bool ulbit = bitmap.GetBit(new Vector2(region.Position.X, i));
-            bool dlbit = bitmap.GetBit(new Vector2(region.Position.X, i + 1));
-            for (float j = region.Position.X + 1; j < region.End.X; j++)
+            bool ulbit = bitmap.GetBit((int)region.Position.X, i);
+            bool dlbit = bitmap.GetBit((int)region.Position.X, i + 1);
+            for (int j = (int)region.Position.X + 1; j < (int)region.End.X; j++)
             {
-                bool urbit = bitmap.GetBit(new Vector2(j, i));
-                bool drbit = bitmap.GetBit(new Vector2(j, i + 1));
+                bool urbit = bitmap.GetBit(j, i);
+                bool drbit = bitmap.GetBit(j, i + 1);
 
                 if (ulbit && !urbit && !dlbit && drbit)
                 {
-                    bitmap.SetBit(new Vector2(j, i), true);
-                    bitmap.SetBit(new Vector2(j - 1, i + 1), true);
+                    bitmap.SetBit(j, i, true);
+                    bitmap.SetBit(j - 1, i + 1, true);
                 }
 
                 if (!ulbit && urbit && dlbit && !drbit)
                 {
-                    bitmap.SetBit(new Vector2(j - 1, i), true);
-                    bitmap.SetBit(new Vector2(j, i + 1), true);
+                    bitmap.SetBit(j - 1, i, true);
+                    bitmap.SetBit(j, i + 1, true);
                 }
 
                 ulbit = urbit;
@@ -304,7 +323,8 @@ public class GDKnyttAssetManager
             }
         }
 
-        var polygons = bitmap.OpaqueToPolygons(region, 0.99f).Cast<Vector2[]>();
+        // Godot 4: OpaqueToPolygons takes Rect2I instead of Rect2
+        var polygons = bitmap.OpaqueToPolygons(new Rect2I((int)region.Position.X, (int)region.Position.Y, (int)region.Size.X, (int)region.Size.Y), 0.99f).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
         return polygons.Select(p => p.Select(v => new Vector2(v.X, v.Y - (region.Position.Y * 2))).ToArray());
     }
@@ -331,7 +351,8 @@ public class GDKnyttAssetManager
 
     private static Vector2[] smoothPolygon(Vector2[] full_polygon)
     {
-        var convex_hull = Geometry2D.ConvexHull2d(full_polygon).Reverse().ToList();
+        // Godot 4: ConvexHull2d renamed to ConvexHull
+        var convex_hull = Geometry2D.ConvexHull(full_polygon).Reverse().ToList();
 
         int result_size = 0;
         while (result_size != convex_hull.Count)
@@ -406,7 +427,7 @@ public class GDKnyttAssetManager
         if (old_color == new_color) { return false; }
         bool replaced = false;
 
-        image.Lock();
+        // Godot 4: Lock/Unlock removed - direct pixel access is always available
         for (int y = 0; y < image.GetHeight(); y++)
         {
             for (int x = 0; x < image.GetWidth(); x++)
@@ -418,7 +439,6 @@ public class GDKnyttAssetManager
                 }
             }
         }
-        image.Unlock();
 
         return replaced;
     }
@@ -442,7 +462,8 @@ public class GDKnyttAssetManager
             if (texture is Texture2D t)
             {
                 if (!t.HasAlpha()) { t = preprocessTilesetTexture2D(t); }
-                ResourceSaver.Save(cached_path, makeTileset(t), ResourceSaver.SaverFlags.Compress);
+                // Godot 4: ResourceSaver.Save signature is (resource, path, flags)
+                ResourceSaver.Save(makeTileset(t), cached_path, ResourceSaver.SaverFlags.Compress);
             }
         }
         GDKnyttDataStore.ProgressHint = "Compiling finished.";
@@ -457,7 +478,8 @@ public class GDKnyttAssetManager
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture2D($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
-            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/Tileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
+            // Godot 4: ResourceSaver.Save signature is (resource, path, flags)
+            GD.PrintErr(ResourceSaver.Save(tileset, GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/Tileset{i}.png.res"), ResourceSaver.SaverFlags.Compress));
         }
     }
 }
