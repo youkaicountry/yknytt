@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/ui/img/dialogue.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=2]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=2]
 [ext_resource path="res://knytt/objects/bank0/Sign.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture2D" id=4]
 
@@ -48,7 +48,8 @@ offset_right = 91.0
 offset_bottom = -46.6637
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 2 )
-autowrap = true
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 2
 
 [node name="SignRect" type="NinePatchRect" parent="Label"]
 show_behind_parent = true

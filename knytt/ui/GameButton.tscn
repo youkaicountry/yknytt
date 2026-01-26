@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=4]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=4]
 [ext_resource path="res://knytt/ui/GameButton.cs" type="Script" id=5]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
 [ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture2D" id=7]
@@ -119,6 +119,7 @@ offset_right = 195.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "A Strange Dream (Nifflas)"
 
 [node name="DescriptionLabel" type="Label" parent="MainContainer/TextContainer"]
@@ -127,6 +128,7 @@ offset_right = 195.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "That night, she has a strange dream..."
 
 [node name="RatingControl" type="HBoxContainer" parent="."]
@@ -145,6 +147,7 @@ offset_right = 130.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Not Verified"
 
 [node name="SizeLabel" type="Label" parent="RatingControl"]
@@ -154,6 +157,7 @@ offset_bottom = 13.0
 custom_minimum_size = Vector2( 18, 13 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "111.2 MB"
 
 [node name="RatingLabel" type="Label" parent="RatingControl"]
@@ -163,6 +167,7 @@ offset_bottom = 13.0
 custom_minimum_size = Vector2( 18, 13 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "Rating: 4.5"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -186,6 +191,7 @@ offset_bottom = 13.0
 custom_minimum_size = Vector2( 7, 13 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 4 )
+theme_override_font_sizes/font_size = 12
 text = "9999"
 __meta__ = {
 "_edit_use_anchors_": false

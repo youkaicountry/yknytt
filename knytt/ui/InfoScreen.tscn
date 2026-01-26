@@ -5,7 +5,7 @@
 [ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
 [ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=6]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=6]
 [ext_resource path="res://knytt/ui/img/button_red.png" type="Texture2D" id=7]
 [ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/stats/StarRate.tscn" type="PackedScene" id=9]
@@ -121,6 +121,7 @@ offset_right = 140.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource( 6 )
+theme_override_font_sizes/font_size = 12
 text = "Rating: -"
 align = 1
 
