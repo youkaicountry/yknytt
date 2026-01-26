@@ -248,12 +248,6 @@ common/enable_object_picking=false
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.47451, 0.47451, 0.47451, 1)
-environment/defaults/default_environment="res://default_env.tres"
-quality/driver/fallback_to_gles2=true
-quality/intended_usage/framebuffer_allocation=0
-quality/intended_usage/framebuffer_allocation.mobile=0
-2d/snapping/use_gpu_pixel_snap=true
-vram_compression/import_etc=true
-quality/filters/use_nearest_mipmap_filter=true
-quality/2d/use_nvidia_rect_flicker_workaround=true
-quality/2d/use_pixel_snap=true
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
