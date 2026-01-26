@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using YUtil.Random;
 
-public class ObjectSelector
+public partial class ObjectSelector
 {
     private Dictionary<object, List<object>> allObjects = new Dictionary<object, List<object>>();
     private Dictionary<object, int> counters = new Dictionary<object, int>();

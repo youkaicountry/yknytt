@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://knytt/ui/img/birdie2_fly.png" type="Texture" id=1]
+[ext_resource path="res://knytt/ui/img/birdie2_fly.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=2]
 [ext_resource path="res://knytt/ui/stats/StatPanel.cs" type="Script" id=4]
 [ext_resource path="res://knytt/ui/GDKnyttTheme.tres" type="Theme" id=5]
@@ -56,9 +56,9 @@ animations = [ {
 } ]
 
 [node name="StatPanel" type="Panel"]
-margin_right = 150.0
-margin_bottom = 200.0
-custom_styles/panel = ExtResource( 2 )
+offset_right = 150.0
+offset_bottom = 200.0
+theme_override_styles/panel = ExtResource( 2 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -67,10 +67,10 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 theme = ExtResource( 5 )
 scroll_horizontal_enabled = false
 __meta__ = {
@@ -78,12 +78,12 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_constants/separation = 0
+theme_override_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="ScrollContainer/VBoxContainer"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ScrollContainer/VBoxContainer"]
 position = Vector2( 75, 90 )
 frames = SubResource( 11 )
 frame = 5

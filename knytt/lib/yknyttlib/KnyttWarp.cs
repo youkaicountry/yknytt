@@ -1,10 +1,10 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 using System;
 using System.Linq;
 
 namespace YKnyttLib
 {
-    public class KnyttWarp
+    public partial class KnyttWarp
     {
         // TODO: These should be structs with flag info
 
@@ -15,11 +15,11 @@ namespace YKnyttLib
 
         public bool LoadedWarp { get; private set; }
 
-        public KnyttArea Area { get; }
+        public KnyttArea Area3D { get; }
 
         public KnyttWarp(KnyttArea area)
         {
-            Area = area;
+            Area3D = area;
             WarpUp = KnyttPoint.Zero;
             WarpDown = KnyttPoint.Zero;
             WarpLeft = KnyttPoint.Zero;
@@ -32,7 +32,7 @@ namespace YKnyttLib
             if (LoadedWarp) { return; }
             LoadedWarp = true;
 
-            var data = Area.ExtraData;
+            var data = Area3D.ExtraData;
             WarpUp = getINIWarp(data, "U");
             WarpDown = getINIWarp(data, "D");
             WarpLeft = getINIWarp(data, "L");

@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 
 namespace YKnyttLib
 {
     public struct KnyttPoint
     {
         public readonly int X, Y;
-        public int Area
+        public int Area3D
         {
             get { return X * Y; }
         }

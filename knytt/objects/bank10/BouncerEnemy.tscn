@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://knytt/objects/bank10/BouncerEnemy.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank10/img/10-5.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank10/img/10-5.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
@@ -43,7 +43,7 @@ jump_force = 100.0
 extra_gravity = 550.0
 extra_jump_force = 100.0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 5 )
 animation = "stop"
 centered = false

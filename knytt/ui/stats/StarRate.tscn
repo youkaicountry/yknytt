@@ -1,80 +1,80 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://knytt/ui/stats/StarRate.cs" type="Script" id=2]
-[ext_resource path="res://knytt/ui/img/minus.png" type="Texture" id=3]
-[ext_resource path="res://knytt/ui/img/left_star.png" type="Texture" id=4]
-[ext_resource path="res://knytt/ui/img/right_star.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/img/minus.png" type="Texture2D" id=3]
+[ext_resource path="res://knytt/ui/img/left_star.png" type="Texture2D" id=4]
+[ext_resource path="res://knytt/ui/img/right_star.png" type="Texture2D" id=5]
 
 [node name="Rates" type="HBoxContainer"]
-margin_right = 140.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 25, 28 )
-custom_constants/separation = 0
+offset_right = 140.0
+offset_bottom = 28.0
+custom_minimum_size = Vector2( 25, 28 )
+theme_override_constants/separation = 0
 script = ExtResource( 2 )
 
 [node name="Remove" type="TextureRect" parent="."]
-margin_right = 20.0
-margin_bottom = 28.0
+offset_right = 20.0
+offset_bottom = 28.0
 texture = ExtResource( 3 )
 
 [node name="Star1" type="TextureRect" parent="."]
-margin_left = 20.0
-margin_right = 32.0
-margin_bottom = 28.0
+offset_left = 20.0
+offset_right = 32.0
+offset_bottom = 28.0
 texture = ExtResource( 4 )
 
 [node name="Star2" type="TextureRect" parent="."]
-margin_left = 32.0
-margin_right = 44.0
-margin_bottom = 28.0
+offset_left = 32.0
+offset_right = 44.0
+offset_bottom = 28.0
 texture = ExtResource( 5 )
 
 [node name="Star3" type="TextureRect" parent="."]
-margin_left = 44.0
-margin_right = 56.0
-margin_bottom = 28.0
+offset_left = 44.0
+offset_right = 56.0
+offset_bottom = 28.0
 texture = ExtResource( 4 )
 
 [node name="Star4" type="TextureRect" parent="."]
-margin_left = 56.0
-margin_right = 68.0
-margin_bottom = 28.0
+offset_left = 56.0
+offset_right = 68.0
+offset_bottom = 28.0
 texture = ExtResource( 5 )
 
 [node name="Star5" type="TextureRect" parent="."]
-margin_left = 68.0
-margin_right = 80.0
-margin_bottom = 28.0
+offset_left = 68.0
+offset_right = 80.0
+offset_bottom = 28.0
 texture = ExtResource( 4 )
 
 [node name="Star6" type="TextureRect" parent="."]
-margin_left = 80.0
-margin_right = 92.0
-margin_bottom = 28.0
+offset_left = 80.0
+offset_right = 92.0
+offset_bottom = 28.0
 texture = ExtResource( 5 )
 
 [node name="Star7" type="TextureRect" parent="."]
-margin_left = 92.0
-margin_right = 104.0
-margin_bottom = 28.0
+offset_left = 92.0
+offset_right = 104.0
+offset_bottom = 28.0
 texture = ExtResource( 4 )
 
 [node name="Star8" type="TextureRect" parent="."]
-margin_left = 104.0
-margin_right = 116.0
-margin_bottom = 28.0
+offset_left = 104.0
+offset_right = 116.0
+offset_bottom = 28.0
 texture = ExtResource( 5 )
 
 [node name="Star9" type="TextureRect" parent="."]
-margin_left = 116.0
-margin_right = 128.0
-margin_bottom = 28.0
+offset_left = 116.0
+offset_right = 128.0
+offset_bottom = 28.0
 texture = ExtResource( 4 )
 
 [node name="Star10" type="TextureRect" parent="."]
-margin_left = 128.0
-margin_right = 140.0
-margin_bottom = 28.0
+offset_left = 128.0
+offset_right = 140.0
+offset_bottom = 28.0
 texture = ExtResource( 5 )
 
 [connection signal="gui_input" from="Remove" to="." method="_on_Star_gui_input" binds= [ 0 ]]

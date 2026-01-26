@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace YKnyttLib
 {
-    public class KnyttSave
+    public partial class KnyttSave
     {
         public KnyttWorld World { get; }
 

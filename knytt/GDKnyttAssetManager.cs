@@ -7,7 +7,7 @@ using YUtil.Collections;
 using System.Linq;
 using System;
 
-public class GDKnyttAssetManager
+public partial class GDKnyttAssetManager
 {
     public const int TILESET_WIDTH = 16;
     public const int TILESET_HEIGHT = 8;

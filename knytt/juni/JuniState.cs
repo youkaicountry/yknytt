@@ -276,7 +276,7 @@ public partial class FallState : JuniState
     }
 }
 
-public class JuniState
+public partial class JuniState
 {
     protected Juni juni;
     public virtual bool StickToGround => false; 

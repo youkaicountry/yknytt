@@ -10,7 +10,7 @@ public partial class GDKnyttArea : Node2D
     public GDKnyttBackground Background { get; private set; }
     public ObjectSelector Selector { get; private set; } = new ObjectSelector();
     public GDKnyttWorld GDWorld { get; private set; }
-    public KnyttArea Area { get; private set; }
+    public KnyttArea Area3D { get; private set; }
 
     public bool HasAltInput { get; set; }
     public bool BlockInput { get; set; }
@@ -65,7 +65,7 @@ public partial class GDKnyttArea : Node2D
     public void loadArea(GDKnyttWorld world, KnyttArea area)
     {
         this.GDWorld = world;
-        this.Area = area;
+        this.Area3D = area;
 
         this.Name = area.Position.ToString();
 
@@ -93,7 +93,7 @@ public partial class GDKnyttArea : Node2D
     {
         GetNode<Timer>("DeactivateTimer").Stop();
         Selector.IsOpen = true;
-        if ((!regenerate_same && this.active) || this.Area.Empty) { return; }
+        if ((!regenerate_same && this.active) || this.Area3D.Empty) { return; }
         this.createObjectLayers();
         this.active = true;
         Tiles.activate();
@@ -126,11 +126,11 @@ public partial class GDKnyttArea : Node2D
 
     public async void createFakeObjectLayer()
     {
-        if (FakeObjects != null || Area.Empty) { return; }
+        if (FakeObjects != null || Area3D.Empty) { return; }
         FakeObjects = fake_objects_scene.Instantiate<FakeObjectLayer>();
         AddChild(FakeObjects);
         if (!FakeObjects.IsNodeReady()) { await ToSignal(FakeObjects, "ready"); } // cutscene case
-        FakeObjects.Load(Area.ObjectLayers, GDWorld.Game.Juni.Powers);
+        FakeObjects.Load(Area3D.ObjectLayers, GDWorld.Game.Juni.Powers);
     }
 
     public void removeFakeObjectLayer()
@@ -153,7 +153,7 @@ public partial class GDKnyttArea : Node2D
 
     public void regenerateArea(bool regenerate_same = false)
     {
-        if (this.Area.Empty) { return; }
+        if (this.Area3D.Empty) { return; }
         Bullets.Reset();
         Selector.Reset();
         this.removeObjectLayers();
@@ -167,11 +167,11 @@ public partial class GDKnyttArea : Node2D
 
     public void destroyArea()
     {
-        if (Area.Empty) { QueueFree(); return; }
+        if (Area3D.Empty) { QueueFree(); return; }
         if (active && this.Objects != null) { Objects.returnObjects(); }
-        GDWorld.AssetManager.returnTileSet(Area.TilesetA);
-        GDWorld.AssetManager.returnTileSet(Area.TilesetB);
-        GDWorld.AssetManager.returnGradient(Area.Background);
+        GDWorld.AssetManager.returnTileSet(Area3D.TilesetA);
+        GDWorld.AssetManager.returnTileSet(Area3D.TilesetB);
+        GDWorld.AssetManager.returnGradient(Area3D.Background);
         QueueFree();
     }
 

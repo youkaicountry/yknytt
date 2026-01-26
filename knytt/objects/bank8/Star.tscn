@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://knytt/objects/bank8/img/8-10.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank8/img/8-10.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/bank8/Star.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=3]
 
@@ -131,7 +131,7 @@ script = ExtResource( 2 )
 minTime = 0.2
 maxTime = 0.3
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 material = SubResource( 45 )
 frames = SubResource( 20 )
 animation = "0"

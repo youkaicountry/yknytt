@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace YKnyttLib.Parser
 {
-    public class CommandParseResult
+    public partial class CommandParseResult
     {
         public string CommandName { get; }
         public Dictionary<string, string> Args;

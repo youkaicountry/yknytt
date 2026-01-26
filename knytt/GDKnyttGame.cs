@@ -15,7 +15,7 @@ public partial class GDKnyttGame : Node2D
     // TODO: This is per-player stuff, and should eventually be abstracted
     public GDKnyttArea CurrentArea { get; private set; }
     public GDKnyttWorld GDWorld { get; private set; }
-    public GDKnyttCamera Camera { get; private set; }
+    public GDKnyttCamera Camera3D { get; private set; }
     public Font SignFont { get; private set; }
     public TrailContainer Trails { get; private set; }
     public DeathContainer Deaths { get; private set; }
@@ -54,8 +54,8 @@ public partial class GDKnyttGame : Node2D
         this.AmbianceChannel2.OnFetch = (int num) => GDWorld.AssetManager.getAmbiance(num);
         this.AmbianceChannel2.OnClose = (int num) => GDWorld.AssetManager.returnAmbiance(num);
 
-        this.Camera = GetNode<GDKnyttCamera>("%GKnyttCamera");
-        this.Camera.initialize(this);
+        this.Camera3D = GetNode<GDKnyttCamera>("%GKnyttCamera");
+        this.Camera3D.initialize(this);
 
         this.Trails = GetNode<TrailContainer>("%TrailContainer");
         this.Trails.initialize(this);
@@ -130,7 +130,7 @@ public partial class GDKnyttGame : Node2D
 
     public void saveGame(Juni juni, bool write)
     {
-        saveGame(juni.GDArea.Area.Position, juni.AreaPosition, write);
+        saveGame(juni.GDArea.Area3D.Position, juni.AreaPosition, write);
     }
 
     public void saveGame(KnyttPoint area, KnyttPoint position, bool write)
@@ -166,10 +166,10 @@ public partial class GDKnyttGame : Node2D
         if (juni.dead) { return; } // If juni is dead, ignore warps
 
         // Calculate the warp
-        var area = CurrentArea.Area;
+        var area = CurrentArea.Area3D;
         var jgp = juni.GlobalPosition;
         var new_coords = GDKnyttWorld.getAreaCoords(jgp);
-        if (new_coords.Equals(area.Position)) { return; } // Area may change if warp is deferred
+        if (new_coords.Equals(area.Position)) { return; } // Area3D may change if warp is deferred
         var wc = area.Warp.getWarpCoords(new_coords, area.Position);
 
         // Apply the warp
@@ -270,7 +270,7 @@ public partial class GDKnyttGame : Node2D
 
     private void editorControls()
     {
-        if (!this.Camera.Scrolling)
+        if (!this.Camera3D.Scrolling)
         {
             if (Input.IsActionPressed("up")) { this.changeAreaDelta(new KnyttPoint(0, -1)); }
             if (Input.IsActionPressed("down")) { this.changeAreaDelta(new KnyttPoint(0, 1)); }
@@ -281,7 +281,7 @@ public partial class GDKnyttGame : Node2D
 
     public void changeAreaDelta(KnyttPoint delta, bool force_jump = false, bool regenerate_same = true)
     {
-        this.changeArea(this.CurrentArea.Area.Position + delta, force_jump);
+        this.changeArea(this.CurrentArea.Area3D.Position + delta, force_jump);
     }
 
     // Changes the current area
@@ -290,7 +290,7 @@ public partial class GDKnyttGame : Node2D
         // Regenerate current area if no change, else deactivate old area
         if (this.CurrentArea != null)
         {
-            if (CurrentArea.Area.Position.Equals(new_area))
+            if (CurrentArea.Area3D.Position.Equals(new_area))
             {
                 if (regenerate_same) { CurrentArea.regenerateArea(regenerate_same: regenerate_same); }
                 return;
@@ -307,7 +307,7 @@ public partial class GDKnyttGame : Node2D
 
         if (area == null) { return; }
 
-        int change_distance = CurrentArea == null ? 0 : CurrentArea.Area.Position.manhattanDistance(new_area);
+        int change_distance = CurrentArea == null ? 0 : CurrentArea.Area3D.Position.manhattanDistance(new_area);
         bool old_area_swim = CurrentArea == null ? false : CurrentArea.Swim;
 
         this.CurrentArea = area;
@@ -317,12 +317,12 @@ public partial class GDKnyttGame : Node2D
 
         Juni.stopHologram(cleanup: true);
         if (old_area_swim && !CurrentArea.Swim) { Juni.Swim = true; Juni.Swim = false; } // boost when exit swim area
-        if (area.Area.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area.getExtraData("Attach")); }
+        if (area.Area3D.ExtraData?.ContainsKey("Attach") ?? false) { Juni.enableAttachment(area.Area3D.getExtraData("Attach")); }
         checkTint(area);
         CustomObject.cleanUnused();
 
         if (Juni.DebugFlyMode) { return; }
-        Juni.Powers.setVisited(CurrentArea.Area);
+        Juni.Powers.setVisited(CurrentArea.Area3D);
         if (hasMap()) { viewports.addArea(CurrentArea); }
     }
 
@@ -361,12 +361,12 @@ public partial class GDKnyttGame : Node2D
     private void beginTransitionEffects(bool force_jump = false)
     {
         // Audio
-        this.MusicChannel.setTrack(CurrentArea.PlayNoMusic ? 0 : CurrentArea.Area.Song);
-        this.AmbianceChannel1.setTrack(CurrentArea.Area.AtmosphereA, CurrentArea.Ambiance1CustomVolume);
-        this.AmbianceChannel2.setTrack(CurrentArea.Area.AtmosphereB, CurrentArea.Ambiance2CustomVolume);
+        this.MusicChannel.setTrack(CurrentArea.PlayNoMusic ? 0 : CurrentArea.Area3D.Song);
+        this.AmbianceChannel1.setTrack(CurrentArea.Area3D.AtmosphereA, CurrentArea.Ambiance1CustomVolume);
+        this.AmbianceChannel2.setTrack(CurrentArea.Area3D.AtmosphereB, CurrentArea.Ambiance2CustomVolume);
 
         // UI
-        UI.Location.updateLocation(this.CurrentArea.Area.Position);
+        UI.Location.updateLocation(this.CurrentArea.Area3D.Position);
 
         // Camera
         if (GDKnyttSettings.SideScroll)
@@ -376,7 +376,7 @@ public partial class GDKnyttGame : Node2D
         }
         else
         {
-            this.Camera.jumpTo(this.CurrentArea.GlobalCenter);
+            this.Camera3D.jumpTo(this.CurrentArea.GlobalCenter);
         }
     }
 
@@ -386,19 +386,19 @@ public partial class GDKnyttGame : Node2D
     {
         if (GetViewport() == null) { return; }
 
-        float camera_global_position_x = Camera.GlobalPosition.X;
+        float camera_global_position_x = Camera3D.GlobalPosition.X;
         
         if (initial)
         {
-            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
-            left_area_restricted = !GDKnyttSettings.SeamlessScroll || left_area == null || left_area.Area.Empty ||
-                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpLeft.isZero())/* ||
-                left_area.Area.FlagWarps.Any(w => w != null)*/;
+            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area3D.Position + new KnyttPoint(-1, 0), out var left_area);
+            left_area_restricted = !GDKnyttSettings.SeamlessScroll || left_area == null || left_area.Area3D.Empty ||
+                (CurrentArea.Area3D.Warp.LoadedWarp && !CurrentArea.Area3D.Warp.WarpLeft.isZero())/* ||
+                left_area.Area3D.FlagWarps.Any(w => w != null)*/;
 
-            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area.Position + new KnyttPoint(1, 0), out var right_area);
-            right_area_restricted = !GDKnyttSettings.SeamlessScroll || right_area == null || right_area.Area.Empty ||
-                (CurrentArea.Area.Warp.LoadedWarp && !CurrentArea.Area.Warp.WarpRight.isZero())/* ||
-                right_area.Area.FlagWarps.Any(w => w != null)*/;
+            GDWorld.Areas.Areas.TryGetValue(CurrentArea.Area3D.Position + new KnyttPoint(1, 0), out var right_area);
+            right_area_restricted = !GDKnyttSettings.SeamlessScroll || right_area == null || right_area.Area3D.Empty ||
+                (CurrentArea.Area3D.Warp.LoadedWarp && !CurrentArea.Area3D.Warp.WarpRight.isZero())/* ||
+                right_area.Area3D.FlagWarps.Any(w => w != null)*/;
 
             if (force_jump) { camera_global_position_x = CurrentArea.GlobalPosition.X + camera_global_position_x % 600; }
             else if (!GDKnyttSettings.SeamlessScroll) { camera_global_position_x = CurrentArea.GlobalCenter.X; } // fix flickering
@@ -430,7 +430,7 @@ public partial class GDKnyttGame : Node2D
             camera_in_area = 0;
         }
 
-        Camera.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.X + camera_in_area, CurrentArea.GlobalCenter.Y);
+        Camera3D.GlobalPosition = new Vector2(CurrentArea.GlobalCenter.X + camera_in_area, CurrentArea.GlobalCenter.Y);
 
         if (x_viewport <= 600)
         {
@@ -446,12 +446,12 @@ public partial class GDKnyttGame : Node2D
     {
         if (!TouchSettings.EnablePanel || force_fullscreen)
         {
-            Camera.AnchorMode = Camera2D.AnchorModeEnum.DragCenter;
-            Camera.Offset = new Vector2(0, 0);
+            Camera3D.AnchorMode = Camera2D.AnchorModeEnum.DragCenter;
+            Camera3D.Offset = new Vector2(0, 0);
         }
         else
         {
-            Camera.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
+            Camera3D.AnchorMode = Camera2D.AnchorModeEnum.FixedTopLeft;
             // Later panel will set camera offset to stick it to the top or to the bottom
         }
     }
@@ -475,11 +475,11 @@ public partial class GDKnyttGame : Node2D
 
     private void checkTint(GDKnyttArea area)
     {
-        if (!(area.Area.ExtraData?.ContainsKey("Tint") ?? false)) { return; }
+        if (!(area.Area3D.ExtraData?.ContainsKey("Tint") ?? false)) { return; }
 
-        string color = area.Area.ExtraData["Tint"];
-        string ink = area.Area.ExtraData.ContainsKey("TintInk") ? area.Area.ExtraData["TintInk"] : "Trans";
-        string trans = area.Area.ExtraData.ContainsKey("TintTrans") ? area.Area.ExtraData["TintTrans"] : "46";
+        string color = area.Area3D.ExtraData["Tint"];
+        string ink = area.Area3D.ExtraData.ContainsKey("TintInk") ? area.Area3D.ExtraData["TintInk"] : "Trans";
+        string trans = area.Area3D.ExtraData.ContainsKey("TintTrans") ? area.Area3D.ExtraData["TintTrans"] : "46";
 
         Juni.Powers.Tint = (color, ink, trans);
         applyTint(color, ink, trans);
@@ -547,7 +547,7 @@ public partial class GDKnyttGame : Node2D
         return null;
 
         /* Old Godot 3 code:
-        var font = new BitmapFont();
+        var font = new FontFile();
         font.Height = height;
         font.AddTexture(t);
         for (int y = 0; y < 7; y++)

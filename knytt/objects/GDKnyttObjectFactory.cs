@@ -458,7 +458,7 @@ public static class GDKnyttObjectFactory
     }
 }
 
-public class GDKnyttObjectBundle
+public partial class GDKnyttObjectBundle
 {
     public KnyttPoint object_id;
     PackedScene scene;

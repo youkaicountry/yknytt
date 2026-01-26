@@ -28,7 +28,7 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("set", "Sets Juni's power or flag",
             "powers: run climb doublejump highjump eye enemydetector umbrella hologram " + 
             "redkey yellowkey bluekey purplekey map flag0 .. flag9\nvalue: on off 1 0",
-            false, SetCommand.NewSetCommand, new CommandArg("power", CommandArg.Type.StringArg, optional: false), 
+            false, SetCommandPressed.NewSetCommand, new CommandArg("power", CommandArg.Type.StringArg, optional: false), 
             new CommandArg("value", CommandArg.Type.StringArg, optional: false)));
         cs.AddCommand(new CommandDeclaration("mon", "Monitors current area position. Also can monitor Juni's flags.", 
             "mon: turn on monitor, display always on top\n" +
@@ -71,7 +71,7 @@ public static class ConsoleCommands
         "speed 0.1", "speed 1", "speed 0.5", "iddqd", "idclip", "map", "mon flags", 
         "save paste", "save copy", "youtube", "save" };
 
-    public class SpeedCommand : ICommand
+    public partial class SpeedCommand : ICommand
     {
         float? value;
         const float MIN_SPEED = 0.1f;
@@ -107,7 +107,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class HelpCommand : ICommand
+    public partial class HelpCommand : ICommand
     {
         string name;
 
@@ -144,7 +144,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ListCommand : ICommand
+    public partial class ListCommand : ICommand
     {
         public ListCommand(CommandParseResult result)
         {
@@ -166,7 +166,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class SaveCommand : ICommand
+    public partial class SaveCommand : ICommand
     {
         string subcmd;
 
@@ -249,7 +249,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class PassCommand : ICommand
+    public partial class PassCommand : ICommand
     {
         string subcmd;
 
@@ -308,13 +308,13 @@ public static class ConsoleCommands
         }
     }
 
-    public class SetCommand : ICommand
+    public partial class SetCommandPressed : ICommand
     {
         private static string[] names = Enum.GetNames(typeof(JuniValues.PowerNames));
         string variable;
         string value;
 
-        public SetCommand(CommandParseResult result)
+        public SetCommandPressed(CommandParseResult result)
         {
             variable = result.Args["power"];
             value = result.Args["value"];
@@ -322,7 +322,7 @@ public static class ConsoleCommands
 
         public static ICommand NewSetCommand(CommandParseResult result)
         {
-            return new SetCommand(result);
+            return new SetCommandPressed(result);
         }
 
         public string Execute(object environment)
@@ -370,7 +370,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class MonitorCommand : ICommand
+    public partial class MonitorCommand : ICommand
     {
         string subcmd;
 
@@ -420,7 +420,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ExitCommand : ICommand
+    public partial class ExitCommand : ICommand
     {
         public ExitCommand(CommandParseResult result) { }
 
@@ -436,7 +436,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ColCommand : ICommand
+    public partial class ColCommand : ICommand
     {
         public ColCommand(CommandParseResult result) { }
 
@@ -458,7 +458,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class TrailCommand : ICommand
+    public partial class TrailCommand : ICommand
     {
         int? size;
         int? frames;
@@ -492,7 +492,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class DeathCommand : ICommand
+    public partial class DeathCommand : ICommand
     {
         public DeathCommand(CommandParseResult result) { }
 
@@ -546,7 +546,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class FlyCommand : OnOffCommand
+    public partial class FlyCommand : OnOffCommand
     {
         public FlyCommand(CommandParseResult result) : base(result) { }
 
@@ -567,7 +567,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ImmuneCommand : OnOffCommand
+    public partial class ImmuneCommand : OnOffCommand
     {
         public ImmuneCommand(CommandParseResult result) : base(result) { }
 
@@ -588,7 +588,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class MapCommand : OnOffCommand
+    public partial class MapCommand : OnOffCommand
     {
         public MapCommand(CommandParseResult result) : base(result) { }
 
@@ -610,7 +610,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class WorldCommand : ICommand
+    public partial class WorldCommand : ICommand
     {
         string world;
         bool intro;
@@ -660,7 +660,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class ShiftCommand : ICommand
+    public partial class ShiftCommand : ICommand
     {
         bool absolute;
         int x_map, y_map;
@@ -691,7 +691,7 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
-            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            var shift = new KnyttShift(game.CurrentArea.Area3D.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
             shift.AbsoluteTarget = absolute;
             shift.FormattedArea = new KnyttPoint(x_map, y_map);
             if (x_pos != null && y_pos != null) { shift.FormattedPosition = new KnyttPoint(x_pos.Value, y_pos.Value); }
@@ -704,7 +704,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class RebootCommand : ICommand
+    public partial class RebootCommand : ICommand
     {
         public RebootCommand(CommandParseResult result) {}
 
@@ -726,7 +726,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class YoutubeCommand : ICommand
+    public partial class YoutubeCommand : ICommand
     {
         public YoutubeCommand(CommandParseResult result) {}
 
@@ -748,7 +748,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class SettingsCommand : ICommand
+    public partial class SettingsCommand : ICommand
     {
         string section, name, value;
 
@@ -799,7 +799,7 @@ public static class ConsoleCommands
         }
     }
 
-    public class HellCommand : ICommand
+    public partial class HellCommand : ICommand
     {
         public HellCommand(CommandParseResult result) {}
 
@@ -834,7 +834,7 @@ public static class ConsoleCommands
             var pos_kp = new KnyttPoint(int.Parse(pos.Substring(1, pos.IndexOf('y') - 1)), 
                                         int.Parse(pos.Substring(pos.IndexOf('y') + 1)));
 
-            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            var shift = new KnyttShift(game.CurrentArea.Area3D.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
             shift.AbsoluteTarget = true;
             shift.FormattedArea = area_kp;
             shift.FormattedPosition = pos_kp;

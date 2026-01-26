@@ -48,7 +48,7 @@ public partial class MapViewports : Node2D
     public void addArea(GDKnyttArea area)
     {
         if (KWorld == null || area == null || internal_cache) { return; }
-        var key = getKey(area.Area.MapPosition);
+        var key = getKey(area.Area3D.MapPosition);
         if (!viewports.ContainsKey(key))
         {
             ViewportTile tile = viewport_scene.Instantiate<ViewportTile>();

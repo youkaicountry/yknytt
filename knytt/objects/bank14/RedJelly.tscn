@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank14/img/14-1.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank14/img/14-1.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/objects/bank14/Jelly.cs" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=15]
@@ -74,7 +74,7 @@ OrganicEnemy = true
 deceleration = 9.0
 jellySpeed = 15
 
-[node name="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 frames = SubResource( 13 )
 
 [node name="CollisionShape2D" parent="." index="3"]
@@ -85,7 +85,7 @@ shape = SubResource( 14 )
 collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
-polygon = PoolVector2Array( 1.75, 24, 22.125, 24, 22.125, 17.75, 15.5, 13, 8.5, 13, 1.75, 17.625 )
+polygon = PackedVector2Array( 1.75, 24, 22.125, 24, 22.125, 17.75, 15.5, 13, 8.5, 13, 1.75, 17.625 )
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

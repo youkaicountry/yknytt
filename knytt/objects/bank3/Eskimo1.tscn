@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://knytt/objects/bank3/img/3-12.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank3/img/3-12.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=2]
 
 [sub_resource type="AtlasTexture" id=24]
@@ -109,6 +109,6 @@ animations = [ {
 minTime = 2.0
 maxTime = 5.0
 
-[node name="AnimatedSprite" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 frames = SubResource( 23 )
 animation = "jump"

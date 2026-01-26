@@ -420,7 +420,7 @@ public partial class LevelSelection : BasicScreen
             Icon = icon,
             LastPlayedTime = FileAccess.FileExists(played_flag_name) ? FileAccess.GetModifiedTime(played_flag_name) : 0,
             HasSaves = Enumerable.Range(1, 3).Any(i => FileAccess.FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini")),
-            Path = world_dir,
+            Path3D = world_dir,
             InstalledTime = FileAccess.GetModifiedTime(world_dir)
         };
         
@@ -486,7 +486,7 @@ public partial class LevelSelection : BasicScreen
 
     public async void _on_GamePressed(GameButton button)
     {
-        if (button.worldEntry.Path == null)
+        if (button.worldEntry.Path3D == null)
         {
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }

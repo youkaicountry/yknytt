@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://knytt/objects/bank19/img/19-8.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank19/img/19-8.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/common/PathCreature.cs" type="Script" id=3]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0.00775146, 0.026062, 0, 0, 0, 0, 30.4124, -10.7267, 0, 0, 0, 0, 73.4124, -19.7267, 0, 0, 0, 0, 133.412, -28.7267, 0, 0, 0, 0, 201.412, -34.7267, 0, 0, 0, 0, 283.412, -35.7267, 0, 0, 0, 0, 350.412, -31.7267, 0, 0, 0, 0, 416.412, -23.7267, 0, 0, 0, 0, 464.412, -16.7267, 0, 0, 0, 0, 522.418, 0.026062 )
+"points": PackedVector2Array( 0, 0, 0, 0, 0.00775146, 0.026062, 0, 0, 0, 0, 30.4124, -10.7267, 0, 0, 0, 0, 73.4124, -19.7267, 0, 0, 0, 0, 133.412, -28.7267, 0, 0, 0, 0, 201.412, -34.7267, 0, 0, 0, 0, 283.412, -35.7267, 0, 0, 0, 0, 350.412, -31.7267, 0, 0, 0, 0, 416.412, -23.7267, 0, 0, 0, 0, 464.412, -16.7267, 0, 0, 0, 0, 522.418, 0.026062 )
 }
 
 [sub_resource type="AtlasTexture" id=12]
@@ -67,7 +67,7 @@ position = Vector2( 0.00775146, 0.026062 )
 rotate = false
 loop = false
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
 frames = SubResource( 11 )
 animation = "stop"
 centered = false

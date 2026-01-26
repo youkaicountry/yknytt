@@ -15,5 +15,5 @@ collision_layer = 4
 position = Vector2( 12, 12 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false

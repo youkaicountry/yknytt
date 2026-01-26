@@ -1,8 +1,8 @@
-﻿using IniParser.Model;
+using IniParser.Model;
 
 namespace YKnyttLib
 {
-    public class KnyttShift : KnyttSwitch
+    public partial class KnyttShift : KnyttSwitch
     {
         public KnyttPoint AreaPos { get; }
         public bool Save { get; private set; }

@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/img/big_arrow.png" type="Texture" id=2]
+[ext_resource path="res://knytt/ui/img/big_arrow.png" type="Texture2D" id=2]
 [ext_resource path="res://knytt/ui/SlotButton.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/img/hooked_arrow.png" type="Texture" id=4]
-[ext_resource path="res://knytt/ui/img/button_red.png" type="Texture" id=5]
-[ext_resource path="res://knytt/ui/img/button_green.png" type="Texture" id=6]
+[ext_resource path="res://knytt/ui/img/hooked_arrow.png" type="Texture2D" id=4]
+[ext_resource path="res://knytt/ui/img/button_red.png" type="Texture2D" id=5]
+[ext_resource path="res://knytt/ui/img/button_green.png" type="Texture2D" id=6]
 
 
 [node name="SlotButton" instance=ExtResource( 1 )]
-margin_right = 45.0
-margin_bottom = 21.08
-rect_min_size = Vector2( 60, 0 )
+offset_right = 45.0
+offset_bottom = 21.08
+custom_minimum_size = Vector2( 60, 0 )
 text = "Slot"
 script = ExtResource( 3 )
 
@@ -30,61 +30,61 @@ __meta__ = {
 
 [node name="StartLoadArrow" type="TextureRect" parent="." index="1"]
 visible = false
-margin_left = 57.992
-margin_top = 14.0
-margin_right = 101.992
-margin_bottom = 22.0
+offset_left = 57.992
+offset_top = 14.0
+offset_right = 101.992
+offset_bottom = 22.0
 texture = ExtResource( 2 )
 
 [node name="StartLoadButton" parent="StartLoadArrow" index="0" instance=ExtResource( 1 )]
-margin_left = 41.75
-margin_top = -14.0
-margin_right = 136.714
-margin_bottom = 20.536
-rect_min_size = Vector2( 92, 0 )
+offset_left = 41.75
+offset_top = -14.0
+offset_right = 136.714
+offset_bottom = 20.536
+custom_minimum_size = Vector2( 92, 0 )
 text = " Start New Game "
 hint = ""
 
 [node name="EraseArrow" type="TextureRect" parent="." index="2"]
 visible = false
-margin_left = 79.067
-margin_top = 18.0
-margin_right = 102.067
-margin_bottom = 45.0
+offset_left = 79.067
+offset_top = 18.0
+offset_right = 102.067
+offset_bottom = 45.0
 texture = ExtResource( 4 )
 
 [node name="EraseButton" parent="EraseArrow" index="0" instance=ExtResource( 1 )]
-margin_left = 20.961
-margin_top = 17.0
-margin_right = 80.386
-margin_bottom = 50.434
-rect_min_size = Vector2( 60, 0 )
+offset_left = 20.961
+offset_top = 17.0
+offset_right = 80.386
+offset_bottom = 50.434
+custom_minimum_size = Vector2( 60, 0 )
 text = "Erase"
 hint = ""
 
 [node name="ConfirmArrow" type="TextureRect" parent="." index="3"]
 visible = false
-margin_left = 158.286
-margin_top = 48.0
-margin_right = 202.286
-margin_bottom = 56.0
+offset_left = 158.286
+offset_top = 48.0
+offset_right = 202.286
+offset_bottom = 56.0
 texture = ExtResource( 2 )
 
 [node name="ConfirmButton" parent="ConfirmArrow" index="0" instance=ExtResource( 1 )]
-margin_left = 41.688
-margin_top = -13.0
-margin_right = 100.588
-margin_bottom = 21.536
-rect_min_size = Vector2( 60, 0 )
+offset_left = 41.688
+offset_top = -13.0
+offset_right = 100.588
+offset_bottom = 21.536
+custom_minimum_size = Vector2( 60, 0 )
 text = "Confirm"
 
 [node name="RedLayer" type="NinePatchRect" parent="ConfirmArrow/ConfirmButton" index="0"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 texture = ExtResource( 5 )
 region_rect = Rect2( 2, 2, 8, 8 )
 patch_margin_left = 1

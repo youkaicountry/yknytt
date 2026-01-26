@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://knytt/objects/bank15/img/updraft.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank15/img/updraft.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/objects/bank15/Updraft.cs" type="Script" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=37]
@@ -104,7 +104,7 @@ extents = Vector2( 12, 12.5 )
 [node name="Updraft" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource( 37 )
 frames = SubResource( 14 )
 animation = "Updraft"

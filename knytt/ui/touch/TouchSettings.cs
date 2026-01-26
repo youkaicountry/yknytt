@@ -41,13 +41,13 @@ public partial class TouchSettings : Node
         set { GDKnyttSettings.ini["TouchPanel"]["Scale"] = value.ToString(); }
     }
 
-    public static float Viewport
+    public static float SubViewport
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Viewport"]); }
-        set { GDKnyttSettings.ini["TouchPanel"]["Viewport"] = value.ToString(); }
+        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["SubViewport"]); }
+        set { GDKnyttSettings.ini["TouchPanel"]["SubViewport"] = value.ToString(); }
     }
 
-    public static float ViewportNow => EnablePanel ? Viewport : 1;
+    public static float ViewportNow => EnablePanel ? SubViewport : 1;
     
     public static float ScreenWidth => 240 / (GDKnyttSettings.Aspect * ViewportNow);
     
@@ -75,7 +75,7 @@ public partial class TouchSettings : Node
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "VerticalPosition", VerticalPosition.Top.ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Swipe", OS.GetName() != "HTML5" ? "1" : "0");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Scale", "1");
-        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Viewport", (GDKnyttSettings.Mobile && !isHandsOverlapping() ? 1 : 0.85).ToString());
+        modified |= GDKnyttSettings.ensureSetting("TouchPanel", "SubViewport", (GDKnyttSettings.Mobile && !isHandsOverlapping() ? 1 : 0.85).ToString());
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "JumpScale", "1");
         modified |= GDKnyttSettings.ensureSetting("TouchPanel", "Opacity", (0.4).ToString());
         return modified;

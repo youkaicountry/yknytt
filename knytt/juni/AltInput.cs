@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class AltInput
+public partial class AltInput
 {
     private HashSet<string> justPressed = new HashSet<string>();
     private HashSet<string> justReleased = new HashSet<string>();

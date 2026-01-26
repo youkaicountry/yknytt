@@ -3,8 +3,8 @@
 [ext_resource path="res://knytt/ui/MenuCloud.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://knytt/ui/CreditsScreen.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=4]
-[ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=4]
+[ext_resource path="res://knytt/ui/touch/down-arrow.png" type="Texture2D" id=5]
 [ext_resource path="res://knytt/ui/styles/ScrollbarTrack.tres" type="StyleBox" id=6]
 [ext_resource path="res://knytt/ui/styles/ScrollbarGrabber.tres" type="StyleBox" id=7]
 [ext_resource path="res://knytt/ui/styles/ScrollbarGrabberHighlight.tres" type="StyleBox" id=8]
@@ -29,26 +29,26 @@ HScrollBar/styles/grabber_pressed = ExtResource( 9 )
 [sub_resource type="Animation" id=8]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector2( 580, 45 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
@@ -57,26 +57,26 @@ tracks/1/keys = {
 resource_name = "collapse"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 45 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ 0.0, -90.0 ]
 }
@@ -85,26 +85,26 @@ tracks/1/keys = {
 resource_name = "expand"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 0 ), Vector2( 580, 45 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ -90.0, 0.0 ]
 }
@@ -112,26 +112,26 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector2( 580, 370 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
@@ -140,26 +140,26 @@ tracks/1/keys = {
 resource_name = "collapse"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 370 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ 0.0, -90.0 ]
 }
@@ -168,26 +168,26 @@ tracks/1/keys = {
 resource_name = "expand"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 0 ), Vector2( 580, 370 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer6/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ -90.0, 0.0 ]
 }
@@ -195,26 +195,26 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector2( 580, 170 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
@@ -223,26 +223,26 @@ tracks/1/keys = {
 resource_name = "collapse"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 170 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ 0.0, -90.0 ]
 }
@@ -251,26 +251,26 @@ tracks/1/keys = {
 resource_name = "expand"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_min_size")
+tracks/0/path = NodePath(".:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 580, 0 ), Vector2( 580, 170 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rect_rotation")
+tracks/1/path = NodePath("../HBoxContainer7/TextureRect:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ -90.0, 0.0 ]
 }
@@ -299,12 +299,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -85.0
-margin_top = -40.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_top = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer7/Label")
-focus_neighbour_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton")
+offset_left = -85.0
+offset_top = -40.0
+offset_right = -5.0
+offset_bottom = -5.0
+focus_neighbor_top = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer7/Label")
+focus_neighbor_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton")
 focus_next = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LinkButton")
 focus_previous = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer7/Label")
 text = "Back"
@@ -312,213 +312,213 @@ text = "Back"
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -45.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -45.0
 theme = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 580.0
-margin_bottom = 234.0
+offset_right = 580.0
+offset_bottom = 234.0
 size_flags_horizontal = 3
-custom_constants/separation = 6
+theme_override_constants/separation = 6
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
-margin_right = 580.0
-margin_bottom = 13.0
+offset_right = 580.0
+offset_bottom = 13.0
 text = "YKnytt Developers:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 19.0
-margin_right = 580.0
-margin_bottom = 32.0
+offset_top = 19.0
+offset_right = 580.0
+offset_bottom = 32.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_right = 288.0
-margin_bottom = 13.0
+offset_right = 288.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 text = "Nathaniel Caldwell (youkaicountry)"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 13.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 text = "Mike Rodionov (up-left)"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 38.0
-margin_right = 580.0
-margin_bottom = 51.0
+offset_top = 38.0
+offset_right = 580.0
+offset_bottom = 51.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 288.0
-margin_bottom = 13.0
+offset_right = 288.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
-margin_right = 58.0
-margin_bottom = 13.0
+offset_right = 58.0
+offset_bottom = 13.0
 text = "Repository:"
 
 [node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
-margin_left = 62.0
-margin_right = 234.0
-margin_bottom = 13.0
-focus_neighbour_top = NodePath("../../../../../BackButton")
+offset_left = 62.0
+offset_right = 234.0
+offset_bottom = 13.0
+focus_neighbor_top = NodePath("../../../../../BackButton")
 focus_previous = NodePath("../../../../../BackButton")
 focus_mode = 2
 text = "github.com/youkaicountry/yknytt"
 uri = "https://github.com/youkaicountry/yknytt"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 13.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
-margin_right = 64.0
-margin_bottom = 13.0
+offset_right = 64.0
+offset_bottom = 13.0
 text = "Itch.io page:"
 
 [node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
-margin_left = 68.0
-margin_right = 210.0
-margin_bottom = 13.0
+offset_left = 68.0
+offset_right = 210.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "youkaicountry.itch.io/yknytt"
 uri = "https://youkaicountry.itch.io/yknytt"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 57.0
-margin_right = 580.0
-margin_bottom = 70.0
+offset_top = 57.0
+offset_right = 580.0
+offset_bottom = 70.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_right = 288.0
-margin_bottom = 13.0
+offset_right = 288.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 text = "Knytt Stories Main Developer:"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 13.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 text = "Knytt Stories Plus Mod Developer:"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 76.0
-margin_right = 580.0
-margin_bottom = 89.0
+offset_top = 76.0
+offset_right = 580.0
+offset_bottom = 89.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
-margin_right = 288.0
-margin_bottom = 13.0
+offset_right = 288.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
-margin_right = 123.0
-margin_bottom = 13.0
+offset_right = 123.0
+offset_bottom = 13.0
 text = "Nicklas Nygren (Nifflas),"
 
 [node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
-margin_left = 127.0
-margin_right = 194.0
-margin_bottom = 13.0
+offset_left = 127.0
+offset_right = 194.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "nifflas.itch.io"
 uri = "https://nifflas.itch.io"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 13.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
-margin_right = 146.0
-margin_bottom = 13.0
+offset_right = 146.0
+offset_bottom = 13.0
 text = "Tim McDowell (egomassive),"
 
 [node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
-margin_left = 150.0
-margin_right = 256.0
-margin_bottom = 13.0
+offset_left = 150.0
+offset_right = 256.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "egomassive.com/ks/"
 uri = "http://egomassive.com/ks/"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 95.0
-margin_right = 580.0
-margin_bottom = 108.0
+offset_top = 95.0
+offset_right = 580.0
+offset_bottom = 108.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 288.0
-margin_bottom = 13.0
+offset_right = 288.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 text = "Linux ARM64 Port by clichev2, inaya, 0xAda.3"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 13.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 13.0
 size_flags_horizontal = 3
 
 [node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_right = 98.0
-margin_bottom = 13.0
+offset_right = 98.0
+offset_bottom = 13.0
 text = "Uses some parts of"
 
 [node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_left = 102.0
-margin_right = 159.0
-margin_bottom = 13.0
+offset_left = 102.0
+offset_right = 159.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "KnyttSharp"
 uri = "https://github.com/andrewmd5/KnyttSharp"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_left = 163.0
-margin_right = 240.0
-margin_bottom = 13.0
+offset_left = 163.0
+offset_right = 240.0
+offset_bottom = 13.0
 text = "by andrewmd5"
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 114.0
-margin_right = 580.0
-margin_bottom = 114.0
+offset_top = 114.0
+offset_right = 580.0
+offset_bottom = 114.0
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 120.0
-margin_right = 580.0
-margin_bottom = 133.0
+offset_top = 120.0
+offset_right = 580.0
+offset_bottom = 133.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
-margin_right = 13.0
-margin_bottom = 13.0
-rect_pivot_offset = Vector2( 6, 6 )
+offset_right = 13.0
+offset_bottom = 13.0
+pivot_offset = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
-margin_left = 17.0
-margin_right = 79.0
-margin_bottom = 13.0
+offset_left = 17.0
+offset_right = 79.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "Beta Testers"
 
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 139.0
-margin_right = 580.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 580, 45 )
-rect_clip_content = true
+offset_top = 139.0
+offset_right = 580.0
+offset_bottom = 184.0
+custom_minimum_size = Vector2( 580, 45 )
+clip_contents = true
 mouse_filter = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/TestersPanel"]
@@ -527,22 +527,22 @@ anims/collapse = SubResource( 9 )
 anims/expand = SubResource( 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TestersPanel"]
-margin_right = 580.0
-margin_bottom = 45.0
-rect_clip_content = true
+offset_right = 580.0
+offset_bottom = 45.0
+clip_contents = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_right = 142.0
-margin_bottom = 45.0
+offset_right = 142.0
+offset_bottom = 45.0
 size_flags_horizontal = 3
 text = "Wibi (ncrecc)
 madrabbit90
 blipdrifter"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_left = 146.0
-margin_right = 288.0
-margin_bottom = 45.0
+offset_left = 146.0
+offset_right = 288.0
+offset_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Lit Knob
@@ -550,9 +550,9 @@ ms2048
 Pasharet"
 
 [node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_left = 292.0
-margin_right = 434.0
-margin_bottom = 45.0
+offset_left = 292.0
+offset_right = 434.0
+offset_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "djsolidsnake86
@@ -560,9 +560,9 @@ fabzenfab
 Aradiant"
 
 [node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
-margin_left = 438.0
-margin_right = 580.0
-margin_bottom = 45.0
+offset_left = 438.0
+offset_right = 580.0
+offset_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "LumicatRB
@@ -570,31 +570,31 @@ Someone65
 diegopau"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 190.0
-margin_right = 580.0
-margin_bottom = 203.0
+offset_top = 190.0
+offset_right = 580.0
+offset_bottom = 203.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
-margin_right = 13.0
-margin_bottom = 13.0
-rect_pivot_offset = Vector2( 6, 6 )
+offset_right = 13.0
+offset_bottom = 13.0
+pivot_offset = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
-margin_left = 17.0
-margin_right = 55.0
-margin_bottom = 13.0
+offset_left = 17.0
+offset_right = 55.0
+offset_bottom = 13.0
 focus_mode = 2
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 209.0
-margin_right = 580.0
-margin_bottom = 209.0
-rect_min_size = Vector2( 580, 370 )
-rect_clip_content = true
+offset_top = 209.0
+offset_right = 580.0
+offset_bottom = 209.0
+custom_minimum_size = Vector2( 580, 370 )
+clip_contents = true
 mouse_filter = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/TilesetsPanel"]
@@ -603,13 +603,13 @@ anims/collapse = SubResource( 3 )
 anims/expand = SubResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TilesetsPanel"]
-margin_right = 580.0
-margin_bottom = 349.0
-rect_clip_content = true
+offset_right = 580.0
+offset_bottom = 349.0
+clip_contents = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TilesetsPanel/HBoxContainer"]
-margin_right = 288.0
-margin_bottom = 349.0
+offset_right = 288.0
+offset_bottom = 349.0
 size_flags_horizontal = 3
 text = "Adam
 Arvi Teikari (Hempuli)
@@ -635,9 +635,9 @@ LPChip, www.lpchip.com
 Markham Carroll, www.boogatech.com"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TilesetsPanel/HBoxContainer"]
-margin_left = 292.0
-margin_right = 580.0
-margin_bottom = 349.0
+offset_left = 292.0
+offset_right = 580.0
+offset_bottom = 349.0
 size_flags_horizontal = 3
 text = "Michael Vendittelli, s2.freeshell.org
 Moto,ex,Fan
@@ -663,33 +663,33 @@ Zonhin
 Zé Pedro Quintanilha (PONTO)"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 215.0
-margin_right = 580.0
-margin_bottom = 228.0
+offset_top = 215.0
+offset_right = 580.0
+offset_bottom = 228.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
-margin_right = 13.0
-margin_bottom = 13.0
-rect_pivot_offset = Vector2( 6, 6 )
+offset_right = 13.0
+offset_bottom = 13.0
+pivot_offset = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
-margin_left = 17.0
-margin_right = 133.0
-margin_bottom = 13.0
-focus_neighbour_bottom = NodePath("../../../../BackButton")
+offset_left = 17.0
+offset_right = 133.0
+offset_bottom = 13.0
+focus_neighbor_bottom = NodePath("../../../../BackButton")
 focus_next = NodePath("../../../../BackButton")
 focus_mode = 2
 text = "Music & Sound Effects"
 
 [node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 234.0
-margin_right = 580.0
-margin_bottom = 234.0
-rect_min_size = Vector2( 580, 170 )
-rect_clip_content = true
+offset_top = 234.0
+offset_right = 580.0
+offset_bottom = 234.0
+custom_minimum_size = Vector2( 580, 170 )
+clip_contents = true
 mouse_filter = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollContainer/VBoxContainer/MusicPanel"]
@@ -698,13 +698,13 @@ anims/collapse = SubResource( 6 )
 anims/expand = SubResource( 7 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MusicPanel"]
-margin_right = 592.0
-margin_bottom = 157.0
-rect_clip_content = true
+offset_right = 592.0
+offset_bottom = 157.0
+clip_contents = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MusicPanel/HBoxContainer"]
-margin_right = 294.0
-margin_bottom = 93.0
+offset_right = 294.0
+offset_bottom = 93.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Music Library
@@ -715,9 +715,9 @@ trompkins, trompkins.awardspace.com
 Yann van der Cruyssen (Nurykabe), www.nurykabe.com"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/MusicPanel/HBoxContainer"]
-margin_left = 298.0
-margin_right = 592.0
-margin_bottom = 157.0
+offset_left = 298.0
+offset_right = 592.0
+offset_bottom = 157.0
 size_flags_horizontal = 3
 text = "Sound Effects
 Fastrecords, www.yaaay.net/niffpage/

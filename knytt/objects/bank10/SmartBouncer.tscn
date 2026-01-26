@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://knytt/objects/bank10/img/10-4.png" type="Texture" id=1]
+[ext_resource path="res://knytt/objects/bank10/img/10-4.png" type="Texture2D" id=1]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://knytt/data/Sfx/Bounce Lite.wav" type="AudioStream" id=4]
 [ext_resource path="res://knytt/objects/bank10/BouncerEnemy.cs" type="Script" id=5]
@@ -45,7 +45,7 @@ jump_force = 160.0
 extra_gravity = 650.0
 extra_jump_force = 235.0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 5 )
 animation = "stop"
 centered = false

@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array(  )
+"points": PackedVector2Array(  )
 }
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -20,7 +20,7 @@ rotate = false
 loop = false
 lookahead = 48.0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
 centered = false
 
 [node name="WallChecker" type="Area2D" parent="PathFollow2D"]

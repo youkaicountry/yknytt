@@ -1,0 +1,22 @@
+<Project Sdk="Godot.NET.Sdk/4.5.0">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>YKnytt</RootNamespace>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="YUtil.Math">
+      <HintPath>knytt/lib/YUtil.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="YUtil.Collections">
+      <HintPath>knytt/lib/YUtil.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="YUtil.Random">
+      <HintPath>knytt/lib/YUtil.Random.dll</HintPath>
+    </Reference>
+    <Reference Include="IniParser">
+      <HintPath>knytt/lib/INIFileParser.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

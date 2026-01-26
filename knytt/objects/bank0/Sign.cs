@@ -21,18 +21,18 @@ public partial class Sign : GDKnyttBaseObject
 
         char letter = "ABC"[ObjectID.Y - 17];
 
-        string text = GDArea.Area.getExtraData($"Sign({letter})");
+        string text = GDArea.Area3D.getExtraData($"Sign({letter})");
         texts.Add(preprocess(text));
         for (int i = 2; ; i++)
         {
-            text = GDArea.Area.getExtraData($"Sign{i}({letter})");
+            text = GDArea.Area3D.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
             texts.Add(preprocess(text));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "[SILENCE]"; }
 
-        shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignShift({letter})")) ?? 0;
-        triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignTrig({letter})")) ?? 0;
+        shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area3D.getExtraData($"SignShift({letter})")) ?? 0;
+        triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area3D.getExtraData($"SignTrig({letter})")) ?? 0;
 
         adjustSign(initial: true);
 
@@ -71,7 +71,7 @@ public partial class Sign : GDKnyttBaseObject
         float right_limit = 600;
         if (GDKnyttSettings.SideScroll && !initial) // camera is not ready at start
         {
-            float camera_in_area = Juni.Game.Camera.GlobalPosition.X - GDArea.GlobalPosition.X;
+            float camera_in_area = Juni.Game.Camera3D.GlobalPosition.X - GDArea.GlobalPosition.X;
             float x_viewport = GetViewport().GetVisibleRect().Size.X * TouchSettings.ViewportNow;
             left_limit = camera_in_area - x_viewport / 2;
             right_limit = camera_in_area + x_viewport / 2;

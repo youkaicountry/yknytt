@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://knytt/objects/bank18/Fish.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank18/img/fish1.png" type="Texture" id=2]
+[ext_resource path="res://knytt/objects/bank18/img/fish1.png" type="Texture2D" id=2]
 
 
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0.105209, 0.0110207, 0, 0, 0, 0, 24.171, 0.098156, 0, 0, 0, 0, 72.3041, 9.088, 0, 0, 0, 0, 120.063, 29.5024, 0, 0, 0, 0, 168.102, 18.1923, 0, 0, 0, 0, 191.699, 17.4844, 0, 0, 0, 0, 216.004, 20.316, 0, 0, 0, 0, 239.365, 23.8555, 0, 0, 0, 0, 263.669, 28.5749, 0, 0, 0, 0, 287.974, 37.3057, 0, 0, 0, 0, 312.043, 43.9128, 0, 0, 0, 0, 336.112, 45.3286, 0, 0, 0, 0, 348.307, 48.2911 )
+"points": PackedVector2Array( 0, 0, 0, 0, 0.105209, 0.0110207, 0, 0, 0, 0, 24.171, 0.098156, 0, 0, 0, 0, 72.3041, 9.088, 0, 0, 0, 0, 120.063, 29.5024, 0, 0, 0, 0, 168.102, 18.1923, 0, 0, 0, 0, 191.699, 17.4844, 0, 0, 0, 0, 216.004, 20.316, 0, 0, 0, 0, 239.365, 23.8555, 0, 0, 0, 0, 263.669, 28.5749, 0, 0, 0, 0, 287.974, 37.3057, 0, 0, 0, 0, 312.043, 43.9128, 0, 0, 0, 0, 336.112, 45.3286, 0, 0, 0, 0, 348.307, 48.2911 )
 }
 
 [sub_resource type="AtlasTexture" id=2]
@@ -56,5 +56,5 @@ curve = SubResource( 1 )
 [node name="PathFollow2D" parent="." index="0"]
 position = Vector2( 0.105209, 0.0110207 )
 
-[node name="AnimatedSprite" parent="PathFollow2D" index="0"]
+[node name="AnimatedSprite2D" parent="PathFollow2D" index="0"]
 frames = SubResource( 10 )

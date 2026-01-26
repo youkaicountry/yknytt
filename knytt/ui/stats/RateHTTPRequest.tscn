@@ -3,7 +3,7 @@
 [ext_resource path="res://knytt/ui/stats/RateHTTPRequest.cs" type="Script" id=1]
 
 [node name="RateHTTPRequest" type="HTTPRequest"]
-pause_mode = 2
+process_mode = 3
 timeout = 30.0
 script = ExtResource( 1 )
 

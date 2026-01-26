@@ -9,4 +9,4 @@ script = ExtResource( 1 )
 DenyDeletion = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 24, 0, 24, 24, 0, 24, 0, 12 )
+polygon = PackedVector2Array( 24, 0, 24, 24, 0, 24, 0, 12 )

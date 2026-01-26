@@ -12,7 +12,7 @@ extents = Vector2( 15.777, 1.5 )
 script = ExtResource( 2 )
 OrganicEnemy = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( 0, -24 )
 centered = false
 

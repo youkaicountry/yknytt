@@ -1,27 +1,27 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://knytt/ui/img/checked.png" type="Texture" id=2]
-[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture" id=3]
-[ext_resource path="res://knytt/ui/img/checked_disabled.png" type="Texture" id=4]
-[ext_resource path="res://knytt/ui/img/unchecked_disabled.png" type="Texture" id=5]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=1]
+[ext_resource path="res://knytt/ui/img/checked.png" type="Texture2D" id=2]
+[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture2D" id=3]
+[ext_resource path="res://knytt/ui/img/checked_disabled.png" type="Texture2D" id=4]
+[ext_resource path="res://knytt/ui/img/unchecked_disabled.png" type="Texture2D" id=5]
 
 [node name="FullScreen" type="CheckBox"]
-margin_right = 121.0
-margin_bottom = 21.0
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-custom_icons/radio_checked_disabled = ExtResource( 4 )
-custom_icons/radio_checked = ExtResource( 2 )
-custom_icons/checked_disabled = ExtResource( 4 )
-custom_icons/radio_unchecked_disabled = ExtResource( 5 )
-custom_icons/checked = ExtResource( 2 )
-custom_icons/radio_unchecked = ExtResource( 3 )
-custom_icons/unchecked_disabled = ExtResource( 5 )
-custom_icons/unchecked = ExtResource( 3 )
+offset_right = 121.0
+offset_bottom = 21.0
+theme_override_colors/font_disabled_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_focus_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_hover_pressed_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_hover_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_pressed_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 1 )
+theme_override_icons/radio_checked_disabled = ExtResource( 4 )
+theme_override_icons/radio_checked = ExtResource( 2 )
+theme_override_icons/checked_disabled = ExtResource( 4 )
+theme_override_icons/radio_unchecked_disabled = ExtResource( 5 )
+theme_override_icons/checked = ExtResource( 2 )
+theme_override_icons/radio_unchecked = ExtResource( 3 )
+theme_override_icons/unchecked_disabled = ExtResource( 5 )
+theme_override_icons/unchecked = ExtResource( 3 )
 text = "Fullscreen"
