@@ -1,12 +1,11 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=2]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/img/popup.png" type="Texture2D" id=1]
+[ext_resource path="res://knytt/ui/img/popup.png" type="Texture2D" id="1"]
 
 [resource]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 12, 12 )
-margin_left = 3.0
-margin_right = 3.0
-margin_top = 1.0
-margin_bottom = 1.0
+texture = ExtResource("1")
+texture_region = Rect2(0, 0, 12, 12)
+expand_margin_left = 3.0
+expand_margin_top = 1.0
 expand_margin_right = -10.0
+expand_margin_bottom = 1.0

@@ -1,9 +1,4 @@
-[gd_resource type="FontFile" load_steps=2 format=2]
-
-[ext_resource path="res://knytt/fonts/segan/Segan-Light3D.ttf" type="FontFile" id=1]
+[gd_resource type="FontFile" format=3]
 
 [resource]
-size = 12
-use_filter = true
-extra_spacing_top = 1
-font_data = ExtResource( 1 )
+antialiasing = 1
