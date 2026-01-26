@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [sub_resource type="FontFile" id=1]
-font_path = "res://knytt/fonts/segan/Segan-Light3D.ttf"
+font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
 [sub_resource type="FontFile" id=2]
 size = 12

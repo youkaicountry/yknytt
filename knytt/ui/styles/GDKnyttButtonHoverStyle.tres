@@ -1,12 +1,11 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=2]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/img/button_hover.png" type="Texture2D" id=1]
-
+[ext_resource path="res://knytt/ui/img/button_hover.png" type="Texture2D" id="1"]
 
 [resource]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 12, 12 )
-margin_left = 3.08429
-margin_right = 3.25911
-margin_top = 3.14684
-margin_bottom = 3.14684
+texture = ExtResource("1")
+texture_region = Rect2(0, 0, 12, 12)
+expand_margin_left = 3.08429
+expand_margin_top = 3.14684
+expand_margin_right = 3.25911
+expand_margin_bottom = 3.14684

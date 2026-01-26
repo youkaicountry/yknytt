@@ -1,10 +1,10 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=2]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/img/scrollbar_track.png" type="Texture2D" id=1]
+[ext_resource path="res://knytt/ui/img/scrollbar_track.png" type="Texture2D" id="1"]
 
 [resource]
-texture = ExtResource( 1 )
-margin_top = 2.0
-margin_bottom = 2.0
+texture = ExtResource("1")
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1

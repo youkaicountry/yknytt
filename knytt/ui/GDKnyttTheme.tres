@@ -1,75 +1,68 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=14 format=3]
 
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=1]
-[ext_resource path="res://knytt/ui/img/checked.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/ui/img/unchecked.png" type="Texture2D" id=3]
-[ext_resource path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" type="StyleBox" id=4]
-[ext_resource path="res://knytt/ui/styles/ScrollbarTrack.tres" type="StyleBox" id=5]
-[ext_resource path="res://knytt/ui/styles/ScrollbarGrabber.tres" type="StyleBox" id=6]
-[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberHighlight.tres" type="StyleBox" id=7]
-[ext_resource path="res://knytt/ui/styles/ScrollbarGrabberPressed.tres" type="StyleBox" id=8]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/checked.png" id="2"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/unchecked.png" id="3"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttPopupStyle.tres" id="4"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/ScrollbarTrack.tres" id="5"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/ScrollbarGrabber.tres" id="6"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/ScrollbarGrabberHighlight.tres" id="7"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/ScrollbarGrabberPressed.tres" id="8"]
 
-[sub_resource type="StyleBoxTexture" id=1]
+[sub_resource type="StyleBoxTexture" id="1"]
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.737255, 0.737255, 0.960784, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.737255, 0.737255, 0.960784, 1)
 border_width_left = 4
 border_width_top = 2
 border_width_right = 14
 border_width_bottom = 2
-border_color = Color( 0.8, 0.8, 0.8, 0 )
+border_color = Color(0.8, 0.8, 0.8, 0)
 anti_aliasing = false
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id="3"]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id="4"]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id="5"]
 
 [resource]
-CheckBox/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
-CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
-CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-CheckBox/constants/check_vadjust = 0
-CheckBox/constants/hseparation = 4
-CheckBox/fonts/font = null
-CheckBox/icons/checked = ExtResource( 2 )
-CheckBox/icons/radio_checked = ExtResource( 2 )
-CheckBox/icons/radio_unchecked = ExtResource( 3 )
-CheckBox/icons/unchecked = ExtResource( 3 )
-CheckBox/styles/disabled = null
-CheckBox/styles/focus = null
-CheckBox/styles/hover = null
-CheckBox/styles/hover_pressed = null
-CheckBox/styles/normal = SubResource( 1 )
-CheckBox/styles/pressed = null
-OptionButton/colors/font_color_disabled = Color( 0.501961, 0.501961, 0.501961, 1 )
+CheckBox/colors/font_color = Color(0.88, 0.88, 0.88, 1)
+CheckBox/colors/font_disabled_color = Color(0.9, 0.9, 0.9, 0.2)
+CheckBox/colors/font_hover_color = Color(0.94, 0.94, 0.94, 1)
+CheckBox/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+CheckBox/colors/font_pressed_color = Color(1, 1, 1, 1)
+CheckBox/constants/check_v_adjust = 0
+CheckBox/constants/h_separation = 4
+CheckBox/icons/checked = ExtResource("2")
+CheckBox/icons/radio_checked = ExtResource("2")
+CheckBox/icons/radio_unchecked = ExtResource("3")
+CheckBox/icons/unchecked = ExtResource("3")
+CheckBox/styles/normal = SubResource("1")
+OptionButton/colors/font_disabled_color = Color(0.501961, 0.501961, 0.501961, 1)
 OptionButton/constants/arrow_margin = 5
-PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
-PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
-PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
-PopupMenu/colors/font_color_hover = Color( 0, 0, 0, 1 )
-PopupMenu/constants/hseparation = 4
-PopupMenu/constants/vseparation = 16
-PopupMenu/fonts/font = ExtResource( 1 )
-PopupMenu/icons/checked = ExtResource( 2 )
-PopupMenu/icons/radio_checked = ExtResource( 2 )
-PopupMenu/icons/radio_unchecked = ExtResource( 3 )
-PopupMenu/icons/submenu = null
-PopupMenu/icons/unchecked = ExtResource( 3 )
-PopupMenu/styles/hover = SubResource( 2 )
-PopupMenu/styles/labeled_separator_left = SubResource( 3 )
-PopupMenu/styles/labeled_separator_right = SubResource( 4 )
-PopupMenu/styles/panel = ExtResource( 4 )
-PopupMenu/styles/panel_disabled = null
-PopupMenu/styles/separator = SubResource( 5 )
-VScrollBar/styles/scroll = ExtResource( 5 )
-VScrollBar/styles/grabber = ExtResource( 6 )
-VScrollBar/styles/grabber_highlight = ExtResource( 7 )
-VScrollBar/styles/grabber_pressed = ExtResource( 8 )
-HScrollBar/styles/scroll = ExtResource( 5 )
-HScrollBar/styles/grabber = ExtResource( 6 )
-HScrollBar/styles/grabber_highlight = ExtResource( 7 )
-HScrollBar/styles/grabber_pressed = ExtResource( 8 )
+PopupMenu/colors/font_color = Color(0, 0, 0, 1)
+PopupMenu/colors/font_accelerator_color = Color(0.7, 0.7, 0.7, 0.8)
+PopupMenu/colors/font_disabled_color = Color(0.4, 0.4, 0.4, 0.8)
+PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
+PopupMenu/constants/h_separation = 4
+PopupMenu/constants/v_separation = 16
+PopupMenu/fonts/font = ExtResource("1")
+PopupMenu/font_sizes/font_size = 12
+PopupMenu/icons/checked = ExtResource("2")
+PopupMenu/icons/radio_checked = ExtResource("2")
+PopupMenu/icons/radio_unchecked = ExtResource("3")
+PopupMenu/icons/unchecked = ExtResource("3")
+PopupMenu/styles/hover = SubResource("2")
+PopupMenu/styles/labeled_separator_left = SubResource("3")
+PopupMenu/styles/labeled_separator_right = SubResource("4")
+PopupMenu/styles/panel = ExtResource("4")
+PopupMenu/styles/separator = SubResource("5")
+VScrollBar/styles/scroll = ExtResource("5")
+VScrollBar/styles/grabber = ExtResource("6")
+VScrollBar/styles/grabber_highlight = ExtResource("7")
+VScrollBar/styles/grabber_pressed = ExtResource("8")
+HScrollBar/styles/scroll = ExtResource("5")
+HScrollBar/styles/grabber = ExtResource("6")
+HScrollBar/styles/grabber_highlight = ExtResource("7")
+HScrollBar/styles/grabber_pressed = ExtResource("8")
