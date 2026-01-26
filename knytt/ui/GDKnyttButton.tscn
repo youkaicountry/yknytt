@@ -1,38 +1,39 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
-[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="FontFile" id=4]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=5]
-[ext_resource path="res://knytt/ui/GDKnyttButton.cs" type="Script" id=6]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" id="1"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" id="2"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" id="3"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="4"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" id="5"]
+[ext_resource type="Script" path="res://knytt/ui/GDKnyttButton.cs" id="6"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0 )
+border_color = Color(0, 0, 0, 0)
 
 [node name="GDKnyttButton" type="Button"]
 anchor_right = 0.025
 anchor_bottom = 0.058
 offset_right = 65.0
 offset_bottom = 5.295
-custom_minimum_size = Vector2( 80, 0 )
-theme_override_colors/font_disabled_color = Color( 0.341176, 0.341176, 0.341176, 1 )
-theme_override_colors/font_focus_color = Color( 0, 0, 0, 1 )
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_colors/font_hover_color = Color( 0, 0, 0, 1 )
-theme_override_colors/font_pressed_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
-theme_override_styles/hover = ExtResource( 3 )
-theme_override_styles/pressed = ExtResource( 1 )
-theme_override_styles/focus = ExtResource( 5 )
-theme_override_styles/disabled = SubResource( 1 )
-theme_override_styles/normal = ExtResource( 2 )
+custom_minimum_size = Vector2(80, 0)
+theme_override_colors/font_disabled_color = Color(0.341176, 0.341176, 0.341176, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = ExtResource("3")
+theme_override_styles/pressed = ExtResource("1")
+theme_override_styles/focus = ExtResource("5")
+theme_override_styles/disabled = SubResource("1")
+theme_override_styles/normal = ExtResource("2")
 text = "Hello"
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [connection signal="focus_entered" from="." to="." method="_on_GDKnyttButton_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_GDKnyttButton_focus_exited"]

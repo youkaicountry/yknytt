@@ -9,3 +9,5 @@ expand_margin_left = 3.0586
 expand_margin_top = 3.00549
 expand_margin_right = 3.00549
 expand_margin_bottom = 3.20939
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
