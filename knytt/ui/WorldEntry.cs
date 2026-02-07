@@ -8,13 +8,13 @@ public partial class WorldEntry
     public string Author;
     public string Description;
     public byte[] Icon;
-    public Texture2D IconTexture2D;
+    public Texture2D IconTexture;
     public string Size;
     public List<string> Difficulties = new List<string>();
     public List<string> Categories = new List<string>();
     public ulong InstalledTime;
     public ulong LastPlayedTime;
-    public string Path3D;
+    public string Path;
     public bool HasServerInfo;
     public string Link;
     public long FileSize;
@@ -53,7 +53,7 @@ public partial class WorldEntry
         Size = info.Size;
         Difficulties = info.Difficulties;
         Categories = info.Categories;
-        Path3D = info.Path3D;
+        Path = info.Path;
         InstalledTime = info.InstalledTime;
         LastPlayedTime = info.LastPlayedTime;
         HasSaves = info.HasSaves;

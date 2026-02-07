@@ -20,9 +20,9 @@ public partial class GameButton : GDKnyttButton
         GetNode<AnimatedSprite2D>("AnimatedSprite2D").Visible = false;
         GetNode<Control>("MainContainer").Visible = true;
 
-        if (info.IconTexture2D == null) { info.IconTexture2D = GDKnyttAssetManager.loadTexture2D(info.Icon); } 
-        GetNode<TextureRect>("MainContainer/IconTexture2D").Texture = info.IconTexture2D;
-        GetNode<TextureRect>("MainContainer/IconTexture2D").Size = new Vector2(30, 30);
+        if (info.IconTexture == null) { info.IconTexture = GDKnyttAssetManager.loadTexture2D(info.Icon); } 
+        GetNode<TextureRect>("MainContainer/IconTexture").Texture = info.IconTexture;
+        GetNode<TextureRect>("MainContainer/IconTexture").Size = new Vector2(30, 30);
         GetNode<Label>("MainContainer/TextContainer/NameLabel").Text = $"{info.Name} ({info.Author})";
         descriptionLabel = GetNode<Label>("MainContainer/TextContainer/DescriptionLabel");
         descriptionLabel.Text = info.Description;

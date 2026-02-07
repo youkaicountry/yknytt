@@ -102,6 +102,16 @@ public partial class MainMenu : BasicScreen
         GDKnyttDataStore.KWorld = world;
     }
 
+    public void _on_PlayButton_pressed_local()
+    {
+        _on_PlayButton_pressed(local_load: true);
+    }
+
+    public void _on_DownloadButton_pressed()
+    {
+        _on_PlayButton_pressed(local_load: false);
+    }
+
     public void _on_PlayButton_pressed(bool local_load)
     {
         var level_node = this.level_select_scene.Instantiate() as LevelSelection;

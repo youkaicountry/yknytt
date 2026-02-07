@@ -46,15 +46,15 @@ public partial class InfoScreen : BasicScreen
     {
         KWorld = new GDKnyttWorldImpl();
         this.world_entry = world_entry;
-        if (DirAccess.DirExistsAbsolute(world_entry.Path3D))
+        if (DirAccess.DirExistsAbsolute(world_entry.Path))
         {
-            KWorld.setDirectory(world_entry.Path3D, world_entry.Path3D.GetFile());
+            KWorld.setDirectory(world_entry.Path, world_entry.Path.GetFile());
         }
         else
         {
-            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path3D));
+            var loader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(world_entry.Path));
             KWorld.setBinMode(loader);
-            KWorld.setDirectory(world_entry.Path3D, loader.RootDirectory);
+            KWorld.setDirectory(world_entry.Path, loader.RootDirectory);
         }
         string ini = GDKnyttAssetManager.loadTextFileRaw(KWorld.getWorldData("World.ini"));
         KWorld.loadWorldConfig(ini);
@@ -480,8 +480,8 @@ public partial class InfoScreen : BasicScreen
         else
         {
             hint_label.Text = "Unpacking and/or compiling level tilesets...";
-            await ToSignal(GetTree(), "idle_frame");
-            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "process_frame");
+            await ToSignal(GetTree(), "process_frame");
             optimize();
         }
     }
@@ -502,7 +502,7 @@ public partial class InfoScreen : BasicScreen
             string dir = KWorld.WorldDirectory.GetBaseDir().PathJoin(KWorld.WorldDirectoryName);
             setIniValue(null, dir);
             KWorld.unpackWorld(dir);
-            world_entry.Path3D = KWorld.WorldDirectory;
+            world_entry.Path = KWorld.WorldDirectory;
             unpacked = true;
         }
         GDKnyttAssetManager.compileInternalTileset(KWorld, recompile: true);

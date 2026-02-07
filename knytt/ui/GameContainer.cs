@@ -35,7 +35,9 @@ public partial class GameContainer : VBoxContainer
     public void addWorld(WorldEntry world_entry, bool focus = false, bool mark_completed = false)
     {
         bool replace_stub = stubs.Count != 0;
-        var game_node = replace_stub ? stubs.First.Value : this.game_scene.Instantiate() as GameButton;
+        GameButton game_node;
+        game_node = replace_stub ? stubs.First.Value : this.game_scene.Instantiate() as GameButton;
+        if (game_node == null) { return; }
         if (replace_stub) { stubs.RemoveFirst(); }
         game_node.initialize(world_entry);
         game_node.Connect("GamePressed", new Callable(GetNode<LevelSelection>("../../.."), "_on_GamePressed"));

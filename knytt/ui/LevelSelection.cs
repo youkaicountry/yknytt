@@ -71,7 +71,7 @@ public partial class LevelSelection : BasicScreen
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
-        GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible = 
+        GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible =
             GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
 
         if (OS.GetName() == "HTML5") { GetNode<CanvasItem>("ConnectionLostLabel/Failsafe").Visible = false; }
@@ -86,6 +86,12 @@ public partial class LevelSelection : BasicScreen
         worlds_cache_ini = parser.Parse(ini_text);
         old_levels_paths = worlds_cache_ini.Sections.Select(s => s.SectionName).ToHashSet();
 
+        // Connect ToLevel focus signals with bound parameters (Godot 4 doesn't support binds in .tscn)
+        GetNode<Control>("ToBottomLevelLeft").Connect("focus_entered", Callable.From(() => _on_ToLevel_focus_entered(false, 0)));
+        GetNode<Control>("ToBottomLevelRight").Connect("focus_entered", Callable.From(() => _on_ToLevel_focus_entered(false, 1)));
+        GetNode<Control>("ToTopLevelLeft").Connect("focus_entered", Callable.From(() => _on_ToLevel_focus_entered(true, 0)));
+        GetNode<Control>("ToTopLevelRight").Connect("focus_entered", Callable.From(() => _on_ToLevel_focus_entered(true, 1)));
+
         loadDefaultWorlds();
 
         if (OS.GetName() != "HTML5")
@@ -97,7 +103,7 @@ public partial class LevelSelection : BasicScreen
         {
             loadLocalWorlds();
         }
-        
+
         if (!localLoad) { HttpLoad(grab_focus: true); }
     }
 
@@ -420,7 +426,7 @@ public partial class LevelSelection : BasicScreen
             Icon = icon,
             LastPlayedTime = FileAccess.FileExists(played_flag_name) ? FileAccess.GetModifiedTime(played_flag_name) : 0,
             HasSaves = Enumerable.Range(1, 3).Any(i => FileAccess.FileExists($"{GDKnyttSettings.Saves}/{world_info.Folder} {i}.ini")),
-            Path3D = world_dir,
+            Path = world_dir,
             InstalledTime = FileAccess.GetModifiedTime(world_dir)
         };
         
@@ -455,11 +461,11 @@ public partial class LevelSelection : BasicScreen
             AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified"),
             Status = HTTPUtil.jsonInt(json_item, "status"),
             Categories = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "category")
-                .Cast<float>().Where(i => i > 0 && i < category_option.GetItemCount())
-                .Select(i => category_option.GetItemText((int)i)).ToList(),
+                .Select(v => (int)v.AsDouble()).Where(i => i > 0 && i < category_option.GetItemCount())
+                .Select(i => category_option.GetItemText(i)).ToList(),
             Difficulties = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "difficulty")
-                .Cast<float>().Where(i => i > 0 && i < difficulty_option.GetItemCount())
-                .Select(i => difficulty_option.GetItemText((int)i)).ToList(),
+                .Select(v => (int)v.AsDouble()).Where(i => i > 0 && i < difficulty_option.GetItemCount())
+                .Select(i => difficulty_option.GetItemText(i)).ToList(),
             Size = size_index > 0 && size_index < size_option.GetItemCount() ? size_option.GetItemText(size_index) : ""
         };
     }
@@ -486,7 +492,7 @@ public partial class LevelSelection : BasicScreen
 
     public async void _on_GamePressed(GameButton button)
     {
-        if (button.worldEntry.Path3D == null)
+        if (button.worldEntry.Path == null)
         {
             var timer = GetNode<Timer>("DownloadMonitor");
             if (!timer.IsStopped()) { return; }
@@ -515,8 +521,8 @@ public partial class LevelSelection : BasicScreen
         else
         {
             button.refreshLoaded(before: true);
-            await ToSignal(GetTree(), "idle_frame");
-            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "process_frame");
+            await ToSignal(GetTree(), "process_frame");
             var info_screen = info_scene.Instantiate() as InfoScreen;
             info_screen.initialize(button.worldEntry); // can be done in another thread, and you will see an animation
             info_screen.initialize(info_screen.KWorld);

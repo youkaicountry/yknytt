@@ -1,76 +1,106 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=21 format=3]
 
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" type="StyleBox" id=1]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" type="StyleBox" id=3]
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=4]
-[ext_resource path="res://knytt/ui/GameButton.cs" type="Script" id=5]
-[ext_resource path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" type="StyleBox" id=6]
-[ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture2D" id=7]
-[ext_resource path="res://knytt/ui/img/birdie2_fly.png" type="Texture2D" id=8]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonPressedStyle.tres" id="1"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" id="2"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonHoverStyle.tres" id="3"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="4"]
+[ext_resource type="Script" path="res://knytt/ui/GameButton.cs" id="5"]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonFocusStyle.tres" id="6"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/down_arrow.png" id="7"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/birdie2_fly.png" id="8"]
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id="11"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("8")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 8 )
-region = Rect2( 24, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("8")
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 8 )
-region = Rect2( 48, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("8")
+region = Rect2(48, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 8 )
-region = Rect2( 72, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("8")
+region = Rect2(72, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 8 )
-region = Rect2( 96, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("8")
+region = Rect2(96, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 8 )
-region = Rect2( 120, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("8")
+region = Rect2(120, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 8 )
-region = Rect2( 144, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("8")
+region = Rect2(144, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 8 )
-region = Rect2( 168, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("8")
+region = Rect2(168, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 8 )
-region = Rect2( 192, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("8")
+region = Rect2(192, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 8 )
-region = Rect2( 216, 0, 24, 24 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("8")
+region = Rect2(216, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id=12]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+[sub_resource type="SpriteFrames" id="12"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 20.0
-} ]
+}]
 
 [node name="GameButton" type="Button"]
 offset_right = 290.0
 offset_bottom = 55.0
-custom_minimum_size = Vector2( 290, 55 )
+custom_minimum_size = Vector2(290, 55)
 clip_contents = true
 mouse_filter = 1
-theme_override_styles/hover = ExtResource( 3 )
-theme_override_styles/pressed = ExtResource( 1 )
-theme_override_styles/focus = ExtResource( 6 )
-theme_override_styles/disabled = SubResource( 11 )
-theme_override_styles/normal = ExtResource( 2 )
-script = ExtResource( 5 )
+theme_override_styles/hover = ExtResource("3")
+theme_override_styles/pressed = ExtResource("1")
+theme_override_styles/focus = ExtResource("6")
+theme_override_styles/disabled = SubResource("11")
+theme_override_styles/normal = ExtResource("2")
+script = ExtResource("5")
 
 [node name="ProgressRect" type="ColorRect" parent="."]
 visible = false
@@ -80,14 +110,11 @@ offset_top = 3.0
 offset_right = 20.0
 offset_bottom = -3.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2( 145, 22 )
-frames = SubResource( 12 )
-playing = true
+position = Vector2(145, 22)
+sprite_frames = SubResource("12")
+autoplay = "default"
 
 [node name="MainContainer" type="HBoxContainer" parent="."]
 visible = false
@@ -95,18 +122,15 @@ offset_left = 6.0
 offset_top = 7.0
 offset_right = 48.0
 offset_bottom = 38.0
-custom_minimum_size = Vector2( 30, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(30, 0)
 
 [node name="IconTexture" type="TextureRect" parent="MainContainer"]
 offset_right = 30.0
 offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
+custom_minimum_size = Vector2(30, 30)
 size_flags_horizontal = 0
 size_flags_vertical = 0
-expand = true
+expand_mode = 1
 stretch_mode = 6
 
 [node name="TextContainer" type="VBoxContainer" parent="MainContainer"]
@@ -117,8 +141,8 @@ offset_bottom = 31.0
 [node name="NameLabel" type="Label" parent="MainContainer/TextContainer"]
 offset_right = 195.0
 offset_bottom = 13.0
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "A Strange Dream (Nifflas)"
 
@@ -126,8 +150,8 @@ text = "A Strange Dream (Nifflas)"
 offset_top = 17.0
 offset_right = 195.0
 offset_bottom = 30.0
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "That night, she has a strange dream..."
 
@@ -145,8 +169,8 @@ alignment = 2
 offset_left = 67.0
 offset_right = 130.0
 offset_bottom = 13.0
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "Not Verified"
 
@@ -154,9 +178,9 @@ text = "Not Verified"
 offset_left = 134.0
 offset_right = 181.0
 offset_bottom = 13.0
-custom_minimum_size = Vector2( 18, 13 )
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+custom_minimum_size = Vector2(18, 13)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "111.2 MB"
 
@@ -164,38 +188,30 @@ text = "111.2 MB"
 offset_left = 185.0
 offset_right = 240.0
 offset_bottom = 13.0
-custom_minimum_size = Vector2( 18, 13 )
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+custom_minimum_size = Vector2(18, 13)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "Rating: 4.5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="RatingControl"]
 offset_left = 244.0
 offset_right = 257.0
 offset_bottom = 13.0
-custom_minimum_size = Vector2( 4, 4 )
-texture = ExtResource( 7 )
+custom_minimum_size = Vector2(4, 4)
+texture = ExtResource("7")
+expand_mode = 1
 stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DownloadsLabel" type="Label" parent="RatingControl"]
 offset_left = 261.0
 offset_right = 285.0
 offset_bottom = 13.0
-custom_minimum_size = Vector2( 7, 13 )
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 4 )
+custom_minimum_size = Vector2(7, 13)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4")
 theme_override_font_sizes/font_size = 12
 text = "9999"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="ShowHint" from="." to="." method="_on_GameButton_ShowHint"]
 [connection signal="focus_entered" from="." to="." method="_on_GDKnyttButton_focus_entered"]

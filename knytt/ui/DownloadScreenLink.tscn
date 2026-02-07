@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=1]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="1"]
 
 [node name="DownloadScreenLink" type="LinkButton"]
 anchor_right = 1.0
 focus_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_focus_color = Color( 0, 0, 0.501961, 1 )
-theme_override_colors/font_color = Color( 0.25098, 0.25098, 1, 1 )
-theme_override_colors/font_hover_color = Color( 0, 0, 0.501961, 1 )
-theme_override_colors/font_pressed_color = Color( 0, 0, 0.501961, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_focus_color = Color(0, 0, 0.501961, 1)
+theme_override_colors/font_color = Color(0.25098, 0.25098, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.501961, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.501961, 1)
+theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
 text = "Show more levels"
