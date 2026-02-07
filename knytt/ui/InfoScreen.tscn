@@ -10,7 +10,7 @@
 [ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://knytt/ui/stats/StarRate.tscn" type="PackedScene" id=9]
 [ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=10]
-[ext_resource path="res://knytt/ui/stats/RateHTTPRequest.tscn" type="PackedScene" id=11]
+[ext_resource path="res://knytt/ui/stats/RateHttpRequest.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 border_width_left = 2
@@ -248,10 +248,10 @@ custom_minimum_size = Vector2( 80, 30 )
 focus_neighbor_right = NodePath("../../../BackButton")
 text = "View Achievements"
 
-[node name="StatHTTPRequest" type="HTTPRequest" parent="."]
+[node name="StatHttpRequest" type="HTTPRequest" parent="."]
 timeout = 7.0
 
-[node name="RateHTTPRequest" parent="." instance=ExtResource( 11 )]
+[node name="RateHttpRequest" parent="." instance=ExtResource( 11 )]
 
 [node name="HintTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -279,7 +279,7 @@ wait_time = 0.2
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/ConfirmButton" to="." method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/Uninstall/CancelButton" to="." method="_on_UninstallButton_pressed" binds= [ false ]]
 [connection signal="pressed" from="InfoRect/RatePanel/VBoxContainer/StatsButton" to="." method="_on_StatsButton_pressed"]
-[connection signal="ready" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_ready"]
-[connection signal="request_completed" from="StatHTTPRequest" to="." method="_on_StatHTTPRequest_request_completed"]
-[connection signal="RateAdded" from="RateHTTPRequest" to="." method="_on_RateHTTPRequest_RateAdded"]
+[connection signal="ready" from="StatHttpRequest" to="." method="_on_StatHTTPRequest_ready"]
+[connection signal="request_completed" from="StatHttpRequest" to="." method="_on_StatHTTPRequest_request_completed"]
+[connection signal="RateAdded" from="RateHttpRequest" to="." method="_on_RateHTTPRequest_RateAdded"]
 [connection signal="timeout" from="HintTimer" to="." method="_on_HintTimer_timeout"]
