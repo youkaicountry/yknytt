@@ -5,7 +5,7 @@ namespace YKnyttLib
     public struct KnyttPoint
     {
         public readonly int X, Y;
-        public int Area3D
+        public int Area
         {
             get { return X * Y; }
         }

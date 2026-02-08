@@ -81,7 +81,8 @@ public partial class LevelSelection : BasicScreen
         lost_label.Text = lost_label.Text.Replace("$url", server_url);
 
         worlds_modified = false;
-        var ini_text = FileAccess.FileExists(CACHE_INI_PATH) ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
+        var ini_exists = FileAccess.FileExists(CACHE_INI_PATH);
+        var ini_text = ini_exists ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
         var parser = new IniDataParser();
         worlds_cache_ini = parser.Parse(ini_text);
         old_levels_paths = worlds_cache_ini.Sections.Select(s => s.SectionName).ToHashSet();

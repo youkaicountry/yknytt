@@ -6,6 +6,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="YUtil.Math">
       <HintPath>knytt/lib/YUtil.Math.dll</HintPath>
     </Reference>

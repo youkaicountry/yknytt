@@ -4,12 +4,12 @@ public partial class Warp : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        if (GDArea.Area3D.ExtraData == null) { return; }
-        GDArea.Area3D.Warp.loadWarpData();
+        if (GDArea.Area.ExtraData == null) { return; }
+        GDArea.Area.Warp.loadWarpData();
     }
 
     public override void customDeletion()
     {
-        GDArea.Area3D.Warp = new KnyttWarp(GDArea.Area3D);
+        GDArea.Area.Warp = new KnyttWarp(GDArea.Area);
     }
 }

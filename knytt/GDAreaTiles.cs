@@ -10,8 +10,8 @@ public partial class GDAreaTiles : Node2D
     {
         var llayers = new List<GDAreaLayer>();
 
-        TileSet ta = area.GDWorld.AssetManager.getTileSet(area.Area3D.TilesetA);
-        TileSet tb = area.GDWorld.AssetManager.getTileSet(area.Area3D.TilesetB);
+        TileSet ta = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetA);
+        TileSet tb = area.GDWorld.AssetManager.getTileSet(area.Area.TilesetB);
 
         foreach (GDAreaLayer c in this.GetChildren())
         {
@@ -24,7 +24,7 @@ public partial class GDAreaTiles : Node2D
 
         for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
         {
-            var data = area.Area3D.TileLayers[layer];
+            var data = area.Area.TileLayers[layer];
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
@@ -36,7 +36,7 @@ public partial class GDAreaTiles : Node2D
             }
         }
 
-        if (area.Area3D.getExtraData("Overlay")?.ToLower() == "true") { Layers[2].ZIndex = 12; }
+        if (area.Area.getExtraData("Overlay")?.ToLower() == "true") { Layers[2].ZIndex = 12; }
     }
 
     public void setTile(int layer, int x, int y, int tilenum)

@@ -218,7 +218,10 @@ public partial class GDKnyttAssetManager
         ts.TileSize = new Vector2I(TILE_WIDTH, TILE_HEIGHT);
 
         // Add a physics layer for collision
+        // Collision layer 2050 = bits 1+11 = layers 2 (JuniCollides) and 12
         ts.AddPhysicsLayer();
+        ts.SetPhysicsLayerCollisionLayer(0, 2050);
+        ts.SetPhysicsLayerCollisionMask(0, 0);
 
         // Godot 4: Create TileSetAtlasSource for atlas-based tiles
         // Source 0: tiles with collision (tile IDs 0-127)

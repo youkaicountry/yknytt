@@ -4,8 +4,8 @@ public partial class Title : GDKnyttBaseObject
 {
     public override void _Ready()
     {
-        string title = GDArea.Area3D.getExtraData("Title");
-        string subtitle = GDArea.Area3D.getExtraData("Subtitle");
+        string title = GDArea.Area.getExtraData("Title");
+        string subtitle = GDArea.Area.getExtraData("Subtitle");
 
         var title_node = GDArea.GDWorld.Game.GetNode<Control>("%Title");
         var title_label = title_node.GetNode<Label>("TitleLabel");

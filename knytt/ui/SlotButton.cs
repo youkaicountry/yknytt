@@ -64,11 +64,9 @@ public partial class SlotButton : GDKnyttButton
     public void checkSlot()
     {
         close();
-        var f = SlotFile;
-        if (f.IsOpen()) { setupLoadMode(); }
+        using var f = SlotFile;
+        if (f != null) { setupLoadMode(); }
         else { setupNewMode(); }
-        f.Close();
-
     }
 
     private void setupNewMode()

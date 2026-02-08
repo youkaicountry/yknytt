@@ -67,6 +67,18 @@ public partial class InfoScreen : BasicScreen
         hint_label = GetNode<Label>("InfoRect/HintLabel");
         complete_option = GetNode<OptionButton>("%CompleteOption");
 
+        // Populate items in code (format=2 scene items don't load in Godot 4)
+        if (complete_option.ItemCount == 0)
+        {
+            complete_option.AddItem("Not Started", 0);
+            complete_option.AddItem("Completed", 1);
+            complete_option.AddItem("Play Later", 2);
+            complete_option.AddItem("Too Hard", 3);
+            complete_option.AddItem("Can't Progress", 5);
+            complete_option.AddItem("Not Interested", 4);
+            complete_option.AddItem("Level Errors", 6);
+        }
+
         var optimize_button = GetNode<GDKnyttButton>("%OptimizeButton");
         GetNode<Button>("%Uninstall/MainButton").Disabled = optimize_button.Disabled =
             world_entry == null || KWorld.WorldDirectory.StartsWith("res://");

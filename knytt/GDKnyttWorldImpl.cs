@@ -49,8 +49,9 @@ public partial class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture2D(string filepath)
     {
-        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
-            GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
+        // Skip pre-compiled Godot 3 TileSet .res files - they are incompatible with Godot 4.
+        // makeTileset() will create proper Godot 4 TileSets from the PNG textures instead.
+        return GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
     }
 
     protected sealed override byte[] getSystemWorldData(string filepath)

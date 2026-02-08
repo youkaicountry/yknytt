@@ -30,7 +30,7 @@ public partial class GDObjectLayers : Node2D
         //Load objects
         for (int layer = KnyttArea.AREA_SPRITE_LAYERS - 1; layer >= 0; layer--)
         {
-            var data = area.Area3D.ObjectLayers[layer];
+            var data = area.Area.ObjectLayers[layer];
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
@@ -66,7 +66,7 @@ public partial class GDObjectLayers : Node2D
         16  Tint                Tint
         17  Signs and titles    Signs and titles
         */
-        if (GDArea.Area3D.getExtraData("Overlay")?.ToLower() == "true")
+        if (GDArea.Area.getExtraData("Overlay")?.ToLower() == "true")
         {
             turnOffObjects(Layers[3]);
             Layers[3].ZIndex = 15;
@@ -129,7 +129,7 @@ public partial class GDObjectLayers : Node2D
     public void checkCollectables(JuniValues powers)
     {
         if (powers == null) { return; }
-        powers.resetMarks(GDArea.Area3D.MapPosition);
+        powers.resetMarks(GDArea.Area.MapPosition);
 
         foreach (var layer in GDArea.Objects.Layers)
         {
@@ -145,16 +145,16 @@ public partial class GDObjectLayers : Node2D
                     var collectable = pitem.Power >= 8 && pitem.Power <= 11 ?
                         JuniValues.Collectable.Key + (int)(pitem.Power - JuniValues.PowerNames.RedKey + 1) :
                         JuniValues.Collectable.Powerup;
-                    powers.setMark(GDArea.Area3D.MapPosition, collectable);
+                    powers.setMark(GDArea.Area.MapPosition, collectable);
                 }
                 if (knytt_object is Door door && !door.checkKey(GDArea.GDWorld.Game.Juni))
                 {
                     int color = knytt_object is KeyDoor keydoor ? keydoor.power - JuniValues.PowerNames.RedKey + 1 : 0;
-                    powers.setMark(GDArea.Area3D.MapPosition, JuniValues.Collectable.Door + color);
+                    powers.setMark(GDArea.Area.MapPosition, JuniValues.Collectable.Door + color);
                 }
                 if (knytt_object.ObjectID.X == 19 && !powers.getCollectable(knytt_object.ObjectID.Y))
                 {
-                    powers.setMark(GDArea.Area3D.MapPosition, 
+                    powers.setMark(GDArea.Area.MapPosition, 
                         knytt_object.ObjectID.Y <= 50 ? JuniValues.Collectable.Creature :
                         knytt_object.ObjectID.Y <= 150 ? JuniValues.Collectable.Coin : JuniValues.Collectable.Artifact);
                 }

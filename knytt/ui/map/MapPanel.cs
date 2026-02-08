@@ -175,7 +175,7 @@ public partial class MapPanel : Control
             }
         }
 
-        KnyttPoint cur_pos = juni.GDArea.Area3D.MapPosition - world.MinBounds;
+        KnyttPoint cur_pos = juni.GDArea.Area.MapPosition - world.MinBounds;
         // Godot fails to draw simple rect here sometimes, 4 x DrawLine doesn't help. Maybe later it will be fixed...
         DrawRect(new Rect2(cur_pos.X * XSIZE, cur_pos.Y * YSIZE, XSIZE, YSIZE), CURRENT_BORDER, filled: false, width: 2);
     }
@@ -189,7 +189,7 @@ public partial class MapPanel : Control
         GDKnyttSettings.setupViewport(for_ui: show);
         if (show)
         {
-            KnyttPoint pos = juni.GDArea.Area3D.MapPosition;
+            KnyttPoint pos = juni.GDArea.Area.MapPosition;
 
             Scale = Vector2.One;
             Position = new Vector2(
@@ -198,7 +198,7 @@ public partial class MapPanel : Control
             PivotOffset = -Position + GetParentAreaSize() / 2;
 
             juni.GDArea?.Objects?.checkCollectables(juni.Powers);
-            setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area3D.Position, JuniValues.Collectable.User));
+            setMarkButtonText(juni.Powers.hasMark(juni.GDArea.Area.Position, JuniValues.Collectable.User));
             last_drag_distance = 0;
             QueueRedraw();
         }
@@ -295,17 +295,17 @@ public partial class MapPanel : Control
 
     private void mark()
     {
-        bool marked = juni.Powers.hasMark(juni.GDArea.Area3D.MapPosition, JuniValues.Collectable.User);
+        bool marked = juni.Powers.hasMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
         var base_powers = juni.Game.GDWorld.KWorld.CurrentSave.SourcePowers;
         if (marked)
         {
-            juni.Powers.unsetMark(juni.GDArea.Area3D.MapPosition, JuniValues.Collectable.User);
-            base_powers.unsetMark(juni.GDArea.Area3D.MapPosition, JuniValues.Collectable.User);
+            juni.Powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+            base_powers.unsetMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
         }
         else
         {
-            juni.Powers.setMark(juni.GDArea.Area3D.MapPosition, JuniValues.Collectable.User);
-            base_powers.setMark(juni.GDArea.Area3D.MapPosition, JuniValues.Collectable.User);
+            juni.Powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
+            base_powers.setMark(juni.GDArea.Area.MapPosition, JuniValues.Collectable.User);
         }
         setMarkButtonText(!marked);
         QueueRedraw();

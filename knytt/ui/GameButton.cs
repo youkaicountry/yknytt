@@ -68,7 +68,7 @@ public partial class GameButton : GDKnyttButton
     {
         progressRect.Visible = true;
         progressRect.Color = color;
-        progressRect.Size = new Vector2(startProgressLength + varProgressLength * progress, 49); // TODO: not clear for small buttons
+        progressRect.OffsetRight = progressRect.OffsetLeft + startProgressLength + varProgressLength * progress;
     }
 
     public void setDownloaded(int bytes_count)

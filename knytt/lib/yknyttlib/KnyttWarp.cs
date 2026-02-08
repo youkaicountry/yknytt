@@ -15,11 +15,11 @@ namespace YKnyttLib
 
         public bool LoadedWarp { get; private set; }
 
-        public KnyttArea Area3D { get; }
+        public KnyttArea Area { get; }
 
         public KnyttWarp(KnyttArea area)
         {
-            Area3D = area;
+            Area = area;
             WarpUp = KnyttPoint.Zero;
             WarpDown = KnyttPoint.Zero;
             WarpLeft = KnyttPoint.Zero;
@@ -32,7 +32,7 @@ namespace YKnyttLib
             if (LoadedWarp) { return; }
             LoadedWarp = true;
 
-            var data = Area3D.ExtraData;
+            var data = Area.ExtraData;
             WarpUp = getINIWarp(data, "U");
             WarpDown = getINIWarp(data, "D");
             WarpLeft = getINIWarp(data, "L");

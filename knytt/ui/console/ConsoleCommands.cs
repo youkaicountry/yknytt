@@ -691,7 +691,7 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
 
-            var shift = new KnyttShift(game.CurrentArea.Area3D.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
             shift.AbsoluteTarget = absolute;
             shift.FormattedArea = new KnyttPoint(x_map, y_map);
             if (x_pos != null && y_pos != null) { shift.FormattedPosition = new KnyttPoint(x_pos.Value, y_pos.Value); }
@@ -834,7 +834,7 @@ public static class ConsoleCommands
             var pos_kp = new KnyttPoint(int.Parse(pos.Substring(1, pos.IndexOf('y') - 1)), 
                                         int.Parse(pos.Substring(pos.IndexOf('y') + 1)));
 
-            var shift = new KnyttShift(game.CurrentArea.Area3D.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
+            var shift = new KnyttShift(game.CurrentArea.Area.Position, game.Juni.AreaPosition, KnyttSwitch.SwitchID.A);
             shift.AbsoluteTarget = true;
             shift.FormattedArea = area_kp;
             shift.FormattedPosition = pos_kp;
