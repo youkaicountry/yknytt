@@ -54,7 +54,7 @@ custom_minimum_size = Vector2(0, 190)
 size_flags_vertical = 3
 theme = ExtResource("8")
 follow_focus = true
-scroll_horizontal_enabled = false
+horizontal_scroll_mode = 0
 
 [node name="GameContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
 focus_mode = 2

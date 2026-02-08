@@ -262,7 +262,7 @@ namespace YKnyttLib
 
         public override string ToString()
         {
-            return string.Format("[Area3D {0}]", this.Position);
+            return string.Format("[Area {0}]", this.Position);
         }
     }
 }

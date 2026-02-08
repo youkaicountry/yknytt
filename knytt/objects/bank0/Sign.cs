@@ -21,18 +21,18 @@ public partial class Sign : GDKnyttBaseObject
 
         char letter = "ABC"[ObjectID.Y - 17];
 
-        string text = GDArea.Area3D.getExtraData($"Sign({letter})");
+        string text = GDArea.Area.getExtraData($"Sign({letter})");
         texts.Add(preprocess(text));
         for (int i = 2; ; i++)
         {
-            text = GDArea.Area3D.getExtraData($"Sign{i}({letter})");
+            text = GDArea.Area.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
             texts.Add(preprocess(text));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "[SILENCE]"; }
 
-        shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area3D.getExtraData($"SignShift({letter})")) ?? 0;
-        triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area3D.getExtraData($"SignTrig({letter})")) ?? 0;
+        shiftMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignShift({letter})")) ?? 0;
+        triggerMessageIndex = KnyttUtil.parseIniInt(GDArea.Area.getExtraData($"SignTrig({letter})")) ?? 0;
 
         adjustSign(initial: true);
 

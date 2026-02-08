@@ -40,9 +40,9 @@ public partial class ViewportTile : SubViewportContainer
 
     public void addArea(GDKnyttArea area)
     {
-        if (added_areas.Contains(area.Area3D.MapPosition) || area.Area3D.Empty) { return; }
+        if (added_areas.Contains(area.Area.MapPosition) || area.Area.Empty) { return; }
         
-        KnyttPoint tile_coord = area.Area3D.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+        KnyttPoint tile_coord = area.Area.MapPosition % new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
         Vector2 pos = new Vector2(TILE_SIZE.X * tile_coord.X, 240 * TILE_SCALE - TILE_SIZE.Y * tile_coord.Y);
         var image = GetNode<TextureRect>("SubViewport/TextureRect").Texture?.GetImage();
         // Note: Image.Lock() is no longer needed in Godot 4
@@ -62,7 +62,7 @@ public partial class ViewportTile : SubViewportContainer
         added_backgrounds.Add(bg);
         added_tiles.Add(tiles);
         added_objects.Add(objects);
-        added_areas.Add(area.Area3D.MapPosition);
+        added_areas.Add(area.Area.MapPosition);
     }
 
     private TileMap createObjectTiles(GDKnyttArea area)

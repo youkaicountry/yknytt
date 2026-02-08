@@ -37,19 +37,12 @@ public partial class GDAreaLayer : Node2D
 
     public void deactivate()
     {
-        // TODO: Godot 4 - TileMap collision is now controlled via TileSet physics layers
-        // For now, we disable collision by setting the collision visibility mode
-        // A proper solution would involve manipulating the TileSet's physics layers
-        A.CollisionVisibilityMode = TileMap.VisibilityMode.ForceHide;
-        B.CollisionVisibilityMode = TileMap.VisibilityMode.ForceHide;
         A.SetLayerEnabled(0, false);
         B.SetLayerEnabled(0, false);
     }
 
     public void activate()
     {
-        A.CollisionVisibilityMode = TileMap.VisibilityMode.Default;
-        B.CollisionVisibilityMode = TileMap.VisibilityMode.Default;
         A.SetLayerEnabled(0, true);
         B.SetLayerEnabled(0, true);
     }

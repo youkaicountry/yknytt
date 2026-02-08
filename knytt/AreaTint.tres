@@ -3,6 +3,7 @@
 [sub_resource type="Shader" id=6]
 code = "shader_type canvas_item;
 
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform int r: hint_range(0, 255);
 uniform int g: hint_range(0, 255);
 uniform int b: hint_range(0, 255);

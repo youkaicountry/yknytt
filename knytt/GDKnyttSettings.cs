@@ -5,6 +5,7 @@ using IniParser.Parser;
 using YKnyttLib;
 using System.Linq;
 using System.Globalization;
+using System.Text;
 
 public partial class GDKnyttSettings : Node
 {
@@ -15,6 +16,9 @@ public partial class GDKnyttSettings : Node
 
     static GDKnyttSettings()
     {
+        // .NET 8 does not include Windows-1252 encoding by default.
+        // Knytt Stories files use this encoding throughout.
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         ini = new IniData();
     }
 

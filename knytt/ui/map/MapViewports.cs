@@ -48,7 +48,7 @@ public partial class MapViewports : Node2D
     public void addArea(GDKnyttArea area)
     {
         if (KWorld == null || area == null || internal_cache) { return; }
-        var key = getKey(area.Area3D.MapPosition);
+        var key = getKey(area.Area.MapPosition);
         if (!viewports.ContainsKey(key))
         {
             ViewportTile tile = viewport_scene.Instantiate<ViewportTile>();
@@ -86,8 +86,8 @@ public partial class MapViewports : Node2D
         if (KWorld == null || internal_cache) { return; }
         if (IsInsideTree())
         {
-            await ToSignal(GetTree(), "idle_frame"); // in case area was added right before dump
-            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), "process_frame"); // in case area was added right before dump
+            await ToSignal(GetTree(), "process_frame");
         }
         if (OS.GetName() == "HTML5" || OS.GetName() == "Unix") { CallDeferred("saveAllInternal"); } else { await Task.Run(saveAllInternal); }
     }
