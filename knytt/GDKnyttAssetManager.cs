@@ -326,10 +326,14 @@ public partial class GDKnyttAssetManager
             }
         }
 
-        // Godot 4: OpaqueToPolygons takes Rect2I instead of Rect2
-        var polygons = bitmap.OpaqueToPolygons(new Rect2I((int)region.Position.X, (int)region.Position.Y, (int)region.Size.X, (int)region.Size.Y), 0.99f).Cast<Vector2[]>();
-        // I have no idea why it's adding y*48 to y coordinates...
-        return polygons.Select(p => p.Select(v => new Vector2(v.X, v.Y - (region.Position.Y * 2))).ToArray());
+        // Godot 4: OpaqueToPolygons returns coordinates relative to the rect (0,0 = rect top-left).
+        var rawPolygons = bitmap.OpaqueToPolygons(new Rect2I((int)region.Position.X, (int)region.Position.Y, (int)region.Size.X, (int)region.Size.Y), 0.99f).Cast<Vector2[]>();
+
+        // Convert from rect-relative (top-left origin) to tile-center-relative coordinates.
+        // Godot 4 TileData collision polygons expect (0,0) at tile center.
+        float halfW = TILE_WIDTH / 2f;
+        float halfH = TILE_HEIGHT / 2f;
+        return rawPolygons.Select(p => p.Select(v => new Vector2(v.X - halfW, v.Y - halfH)).ToArray());
     }
 
     private static bool isConvex(Vector2[] vertices)
