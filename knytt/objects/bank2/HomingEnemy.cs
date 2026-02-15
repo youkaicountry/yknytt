@@ -38,7 +38,7 @@ public partial class HomingEnemy : GDKnyttBaseObject
         Translate(speedVector * dt);
     }
 
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node body)
     {
         if (body is Juni juni) { juniDie(juni); return; }
         Modulate = wallColor;
@@ -46,7 +46,7 @@ public partial class HomingEnemy : GDKnyttBaseObject
         if (hasWallAnimation) { sprite.Play("wall"); }
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node body)
     {
         if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 1) { return; }
         Modulate = new Color(1, 1, 1, 1);

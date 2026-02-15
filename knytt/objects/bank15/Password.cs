@@ -10,7 +10,7 @@ public partial class Password : GDKnyttBaseObject
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
 
-    private async void _on_Area2D_body_entered(object body)
+    private async void _on_Area2D_body_entered(Node body)
     {
         if (!(body is Juni)) { return; }
 

@@ -57,13 +57,13 @@ public partial class FlyingBomb : GDKnyttBaseObject
         }
     }
 
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node body)
     {
         ghostMod.flickerMax = .1f;
         ghostMod.flickerMin = 0f;
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node body)
     {
         if (GetNode<Area2D>("Area2D").GetOverlappingBodies().Count > 1) { return; }
         ghostMod.flickerMax = .4f;

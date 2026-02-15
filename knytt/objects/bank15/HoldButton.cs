@@ -26,12 +26,12 @@ public partial class HoldButton : Password // inheritance for destroyWalls() fun
         if (frame == 7) { destroyWalls(); }
     }
 
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node body)
     {
         entered = true;
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node body)
     {
         entered = false;
     }

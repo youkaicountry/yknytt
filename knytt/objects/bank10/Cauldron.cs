@@ -18,7 +18,7 @@ public partial class Cauldron : Bouncer
 
     protected float getSpeed() { return speed; }
 
-    protected override void _on_Area2D_body_entered(object body)
+    protected override void _on_Area2D_body_entered(Node body)
     {
         base._on_Area2D_body_entered(body);
         if (body is Juni juni) { return; }
