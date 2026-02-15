@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="YKnytt"
@@ -16,7 +20,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="YKnytt"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.5", "C#")
+config/features=PackedStringArray("4.6", "C#")
 config/icon="res://knytt/icons/icon64.png"
 config/windows_native_icon="res://knytt/icons/winicon.ico"
 config/project_settings_override.arm64="res://override_arm64.cfg"
