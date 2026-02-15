@@ -4,7 +4,7 @@ public abstract partial class Door : GDKnyttBaseObject
 {
     private Juni juni;
 
-    private async void _on_OpenArea_body_entered(object body)
+    private async void _on_OpenArea_body_entered(Node body)
     {
         if (body is Juni) { juni = (Juni)body; }
         if (checkKey(juni))
@@ -20,7 +20,7 @@ public abstract partial class Door : GDKnyttBaseObject
         }
     }
 
-    private void _on_OpenArea_body_exited(object body)
+    private void _on_OpenArea_body_exited(Node body)
     {
         if (body == juni) { juni = null; }
     }

@@ -26,7 +26,7 @@ public partial class Bouncer : GDKnyttBaseObject
         Translate(new Vector2(0, speed));
     }
 
-    protected virtual void _on_Area2D_body_entered(object body)
+    protected virtual void _on_Area2D_body_entered(Node body)
     {
         if (body is Juni juni) { juniDie(juni); return; }
 

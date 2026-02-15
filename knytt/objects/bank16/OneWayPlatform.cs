@@ -2,12 +2,12 @@ using Godot;
 
 public partial class OneWayPlatform : GDKnyttBaseObject
 {
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node body)
     {
         disablePlatform(true);
     }
 
-    private void _on_Area2D_body_exited(object body)
+    private void _on_Area2D_body_exited(Node body)
     {
         disablePlatform(false);
     }

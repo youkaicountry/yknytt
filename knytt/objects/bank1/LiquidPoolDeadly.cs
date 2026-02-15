@@ -1,6 +1,8 @@
+using Godot;
+
 public partial class LiquidPoolDeadly : LiquidPool
 {
-    private void _on_Area2D_body_entered(object body)
+    private void _on_Area2D_body_entered(Node body)
     {
         switch (body)
         {
