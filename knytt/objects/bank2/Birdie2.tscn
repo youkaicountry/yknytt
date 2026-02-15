@@ -72,7 +72,7 @@ speed = 128.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2( -1, -0.449066 )
-rotate = false
+rotates = false
 loop = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]

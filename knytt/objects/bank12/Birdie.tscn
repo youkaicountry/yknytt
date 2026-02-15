@@ -84,7 +84,7 @@ speed = 43.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2( -0.200562, 0.675919 )
-rotate = false
+rotates = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
 frames = SubResource( 15 )
