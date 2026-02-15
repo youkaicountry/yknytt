@@ -8,6 +8,7 @@ public partial class FlyBot : GDKnyttBaseObject
     {
         base._Ready();
         path = GetNode<PathFollow2D>("PathFollow2D");
+        path.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("FlyBot");
     }
 
     public override void _PhysicsProcess(double delta)
