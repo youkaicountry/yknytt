@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://knytt/ui/console/Console.cs" id="1"]
+[ext_resource type="Script" path="res://knytt/ui/console/ConsoleCommands.cs" id="2"]
 
 [node name="Console" type="Node"]
 script = ExtResource("1")
+
+[node name="Commands" type="Node" parent="."]
+script = ExtResource("2")
