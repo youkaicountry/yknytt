@@ -33,6 +33,7 @@ namespace YKnyttLib
             LoadedWarp = true;
 
             var data = Area.ExtraData;
+            if (data == null) { return; }
             WarpUp = getINIWarp(data, "U");
             WarpDown = getINIWarp(data, "D");
             WarpLeft = getINIWarp(data, "L");

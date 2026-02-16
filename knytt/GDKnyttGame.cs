@@ -181,6 +181,27 @@ public partial class GDKnyttGame : Node2D
         if (found_warp != null) { jgp += new Vector2(GDKnyttArea.Width * found_warp.Value.X, GDKnyttArea.Height * found_warp.Value.Y); }
         var after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
 
+        // Apply shift redirect for areas that exist in World.ini but not in Map.bin
+        var destKArea = GDWorld.KWorld.getArea(after_flag_warp_coords);
+        if (destKArea != null && destKArea.Empty && destKArea.ExtraData != null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                string letter = "ABC"[i].ToString();
+                if (destKArea.ExtraData.ContainsKey($"ShiftXMap({letter})") || destKArea.ExtraData.ContainsKey($"ShiftYMap({letter})"))
+                {
+                    var shift = new KnyttShift(destKArea, KnyttPoint.Zero, (KnyttSwitch.SwitchID)i);
+                    var relArea = shift.RelativeArea;
+                    if (!relArea.isZero())
+                    {
+                        jgp += new Vector2(GDKnyttArea.Width * relArea.X, GDKnyttArea.Height * relArea.Y);
+                        after_flag_warp_coords = GDKnyttWorld.getAreaCoords(jgp);
+                        break;
+                    }
+                }
+            }
+        }
+
         juni.GlobalPosition = jgp;
         changeArea(after_flag_warp_coords, regenerate_same: false);
     }

@@ -102,6 +102,7 @@ namespace YKnyttLib
             this.loadFromStream(map);
             this.fetchAreaExtraData();
             this.fetchFlagWarpData();
+            Warp.loadWarpData();
         }
 
         public KnyttArea(KnyttPoint position, KnyttWorld world)
@@ -112,6 +113,7 @@ namespace YKnyttLib
             this.Position = position;
             this.fetchAreaExtraData();
             this.fetchFlagWarpData();
+            Warp.loadWarpData();
         }
 
         private void fetchAreaExtraData()
@@ -225,7 +227,13 @@ namespace YKnyttLib
         private static byte[] parseByteArray(Stream map, int size)
         {
             byte[] data = new byte[size];
-            map.Read(data, 0, size);
+            int totalRead = 0;
+            while (totalRead < size)
+            {
+                int bytesRead = map.Read(data, totalRead, size - totalRead);
+                if (bytesRead == 0) { break; }
+                totalRead += bytesRead;
+            }
             return data;
         }
 
