@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/screen_shaders/crt2.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://knytt/ui/screen_shaders/crt2.gdshader" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
+shader = ExtResource("1")
 shader_param/res = Vector2( 600, 240 )
 shader_param/mask_type = 0
 shader_param/bloom_type = 0

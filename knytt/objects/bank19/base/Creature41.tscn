@@ -1,83 +1,119 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=18 format=3]
 
-[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/19-41.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bank14/Jelly.cs" type="Script" id=4]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/Muff.tscn" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank19/img/19-41.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank14/Jelly.cs" id="4"]
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("2")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("2")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("2")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("2")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("2")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource("2")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("2")
 region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("2")
 region = Rect2( 24, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="23"]
+atlas = ExtResource("2")
 region = Rect2( 48, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="24"]
+atlas = ExtResource("2")
 region = Rect2( 72, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="25"]
+atlas = ExtResource("2")
 region = Rect2( 96, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="26"]
+atlas = ExtResource("2")
 region = Rect2( 120, 24, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id="13"]
 animations = [ {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}, {
+"duration": 1.0,
+"texture": SubResource("19")
+}, {
+"duration": 1.0,
+"texture": SubResource("20")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 12.5
 }, {
-"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("21")
+}, {
+"duration": 1.0,
+"texture": SubResource("22")
+}, {
+"duration": 1.0,
+"texture": SubResource("23")
+}, {
+"duration": 1.0,
+"texture": SubResource("24")
+}, {
+"duration": 1.0,
+"texture": SubResource("25")
+}, {
+"duration": 1.0,
+"texture": SubResource("26")
+}],
 "loop": false,
-"name": "walk",
+"name": &"walk",
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 7, 2.5 )
+[sub_resource type="RectangleShape2D" id="14"]
+size = Vector2(14, 5)
 
-[node name="Muff" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="Muff" instance=ExtResource("1")]
+script = ExtResource("4")
 deceleration = 18.0
 jellySpeed = 6
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 13 )
+sprite_frames = SubResource("13")
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 21 )
-shape = SubResource( 14 )
+shape = SubResource("14")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]

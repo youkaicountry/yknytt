@@ -1,73 +1,106 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource path="res://knytt/objects/bank2/img/2-27.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/common/PathCreature.cs" type="Script" id=3]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank2/img/2-27.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/common/PathCreature.cs" id="3"]
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id="1"]
 _data = {
 "points": PackedVector2Array( 0, 0, 0, 0, -1, -0.449066, 0, 0, 0, 0, -40, -12.4491, 0, 0, 0, 0, -95, -21.4491, 0, 0, 0, 0, -160, -25.4491, 0, 0, 0, 0, -227, -27.4491, 0, 0, 0, 0, -290, -26.4491, 0, 0, 0, 0, -357, -23.4491, 0, 0, 0, 0, -420, -22.4491, 0, 0, 0, 0, -479, -12.4491, 0, 0, 0, 0, -529, -1.44907 )
 }
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("1")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("1")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource("1")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("1")
 region = Rect2( 192, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("1")
 region = Rect2( 216, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="23"]
+atlas = ExtResource("1")
 region = Rect2( 240, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="24"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id="13"]
 animations = [ {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}, {
+"duration": 1.0,
+"texture": SubResource("19")
+}, {
+"duration": 1.0,
+"texture": SubResource("20")
+}, {
+"duration": 1.0,
+"texture": SubResource("21")
+}, {
+"duration": 1.0,
+"texture": SubResource("22")
+}, {
+"duration": 1.0,
+"texture": SubResource("23")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 37.0
 }, {
-"frames": [ SubResource( 24 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("24")
+}],
 "loop": false,
-"name": "stop",
+"name": &"stop",
 "speed": 5.0
 } ]
 
 [node name="Path2D" type="Path2D"]
-curve = SubResource( 1 )
-script = ExtResource( 3 )
+curve = SubResource("1")
+script = ExtResource("3")
 speed = 128.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
@@ -76,8 +109,8 @@ rotates = false
 loop = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
-frames = SubResource( 13 )
-animation = "stop"
+sprite_frames = SubResource("13")
+animation = &"stop"
 centered = false
 flip_h = true
 

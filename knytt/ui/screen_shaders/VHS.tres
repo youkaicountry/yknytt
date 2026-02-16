@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/screen_shaders/vhs.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://knytt/ui/screen_shaders/vhs.gdshader" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
+shader = ExtResource("1")
 shader_param/overlay = true
 shader_param/scanlines_opacity = 0.1
 shader_param/scanlines_width = 0.25

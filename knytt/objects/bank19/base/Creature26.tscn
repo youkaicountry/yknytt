@@ -1,60 +1,84 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource path="res://knytt/objects/common/WalkingShooter.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/19-26.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bank4/StrangeRunner.cs" type="Script" id=3]
-[ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=4]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/WalkingShooter.tscn" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank19/img/19-26.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank4/StrangeRunner.cs" id="3"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Fire Shot.wav" id="4"]
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("2")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("2")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("2")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("2")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("2")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("2")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("2")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("2")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id="9"]
 animations = [ {
-"frames": [ SubResource( 11 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}],
 "loop": false,
-"name": "prepare",
+"name": &"prepare",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 37.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 6, 9 )
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(12, 18)
 
-[node name="Muff" instance=ExtResource( 1 )]
-script = ExtResource( 3 )
+[node name="Muff" instance=ExtResource("1")]
+script = ExtResource("3")
 directionChange = 1
 speedValues = PackedInt32Array( 8, 9, 10, 11, 12 )
 waitForTimer = true
@@ -63,19 +87,19 @@ limitBullets = false
 startWithShoot = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 9 )
-animation = "prepare"
+sprite_frames = SubResource("9")
+animation = &"prepare"
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 14.5 )
-shape = SubResource( 10 )
+shape = SubResource("10")
 
 [node name="ShotTimer" parent="." index="4"]
 firstDelay = 1.0
 syncedRandomDelay = false
 
 [node name="ShotPlayer" parent="." index="5"]
-stream = ExtResource( 4 )
+stream = ExtResource("4")
 
 [node name="ShotDelayTimer" type="Timer" parent="." index="6"]
 wait_time = 0.5

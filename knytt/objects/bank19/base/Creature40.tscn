@@ -1,70 +1,94 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource path="res://knytt/objects/bank11/ShockDisk.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank19/img/19-40.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bank11/ShockDisk3.cs" type="Script" id=4]
+[ext_resource type="PackedScene" path="res://knytt/objects/bank11/ShockDisk.tscn" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank19/img/19-40.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank11/ShockDisk3.cs" id="4"]
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("2")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("2")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("2")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("2")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("2")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("2")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("2")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("2")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id="9"]
 animations = [ {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 30.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 8, 6.5 )
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(16, 13)
 
-[node name="Muff" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="Muff" instance=ExtResource("1")]
+script = ExtResource("4")
 OrganicEnemy = true
 speedChangeTime = 1.27
 initialSpeed = 8
 speedValues = PackedInt32Array( 5, 9 )
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 9 )
+sprite_frames = SubResource("9")
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 17 )
-shape = SubResource( 10 )
+shape = SubResource("10")
 
 [node name="ShotTimer" parent="." index="4"]
 wait_time = 3.0

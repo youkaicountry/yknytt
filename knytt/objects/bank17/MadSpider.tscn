@@ -1,41 +1,53 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource path="res://knytt/objects/bank17/img/17-4.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/common/TrapFlower.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/bank17/MadSpider.cs" type="Script" id=3]
-[ext_resource path="res://knytt/data/Sfx/Dark Forest Bullet.wav" type="AudioStream" id=4]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank17/img/17-4.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/TrapFlower.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank17/MadSpider.cs" id="3"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Dark Forest Bullet.wav" id="4"]
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id="5"]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
 "loop": false,
-"name": "open",
+"name": &"open",
 "speed": 15.0
 } ]
 
-[node name="Node2D" instance=ExtResource( 2 )]
-script = ExtResource( 3 )
+[node name="Node2D" instance=ExtResource("2")]
+script = ExtResource("3")
 OrganicEnemy = false
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 5 )
-animation = "open"
+sprite_frames = SubResource("5")
+animation = &"open"
 
 [node name="DistanceMod" parent="." index="1"]
 openDistance = 200.0
@@ -45,4 +57,4 @@ closeDistance = 220.0
 wait_time = 0.16
 
 [node name="ShotPlayer" parent="." index="3"]
-stream = ExtResource( 4 )
+stream = ExtResource("4")

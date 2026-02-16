@@ -1,44 +1,56 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource path="res://knytt/objects/bank10/img/10-4.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Bounce Lite.wav" type="AudioStream" id=4]
-[ext_resource path="res://knytt/objects/bank10/BouncerEnemy.cs" type="Script" id=5]
-[ext_resource path="res://knytt/data/Sfx/Bounce.wav" type="AudioStream" id=6]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank10/img/10-4.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Bounce Lite.wav" id="4"]
+[ext_resource type="Script" path="res://knytt/objects/bank10/BouncerEnemy.cs" id="5"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Bounce.wav" id="6"]
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id="5"]
 animations = [ {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
 "loop": false,
-"name": "jump",
+"name": &"jump",
 "speed": 40.0
 }, {
-"frames": [ SubResource( 10 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("10")
+}],
 "loop": false,
-"name": "stop",
+"name": &"stop",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id="6"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 OrganicEnemy = true
 gravity = 700.0
 jump_force = 160.0
@@ -46,8 +58,8 @@ extra_gravity = 650.0
 extra_jump_force = 235.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = SubResource( 5 )
-animation = "stop"
+sprite_frames = SubResource("5")
+animation = &"stop"
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -56,12 +68,12 @@ collision_mask = 2049
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 11, 14 )
-shape = SubResource( 6 )
+shape = SubResource("6")
 
-[node name="BouncePlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 6 )
+[node name="BouncePlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("6")
 
-[node name="JumpPlayer" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
+[node name="JumpPlayer" parent="." instance=ExtResource("3")]
+stream = ExtResource("4")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

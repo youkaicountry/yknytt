@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource path="res://knytt/ui/FadeLayer.cs" type="Script" id=2]
+[ext_resource type="Script" path="res://knytt/ui/FadeLayer.cs" id="2"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "FadeIn"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -17,7 +17,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -43,7 +43,7 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "FastFadeOut"
 length = 0.4
 tracks/0/type = "value"
@@ -63,7 +63,7 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Fade" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -75,9 +75,9 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
-anims/FadeIn = SubResource( 1 )
-anims/FadeOut = SubResource( 2 )
-anims/FastFadeOut = SubResource( 3 )
+anims/FadeIn = SubResource("1")
+anims/FadeOut = SubResource("2")
+anims/FastFadeOut = SubResource("3")
 
 [node name="ResetTimer" type="Timer" parent="."]
 wait_time = 0.05

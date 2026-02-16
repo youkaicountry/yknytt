@@ -1,36 +1,36 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[sub_resource type="FontFile" id=2]
+[sub_resource type="FontFile" id="2"]
 font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
-[sub_resource type="FontFile" id=3]
+[sub_resource type="FontFile" id="3"]
 size = 21
 extra_spacing_char = 1
-font_data = SubResource( 2 )
+font_data = SubResource("2")
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="FontFile" id=5]
+[sub_resource type="FontFile" id="5"]
 font_path = "res://knytt/fonts/magnificent/Magnificent.ttf"
 
-[sub_resource type="FontFile" id=6]
+[sub_resource type="FontFile" id="6"]
 size = 13
 extra_spacing_char = 1
-font_data = SubResource( 5 )
+font_data = SubResource("5")
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id="4"]
 content_margin_left = 6.0
 content_margin_right = 6.0
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id="7"]
 resource_name = "subtitle"
 length = 6.0
 tracks/0/type = "value"
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id="8"]
 resource_name = "title"
 length = 6.0
 tracks/0/type = "value"
@@ -62,7 +62,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id="9"]
 resource_name = "title_subtitle"
 length = 11.0
 tracks/0/type = "value"
@@ -98,8 +98,8 @@ offset_right = 12.0
 offset_bottom = 26.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-theme_override_fonts/font = SubResource( 3 )
-theme_override_styles/normal = SubResource( 1 )
+theme_override_fonts/font = SubResource("3")
+theme_override_styles/normal = SubResource("1")
 align = 1
 
 [node name="SubtitleLabel" type="Label" parent="."]
@@ -107,10 +107,10 @@ modulate = Color( 1, 1, 1, 0 )
 offset_right = 12.0
 offset_bottom = 6.0
 size_flags_horizontal = 7
-theme_override_fonts/font = SubResource( 6 )
-theme_override_styles/normal = SubResource( 4 )
+theme_override_fonts/font = SubResource("6")
+theme_override_styles/normal = SubResource("4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/subtitle = SubResource( 7 )
-anims/title = SubResource( 8 )
-anims/title_subtitle = SubResource( 9 )
+anims/subtitle = SubResource("7")
+anims/title = SubResource("8")
+anims/title_subtitle = SubResource("9")

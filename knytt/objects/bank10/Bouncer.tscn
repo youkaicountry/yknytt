@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank10/Bouncer.cs" type="Script" id=2]
-[ext_resource path="res://knytt/data/Sfx/Bounce.wav" type="AudioStream" id=3]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank10/Bouncer.cs" id="2"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Bounce.wav" id="3"]
 
 
 [node name="Bouncer" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 OrganicEnemy = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 centered = false
 
-[node name="BouncePlayer" parent="." instance=ExtResource( 1 )]
-stream = ExtResource( 3 )
+[node name="BouncePlayer" parent="." instance=ExtResource("1")]
+stream = ExtResource("3")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

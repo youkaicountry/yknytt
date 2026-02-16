@@ -1,25 +1,25 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=23 format=3]
 
-[ext_resource path="res://knytt/fonts/magnificent/Magnificent.ttf" type="FontFile" id=1]
-[ext_resource path="res://knytt/GDKnyttWorld.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/audio/GDKnyttMusicChannel.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/GDKnyttGame.cs" type="Script" id=4]
-[ext_resource path="res://knytt/GDKnyttCamera.cs" type="Script" id=5]
-[ext_resource path="res://knytt/ui/LocationLabel.cs" type="Script" id=6]
-[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://knytt/ui/map/MapBackgroundPanel.tscn" type="PackedScene" id=9]
-[ext_resource path="res://knytt/juni/trail/TrailContainer.cs" type="Script" id=10]
-[ext_resource path="res://knytt/ui/UICanvasLayer.cs" type="Script" id=11]
-[ext_resource path="res://knytt/ui/touch/TouchPanel.tscn" type="PackedScene" id=12]
-[ext_resource path="res://knytt/WSOD.cs" type="Script" id=13]
-[ext_resource path="res://knytt/objects/bank0/TitleNode.tscn" type="PackedScene" id=14]
-[ext_resource path="res://knytt/ui/stats/RateHttpRequest.tscn" type="PackedScene" id=16]
-[ext_resource path="res://knytt/audio/GDKnyttAmbiChannel.tscn" type="PackedScene" id=17]
-[ext_resource path="res://knytt/juni/death/DeathContainer.cs" type="Script" id=18]
-[ext_resource path="res://knytt/ui/map/MapViewports.cs" type="Script" id=19]
+[ext_resource type="FontFile" path="res://knytt/fonts/magnificent/Magnificent.ttf" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/GDKnyttWorld.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/audio/GDKnyttMusicChannel.tscn" id="3"]
+[ext_resource type="Script" path="res://knytt/GDKnyttGame.cs" id="4"]
+[ext_resource type="Script" path="res://knytt/GDKnyttCamera.cs" id="5"]
+[ext_resource type="Script" path="res://knytt/ui/LocationLabel.cs" id="6"]
+[ext_resource type="PackedScene" path="res://knytt/ui/FadeLayer.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://knytt/ui/info_panel/InfoPanel.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://knytt/ui/map/MapBackgroundPanel.tscn" id="9"]
+[ext_resource type="Script" path="res://knytt/juni/trail/TrailContainer.cs" id="10"]
+[ext_resource type="Script" path="res://knytt/ui/UICanvasLayer.cs" id="11"]
+[ext_resource type="PackedScene" path="res://knytt/ui/touch/TouchPanel.tscn" id="12"]
+[ext_resource type="Script" path="res://knytt/WSOD.cs" id="13"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bank0/TitleNode.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHttpRequest.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://knytt/audio/GDKnyttAmbiChannel.tscn" id="17"]
+[ext_resource type="Script" path="res://knytt/juni/death/DeathContainer.cs" id="18"]
+[ext_resource type="Script" path="res://knytt/ui/map/MapViewports.cs" id="19"]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "SlideIn"
 step = 0.05
 tracks/0/type = "value"
@@ -59,7 +59,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("InfoPanel:offset_top")
@@ -98,13 +98,13 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="FontFile" id=4]
+[sub_resource type="FontFile" id="4"]
 size = 22
 outline_size = 1
 outline_color = Color( 0.121569, 0.121569, 0.121569, 1 )
-font_data = ExtResource( 1 )
+font_data = ExtResource("1")
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id="5"]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -134,28 +134,28 @@ tracks/1/keys = {
 }
 
 [node name="GKnyttGame" type="Node2D"]
-script = ExtResource( 4 )
+script = ExtResource("4")
 edgeScrollSpeed = 1400.0
 viewMode = false
 
-[node name="GKnyttWorld" parent="." instance=ExtResource( 2 )]
+[node name="GKnyttWorld" parent="." instance=ExtResource("2")]
 
 [node name="TrailContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
 z_index = 2
-script = ExtResource( 10 )
+script = ExtResource("10")
 
 [node name="DeathContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
 z_index = 12
-script = ExtResource( 18 )
+script = ExtResource("18")
 
 [node name="GKnyttCamera" type="Camera2D" parent="."]
 physics_interpolation_mode = 1
 unique_name_in_owner = true
 position = Vector2( 300, 120 )
 current = true
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="ShaderCanvasLayer" type="CanvasLayer" parent="GKnyttCamera"]
 
@@ -172,7 +172,7 @@ offset_right = 300.0
 offset_bottom = 120.0
 mouse_filter = 2
 
-[node name="InfoPanel" parent="GKnyttCamera/TintNode" instance=ExtResource( 8 )]
+[node name="InfoPanel" parent="GKnyttCamera/TintNode" instance=ExtResource("8")]
 unique_name_in_owner = true
 offset_left = -303.62
 offset_top = -153.0
@@ -182,10 +182,10 @@ offset_bottom = -123.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GKnyttCamera/TintNode/InfoPanel"]
 root_node = NodePath("../..")
 playback_speed = 6.0
-anims/SlideIn = SubResource( 2 )
-anims/SlideOut = SubResource( 3 )
+anims/SlideIn = SubResource("2")
+anims/SlideOut = SubResource("3")
 
-[node name="Title" parent="GKnyttCamera/TintNode" instance=ExtResource( 14 )]
+[node name="Title" parent="GKnyttCamera/TintNode" instance=ExtResource("14")]
 unique_name_in_owner = true
 
 [node name="ShaderNode" type="Node2D" parent="GKnyttCamera"]
@@ -201,7 +201,7 @@ color = Color( 1, 1, 1, 0 )
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="Curtain" type="Control" parent="UICanvasLayer"]
 visible = false
@@ -230,7 +230,7 @@ one_shot = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 13 )
+script = ExtResource("13")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -248,43 +248,43 @@ offset_top = -27.0
 offset_right = 115.698
 offset_bottom = -3.0
 theme_override_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
-theme_override_fonts/font = SubResource( 4 )
+theme_override_fonts/font = SubResource("4")
 text = "(1234, 5678)"
-script = ExtResource( 6 )
+script = ExtResource("6")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UICanvasLayer/LocationLabel"]
-anims/FadeOut = SubResource( 5 )
+anims/FadeOut = SubResource("5")
 
-[node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource( 12 )]
+[node name="TouchPanel" parent="UICanvasLayer" instance=ExtResource("12")]
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -140.0
 offset_bottom = 0.0
 
-[node name="MapBackgroundPanel" parent="UICanvasLayer" instance=ExtResource( 9 )]
+[node name="MapBackgroundPanel" parent="UICanvasLayer" instance=ExtResource("9")]
 visible = false
 
 [node name="MapViewports" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource( 19 )
+script = ExtResource("19")
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 2
 
-[node name="Fade" parent="FadeCanvasLayer" instance=ExtResource( 7 )]
+[node name="Fade" parent="FadeCanvasLayer" instance=ExtResource("7")]
 
-[node name="MusicChannel" parent="." instance=ExtResource( 3 )]
+[node name="MusicChannel" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
 bus = "Music"
 fadeInTime = 0.1
 fadeOutTime = 4.5
 
-[node name="Ambi1Channel" parent="." instance=ExtResource( 17 )]
+[node name="Ambi1Channel" parent="." instance=ExtResource("17")]
 unique_name_in_owner = true
 
 [node name="AmbiTrack1" parent="Ambi1Channel" index="0"]
@@ -293,7 +293,7 @@ bus = "Ambiance1"
 [node name="AmbiTrack2" parent="Ambi1Channel" index="1"]
 bus = "Ambiance1"
 
-[node name="Ambi2Channel" parent="." instance=ExtResource( 17 )]
+[node name="Ambi2Channel" parent="." instance=ExtResource("17")]
 unique_name_in_owner = true
 
 [node name="AmbiTrack1" parent="Ambi2Channel" index="0"]
@@ -302,7 +302,7 @@ bus = "Ambiance2"
 [node name="AmbiTrack2" parent="Ambi2Channel" index="1"]
 bus = "Ambiance2"
 
-[node name="RateHttpRequest" parent="." instance=ExtResource( 16 )]
+[node name="RateHttpRequest" parent="." instance=ExtResource("16")]
 
 [connection signal="animation_finished" from="GKnyttCamera/TintNode/InfoPanel/AnimationPlayer" to="UICanvasLayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="UICanvasLayer/WSOD/Timer" to="UICanvasLayer/WSOD" method="_on_Timer_timeout"]

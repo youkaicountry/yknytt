@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource path="res://knytt/data/Sfx/Menu Click.wav" type="AudioStream" id=1]
-[ext_resource path="res://knytt/ui/ClickPlayer.cs" type="Script" id=2]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Menu Click.wav" id="1"]
+[ext_resource type="Script" path="res://knytt/ui/ClickPlayer.cs" id="2"]
 
 [node name="ClickPlayer" type="Node"]
 process_mode = 3
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
+stream = ExtResource("1")

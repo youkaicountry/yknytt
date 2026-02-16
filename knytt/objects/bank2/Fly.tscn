@@ -1,84 +1,108 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource path="res://knytt/objects/bank2/img/2-4.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank2/Fly.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/bank2/img/2-3.png" type="Texture2D" id=3]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank2/img/2-4.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank2/Fly.cs" id="2"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank2/img/2-3.png" id="3"]
 
-[sub_resource type="CanvasItemMaterial" id=11]
+[sub_resource type="CanvasItemMaterial" id="11"]
 blend_mode = 2
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("3")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("3")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("3")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id="9"]
 animations = [ {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}],
 "loop": true,
-"name": "fly3",
+"name": &"fly3",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}],
 "loop": true,
-"name": "fly4",
+"name": &"fly4",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 18 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("18")
+}],
 "loop": false,
-"name": "stop3",
+"name": &"stop3",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 19 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("19")
+}],
 "loop": false,
-"name": "stop4",
+"name": &"stop4",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1.5, 1.5 )
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(3, 3)
 
 [node name="Node2D" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 3072
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource( 11 )
+material = SubResource("11")
 position = Vector2( 12, 12 )
-frames = SubResource( 9 )
-animation = "stop4"
+sprite_frames = SubResource("9")
+animation = &"stop4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 11.5, 22.5 )
-shape = SubResource( 10 )
+shape = SubResource("10")
 
 [node name="FlyUpTimer" type="Timer" parent="."]
 one_shot = true

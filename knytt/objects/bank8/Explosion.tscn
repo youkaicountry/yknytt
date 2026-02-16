@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://knytt/objects/bank8/img/explosion.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank8/Explosion.cs" type="Script" id=2]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank8/img/explosion.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank8/Explosion.cs" id="2"]
 
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "Explode"
 length = 0.2
 loop = true
@@ -37,11 +37,11 @@ tracks/1/keys = {
 }
 
 [node name="Explosion" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 vframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
-anims/Explode = SubResource( 1 )
+anims/Explode = SubResource("1")

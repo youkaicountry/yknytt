@@ -1,80 +1,107 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource path="res://knytt/objects/bank19/img/19-23.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/common/Crawler.tscn" type="PackedScene" id=3]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank19/img/19-23.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/Crawler.tscn" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 3 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(12, 6)
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("1")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("1")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource("1")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("1")
 region = Rect2( 192, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id="11"]
 animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("18")
+}, {
+"duration": 1.0,
+"texture": SubResource("19")
+}, {
+"duration": 1.0,
+"texture": SubResource("20")
+}, {
+"duration": 1.0,
+"texture": SubResource("21")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 5, 3.5 )
+[sub_resource type="RectangleShape2D" id="12"]
+size = Vector2(10, 7)
 
-[node name="Crawler" instance=ExtResource( 3 )]
+[node name="Crawler" instance=ExtResource("3")]
 speed = 100.0
 radarBottom = 12
 radarTop = 36
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 12, 20.5 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-frames = SubResource( 11 )
+sprite_frames = SubResource("11")
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 20.5 )
-shape = SubResource( 12 )
+shape = SubResource("12")
 
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

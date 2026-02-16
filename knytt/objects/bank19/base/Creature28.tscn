@@ -1,76 +1,106 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3]
 
-[ext_resource path="res://knytt/objects/common/GesturesObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/common/SpikerMod.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/bank19/img/19-28.png" type="Texture2D" id=3]
-[ext_resource path="res://knytt/objects/bank4/ToastMonster.cs" type="Script" id=4]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/GesturesObject.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/SpikerMod.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank19/img/19-28.png" id="3"]
+[ext_resource type="Script" path="res://knytt/objects/bank4/ToastMonster.cs" id="4"]
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("3")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("3")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("3")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("3")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("3")
 region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("3")
 region = Rect2( 24, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("3")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource("3")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("3")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("3")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id="11"]
 animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}],
 "loop": false,
-"name": "_open",
+"name": &"_open",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("19")
+}, {
+"duration": 1.0,
+"texture": SubResource("20")
+}, {
+"duration": 1.0,
+"texture": SubResource("21")
+}, {
+"duration": 1.0,
+"texture": SubResource("22")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 12, 8 )
+[sub_resource type="RectangleShape2D" id="12"]
+size = Vector2(24, 16)
 
-[node name="Node2D" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="Node2D" instance=ExtResource("1")]
+script = ExtResource("4")
 OrganicEnemy = true
 minTime = 0.2
 maxTime = 3.8
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-frames = SubResource( 11 )
+sprite_frames = SubResource("11")
 
-[node name="SpikerMod" parent="." index="2" instance=ExtResource( 2 )]
+[node name="SpikerMod" parent="." index="2" instance=ExtResource("2")]
 openDistance = 90.0
 closeDistance = 120.0
 method = 1
@@ -83,7 +113,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 16 )
-shape = SubResource( 12 )
+shape = SubResource("12")
 
 [connection signal="EnterEvent" from="SpikerMod" to="." method="_on_SpikerMod_EnterEvent"]
 [connection signal="ExitEvent" from="SpikerMod" to="." method="_on_SpikerMod_ExitEvent"]

@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/objects/bank2/Elemental.cs" type="Script" id=8]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="7"]
+[ext_resource type="Script" path="res://knytt/objects/bank2/Elemental.cs" id="8"]
 
 
 [node name="Elemental" type="Node2D"]
-script = ExtResource( 8 )
+script = ExtResource("8")
 OrganicEnemy = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -15,7 +15,7 @@ offset = Vector2( 12, 12 )
 wait_time = 2.0
 autostart = true
 
-[node name="ExplodePlayer" parent="." instance=ExtResource( 7 )]
+[node name="ExplodePlayer" parent="." instance=ExtResource("7")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

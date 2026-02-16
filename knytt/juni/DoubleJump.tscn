@@ -1,41 +1,62 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3]
 
-[ext_resource path="res://knytt/juni/double_jump.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/juni/DoubleJump.cs" type="Script" id=2]
+[ext_resource type="Texture2D" path="res://knytt/juni/double_jump.png" id="1"]
+[ext_resource type="Script" path="res://knytt/juni/DoubleJump.cs" id="2"]
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
 region = Rect2( 0, 16, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
 region = Rect2( 0, 32, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
 region = Rect2( 0, 48, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
 region = Rect2( 0, 64, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
 region = Rect2( 0, 80, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
 region = Rect2( 0, 96, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
 region = Rect2( 0, 112, 32, 16 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id="9"]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
 "loop": false,
-"name": "DoubleJump",
+"name": &"DoubleJump",
 "speed": 22.0
 } ]
 
@@ -43,6 +64,6 @@ animations = [ {
 modulate = Color( 1, 1, 1, 0.54902 )
 z_index = 8
 z_as_relative = false
-frames = SubResource( 9 )
-animation = "DoubleJump"
-script = ExtResource( 2 )
+sprite_frames = SubResource("9")
+animation = &"DoubleJump"
+script = ExtResource("2")

@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource path="res://knytt/juni/death/x.svg" type="Texture2D" id=1]
+[ext_resource type="Texture2D" path="res://knytt/juni/death/x.svg" id="1"]
 
 [node name="DeathMarker" type="Sprite2D"]
 self_modulate = Color( 1, 1, 1, 0.627451 )
 scale = Vector2( 0.18, 0.18 )
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 offset = Vector2( 4, 5 )

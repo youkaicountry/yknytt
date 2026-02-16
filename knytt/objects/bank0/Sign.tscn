@@ -1,14 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3]
 
-[ext_resource path="res://knytt/ui/img/dialogue.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=2]
-[ext_resource path="res://knytt/objects/bank0/Sign.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture2D" id=4]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/dialogue.png" id="1"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank0/Sign.cs" id="3"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/down_arrow.png" id="4"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11.8, 11.8 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(23.6, 23.6)
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "FadeIn"
 length = 0.25
 step = 0.25
@@ -28,17 +28,17 @@ tracks/0/keys = {
 [node name="Sign" type="Node2D"]
 z_index = 17
 z_as_relative = false
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 12, 12 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 2 )
+anims/FadeIn = SubResource("2")
 
 [node name="Label" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -47,7 +47,7 @@ offset_top = -81.6637
 offset_right = 91.0
 offset_bottom = -46.6637
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 theme_override_font_sizes/font_size = 12
 autowrap_mode = 2
 
@@ -58,7 +58,7 @@ offset_left = -9.0
 offset_top = -4.0
 offset_right = 166.0
 offset_bottom = 6.0
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 8
@@ -73,7 +73,7 @@ offset_left = -15.0
 offset_top = -15.0
 offset_right = -5.0
 offset_bottom = -5.0
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource path="res://knytt/ui/img/button_up.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/ui/info_panel/ItemInfo.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/info_panel/InfoPanel.cs" type="Script" id=4]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/button_up.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/ui/info_panel/ItemInfo.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/info_panel/InfoPanel.cs" id="4"]
 
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 1 )
+[sub_resource type="StyleBoxTexture" id="1"]
+texture = ExtResource("1")
 region_rect = Rect2( 0, 0, 12, 12 )
 offset_left = 3.34132
 offset_right = 3.2128
@@ -17,8 +17,8 @@ modulate = Color( 1, 1, 1, 0 )
 offset_left = -3.61994
 offset_top = -32.2144
 offset_right = 287.0
-theme_override_styles/panel = SubResource( 1 )
-script = ExtResource( 4 )
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("4")
 
 [node name="ItemContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -30,70 +30,70 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemInfo0" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo0" parent="ItemContainer" instance=ExtResource("2")]
 offset_bottom = 24.0
 
-[node name="ItemInfo1" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo1" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 24.0
 offset_right = 48.0
 offset_bottom = 24.0
 ItemID = 1
 
-[node name="ItemInfo2" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo2" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 48.0
 offset_right = 72.0
 offset_bottom = 24.0
 ItemID = 2
 
-[node name="ItemInfo3" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo3" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 72.0
 offset_right = 96.0
 offset_bottom = 24.0
 ItemID = 3
 
-[node name="ItemInfo4" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo4" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 96.0
 offset_right = 120.0
 offset_bottom = 24.0
 ItemID = 4
 
-[node name="ItemInfo5" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo5" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 120.0
 offset_right = 144.0
 offset_bottom = 24.0
 ItemID = 5
 
-[node name="ItemInfo6" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo6" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 144.0
 offset_right = 168.0
 offset_bottom = 24.0
 ItemID = 6
 
-[node name="ItemInfo7" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo7" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 168.0
 offset_right = 192.0
 offset_bottom = 24.0
 ItemID = 7
 
-[node name="ItemInfo8" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo8" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 192.0
 offset_right = 216.0
 offset_bottom = 24.0
 ItemID = 8
 
-[node name="ItemInfo9" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo9" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 216.0
 offset_right = 240.0
 offset_bottom = 24.0
 ItemID = 9
 
-[node name="ItemInfo10" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo10" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 240.0
 offset_right = 264.0
 offset_bottom = 24.0
 ItemID = 10
 
-[node name="ItemInfo11" parent="ItemContainer" instance=ExtResource( 2 )]
+[node name="ItemInfo11" parent="ItemContainer" instance=ExtResource("2")]
 offset_left = 264.0
 offset_right = 288.0
 offset_bottom = 24.0
