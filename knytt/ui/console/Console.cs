@@ -1,29 +1,29 @@
 using Godot;
 
-// Thin C# wrapper over GDScript console addon.
+// Thin C# bridge to LimboConsole (GDScript addon).
 // Game code references this for IsOpen checks and signal wiring.
-public partial class Console : CanvasLayer
+public partial class Console : Node
 {
     [Signal] public delegate void ConsoleOpenEventHandler();
     [Signal] public delegate void ConsoleClosedEventHandler();
 
-    public bool IsOpen { get; private set; }
+    private Node _limbo;
 
-    public void toggleConsole()
+    public bool IsOpen => _limbo?.Call("is_open").AsBool() ?? false;
+
+    public override void _Ready()
     {
-        IsOpen = !IsOpen;
-        if (IsOpen)
+        _limbo = GetNode("/root/LimboConsole");
+        _limbo.Connect("toggled", new Callable(this, nameof(OnLimboToggled)));
+    }
+
+    private void OnLimboToggled(bool isShown)
+    {
+        if (isShown)
             EmitSignal(SignalName.ConsoleOpen);
         else
             EmitSignal(SignalName.ConsoleClosed);
     }
 
-    public override void _UnhandledKeyInput(InputEvent @event)
-    {
-        if (@event.IsActionPressed("debug_console"))
-        {
-            toggleConsole();
-            GetViewport().SetInputAsHandled();
-        }
-    }
+    public void toggleConsole() => _limbo.Call("toggle_console");
 }

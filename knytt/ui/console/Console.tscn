@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://knytt/ui/console/Console.cs" id="1"]
 
-[node name="Console" type="CanvasLayer"]
+[node name="Console" type="Node"]
 script = ExtResource("1")
