@@ -139,7 +139,10 @@ public partial class GDKnyttAssetManager
         var texture = ImageTexture.CreateFromImage(image);
         var image_back = texture.GetImage();
         if (image_back == null || texture.GetWidth() != image_back.GetWidth() ||
-            texture.GetHeight() != image_back.GetHeight()) { return null; }
+            texture.GetHeight() != image_back.GetHeight())
+        {
+            return null;
+        }
         return texture;
     }
 

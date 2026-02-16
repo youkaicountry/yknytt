@@ -376,7 +376,26 @@ public partial class LevelSelection : BasicScreen
         if (worlds_cache_ini.Sections.ContainsSection(world_file) && worlds_cache_ini[world_file].ContainsKey("Name"))
         {
             world_info = new KnyttWorldInfo(worlds_cache_ini[world_file]);
-            icon_bin = GDKnyttAssetManager.loadFile(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png"));
+            var iconCachePath = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}/Icon.png");
+            icon_bin = GDKnyttAssetManager.loadFile(iconCachePath);
+
+            // Fallback: if cached icon is missing, re-extract from the .knytt.bin
+            if (icon_bin == null)
+            {
+                try
+                {
+                    var world_bin = GDKnyttAssetManager.loadFile(world_file);
+                    var binloader = new KnyttBinWorldLoader(world_bin);
+                    icon_bin = binloader.GetFile("Icon.png");
+                    if (icon_bin != null)
+                    {
+                        GDKnyttAssetManager.ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin($"Cache/{world_info.Folder}"));
+                        using var f = FileAccess.Open(iconCachePath, FileAccess.ModeFlags.Write);
+                        f?.StoreBuffer(icon_bin);
+                    }
+                }
+                catch (InvalidOperationException) { }
+            }
         }
         else
         {
