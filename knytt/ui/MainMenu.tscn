@@ -1,19 +1,21 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://bxao4c3do44gm"]
 
 [ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttButton.tscn" id="1"]
-[ext_resource type="Script" path="res://knytt/ui/MainMenu.cs" id="2"]
-[ext_resource type="AudioStream" path="res://knytt/data/Music/Song20.ogg" id="5"]
+[ext_resource type="Script" uid="uid://ctqdbg6n3lfvm" path="res://knytt/ui/MainMenu.cs" id="2"]
+[ext_resource type="AudioStream" uid="uid://bmvjwxak27ya2" path="res://knytt/data/Music/Song20.ogg" id="5"]
 [ext_resource type="PackedScene" path="res://knytt/ui/MenuCloud.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://knytt/ui/FadeLayer.tscn" id="11"]
 
-[node name="MenuLayer" type="CanvasLayer"]
+[node name="MenuLayer" type="CanvasLayer" unique_id=1963438819]
 script = ExtResource("2")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=549817293]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="ButtonRow" type="HBoxContainer" parent="."]
+[node name="ButtonRow" type="HBoxContainer" parent="." unique_id=1313586397]
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,78 +30,63 @@ focus_previous = NodePath("PlayButton")
 focus_mode = 2
 alignment = 1
 
-[node name="TutorialButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 40.0
-offset_right = 120.0
-offset_bottom = 35.0
+[node name="TutorialButton" parent="ButtonRow" unique_id=1516420421 instance=ExtResource("1")]
+layout_mode = 2
 focus_neighbor_left = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
 text = "Tutorial"
 
-[node name="PlayButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 124.0
-offset_right = 204.0
-offset_bottom = 35.0
+[node name="PlayButton" parent="ButtonRow" unique_id=1919200376 instance=ExtResource("1")]
+layout_mode = 2
 text = "Play"
 
-[node name="DownloadButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 208.0
-offset_right = 308.064
-offset_bottom = 35.0
+[node name="DownloadButton" parent="ButtonRow" unique_id=1292668931 instance=ExtResource("1")]
+layout_mode = 2
 text = " Download Levels "
 
-[node name="CreditsButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 312.0
-offset_right = 392.0
-offset_bottom = 35.0
+[node name="CreditsButton" parent="ButtonRow" unique_id=766632105 instance=ExtResource("1")]
+layout_mode = 2
 text = "Credits"
 
-[node name="SettingsButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 396.0
-offset_right = 476.0
-offset_bottom = 35.0
+[node name="SettingsButton" parent="ButtonRow" unique_id=1547159177 instance=ExtResource("1")]
+layout_mode = 2
 text = "Settings"
 
-[node name="QuitButton" parent="ButtonRow" instance=ExtResource("1")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 480.0
-offset_right = 560.0
-offset_bottom = 35.0
+[node name="QuitButton" parent="ButtonRow" unique_id=1920962000 instance=ExtResource("1")]
+layout_mode = 2
 focus_neighbor_right = NodePath("../TutorialButton")
 focus_next = NodePath("../TutorialButton")
 text = "Quit"
 
-[node name="CloudControl" type="Control" parent="."]
+[node name="CloudControl" type="Control" parent="." unique_id=2034090287]
+layout_mode = 3
+anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Control2" type="Control" parent="CloudControl"]
+[node name="Control2" type="Control" parent="CloudControl" unique_id=1101824028]
+anchors_preset = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
 
-[node name="MenuCloud" parent="CloudControl/Control2" instance=ExtResource("6")]
+[node name="MenuCloud" parent="CloudControl/Control2" unique_id=1726922212 instance=ExtResource("6")]
 position = Vector2(0, 0)
 
-[node name="Fade" parent="." instance=ExtResource("11")]
+[node name="Fade" parent="." unique_id=1280069228 instance=ExtResource("11")]
+layout_mode = 3
+anchors_preset = 15
 offset_left = 2.0
 offset_top = -0.8909
 offset_right = 2.0
 offset_bottom = -0.8909
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=354634217]
 stream = ExtResource("5")
 autoplay = true
 bus = &"Music"
