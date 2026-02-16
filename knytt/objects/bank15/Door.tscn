@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://knytt/objects/bank15/Door.cs" type="Script" id=5]
+[ext_resource type="Script" path="res://knytt/objects/bank15/Door.cs" id="5"]
 
-[sub_resource type="RectangleShape2D" id=38]
-extents = Vector2( 12, 12 )
+[sub_resource type="RectangleShape2D" id="38"]
+size = Vector2(24, 24)
 
-[sub_resource type="RectangleShape2D" id=39]
-extents = Vector2( 36, 36 )
+[sub_resource type="RectangleShape2D" id="39"]
+size = Vector2(72, 72)
 
 [node name="Door" type="Node2D"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )
@@ -17,17 +17,17 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 38 )
+shape = SubResource("38")
 
 [node name="OpenArea" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OpenArea"]
 position = Vector2( 12, 12 )
-shape = SubResource( 39 )
+shape = SubResource("39")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-playing = true
+autoplay = "default"
 centered = false
 
 [connection signal="body_entered" from="OpenArea" to="." method="_on_OpenArea_body_entered"]

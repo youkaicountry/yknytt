@@ -1,104 +1,152 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=24 format=3]
 
-[ext_resource path="res://knytt/objects/bank6/img/6-6.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank6/TrapFire.cs" type="Script" id=3]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=6]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank6/img/6-6.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank6/TrapFire.cs" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="5"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Fire Shot.wav" id="6"]
 
-[sub_resource type="CanvasItemMaterial" id=18]
+[sub_resource type="CanvasItemMaterial" id="18"]
 blend_mode = 1
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="23"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="24"]
+atlas = ExtResource("1")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="25"]
+atlas = ExtResource("1")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="26"]
+atlas = ExtResource("1")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="27"]
+atlas = ExtResource("1")
 region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="28"]
+atlas = ExtResource("1")
 region = Rect2( 24, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="29"]
+atlas = ExtResource("1")
 region = Rect2( 48, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="30"]
+atlas = ExtResource("1")
 region = Rect2( 72, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="31"]
+atlas = ExtResource("1")
 region = Rect2( 96, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="32"]
+atlas = ExtResource("1")
 region = Rect2( 120, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="33"]
+atlas = ExtResource("1")
 region = Rect2( 144, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="34"]
+atlas = ExtResource("1")
 region = Rect2( 168, 24, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id="17"]
 animations = [ {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("19")
+}, {
+"duration": 1.0,
+"texture": SubResource("20")
+}, {
+"duration": 1.0,
+"texture": SubResource("21")
+}, {
+"duration": 1.0,
+"texture": SubResource("22")
+}, {
+"duration": 1.0,
+"texture": SubResource("23")
+}, {
+"duration": 1.0,
+"texture": SubResource("24")
+}, {
+"duration": 1.0,
+"texture": SubResource("25")
+}, {
+"duration": 1.0,
+"texture": SubResource("26")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("27")
+}, {
+"duration": 1.0,
+"texture": SubResource("28")
+}, {
+"duration": 1.0,
+"texture": SubResource("29")
+}, {
+"duration": 1.0,
+"texture": SubResource("30")
+}, {
+"duration": 1.0,
+"texture": SubResource("31")
+}, {
+"duration": 1.0,
+"texture": SubResource("32")
+}, {
+"duration": 1.0,
+"texture": SubResource("33")
+}, {
+"duration": 1.0,
+"texture": SubResource("34")
+}],
 "loop": false,
-"name": "shoot",
+"name": &"shoot",
 "speed": 12.0
 } ]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource( 18 )
-frames = SubResource( 17 )
-playing = true
+material = SubResource("18")
+sprite_frames = SubResource("17")
+autoplay = "default"
 centered = false
 
-[node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
-stream = ExtResource( 6 )
+[node name="ShotPlayer" parent="." instance=ExtResource("4")]
+stream = ExtResource("6")
 
-[node name="ShotTimer" parent="." instance=ExtResource( 5 )]
+[node name="ShotTimer" parent="." instance=ExtResource("5")]
 wait_time = 3.0
 autostart = true
 firstDelay = 1.0

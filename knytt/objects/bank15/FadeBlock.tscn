@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource path="res://knytt/objects/bank15/img/fade_block.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank15/FadeBlock.cs" type="Script" id=2]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank15/img/fade_block.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank15/FadeBlock.cs" id="2"]
 
 
 [node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 centered = false
-script = ExtResource( 2 )
+script = ExtResource("2")

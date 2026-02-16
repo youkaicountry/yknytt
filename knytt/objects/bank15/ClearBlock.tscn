@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource path="res://knytt/objects/bank15/Password.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank15/ClearBlock.cs" type="Script" id=2]
+[ext_resource type="PackedScene" path="res://knytt/objects/bank15/Password.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank15/ClearBlock.cs" id="2"]
 
 
-[node name="Node2D" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="Node2D" instance=ExtResource("1")]
+script = ExtResource("2")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-animation = "22"
+animation = &"22"

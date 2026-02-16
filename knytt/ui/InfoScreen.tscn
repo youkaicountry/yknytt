@@ -1,18 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3]
 
-[ext_resource path="res://knytt/ui/styles/InfoScreenPanel.tres" type="StyleBox" id=1]
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/InfoScreen.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/SlotButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/ui/stats/StatPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=6]
-[ext_resource path="res://knytt/ui/img/button_red.png" type="Texture2D" id=7]
-[ext_resource path="res://knytt/ui/stats/StatLabel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://knytt/ui/stats/StarRate.tscn" type="PackedScene" id=9]
-[ext_resource path="res://knytt/ui/GDKnyttDropdown.tscn" type="PackedScene" id=10]
-[ext_resource path="res://knytt/ui/stats/RateHttpRequest.tscn" type="PackedScene" id=11]
+[ext_resource type="StyleBox" path="res://knytt/ui/styles/InfoScreenPanel.tres" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttButton.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/InfoScreen.cs" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/ui/SlotButton.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/StatPanel.tscn" id="5"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="6"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/button_red.png" id="7"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/StatLabel.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/StarRate.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttDropdown.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHttpRequest.tscn" id="11"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -21,7 +21,7 @@ border_color = Color( 0, 0, 0, 0 )
 
 [node name="InfoScreen" type="CanvasLayer"]
 layer = 3
-script = ExtResource( 3 )
+script = ExtResource("3")
 complainURL = "https://github.com/youkaicountry/yknytt/issues"
 
 [node name="BackgroundRect" type="ColorRect" parent="."]
@@ -38,7 +38,7 @@ offset_bottom = 120.0
 expand = true
 stretch_mode = 1
 
-[node name="BackButton" parent="InfoRect" instance=ExtResource( 2 )]
+[node name="BackButton" parent="InfoRect" instance=ExtResource("2")]
 unique_name_in_owner = true
 anchor_left = 1.0
 anchor_top = 1.0
@@ -50,7 +50,7 @@ offset_right = -5.0
 offset_bottom = -6.0
 text = "Back"
 
-[node name="Slot1Button" parent="InfoRect" instance=ExtResource( 4 )]
+[node name="Slot1Button" parent="InfoRect" instance=ExtResource("4")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 10.0
@@ -60,7 +60,7 @@ offset_bottom = 129.0
 hint = ""
 slot = 1
 
-[node name="Slot2Button" parent="InfoRect" instance=ExtResource( 4 )]
+[node name="Slot2Button" parent="InfoRect" instance=ExtResource("4")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 10.0
@@ -70,7 +70,7 @@ offset_bottom = 167.0
 hint = ""
 slot = 2
 
-[node name="Slot3Button" parent="InfoRect" instance=ExtResource( 4 )]
+[node name="Slot3Button" parent="InfoRect" instance=ExtResource("4")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 10.0
@@ -80,7 +80,7 @@ offset_bottom = 205.0
 hint = ""
 slot = 3
 
-[node name="StatPanel" parent="InfoRect" instance=ExtResource( 5 )]
+[node name="StatPanel" parent="InfoRect" instance=ExtResource("5")]
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
@@ -89,7 +89,7 @@ offset_top = 10.0
 offset_right = -160.0
 offset_bottom = 195.0
 
-[node name="HintLabel" parent="InfoRect" instance=ExtResource( 8 )]
+[node name="HintLabel" parent="InfoRect" instance=ExtResource("8")]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -106,7 +106,7 @@ offset_left = -160.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 195.0
-theme_override_styles/panel = ExtResource( 1 )
+theme_override_styles/panel = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InfoRect/RatePanel"]
 anchor_right = 1.0
@@ -120,7 +120,7 @@ unique_name_in_owner = true
 offset_right = 140.0
 offset_bottom = 13.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource("6")
 theme_override_font_sizes/font_size = 12
 text = "Rating: -"
 align = 1
@@ -132,13 +132,13 @@ offset_right = 140.0
 offset_bottom = 44.0
 custom_minimum_size = Vector2( 0, 28 )
 
-[node name="Rate" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 9 )]
+[node name="Rate" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("9")]
 unique_name_in_owner = true
 visible = false
 offset_top = 16.0
 offset_bottom = 44.0
 
-[node name="CompleteOption" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 10 )]
+[node name="CompleteOption" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("10")]
 unique_name_in_owner = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -159,7 +159,7 @@ offset_top = 80.0
 offset_right = 140.0
 offset_bottom = 110.0
 
-[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
+[node name="OptimizeButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource("2")]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -175,7 +175,7 @@ offset_right = 71.0
 offset_bottom = 22.0
 size_flags_horizontal = 3
 
-[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource( 2 )]
+[node name="ComplainButton" parent="InfoRect/RatePanel/VBoxContainer/CompContainer" instance=ExtResource("2")]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -184,7 +184,7 @@ offset_right = 140.0
 offset_bottom = 30.0
 custom_minimum_size = Vector2( 65, 30 )
 focus_neighbor_right = NodePath("../../../../BackButton")
-theme_override_styles/disabled = SubResource( 1 )
+theme_override_styles/disabled = SubResource("1")
 disabled = true
 text = "Complain"
 
@@ -195,18 +195,18 @@ offset_right = 140.0
 offset_bottom = 143.0
 custom_minimum_size = Vector2( 0, 30 )
 
-[node name="MainButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource( 2 )]
+[node name="MainButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource("2")]
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 0.0
 offset_bottom = 0.0
 custom_minimum_size = Vector2( 80, 30 )
 focus_neighbor_right = NodePath("../../../../BackButton")
-theme_override_styles/disabled = SubResource( 1 )
+theme_override_styles/disabled = SubResource("1")
 text = "Uninstall Level"
 hint = "Uninstall will not delete your save files"
 
-[node name="ConfirmButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource( 2 )]
+[node name="ConfirmButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource("2")]
 visible = false
 offset_right = 46.475
 offset_bottom = 28.26
@@ -221,14 +221,14 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = -2.0
 offset_bottom = -2.0
-texture = ExtResource( 7 )
+texture = ExtResource("7")
 region_rect = Rect2( 2, 2, 8, 8 )
 patch_margin_left = 1
 patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="CancelButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource( 2 )]
+[node name="CancelButton" parent="InfoRect/RatePanel/VBoxContainer/Uninstall" instance=ExtResource("2")]
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
@@ -237,7 +237,7 @@ offset_right = 0.0
 custom_minimum_size = Vector2( 65, 30 )
 text = "Cancel"
 
-[node name="StatsButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource( 2 )]
+[node name="StatsButton" parent="InfoRect/RatePanel/VBoxContainer" instance=ExtResource("2")]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -251,7 +251,7 @@ text = "View Achievements"
 [node name="StatHttpRequest" type="HTTPRequest" parent="."]
 timeout = 7.0
 
-[node name="RateHttpRequest" parent="." instance=ExtResource( 11 )]
+[node name="RateHttpRequest" parent="." instance=ExtResource("11")]
 
 [node name="HintTimer" type="Timer" parent="."]
 wait_time = 0.2

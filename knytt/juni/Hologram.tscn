@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource path="res://knytt/juni/juni.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/juni/Juni.gdshader" type="Shader" id=2]
+[ext_resource type="Texture2D" path="res://knytt/juni/juni.png" id="1"]
+[ext_resource type="Shader" path="res://knytt/juni/Juni.gdshader" id="2"]
 
-[sub_resource type="ShaderMaterial" id=5]
-shader = ExtResource( 2 )
+[sub_resource type="ShaderMaterial" id="5"]
+shader = ExtResource("2")
 shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
 shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id="6"]
 resource_name = "Stay"
 length = 0.08
 loop = true
@@ -26,15 +26,15 @@ tracks/0/keys = {
 }
 
 [node name="Hologram" type="Sprite2D"]
-material = SubResource( 5 )
+material = SubResource("5")
 position = Vector2( 0, -3 )
 z_index = 8
 z_as_relative = false
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 hframes = 10
 vframes = 5
 frame = 48
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Stay"
-anims/Stay = SubResource( 6 )
+anims/Stay = SubResource("6")

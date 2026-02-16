@@ -1,66 +1,87 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource path="res://knytt/objects/bank9/img/9-3.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank9/HomingFlower.cs" type="Script" id=3]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/data/Sfx/Homing Shot.wav" type="AudioStream" id=6]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank9/img/9-3.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank9/HomingFlower.cs" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="5"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Homing Shot.wav" id="6"]
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("1")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("1")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id="8"]
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}],
 "loop": false,
-"name": "close",
+"name": &"close",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 13 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("13")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}],
 "loop": true,
-"name": "prepare",
+"name": &"prepare",
 "speed": 25.0
 } ]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 OrganicEnemy = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = SubResource( 8 )
+sprite_frames = SubResource("8")
 centered = false
 
-[node name="LoopTimer" parent="." instance=ExtResource( 5 )]
+[node name="LoopTimer" parent="." instance=ExtResource("5")]
 wait_time = 2.15
 autostart = true
 
@@ -68,8 +89,8 @@ autostart = true
 wait_time = 0.9
 one_shot = true
 
-[node name="ShotPlayer" parent="." instance=ExtResource( 4 )]
-stream = ExtResource( 6 )
+[node name="ShotPlayer" parent="." instance=ExtResource("4")]
+stream = ExtResource("6")
 
 [connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]

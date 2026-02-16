@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/InputOption.cs" type="Script" id=2]
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=3]
+[ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttButton.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/ui/InputOption.cs" id="2"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="3"]
 
 [node name="InputOption" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_minimum_size = Vector2( 0, 25 )
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
 offset_top = 113.0
@@ -17,19 +17,19 @@ offset_bottom = 126.0
 custom_minimum_size = Vector2( 80, 0 )
 focus_mode = 2
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 theme_override_font_sizes/font_size = 12
 text = "Up"
 align = 2
 
-[node name="Button0" parent="." instance=ExtResource( 1 )]
+[node name="Button0" parent="." instance=ExtResource("1")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 84.0
 offset_right = 164.0
 offset_bottom = 240.0
 
-[node name="Button1" parent="." instance=ExtResource( 1 )]
+[node name="Button1" parent="." instance=ExtResource("1")]
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 168.0

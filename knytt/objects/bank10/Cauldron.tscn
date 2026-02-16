@@ -1,58 +1,73 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3]
 
-[ext_resource path="res://knytt/objects/bank10/img/cauldron.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank10/Bouncer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/objects/bank10/Cauldron.cs" type="Script" id=3]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/data/Sfx/Fire Shot.wav" type="AudioStream" id=5]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank10/img/cauldron.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bank10/Bouncer.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank10/Cauldron.cs" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="4"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Fire Shot.wav" id="5"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id="6"]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
 "loop": false,
-"name": "bounce",
+"name": &"bounce",
 "speed": 40.0
 }, {
-"frames": [ SubResource( 5 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("5")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id="7"]
 radius = 11.0
 
-[node name="Bouncer" instance=ExtResource( 2 )]
-script = ExtResource( 3 )
+[node name="Bouncer" instance=ExtResource("2")]
+script = ExtResource("3")
 speedValues = PackedInt32Array( 2, 3, 4, 5, 6 )
 counter = 1
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 6 )
+sprite_frames = SubResource("6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 13 )
-shape = SubResource( 7 )
+shape = SubResource("7")
 
-[node name="ShotPlayer" parent="." index="3" instance=ExtResource( 4 )]
-stream = ExtResource( 5 )
+[node name="ShotPlayer" parent="." index="3" instance=ExtResource("4")]
+stream = ExtResource("5")

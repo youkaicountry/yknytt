@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource path="res://knytt/objects/common/DistanceMod.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://knytt/objects/common/DistanceMod.cs" id="1"]
 
 
 [node name="DistanceMod" type="Node2D"]
 position = Vector2( 12, 12 )
-script = ExtResource( 1 )
+script = ExtResource("1")

@@ -1,68 +1,89 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource path="res://knytt/objects/bullets/img/cauldron_spike_disappear.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bullets/img/cauldron_spike.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=4]
-[ext_resource path="res://knytt/data/Sfx/Fire Hit.wav" type="AudioStream" id=5]
+[ext_resource type="Texture2D" path="res://knytt/objects/bullets/img/cauldron_spike_disappear.png" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bullets/img/cauldron_spike.png" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bullets/BaseBullet.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="4"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Fire Hit.wav" id="5"]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 radius = 3.0
 
-[sub_resource type="CanvasItemMaterial" id=10]
+[sub_resource type="CanvasItemMaterial" id="10"]
 blend_mode = 1
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
 region = Rect2( 0, 0, 9, 5 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("2")
 region = Rect2( 9, 0, 9, 5 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 9, 9 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
 region = Rect2( 9, 0, 9, 9 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
 region = Rect2( 18, 0, 9, 9 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
 region = Rect2( 27, 0, 9, 9 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
 region = Rect2( 36, 0, 9, 9 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id="9"]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
 "loop": false,
-"name": "disappear",
+"name": &"disappear",
 "speed": 17.0
 } ]
 
-[node name="Particle" instance=ExtResource( 3 )]
+[node name="Particle" instance=ExtResource("3")]
 collision_mask = 2048
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 1, 0.5 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-material = SubResource( 10 )
-frames = SubResource( 9 )
+material = SubResource("10")
+sprite_frames = SubResource("9")
 
-[node name="HitPlayer" parent="." index="2" instance=ExtResource( 4 )]
-stream = ExtResource( 5 )
+[node name="HitPlayer" parent="." index="2" instance=ExtResource("4")]
+stream = ExtResource("5")

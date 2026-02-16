@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource path="res://knytt/objects/fake/combined.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/fake/combined-big.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/fake/FakeObjectLayer.cs" type="Script" id=3]
+[ext_resource type="Texture2D" path="res://knytt/objects/fake/combined.png" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/fake/combined-big.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/fake/FakeObjectLayer.cs" id="3"]
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id="1"]
 0/name = "combined.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource("1")
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 384, 528 )
@@ -27,7 +27,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "combined-big.png 1"
-1/texture = ExtResource( 2 )
+1/texture = ExtResource("2")
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 24, 24 )
@@ -41,7 +41,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "combined-big.png 2"
-2/texture = ExtResource( 2 )
+2/texture = ExtResource("2")
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 96, 0, 24, 24 )
@@ -55,7 +55,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "combined-big.png 3"
-3/texture = ExtResource( 2 )
+3/texture = ExtResource("2")
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 192, 0, 24, 24 )
@@ -69,7 +69,7 @@
 3/shapes = [  ]
 3/z_index = 0
 4/name = "combined-big.png 4"
-4/texture = ExtResource( 2 )
+4/texture = ExtResource("2")
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 288, 0, 24, 24 )
@@ -83,7 +83,7 @@
 4/shapes = [  ]
 4/z_index = 0
 5/name = "combined-big.png 5"
-5/texture = ExtResource( 2 )
+5/texture = ExtResource("2")
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 0, 96, 24, 24 )
@@ -97,7 +97,7 @@
 5/shapes = [  ]
 5/z_index = 0
 6/name = "combined-big.png 6"
-6/texture = ExtResource( 2 )
+6/texture = ExtResource("2")
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 96, 96, 48, 24 )
@@ -111,7 +111,7 @@
 6/shapes = [  ]
 6/z_index = 0
 7/name = "combined-big.png 7"
-7/texture = ExtResource( 2 )
+7/texture = ExtResource("2")
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 192, 96, 24, 48 )
@@ -125,7 +125,7 @@
 7/shapes = [  ]
 7/z_index = 0
 8/name = "combined-big.png 8"
-8/texture = ExtResource( 2 )
+8/texture = ExtResource("2")
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 288, 96, 24, 48 )
@@ -139,7 +139,7 @@
 8/shapes = [  ]
 8/z_index = 0
 9/name = "combined-big.png 9"
-9/texture = ExtResource( 2 )
+9/texture = ExtResource("2")
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 0, 192, 24, 48 )
@@ -153,7 +153,7 @@
 9/shapes = [  ]
 9/z_index = 0
 10/name = "combined-big.png 10"
-10/texture = ExtResource( 2 )
+10/texture = ExtResource("2")
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 96, 192, 96, 24 )
@@ -167,7 +167,7 @@
 10/shapes = [  ]
 10/z_index = 0
 11/name = "combined-big.png 11"
-11/texture = ExtResource( 2 )
+11/texture = ExtResource("2")
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 192, 192, 48, 24 )
@@ -181,7 +181,7 @@
 11/shapes = [  ]
 11/z_index = 0
 12/name = "combined-big.png 12"
-12/texture = ExtResource( 2 )
+12/texture = ExtResource("2")
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 288, 192, 48, 24 )
@@ -195,7 +195,7 @@
 12/shapes = [  ]
 12/z_index = 0
 13/name = "combined-big.png 13"
-13/texture = ExtResource( 2 )
+13/texture = ExtResource("2")
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 0, 288, 48, 24 )
@@ -209,7 +209,7 @@
 13/shapes = [  ]
 13/z_index = 0
 14/name = "combined-big.png 14"
-14/texture = ExtResource( 2 )
+14/texture = ExtResource("2")
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 96, 288, 48, 24 )
@@ -223,7 +223,7 @@
 14/shapes = [  ]
 14/z_index = 0
 15/name = "combined-big.png 15"
-15/texture = ExtResource( 2 )
+15/texture = ExtResource("2")
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 192, 288, 48, 24 )
@@ -237,7 +237,7 @@
 15/shapes = [  ]
 15/z_index = 0
 16/name = "combined-big.png 16"
-16/texture = ExtResource( 2 )
+16/texture = ExtResource("2")
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 288, 288, 24, 96 )
@@ -251,7 +251,7 @@
 16/shapes = [  ]
 16/z_index = 0
 17/name = "combined-big.png 17"
-17/texture = ExtResource( 2 )
+17/texture = ExtResource("2")
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 0, 384, 48, 48 )
@@ -265,7 +265,7 @@
 17/shapes = [  ]
 17/z_index = 0
 18/name = "combined-big.png 18"
-18/texture = ExtResource( 2 )
+18/texture = ExtResource("2")
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
 18/region = Rect2( 96, 384, 48, 24 )
@@ -280,32 +280,32 @@
 18/z_index = 0
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Layer0" type="TileMap" parent="."]
 z_index = 5
 z_as_relative = false
-tile_set = SubResource( 1 )
+tile_set = SubResource("1")
 cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer1" type="TileMap" parent="."]
 z_index = 7
 z_as_relative = false
-tile_set = SubResource( 1 )
+tile_set = SubResource("1")
 cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer2" type="TileMap" parent="."]
 z_index = 10
 z_as_relative = false
-tile_set = SubResource( 1 )
+tile_set = SubResource("1")
 cell_size = Vector2( 24, 24 )
 format = 1
 
 [node name="Layer3" type="TileMap" parent="."]
 z_index = 12
 z_as_relative = false
-tile_set = SubResource( 1 )
+tile_set = SubResource("1")
 cell_size = Vector2( 24, 24 )
 format = 1

@@ -1,54 +1,72 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank13/img/13-5.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bank13/DropstuffRobot.cs" type="Script" id=4]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=6]
-[ext_resource path="res://knytt/data/Sfx/Liquid Shooter.wav" type="AudioStream" id=7]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/Muff.tscn" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank13/img/13-5.png" id="2"]
+[ext_resource type="Script" path="res://knytt/objects/bank13/DropstuffRobot.cs" id="4"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="6"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Liquid Shooter.wav" id="7"]
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("2")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("2")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("2")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("2")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("2")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("2")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id="7"]
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 25.0
 }, {
-"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 12, 8 )
+[sub_resource type="RectangleShape2D" id="8"]
+size = Vector2(24, 16)
 
-[node name="Muff" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="Muff" instance=ExtResource("1")]
+script = ExtResource("4")
 directionChange = 1
 directionChangeTime = 2.0
 speedChangeTime = 2.0
@@ -57,18 +75,18 @@ speedValues = PackedInt32Array( 15, 16, 17, 18, 19 )
 deceleration = 10.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-frames = SubResource( 7 )
+sprite_frames = SubResource("7")
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 12 )
-shape = SubResource( 8 )
+shape = SubResource("8")
 
-[node name="LoopTimer" parent="." index="4" instance=ExtResource( 6 )]
+[node name="LoopTimer" parent="." index="4" instance=ExtResource("6")]
 wait_time = 2.24
 autostart = true
 firstDelay = 0.6
 
-[node name="ShotTimer" parent="." index="5" instance=ExtResource( 6 )]
+[node name="ShotTimer" parent="." index="5" instance=ExtResource("6")]
 process_mode = 0
 wait_time = 0.04
 
@@ -76,8 +94,8 @@ wait_time = 0.04
 wait_time = 1.18
 one_shot = true
 
-[node name="Player" parent="." index="7" instance=ExtResource( 5 )]
-stream = ExtResource( 7 )
+[node name="Player" parent="." index="7" instance=ExtResource("5")]
+stream = ExtResource("7")
 
 [connection signal="timeout_ext" from="LoopTimer" to="." method="_on_LoopTimer_timeout_ext"]
 [connection signal="timeout_ext" from="ShotTimer" to="." method="_on_ShotTimer_timeout_ext"]

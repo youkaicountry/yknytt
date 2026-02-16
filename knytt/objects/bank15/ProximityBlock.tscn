@@ -1,20 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource path="res://knytt/objects/bank15/img/proximity_block.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank15/ProximityBlock.cs" type="Script" id=2]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank15/img/proximity_block.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank15/ProximityBlock.cs" id="2"]
 
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 radius = 132.0
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12, 12 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(24, 24)
 
 [node name="ProximityBlock" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -22,7 +22,7 @@ position = Vector2( 12, 12 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )
@@ -30,6 +30,6 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 2 )
+shape = SubResource("2")
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

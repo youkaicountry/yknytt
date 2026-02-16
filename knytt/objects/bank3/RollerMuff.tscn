@@ -1,17 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource path="res://knytt/objects/common/Muff.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/objects/bank3/RollerMuff.cs" type="Script" id=2]
-[ext_resource path="res://knytt/objects/TimerExt.tscn" type="PackedScene" id=3]
+[ext_resource type="PackedScene" path="res://knytt/objects/common/Muff.tscn" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank3/RollerMuff.cs" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 7 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(20, 14)
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id="2"]
 radius = 7.0
 
-[node name="Muff" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="Muff" instance=ExtResource("1")]
+script = ExtResource("2")
 OrganicEnemy = true
 speedChangeTime = 1.1
 initialSpeed = 8
@@ -19,9 +19,9 @@ speedValues = PackedInt32Array( 5, 10 )
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( 12, 16.5 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="RollTimer" parent="." index="4" instance=ExtResource( 3 )]
+[node name="RollTimer" parent="." index="4" instance=ExtResource("3")]
 autostart = true
 syncedRandomDelay = true
 pickOne = true
@@ -31,7 +31,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 12, 17 )
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [connection signal="timeout_ext" from="RollTimer" to="." method="_on_RollTimer_timeout_ext"]
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]

@@ -1,8 +1,8 @@
-[gd_resource type="FontFile" load_steps=2 format=2]
+[gd_resource type="FontFile" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/fonts/silver/Silver-Light3D.ttf" type="FontFile" id=1]
+[ext_resource type="FontFile" path="res://knytt/fonts/silver/Silver-Light3D.ttf" id="1"]
 
 [resource]
 size = 18
 outline_size = 1
-font_data = ExtResource( 1 )
+font_data = ExtResource("1")

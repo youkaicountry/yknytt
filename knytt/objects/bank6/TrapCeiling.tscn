@@ -1,25 +1,25 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource path="res://knytt/objects/bank6/img/trap_ceiling.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank6/TrapCeiling.cs" type="Script" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Machine Turn B.wav" type="AudioStream" id=4]
-[ext_resource path="res://knytt/data/Sfx/Machine Turn A.wav" type="AudioStream" id=5]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank6/img/trap_ceiling.png" id="1"]
+[ext_resource type="Script" path="res://knytt/objects/bank6/TrapCeiling.cs" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Machine Turn B.wav" id="4"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Machine Turn A.wav" id="5"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 45.8827, 9.66304 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(91.7654, 19.32608)
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 46, 1 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(92, 2)
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 46, 1 )
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(92, 2)
 
 [node name="TrapCeiling" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -27,7 +27,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 48.1445, 12.892 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="DownChecker" type="Area2D" parent="."]
 collision_layer = 0
@@ -35,7 +35,7 @@ collision_mask = 3072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownChecker"]
 position = Vector2( 48, 23 )
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [node name="UpChecker" type="Area2D" parent="."]
 collision_layer = 0
@@ -43,13 +43,13 @@ collision_mask = 3072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpChecker"]
 position = Vector2( 48, 3 )
-shape = SubResource( 3 )
+shape = SubResource("3")
 
-[node name="CeilingHitSound2D" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
+[node name="CeilingHitSound2D" parent="." instance=ExtResource("3")]
+stream = ExtResource("4")
 
-[node name="FloorHitSound2D" parent="." instance=ExtResource( 3 )]
-stream = ExtResource( 5 )
+[node name="FloorHitSound2D" parent="." instance=ExtResource("3")]
+stream = ExtResource("5")
 
 [connection signal="body_entered" from="Area2D" to="." method="onDeadlyAreaEntered"]
 [connection signal="body_entered" from="DownChecker" to="." method="_on_Checker_body_entered" binds= [ true ]]

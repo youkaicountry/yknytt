@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource path="res://knytt/ui/map/map_objects.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" path="res://knytt/ui/map/map_objects.png" id="1"]
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id="1"]
 0/name = "map_objects.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource("1")
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 792, 24 )
@@ -29,6 +29,6 @@
 position = Vector2( 2, 0 )
 z_index = 4
 z_as_relative = false
-tile_set = SubResource( 1 )
+tile_set = SubResource("1")
 cell_size = Vector2( 24, 24 )
 format = 1

@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id="6"]
 code = "shader_type canvas_item;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
@@ -31,7 +31,7 @@ void fragment()
 }"
 
 [resource]
-shader = SubResource( 6 )
+shader = SubResource("6")
 shader_param/r = 0
 shader_param/g = 0
 shader_param/b = 0

@@ -1,105 +1,153 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=28 format=3]
 
-[ext_resource path="res://knytt/objects/bank0/Switch.cs" type="Script" id=1]
-[ext_resource path="res://knytt/objects/bank0/img/floor.png" type="Texture2D" id=2]
-[ext_resource path="res://knytt/objects/bank0/img/square.png" type="Texture2D" id=3]
-[ext_resource path="res://knytt/objects/bank0/img/circle.png" type="Texture2D" id=4]
-[ext_resource path="res://knytt/objects/bank0/img/spot1.png" type="Texture2D" id=7]
+[ext_resource type="Script" path="res://knytt/objects/bank0/Switch.cs" id="1"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank0/img/floor.png" id="2"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank0/img/square.png" id="3"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank0/img/circle.png" id="4"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank0/img/spot1.png" id="7"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("7")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("7")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("7")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("7")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("7")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("7")
 region = Rect2( 120, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("7")
 region = Rect2( 144, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("7")
 region = Rect2( 168, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 7 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("7")
 region = Rect2( 192, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id="10"]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
 "loop": true,
-"name": "Spot",
+"name": &"Spot",
 "speed": 12.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 6.1, 3.3 )
+[sub_resource type="RectangleShape2D" id="11"]
+size = Vector2(12.2, 6.6)
 
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 12, 2 )
+[sub_resource type="RectangleShape2D" id="12"]
+size = Vector2(24, 4)
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("4")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("4")
 region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("4")
 region = Rect2( 0, 48, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("4")
 region = Rect2( 0, 72, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("4")
 region = Rect2( 0, 96, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("4")
 region = Rect2( 0, 120, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("4")
 region = Rect2( 0, 144, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id="20"]
 animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}, {
+"duration": 1.0,
+"texture": SubResource("18")
+}, {
+"duration": 1.0,
+"texture": SubResource("19")
+}],
 "loop": true,
-"name": "Circle",
+"name": &"Circle",
 "speed": 37.0
 } ]
 
-[sub_resource type="CircleShape2D" id=21]
+[sub_resource type="CircleShape2D" id="21"]
 radius = 5.5
 
-[sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 11.8, 11.8 )
+[sub_resource type="RectangleShape2D" id="22"]
+size = Vector2(23.6, 23.6)
 
 [node name="Shift" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Shapes" type="Node2D" parent="."]
 
@@ -107,9 +155,9 @@ script = ExtResource( 1 )
 visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shapes/Spot"]
-frames = SubResource( 10 )
-animation = "Spot"
-playing = true
+sprite_frames = SubResource("10")
+animation = &"Spot"
+autoplay = "Spot"
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Spot"]
@@ -117,13 +165,13 @@ position = Vector2( 12, 20.7 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Spot/Area2D"]
-shape = SubResource( 11 )
+shape = SubResource("11")
 
 [node name="Floor" type="Node2D" parent="Shapes"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Shapes/Floor"]
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Floor"]
@@ -131,15 +179,15 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Floor/Area2D"]
 position = Vector2( 12, 22 )
-shape = SubResource( 12 )
+shape = SubResource("12")
 
 [node name="Circle" type="Node2D" parent="Shapes"]
 visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shapes/Circle"]
-frames = SubResource( 20 )
-animation = "Circle"
-playing = true
+sprite_frames = SubResource("20")
+animation = &"Circle"
+autoplay = "Circle"
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Circle"]
@@ -147,13 +195,13 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Circle/Area2D"]
 position = Vector2( 12.5, 12.5 )
-shape = SubResource( 21 )
+shape = SubResource("21")
 
 [node name="Square" type="Node2D" parent="Shapes"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Shapes/Square"]
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Shapes/Square"]
@@ -161,7 +209,7 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shapes/Square/Area2D"]
 position = Vector2( 12, 12 )
-shape = SubResource( 22 )
+shape = SubResource("22")
 
 [connection signal="body_entered" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Shapes/Spot/Area2D" to="." method="_on_Area2D_body_exited"]

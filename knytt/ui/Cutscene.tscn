@@ -1,15 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource path="res://knytt/ui/GDKnyttButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://knytt/ui/stats/RateHttpRequest.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/ui/Cutscene.cs" type="Script" id=3]
-[ext_resource path="res://knytt/ui/img/small_arrow_disabled.png" type="Texture2D" id=4]
-[ext_resource path="res://knytt/ui/img/small_arrow.png" type="Texture2D" id=5]
-[ext_resource path="res://knytt/ui/FadeLayer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://knytt/juni/StandartSoundPlayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="FontFile" id=8]
+[ext_resource type="PackedScene" path="res://knytt/ui/GDKnyttButton.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/ui/stats/RateHttpRequest.tscn" id="2"]
+[ext_resource type="Script" path="res://knytt/ui/Cutscene.cs" id="3"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/small_arrow_disabled.png" id="4"]
+[ext_resource type="Texture2D" path="res://knytt/ui/img/small_arrow.png" id="5"]
+[ext_resource type="PackedScene" path="res://knytt/ui/FadeLayer.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://knytt/juni/StandartSoundPlayer.tscn" id="7"]
+[ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="8"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "FadeOut"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:volume_db")
@@ -34,7 +34,7 @@ offset_left = -300.0
 offset_top = -120.0
 offset_right = 300.0
 offset_bottom = 120.0
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Image" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -44,7 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackButton" parent="." instance=ExtResource( 1 )]
+[node name="BackButton" parent="." instance=ExtResource("1")]
 modulate = Color( 1, 1, 1, 0.4 )
 offset_left = 10.0
 offset_top = 200.0
@@ -57,7 +57,7 @@ text = ""
 modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 stretch_mode = 4
 flip_h = true
 
@@ -65,14 +65,14 @@ flip_h = true
 modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 stretch_mode = 4
 flip_h = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NextButton" parent="." instance=ExtResource( 1 )]
+[node name="NextButton" parent="." instance=ExtResource("1")]
 modulate = Color( 1, 1, 1, 0.4 )
 offset_left = 532.0
 offset_top = 200.0
@@ -85,7 +85,7 @@ text = ""
 modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 stretch_mode = 4
 
 [node name="OKLabel" type="Label" parent="NextButton"]
@@ -94,22 +94,22 @@ modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 8 )
+theme_override_fonts/font = ExtResource("8")
 theme_override_font_sizes/font_size = 12
 text = "OK"
 align = 1
 vertical_alignment = 1
 
-[node name="FadeLayer" parent="." instance=ExtResource( 6 )]
+[node name="FadeLayer" parent="." instance=ExtResource("6")]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MusicPlayer"]
-anims/FadeOut = SubResource( 1 )
+anims/FadeOut = SubResource("1")
 
-[node name="StandartSoundPlayer" parent="." instance=ExtResource( 7 )]
+[node name="StandartSoundPlayer" parent="." instance=ExtResource("7")]
 
-[node name="RateHttpRequest" parent="." instance=ExtResource( 2 )]
+[node name="RateHttpRequest" parent="." instance=ExtResource("2")]
 
 [connection signal="pressed" from="BackButton" to="." method="_on_PreviousButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]

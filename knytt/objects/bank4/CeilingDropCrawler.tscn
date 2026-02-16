@@ -1,54 +1,69 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3]
 
-[ext_resource path="res://knytt/objects/bank4/img/4-7.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bank4/DropCrawler.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/objects/bank4/CeilingDropCrawler.cs" type="Script" id=4]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank4/img/4-7.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bank4/DropCrawler.tscn" id="3"]
+[ext_resource type="Script" path="res://knytt/objects/bank4/CeilingDropCrawler.cs" id="4"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 6.5 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(14, 13)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
 region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("1")
 region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("1")
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("1")
 region = Rect2( 96, 0, 24, 24 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id="7"]
 animations = [ {
-"frames": [ SubResource( 8 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("8")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 17.0
 } ]
 
-[node name="Crawler" instance=ExtResource( 3 )]
-script = ExtResource( 4 )
+[node name="Crawler" instance=ExtResource("3")]
+script = ExtResource("4")
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 12, 7 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-frames = SubResource( 7 )
+sprite_frames = SubResource("7")
 
 [node name="DistanceMod" parent="." index="2"]
 openDistance = 100.0

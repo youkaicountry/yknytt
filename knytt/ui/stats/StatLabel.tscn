@@ -1,19 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3]
 
-[sub_resource type="FontFile" id=1]
+[sub_resource type="FontFile" id="1"]
 font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
 
-[sub_resource type="FontFile" id=2]
+[sub_resource type="FontFile" id="2"]
 size = 12
 outline_size = 1
 spacing_top = 6
 spacing_bottom = 2
-font_data = SubResource( 1 )
+font_data = SubResource("1")
 
 [node name="Label" type="Label"]
 anchor_right = 1.0
 custom_minimum_size = Vector2( 133, 0 )
 theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 2 )
+theme_override_fonts/font = SubResource("2")
 text = "Powers:"
 align = 1

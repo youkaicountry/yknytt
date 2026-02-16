@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource path="res://knytt/ui/screen_shaders/crt.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://knytt/ui/screen_shaders/crt.gdshader" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
+shader = ExtResource("1")
 shader_param/crt_curve = 0.02
 shader_param/crt_scan_line_color = 0.347
 shader_param/aperture_grille_rate = 0.4

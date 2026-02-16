@@ -1,42 +1,51 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource path="res://knytt/objects/bullets/img/fire_bullet.png" type="Texture2D" id=1]
-[ext_resource path="res://knytt/objects/bullets/BaseBullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://knytt/data/Sfx/Fire Hit.wav" type="AudioStream" id=4]
+[ext_resource type="Texture2D" path="res://knytt/objects/bullets/img/fire_bullet.png" id="1"]
+[ext_resource type="PackedScene" path="res://knytt/objects/bullets/BaseBullet.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="3"]
+[ext_resource type="AudioStream" path="res://knytt/data/Sfx/Fire Hit.wav" id="4"]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 radius = 2.5
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
 region = Rect2( 0, 0, 7, 7 )
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
 region = Rect2( 7, 0, 7, 7 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
 region = Rect2( 14, 0, 7, 7 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id="5"]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 25.0
 } ]
 
-[node name="Particle" instance=ExtResource( 2 )]
+[node name="Particle" instance=ExtResource("2")]
 collision_mask = 6176
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0.5, 0.5 )
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-frames = SubResource( 5 )
+sprite_frames = SubResource("5")
 
-[node name="HitPlayer" parent="." index="2" instance=ExtResource( 3 )]
-stream = ExtResource( 4 )
+[node name="HitPlayer" parent="." index="2" instance=ExtResource("3")]
+stream = ExtResource("4")
