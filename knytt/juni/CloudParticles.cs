@@ -6,7 +6,7 @@ public partial class CloudParticles : Node2D
 
     public override void _Ready()
     {
-        particles = GetNode<CpuParticles2D>("CpuParticles2D");
+        particles = GetNode<CpuParticles2D>("CPUParticles2D");
         particles.Emitting = true;
     }
 
