@@ -1024,7 +1024,7 @@ offset_left = -24.0
 offset_top = -12.0
 offset_bottom = 12.0
 texture = SubResource("65")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Artifact2Control" type="Control" parent="ArtifactsControl"]
 offset_top = 20.0

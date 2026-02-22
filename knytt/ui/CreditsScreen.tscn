@@ -495,7 +495,7 @@ offset_right = 13.0
 offset_bottom = 13.0
 pivot_offset = Vector2( 6, 6 )
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 offset_left = 17.0
@@ -571,7 +571,7 @@ offset_right = 13.0
 offset_bottom = 13.0
 pivot_offset = Vector2( 6, 6 )
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 offset_left = 17.0
@@ -664,7 +664,7 @@ offset_right = 13.0
 offset_bottom = 13.0
 pivot_offset = Vector2( 6, 6 )
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="Label" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 offset_left = 17.0

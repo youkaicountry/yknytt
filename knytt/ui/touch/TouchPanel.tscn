@@ -47,7 +47,7 @@ __meta__ = {
 offset_right = 60.0
 offset_bottom = 50.0
 texture = ExtResource("9")
-stretch_mode = 4
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,7 +65,7 @@ __meta__ = {
 offset_right = 60.0
 offset_bottom = 50.0
 texture = ExtResource("2")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="LeftPanel" type="Panel" parent="ArrowsPanel"]
 offset_top = 50.0
@@ -80,7 +80,7 @@ __meta__ = {
 offset_right = 60.0
 offset_bottom = 50.0
 texture = ExtResource("3")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="RightPanel" type="Panel" parent="ArrowsPanel"]
 offset_left = 60.0
@@ -96,7 +96,7 @@ __meta__ = {
 offset_right = 60.0
 offset_bottom = 50.0
 texture = ExtResource("7")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="DownPanel" type="Panel" parent="ArrowsPanel"]
 offset_top = 100.0
@@ -108,7 +108,7 @@ theme_override_styles/panel = ExtResource("1")
 offset_right = 120.0
 offset_bottom = 40.0
 texture = ExtResource("6")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="JumpPanel" type="Panel" parent="."]
 anchor_left = 1.0
@@ -128,7 +128,7 @@ offset_right = 60.0
 offset_bottom = 50.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("11")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="ResetPanel" type="Panel" parent="JumpPanel"]
 offset_top = 50.0
@@ -144,7 +144,7 @@ offset_right = 60.0
 offset_bottom = 50.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="PausePanel" type="Panel" parent="JumpPanel"]
 offset_top = 100.0
@@ -157,7 +157,7 @@ offset_right = 60.0
 offset_bottom = 40.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("12")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="UmbrellaPanel" type="Panel" parent="JumpPanel"]
 offset_left = 60.0
@@ -173,7 +173,7 @@ offset_right = 60.0
 offset_bottom = 100.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("4")
-stretch_mode = 4
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -191,7 +191,7 @@ offset_right = 60.0
 offset_bottom = 40.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("13")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="WalkLabel" type="TextureRect" parent="JumpPanel/WalkPanel"]
 visible = false
@@ -199,14 +199,14 @@ offset_right = 60.0
 offset_bottom = 40.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("14")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="Label" type="TextureRect" parent="JumpPanel/WalkPanel"]
 offset_right = 60.0
 offset_bottom = 40.0
 pivot_offset = Vector2( 30, 0 )
 texture = ExtResource("14")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="JumpPanel" type="Panel" parent="JumpPanel"]
 offset_left = 120.0
@@ -219,7 +219,7 @@ offset_right = 120.0
 offset_bottom = 100.0
 pivot_offset = Vector2( 60, 0 )
 texture = ExtResource("8")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="DownPanel" type="Panel" parent="JumpPanel"]
 offset_left = 120.0
@@ -233,4 +233,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 pivot_offset = Vector2( 60, 0 )
 texture = ExtResource("6")
-stretch_mode = 4
+stretch_mode = 3
