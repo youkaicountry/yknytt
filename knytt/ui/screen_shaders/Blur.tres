@@ -4,4 +4,4 @@
 
 [resource]
 shader = ExtResource("1")
-shader_param/amount = 0.9
+shader_parameter/amount = 0.9

@@ -32,8 +32,8 @@ void fragment()
 
 [resource]
 shader = SubResource("6")
-shader_param/r = 0
-shader_param/g = 0
-shader_param/b = 0
-shader_param/a = 0.63
-shader_param/mode = 0
+shader_parameter/r = 0
+shader_parameter/g = 0
+shader_parameter/b = 0
+shader_parameter/a = 0.63
+shader_parameter/mode = 0

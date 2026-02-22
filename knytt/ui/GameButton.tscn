@@ -131,7 +131,7 @@ custom_minimum_size = Vector2(30, 30)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="TextContainer" type="VBoxContainer" parent="MainContainer"]
 offset_left = 34.0
@@ -201,7 +201,7 @@ offset_bottom = 13.0
 custom_minimum_size = Vector2(4, 4)
 texture = ExtResource("7")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="DownloadsLabel" type="Label" parent="RatingControl"]
 offset_left = 261.0

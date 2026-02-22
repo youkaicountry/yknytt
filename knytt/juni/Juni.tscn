@@ -75,10 +75,10 @@ tracks/0/keys = {
 
 [sub_resource type="ShaderMaterial" id="10"]
 shader = ExtResource("17")
-shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
-shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
-shader_param/clothes_skip = true
-shader_param/skin_skip = true
+shader_parameter/clothes_color = Color( 0.937, 0.937, 0.937, 1 )
+shader_parameter/skin_color = Color( 0.839, 0.71, 0.612, 1 )
+shader_parameter/clothes_skip = true
+shader_parameter/skin_skip = true
 
 [sub_resource type="Animation" id="11"]
 length = 0.28
@@ -246,8 +246,8 @@ size = Vector2(9.3456, 4.23364)
 
 [sub_resource type="ShaderMaterial" id="41"]
 shader = ExtResource("16")
-shader_param/dark_hint = null
-shader_param/light_hint = null
+shader_parameter/dark_hint = null
+shader_parameter/light_hint = null
 
 [node name="Juni" type="CharacterBody2D"]
 process_priority = -1

@@ -5,8 +5,8 @@
 
 [sub_resource type="ShaderMaterial" id="5"]
 shader = ExtResource("2")
-shader_param/clothes_color = Plane( 0.937, 0.937, 0.937, 1 )
-shader_param/skin_color = Plane( 0.839, 0.71, 0.612, 1 )
+shader_parameter/clothes_color = Color( 0.937, 0.937, 0.937, 1 )
+shader_parameter/skin_color = Color( 0.839, 0.71, 0.612, 1 )
 
 [sub_resource type="Animation" id="6"]
 resource_name = "Stay"

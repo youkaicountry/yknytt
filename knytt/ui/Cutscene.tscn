@@ -39,7 +39,7 @@ script = ExtResource("3")
 [node name="Image" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-expand = true
+expand_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -58,7 +58,7 @@ modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 flip_h = true
 
 [node name="DisabledArrow" type="TextureRect" parent="BackButton"]
@@ -66,7 +66,7 @@ modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("4")
-stretch_mode = 4
+stretch_mode = 3
 flip_h = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,7 +86,7 @@ modulate = Color( 1, 1, 1, 2.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("5")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="OKLabel" type="Label" parent="NextButton"]
 visible = false
