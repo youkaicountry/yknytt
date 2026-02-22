@@ -206,7 +206,7 @@ animations = [ {
 "name": &"1",
 "speed": 7.0
 }, {
-"frames": [ ExtResource("5") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("5")}],
 "loop": false,
 "name": &"14",
 "speed": 5.0
@@ -264,7 +264,7 @@ animations = [ {
 "name": &"16",
 "speed": 25.0
 }, {
-"frames": [ ExtResource("3") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("3")}],
 "loop": false,
 "name": &"3",
 "speed": 5.0
