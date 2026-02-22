@@ -11,37 +11,37 @@
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [ {
-"frames": [ ExtResource("5") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("5")}],
 "loop": false,
 "name": &"Block11",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("6") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("6")}],
 "loop": false,
 "name": &"Block17",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("7") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("7")}],
 "loop": false,
 "name": &"Block21",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("8") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("8")}],
 "loop": false,
 "name": &"Block24",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("2") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("2")}],
 "loop": false,
 "name": &"Block7",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("3") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("3")}],
 "loop": false,
 "name": &"Block8",
 "speed": 5.0
 }, {
-"frames": [ ExtResource("4") ],
+"frames": [{"duration": 1.0, "texture": ExtResource("4")}],
 "loop": false,
 "name": &"Block9",
 "speed": 5.0
