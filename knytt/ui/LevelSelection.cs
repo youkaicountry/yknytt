@@ -227,7 +227,7 @@ public partial class LevelSelection : BasicScreen
     private void _on_GameContainter_scrolling(float value)
     {
         requested_level = 2 * (((int)(value + games_scrollbar.Size.Y)) / GameContainer.BUTTON_HEIGHT) + 2;
-        if (next_page != null && requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
+        if (!string.IsNullOrEmpty(next_page) && requested_level > game_container.GamesCount && http_levels_node.GetHttpClientStatus() == 0)
         {
             http_levels_node.Request(next_page);
             next_page = null;
