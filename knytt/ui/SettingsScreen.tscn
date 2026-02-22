@@ -373,7 +373,17 @@ custom_minimum_size = Vector2( 80, 31 )
 focus_neighbor_top = NodePath("../../../../TabsContainer/GeneralTab")
 focus_neighbor_right = NodePath("../../../Graphics/FullScreen")
 text = "No"
-items = [ "No", null, false, 0, null, "Upscale", null, false, 1, null, "CRT", null, false, 2, null, "Sepia", null, false, 3, null, "VHS", null, false, 4, null ]
+item_count = 5
+popup/item_0/text = "No"
+popup/item_0/id = 0
+popup/item_1/text = "Upscale"
+popup/item_1/id = 1
+popup/item_2/text = "CRT"
+popup/item_2/id = 2
+popup/item_3/text = "Sepia"
+popup/item_3/id = 3
+popup/item_4/text = "VHS"
+popup/item_4/id = 4
 selected = 0
 
 [node name="ShaderLabel" type="Label" parent="GeneralContainer/Misc/ShaderContainer"]
@@ -411,7 +421,13 @@ focus_neighbor_right = NodePath("../../Graphics/WSOD")
 focus_neighbor_bottom = NodePath("../../Graphics2/MapContainer/DetailedMap")
 focus_next = NodePath("../../../BackButton")
 text = "Server Interaction: On"
-items = [ "Server Interaction: On", null, false, 0, null, "Achievements Off", null, false, 1, null, "Completely Offline", null, false, 2, null ]
+item_count = 3
+popup/item_0/text = "Server Interaction: On"
+popup/item_0/id = 0
+popup/item_1/text = "Achievements Off"
+popup/item_1/id = 1
+popup/item_2/text = "Completely Offline"
+popup/item_2/id = 2
 selected = 0
 
 [node name="LabelEmpty" type="Label" parent="GeneralContainer/Misc"]
@@ -796,7 +812,15 @@ offset_bottom = 30.0
 custom_minimum_size = Vector2( 80, 24 )
 focus_neighbor_top = NodePath("../../../TabsContainer/TouchTab")
 text = "At top"
-items = [ "At top", null, false, 0, null, "Below top", null, false, 1, null, "Above bottom", null, false, 3, null, "At bottom", null, false, 4, null ]
+item_count = 4
+popup/item_0/text = "At top"
+popup/item_0/id = 0
+popup/item_1/text = "Below top"
+popup/item_1/id = 1
+popup/item_2/text = "Above bottom"
+popup/item_2/id = 3
+popup/item_3/text = "At bottom"
+popup/item_3/id = 4
 selected = 0
 
 [node name="SwapButton" parent="TouchContainer/EnableContainer" instance=ExtResource("6")]
