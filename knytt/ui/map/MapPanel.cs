@@ -91,7 +91,7 @@ public partial class MapPanel : Control
         SetProcess(false);
         SetPhysicsProcess(false);
 
-        mark_font = ResourceLoader.Load<Font>("res://knytt/ui/map/MarkFont.tres");
+        mark_font = ResourceLoader.Load<Font>("res://knytt/fonts/silver/Silver-Light.ttf");
         
         if (world == null || juni == null) { return; }
         this.world = world;
@@ -168,10 +168,9 @@ public partial class MapPanel : Control
             {
                 Vector2 p = new Vector2((coord.X - world.MinBounds.X) * XSIZE + 4, (coord.Y - world.MinBounds.Y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
-                // Godot 4: DrawChar signature changed - 4th param is fontSize instead of nextChar
-                DrawChar(mark_font, p, markChar(m[0]), -1, markColor(m[0]));
-                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), -1, markColor(m[1])); }
-                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", -1, markColor('+')); }
+                DrawChar(mark_font, p, markChar(m[0]), 18, markColor(m[0]));
+                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), 18, markColor(m[1])); }
+                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", 18, markColor('+')); }
             }
         }
 
