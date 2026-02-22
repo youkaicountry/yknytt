@@ -104,24 +104,24 @@ public partial class JuniMotionParticles : Node2D
         GetNode("Particles").AddChild(p_node);
     }
 
-    public void _on_ClimbParticles_area_shape_entered(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_ClimbParticles_area_shape_entered(Rid area_rid, Node2D area, long area_shape, long self_shape)
     {
-        ClimbParticle = ((IParticleFetch)area).ParticleType;
+        if (area is IParticleFetch pf) { ClimbParticle = pf.ParticleType; }
         _climb_areas++;
     }
 
-    public void _on_ClimbParticles_area_shape_exited(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_ClimbParticles_area_shape_exited(Rid area_rid, Node2D area, long area_shape, long self_shape)
     {
         _climb_areas--;
     }
 
-    public void _on_GroundParticles_area_shape_entered(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_GroundParticles_area_shape_entered(Rid area_rid, Node2D area, long area_shape, long self_shape)
     {
-        GroundParticle = ((IParticleFetch)area).ParticleType;
+        if (area is IParticleFetch pf) { GroundParticle = pf.ParticleType; }
         _ground_areas++;
     }
 
-    public void _on_GroundParticles_area_shape_exited(int area_id, Area2D area, int area_shape, int self_shape)
+    public void _on_GroundParticles_area_shape_exited(Rid area_rid, Node2D area, long area_shape, long self_shape)
     {
         _ground_areas--;
     }
