@@ -441,8 +441,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles2" type="CPUParticles2D" parent="DeathParticles"]
@@ -457,8 +457,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles3" type="CPUParticles2D" parent="DeathParticles"]
@@ -473,8 +473,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
 color_ramp = SubResource("20")
 
 [node name="DeathParticles4" type="CPUParticles2D" parent="DeathParticles"]
@@ -489,8 +489,8 @@ emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2( 0, -25 )
-initial_velocity = 16.0
-initial_velocity_random = 0.5
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
 color_ramp = SubResource("20")
 
 [node name="Detector" type="Sprite2D" parent="."]
