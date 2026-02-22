@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract partial class StuffShooter : GDKnyttBaseObject
+public partial class StuffShooter : GDKnyttBaseObject
 {
     [Export] float bulletSpeed = 0;
     [Export] bool up = false;

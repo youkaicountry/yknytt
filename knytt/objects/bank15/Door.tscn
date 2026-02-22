@@ -1,6 +1,5 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://knytt/objects/bank15/Door.cs" id="5"]
 
 [sub_resource type="RectangleShape2D" id="38"]
 size = Vector2(24, 24)
@@ -9,7 +8,6 @@ size = Vector2(24, 24)
 size = Vector2(72, 72)
 
 [node name="Door" type="Node2D"]
-script = ExtResource("5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )

@@ -4,11 +4,9 @@
 [ext_resource type="PackedScene" path="res://knytt/objects/TimerExt.tscn" id="2"]
 [ext_resource type="AudioStream" path="res://knytt/data/Sfx/DiscBullet.wav" id="3"]
 [ext_resource type="PackedScene" path="res://knytt/SFXAudioPlayer2D.tscn" id="4"]
-[ext_resource type="Script" path="res://knytt/objects/bank11/ShockDisk.cs" id="5"]
 
 
 [node name="Muff" instance=ExtResource("1")]
-script = ExtResource("5")
 
 [node name="ShotTimer" parent="." index="4" instance=ExtResource("2")]
 autostart = true
