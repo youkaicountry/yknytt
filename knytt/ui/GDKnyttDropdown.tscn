@@ -30,5 +30,7 @@ theme_override_styles/pressed = ExtResource("4")
 theme_override_styles/focus = ExtResource("9")
 theme_override_styles/disabled = SubResource("1")
 theme_override_styles/normal = ExtResource("3")
+fit_to_longest_item = false
+clip_text = true
 text = "----"
 alignment = 1
