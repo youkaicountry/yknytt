@@ -181,7 +181,7 @@ offset_bottom = -123.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GKnyttCamera/TintNode/InfoPanel"]
 root_node = NodePath("../..")
-playback_speed = 6.0
+speed_scale = 6.0
 anims/SlideIn = SubResource("2")
 anims/SlideOut = SubResource("3")
 
