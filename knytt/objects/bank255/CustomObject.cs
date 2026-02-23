@@ -49,6 +49,7 @@ public partial class CustomObject : GDKnyttBaseObject
         Color color = Juni.RgbaIntToColor(KnyttUtil.BGRToRGBA(KnyttUtil.parseBGRString(getString(section, "Color"), 0xFFFFFF)));
         if (bank != -1 && obj != -1)
         {
+            sprite.Visible = false; // Hide own sprite; a separate node is used for display
             var bundle = GDKnyttObjectFactory.buildKnyttObject(new KnyttPoint(bank, obj));
             if (bundle == null) { return; }
             node = bundle.getNode(Layer, Coords);
