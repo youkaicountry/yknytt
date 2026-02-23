@@ -164,6 +164,10 @@ public partial class DirectoriesScreen : Control
 
     private void _on_FileDialog_popup_hide()
     {
+        // visibility_changed fires on both show and hide; only act on hide
+        if (GetNodeOrNull<FileDialog>("WorldsFileDialog")?.Visible == true ||
+            GetNodeOrNull<FileDialog>("SavesFileDialog")?.Visible == true ||
+            GetNodeOrNull<FileDialog>("BackupFileDialog")?.Visible == true) { return; }
         gamepadArrowsMode(tab: false);
         GetNode<Button>("WorldsContainer/ChangeButton").GrabFocus();
     }
