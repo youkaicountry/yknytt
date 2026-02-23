@@ -210,7 +210,7 @@ public partial class CustomObject : GDKnyttBaseObject
                 var tile = new AtlasTexture();
                 tile.Atlas = image_texture;
                 tile.Region = new Rect2(j * info.tile_width, i * info.tile_height, info.tile_width, info.tile_height);
-                sprite.SpriteFrames.AddFrame(animation_name, tile, pos++);
+                sprite.SpriteFrames.AddFrame(animation_name, tile, 1.0f, pos++);
                 if (pos > info.anim_to) { return; }
             }
         }
