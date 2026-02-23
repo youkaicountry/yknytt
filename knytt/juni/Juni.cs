@@ -531,19 +531,14 @@ public partial class Juni : CharacterBody2D
             // Godot 4: Configure CharacterBody2D properties for movement
             UpDirection = Godot.Vector2.Up;
             FloorStopOnSlope = true;
+            FloorConstantSpeed = true;
             FloorMaxAngle = SLOPE_MAX_ANGLE;
-
-            // Do the movement in two steps to avoid hanging up on tile seams
-            // X movement with snap
             FloorSnapLength = 5f;
-            Velocity = new Godot.Vector2(velocity.X, 0);
+            SafeMargin = 0.25f;
+
+            Velocity = new Godot.Vector2(velocity.X, velocity.Y);
             MoveAndSlide();
             velocity.X = Velocity.X;
-
-            // Y movement without snap
-            FloorSnapLength = 0f;
-            Velocity = new Godot.Vector2(0, velocity.Y);
-            MoveAndSlide();
             velocity.Y = Velocity.Y;
 
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
