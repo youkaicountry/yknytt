@@ -16,6 +16,7 @@ public partial class StatPanel : Panel
         labelScene = ResourceLoader.Load<PackedScene>("res://knytt/ui/stats/StatLabel.tscn");
         achievedStyle = ResourceLoader.Load<StyleBox>("res://knytt/ui/styles/AchievedItem.tres");
         container = GetNode<Control>("ScrollContainer/VBoxContainer");
+        ScrollBarStyle.Apply(GetNode<ScrollContainer>("ScrollContainer"));
     }
 
     public void addLabel(string text)

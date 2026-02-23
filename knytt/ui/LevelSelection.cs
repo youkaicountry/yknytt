@@ -64,6 +64,7 @@ public partial class LevelSelection : BasicScreen
         this.download_link_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DownloadScreenLink.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
+        ScrollBarStyle.Apply(GetNode<ScrollContainer>("MainContainer/ScrollContainer"));
         games_scrollbar = GetNode<ScrollContainer>("MainContainer/ScrollContainer").GetVScrollBar();
         if (!localLoad) { games_scrollbar.Connect("value_changed", new Callable(this, nameof(_on_GameContainter_scrolling))); }
         http_node = GetNode<FileHttpRequest>("FileHttpRequest");
