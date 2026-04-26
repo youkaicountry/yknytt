@@ -61,7 +61,7 @@ public class WorldEntry
         UserScore = info.UserScore;
     }
 
-    private static string[] statuses = {"Not Verified", "Unfinished", "Broken", 
+    private static string[] statuses = {"Not Verified", "Art/Unfinished", "Broken", 
         "Almost Broken", "Partially Playable", "Almost Playable", "Playable"};
 
     public string StatusDescription => Status == 0 && AutoVerified ? "Auto-verified" : 

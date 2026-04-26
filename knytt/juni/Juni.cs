@@ -9,13 +9,13 @@ using static YKnyttLib.JuniValues;
 public class Juni : KinematicBody2D
 {
     /*[Export] public*/internal const float 
-    JUMP_SPEED_HIGH = -243f,                    // Speed of jump with high jump power (-238.5 in original)
+    JUMP_SPEED_HIGH = -241f,                    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
     GRAVITY = 1125f,                            // Gravity exerted on Juni
     LOW_JUMP_HOLD_POWER = 125f,                 // Y Force exerted while holding jump (125 in original)
     HIGH_JUMP_HOLD_POWER = 550f,                // Y Force exerted while holding jump when Juni has high jump power (550 in original)
-    LOW_JUMP_EXTRA_GRAVITY = 100f,              // Y Force added to gravity when Juni has no high jump power (not from the original)
+    DOUBLE_JUMP_BUMP_PX = -2f,                  // Extra pixels for double jump (was obtained empirically)
     JUST_CLIMBED_TIME = .085f,                  // Time for horizontal movement after climbing
     FREE_JUMP_TIME = .102f,                     // Amount of time after leaving a wall that Juni gets a "free" jump (4 in original + 1 extra frame)
     MAX_SPEED_WALK = 90f,                       // Max speed while walking
@@ -150,7 +150,6 @@ public class Juni : KinematicBody2D
     public bool CanClimb => Powers.getPower(PowerNames.Climb) && Checkers.Colliding && !Checkers.IsInside; 
     public bool CanUmbrella => Powers.getPower(PowerNames.Umbrella); 
     public bool Grounded { get; set; }
-    public bool DidJump => juniInput.JumpEdge && Grounded && CanJump; 
     public bool FacingRight
     {
         set { if (FacingRight != value) { Rotation = 0; Scale = new Godot.Vector2(value ? 1 : -1, 1); } }
@@ -432,7 +431,7 @@ public class Juni : KinematicBody2D
         if (Input.IsActionJustPressed("debug_slow")) { GDKnyttDataStore.CurrentSpeed /= 1.2f; }
         if (Input.IsActionJustPressed("debug_fast")) { GDKnyttDataStore.CurrentSpeed *= 1.2f; }
         if (Input.IsActionJustPressed("main_menu")) { Game.quit(); }
-        if (Input.IsActionJustPressed("reboot")) { Game.GDWorld.KWorld.refreshWorld(); GDKnyttDataStore.startGame(false); }
+        if (Input.IsActionJustPressed("reboot")) { Game.GDWorld.KWorld.refreshWorld(tilesets_only: true); GDKnyttDataStore.startGame(false); }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -586,10 +585,6 @@ public class Juni : KinematicBody2D
                     (Swim ? SWIM_HIGH_JUMP_HOLD_POWER : HIGH_JUMP_HOLD_POWER) :
                     (Swim ? SWIM_LOW_JUMP_HOLD_POWER : LOW_JUMP_HOLD_POWER);
                 velocity.y -= jump_hold * delta;
-            }
-            else if (!Powers.getPower(PowerNames.HighJump))
-            {
-                velocity.y += LOW_JUMP_EXTRA_GRAVITY * delta;
             }
         }
     }
@@ -853,6 +848,7 @@ public class Juni : KinematicBody2D
 
         if (air_jump && jumps > 0)
         {
+            Translate(new Godot.Vector2(0, DOUBLE_JUMP_BUMP_PX));
             doubleJumpEffect();
             if (sound) {
                 string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" : "Audio/JumpPlayer2D";

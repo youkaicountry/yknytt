@@ -1448,7 +1448,7 @@ focus_neighbour_top = NodePath("../../../TabsContainer/AudioTab")
 focus_neighbour_bottom = NodePath("../../SlidersContainer/MasterVolumeSlider")
 focus_next = NodePath("../../SlidersContainer/MasterVolumeSlider")
 focus_previous = NodePath("../../../TabsContainer/AudioTab")
-text = "Classic Double Jump Sound"
+text = "Double Jump Sound"
 
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="focus_entered" from="ActiveTab" to="." method="_on_ActiveTab_focus_entered"]

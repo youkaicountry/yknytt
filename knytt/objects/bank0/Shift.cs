@@ -103,6 +103,12 @@ public class Shift : Switch
         if (!relative_area.isZero())
         {
             relative_area += GDArea.GDWorld.Game.getFlagWarp(shift.AbsoluteArea, juni) ?? new KnyttPoint(0, 0);
+
+            if (!shift.AbsoluteTarget && !shift.AreaCorrection.isZero())
+            {
+                relative_area += GDArea.Area.Warp.getWarpCoords(GDArea.Area.Position + shift.AreaCorrection, GDArea.Area.Position);
+            }
+
             game.changeAreaDelta(relative_area, true);
         }
 

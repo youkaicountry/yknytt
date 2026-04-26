@@ -512,7 +512,9 @@ public class GDKnyttSettings : Node
     {
         if (Input.IsActionJustPressed("fullscreen")) { Fullscreen = !Fullscreen; }
 
-        if (Input.IsActionJustPressed("border"))
+        if (Input.IsActionJustPressed("border") && 
+            tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame") != null && 
+            !GetNode<Console>("/root/Console").IsOpen)
         {
             Border = !Border;
             saveSettings();

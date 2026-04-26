@@ -20,6 +20,9 @@ public class GDKnyttDataStore : Node
     {
         // Initialize base data directory, checking for command line arguments
         BaseDataDirectory = OS.GetUserDataDir();
+
+        string base_dir_candidate = OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt_data");
+        if (new Directory().DirExists(base_dir_candidate)) { BaseDataDirectory = base_dir_candidate; }
         
         // Check for --data command line parameter
         var args = OS.GetCmdlineArgs();

@@ -58,6 +58,10 @@ public class InfoScreen : BasicScreen
         }
         string ini = GDKnyttAssetManager.loadTextFileRaw(KWorld.getWorldData("World.ini"));
         KWorld.loadWorldConfig(ini);
+
+        KWorld.Completed = world_entry.Completed;
+        KWorld.UserScore = world_entry.UserScore;
+        KWorld.HasSaves = world_entry.HasSaves;
     }
 
     public void initialize(GDKnyttWorldImpl kworld)
@@ -88,7 +92,9 @@ public class InfoScreen : BasicScreen
         {
             in_game = true;
             world_entry = new WorldEntry();
-            // TODO: fill world_entry.Completed && .UserScore
+            world_entry.Completed = KWorld.Completed;
+            world_entry.UserScore = KWorld.UserScore;
+            world_entry.HasSaves = KWorld.HasSaves;
         }
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :

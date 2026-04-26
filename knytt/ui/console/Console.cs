@@ -64,8 +64,7 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
         {
             toggleConsole();
         }
-
-        if (@event.IsActionPressed("pause") && IsOpen) // usual pause is handled in _Process
+        else if (@event.IsActionPressed("pause") && IsOpen) // usual pause is handled in _Process
         {
             toggleConsole();
         }
@@ -76,23 +75,20 @@ public class Console : CanvasLayer, IKnyttLoggerTarget
             GetNodeOrNull<UICanvasLayer>("/root/GKnyttGame/UICanvasLayer")?.closePanel();
             toggleConsole();
         }
-
-        if (@event.IsActionPressed("ui_up") && IsOpen)
+        else if (@event.IsActionPressed("ui_up") && IsOpen)
         {
             historyIndex = (historyIndex + history.Count - 1) % history.Count;
             lineEdit.Text = history[historyIndex];
             lineEdit.CaretPosition = lineEdit.Text.Length;
             GetTree().SetInputAsHandled();
         }
-        
-        if (@event.IsActionPressed("ui_down") && IsOpen)
+        else if (@event.IsActionPressed("ui_down") && IsOpen)
         {
             historyIndex = historyIndex < history.Count - 1 ? historyIndex + 1 : 0;
             lineEdit.Text = history[historyIndex];
             lineEdit.CaretPosition = lineEdit.Text.Length;
         }
-
-        if (@event.IsActionPressed("ui_accept") && IsOpen)
+        else if (@event.IsActionPressed("ui_accept") && IsOpen)
         {
             if (@event is InputEventKey ek && (ek.Scancode == (int)KeyList.Space || ek.Scancode == (int)KeyList.Enter)) { return; }
             if (lineEdit.GetFocusOwner() is Button) { return; }

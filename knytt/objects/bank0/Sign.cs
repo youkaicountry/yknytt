@@ -127,18 +127,18 @@ public class Sign : GDKnyttBaseObject
     public void OnArea2DBodyEntered(Node body)
     {
         if (!(body is Juni juni)) { return; }
+        if (texts.Count > 0 && texts[0] == null) { juni.OnShift = true; }
+
         areaCount++;
 
         var signs = GDArea.Objects.findObjects(new KnyttPoint(0, 17))
             .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 18)))
             .Union(GDArea.Objects.findObjects(new KnyttPoint(0, 19)))
             .Where(s => s != this);
+            
         foreach (Sign sign in signs)
         {
-            if (sign != this)
-            {
-                sign.OnArea2DBodyExited(body, force_exit: true);
-            }
+            sign.OnArea2DBodyExited(body, force_exit: true);
         }
 
         if (areaCount == 1)
@@ -157,6 +157,8 @@ public class Sign : GDKnyttBaseObject
     public void OnArea2DBodyExited(Node body, bool force_exit = false)
     {
         if (!(body is Juni juni)) { return; }
+        if (texts.Count > 0 && texts[0] == null && !force_exit) { juni.OnShift = false; }
+
         areaCount = areaCount <= 0 || force_exit ? 0 : areaCount - 1;
 
         if (areaCount == 0)

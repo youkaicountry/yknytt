@@ -18,7 +18,8 @@ public static class ConsoleCommands
             "save print: prints save file\n" +
             "save copy: copies save to clipboard\n" +
             "save paste: pastes save from clipboard\n" +
-            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip"), 
+            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip") + "\n" +
+            "save cache: zips internal cache to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-cache.zip"), 
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
             "pass: prints the current password\n" +
@@ -55,7 +56,11 @@ public static class ConsoleCommands
             new CommandArg("size", CommandArg.Type.IntArg, optional: true),
             new CommandArg("frames", CommandArg.Type.IntArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("death", "Toggle death markers", null, false, DeathCommand.NewDeathCommand));
-        cs.AddCommand(new CommandDeclaration("reboot", "Reloads this world from the latest save", null, false, RebootCommand.NewRebootCommand));
+        cs.AddCommand(new CommandDeclaration("reboot", "Clears cache and re-reads this world", 
+            "reboot: clear everything, including maps, icon, etc\n" +
+            "reboot tilesets: clear only compiled tilesets",
+            false, RebootCommand.NewRebootCommand,
+            new CommandArg("what", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("youtube", "Searches playthrough on YouTube", null, false, YoutubeCommand.NewYoutubeCommand));
         cs.AddCommand(new CommandDeclaration("settings", "Prints settings file. settings copy: copies it to clipboard", null,
             true, SettingsCommand.NewSettingsCommand, new CommandArg("section", CommandArg.Type.StringArg, optional: true),
@@ -67,7 +72,7 @@ public static class ConsoleCommands
     }
 
     public static readonly List<string> CommandHistoryExamples = new List<string>() { 
-        "exit", "list", "reboot", "mon", "trail", "shift 0 0 2 0", "set highjump on", "save print", "hell", 
+        "exit", "list", "reboot tilesets", "mon", "trail", "shift 0 0 2 0", "set highjump on", "save print", "hell", 
         "speed 0.1", "speed 1", "speed 0.5", "iddqd", "idclip", "map", "mon flags", 
         "save paste", "save copy", "youtube", "save" };
 
@@ -225,14 +230,17 @@ public static class ConsoleCommands
                     break;
 
                 case "backup":
+                case "cache":
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-                    string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
+                    string dest_zip = dest_path.PlusFile(subcmd == "backup" ? "yknytt-saves.zip" : "yknytt-cache.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
                     if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
                     try
                     {
-                        ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, dest_zip);
+                        string src_path = subcmd == "backup" ? GDKnyttSettings.Saves : 
+                                                               GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache");
+                        ZipFile.CreateFromDirectory(src_path, dest_zip);
                     }
                     catch (Exception)
                     {
@@ -707,7 +715,12 @@ public static class ConsoleCommands
 
     public class RebootCommand : ICommand
     {
-        public RebootCommand(CommandParseResult result) {}
+        string what;
+
+        public RebootCommand(CommandParseResult result)
+        {
+            what = result.Args["what"];
+        }
 
         public static ICommand NewRebootCommand(CommandParseResult result)
         {
@@ -720,7 +733,7 @@ public static class ConsoleCommands
             var game = GDKnyttDataStore.Tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
             if (game == null) { return "No game is loaded"; }
             
-            game.GDWorld.KWorld.refreshWorld();
+            game.GDWorld.KWorld.refreshWorld(tilesets_only: what == "tilesets");
             GDKnyttDataStore.startGame(false);
             env.Console.AddMessage($"World was restarted.");
             return null;

@@ -5,6 +5,7 @@ namespace YKnyttLib
     public class KnyttShift : KnyttSwitch
     {
         public KnyttPoint AreaPos { get; }
+        public KnyttPoint AreaCorrection { get; private set; }
         public bool Save { get; private set; }
         public bool Quantize { get; private set; }
         public string Cutscene { get; private set; }
@@ -38,8 +39,8 @@ namespace YKnyttLib
             protected set
             {
                 var area_size = new KnyttPoint(KnyttArea.AREA_WIDTH, KnyttArea.AREA_HEIGHT);
-                var floor_div = (value - value % area_size) / area_size;
-                AbsoluteArea += floor_div;
+                AreaCorrection = (value - value % area_size) / area_size;
+                AbsoluteArea += AreaCorrection;
                 _absolute_position = value % area_size;
             }
         }

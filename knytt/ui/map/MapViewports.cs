@@ -70,9 +70,12 @@ public class MapViewports : Node2D
         if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
-        if (internal_cache ? 
-            !ResourceLoader.Exists(filename) : 
-            !new File().FileExists(filename)) { return (src, null); }
+        if (internal_cache ? !ResourceLoader.Exists(filename) : !new File().FileExists(filename))
+        {
+            map_images[key] = null;
+            return (src, null);
+        }
+
         map_images[key] = internal_cache ?
             ResourceLoader.Load<Texture>(filename) :
             GDKnyttAssetManager.loadTexture(GDKnyttAssetManager.loadFile(filename));

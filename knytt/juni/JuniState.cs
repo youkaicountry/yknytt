@@ -31,10 +31,15 @@ public class IdleState : JuniState
             juni.transitionState(new ClimbState(juni));
         }
 
-        if (juni.DidJump) { juni.executeJump(reset_jumps: true); }
-        else if (!juni.Grounded) // Ground falls out from under Juni
+        if (juni.Grounded) { juni.CanFreeJump = true; }
+
+        if (juni.juniInput.JumpEdge && juni.CanJump && juni.CanFreeJump)
         {
-            juni.CanFreeJump = true;
+            juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
+        }
+        else if (!juni.CanFreeJump) // Ground falls out from under Juni
+        {
+            juni.jumps = 1; // Transition as if Juni has jumped once
             juni.transitionState(new FallState(juni));
         }
     }
@@ -85,7 +90,7 @@ public class WalkRunState : JuniState
         {
             juni.executeJump(reset_jumps: true); // juni.CanFreeJump = false inside
         }
-        else if (!juni.Grounded && juni.DidAirJump)
+        else if (!juni.Grounded && juni.DidAirJump) // rare cases
         {
             juni.executeJump(air_jump: true, sound: true);
         }
