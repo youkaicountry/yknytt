@@ -342,7 +342,6 @@ public partial class GDKnyttGame : Node2D
         checkTint(area);
         CustomObject.cleanUnused();
 
-        if (Juni.DebugFlyMode) { return; }
         Juni.Powers.setVisited(CurrentArea.Area);
         if (hasMap()) { viewports.addArea(CurrentArea); }
     }

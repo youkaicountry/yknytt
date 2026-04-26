@@ -70,9 +70,15 @@ public partial class MapViewports : Node2D
         if (map_images.ContainsKey(key)) { return (src, map_images[key]); }
 
         var filename = getFilename(key);
-        if (internal_cache ? 
-            !ResourceLoader.Exists(filename) : 
-            !FileAccess.FileExists(filename)) { return (src, null); }
+        if (internal_cache ?
+            !ResourceLoader.Exists(filename) :
+            !FileAccess.FileExists(filename))
+        {
+            map_images[key] = null; // don't hit the filesystem again for a tile that isn't there
+            return (src, null);
+        }
+
+
         map_images[key] = internal_cache ?
             ResourceLoader.Load<Texture2D>(filename) :
             GDKnyttAssetManager.loadTexture2D(GDKnyttAssetManager.loadFile(filename));

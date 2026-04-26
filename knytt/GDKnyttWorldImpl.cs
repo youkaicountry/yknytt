@@ -3,6 +3,10 @@ using YKnyttLib;
 
 public partial class GDKnyttWorldImpl : KnyttWorld
 {
+    public int Completed { get; set; }
+    public int UserScore { get; set; }
+    public bool HasSaves { get; set; }
+
     public GDKnyttWorldImpl() : base() { }
 
     protected override object bytesToSound(byte[] data, bool loop)
@@ -88,7 +92,7 @@ public partial class GDKnyttWorldImpl : KnyttWorld
         GDKnyttDataStore.ProgressHint = "Unpacking completed.";
     }
 
-    public static void removeDirectory(string dir_name)
+    public static void removeDirectory(string dir_name, string prefix = "")
     {
         if (!DirAccess.DirExistsAbsolute(dir_name)) { return; }
         using var dir = DirAccess.Open(dir_name);
@@ -97,6 +101,7 @@ public partial class GDKnyttWorldImpl : KnyttWorld
         for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
         {
             if (filename == "." || filename == "..") { continue; }
+            if (!filename.StartsWith(prefix)) { continue; }
             if (dir.FileExists(filename)) { dir.Remove(filename); } else { removeDirectory($"{dir_name}/{filename}"); }
         }
         dir.ListDirEnd();
@@ -116,12 +121,13 @@ public partial class GDKnyttWorldImpl : KnyttWorld
         removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName));
     }
 
-    public void refreshWorld()
+    public void refreshWorld(bool tilesets_only)
     {
         if (BinMode)
         {
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
-        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName));
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName),
+                        prefix: tilesets_only ? "Tileset" : "");
     }
 }

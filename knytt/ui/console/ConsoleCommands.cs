@@ -108,6 +108,20 @@ public partial class ConsoleCommands : Node
         Info("Save loaded from clipboard. Use 'reboot' to apply.");
     }
 
+    [Cmd("save cache", "Zip internal cache (with maps) to Documents")]
+    public void CmdSaveCache()
+    {
+        var dest_zip = OS.GetSystemDir(OS.SystemDir.Documents).PathJoin("yknytt-cache.zip");
+        var src_path = GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache");
+        try
+        {
+            if (System.IO.File.Exists(dest_zip)) { System.IO.File.Delete(dest_zip); }
+            System.IO.Compression.ZipFile.CreateFromDirectory(src_path, dest_zip);
+            Info($"Cache exported to {dest_zip}");
+        }
+        catch (Exception e) { Error($"Can't export cache: {e.Message}"); }
+    }
+
     #endregion
 
     #region Password
@@ -365,11 +379,19 @@ public partial class ConsoleCommands : Node
 
     #region World
 
-    [Cmd("reboot", "Reload world from last save")]
+    [Cmd("reboot", "Clear cache and re-read this world")]
     public void CmdReboot()
     {
         if (!RequireGame()) return;
-        Game.GDWorld.KWorld.refreshWorld();
+        Game.GDWorld.KWorld.refreshWorld(tilesets_only: false);
+        GDKnyttDataStore.startGame(false);
+    }
+
+    [Cmd("reboot tilesets", "Clear only compiled tilesets and re-read this world")]
+    public void CmdRebootTilesets()
+    {
+        if (!RequireGame()) return;
+        Game.GDWorld.KWorld.refreshWorld(tilesets_only: true);
         GDKnyttDataStore.startGame(false);
     }
 

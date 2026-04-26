@@ -141,6 +141,7 @@ public partial class LevelSelection : BasicScreen
         game_container.fillStubs(4);
         games_scrollbar.Value = 0;
         connectionLost(lost: false);
+        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
         remotes_grab_focus = grab_focus;
         if (loadServerDump()) { return; }
 
@@ -205,6 +206,7 @@ public partial class LevelSelection : BasicScreen
 
         if (local_load_task?.IsCompleted == false) { await local_load_task; }
 
+        remote_finished_entries = new ConcurrentQueue<WorldEntry>();
         foreach (Dictionary record in world_infos)
         {
             if (record != null) { remote_finished_entries.Enqueue(generateRemoteWorld(record)); }
@@ -694,6 +696,7 @@ public partial class LevelSelection : BasicScreen
 
     private void _on_SearchEdit_focus_entered()
     {
+        remotes_grab_focus = false;
         if (!GDKnyttSettings.Mobile) { return; }
         GetNode<Control>("MainContainer").MoveChild(GetNode<Control>("MainContainer/FilterContainer"), 0);
     }
