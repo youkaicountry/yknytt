@@ -18,8 +18,6 @@ public class WorldEntry
     public bool HasServerInfo;
     public string Link;
     public long FileSize;
-    public int Upvotes;
-    public int Downvotes;
     public int Downloads;
     public int Complains;
     public bool AutoVerified;
@@ -31,6 +29,7 @@ public class WorldEntry
     public int Voters;
     public int UserScore; // be careful! 2x scale - 0..10
     public int[] Completions = new int[7];
+    public int ContentWarning;
 
     public WorldEntry() { }
 

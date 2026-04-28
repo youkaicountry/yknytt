@@ -453,12 +453,11 @@ public class LevelSelection : BasicScreen
                 KnyttSave.Decompress(Convert.FromBase64String(base64_icon)) : null,
             Link = HTTPUtil.jsonValue<string>(json_item, "link"),
             FileSize = HTTPUtil.jsonInt(json_item, "file_size"),
-            Upvotes = HTTPUtil.jsonInt(json_item, "upvotes"),
-            Downvotes = HTTPUtil.jsonInt(json_item, "downvotes"),
             Downloads = HTTPUtil.jsonInt(json_item, "downloads"),
             Complains = HTTPUtil.jsonInt(json_item, "complains"),
             OverallScore = HTTPUtil.jsonFloat(json_item, "score"),
             Voters = HTTPUtil.jsonInt(json_item, "voters"),
+            ContentWarning = HTTPUtil.jsonInt(json_item, "content_warning"),
             AutoVerified = HTTPUtil.jsonBool(json_item, "autoverified"),
             Status = HTTPUtil.jsonInt(json_item, "status"),
             Categories = HTTPUtil.jsonValue<Godot.Collections.Array>(json_item, "category")

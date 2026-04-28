@@ -1,19 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 12
-outline_size = 1
-extra_spacing_top = 6
-extra_spacing_bottom = 2
-font_data = SubResource( 1 )
+[ext_resource path="res://knytt/ui/stats/StatLabelFont.tres" type="DynamicFont" id=1]
 
 [node name="Label" type="Label"]
 anchor_right = 1.0
 rect_min_size = Vector2( 133, 0 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Powers:"
 align = 1

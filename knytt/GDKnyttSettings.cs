@@ -48,12 +48,13 @@ public class GDKnyttSettings : Node
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
 
             var font = ResourceLoader.Load<DynamicFont>("res://knytt/ui/UIDynamicFont.tres");
-            font.FontData = ResourceLoader.Load<DynamicFontData>(
+            var font2 = ResourceLoader.Load<DynamicFont>("res://knytt/ui/stats/StatLabelFont.tres");
+            font.FontData = font2.FontData = ResourceLoader.Load<DynamicFontData>(
                     "res://knytt/fonts/" + (value ? "segan/Segan-Light.ttf" : "silver/Silver-Light.ttf"));
-            font.Size = value ? 12 : 17;
-            font.ExtraSpacingTop = value ? 1 : 0;
-            font.ExtraSpacingBottom = value ? 0 : -6;
-            font.UseFilter = value;
+            font.Size = font2.Size = value ? 12 : 17;
+            font.ExtraSpacingTop = font2.ExtraSpacingTop = value ? 1 : 0;
+            font.ExtraSpacingBottom = font2.ExtraSpacingBottom = value ? 0 : -6;
+            font.UseFilter = font2.UseFilter = value;
         }
     }
 

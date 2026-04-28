@@ -99,6 +99,21 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 text = ""
 
+[node name="CWLabel" parent="InfoRect" instance=ExtResource( 8 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -85.0
+margin_top = -40.0
+margin_right = 66.5
+margin_bottom = -16.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "THIS LEVEL CONTAINS MATERIAL THAT MIGHT BE DISTURBING TO SOME PLAYERS"
+
 [node name="RatePanel" type="Panel" parent="InfoRect"]
 anchor_left = 1.0
 anchor_right = 1.0
