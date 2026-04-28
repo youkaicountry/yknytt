@@ -229,8 +229,6 @@ public partial class InfoScreen : BasicScreen
         if (json.VariantType == Variant.Type.Nil) { return; }
 
         var jsonDict = json.AsGodotDictionary();
-        world_entry.Upvotes = HTTPUtil.jsonInt(jsonDict, "upvotes");
-        world_entry.Downvotes = HTTPUtil.jsonInt(jsonDict, "downvotes");
         world_entry.Complains = HTTPUtil.jsonInt(jsonDict, "complains");
         world_entry.OverallScore = HTTPUtil.jsonFloat(jsonDict, "score");
         world_entry.Voters = HTTPUtil.jsonInt(jsonDict, "voters");
@@ -240,6 +238,7 @@ public partial class InfoScreen : BasicScreen
         world_entry.Completions[4] = HTTPUtil.jsonInt(jsonDict, "not_interested");
         world_entry.Completions[5] = HTTPUtil.jsonInt(jsonDict, "cant_progress");
         world_entry.Completions[6] = HTTPUtil.jsonInt(jsonDict, "level_errors");
+        world_entry.ContentWarning = HTTPUtil.jsonInt(jsonDict, "content_warning");
         updateRates();
 
         int[] powers_count = new int[13];
@@ -485,6 +484,8 @@ public partial class InfoScreen : BasicScreen
         var complain_button = GetNode<GDKnyttButton>("%ComplainButton");
         complain_button.hint = "The latest save will be sent to the server as a bug report" +
                (world_entry.Complains > 0 ? $" (marked {world_entry.Complains} times)" : "");
+
+        GetNode<Label>("InfoRect/CWLabel").Visible = world_entry.ContentWarning > 0;
     }
 
     private async void _on_OptimizeButton_pressed()

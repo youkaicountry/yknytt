@@ -1,0 +1,11 @@
+[gd_resource type="FontFile" load_steps=2 format=3]
+
+[sub_resource type="FontFile" id="1"]
+font_path = "res://knytt/fonts/segan/Segan-Light.ttf"
+
+[resource]
+size = 12
+outline_size = 1
+spacing_top = 6
+spacing_bottom = 2
+font_data = SubResource("1")
