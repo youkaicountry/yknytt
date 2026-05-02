@@ -20,7 +20,7 @@ public abstract class WalkingBouncer : Muff
         base._PhysicsProcess(delta);
         if (inAir)
         {
-            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
+            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;

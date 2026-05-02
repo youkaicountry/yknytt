@@ -29,8 +29,11 @@ public class BuzzFlyer : GDKnyttBaseObject
         var movement = currentDirection * speed * delta + buzz * delta;
         var collision = moveAndCollide(movement, testOnly: true);
         var offscreen = !GDArea.isIn(Center + movement, x_border: border, y_border: border);
-        if (collision == null && !offscreen) { Translate(movement); }
-        else { changeDirection(); GetNode<Timer>("FlyTimer").Start(); }
+        if (offscreen || safeMoveAndCollide(movement) != null)
+        {
+            changeDirection();
+            GetNode<Timer>("FlyTimer").Start();
+        }
     }
 
     protected virtual void changeDirection()

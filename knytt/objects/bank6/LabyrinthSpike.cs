@@ -11,7 +11,8 @@ public class LabyrinthSpike : GDKnyttBaseObject
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
-        var collision = moveAndCollide(delta * speed * direction, testOnly: !wasFree);
+        var collision = wasFree ? safeMoveAndCollide(delta * speed * direction) :
+                                  moveAndCollide(delta * speed * direction, testOnly: true);
         if (collision != null)
         {
             int retry = 5;
