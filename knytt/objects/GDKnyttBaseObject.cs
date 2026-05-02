@@ -94,4 +94,21 @@ public partial class GDKnyttBaseObject : Node2D
         var result = Call("move_and_collide", relVec, testOnly);
         return result.AsGodotObject() as KinematicCollision2D;
     }
+
+    protected KinematicCollision2D safeMoveAndCollide(Vector2 relVec)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            var test_collision = moveAndCollide(Vector2.Zero, testOnly: true);
+            if (test_collision == null) { break; }
+            var back = (Center - test_collision.GetPosition()).Project(relVec).Normalized();
+            Translate(back * 0.2f);
+        }
+        
+        var before = GlobalPosition;
+        var collision = moveAndCollide(relVec);
+        var moved = GlobalPosition - before; 
+        if (moved != Vector2.Zero) { Translate(moved.Project(relVec) - moved); } // return to relVec line
+        return collision;
+    }
 }

@@ -42,7 +42,7 @@ public partial class Muff : GDKnyttBaseObject
         var diff = speed * direction * SPEED_SCALE * dt;
         var diff_vec = vertical ? new Vector2(0, diff) : new Vector2(diff, 0);
         // Sometimes collision can be detected with zero movement! Muff got stuck after this.
-        if (diff != 0 && (!GDArea.isIn(Center + diff_vec, x_border: xBorder) || moveAndCollide(diff_vec) != null))
+        if (diff != 0 && (!GDArea.isIn(Center + diff_vec, x_border: xBorder) || safeMoveAndCollide(diff_vec) != null))
         {
             collide();
         }

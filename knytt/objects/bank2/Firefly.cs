@@ -39,7 +39,7 @@ public partial class Firefly : GDKnyttBaseObject
         opacity = Mathf.Max(0, Mathf.Min(1, opacity));
 
         var diff = new Vector2(speed, 0).Rotated(direction);
-        var collision = moveAndCollide(diff * dt * SPEED_SCALE);
+        var collision = safeMoveAndCollide(diff * dt * SPEED_SCALE);
         if (collision != null) { direction = diff.Bounce(collision.GetNormal()).Angle(); }
         if (!GDArea.isIn(Center)) { direction = (GDArea.GlobalPosition + new Vector2(300, 120)).AngleToPoint(Center); }
 

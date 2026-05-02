@@ -21,7 +21,7 @@ public abstract partial class WalkingBouncer : Muff
         float dt = (float)delta;
         if (inAir)
         {
-            if (moveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * dt)) != null)
+            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * dt)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
