@@ -14,6 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="YUtil.Math">
       <HintPath>knytt\lib\YUtil.Math.dll</HintPath>
     </Reference>

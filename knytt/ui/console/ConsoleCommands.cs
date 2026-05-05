@@ -19,7 +19,9 @@ public static class ConsoleCommands
             "save copy: copies save to clipboard\n" +
             "save paste: pastes save from clipboard\n" +
             "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip") + "\n" +
-            "save cache: zips internal cache to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-cache.zip"), 
+            (OS.GetName() == "HTML5" ?
+                "save data: downloads working directory" :
+                "save data: zips working directory to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-data.zip")),
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
             "pass: prints the current password\n" +
@@ -230,22 +232,57 @@ public static class ConsoleCommands
                     break;
 
                 case "backup":
-                case "cache":
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-                    string dest_zip = dest_path.PlusFile(subcmd == "backup" ? "yknytt-saves.zip" : "yknytt-cache.zip");
+                    string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
                     if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
                     try
                     {
-                        string src_path = subcmd == "backup" ? GDKnyttSettings.Saves : 
-                                                               GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache");
-                        ZipFile.CreateFromDirectory(src_path, dest_zip);
+                        ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, dest_zip);
                     }
                     catch (Exception)
                     {
                         return $"Cannot create zip. Please check that you have access to {dest_path}." + 
                         (OS.GetName() == "Android" ? " Grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : "");
+                    }
+                    env.Console.AddMessage($"{dest_zip} was successfully created.");
+                    break;
+
+                case "data":
+                    dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
+                    dest_zip = dest_path.PlusFile("yknytt-data.zip");
+                    string exclude_path = "Worlds";
+                    
+                    if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
+                    if (System.IO.File.Exists(dest_zip) && OS.GetName() == "HTML5") { System.IO.File.Delete(dest_zip); }
+                    if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
+
+                    ZipArchive zip = null;
+                    try
+                    {
+                        zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create);
+                        foreach (var file in System.IO.Directory.GetFiles(GDKnyttDataStore.BaseDataDirectory, "*", System.IO.SearchOption.AllDirectories))
+                        {
+                            var full_path = System.IO.Path.GetFullPath(file);
+                            if (full_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
+                            var relative_path = full_path.Substring(GDKnyttDataStore.BaseDataDirectory.Length)
+                                                    .TrimStart(System.IO.Path.DirectorySeparatorChar);
+                            zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return $"Cannot create zip. Please check that you have access to {dest_path}.";
+                    }
+                    finally
+                    {
+                        zip?.Dispose();
+                    }
+
+                    if (OS.GetName() == "HTML5")
+                    {
+                        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-data.zip");
                     }
                     env.Console.AddMessage($"{dest_zip} was successfully created.");
                     break;
