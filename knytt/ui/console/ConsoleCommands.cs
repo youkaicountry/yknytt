@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using YKnyttLib;
@@ -108,18 +109,43 @@ public partial class ConsoleCommands : Node
         Info("Save loaded from clipboard. Use 'reboot' to apply.");
     }
 
-    [Cmd("save cache", "Zip internal cache (with maps) to Documents")]
-    public void CmdSaveCache()
+    [Cmd("save data", "Zip working directory (except Worlds) to Documents")]
+    public void CmdSaveData()
     {
-        var dest_zip = OS.GetSystemDir(OS.SystemDir.Documents).PathJoin("yknytt-cache.zip");
-        var src_path = GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache");
+        bool web = OS.GetName() == "Web";
+        var dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
+        var dest_zip = dest_path.PathJoin("yknytt-data.zip");
+
+        if (!DirAccess.DirExistsAbsolute(dest_path)) { Error($"Directory {dest_path} does not exist."); return; }
+        if (System.IO.File.Exists(dest_zip) && web) { System.IO.File.Delete(dest_zip); }
+        if (FileAccess.FileExists(dest_zip)) { Error($"{dest_zip} already exists."); return; }
+
+        ZipArchive zip = null;
         try
         {
-            if (System.IO.File.Exists(dest_zip)) { System.IO.File.Delete(dest_zip); }
-            System.IO.Compression.ZipFile.CreateFromDirectory(src_path, dest_zip);
-            Info($"Cache exported to {dest_zip}");
+            zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create);
+            var base_dir = GDKnyttDataStore.BaseDataDirectory;
+            foreach (var file in System.IO.Directory.GetFiles(base_dir, "*", System.IO.SearchOption.AllDirectories))
+            {
+                var full_path = System.IO.Path.GetFullPath(file);
+                var relative_path = full_path.Substring(base_dir.Length)
+                                             .TrimStart(System.IO.Path.DirectorySeparatorChar);
+                if (relative_path.StartsWith("Worlds" + System.IO.Path.DirectorySeparatorChar)) { continue; }
+                zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
+            }
         }
-        catch (Exception e) { Error($"Can't export cache: {e.Message}"); }
+        catch (Exception)
+        {
+            Error($"Cannot create zip. Please check that you have access to {dest_path}.");
+            return;
+        }
+        finally
+        {
+            zip?.Dispose();
+        }
+
+        if (web) { JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-data.zip"); }
+        Info($"{dest_zip} was successfully created.");
     }
 
     #endregion
