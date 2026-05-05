@@ -24,6 +24,7 @@ public class RateHTTPRequest : HTTPRequest
 
     public async void send(string level_name, string level_author, int action, string cutscene = null, bool once = true)
     {
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
         if (once && sent_actions.Contains(action)) { return; }
 
         while (is_requesting)

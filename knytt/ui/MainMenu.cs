@@ -31,7 +31,9 @@ public class MainMenu : BasicScreen
     public override void initFocus()
     {
         GetNode<Control>(OS.GetName() != "Unix" ? "ButtonRow" : "ButtonRow/PlayButton").GrabFocus();
-        GetNode<Button>("ButtonRow/DownloadButton").Disabled = GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline;
+        GetNode<Button>("ButtonRow/DownloadButton").Disabled = 
+            GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline &&
+            !new File().FileExists(LevelSelection.getLevelsFileDir().PlusFile("levels.json"));
     }
 
     public override void _Notification(int what)

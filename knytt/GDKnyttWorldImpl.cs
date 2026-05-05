@@ -5,7 +5,6 @@ public class GDKnyttWorldImpl : KnyttWorld
 {
     public int Completed { get; set; }
     public int UserScore { get; set; }
-    public bool HasSaves { get; set; }
 
     public GDKnyttWorldImpl() : base() { }
 
