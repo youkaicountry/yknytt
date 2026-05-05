@@ -171,7 +171,7 @@ public partial class LevelSelection : BasicScreen
         return true;
     }
 
-    private string getLevelsFileDir()
+    public static string getLevelsFileDir()
     {
         return OS.GetName() == "Android" ? OS.GetSystemDir(OS.SystemDir.Documents) :
                OS.GetName() == "HTML5" ? "" : OS.GetExecutablePath().GetBaseDir();

@@ -24,11 +24,6 @@ public partial class InfoScreen : BasicScreen
     {
         base._Ready();
         initFocus();
-
-        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
-        {
-            GetNode<Button>("%StatsButton").Disabled = true;
-        }
     }
 
     public override void initFocus()
@@ -61,7 +56,6 @@ public partial class InfoScreen : BasicScreen
 
         KWorld.Completed = world_entry.Completed;
         KWorld.UserScore = world_entry.UserScore;
-        KWorld.HasSaves = world_entry.HasSaves;
     }
 
     public void initialize(GDKnyttWorldImpl kworld)
@@ -106,7 +100,8 @@ public partial class InfoScreen : BasicScreen
             world_entry = new WorldEntry();
             world_entry.Completed = KWorld.Completed;
             world_entry.UserScore = KWorld.UserScore;
-            world_entry.HasSaves = KWorld.HasSaves;
+            world_entry.HasSaves = Enumerable.Range(1, 3).Any(
+                i => FileAccess.FileExists($"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {i}.ini"));
         }
 
         Texture2D info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture2D("Info+.png") :
@@ -167,7 +162,11 @@ public partial class InfoScreen : BasicScreen
     private void _on_StatHTTPRequest_ready()
     {
         loadSaves();
-        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline) { return; }
+        if (GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline)
+        {
+            if (!loadCachedJSON()) { GetNode<Button>("%StatsButton").Disabled = false; }
+            return;
+        }
         string serverURL = GDKnyttSettings.ServerURL;
         GetNode<HttpRequest>("StatHttpRequest").Request(
             $"{serverURL}/rating/?name={Uri.EscapeDataString(KWorld.Info.Name)}&author={Uri.EscapeDataString(KWorld.Info.Author)}");
@@ -194,11 +193,24 @@ public partial class InfoScreen : BasicScreen
         }
     }
 
+    private string cachedJSONDir => GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(KWorld.WorldDirectoryName);
+    private string cachedJSON => cachedJSONDir.PathJoin("rating.json");
+
+    private bool loadCachedJSON()
+    {
+        if (!FileAccess.FileExists(cachedJSON)) { return false; }
+        using var f = FileAccess.Open(cachedJSON, FileAccess.ModeFlags.Read);
+        if (f == null) { return false; }
+        var json = f.GetBuffer((long)f.GetLength());
+        _on_StatHTTPRequest_request_completed((int)HttpRequest.Result.Success, 200, null, json);
+        return true;
+    }
+
     private void _on_StatHTTPRequest_request_completed(int result, int response_code, string[] headers, byte[] body)
     {
         if (result != (int)HttpRequest.Result.Success || response_code == 500)
         {
-            if (stat_retry-- <= 0) { return; }
+            if (stat_retry-- <= 0) { loadCachedJSON(); return; }
             GetNode<HttpRequest>("StatHttpRequest").CancelRequest();
             string serverURL = GDKnyttSettings.ServerURL;
             GetNode<HttpRequest>("StatHttpRequest").Request(
@@ -206,7 +218,7 @@ public partial class InfoScreen : BasicScreen
             return;
         }
 
-        if ((response_code == 200 || response_code == 404) && !KWorld.WorldDirectory.StartsWith("res://"))
+        if ((response_code == 200 || response_code == 404) && !KWorld.WorldDirectory.StartsWith("res://") && headers != null)
         {
             GetNode<Button>("%ComplainButton").Disabled = false;
         }
@@ -218,7 +230,10 @@ public partial class InfoScreen : BasicScreen
             return;
         }
 
-        if (OS.GetName() != "Unix")
+        GDKnyttAssetManager.ensureDirExists(cachedJSONDir);
+        using (var jf = FileAccess.Open(cachedJSON, FileAccess.ModeFlags.Write)) { jf?.StoreBuffer(body); }
+
+        if (OS.GetName() != "Unix" && headers != null)
         {
             GetNode<StarRate>("%Rate").Visible = true;
             GetNode<Control>("%NoRate").Visible = false;
@@ -315,7 +330,7 @@ public partial class InfoScreen : BasicScreen
         if (world_entry.Completed == -1 && (endings.Count > 0 ? my_endings.Count >= endings.Count : my_endings.Count > 0))
         {
             setIniValue("Completed", "1");
-            world_entry.Completed = 1;
+            KWorld.Completed = world_entry.Completed = 1;
             complete_option.Selected = 1;
             if (!in_game) { GetParent<LevelSelection>().refreshButton(world_entry); }
             sendRating(41);
@@ -351,7 +366,7 @@ public partial class InfoScreen : BasicScreen
         world_entry.Voters += world_entry.UserScore == 0 && n > 0 ? 1 : world_entry.UserScore > 0 && n == 0 ? -1 : 0;
         world_entry.OverallScore = world_entry.Voters == 0 ? 0 :
             (world_entry.OverallScore * old_voters - (world_entry.UserScore - n) / 2f) / world_entry.Voters;
-        world_entry.UserScore = n;
+        KWorld.UserScore = world_entry.UserScore = n;
     }
 
     private void _on_CompleteOption_item_selected(int index)
@@ -359,7 +374,7 @@ public partial class InfoScreen : BasicScreen
         ClickPlayer.Play();
         int id = complete_option.GetItemId(index);
         setIniValue("Completed", id.ToString());
-        world_entry.Completed = id;
+        KWorld.Completed = world_entry.Completed = id;
         var option_text = complete_option.Text;
         if (option_text.LastIndexOf('[') != -1) { option_text = option_text.Left(option_text.LastIndexOf('[') - 1); }
         hint_label.Text = $"Setting your completion status as '{option_text}'...";
