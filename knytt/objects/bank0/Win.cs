@@ -30,8 +30,8 @@ public partial class Win : GDKnyttBaseObject
 
     public static void checkLevelCompleted(KnyttWorld kworld, Juni juni, string cutscene)
     {
-        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PathJoin("worlds.ini");
-        var ini_text = FileAccess.FileExists(INI_PATH) ? GDKnyttAssetManager.loadTextFile(INI_PATH) : "";
+        var ini_text = FileAccess.FileExists(GDKnyttDataStore.WorldsIni) ?
+            GDKnyttAssetManager.loadTextFile(GDKnyttDataStore.WorldsIni) : "";
         var parser = new IniDataParser();
         var worlds_cache_ini = parser.Parse(ini_text);
         var section = worlds_cache_ini[kworld.WorldDirectory];
@@ -45,7 +45,7 @@ public partial class Win : GDKnyttBaseObject
             || final_cutscenes.Contains(cutscene))
         {
             section["Completed"] = "1";
-            using var f = FileAccess.Open(INI_PATH, FileAccess.ModeFlags.Write);
+            using var f = FileAccess.Open(GDKnyttDataStore.WorldsIni, FileAccess.ModeFlags.Write);
             f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
         }
     }

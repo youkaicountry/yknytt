@@ -52,7 +52,6 @@ public partial class LevelSelection : BasicScreen
     private IniData worlds_cache_ini;
     private HashSet<string> old_levels_paths;
     private bool worlds_modified;
-    private string CACHE_INI_PATH => GDKnyttDataStore.BaseDataDirectory.PathJoin("worlds.ini");
 
     private PackedScene download_link_scene;
     private bool download_link_added;
@@ -82,8 +81,8 @@ public partial class LevelSelection : BasicScreen
         lost_label.Text = lost_label.Text.Replace("$url", server_url);
 
         worlds_modified = false;
-        var ini_exists = FileAccess.FileExists(CACHE_INI_PATH);
-        var ini_text = ini_exists ? GDKnyttAssetManager.loadTextFile(CACHE_INI_PATH) : "";
+        var ini_exists = FileAccess.FileExists(GDKnyttDataStore.WorldsIni);
+        var ini_text = ini_exists ? GDKnyttAssetManager.loadTextFile(GDKnyttDataStore.WorldsIni) : "";
         var parser = new IniDataParser();
         worlds_cache_ini = parser.Parse(ini_text);
         old_levels_paths = worlds_cache_ini.Sections.Select(s => s.SectionName).ToHashSet();
@@ -116,7 +115,7 @@ public partial class LevelSelection : BasicScreen
 
     private void flushCache()
     {
-        using var f = FileAccess.Open(CACHE_INI_PATH, FileAccess.ModeFlags.Write);
+        using var f = FileAccess.Open(GDKnyttDataStore.WorldsIni, FileAccess.ModeFlags.Write);
         f?.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
     }
 
