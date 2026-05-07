@@ -13,6 +13,10 @@ public class GDKnyttDataStore : Node
     public static string ProgressHint { get; set; }
 
     public static string BaseDataDirectory { get; private set; }
+    
+    public static string WorldsIni => GDKnyttSettings.WorldsDirectory == "" ?
+        BaseDataDirectory.PlusFile("worlds.ini") :
+        BaseDataDirectory.PlusFile($"worlds.{GDKnyttSettings.WorldsDirectory.Hash():X8}.ini");
 
     public static bool GptokeybMode { get; private set; }
     

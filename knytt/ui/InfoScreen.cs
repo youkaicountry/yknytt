@@ -377,8 +377,7 @@ public class InfoScreen : BasicScreen
 
     private void setIniValue(string key, string value, string key2 = null, string value2 = null) // transform to varargs if required
     {
-        string INI_PATH = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
-        var ini_text = GDKnyttAssetManager.loadTextFile(INI_PATH);
+        var ini_text = GDKnyttAssetManager.loadTextFile(GDKnyttDataStore.WorldsIni);
         var parser = new IniDataParser();
         var worlds_cache_ini = parser.Parse(ini_text);
 
@@ -397,7 +396,7 @@ public class InfoScreen : BasicScreen
         }
 
         var f = new File();
-        f.Open(INI_PATH, File.ModeFlags.Write);
+        f.Open(GDKnyttDataStore.WorldsIni, File.ModeFlags.Write);
         f.StoreBuffer(Encoding.GetEncoding(1252).GetBytes(worlds_cache_ini.ToString()));
         f.Close();
     }
@@ -538,7 +537,7 @@ public class InfoScreen : BasicScreen
 
         GetNode<Timer>("HintTimer").Stop();
         GDKnyttDataStore.ProgressHint = unpacked ? "Level was unpacked and compiled." : "Level tilesets have been compiled.";
-        _on_HintTimer_timeout();
+                _on_HintTimer_timeout();
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = false; }
         GetNode<Button>("%ComplainButton").Disabled = complain_disabled;
     }
