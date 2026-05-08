@@ -23,7 +23,7 @@ public class GDKnyttSettings : Node
 
     public static bool Fullscreen
     {
-        get { return ini["Graphics"]["Fullscreen"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Fullscreen"].Equals("1"); }
         set
         {
             OS.WindowBorderless = value;
@@ -40,7 +40,7 @@ public class GDKnyttSettings : Node
 
     public static bool SmoothScaling
     {
-        get { return ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Smooth Scaling"].Equals("1"); }
         set
         {
             ini["Graphics"]["Smooth Scaling"] = value ? "1" : "0";
@@ -96,7 +96,7 @@ public class GDKnyttSettings : Node
 
     public static float Aspect
     {
-        get { return float.Parse(ini["Graphics"]["Aspect"]); }
+        get { return floatParse(ini["Graphics"]["Aspect"]); }
         set { ini["Graphics"]["Aspect"] = $"{value}"; }
     }
 
@@ -108,7 +108,7 @@ public class GDKnyttSettings : Node
 
     public static bool Border
     {
-        get { return ini["Graphics"]["Border"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Border"].Equals("1"); }
         set
         {
             ini["Graphics"]["Border"] = value ? "1" : "0";
@@ -118,7 +118,7 @@ public class GDKnyttSettings : Node
 
     public static bool ForcedMap
     {
-        get { return ini["Graphics"]["Forced Map"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Forced Map"].Equals("1"); }
         set
         {
             var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
@@ -132,7 +132,7 @@ public class GDKnyttSettings : Node
 
     public static bool DetailedMap
     {
-        get { return ini["Graphics"]["Detailed Map"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Detailed Map"].Equals("1"); }
         set
         {
             ini["Graphics"]["Detailed Map"] = value ? "1" : "0";
@@ -163,13 +163,13 @@ public class GDKnyttSettings : Node
 
     public static bool WSOD
     {
-        get { return ini["Graphics"]["WSOD"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["WSOD"].Equals("1"); }
         set { ini["Graphics"]["WSOD"] = value ? "1" : "0"; }
     }
 
     public static bool Interpolation
     {
-        get { return ini["Graphics"]["Interpolation"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Interpolation"].Equals("1"); }
         set
         {
             ini["Graphics"]["Interpolation"] = value ? "1" : "0";
@@ -180,7 +180,7 @@ public class GDKnyttSettings : Node
 
     public static bool DownButtonHint
     {
-        get { return ini["Graphics"]["Down Button Hint"].Equals("1") ? true : false; }
+        get { return ini["Graphics"]["Down Button Hint"].Equals("1"); }
         set
         {
             ini["Graphics"]["Down Button Hint"] = value ? "1" : "0";
@@ -238,7 +238,7 @@ public class GDKnyttSettings : Node
 
     public static float EffectsPanning
     {
-        get { return float.Parse(ini["Audio"]["Effects Panning"]); }
+        get { return floatParse(ini["Audio"]["Effects Panning"]); }
         set
         {
             ini["Audio"]["Effects Panning"] = $"{value}";
@@ -260,7 +260,7 @@ public class GDKnyttSettings : Node
 
     public static bool ClassicDoubleJumpSound
     {
-        get { return ini["Audio"]["Classic Double Jump Sound"].Equals("1") ? true : false; }
+        get { return ini["Audio"]["Classic Double Jump Sound"].Equals("1"); }
         set { ini["Audio"]["Classic Double Jump Sound"] = value ? "1" : "0"; }
     }
 
@@ -310,13 +310,13 @@ public class GDKnyttSettings : Node
 
     public static bool LeftStickMovement
     {
-        get { return ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false; }
+        get { return ini["Misc"]["Left Stick Movement"].Equals("1"); }
         set { ini["Misc"]["Left Stick Movement"] = value ? "1" : "0"; }
     }
 
     public static float StickSensitivity
     {
-        get { return float.Parse(ini["Misc"]["Stick Sensitivity"]); }
+        get { return floatParse(ini["Misc"]["Stick Sensitivity"]); }
         set { ini["Misc"]["Stick Sensitivity"] = value.ToString(); GDKnyttKeys.StickTreshold = 1 - value; }
     }
 
@@ -402,30 +402,30 @@ public class GDKnyttSettings : Node
         applyAllSettings();
     }
 
-    private static void applyAllSettings()
+    public static void applyAllSettings()
     {
-        Fullscreen = ini["Graphics"]["Fullscreen"].Equals("1") ? true : false;
-        SmoothScaling = ini["Graphics"]["Smooth Scaling"].Equals("1") ? true : false;
-        Aspect = floatParse(ini["Graphics"]["Aspect"]);
-        SeamlessScroll = ini["Graphics"]["Seamless"].Equals("1") ? true : false;
-        Border = ini["Graphics"]["Border"].Equals("1") ? true : false;
-        ForcedMap = ini["Graphics"]["Forced Map"].Equals("1") ? true : false;
-        DetailedMap = ini["Graphics"]["Detailed Map"].Equals("1") ? true : false;
-        Shader = Enum.TryParse<ShaderType>(ini["Graphics"]["Shader Type"], out var f) ? f : ShaderType.NoShader;
-        WSOD = ini["Graphics"]["WSOD"].Equals("1") ? true : false;
-        Interpolation = ini["Graphics"]["Interpolation"].Equals("1") ? true : false;
-        DownButtonHint = ini["Graphics"]["Down Button Hint"].Equals("1") ? true : false;
-        MasterVolume = int.Parse(ini["Audio"]["Master Volume"]);
-        MusicVolume = int.Parse(ini["Audio"]["Music Volume"]);
-        EnvironmentVolume = int.Parse(ini["Audio"]["Environment Volume"]);
-        EffectsVolume = int.Parse(ini["Audio"]["Effects Volume"]);
-        EffectsPanning = floatParse(ini["Audio"]["Effects Panning"]);
-        ClassicDoubleJumpSound = ini["Audio"]["Classic Double Jump Sound"].Equals("1") ? true : false;
-        StickSensitivity = floatParse(ini["Misc"]["Stick Sensitivity"]);
-        LeftStickMovement = ini["Misc"]["Left Stick Movement"].Equals("1") ? true : false;
+        Fullscreen = Fullscreen;
+        SmoothScaling = SmoothScaling;
+        Aspect = Aspect;
+        SeamlessScroll = SeamlessScroll;
+        Border = Border;
+        ForcedMap = ForcedMap;
+        DetailedMap = DetailedMap;
+        Shader = Shader;
+        WSOD = WSOD;
+        Interpolation = Interpolation;
+        DownButtonHint = DownButtonHint;
+        MasterVolume = MasterVolume;
+        MusicVolume = MusicVolume;
+        EnvironmentVolume = EnvironmentVolume;
+        EffectsVolume = EffectsVolume;
+        EffectsPanning = EffectsPanning;
+        ClassicDoubleJumpSound = ClassicDoubleJumpSound;
+        StickSensitivity = StickSensitivity;
+        LeftStickMovement = LeftStickMovement;
     }
 
-    private static float floatParse(string s)
+    public static float floatParse(string s)
     {
         var sep = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
         return float.Parse(s.Replace(".", sep).Replace(",", sep));
