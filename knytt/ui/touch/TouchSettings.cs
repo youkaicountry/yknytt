@@ -31,19 +31,19 @@ public partial class TouchSettings : Node
     
     public static float Swipe
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Swipe"]); }
+        get { return GDKnyttSettings.floatParse(GDKnyttSettings.ini["TouchPanel"]["Swipe"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["Swipe"] = value.ToString(); }
     }
 
     public static float Scale
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
+        get { return GDKnyttSettings.floatParse(GDKnyttSettings.ini["TouchPanel"]["Scale"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["Scale"] = value.ToString(); }
     }
 
     public static float SubViewport
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["SubViewport"]); }
+        get { return GDKnyttSettings.floatParse(GDKnyttSettings.ini["TouchPanel"]["SubViewport"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["SubViewport"] = value.ToString(); }
     }
 
@@ -53,13 +53,13 @@ public partial class TouchSettings : Node
     
     public static float JumpScale
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["JumpScale"]); }
+        get { return GDKnyttSettings.floatParse(GDKnyttSettings.ini["TouchPanel"]["JumpScale"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["JumpScale"] = value.ToString(); }
     }
 
     public static float Opacity
     {
-        get { return float.Parse(GDKnyttSettings.ini["TouchPanel"]["Opacity"]); }
+        get { return GDKnyttSettings.floatParse(GDKnyttSettings.ini["TouchPanel"]["Opacity"]); }
         set { GDKnyttSettings.ini["TouchPanel"]["Opacity"] = value.ToString(); }
     }
 
