@@ -59,7 +59,7 @@ public partial class CustomObject : GDKnyttBaseObject
             if (safe) { node.makeSafe(); }
             if (bank == 7) { node.Modulate = color; return; }
 
-            Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 0), getInt(section, "Tile Height", 0));
+            Vector2 tile_size = new Vector2(getInt(section, "Tile Width", 24), getInt(section, "Tile Height", 24));
             Vector2 offset = new Vector2(getInt(section, "Offset X", 0), getInt(section, "Offset Y", 0));
             overrideAnimation(node, image, tile_size, offset);
             return;
@@ -100,6 +100,10 @@ public partial class CustomObject : GDKnyttBaseObject
         if (sprite != null)
         {
             sprite.Offset += offset;
+            // Godot 4: AnimatedSprite2D.Frames -> SpriteFrames, GetFrame -> GetFrameTexture.
+            // Null-guarded because converted scenes can still have empty frame arrays.
+            var first_frame = sprite.SpriteFrames?.GetFrameTexture(sprite.Animation, 0);
+            if (first_frame != null) { sprite.Offset += (first_frame.GetSize() - tile_size) / 2; }
             if (obj is BigSpiker)
             {
                 sprite.Offset = new Vector2(offset.X == 0 ? sprite.Offset.X : -24 + offset.X,
@@ -146,8 +150,8 @@ public partial class CustomObject : GDKnyttBaseObject
                 int column = (int)tex.Region.Position.X / (int)tex.Region.Size.X;
                 int index = row * columns + column;
 
-                int tile_width = tile_size.X == 0 ? (int)tex.Region.Size.X : (int)tile_size.X;
-                int tile_height = tile_size.Y == 0 ? (int)tex.Region.Size.Y : (int)tile_size.Y;
+                int tile_width = (int)tile_size.X;
+                int tile_height = (int)tile_size.Y;
                 int new_columns = Mathf.Max(1, image_texture.GetWidth() / tile_width);
                 int new_row = index / new_columns;
                 int new_column = index % new_columns;

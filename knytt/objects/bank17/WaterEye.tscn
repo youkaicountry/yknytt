@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3]
+[gd_scene load_steps=35 format=3]
 
 [ext_resource type="Texture2D" path="res://knytt/objects/bank17/img/17-3.png" id="1"]
 [ext_resource type="Script" path="res://knytt/objects/bank17/WaterEye.cs" id="3"]
@@ -120,6 +120,10 @@ region = Rect2( 360, 0, 24, 48 )
 atlas = ExtResource("1")
 region = Rect2( 384, 0, 24, 48 )
 
+[sub_resource type="AtlasTexture" id="59"]
+atlas = ExtResource("1")
+region = Rect2( 672, 0, 24, 48 )
+
 [sub_resource type="SpriteFrames" id="29"]
 animations = [ {
 "frames": [{
@@ -163,7 +167,10 @@ animations = [ {
 "name": &"aftershot",
 "speed": 20.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("59")
+}],
 "loop": false,
 "name": &"default",
 "speed": 5.0

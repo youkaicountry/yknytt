@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" path="res://knytt/objects/common/SpikerMod.tscn" id="1"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank14/img/14-19.png" id="2"]
@@ -28,9 +28,16 @@ region = Rect2( 96, 0, 24, 24 )
 atlas = ExtResource("2")
 region = Rect2( 120, 0, 24, 24 )
 
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("2")
+region = Rect2( 0, 0, 24, 24 )
+
 [sub_resource type="SpriteFrames" id="6"]
 animations = [ {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}],
 "loop": false,
 "name": &"default",
 "speed": 5.0
