@@ -423,6 +423,12 @@ public class GDKnyttSettings : Node
         ClassicDoubleJumpSound = ClassicDoubleJumpSound;
         StickSensitivity = StickSensitivity;
         LeftStickMovement = LeftStickMovement;
+
+        foreach (var k in ini["Physics"])
+        {
+            typeof(Juni).GetField(k.KeyName)?.SetValue(null, floatParse(k.Value));
+        }
+        tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.Juni?.setupShape();
     }
 
     public static float floatParse(string s)

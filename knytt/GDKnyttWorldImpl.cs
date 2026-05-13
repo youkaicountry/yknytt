@@ -56,7 +56,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture(string filepath)
     {
-        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
+        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/q{filepath}.res") ??
             GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
     }
 
@@ -133,6 +133,11 @@ public class GDKnyttWorldImpl : KnyttWorld
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
         removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName), 
-                        prefix: tilesets_only ? "Tileset" : "");
+                        prefix: tilesets_only ? "qTileset" : "");
+    }
+
+    public void removeOldTilesets()
+    {
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName), prefix: "Tileset");
     }
 }

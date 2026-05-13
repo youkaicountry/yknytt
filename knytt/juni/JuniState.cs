@@ -11,7 +11,7 @@ public class IdleState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false);
+        juni.setCollisionMap(climbing: false);
         juni.Anim.Play("Idle");
         juni.jumps = 0;
     }
@@ -62,7 +62,7 @@ public class WalkRunState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false);
+        juni.setCollisionMap(climbing: false);
         juni.GetNode<AudioStreamPlayer2D>($"Audio/{WalkRunString}Player2D").Play();
         juni.Anim.Play(WalkRunString);
         juni.jumps = 0;
@@ -142,7 +142,7 @@ public class ClimbState : JuniState
 
     protected void calcCollisionMap()
     {
-        juni.setCollisionMap(true, false, false, true);
+        juni.setCollisionMap(climbing: true);
     }
 
     public override void PostProcess(float delta)
@@ -231,7 +231,7 @@ public class JumpState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false);
+        juni.setCollisionMap(climbing: false);
     }
 
     public override void PreProcess(float delta)
@@ -259,7 +259,7 @@ public class FallState : JuniState
 
     public override void onEnter()
     {
-        juni.setCollisionMap(true, true, true, false);
+        juni.setCollisionMap(climbing: false);
         juni.Anim.Play("StartFall");
     }
 

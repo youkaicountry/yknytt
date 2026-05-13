@@ -50,7 +50,7 @@ public class GDKnyttAssetManager
 
     private TileSet buildTileSet(int num)
     {
-        string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{GDWorld.KWorld.WorldDirectoryName}/Tileset{num}.res");
+        string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{GDWorld.KWorld.WorldDirectoryName}/qTileset{num}.res");
         if (new File().FileExists(cached_path)) { return ResourceLoader.Load<TileSet>(cached_path); }
 
         var texture = GDWorld.KWorld.getWorldTexture($"Tilesets/Tileset{num}.png");
@@ -307,7 +307,7 @@ public class GDKnyttAssetManager
             }
         }
 
-        var polygons = bitmap.OpaqueToPolygons(region, 0.99f).Cast<Vector2[]>();
+        var polygons = bitmap.OpaqueToPolygons(region, Juni.SMOOTHING_PX).Cast<Vector2[]>();
         // I have no idea why it's adding y*48 to y coordinates...
         return polygons.Select(p => p.Select(v => new Vector2(v.x, v.y - (region.Position.y * 2))).ToArray());
     }
@@ -328,80 +328,64 @@ public class GDKnyttAssetManager
         return true;
     }
 
-    private const float MIN_RECESS_WIDTH = 8;
-    private const float MAX_RECESS_DEPTH = -2;
-    private const float MIN_HILL_HEIGHT = 2;
-
     private static Vector2[] smoothPolygon(Vector2[] full_polygon)
     {
-        var convex_hull = Geometry.ConvexHull2d(full_polygon).Reverse().ToList();
+        if (Juni.SMOOTHING_WIDTH == 0) { return full_polygon; }
+        List<Vector2> polygon = full_polygon.ToList();
+        float width_sq = Juni.SMOOTHING_WIDTH * Juni.SMOOTHING_WIDTH;
 
-        int result_size = 0;
-        while (result_size != convex_hull.Count)
+        int i = 0;
+        while (i < polygon.Count)
         {
-            result_size = convex_hull.Count;
+            bool removed = false;
 
-            int fpi = Array.IndexOf(full_polygon, convex_hull[0]);
-            for (int chi = 0; chi < convex_hull.Count - 1; chi++)
+            for (int len = 2; len < polygon.Count - 1; len++)
             {
-                if (convex_hull.Count - 1 > full_polygon.Count()) { return null; } // should never happen
+                int j = (i + len) % polygon.Count;
 
-                Vector2 ch_from = convex_hull[chi], ch_to = convex_hull[chi + 1];
-                Vector2 before_recess = ch_from, last_shallow = ch_from;
-                Vector2? recess = null;
-                float recess_depth = -24;
+                if ((polygon[j] - polygon[i]).LengthSquared() > width_sq) { continue; }
+                if (!isConcavity(polygon, i, j)) { continue; }
 
-                for (fpi++; ; fpi++) // iterate between convex hull points
-                {
-                    Vector2 fpp = full_polygon[fpi % full_polygon.Count()];
-                    if (fpp == ch_to && recess == null) { break; }
-
-                    float height = distanceToLine(fpp, ch_from, ch_to);
-                    if (height > MIN_HILL_HEIGHT) // additional convex vertex - just add it
-                    {
-                        convex_hull.Insert(chi + 1, fpp);
-                        break;
-                    }
-                    
-                    if (height < MAX_RECESS_DEPTH)
-                    {
-                        if (height > recess_depth) // select shallowest recess
-                        {
-                            recess_depth = height;
-                            recess = fpp;
-                            before_recess = last_shallow;
-                        }
-                    }
-                    else
-                    {
-                        if (recess != null)
-                        {
-                            if (before_recess.DistanceTo(fpp) > MIN_RECESS_WIDTH)
-                            {
-                                convex_hull.Insert(++chi, recess.Value); // add selected recess (if it's wide enough)
-                                for (; full_polygon[fpi % full_polygon.Count()] != ch_to; fpi++);
-                                break;
-                            }
-                            if (fpp == ch_to) { break; }
-                            recess = null;
-                            recess_depth = -24;
-                        }
-                        last_shallow = fpp;
-                    }
-                }
+                removeWrappedRange(polygon, i + 1, len - 1);
+                removed = true;
+                break;
             }
+
+            if (!removed) { i++; }
         }
-        return convex_hull.ToArray();
+
+        return polygon.ToArray();
+    }
+
+    static bool isConcavity(List<Vector2> poly, int from, int to)
+    {
+        for (int i = (from + 1) % poly.Count; i != to; i = (i + 1) % poly.Count)
+        {
+            float cross = (poly[to] - poly[from]).Cross(poly[i] - poly[from]);
+            if (cross > 0) { return false; }
+        }
+        return true;
+    }
+    
+    static void removeWrappedRange(List<Vector2> poly, int start, int count)
+    {
+        start %= poly.Count;
+
+        if (start + count <= poly.Count)
+        {
+            poly.RemoveRange(start, count);
+        }
+        else
+        {
+            int first = poly.Count - start;
+            poly.RemoveRange(start, first);
+            poly.RemoveRange(0, count - first);
+        }
     }
 
     private static float crossProduct(Vector2 va, Vector2 vb, Vector2 vc)
     {
         return (va.x - vb.x) * (vc.y - vb.y) - (va.y - vb.y) * (vc.x - vb.x);
-    }
-
-    public static float distanceToLine(Vector2 p, Vector2 lp1, Vector2 lp2)
-    {
-        return crossProduct(lp2, lp1, p) / lp1.DistanceTo(lp2);
     }
 
     public static bool replaceColor(Image image, Color old_color, Color new_color)
@@ -438,7 +422,7 @@ public class GDKnyttAssetManager
             string tileset_path = $"Tilesets/Tileset{num}.png";
             if (!world.worldFileExists(tileset_path)) { continue; }
 
-            string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world.WorldDirectoryName}/Tileset{num}.res");
+            string cached_path = GDKnyttDataStore.BaseDataDirectory.PlusFile($"Cache/{world.WorldDirectoryName}/qTileset{num}.res");
             if (!recompile && new File().FileExists(cached_path)) { continue; }
 
             var texture = world.getWorldTexture(tileset_path);
@@ -460,7 +444,7 @@ public class GDKnyttAssetManager
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
-            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PlusFile($"tilesets/Tileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PlusFile($"tilesets/qTileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
         }
     }
 }

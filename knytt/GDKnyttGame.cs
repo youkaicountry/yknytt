@@ -90,6 +90,7 @@ public class GDKnyttGame : Node2D
         this.changeArea(GDWorld.KWorld.CurrentSave.getArea(), true);
         Juni.moveToPosition(CurrentArea, GDWorld.KWorld.CurrentSave.getAreaPosition());
         saveGame(Juni, false);
+        world.removeOldTilesets();
     }
 
     // On load a save file

@@ -838,10 +838,13 @@ public static class ConsoleCommands
                     if (name == null) { return "Setting name missing!"; }
                     if (value == null) { return "Setting value missing!"; }
                     if (!GDKnyttSettings.ini.Sections.ContainsSection(section)) { return "Wrong section name!"; }
-                    name = name.Replace('_', ' ');
-                    GDKnyttSettings.ini[section][name] = value;
+                    if (section != "Physics") { name = name.Replace('_', ' '); }
+                    if (value == "delete") { GDKnyttSettings.ini[section]?.RemoveKey(name); }
+                    else { GDKnyttSettings.ini[section][name] = value; }
                     GDKnyttSettings.saveSettings();
-                    env.Console.AddMessage($"Now {section}[{name}] = {value}");
+                    GDKnyttSettings.applyAllSettings();
+                    env.Console.AddMessage(value != "delete" ? $"Now {section}[{name}] = {value}" : 
+                                                              $"{section}[{name}] has been deleted.");
                     return null;
             }
         }
