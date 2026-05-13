@@ -8,7 +8,9 @@ using static YKnyttLib.JuniValues;
 
 public partial class Juni : CharacterBody2D
 {
-    /*[Export] public*/internal const float 
+    public static float 
+    JUNI_WIDTH = 10.4f,                         // Hitbox width
+    JUNI_HEIGHT = 16.4f,                        // Hitbox height
     JUMP_SPEED_HIGH = -241f,                    // Speed of jump with high jump power (-238.5 in original)
     JUMP_SPEED_LOW = -235f,                     // Speed of jump with no high jump power (-230 in original)
     JUMP_SPEED_UMBRELLA = -220f,                // Speed of jump with umbrella (-220 in original)
@@ -55,7 +57,13 @@ public partial class Juni : CharacterBody2D
     SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f,
     SWIM_UPDRAFT_FORCE = .4f,
     SWIM_MAX_UPDRAFT_SPEED = -100f,
-    SWIM_EXIT_BOOST = 2.1f;
+    SWIM_EXIT_BOOST = 2.1f,
+    SMOOTHING_PX = 0.99f,                       // Tilesets simplification when turning into polygons
+    SMOOTHING_WIDTH = 2.5f,                     // Holes in the surface smaller than this will be smoothed
+    STEEP_SLOPES = 1,                           // Make 3-4px obstacles a slope (off in the original)
+    GROUND_CONTACT_PX = 6,                      // Juni will remain attached to the surface if ground is X px down
+    PUSH_OUT_PX = 1,                            // Juni will be pushed out of collision by X px every frame if she is in a contact before movement
+    PUSH_OUT_TRIES = 5;                         // How many attempts to push out
 
     [Signal] public delegate void JumpedEventHandler(Juni juni, bool real);
     [Signal] public delegate void PowerChangedEventHandler();
@@ -314,21 +322,19 @@ public partial class Juni : CharacterBody2D
     }
 
     // Toggle the collision shapes
-    Node2D[] _collision_polygons = { null, null, null, null };
-    bool[] _collision_map = { true, true, true, false };
-    public void setCollisionMap(bool main, bool back, bool small_main, bool small_climb)
+    bool climbing_shape = false;
+
+    public void setCollisionMap(bool climbing)
     {
-        _collision_map = new bool[] { main, back, small_main, small_climb };
+        climbing_shape = climbing;
         enforceCollisionMap();
     }
 
     private void enforceCollisionMap()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            if (_collision_polygons[i] is CollisionShape2D s)   { s.Disabled = CollisionsDisabled || !_collision_map[i]; }
-            if (_collision_polygons[i] is CollisionPolygon2D p) { p.Disabled = CollisionsDisabled || !_collision_map[i]; }
-        }
+        GetNode<CollisionShape2D>("Hitbox/ClimbShape").Disabled = CollisionsDisabled || !climbing_shape;
+        GetNode<CollisionShape2D>("Hitbox/UsualShape").Disabled = CollisionsDisabled || climbing_shape;
+        GetNode<CollisionShape2D>("MainShape").Disabled = CollisionsDisabled;
     }
 
     public Juni()
@@ -343,13 +349,6 @@ public partial class Juni : CharacterBody2D
         GetNode("/root/Console").Connect("ConsoleOpen", new Callable(this, nameof(OnConsoleOpen)));
         GetNode("/root/Console").Connect("ConsoleClosed", new Callable(this, nameof(OnConsoleClosed)));
 
-        _collision_polygons = new Node2D[]
-        {
-            GetNode<CollisionPolygon2D>("MainShape"),
-            GetNode<CollisionShape2D>("BackShape"),
-            GetNode<CollisionShape2D>("Hitbox/UsualShape"),
-            GetNode<CollisionShape2D>("Hitbox/ClimbShape"),
-        };
         hologram_scene = ResourceLoader.Load("res://knytt/juni/Hologram.tscn") as PackedScene;
         MotionParticles = GetNode<JuniMotionParticles>("JuniMotionParticles");
         Detector = GetNode<Sprite2D>("Detector");
@@ -360,7 +359,16 @@ public partial class Juni : CharacterBody2D
         Umbrella.reset();
         Anim = Sprite2D.GetNode<AnimationPlayer>("AnimationPlayer");
         just_reset = 1; // skip first frame just to update Grounded
+        setupShape();
         transitionState(new IdleState(this));
+    }
+
+    public void setupShape()
+    {
+        var shape_node = GetNode<CollisionShape2D>("MainShape");
+        var juni_shape = shape_node.Shape as RectangleShape2D;
+        juni_shape.Size = new Godot.Vector2(JUNI_WIDTH, JUNI_HEIGHT); // Godot 4: Size is full, not half-extents
+        shape_node.Position = new Godot.Vector2(6 - JUNI_WIDTH / 2, 8.51f - JUNI_HEIGHT / 2);
     }
 
     public void OnConsoleOpen()
@@ -524,15 +532,27 @@ public partial class Juni : CharacterBody2D
         // Limit falling speed to terminal velocity
         velocity.Y = Mathf.Min(TerminalVelocity, velocity.Y);
 
-        if (Checkers.IsInside) { Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1))); }
+        if (Checkers.IsInside)
+        {
+            Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1)));
+        }
         else
         {
+            // Upstream: push Juni out of a pre-existing collision before moving.
+            for (int i = 0; i < PUSH_OUT_TRIES; i++)
+            {
+                var test_collision = MoveAndCollide(Godot.Vector2.Zero, testOnly: true);
+                if (test_collision == null) { break; }
+                var back = (GlobalPosition - test_collision.GetPosition()).Normalized();
+                Translate(back * PUSH_OUT_PX / PUSH_OUT_TRIES);
+            }
+
             // Godot 4: Configure CharacterBody2D properties for movement
             UpDirection = Godot.Vector2.Up;
             FloorStopOnSlope = true;
             FloorConstantSpeed = true;
             FloorMaxAngle = SLOPE_MAX_ANGLE;
-            FloorSnapLength = 5f;
+            FloorSnapLength = GROUND_CONTACT_PX;
             SafeMargin = 0.25f;
 
             Velocity = new Godot.Vector2(velocity.X, velocity.Y);
@@ -564,10 +584,11 @@ public partial class Juni : CharacterBody2D
         bool x_moving_state = (CurrentState is WalkRunState || CurrentState is JumpState || 
                                CurrentState is FallState) && juniInput.Direction != 0;
         bool pull_over = JustClimbed && climbed_with_pull_over;
-        bool bump_collision = CurrentState is WalkRunState || pull_over ? Checkers.Bump : Checkers.LittleBump;
+        bool bump_collision = 
+            (CurrentState is WalkRunState && STEEP_SLOPES > 0) || pull_over ? Checkers.Bump : Checkers.LittleBump;
         if (bump_collision && (x_moving_state || pull_over))
         {
-            Translate(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
+            MoveAndCollide(new Godot.Vector2(0, BUMP_Y_SPEED_PX));
         }
     }
 
@@ -856,7 +877,7 @@ public partial class Juni : CharacterBody2D
 
         if (air_jump && jumps > 0)
         {
-            Translate(new Godot.Vector2(0, DOUBLE_JUMP_BUMP_PX));
+            MoveAndCollide(new Godot.Vector2(0, DOUBLE_JUMP_BUMP_PX));
             doubleJumpEffect();
             if (sound) {
                 string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" : "Audio/JumpPlayer2D";

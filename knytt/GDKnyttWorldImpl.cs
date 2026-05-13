@@ -127,6 +127,11 @@ public partial class GDKnyttWorldImpl : KnyttWorld
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
         removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName),
-                        prefix: tilesets_only ? "Tileset" : "");
+                        prefix: tilesets_only ? "qTileset" : "");
+    }
+
+    public void removeOldTilesets()
+    {
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName), prefix: "Tileset");
     }
 }
