@@ -100,8 +100,8 @@ public partial class UICanvasLayer : CanvasLayer
             else
             {
                 float xscreen = GetViewport().GetVisibleRect().Size.X;
+                xscreen -= TouchSettings.ScreenWidth - 240 / GDKnyttSettings.Aspect; // -= curtain width
                 if (xscreen > 600 && !GDKnyttSettings.SeamlessScroll) { xscreen = 600; }
-                xscreen *= TouchSettings.ViewportNow;
                 float xinfo = infoPanel.Size.X;
                 infoPanel.OffsetLeft = -xscreen / 2 - 3;
                 infoPanel.OffsetRight = infoPanel.OffsetLeft + xinfo;

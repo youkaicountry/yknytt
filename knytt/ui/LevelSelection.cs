@@ -74,12 +74,6 @@ public partial class LevelSelection : BasicScreen
         GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible =
             GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
 
-        if (OS.GetName() == "HTML5") { GetNode<CanvasItem>("ConnectionLostLabel/Failsafe").Visible = false; }
-        GetNode<Label>("ConnectionLostLabel/Failsafe/LevelsFileDir").Text = getLevelsFileDir();
-        var lost_label = GetNode<Label>("ConnectionLostLabel/Failsafe/Line/Label");
-        string server_url = GDKnyttSettings.ServerURL.Replace("http://", "").Replace("https://", "");
-        lost_label.Text = lost_label.Text.Replace("$url", server_url);
-
         worlds_modified = false;
         var ini_exists = FileAccess.FileExists(GDKnyttDataStore.WorldsIni);
         var ini_text = ini_exists ? GDKnyttAssetManager.loadTextFile(GDKnyttDataStore.WorldsIni) : "";

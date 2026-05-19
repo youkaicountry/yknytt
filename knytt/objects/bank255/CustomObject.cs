@@ -101,8 +101,12 @@ public partial class CustomObject : GDKnyttBaseObject
         {
             sprite.Offset += offset;
             // Godot 4: AnimatedSprite2D.Frames -> SpriteFrames, GetFrame -> GetFrameTexture.
-            // Null-guarded because converted scenes can still have empty frame arrays.
-            var first_frame = sprite.SpriteFrames?.GetFrameTexture(sprite.Animation, 0);
+            // Upstream switched from sprite.Animation to the first animation name (an OCO
+            // whose default animation is not set properly used to crash here). Null-guarded
+            // because converted scenes can still have empty frame arrays.
+            var anim_names = sprite.SpriteFrames?.GetAnimationNames();
+            var first_frame = anim_names != null && anim_names.Length > 0 ?
+                sprite.SpriteFrames.GetFrameTexture(anim_names[0], 0) : null;
             if (first_frame != null) { sprite.Offset += (first_frame.GetSize() - tile_size) / 2; }
             if (obj is BigSpiker)
             {

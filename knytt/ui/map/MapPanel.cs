@@ -80,6 +80,7 @@ public partial class MapPanel : Control
     
     public void initSize()
     {
+        if (world == null || juni == null) { return; }
         this.Size = new Vector2(
             (world.MaxBounds.X - world.MinBounds.X + 1) * XSIZE,
             (world.MaxBounds.Y - world.MinBounds.Y + 1) * YSIZE);

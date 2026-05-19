@@ -150,7 +150,7 @@ public partial class ClimbState : JuniState
         if (juni.juniInput.UpHeld) { juni.velocity.Y = Juni.CLIMB_SPEED; }
         else if (juni.velocity.Y > 0f) { juni.transitionState(new SlideState(juni)); }
 
-        if (juni.juniInput.JumpEdge)
+        if (juni.juniInput.JumpEdge && juni.CanJump)
         {
             juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump(check_stow: false);
@@ -211,7 +211,7 @@ public partial class SlideState : ClimbState
             juni.MotionParticles.CurrentMotion = JuniMotionParticles.JuniMotion.CLIMB;
         }
 
-        if (juni.juniInput.JumpEdge)
+        if (juni.juniInput.JumpEdge && juni.CanJump)
         {
             juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump(check_stow: false);

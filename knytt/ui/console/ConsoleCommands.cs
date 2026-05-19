@@ -114,7 +114,7 @@ public partial class ConsoleCommands : Node
     {
         bool web = OS.GetName() == "Web";
         var dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-        var dest_zip = dest_path.PathJoin("yknytt-data.zip");
+        var dest_zip = dest_path.PathJoin("yknytt_data.zip");
 
         if (!DirAccess.DirExistsAbsolute(dest_path)) { Error($"Directory {dest_path} does not exist."); return; }
         if (System.IO.File.Exists(dest_zip) && web) { System.IO.File.Delete(dest_zip); }
@@ -144,7 +144,7 @@ public partial class ConsoleCommands : Node
             zip?.Dispose();
         }
 
-        if (web) { JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-data.zip"); }
+        if (web) { JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip"); }
         Info($"{dest_zip} was successfully created.");
     }
 
