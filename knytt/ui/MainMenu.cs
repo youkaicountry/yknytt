@@ -1,5 +1,6 @@
 using Godot;
 using System.Threading.Tasks;
+using System.Text;
 using YKnyttLib;
 
 public class MainMenu : BasicScreen
@@ -14,6 +15,8 @@ public class MainMenu : BasicScreen
     public override void _Ready()
     {
         base._Ready();
+        // Uncomment this and ItemGroup in csproj to enforce registering 1252 encoding
+        //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         this.level_select_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/LevelSelection.tscn");
         this.settings_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/SettingsScreen.tscn");
         this.credits_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/CreditsScreen.tscn");

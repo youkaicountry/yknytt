@@ -20,8 +20,8 @@ public static class ConsoleCommands
             "save paste: pastes save from clipboard\n" +
             "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip") + "\n" +
             (OS.GetName() == "HTML5" ?
-                "save data: downloads working directory" :
-                "save data: zips working directory to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-data.zip")),
+                "save data: downloads working directory (except Worlds)" :
+                "save data: zips working directory to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt_data.zip")),
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
             "pass: prints the current password\n" +
@@ -251,7 +251,7 @@ public static class ConsoleCommands
 
                 case "data":
                     dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-                    dest_zip = dest_path.PlusFile("yknytt-data.zip");
+                    dest_zip = dest_path.PlusFile("yknytt_data.zip");
                     string exclude_path = "Worlds";
                     
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
@@ -265,9 +265,9 @@ public static class ConsoleCommands
                         foreach (var file in System.IO.Directory.GetFiles(GDKnyttDataStore.BaseDataDirectory, "*", System.IO.SearchOption.AllDirectories))
                         {
                             var full_path = System.IO.Path.GetFullPath(file);
-                            if (full_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
                             var relative_path = full_path.Substring(GDKnyttDataStore.BaseDataDirectory.Length)
                                                     .TrimStart(System.IO.Path.DirectorySeparatorChar);
+                            if (relative_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
                             zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
                         }
                     }
@@ -282,7 +282,7 @@ public static class ConsoleCommands
 
                     if (OS.GetName() == "HTML5")
                     {
-                        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt-data.zip");
+                        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip");
                     }
                     env.Console.AddMessage($"{dest_zip} was successfully created.");
                     break;

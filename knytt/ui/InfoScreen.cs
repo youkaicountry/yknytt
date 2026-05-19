@@ -525,9 +525,10 @@ public class InfoScreen : BasicScreen
         closeOtherSlots(-1);
 
         bool unpacked = false;
-        if (KWorld.BinMode)
+
+        string dir = KWorld.WorldDirectory.GetBaseDir().PlusFile(KWorld.WorldDirectoryName);
+        if (KWorld.BinMode && !new Directory().DirExists(dir))
         {
-            string dir = KWorld.WorldDirectory.GetBaseDir().PlusFile(KWorld.WorldDirectoryName);
             setIniValue(null, dir);
             KWorld.unpackWorld(dir);
             world_entry.Path = KWorld.WorldDirectory;
@@ -537,7 +538,8 @@ public class InfoScreen : BasicScreen
 
         GetNode<Timer>("HintTimer").Stop();
         GDKnyttDataStore.ProgressHint = unpacked ? "Level was unpacked and compiled." : "Level tilesets have been compiled.";
-                _on_HintTimer_timeout();
+        if (KWorld.BinMode && new Directory().DirExists(dir)) { GDKnyttDataStore.ProgressHint = $"Directory {dir} already exists!"; }
+        _on_HintTimer_timeout();
         foreach (string node in nodes_to_disable) { GetNode<Button>(node).Disabled = false; }
         GetNode<Button>("%ComplainButton").Disabled = complain_disabled;
     }

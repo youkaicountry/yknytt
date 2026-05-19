@@ -39,10 +39,13 @@ public class Juni : KinematicBody2D
     TERM_VEL_UP = 21f,                          // Maximum +Y velocity when Juni has the umbrella deployed in an updraft
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
-    CLIMB_JUMP_X_SPEED = 130f,                  // Speed Juni jumps away from a wall
+    CLIMB_JUMP_X_SPEED = 125f,                  // Speed Juni jumps away from a wall
+    SPRING_SPEED = -346f,                       // Speed of jump on a spring
+    SPRING_SPEED_HIGHJUMP_HOLD = -329f,         // Speed of jump on a spring (different due to different gravity handing)
     BUMP_Y_SPEED_PX = -4.1f,                    // Speed Juni goes up when running over a bump
-    INSIDE_X_SPEED = -22f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
+    INSIDE_X_SPEED = -25f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls
+    INSIDE_Y_SPEED_HOLD = 50f,                  // Speed at which Juni moves along the y-axis when stuck inside walls
     DEBUG_FLY_SPEED = 300f,                     // Speed at which Juni flies while in debug fly mode
     SWIM_JUMP_SPEED = -100f,                    // Replacements for swimming
     SWIM_MAX_SPEED_WALK = 50.7f,
@@ -57,11 +60,12 @@ public class Juni : KinematicBody2D
     SWIM_TERM_VEL_UMB_LOWJUMP_HOLD = 11.7f,
     SWIM_UPDRAFT_FORCE = .4f,
     SWIM_MAX_UPDRAFT_SPEED = -100f,
+    SWIM_SPRING_SPEED = -100f,
     SWIM_EXIT_BOOST = 2.1f,
     SMOOTHING_PX = 0.99f,                       // Tilesets simplification when turning into polygons
     SMOOTHING_WIDTH = 2.5f,                     // Holes in the surface smaller than this will be smoothed
     STEEP_SLOPES = 1,                           // Make 3-4px obstacles a slope (off in the original)
-    GROUND_CONTACT_PX = 6,                      // Juni will remain attached to the surface if ground is X px down
+    GROUND_CONTACT_PX = 5,                      // Juni will remain attached to the surface if ground is X px down
     PUSH_OUT_PX = 1,                            // Juni will be pushed out of collision by X px every frame if she is in a contact before movement
     PUSH_OUT_TRIES = 5;                         // How many attempts to push out
 
@@ -164,8 +168,8 @@ public class Juni : KinematicBody2D
         get { return Scale.x > 0 && Scale.y > 0; }
     }
     public bool ApparentFacingRight => Hologram != null ? !(Hologram as Sprite).FlipH : FacingRight; 
-    public bool DidAirJump => juniInput.JumpEdge && (CanFreeJump || (jumps < JumpLimit)); 
-    public bool CanAnyJump => Grounded ? CanJump : (CanFreeJump || jumps < JumpLimit);
+    public bool DidAirJump => juniInput.JumpEdge && CanJump && (CanFreeJump || (jumps < JumpLimit)); 
+    public bool CanAnyJump => CanJump && (Grounded || CanFreeJump || jumps < JumpLimit);
 
     // Whether or not Juni is in a NoJump situation
     int no_jumps = 0; // Number of no jump zones conditions covering Juni
@@ -533,7 +537,8 @@ public class Juni : KinematicBody2D
 
         if (Checkers.IsInside)
         {
-            Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, INSIDE_Y_SPEED * delta * (juniInput.UpHeld ? -5 : 1)));
+            Translate(new Godot.Vector2(INSIDE_X_SPEED * MoveDirection * delta, 
+                                        (juniInput.UpHeld ? INSIDE_Y_SPEED_HOLD : INSIDE_Y_SPEED) * delta));
         }
         else
         {
@@ -599,7 +604,7 @@ public class Juni : KinematicBody2D
         {
             if (!Grounded) { velocity.y += GRAVITY * delta; }
             else if (!(juniInput.JumpEdge && CanAnyJump)) { velocity.y = GRAVITY * delta; }
-            if (jump_held)
+            if (jump_held && CanJump)
             {
                 var jump_hold = Powers.getPower(PowerNames.HighJump) ?
                     (Swim ? SWIM_HIGH_JUMP_HOLD_POWER : HIGH_JUMP_HOLD_POWER) :
@@ -611,7 +616,7 @@ public class Juni : KinematicBody2D
 
     private void handleHologram()
     {
-        if (!Powers.getPower(PowerNames.Hologram)) { return; }
+        if (!Powers.getPower(PowerNames.Hologram) && !juniInput.checkPressed("show_info")) { return; }
 
         bool double_down = false;
         if (juniInput.DownPressed)
@@ -621,7 +626,12 @@ public class Juni : KinematicBody2D
             else { dtimer.Start(); }
         }
 
-        if (double_down || juniInput.HologramPressed)
+        if (juniInput.checkPressed("show_info") && double_down)
+        {
+            Game.saveGame(this, true);
+            playSound("save");
+        }
+        else if (Powers.getPower(PowerNames.Hologram) && (double_down || juniInput.HologramPressed))
         {
             if (Hologram == null)
             {

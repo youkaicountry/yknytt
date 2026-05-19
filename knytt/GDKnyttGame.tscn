@@ -222,6 +222,12 @@ margin_bottom = 240.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
+[node name="HorizontalRect" type="ColorRect" parent="UICanvasLayer/Curtain"]
+margin_right = 600.0
+margin_bottom = 40.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
 [node name="StayTimer" type="Timer" parent="UICanvasLayer"]
 wait_time = 0.25
 one_shot = true

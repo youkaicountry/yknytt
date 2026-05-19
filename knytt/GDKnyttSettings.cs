@@ -491,7 +491,6 @@ public class GDKnyttSettings : Node
 
         if (ini["Misc"].ContainsKey("Version") && ini["Misc"]["Version"].CompareTo("0.6.8") == -1)
         {
-            ini["Misc"]["Version"] = "0.7.0";
             ini["Server"]?.RemoveKey("URL");
             if (OS.GetName() == "HTML5") { ini["Graphics"]?.RemoveKey("Detailed Map"); }
             
@@ -505,11 +504,21 @@ public class GDKnyttSettings : Node
                     GDKnyttKeys.saveSettings();
                 }
             }
-            return true;
         }
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.0") == -1)
+        if (ini["Misc"].ContainsKey("Version") && ini["Misc"]["Version"].CompareTo("0.7.1") == -1)
         {
-            ini["Misc"]["Version"] = "0.7.0";
+            if (WorldsDirectory != "")
+            {
+                string old_worlds_ini = GDKnyttDataStore.BaseDataDirectory.PlusFile("worlds.ini");
+                if (new File().FileExists(old_worlds_ini))
+                {
+                    new Directory().Rename(old_worlds_ini, GDKnyttDataStore.WorldsIni);
+                }
+            }
+        }
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.1") == -1)
+        {
+            ini["Misc"]["Version"] = "0.7.1";
             return true;
         }
         return false;

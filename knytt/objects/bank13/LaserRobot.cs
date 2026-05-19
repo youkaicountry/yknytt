@@ -2,7 +2,6 @@ using Godot;
 
 public class LaserRobot : GDKnyttBaseObject
 {
-    private bool isOn = false;
     private float speed = -100;
 
     public override void _PhysicsProcess(float delta)

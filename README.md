@@ -60,10 +60,10 @@ This will store all game data (saves, downloaded worlds, cache, and settings) in
 
 ### Building
 
-Requires Godot 3.6.1.stable.mono and .NET Framework 4.8 Developer Pack for Windows (or mono-devel for Linux)
+Requires Godot 3.6.1.stable.mono and [mono-devel](https://www.mono-project.com/download/stable/#download-lin) for Linux, or .NET Framework 4.8 Developer Pack for Windows with build tools from VS Code or from anywhere else.
 
 #### Export settings
 
 To properly export, `knytt/worlds/*` must be included in the export filters
 
-To build a proper Android APK, activate the "Internet" permission.
+To build a proper Android APK, activate "Internet" and "External Storage" permissions.

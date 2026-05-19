@@ -17,13 +17,15 @@ public class Spring : GDKnyttBaseObject
         if (juni.CurrentState is JumpState || juni.CurrentState is SlideState || juni.CurrentState is ClimbState) { return; }
 
         // Restore Juni's position to the top of the spring for stability (+1px for 96px obstacles)
-        juni.GlobalPosition -= new Vector2(0, juni.Bottom.y - GlobalPosition.y + 1);
+        juni.MoveAndCollide(-new Vector2(0, juni.Bottom.y - GlobalPosition.y + 1));
         juni.Grounded = false;
 
         // Spring
         // TODO: make Juni.SkipHandleGravityOnce and adjust these velocities
         bool highjump_hold = juni.Powers.getPower(PowerNames.HighJump) && juni.juniInput.JumpHeld;
-        juni.executeJump(juni.Swim ? -100f : highjump_hold ? -329f : -346f, sound: false, reset_jumps: true);
+        juni.executeJump(juni.Swim ? Juni.SWIM_SPRING_SPEED : 
+                         highjump_hold ? Juni.SPRING_SPEED_HIGHJUMP_HOLD : Juni.SPRING_SPEED, 
+                        sound: false, reset_jumps: true);
         juni.playSound("bounce");
 
         var anim = GetNode<AnimationPlayer>("AnimationPlayer");

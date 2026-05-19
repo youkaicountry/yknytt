@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://knytt/objects/bank12/GhostMod.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bank12/img/attack_block.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://knytt/objects/common/DistanceMod.tscn" type="PackedScene" id=4]
 [ext_resource path="res://knytt/SFXAudioPlayer2D.tscn" type="PackedScene" id=5]
 [ext_resource path="res://knytt/data/Sfx/Ghost Rock.wav" type="AudioStream" id=6]
-
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -89,9 +88,6 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 1 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -102,10 +98,9 @@ centered = false
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 13, 71 )
-shape = SubResource( 1 )
-disabled = true
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2( 12.5, 72 )
+polygon = PoolVector2Array( -11, -1.8, -6, -2, 7, -2, 12, -1.8, 12, 0, -11, 0 )
 
 [node name="GhostMod" parent="." instance=ExtResource( 1 )]
 flickering = false

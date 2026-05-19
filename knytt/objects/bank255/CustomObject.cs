@@ -99,7 +99,7 @@ public class CustomObject : GDKnyttBaseObject
         if (sprite != null)
         {
             sprite.Offset += offset;
-            Vector2 original_size = sprite.Frames.GetFrame(sprite.Animation, 0).GetSize();
+            Vector2 original_size = sprite.Frames.GetFrame(sprite.Frames.GetAnimationNames()[0], 0).GetSize();
             sprite.Offset += (original_size - tile_size) / 2;
             if (obj is BigSpiker)
             {

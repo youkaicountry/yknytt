@@ -232,14 +232,6 @@ public class GDKnyttGame : Node2D
         if (this.viewMode) { this.editorControls(); }
 
         if (Input.IsActionJustPressed("pause") && !GetNode<Console>("/root/Console").IsOpen) { pause(); }
-
-        if (Input.IsActionPressed("show_info") && Input.IsActionPressed("umbrella") && Input.IsActionJustPressed("down"))
-        {
-            saveGame(Juni, true);
-            UI.closePanel();
-            Juni.Umbrella.Deployed = false;
-            Juni.playSound("save");
-        }
     }
 
     // TODO: Difference between Paged areas, active areas, and current area.
@@ -323,6 +315,7 @@ public class GDKnyttGame : Node2D
         checkTint(area);
         CustomObject.cleanUnused();
 
+        if (Juni.DebugFlyMode) { return; }
         Juni.Powers.setVisited(CurrentArea.Area);
         if (hasMap()) { viewports.addArea(CurrentArea); }
     }
@@ -579,10 +572,10 @@ public class GDKnyttGame : Node2D
 
     private const float ASPECT_STEP = 0.04f;
 
-    public async void processAspectChange()
+    public void processAspectChange()
     {
         if (!(Input.IsActionPressed("show_info") && Input.IsActionPressed("umbrella") &&
-             (Input.IsActionJustPressed("left") || Input.IsActionJustPressed("right")))) { return; }
+             (Input.IsActionJustPressed("down") || Input.IsActionJustPressed("up")))) { return; }
 
         float aspect = GDKnyttSettings.Aspect;
         float window_x_fixed = OS.WindowSize.x * TouchSettings.ViewportNow;
@@ -597,14 +590,14 @@ public class GDKnyttGame : Node2D
         aspects.Sort();
         int cur_index = aspects.IndexOf(aspect);
 
-        if (Input.IsActionJustPressed("left"))
+        if (Input.IsActionJustPressed("up"))
         {
             if (cur_index + 1 < aspects.Count && aspects[cur_index + 1] - aspect < ASPECT_STEP)
             {
                 aspect = aspects[cur_index + 1];
             }
             else { aspect += ASPECT_STEP; }
-            Input.ActionRelease("left");
+            Input.ActionRelease("up");
         }
         else
         {
@@ -613,7 +606,7 @@ public class GDKnyttGame : Node2D
                 aspect = aspects[cur_index - 1];
             }
             else { aspect -= ASPECT_STEP; }
-            Input.ActionRelease("right");
+            Input.ActionRelease("down");
         }
         
         float min_value = Mathf.Floor(window_x_fixed / 600) * 240 / window_x_fixed;
