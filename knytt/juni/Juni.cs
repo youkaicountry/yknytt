@@ -40,8 +40,8 @@ public class Juni : KinematicBody2D
     CLIMB_SPEED = -125f,                        // Speed Juni climbs up a wall
     SLIDE_SPEED = 25f,                          // Speed Juni slides down a wall
     CLIMB_JUMP_X_SPEED = 125f,                  // Speed Juni jumps away from a wall
-    SPRING_SPEED = -346f,                       // Speed of jump on a spring
-    SPRING_SPEED_HIGHJUMP_HOLD = -329f,         // Speed of jump on a spring (different due to different gravity handing)
+    SPRING_SPEED = -342.7f,                     // Speed of jump on a spring
+    SPRING_SPEED_HIGHJUMP_HOLD = -335.6f,       // Speed of jump on a spring (different due to different gravity handing)
     BUMP_Y_SPEED_PX = -4.1f,                    // Speed Juni goes up when running over a bump
     INSIDE_X_SPEED = -25f,                      // Speed at which Juni moves along the x-axis when stuck inside walls
     INSIDE_Y_SPEED = -10f,                      // Speed at which Juni moves along the y-axis when stuck inside walls

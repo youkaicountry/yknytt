@@ -1,4 +1,4 @@
-## Acknowledgements
+## Notes
 
 YKnytt by YoukaiCountry, up-left: https://youkaicountry.itch.io/yknytt or https://github.com/youkaicountry/yknytt/
 

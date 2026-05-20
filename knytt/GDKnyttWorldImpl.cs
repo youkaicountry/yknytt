@@ -132,6 +132,7 @@ public class GDKnyttWorldImpl : KnyttWorld
         {
             BinLoader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(WorldDirectory));
         }
+        loadWorldConfig(GDKnyttAssetManager.loadTextFileRaw(getWorldData("World.ini")));
         removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName), 
                         prefix: tilesets_only ? "qTileset" : "");
     }
