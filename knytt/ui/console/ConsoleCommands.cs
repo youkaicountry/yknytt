@@ -13,15 +13,16 @@ public static class ConsoleCommands
         cs.AddCommand(new CommandDeclaration("speed", "View or set the speed of the game", null, false, SpeedCommand.NewSpeedCommand, new CommandArg("value", CommandArg.Type.FloatArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("help", "View help for a given command", null, false, HelpCommand.NewHelpCommand, new CommandArg("name", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("list", "View the list of commands", null, false, ListCommand.NewListCommand));
-        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard.", 
+        cs.AddCommand(new CommandDeclaration("save", "Saves current game. Also copies and pastes save file from clipboard. Also exports saves and working directory.", 
             "save: saves game at current position\n" +
             "save print: prints save file\n" +
             "save copy: copies save to clipboard\n" +
             "save paste: pastes save from clipboard\n" +
-            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt-saves.zip") + "\n" +
+            "save backup: zips all save files to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt_saves.zip") + "\n" +
             (OS.GetName() == "HTML5" ?
-                "save data: downloads working directory (except Worlds)" :
-                "save data: zips working directory to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt_data.zip")),
+                "save data: downloads working directory (with levels)" :
+                "save data: zips working directory (without levels) to " + OS.GetSystemDir(OS.SystemDir.Documents).PlusFile("yknytt_data.zip")) +
+                ". Unpack it to Documents/yknytt_data on your device to continue playing.",
             false, SaveCommand.NewSaveCommand, new CommandArg("subcmd", CommandArg.Type.StringArg, optional: true)));
         cs.AddCommand(new CommandDeclaration("pass", "Shows or loads a password",
             "pass: prints the current password\n" +
@@ -233,8 +234,9 @@ public static class ConsoleCommands
 
                 case "backup":
                     string dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
-                    string dest_zip = dest_path.PlusFile("yknytt-saves.zip");
+                    string dest_zip = dest_path.PlusFile("yknytt_saves.zip");
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
+                    if (System.IO.File.Exists(dest_zip) && OS.GetName() == "HTML5") { System.IO.File.Delete(dest_zip); }
                     if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
                     try
@@ -246,44 +248,38 @@ public static class ConsoleCommands
                         return $"Cannot create zip. Please check that you have access to {dest_path}." + 
                         (OS.GetName() == "Android" ? " Grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : "");
                     }
+                    if (OS.GetName() == "HTML5")
+                    {
+                        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_saves.zip");
+                    }
                     env.Console.AddMessage($"{dest_zip} was successfully created.");
                     break;
 
                 case "data":
                     dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
                     dest_zip = dest_path.PlusFile("yknytt_data.zip");
-                    string exclude_path = "Worlds";
                     
                     if (!new Directory().DirExists(dest_path)) { return $"Directory {dest_path} does not exist."; }
                     if (System.IO.File.Exists(dest_zip) && OS.GetName() == "HTML5") { System.IO.File.Delete(dest_zip); }
                     if (new File().FileExists(dest_zip)) { return $"{dest_zip} already exists."; }
 
-                    ZipArchive zip = null;
                     try
                     {
-                        zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create);
-                        foreach (var file in System.IO.Directory.GetFiles(GDKnyttDataStore.BaseDataDirectory, "*", System.IO.SearchOption.AllDirectories))
+                        if (OS.GetName() == "HTML5")
                         {
-                            var full_path = System.IO.Path.GetFullPath(file);
-                            var relative_path = full_path.Substring(GDKnyttDataStore.BaseDataDirectory.Length)
-                                                    .TrimStart(System.IO.Path.DirectorySeparatorChar);
-                            if (relative_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
-                            zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
+                            ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory, dest_zip);
+                            JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip");
+                        }
+                        else
+                        {
+                            CreateDataZipWithNoWorlds(dest_zip);
                         }
                     }
                     catch (Exception)
                     {
-                        return $"Cannot create zip. Please check that you have access to {dest_path}.";
-                    }
-                    finally
-                    {
-                        zip?.Dispose();
+                        return $"Cannot create zip. Maybe some file is locked, or you don't have access to {dest_path}.";
                     }
 
-                    if (OS.GetName() == "HTML5")
-                    {
-                        JavaScript.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip");
-                    }
                     env.Console.AddMessage($"{dest_zip} was successfully created.");
                     break;
 
@@ -291,6 +287,28 @@ public static class ConsoleCommands
                     return "Can't recognize your command";
             }
             return null;
+        }
+
+        private void CreateDataZipWithNoWorlds(string dest_zip)
+        {
+            string exclude_path = "Worlds";
+            ZipArchive zip = null;
+            try
+            {
+                zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create);
+                foreach (var file in System.IO.Directory.GetFiles(GDKnyttDataStore.BaseDataDirectory, "*", System.IO.SearchOption.AllDirectories))
+                {
+                    var full_path = System.IO.Path.GetFullPath(file);
+                    var relative_path = full_path.Substring(GDKnyttDataStore.BaseDataDirectory.Length)
+                                            .TrimStart(System.IO.Path.DirectorySeparatorChar);
+                    if (relative_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
+                    zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
+                }
+            }
+            finally
+            {
+                zip?.Dispose();
+            }
         }
     }
 

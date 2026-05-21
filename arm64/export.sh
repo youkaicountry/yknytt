@@ -1,11 +1,12 @@
 #!/bin/bash
+# Abridged version of instructions in https://docs.google.com/document/d/1gP1deupAZ0Gui_Rh0Bv3-efmi-TDItu04pMQYQuZNKc/edit?tab=t.v4s87snt5pdq
 
 # 1
 #~/apps/pck-explorer/GodotPCKExplorer.Console -e YKnytt-old.pck unpacked skip
 #cp unpacked/.mono/assemblies/Release/GodotSharp.dll unpacked/.mono/assemblies/Release/GodotSharp.pdb .
 
 # 2
-# Then create Linux export preset with release template = any, architecture = arm64, filters to export = knytt/worlds/*,arm64/override_arm64.cfg
+# Then create Linux export preset with release template = godot.frt.opt.mono, architecture = arm64, filters to export = knytt/worlds/*,override_arm64.cfg
 
 # 3
 rm -r unpacked
