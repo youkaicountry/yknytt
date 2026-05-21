@@ -109,7 +109,7 @@ public partial class ConsoleCommands : Node
         Info("Save loaded from clipboard. Use 'reboot' to apply.");
     }
 
-    [Cmd("save data", "Zip working directory (except Worlds) to Documents")]
+    [Cmd("save data", "Export working directory (with levels in web, without them otherwise)")]
     public void CmdSaveData()
     {
         bool web = OS.GetName() == "Web";
@@ -120,6 +120,31 @@ public partial class ConsoleCommands : Node
         if (System.IO.File.Exists(dest_zip) && web) { System.IO.File.Delete(dest_zip); }
         if (FileAccess.FileExists(dest_zip)) { Error($"{dest_zip} already exists."); return; }
 
+        try
+        {
+            if (web)
+            {
+                ZipFile.CreateFromDirectory(GDKnyttDataStore.BaseDataDirectory, dest_zip);
+                JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip");
+            }
+            else
+            {
+                createDataZipWithNoWorlds(dest_zip);
+            }
+        }
+        catch (Exception)
+        {
+            Error($"Cannot create zip. Maybe some file is locked, or you don't have access to {dest_path}.");
+            return;
+        }
+
+        Info($"{dest_zip} was successfully created. " +
+             "Unpack it to Documents/yknytt_data on your device to continue playing.");
+    }
+
+    private void createDataZipWithNoWorlds(string dest_zip)
+    {
+        const string exclude_path = "Worlds";
         ZipArchive zip = null;
         try
         {
@@ -130,22 +155,14 @@ public partial class ConsoleCommands : Node
                 var full_path = System.IO.Path.GetFullPath(file);
                 var relative_path = full_path.Substring(base_dir.Length)
                                              .TrimStart(System.IO.Path.DirectorySeparatorChar);
-                if (relative_path.StartsWith("Worlds" + System.IO.Path.DirectorySeparatorChar)) { continue; }
+                if (relative_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
                 zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
             }
-        }
-        catch (Exception)
-        {
-            Error($"Cannot create zip. Please check that you have access to {dest_path}.");
-            return;
         }
         finally
         {
             zip?.Dispose();
         }
-
-        if (web) { JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_data.zip"); }
-        Info($"{dest_zip} was successfully created.");
     }
 
     #endregion
