@@ -878,7 +878,7 @@ public class Juni : KinematicBody2D
 
         if (air_jump && jumps > 0)
         {
-            MoveAndCollide(new Godot.Vector2(0, DOUBLE_JUMP_BUMP_PX));
+            MoveAndCollide(new Godot.Vector2(DOUBLE_JUMP_BUMP_PX * velocity.x / velocity.y, DOUBLE_JUMP_BUMP_PX));
             doubleJumpEffect();
             if (sound) {
                 string sound_path = GDKnyttSettings.ClassicDoubleJumpSound ? "Audio/DoubleJumpPlayer2D" : "Audio/JumpPlayer2D";
