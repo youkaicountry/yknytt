@@ -96,7 +96,17 @@ public class Cutscene : Control
 
     public void _on_NextButton_pressed()
     {
-        ClickPlayer.Play();
+        var custom_sound = GDKnyttDataStore.KWorld.getWorldSound($"{GDKnyttDataStore.CutsceneName}/sound{current_scene+1}.ogg", loop: false) as AudioStream;
+        if (custom_sound == null)
+        {
+            ClickPlayer.Play();
+        }
+        else
+        {
+            var custom_player = GetNode<AudioStreamPlayer2D>("CustomPlayer2D");
+            custom_player.Stream = custom_sound;
+            custom_player.Play();
+        }
         if (!last_page) { changeScene(1); return; }
         endCutscene();
     }

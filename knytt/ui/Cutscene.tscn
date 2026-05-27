@@ -108,6 +108,9 @@ anims/FadeOut = SubResource( 1 )
 
 [node name="StandartSoundPlayer" parent="." instance=ExtResource( 7 )]
 
+[node name="CustomPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = "SFX"
+
 [node name="RateHTTPRequest" parent="." instance=ExtResource( 2 )]
 
 [connection signal="pressed" from="BackButton" to="." method="_on_PreviousButton_pressed"]

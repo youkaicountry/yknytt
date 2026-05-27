@@ -159,11 +159,14 @@ public class Shift : Switch
 
         if (shift.StopMusic)
         {
-            if (!relative_area.isZero())
+            if (GDArea.Area.Song != game.MusicChannel.TrackNumber)
             {
                 game.MusicChannel.playQueued();
             }
-            game.MusicChannel.fadeIn(3);
+            else
+            {
+                game.MusicChannel.fadeIn(3);
+            }
         }
 
         if (shift.Character != null)
