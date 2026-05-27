@@ -107,6 +107,9 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MusicPlayer"]
 anims/FadeOut = SubResource("1")
 
+[node name="CustomPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = "SFX"
+
 [node name="StandartSoundPlayer" parent="." instance=ExtResource("7")]
 
 [node name="RateHttpRequest" parent="." instance=ExtResource("2")]
