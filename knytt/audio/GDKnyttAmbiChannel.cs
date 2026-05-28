@@ -65,6 +65,12 @@ public class GDKnyttAmbiChannel : Node
         on_track1 = !on_track1;
     }
 
+    public void stopFade()
+    {
+        track1.stopFade();
+        track2.stopFade();
+    }
+    
     public override void _PhysicsProcess(float delta)
     {
         if (has_custom_volume)

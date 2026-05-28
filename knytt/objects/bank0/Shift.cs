@@ -157,9 +157,9 @@ public class Shift : Switch
             juni.playSound(sound);
         }
 
-        if (shift.StopMusic)
+        if (shift.StopMusic || (!relative_area.isZero() && shift.Cutscene != null))
         {
-            if (GDArea.Area.Song != game.MusicChannel.TrackNumber)
+            if (juni.GDArea.Area.Song != game.MusicChannel.TrackNumber)
             {
                 game.MusicChannel.playQueued();
             }
@@ -167,6 +167,12 @@ public class Shift : Switch
             {
                 game.MusicChannel.fadeIn(3);
             }
+        }
+        
+        if (!relative_area.isZero() && shift.Cutscene != null)
+        {
+            game.AmbianceChannel1.stopFade();
+            game.AmbianceChannel2.stopFade();
         }
 
         if (shift.Character != null)
