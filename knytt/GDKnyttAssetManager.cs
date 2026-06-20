@@ -472,7 +472,7 @@ public partial class GDKnyttAssetManager
             var texture = loadInternalTexture2D($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
             // Godot 4: ResourceSaver.Save signature is (resource, path, flags)
-            GD.PrintErr(ResourceSaver.Save(tileset, GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/qTileset{i}.png.res"), ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save(tileset, GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/Tileset{i}.png.res"), ResourceSaver.SaverFlags.Compress));
         }
     }
 }

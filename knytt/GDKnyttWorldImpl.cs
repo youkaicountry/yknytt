@@ -133,6 +133,22 @@ public partial class GDKnyttWorldImpl : KnyttWorld
 
     public void removeOldTilesets()
     {
-        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName), prefix: "Tileset");
+        string cache_dir = GDKnyttDataStore.BaseDataDirectory.PathJoin("Cache").PathJoin(WorldDirectoryName);
+        removeDirectory(cache_dir, prefix: "Tileset");
+
+        // There was a bug which compiled and saved default tilesets in cache directory
+        using var dir = DirAccess.Open(cache_dir);
+        if (dir == null) { return; }
+        dir.ListDirBegin();
+        for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
+        {
+            if (filename == "." || filename == "..") { continue; }
+            if (filename.StartsWith("qTileset"))
+            {
+                string tileset_name = filename.Substring(1, filename.Length - 5);
+                if (!worldFileExists($"Tilesets/{tileset_name}.png")) { dir.Remove(filename); }
+            }
+        }
+        dir.ListDirEnd();
     }
 }
