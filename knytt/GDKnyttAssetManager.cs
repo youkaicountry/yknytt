@@ -444,7 +444,7 @@ public class GDKnyttAssetManager
             KnyttLogger.Info($"Compiling tileset #{i}");
             var texture = loadInternalTexture($"res://knytt/data/Tilesets/Tileset{i}.png");
             var tileset = makeTileset(texture);
-            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PlusFile($"tilesets/qTileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
+            GD.PrintErr(ResourceSaver.Save(GDKnyttDataStore.BaseDataDirectory.PlusFile($"tilesets/Tileset{i}.png.res"), tileset, ResourceSaver.SaverFlags.Compress));
         }
     }
 }

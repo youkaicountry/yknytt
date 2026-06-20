@@ -56,7 +56,7 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture(string filepath)
     {
-        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/q{filepath}.res") ??
+        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
             GDKnyttAssetManager.loadInternalTexture("res://knytt/data/" + filepath);
     }
 
@@ -139,6 +139,20 @@ public class GDKnyttWorldImpl : KnyttWorld
 
     public void removeOldTilesets()
     {
-        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName), prefix: "Tileset");
+        string cache_dir = GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName);
+        removeDirectory(cache_dir, prefix: "Tileset");
+
+        // There was a bug which compiled and saved default tilesets in cache directory
+        var dir = new Directory();
+        dir.Open(cache_dir);
+        dir.ListDirBegin(skipNavigational: true);
+        for (string filename = dir.GetNext(); filename != ""; filename = dir.GetNext())
+        {
+            if (filename.StartsWith("qTileset"))
+            {
+                string tileset_name = filename.Substring(1, filename.Length - 5);
+                if (!worldFileExists($"Tilesets/{tileset_name}.png")) { dir.Remove(filename); }
+            }
+        }
     }
 }
