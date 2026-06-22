@@ -164,14 +164,14 @@ public partial class GDKnyttAssetManager
         return loadTextFile(loadFile(path));
     }
 
-    public static byte[] loadFile(string path)
+    public static byte[] loadFile(string path, int max_len = -1)
     {
         // Handle res:// paths for bundled resources
         if (path.StartsWith("res://"))
         {
             using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
             if (f == null) { return null; }
-            return f.GetBuffer((long)f.GetLength());
+            return readBuffer(f, max_len);
         }
         else
         {
@@ -179,8 +179,14 @@ public partial class GDKnyttAssetManager
             if (!FileAccess.FileExists(path)) { return null; }
             using var f = FileAccess.Open(path, FileAccess.ModeFlags.Read);
             if (f == null) { return null; }
-            return f.GetBuffer((long)f.GetLength());
+            return readBuffer(f, max_len);
         }
+    }
+
+    private static byte[] readBuffer(FileAccess f, int max_len)
+    {
+        long len = (long)f.GetLength();
+        return f.GetBuffer(max_len < 0 ? len : Math.Min(max_len, len));
     }
 
     public static AudioStream loadOGG(byte[] buffer, bool loop = false)
