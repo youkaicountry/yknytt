@@ -174,7 +174,11 @@ public class CustomObject : GDKnyttBaseObject
         if (!has_alpha_animation && !has_replace_animation)
         {
             if (info.image == null) { return false; }
-            var image_texture = GDArea.GDWorld.KWorld.getWorldTexture("Custom Objects/" + info.image) as Texture;
+
+            string image_path = "Custom Objects/" + info.image;
+            var image_texture = 
+                GDArea.GDWorld.KWorld.loadOverflownTexture(image_path, info.tile_width, info.tile_height) ??
+                GDArea.GDWorld.KWorld.getWorldTexture(image_path) as Texture;
 
             // If texture wasn't loaded, don't try to load it every time
             if (image_texture == null || image_texture.GetHeight() == 0 || image_texture.GetWidth() == 0)

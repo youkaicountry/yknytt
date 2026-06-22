@@ -64,6 +64,7 @@ public class Juni : KinematicBody2D
     SWIM_EXIT_BOOST = 2.1f,
     SMOOTHING_PX = 0.99f,                       // Tilesets simplification when turning into polygons
     SMOOTHING_WIDTH = 2.5f,                     // Holes in the surface smaller than this will be smoothed
+    OVERFLOWN_CO_LIMIT_PX = 12_000_000,         // Custom objects wider/taller than 16384 px but smaller than this value will be repacked due to hardware limitations
     STEEP_SLOPES = 1,                           // Make 3-4px obstacles a slope (off in the original)
     GROUND_CONTACT_PX = 5,                      // Juni will remain attached to the surface if ground is X px down
     PUSH_OUT_PX = 1,                            // Juni will be pushed out of collision by X px every frame if she is in a contact before movement

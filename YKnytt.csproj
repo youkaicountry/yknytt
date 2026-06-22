@@ -229,6 +229,7 @@
     <Compile Include="knytt\objects\bank1\Waterfall.cs" />
     <Compile Include="knytt\objects\bank7\Raindrop.cs" />
     <Compile Include="knytt\objects\GDKnyttBaseObject.cs" />
+    <Compile Include="knytt\objects\bank255\MiniPng.cs" />
     <Compile Include="knytt\GDAreaLayer.cs" />
     <Compile Include="knytt\GDAreaTiles.cs" />
     <Compile Include="knytt\GDKnyttArea.cs" />

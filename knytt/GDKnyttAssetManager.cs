@@ -159,24 +159,25 @@ public class GDKnyttAssetManager
         return loadTextFile(loadFile(path));
     }
 
-    public static byte[] loadFile(string path)
+    public static byte[] loadFile(string path, int max_len = -1)
     {
         var f = new File();
         
         // Handle res:// paths for bundled resources
         if (path.StartsWith("res://"))
         {
-            var error = f.Open(path, File.ModeFlags.Read);
-            if (error != Error.Ok) { return null; }
+            if (f.Open(path, File.ModeFlags.Read) != Error.Ok) { return null; }
         }
         else
         {
             // Handle regular filesystem paths
             if (!f.FileExists(path)) { return null; }
-            f.Open(path, File.ModeFlags.Read); // case insensitive search for Unix FSs is impossible now
+            // (case insensitive search for Unix FSs is impossible now)
+            if (f.Open(path, File.ModeFlags.Read) != Error.Ok) { return null; }
         }
         
-        var buffer = f.GetBuffer((int)f.GetLen());
+        int read_len = max_len < 0 ? (int)f.GetLen() : Math.Min(max_len, (int)f.GetLen());
+        var buffer = f.GetBuffer(read_len);
         f.Close();
         return buffer;
     }
