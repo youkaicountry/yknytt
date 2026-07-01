@@ -569,7 +569,7 @@ public partial class Juni : CharacterBody2D
             Grounded = IsOnFloor() || MoveAndCollide(Godot.Vector2.Down, testOnly: true) != null;
         }
         
-        if (GDKnyttSettings.SideScroll) { Game.adjustCenteredScroll(); }
+        if (GDKnyttSettings.SideScroll) { Game.Camera.adjustScroll(delta, GDKnyttCamera.Place.SameArea); }
     }
 
     private void processFlyMode(float delta)
@@ -582,7 +582,7 @@ public partial class Juni : CharacterBody2D
         if (Input.IsActionPressed("right")) { dir.X += 1f; }
 
         Translate(dir.Normalized() * DEBUG_FLY_SPEED * delta / GDKnyttDataStore.CurrentSpeed);
-        if (GDKnyttSettings.SideScroll) { Game.adjustCenteredScroll(); }
+        if (GDKnyttSettings.SideScroll) { Game.Camera.adjustScroll(delta, GDKnyttCamera.Place.SameArea); }
     }
 
     private void handleBumps(float delta)

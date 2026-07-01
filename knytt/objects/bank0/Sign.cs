@@ -72,7 +72,7 @@ public partial class Sign : GDKnyttBaseObject
         float right_limit = 600;
         if (GDKnyttSettings.SideScroll && !initial) // camera is not ready at start
         {
-            float camera_in_area = Juni.Game.Camera3D.GlobalPosition.X - GDArea.GlobalPosition.X;
+            float camera_in_area = Juni.Game.Camera.GlobalPosition.X - GDArea.GlobalPosition.X;
             float x_viewport = GetViewport().GetVisibleRect().Size.X * TouchSettings.ViewportNow;
             left_limit = camera_in_area - x_viewport / 2;
             right_limit = camera_in_area + x_viewport / 2;

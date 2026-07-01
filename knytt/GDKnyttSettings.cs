@@ -80,18 +80,12 @@ public partial class GDKnyttSettings : Node
         var game = tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame");
         if (game != null)
         {
-            game.GDWorld.Areas.BorderSize =
-                SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
+            game.GDWorld.Areas.BorderSize = SeamlessScroll ? new KnyttPoint(1, 0) : new KnyttPoint(0, 0);
 
             game.setupCamera();
 
-            if (SideScroll)
+            if (!SideScroll)
             {
-                game.adjustCenteredScroll(initial: true);
-            }
-            else
-            {
-                game.Camera3D.jumpTo(game.CurrentArea.GlobalCenter);
                 foreach (var area in game.GDWorld.Areas.Areas.Values)
                 {
                     area.Background.Position = Vector2.Zero;

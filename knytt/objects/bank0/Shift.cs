@@ -109,7 +109,7 @@ public partial class Shift : Switch
                 relative_area += GDArea.Area.Warp.getWarpCoords(GDArea.Area.Position + shift.AreaCorrection, GDArea.Area.Position);
             }
 
-            game.changeAreaDelta(relative_area, true);
+            game.changeAreaDelta(relative_area);
         }
 
         KnyttLogger.Debug($"Shift {shift.RelativeArea} {shift.RelativePosition} / {shift.AbsoluteArea} {shift.AbsolutePosition}");
@@ -131,6 +131,10 @@ public partial class Shift : Switch
             jgp.Y += relative_pos.Y * GDKnyttAssetManager.TILE_HEIGHT;
             juni.GlobalPosition = jgp;
         }
+
+        game.translateCamera(shift.RelativePosition.isZero() ? GDKnyttCamera.Place.Preserve : 
+                shift.RelativeArea.isZero() && Mathf.Abs(shift.RelativePosition.X) <= 7 ? GDKnyttCamera.Place.Slide :
+                GDKnyttCamera.Place.Reset);
 
         if (!(shift.RelativeArea.isZero() && shift.RelativePosition.isZero()))
         {

@@ -366,8 +366,8 @@ public partial class ConsoleCommands : Node
         else
             shift.RelativePosition = KnyttPoint.Zero;
 
-        if (!shift.RelativeArea.isZero())
-            Game.changeAreaDelta(shift.RelativeArea, force_jump: true);
+        if (!shift.RelativeArea.isZero()) { Game.changeAreaDelta(shift.RelativeArea); }
+        Game.translateCamera();
         Juni.moveToPosition(Game.CurrentArea, shift.AbsolutePosition);
         Game.sendCheat();
 
