@@ -1,6 +1,5 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Texture2D" path="res://knytt/ui/img/dialogue.png" id="1"]
 [ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="2"]
 [ext_resource type="Script" path="res://knytt/objects/bank0/Sign.cs" id="3"]
 [ext_resource type="Texture2D" path="res://knytt/ui/img/down_arrow.png" id="4"]
@@ -24,6 +23,28 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="StyleBoxFlat" id="3"]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.878431, 0.878431, 0.878431, 0.878431 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 10
+expand_margin_left = 9.0
+expand_margin_right = 9.0
+expand_margin_top = 4.0
+expand_margin_bottom = 6.0
+anti_aliasing = false
 
 [node name="Sign" type="Node2D"]
 z_index = 17
@@ -50,19 +71,15 @@ theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 theme_override_fonts/font = ExtResource("2")
 theme_override_font_sizes/font_size = 12
 autowrap_mode = 2
+theme_override_styles/normal = SubResource("3")
 
-[node name="SignRect" type="NinePatchRect" parent="Label"]
+[node name="SignRect" type="Control" parent="Label"]
 show_behind_parent = true
 anchor_bottom = 1.0
 offset_left = -9.0
 offset_top = -4.0
 offset_right = 166.0
 offset_bottom = 6.0
-texture = ExtResource("1")
-patch_margin_left = 11
-patch_margin_top = 11
-patch_margin_right = 8
-patch_margin_bottom = 10
 
 [node name="DownArrow" type="TextureRect" parent="Label/SignRect"]
 anchor_left = 1.0

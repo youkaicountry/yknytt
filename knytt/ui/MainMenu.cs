@@ -24,8 +24,10 @@ public partial class MainMenu : BasicScreen
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "Linux") { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
+        (string file, int _) = getLastPlayed();
+        (string last_file, int _) = getLastPlayed();
         GetNode<Button>("ButtonRow/TutorialButton").Text =
-            FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")) ? "Continue" : "Tutorial";
+            last_file != null && (FileAccess.FileExists(last_file) || DirAccess.DirExistsAbsolute(last_file)) ? "Continue" : "Tutorial";
         GDKnyttDataStore.setTitle(null);
     }
 
@@ -35,6 +37,19 @@ public partial class MainMenu : BasicScreen
         GetNode<Button>("ButtonRow/DownloadButton").Disabled = 
             GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline &&
             !FileAccess.FileExists(LevelSelection.getLevelsFileDir().PathJoin("levels.json"));
+    }
+
+
+    private (string, int) getLastPlayed()
+    {
+        string ini = GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini");
+        if (!FileAccess.FileExists(ini)) { return (null, 0); }
+        using var f = FileAccess.Open(ini, FileAccess.ModeFlags.Read);
+        if (f == null) { return (null, 0); }
+        string path = f.GetAsText();
+        string file = path.Substring(0, path.LastIndexOf('/'));
+        int slot = int.Parse(path.Substring(file.Length + 1));
+        return (file, slot);
     }
 
     public override void _Notification(int what)
@@ -47,7 +62,7 @@ public partial class MainMenu : BasicScreen
             ActiveScreen.goBack();
         }
     }
-
+    
     public const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
     public const string TOUCH_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Touch Tutorial.knytt.bin";
     public const string WEB_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Original Tutorial.knytt.bin";
@@ -57,23 +72,14 @@ public partial class MainMenu : BasicScreen
     {
         ClickPlayer.Play();
         Task task = null;
-        bool load_last_played = false;
-        if (FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini")))
-        {
-            using var f = FileAccess.Open(GDKnyttDataStore.BaseDataDirectory.PathJoin("lastplayed.ini"), FileAccess.ModeFlags.Read);
-            string path = f.GetAsText();
-            string file = path.Substring(0, path.LastIndexOf('/'));
-            int slot = int.Parse(path.Substring(file.Length + 1));
+        (string file, int slot) = getLastPlayed();
 
-            if (FileAccess.FileExists(file) || DirAccess.DirExistsAbsolute(file))
-            {
-                load_last_played = true;
-                if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
-                else { task = Task.Run(() => loadLevel(file, slot)); }                
-            }
+        if (file != null && (FileAccess.FileExists(file) || DirAccess.DirExistsAbsolute(file)))
+        {
+            if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
+            else { task = Task.Run(() => loadLevel(file, slot)); }
         }
-        
-        if (!load_last_played)
+        else
         {
             if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
             else if (OS.GetName() == "Unix") { task = Task.Run(() => loadLevel(HANDHELD_TUTORIAL_PATH, 0)); }

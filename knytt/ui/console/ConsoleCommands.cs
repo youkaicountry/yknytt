@@ -145,10 +145,8 @@ public partial class ConsoleCommands : Node
     private void createDataZipWithNoWorlds(string dest_zip)
     {
         const string exclude_path = "Worlds";
-        ZipArchive zip = null;
-        try
+        using (ZipArchive zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create))
         {
-            zip = ZipFile.Open(dest_zip, ZipArchiveMode.Create);
             var base_dir = GDKnyttDataStore.BaseDataDirectory;
             foreach (var file in System.IO.Directory.GetFiles(base_dir, "*", System.IO.SearchOption.AllDirectories))
             {
@@ -158,10 +156,6 @@ public partial class ConsoleCommands : Node
                 if (relative_path.StartsWith(exclude_path + System.IO.Path.DirectorySeparatorChar)) { continue; }
                 zip.CreateEntryFromFile(full_path, relative_path, CompressionLevel.Optimal);
             }
-        }
-        finally
-        {
-            zip?.Dispose();
         }
     }
 
