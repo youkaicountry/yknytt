@@ -24,8 +24,9 @@ public class MainMenu : BasicScreen
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "Unix") { OS.WindowSize = OS.GetScreenSize(); OS.WindowBorderless = OS.WindowMaximized = true; }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
+        (string file, int _) = getLastPlayed();
         GetNode<Button>("ButtonRow/TutorialButton").Text =
-            new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini")) ? "Continue" : "Tutorial";
+             file != null && (new File().FileExists(file) || new Directory().DirExists(file)) ? "Continue" : "Tutorial";
         GDKnyttDataStore.setTitle(null);
     }
 
@@ -47,6 +48,18 @@ public class MainMenu : BasicScreen
             ActiveScreen.goBack();
         }
     }
+    
+    private (string, int) getLastPlayed()
+    {
+        if (!new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"))) { return (null, 0); }
+        var f = new File();
+        f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"), File.ModeFlags.Read);
+        string path = f.GetAsText();
+        f.Close();
+        string file = path.Substring(0, path.LastIndexOf('/'));
+        int slot = int.Parse(path.Substring(file.Length + 1));
+        return (file, slot);
+    }
 
     public const string TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Tutorial.knytt.bin";
     public const string TOUCH_TUTORIAL_PATH = "res://knytt/worlds/Nifflas - Touch Tutorial.knytt.bin";
@@ -57,25 +70,14 @@ public class MainMenu : BasicScreen
     {
         ClickPlayer.Play();
         Task task = null;
-        bool load_last_played = false;
-        if (new File().FileExists(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini")))
-        {
-            var f = new File();
-            f.Open(GDKnyttDataStore.BaseDataDirectory.PlusFile("lastplayed.ini"), File.ModeFlags.Read);
-            string path = f.GetAsText();
-            f.Close();
-            string file = path.Substring(0, path.LastIndexOf('/'));
-            int slot = int.Parse(path.Substring(file.Length + 1));
+        (string file, int slot) = getLastPlayed();
 
-            if (new File().FileExists(file) || new Directory().DirExists(file))
-            {
-                load_last_played = true;
-                if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
-                else { task = Task.Run(() => loadLevel(file, slot)); }                
-            }
+        if (file != null && (new File().FileExists(file) || new Directory().DirExists(file)))
+        {
+            if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
+            else { task = Task.Run(() => loadLevel(file, slot)); }                
         }
-        
-        if (!load_last_played)
+        else
         {
             if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
             else if (OS.GetName() == "Unix") { task = Task.Run(() => loadLevel(HANDHELD_TUTORIAL_PATH, 0)); }

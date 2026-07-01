@@ -98,13 +98,12 @@ public class GDKnyttWorldImpl : KnyttWorld
         //repacked.SavePng(cached_path);
 
         var texture = new ImageTexture();
-        texture.CreateFromImage(repacked, (int)Texture.FlagsEnum.Repeat);
+        texture.CreateFromImage(repacked, 0);
         return texture;
     }
     
     private static Image repackToFit(byte[] png_bytes, int size_limit, int frame_width, int frame_height)
     {
-        // No other checks here, all was done before
         if (png_bytes == null || png_bytes.Length == 0) { return null; }
 
         if (!MiniPng.TryDecode(png_bytes, out int source_width, out int source_height, out byte[] src_rgba)) { return null; }
@@ -113,23 +112,13 @@ public class GDKnyttWorldImpl : KnyttWorld
         int src_rows = source_height / frame_height;
 
         int total_frames = src_cols * src_rows;
-        bool width_overflow = source_width > size_limit; // false means height_overflow
 
         int max_cols = size_limit / frame_width;
         int max_rows = size_limit / frame_height;
 
-        int new_cols, new_rows;
-
-        if (width_overflow)
-        {
-            new_cols = Math.Min(max_cols, total_frames);
-            new_rows = (total_frames + new_cols - 1) / new_cols;
-        }
-        else
-        {
-            new_rows = Math.Min(max_rows, total_frames);
-            new_cols = (total_frames + new_rows - 1) / new_rows;
-        }
+        int new_cols = Math.Min(max_cols, total_frames);
+        int new_rows = (total_frames + new_cols - 1) / new_cols;
+        new_cols = (total_frames + new_rows - 1) / new_rows;
 
         if (new_cols > max_cols || new_rows > max_rows)
             return null;
@@ -144,47 +133,22 @@ public class GDKnyttWorldImpl : KnyttWorld
         int index = 0;
         while (index < total_frames)
         {
-            int run_len;
+            int src_col = index % src_cols;
+            int src_row = index / src_cols;
+            int dst_col = index % new_cols;
+            int dst_row = index / new_cols;
 
-            if (width_overflow)
+            int run_len = Math.Min(src_cols - src_col, new_cols - dst_col);
+
+            int copy_w = run_len * frame_width * 4;
+            int src_x = src_col * frame_width * 4;
+            int dst_x = dst_col * frame_width * 4;
+
+            for (int local_y = 0; local_y < frame_height; local_y++)
             {
-                int src_col = index % src_cols;
-                int src_row = index / src_cols;
-                int dst_col = index % new_cols;
-                int dst_row = index / new_cols;
-
-                run_len = Math.Min(src_cols - src_col, new_cols - dst_col);
-
-                int copy_w = run_len * frame_width * 4;
-                int src_x = src_col * frame_width * 4;
-                int dst_x = dst_col * frame_width * 4;
-
-                for (int local_y = 0; local_y < frame_height; local_y++)
-                {
-                    int src_off = (src_row * frame_height + local_y) * src_stride + src_x;
-                    int dst_off = (dst_row * frame_height + local_y) * dst_stride + dst_x;
-                    Array.Copy(src_rgba, src_off, dst_rgba, dst_off, copy_w);
-                }
-            }
-            else
-            {
-                int src_row = index % src_rows;
-                int src_col = index / src_rows;
-                int dst_row = index % new_rows;
-                int dst_col = index / new_rows;
-
-                run_len = Math.Min(src_rows - src_row, new_rows - dst_row);
-
-                int copy_w = frame_width * 4;
-                int src_x = src_col * frame_width * 4;
-                int dst_x = dst_col * frame_width * 4;
-
-                for (int local_y = 0; local_y < run_len * frame_height; local_y++)
-                {
-                    int src_off = (src_row * frame_height + local_y) * src_stride + src_x;
-                    int dst_off = (dst_row * frame_height + local_y) * dst_stride + dst_x;
-                    Array.Copy(src_rgba, src_off, dst_rgba, dst_off, copy_w);
-                }
+                int src_off = (src_row * frame_height + local_y) * src_stride + src_x;
+                int dst_off = (dst_row * frame_height + local_y) * dst_stride + dst_x;
+                Array.Copy(src_rgba, src_off, dst_rgba, dst_off, copy_w);
             }
 
             index += run_len;

@@ -52,6 +52,7 @@ public class Sign : GDKnyttBaseObject
         for (int i = 22; i < msg.Length; i += 22)
         {
             if (msg[i-1] == ' ' && msg[i-2] == ' ') { msg = msg.Remove(i - 1, 1).Insert(i - 1, "\n"); }
+            if (msg[i  ] == ' ' && msg[i-1] == ' ') { msg = msg.Remove(i - 1, 1).Insert(i - 1, "\n"); }
         }
         return msg;
     }
