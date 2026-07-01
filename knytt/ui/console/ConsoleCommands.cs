@@ -755,8 +755,9 @@ public static class ConsoleCommands
             if (x_pos != null && y_pos != null) { shift.FormattedPosition = new KnyttPoint(x_pos.Value, y_pos.Value); }
             else { shift.RelativePosition = KnyttPoint.Zero; }
 
-            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
+            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea); }
             game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            game.translateCamera();
             game.sendCheat();
             return null;
         }
@@ -901,8 +902,9 @@ public static class ConsoleCommands
             shift.AbsoluteTarget = true;
             shift.FormattedArea = area_kp;
             shift.FormattedPosition = pos_kp;
-            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea, true); }
+            if (!shift.RelativeArea.isZero()) { game.changeAreaDelta(shift.RelativeArea); }
             game.Juni.moveToPosition(game.CurrentArea, shift.AbsolutePosition);
+            game.translateCamera();
             return null;
         }
     }

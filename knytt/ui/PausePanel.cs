@@ -82,6 +82,7 @@ public class PausePanel : Control
         RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         in_settings = false;
         GDKnyttSettings.setupViewport(for_ui: false);
+        GetNode<GDKnyttGame>("../../..").translateCamera();
     }
 
     public void _on_QuitButton_pressed()
