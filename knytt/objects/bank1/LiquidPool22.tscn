@@ -1,18 +1,61 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=42 format=3]
 
 [ext_resource type="PackedScene" path="res://knytt/objects/bank1/LiquidPoolDeadly.tscn" id="1"]
-[ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/Halo2.png" id="2"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/halo22.png" id="2"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-22.png" id="3"]
+
+[sub_resource type="CanvasItemMaterial" id="47"]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id="37"]
+atlas = ExtResource("2")
+region = Rect2( 0, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="38"]
+atlas = ExtResource("2")
+region = Rect2( 24, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="39"]
+atlas = ExtResource("2")
+region = Rect2( 48, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="40"]
+atlas = ExtResource("2")
+region = Rect2( 72, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="41"]
+atlas = ExtResource("2")
+region = Rect2( 96, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="42"]
+atlas = ExtResource("2")
+region = Rect2( 120, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="43"]
+atlas = ExtResource("2")
+region = Rect2( 144, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="44"]
+atlas = ExtResource("2")
+region = Rect2( 168, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="45"]
+atlas = ExtResource("2")
+region = Rect2( 192, 0, 24, 72 )
+
+[sub_resource type="AtlasTexture" id="46"]
+atlas = ExtResource("2")
+region = Rect2( 216, 0, 24, 72 )
 
 [sub_resource type="RectangleShape2D" id="12"]
 size = Vector2(24, 6)
 
 [sub_resource type="SpriteFrames" id="11"]
 animations = [ {
-"frames": [{"duration": 1.0, "texture": ExtResource("2")}],
+"frames": [{"duration": 1.0, "texture": SubResource("37")}, {"duration": 1.0, "texture": SubResource("38")}, {"duration": 1.0, "texture": SubResource("39")}, {"duration": 1.0, "texture": SubResource("40")}, {"duration": 1.0, "texture": SubResource("41")}, {"duration": 1.0, "texture": SubResource("42")}, {"duration": 1.0, "texture": SubResource("43")}, {"duration": 1.0, "texture": SubResource("44")}, {"duration": 1.0, "texture": SubResource("45")}, {"duration": 1.0, "texture": SubResource("46")}],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
 } ]
 
 [sub_resource type="AtlasTexture" id="13"]
@@ -198,8 +241,8 @@ position = Vector2( 12, 21 )
 shape = SubResource("12")
 
 [node name="Halo" type="AnimatedSprite2D" parent="." index="1"]
-modulate = Color( 1, 1, 1, 0.25098 )
-position = Vector2( 0, -72 )
+material = SubResource("47")
+position = Vector2( 0, -48 )
 sprite_frames = SubResource("11")
 centered = false
 

@@ -2,16 +2,15 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d08rk3h0rp0os"
-path="res://.godot/imported/Halo1.png-039fb7a870a008f912d5b089c5ad796f.ctex"
+path="res://.godot/imported/halo10.png-fe9835655dbadca9cd04ae66df13e157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/bank1/img/Halo1.png"
-dest_files=["res://.godot/imported/Halo1.png-039fb7a870a008f912d5b089c5ad796f.ctex"]
+source_file="res://knytt/objects/bank1/img/halo10.png"
+dest_files=["res://.godot/imported/halo10.png-fe9835655dbadca9cd04ae66df13e157.ctex"]
 
 [params]
 

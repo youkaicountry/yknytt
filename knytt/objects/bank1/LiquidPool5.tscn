@@ -1,8 +1,11 @@
-[gd_scene load_steps=46 format=3]
+[gd_scene load_steps=47 format=3]
 
 [ext_resource type="PackedScene" path="res://knytt/objects/bank1/LiquidPoolDeadly.tscn" id="1"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-5.png" id="2"]
-[ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/Halo0.png" id="3"]
+[ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/halo5.png" id="3"]
+
+[sub_resource type="CanvasItemMaterial" id="82"]
+blend_mode = 1
 
 [sub_resource type="RectangleShape2D" id="42"]
 size = Vector2(24, 12)
@@ -303,7 +306,7 @@ position = Vector2( 12, 18 )
 shape = SubResource("42")
 
 [node name="Halo" type="AnimatedSprite2D" parent="." index="1"]
-modulate = Color( 1, 1, 1, 0.25098 )
+material = SubResource("82")
 position = Vector2( 0, -72 )
 sprite_frames = SubResource("1")
 centered = false

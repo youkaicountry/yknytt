@@ -1,11 +1,10 @@
-[gd_scene load_steps=104 format=3]
+[gd_scene load_steps=82 format=3]
 
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-3.png" id="1"]
 [ext_resource type="Script" path="res://knytt/objects/bank1/Waterfall.cs" id="2"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-4.png" id="3"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-15.png" id="4"]
 [ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-20.png" id="5"]
-[ext_resource type="Texture2D" path="res://knytt/objects/bank1/img/1-23 Fake Add.png" id="6"]
 
 [sub_resource type="AtlasTexture" id="134"]
 atlas = ExtResource("4")
@@ -161,90 +160,6 @@ region = Rect2( 120, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id="172"]
 atlas = ExtResource("5")
-region = Rect2( 144, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="173"]
-atlas = ExtResource("6")
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="174"]
-atlas = ExtResource("6")
-region = Rect2( 24, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="175"]
-atlas = ExtResource("6")
-region = Rect2( 48, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="176"]
-atlas = ExtResource("6")
-region = Rect2( 72, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="177"]
-atlas = ExtResource("6")
-region = Rect2( 96, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="178"]
-atlas = ExtResource("6")
-region = Rect2( 120, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="179"]
-atlas = ExtResource("6")
-region = Rect2( 144, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="180"]
-atlas = ExtResource("6")
-region = Rect2( 0, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="181"]
-atlas = ExtResource("6")
-region = Rect2( 24, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="182"]
-atlas = ExtResource("6")
-region = Rect2( 48, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="183"]
-atlas = ExtResource("6")
-region = Rect2( 72, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="184"]
-atlas = ExtResource("6")
-region = Rect2( 96, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="185"]
-atlas = ExtResource("6")
-region = Rect2( 120, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="186"]
-atlas = ExtResource("6")
-region = Rect2( 144, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="187"]
-atlas = ExtResource("6")
-region = Rect2( 0, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="188"]
-atlas = ExtResource("6")
-region = Rect2( 24, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="189"]
-atlas = ExtResource("6")
-region = Rect2( 48, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="190"]
-atlas = ExtResource("6")
-region = Rect2( 72, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="191"]
-atlas = ExtResource("6")
-region = Rect2( 96, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="192"]
-atlas = ExtResource("6")
-region = Rect2( 120, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id="193"]
-atlas = ExtResource("6")
 region = Rect2( 144, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id="98"]
@@ -450,7 +365,7 @@ animations = [ {
 }],
 "loop": true,
 "name": &"Waterfall15",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -518,75 +433,7 @@ animations = [ {
 }],
 "loop": true,
 "name": &"Waterfall20",
-"speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("173")
-}, {
-"duration": 1.0,
-"texture": SubResource("174")
-}, {
-"duration": 1.0,
-"texture": SubResource("175")
-}, {
-"duration": 1.0,
-"texture": SubResource("176")
-}, {
-"duration": 1.0,
-"texture": SubResource("177")
-}, {
-"duration": 1.0,
-"texture": SubResource("178")
-}, {
-"duration": 1.0,
-"texture": SubResource("179")
-}, {
-"duration": 1.0,
-"texture": SubResource("180")
-}, {
-"duration": 1.0,
-"texture": SubResource("181")
-}, {
-"duration": 1.0,
-"texture": SubResource("182")
-}, {
-"duration": 1.0,
-"texture": SubResource("183")
-}, {
-"duration": 1.0,
-"texture": SubResource("184")
-}, {
-"duration": 1.0,
-"texture": SubResource("185")
-}, {
-"duration": 1.0,
-"texture": SubResource("186")
-}, {
-"duration": 1.0,
-"texture": SubResource("187")
-}, {
-"duration": 1.0,
-"texture": SubResource("188")
-}, {
-"duration": 1.0,
-"texture": SubResource("189")
-}, {
-"duration": 1.0,
-"texture": SubResource("190")
-}, {
-"duration": 1.0,
-"texture": SubResource("191")
-}, {
-"duration": 1.0,
-"texture": SubResource("192")
-}, {
-"duration": 1.0,
-"texture": SubResource("193")
-}],
-"loop": true,
-"name": &"Waterfall23",
-"speed": 20.0
+"speed": 35.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -645,7 +492,7 @@ animations = [ {
 }],
 "loop": true,
 "name": &"Waterfall3",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -704,14 +551,13 @@ animations = [ {
 }],
 "loop": true,
 "name": &"Waterfall4",
-"speed": 20.0
+"speed": 25.0
 } ]
 
 [node name="Waterfall" type="Node2D"]
 script = ExtResource("2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color( 1, 1, 1, 0.611765 )
 sprite_frames = SubResource("19")
-animation = &"Waterfall23"
+animation = &"Waterfall15"
 centered = false

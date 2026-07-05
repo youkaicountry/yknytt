@@ -2,16 +2,15 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wknanqig2bkn"
-path="res://.godot/imported/Halo0.png-686a0e1096f253fe4d936f0364501259.ctex"
+path="res://.godot/imported/waterfall23.png-f9376e94c3f2584ef2de3269e373191e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/bank1/img/Halo0.png"
-dest_files=["res://.godot/imported/Halo0.png-686a0e1096f253fe4d936f0364501259.ctex"]
+source_file="res://knytt/objects/bank1/img/waterfall23.png"
+dest_files=["res://.godot/imported/waterfall23.png-f9376e94c3f2584ef2de3269e373191e.ctex"]
 
 [params]
 

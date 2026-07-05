@@ -84,5 +84,4 @@ animations = [ {
 [node name="Node2D" instance=ExtResource("1")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-modulate = Color( 1, 1, 1, 0.61 )
 sprite_frames = SubResource("11")

@@ -2,16 +2,15 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chwnliocwblvc"
-path="res://.godot/imported/1-23 Fake Add.png-8cdbc14a1520053774f0429ff038e2b2.ctex"
+path="res://.godot/imported/halo5.png-7d037b4d231adf8f4a22c6c96a538f8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/bank1/img/1-23 Fake Add.png"
-dest_files=["res://.godot/imported/1-23 Fake Add.png-8cdbc14a1520053774f0429ff038e2b2.ctex"]
+source_file="res://knytt/objects/bank1/img/halo5.png"
+dest_files=["res://.godot/imported/halo5.png-7d037b4d231adf8f4a22c6c96a538f8d.ctex"]
 
 [params]
 
