@@ -1,18 +1,31 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://knytt/objects/bank1/LiquidPoolDeadly.tscn" type="PackedScene" id=1]
 [ext_resource path="res://knytt/objects/bank1/img/1-10.png" type="Texture" id=2]
-[ext_resource path="res://knytt/objects/bank1/img/Halo1.png" type="Texture" id=3]
+[ext_resource path="res://knytt/objects/bank1/img/halo10.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 12, 6 )
 
+[sub_resource type="CanvasItemMaterial" id=53]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id=54]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 24, 75 )
+
+[sub_resource type="AtlasTexture" id=55]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 24, 0, 24, 75 )
+
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ SubResource( 54 ), SubResource( 55 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 25.0
 } ]
 
 [sub_resource type="AtlasTexture" id=21]
@@ -158,8 +171,8 @@ position = Vector2( 12, 18 )
 shape = SubResource( 20 )
 
 [node name="Halo" type="AnimatedSprite" parent="." index="1"]
-modulate = Color( 1, 1, 1, 0.5 )
-position = Vector2( 0, -72 )
+material = SubResource( 53 )
+position = Vector2( 0, -51 )
 frames = SubResource( 19 )
 centered = false
 

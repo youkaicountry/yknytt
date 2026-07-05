@@ -1,11 +1,10 @@
-[gd_scene load_steps=104 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://knytt/objects/bank1/img/1-3.png" type="Texture" id=1]
 [ext_resource path="res://knytt/objects/bank1/Waterfall.cs" type="Script" id=2]
 [ext_resource path="res://knytt/objects/bank1/img/1-4.png" type="Texture" id=3]
 [ext_resource path="res://knytt/objects/bank1/img/1-15.png" type="Texture" id=4]
 [ext_resource path="res://knytt/objects/bank1/img/1-20.png" type="Texture" id=5]
-[ext_resource path="res://knytt/objects/bank1/img/1-23 Fake Add.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=134]
 atlas = ExtResource( 4 )
@@ -163,90 +162,6 @@ region = Rect2( 120, 48, 24, 24 )
 atlas = ExtResource( 5 )
 region = Rect2( 144, 48, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=173]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=174]
-atlas = ExtResource( 6 )
-region = Rect2( 24, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=175]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=176]
-atlas = ExtResource( 6 )
-region = Rect2( 72, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=177]
-atlas = ExtResource( 6 )
-region = Rect2( 96, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=178]
-atlas = ExtResource( 6 )
-region = Rect2( 120, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=179]
-atlas = ExtResource( 6 )
-region = Rect2( 144, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=180]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=181]
-atlas = ExtResource( 6 )
-region = Rect2( 24, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=182]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=183]
-atlas = ExtResource( 6 )
-region = Rect2( 72, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=184]
-atlas = ExtResource( 6 )
-region = Rect2( 96, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=185]
-atlas = ExtResource( 6 )
-region = Rect2( 120, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=186]
-atlas = ExtResource( 6 )
-region = Rect2( 144, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=187]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=188]
-atlas = ExtResource( 6 )
-region = Rect2( 24, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=189]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=190]
-atlas = ExtResource( 6 )
-region = Rect2( 72, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=191]
-atlas = ExtResource( 6 )
-region = Rect2( 96, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=192]
-atlas = ExtResource( 6 )
-region = Rect2( 120, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=193]
-atlas = ExtResource( 6 )
-region = Rect2( 144, 48, 24, 24 )
-
 [sub_resource type="AtlasTexture" id=98]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 24, 24 )
@@ -396,34 +311,28 @@ animations = [ {
 "frames": [ SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ), SubResource( 138 ), SubResource( 139 ), SubResource( 140 ), SubResource( 141 ), SubResource( 142 ), SubResource( 143 ), SubResource( 144 ), SubResource( 145 ), SubResource( 146 ), SubResource( 147 ), SubResource( 148 ), SubResource( 149 ), SubResource( 150 ), SubResource( 151 ) ],
 "loop": true,
 "name": "Waterfall15",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [ SubResource( 152 ), SubResource( 153 ), SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ), SubResource( 166 ), SubResource( 167 ), SubResource( 168 ), SubResource( 169 ), SubResource( 170 ), SubResource( 171 ), SubResource( 172 ) ],
 "loop": true,
 "name": "Waterfall20",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 173 ), SubResource( 174 ), SubResource( 175 ), SubResource( 176 ), SubResource( 177 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 181 ), SubResource( 182 ), SubResource( 183 ), SubResource( 184 ), SubResource( 185 ), SubResource( 186 ), SubResource( 187 ), SubResource( 188 ), SubResource( 189 ), SubResource( 190 ), SubResource( 191 ), SubResource( 192 ), SubResource( 193 ) ],
-"loop": true,
-"name": "Waterfall23",
-"speed": 20.0
+"speed": 35.0
 }, {
 "frames": [ SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ) ],
 "loop": true,
 "name": "Waterfall3",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [ SubResource( 116 ), SubResource( 117 ), SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ), SubResource( 122 ), SubResource( 123 ), SubResource( 124 ), SubResource( 125 ), SubResource( 126 ), SubResource( 127 ), SubResource( 128 ), SubResource( 129 ), SubResource( 130 ), SubResource( 131 ), SubResource( 132 ), SubResource( 133 ) ],
 "loop": true,
 "name": "Waterfall4",
-"speed": 20.0
+"speed": 25.0
 } ]
 
 [node name="Waterfall" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 1, 1, 0.611765 )
 frames = SubResource( 19 )
-animation = "Waterfall23"
+animation = "Waterfall15"
 centered = false

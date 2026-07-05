@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Halo0.png-686a0e1096f253fe4d936f0364501259.stex"
+path="res://.import/waterfall23.png-f9376e94c3f2584ef2de3269e373191e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/objects/bank1/img/Halo0.png"
-dest_files=[ "res://.import/Halo0.png-686a0e1096f253fe4d936f0364501259.stex" ]
+source_file="res://knytt/objects/bank1/img/waterfall23.png"
+dest_files=[ "res://.import/waterfall23.png-f9376e94c3f2584ef2de3269e373191e.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
