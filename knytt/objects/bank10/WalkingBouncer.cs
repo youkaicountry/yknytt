@@ -8,7 +8,7 @@ public abstract partial class WalkingBouncer : Muff
     protected bool inAir = false;
     protected float jumpSpeed;
 
-    protected const float JUMP_SCALE = 45; // 50;
+    protected const float JUMP_SCALE = 50;
 
     public override void _Ready()
     {
@@ -21,7 +21,7 @@ public abstract partial class WalkingBouncer : Muff
         float dt = (float)delta;
         if (inAir)
         {
-            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * dt)) != null)
+            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * dt)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
@@ -31,7 +31,7 @@ public abstract partial class WalkingBouncer : Muff
             }
             else
             {
-                jumpSpeed += jumpGravity * JUMP_SCALE * dt;
+                jumpSpeed += jumpGravity * JUMP_SCALE * JUMP_SCALE * dt;
             }
         }
     }
@@ -40,7 +40,7 @@ public abstract partial class WalkingBouncer : Muff
     {
         inAir = true;
         speed = 0;
-        jumpSpeed = -initialJumpSpeed;
+        jumpSpeed = -initialJumpSpeed * JUMP_SCALE;
         sprite.Play("jump");
         GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
     }

@@ -60,6 +60,7 @@ public partial class GDKnyttCamera : Camera2D
                 
         if (new_area_camera != Place.SameArea)
         {
+            // do not show neighbour areas in case of warps, voids and non-seamless scroll
             Game.GDWorld.Areas.Areas.TryGetValue(Game.CurrentArea.Area.Position + new KnyttPoint(-1, 0), out var left_area);
             leftAreaRestricted = !GDKnyttSettings.SeamlessScroll || left_area == null || left_area.Area.Empty ||
                 (Game.CurrentArea.Area.Warp.LoadedWarp && !Game.CurrentArea.Area.Warp.WarpLeft.isZero()) ||
@@ -70,18 +71,19 @@ public partial class GDKnyttCamera : Camera2D
                 (Game.CurrentArea.Area.Warp.LoadedWarp && !Game.CurrentArea.Area.Warp.WarpRight.isZero()) ||
                 right_area.Area.FlagWarps.Any(w => w != null);
 
-            if (new_area_camera == Place.Slide)
+            if (new_area_camera == Place.Slide) // do not slide if neighbour area was locking camera movement (useful for climbing)
             {
                 if (hasLeftRestriction  && !leftAreaRestricted)  { new_area_camera = Place.Reset; }
                 if (hasRightRestriction && !rightAreaRestricted) { new_area_camera = Place.Reset; }
             }
             
-            if (new_area_camera == Place.Preserve)
+            if (new_area_camera == Place.Preserve) // save camera position, useful for shifts to the same-looking area
             {
                 camera_global_position_x = Game.CurrentArea.GlobalCenter.X + cameraInArea;
             }
         }
 
+        // do not move camera when jumping off the wall (backward movement without changing direction)
         float juni_on_screen = (Game.Juni.GlobalPosition.X - GlobalPosition.X) / x_viewport + 0.5f;
         float ahead_fraction = Game.Juni.FacingRight ? 1f - juni_on_screen : juni_on_screen;
         float backward_movement = Mathf.Abs(GlobalPosition.X - currentOffset - Game.Juni.GlobalPosition.X);
@@ -120,13 +122,13 @@ public partial class GDKnyttCamera : Camera2D
 
         GlobalPosition = new Vector2(Game.CurrentArea.GlobalCenter.X + cameraInArea, Game.CurrentArea.GlobalCenter.Y);
         
-        if (stop_camera)
+        if (stop_camera) // to start move instantly in the future if target_offset is changed
         {
             currentOffset = GlobalPosition.X - Game.Juni.GlobalPosition.X;
             offsetVelocity = cameraXVelocity = 0f;
         }
 
-        if (x_viewport <= 600)
+        if (x_viewport <= 600) // parallax
         {
             float juni_on_camera = Game.Juni.GlobalPosition.X - Game.Camera.GlobalPosition.X;
             foreach (var area in Game.GDWorld.Areas.Areas.Values)

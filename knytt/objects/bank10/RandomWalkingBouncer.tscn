@@ -97,8 +97,8 @@ OrganicEnemy = true
 directionChangeTime = 1.41
 speedChangeTime = 1.41
 speedValues = PackedInt32Array( 0, 8, 8 )
-initialJumpSpeed = 4.0
-jumpGravity = 0.33
+initialJumpSpeed = 4.6
+jumpGravity = 0.4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("10")

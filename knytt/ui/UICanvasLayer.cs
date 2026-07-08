@@ -56,6 +56,13 @@ public partial class UICanvasLayer : CanvasLayer
         {
             mapPanel.init(null, null);
         }
+        
+        if (GDKnyttSettings.ViewportHint)
+        {
+            GetNode<AnimationPlayer>("ViewportHint/AnimationPlayer").Play("Fade");
+            GDKnyttSettings.ViewportHint = false;
+            GDKnyttSettings.saveSettings();
+        }
     }
 
     public override void _Ready()
