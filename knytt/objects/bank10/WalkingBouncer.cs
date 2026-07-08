@@ -8,7 +8,7 @@ public abstract class WalkingBouncer : Muff
     protected bool inAir = false;
     protected float jumpSpeed;
 
-    protected const float JUMP_SCALE = 45; // 50;
+    protected const float JUMP_SCALE = 50;
 
     public override void _Ready()
     {
@@ -20,7 +20,7 @@ public abstract class WalkingBouncer : Muff
         base._PhysicsProcess(delta);
         if (inAir)
         {
-            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * JUMP_SCALE * delta)) != null)
+            if (safeMoveAndCollide(new Vector2(0, jumpSpeed * delta)) != null)
             {
                 if (jumpSpeed < 0) { jumpSpeed = -jumpSpeed; return; }
                 inAir = false;
@@ -30,7 +30,7 @@ public abstract class WalkingBouncer : Muff
             }
             else
             {
-                jumpSpeed += jumpGravity * JUMP_SCALE * delta;
+                jumpSpeed += jumpGravity * JUMP_SCALE * JUMP_SCALE * delta;
             }
         }
     }
@@ -39,7 +39,7 @@ public abstract class WalkingBouncer : Muff
     {
         inAir = true;
         speed = 0;
-        jumpSpeed = -initialJumpSpeed;
+        jumpSpeed = -initialJumpSpeed * JUMP_SCALE;
         sprite.Play("jump");
         GetNodeOrNull<AudioStreamPlayer2D>("JumpPlayer")?.Play();
     }

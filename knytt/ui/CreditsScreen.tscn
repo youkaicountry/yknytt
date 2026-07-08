@@ -12,19 +12,19 @@
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 4 )
+HScrollBar/styles/grabber = ExtResource( 7 )
+HScrollBar/styles/grabber_highlight = ExtResource( 8 )
+HScrollBar/styles/grabber_pressed = ExtResource( 9 )
+HScrollBar/styles/scroll = ExtResource( 6 )
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 LinkButton/colors/font_color = Color( 0.25098, 0.25098, 1, 1 )
 LinkButton/colors/font_color_focus = Color( 0, 0, 0.501961, 1 )
 LinkButton/colors/font_color_hover = Color( 0, 0, 0.501961, 1 )
 LinkButton/colors/font_color_pressed = Color( 0, 0, 0.501961, 1 )
-VScrollBar/styles/scroll = ExtResource( 6 )
 VScrollBar/styles/grabber = ExtResource( 7 )
 VScrollBar/styles/grabber_highlight = ExtResource( 8 )
 VScrollBar/styles/grabber_pressed = ExtResource( 9 )
-HScrollBar/styles/scroll = ExtResource( 6 )
-HScrollBar/styles/grabber = ExtResource( 7 )
-HScrollBar/styles/grabber_highlight = ExtResource( 8 )
-HScrollBar/styles/grabber_pressed = ExtResource( 9 )
+VScrollBar/styles/scroll = ExtResource( 6 )
 
 [sub_resource type="Animation" id=8]
 length = 0.001
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 580, 45 ) ]
+"values": [ Vector2( 580, 82 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -66,7 +66,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 45 ), Vector2( 580, 0 ) ]
+"values": [ Vector2( 580, 82 ), Vector2( 580, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -94,7 +94,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 580, 0 ), Vector2( 580, 45 ) ]
+"values": [ Vector2( 580, 0 ), Vector2( 580, 82 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../HBoxContainer8/TextureRect:rect_rotation")
@@ -320,7 +320,7 @@ theme = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 580.0
-margin_bottom = 234.0
+margin_bottom = 849.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 
@@ -469,34 +469,80 @@ margin_right = 580.0
 margin_bottom = 13.0
 size_flags_horizontal = 3
 
-[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_right = 98.0
-margin_bottom = 13.0
-text = "Uses some parts of"
-
 [node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_left = 102.0
-margin_right = 159.0
+margin_right = 57.0
 margin_bottom = 13.0
 focus_mode = 2
 text = "KnyttSharp"
 uri = "https://github.com/andrewmd5/KnyttSharp"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_left = 163.0
-margin_right = 240.0
+margin_left = 61.0
+margin_right = 141.0
 margin_bottom = 13.0
-text = "by andrewmd5"
+text = "by andrewmd5,"
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 145.0
+margin_right = 189.0
+margin_bottom = 13.0
+focus_mode = 2
+text = "IniParser"
+uri = "https://github.com/rickyah/ini-parser"
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 193.0
+margin_right = 243.0
+margin_bottom = 13.0
+text = "by rickyah"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer"]
 margin_top = 114.0
 margin_right = 580.0
-margin_bottom = 114.0
+margin_bottom = 127.0
+text = "Fonts: Segan Light (felinefury82), Silver (Poppy Works), Magnificent (Diego Vallejo)"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 133.0
+margin_right = 580.0
+margin_bottom = 146.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+margin_right = 72.0
+margin_bottom = 13.0
+text = "More levels in"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+margin_left = 76.0
+margin_right = 159.0
+margin_bottom = 13.0
+focus_mode = 2
+text = "KS Level Archive"
+uri = "https://knyttlevels.com/"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+margin_left = 163.0
+margin_right = 183.0
+margin_bottom = 13.0
+text = "and"
+
+[node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+margin_left = 187.0
+margin_right = 274.0
+margin_bottom = 13.0
+focus_mode = 2
+text = "KS Level Reviews"
+uri = "https://docs.google.com/spreadsheets/d/1wDVe_MHMEzeeAi4ynUCduDx-CxEyWIC4q3TOyz4JYIo/edit?pli=1&gid=0#gid=0"
+
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 152.0
+margin_right = 580.0
+margin_bottom = 152.0
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 120.0
+margin_top = 158.0
 margin_right = 580.0
-margin_bottom = 133.0
+margin_bottom = 171.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -514,10 +560,10 @@ focus_mode = 2
 text = "Beta Testers"
 
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 139.0
+margin_top = 177.0
 margin_right = 580.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 580, 45 )
+margin_bottom = 259.0
+rect_min_size = Vector2( 580, 82 )
 rect_clip_content = true
 mouse_filter = 1
 
@@ -528,51 +574,58 @@ anims/expand = SubResource( 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TestersPanel"]
 margin_right = 580.0
-margin_bottom = 45.0
+margin_bottom = 82.0
 rect_clip_content = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
+margin_top = 2.0
 margin_right = 142.0
-margin_bottom = 45.0
+margin_bottom = 79.0
 size_flags_horizontal = 3
 text = "Wibi (ncrecc)
 madrabbit90
-blipdrifter"
+blipdrifter
+RaulMarq
+NotYerAvgPorter"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 146.0
 margin_right = 288.0
-margin_bottom = 45.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Lit Knob
 ms2048
-Pasharet"
+Pasharet
+Ganimoth
+Chase the Chao"
 
 [node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 292.0
 margin_right = 434.0
-margin_bottom = 45.0
+margin_bottom = 61.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "djsolidsnake86
 fabzenfab
-Aradiant"
+Aradiant
+Fraxinus88"
 
 [node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 margin_left = 438.0
 margin_right = 580.0
-margin_bottom = 45.0
+margin_bottom = 61.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "LumicatRB
 Someone65
-diegopau"
+diegopau
+octopusfriend"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 190.0
+margin_top = 265.0
 margin_right = 580.0
-margin_bottom = 203.0
+margin_bottom = 278.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -590,9 +643,9 @@ focus_mode = 2
 text = "Tilesets"
 
 [node name="TilesetsPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 209.0
+margin_top = 284.0
 margin_right = 580.0
-margin_bottom = 209.0
+margin_bottom = 654.0
 rect_min_size = Vector2( 580, 370 )
 rect_clip_content = true
 mouse_filter = 1
@@ -663,9 +716,9 @@ Zonhin
 Zé Pedro Quintanilha (PONTO)"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 215.0
+margin_top = 660.0
 margin_right = 580.0
-margin_bottom = 228.0
+margin_bottom = 673.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -685,9 +738,9 @@ focus_mode = 2
 text = "Music & Sound Effects"
 
 [node name="MusicPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 234.0
+margin_top = 679.0
 margin_right = 580.0
-margin_bottom = 234.0
+margin_bottom = 849.0
 rect_min_size = Vector2( 580, 170 )
 rect_clip_content = true
 mouse_filter = 1

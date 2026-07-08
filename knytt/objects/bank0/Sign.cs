@@ -49,10 +49,21 @@ public class Sign : GDKnyttBaseObject
         if (msg.StartsWith("\"") && msg.EndsWith("\"")) { msg = msg.Substring(1, msg.Length - 2); }
         msg = msg.Replace("\\n", "\n");
         msg = msg.Replace('\x7f', '\n');
-        for (int i = 22; i < msg.Length; i += 22)
+        for (int i = 0; i < msg.Length; )
         {
-            if (msg[i-1] == ' ' && msg[i-2] == ' ') { msg = msg.Remove(i - 1, 1).Insert(i - 1, "\n"); }
-            if (msg[i  ] == ' ' && msg[i-1] == ' ') { msg = msg.Remove(i - 1, 1).Insert(i - 1, "\n"); }
+            int line_break = msg.Find('\n', i);
+            string line = msg.Substring(i,
+                            line_break != -1 && line_break + 1 - i <= 23 ? line_break + 1 - i:  // line ends with \n (23 symbols max)
+                            msg.Length <= i + 22 ? msg.Length - i :                             // msg ends (line length <= 22)
+                            msg[i + 22] == ' ' || msg[i + 22] == '\\' ? 23 :                    // line can be 23 symbols if ends with space or \
+                            22);                                                                // 22 is normal line length
+            int last_space = line.FindLast(" ");
+            if (!line.EndsWith("\n") && last_space == line.FindLast("  ") + 1)  // break on double spaces
+            {
+                msg = msg.Remove(i + last_space, 1).Insert(i + last_space, "\n");
+                line = line.Substring(0, last_space + 1);
+            }
+            i += line.Length;
         }
         return msg;
     }

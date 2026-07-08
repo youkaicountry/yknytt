@@ -73,7 +73,7 @@ OrganicEnemy = true
 directionChangeTime = 1.15
 speedChangeTime = 1.15
 speedValues = PoolIntArray( 0, 8, 8 )
-initialJumpSpeed = 5.0
+initialJumpSpeed = 5.76
 jumpGravity = 0.33
 
 [node name="AnimatedSprite" parent="." index="0"]

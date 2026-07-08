@@ -63,7 +63,7 @@ public class GDKnyttSettings : Node
         float ui_width = check_shrink && OS.WindowSize.Aspect() <= 1.5f ? 530 : 600;
         tree.SetScreenStretch(
             SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-            for_ui || TouchSettings.EnablePanel ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
+            for_ui || TouchSettings.EnablePanel || ViewportHint ? SceneTree.StretchAspect.KeepWidth : SceneTree.StretchAspect.Keep,
             new Vector2(for_ui ? ui_width : TouchSettings.ScreenWidth, 240));
     }
 
@@ -76,12 +76,9 @@ public class GDKnyttSettings : Node
 
             game.setupCamera();
 
-            if (!SideScroll)
+            foreach (var area in game.GDWorld.Areas.Areas.Values)
             {
-                foreach (var area in game.GDWorld.Areas.Areas.Values)
-                {
-                    area.Background.Position = Vector2.Zero;
-                }
+                area.Background.Position = Vector2.Zero;
             }
         }
     }
@@ -185,6 +182,12 @@ public class GDKnyttSettings : Node
                 if (game.Juni.OnPlatform) { game.Juni.showShiftHint(true, jump_hint: true); }
             }
         }
+    }
+
+    public static bool ViewportHint
+    {
+        get { return ini["Graphics"]["Viewport Hint"].Equals("1"); }
+        set { ini["Graphics"]["Viewport Hint"] = value ? "1" : "0"; }
     }
 
     public static bool UmbrellaCheat
@@ -371,6 +374,8 @@ public class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "WSOD", "1");
         modified |= ensureSetting("Graphics", "Interpolation", "0");
         modified |= ensureSetting("Graphics", "Down Button Hint", "1");
+        modified |= ensureSetting("Graphics", "Viewport Hint", // dangerous option because it's only applied on first start and is easy to skip
+            (Mobile || OS.GetName() == "Unix") && OS.WindowSize.Aspect() < 2 ?  "1" : "0");
         modified |= ensureSetting("TouchPanel", "UmbrellaCheat", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
@@ -409,6 +414,7 @@ public class GDKnyttSettings : Node
         WSOD = WSOD;
         Interpolation = Interpolation;
         DownButtonHint = DownButtonHint;
+        ViewportHint = ViewportHint;
         MasterVolume = MasterVolume;
         MusicVolume = MusicVolume;
         EnvironmentVolume = EnvironmentVolume;
@@ -510,9 +516,9 @@ public class GDKnyttSettings : Node
                 }
             }
         }
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.1") == -1)
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.2") == -1)
         {
-            ini["Misc"]["Version"] = "0.7.1";
+            ini["Misc"]["Version"] = "0.7.2";
             return true;
         }
         return false;
