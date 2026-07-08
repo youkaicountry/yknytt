@@ -44,7 +44,7 @@ expand_margin_left = 9.0
 expand_margin_right = 9.0
 expand_margin_top = 4.0
 expand_margin_bottom = 6.0
-anti_aliasing = false
+anti_aliasing_size = 0.4
 
 [node name="Sign" type="Node2D"]
 z_index = 17
