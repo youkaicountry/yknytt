@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" path="res://knytt/audio/GDKnyttAmbiChannel.tscn" id="17"]
 [ext_resource type="Script" path="res://knytt/juni/death/DeathContainer.cs" id="18"]
 [ext_resource type="Script" path="res://knytt/ui/map/MapViewports.cs" id="19"]
-[ext_resource type="FontFile" path="res://knytt/ui/stats/StatLabelFont.tres" id="20"]
 
 [sub_resource type="Animation" id="2"]
 resource_name = "SlideIn"
@@ -98,6 +97,10 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="FontFile" id="7"]
+size = 20
+font_data = ExtResource("1")
 
 [sub_resource type="FontFile" id="4"]
 size = 22
@@ -262,9 +265,9 @@ one_shot = true
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 offset_bottom = 40.0
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource("20")
-text = "You can change the visible area in the settings"
+theme_override_colors/font_color = Color( 1, 1, 1, 1 )
+theme_override_fonts/font = SubResource("7")
+text = "You can change the visible area in the settings."
 horizontal_alignment = 1
 vertical_alignment = 1
 
