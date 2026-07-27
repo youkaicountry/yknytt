@@ -468,8 +468,10 @@ public partial class GDKnyttGame : Node2D
             ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
     }
 
-    // TODO: Godot 4 - BitmapFont API completely changed. Need to reimplementwith FontFile
-    // The old code created a bitmap font from a texture atlas for custom level fonts
+    // Builds a bitmap font from a level's character sheet: 7 rows of 32 cells, first cell
+    // is space (32). Godot 3 did this with BitmapFont.AddChar; Godot 4 has no BitmapFont,
+    // so the glyphs go straight into a FontFile cache. Godot uses the codepoint as the
+    // glyph index for this kind of font, so no cmap is needed.
     private Font loadFont(string key, int width, int height)
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
@@ -477,24 +479,36 @@ public partial class GDKnyttGame : Node2D
         var t = GDWorld.KWorld.getWorldTexture2D(font_path) as Texture2D;
         if (t == null) { return null; }
 
-        // Godot 4 uses FontFile for bitmap fonts - needs different implementation
-        GD.PrintErr($"Custom font loading not yet implemented for Godot 4: {key}");
-        return null;
+        var image = t.GetImage();
+        if (image == null) { KnyttLogger.Error($"Custom font '{key}': texture has no image data"); return null; }
 
-        /* Old Godot 3 code:
         var font = new FontFile();
-        font.Height = height;
-        font.AddTexture(t);
+        font.FixedSize = height;
+        var size_key = new Vector2I(height, 0);
+        font.SetTextureImage(0, size_key, 0, image);
+        // Baseline at the bottom of the cell, matching Godot 3's BitmapFont.Height.
+        font.SetCacheAscent(0, height, height);
+        font.SetCacheDescent(0, height, 0);
+
         for (int y = 0; y < 7; y++)
         {
             for (int x = 0; x < 32; x++)
             {
-                font.AddChar(32 + y * 32 + x, 0, new Rect2(x * width, y * height, width, height));
+                int glyph = 32 + y * 32 + x;
+                font.SetGlyphTextureIdx(0, size_key, glyph, 0);
+                font.SetGlyphUVRect(0, size_key, glyph, new Rect2(x * width, y * height, width, height));
+                font.SetGlyphSize(0, size_key, glyph, new Vector2(width, height));
+                font.SetGlyphOffset(0, size_key, glyph, new Vector2(0, -height));
+                font.SetGlyphAdvance(0, height, glyph, new Vector2(width, 0));
             }
         }
-        font.AddChar(0x100, 0, new Rect2(0, 0, width, height));
+        // Godot 3 also mapped 0x100 to the first cell as a fallback glyph.
+        font.SetGlyphTextureIdx(0, size_key, 0x100, 0);
+        font.SetGlyphUVRect(0, size_key, 0x100, new Rect2(0, 0, width, height));
+        font.SetGlyphSize(0, size_key, 0x100, new Vector2(width, height));
+        font.SetGlyphOffset(0, size_key, 0x100, new Vector2(0, -height));
+        font.SetGlyphAdvance(0, height, 0x100, new Vector2(width, 0));
         return font;
-        */
     }
 
     public void loadFonts()
