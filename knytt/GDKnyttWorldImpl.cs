@@ -69,7 +69,7 @@ public partial class GDKnyttWorldImpl : KnyttWorld
 
     public Texture2D loadOverflownTexture(string filepath, int frame_width, int frame_height)
     {
-        int size_limit = OS.GetName() == "Unix" ? 8192 : 16384;
+        int size_limit = GDKnyttSettings.Handheld ? 8192 : 16384;
 
         filepath = filepath.ToLower();
         //string cached_path = 

@@ -72,7 +72,7 @@ public partial class LevelSelection : BasicScreen
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
         GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible =
-            GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
+            GetNode<Control>("MainContainer/FilterContainer/Search").Visible = !GDKnyttSettings.Handheld;
 
         worlds_modified = false;
         var ini_exists = FileAccess.FileExists(GDKnyttDataStore.WorldsIni);
@@ -89,7 +89,7 @@ public partial class LevelSelection : BasicScreen
 
         loadDefaultWorlds();
 
-        if (OS.GetName() != "HTML5")
+        if (!GDKnyttSettings.Web)
         {
             if (localLoad) { enableFilter(false); }
             local_load_task = Task.Run(loadLocalWorlds);
@@ -167,7 +167,7 @@ public partial class LevelSelection : BasicScreen
     public static string getLevelsFileDir()
     {
         return OS.GetName() == "Android" ? OS.GetSystemDir(OS.SystemDir.Documents) :
-               OS.GetName() == "HTML5" ? "" : OS.GetExecutablePath().GetBaseDir();
+               GDKnyttSettings.Web ? "" : OS.GetExecutablePath().GetBaseDir();
     }
 
     private void connectionLost(bool lost = true)
@@ -297,8 +297,8 @@ public partial class LevelSelection : BasicScreen
         binLoad("res://knytt/worlds/Nifflas - Sky Flowerz.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - An Underwater Adventure.knytt.bin");
         binLoad("res://knytt/worlds/Nifflas - This Level is Unfinished.knytt.bin");
-        binLoad(OS.GetName() == "HTML5" ? MainMenu.WEB_TUTORIAL_PATH :
-                OS.GetName() == "Unix" ? MainMenu.HANDHELD_TUTORIAL_PATH :
+        binLoad(GDKnyttSettings.Web ? MainMenu.WEB_TUTORIAL_PATH :
+                GDKnyttSettings.Handheld ? MainMenu.HANDHELD_TUTORIAL_PATH :
                 TouchSettings.EnablePanel ? MainMenu.TOUCH_TUTORIAL_PATH : MainMenu.TUTORIAL_PATH);
     }
 

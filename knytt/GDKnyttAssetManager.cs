@@ -133,7 +133,7 @@ public partial class GDKnyttAssetManager
 
     private static Texture2D image2Texture2D(Image image)
     {
-        if (OS.GetName() == "Unix" && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
+        if (GDKnyttSettings.Handheld && (image.GetWidth() > 8192 || image.GetHeight() > 8192)) { return null; }
         // Godot 4: CreateFromImage is now a static factory method, no flags parameter
         // Texture flags (repeat, filter) are now handled via shader/material settings
         var texture = ImageTexture.CreateFromImage(image);

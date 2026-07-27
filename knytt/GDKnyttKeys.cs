@@ -51,11 +51,11 @@ public partial class GDKnyttKeys : Node
         modified |= ensureSetting("Input", "right1", "Joy(15)");
         modified |= ensureSetting("Input", "show_info1", "Joy(3)");
         modified |= ensureSetting("Input", "jump1", "Joy(2)");
-        modified |= ensureSetting("Input", "walk1", OS.GetName() != "Unix" ? "Joy(6)" : "Joy(5)");
+        modified |= ensureSetting("Input", "walk1", !GDKnyttSettings.Handheld ? "Joy(6)" : "Joy(5)");
         modified |= ensureSetting("Input", "umbrella1", "Joy(7)");
         modified |= ensureSetting("Input", "hologram1", "Joy(1)");
-        modified |= ensureSetting("Input", "pause1", OS.GetName() != "Unix" ? "Joy(4)" : "Joy(11)");
-        modified |= ensureSetting("Input", "map1", OS.GetName() != "Unix" ? "Joy(5)" : "Joy(6)");
+        modified |= ensureSetting("Input", "pause1", !GDKnyttSettings.Handheld ? "Joy(4)" : "Joy(11)");
+        modified |= ensureSetting("Input", "map1", !GDKnyttSettings.Handheld ? "Joy(5)" : "Joy(6)");
         modified |= ensureSetting("Input", "debug_die1", "Joy(10)");
 
         if (modified) { saveSettings(); }
@@ -120,7 +120,7 @@ public partial class GDKnyttKeys : Node
             case "Joy":
                 if (GDKnyttDataStore.GptokeybMode) { return ""; }
                 if (!int.TryParse(value, out var i)) { return $"Joy {value}"; }
-                if (i < NINTENDO_BUTTONS.Length && OS.GetName() == "Unix") { return NINTENDO_BUTTONS[i]; }
+                if (i < NINTENDO_BUTTONS.Length && GDKnyttSettings.Handheld) { return NINTENDO_BUTTONS[i]; }
                 if (i < XBOX_BUTTONS.Length) { return XBOX_BUTTONS[i]; }
                 return $"Joy {value}";
             case "Axis":

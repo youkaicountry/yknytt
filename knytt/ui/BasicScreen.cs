@@ -7,7 +7,7 @@ public abstract partial class BasicScreen : CanvasLayer
     public override void _Ready()
     {
         ActiveScreen = this;
-        if (OS.GetName() == "Unix" && BackButton != null) { BackButton.Text = "Back (X)"; }
+        if (GDKnyttSettings.Handheld && BackButton != null) { BackButton.Text = "Back (X)"; }
     }
 
     public abstract void initFocus();

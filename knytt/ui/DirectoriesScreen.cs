@@ -15,7 +15,7 @@ public partial class DirectoriesScreen : Control
         download_box = GetNode<CheckBox>("WorldsContainer/DownloadBox");
         updatePaths();
         disableKeyboard(this);
-        if (OS.GetName() == "X11" || OS.GetName() == "Unix") { GetNode<Label>("Label2").Text += "On Linux, unpacked world files must be lowercase."; }
+        if (OS.GetName() == "Linux" || GDKnyttSettings.Handheld) { GetNode<Label>("Label2").Text += "On Linux, unpacked world files must be lowercase."; }
     }
 
     private void updatePaths()

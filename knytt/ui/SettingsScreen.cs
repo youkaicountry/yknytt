@@ -37,14 +37,14 @@ public partial class SettingsScreen : BasicScreen
         GetNode<CheckBox>("AudioContainer/OptionsContainer/ClassicDoubleJumpSound").ButtonPressed = GDKnyttSettings.ClassicDoubleJumpSound;
 
         GetNode<CheckBox>("GeneralContainer/Graphics/FullScreen").Disabled = 
-            GDKnyttSettings.Mobile || OS.GetName() == "HTML5" || OS.GetName() == "Unix";
-        GetNode<Button>("TabsContainer/TouchTab").Visible = OS.GetName() != "Unix";
-        GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && OS.GetName() != "HTML5";
-        GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = OS.GetName() == "HTML5";
+            GDKnyttSettings.Mobile || GDKnyttSettings.Web || GDKnyttSettings.Handheld;
+        GetNode<Button>("TabsContainer/TouchTab").Visible = !GDKnyttSettings.Handheld;
+        GetNode<Button>("TabsContainer/DirTab").Visible = OS.GetName() != "iOS" && !GDKnyttSettings.Web;
+        GetNode<Button>("GeneralContainer/Misc/DownloadSaves").Visible = GDKnyttSettings.Web;
         GetNode<Label>("KeysContainer/SettingsContainer/LabelExit").Visible = GDKnyttDataStore.GptokeybMode;
         GetNode<Label>("GeneralContainer/Misc/LabelDetailed").Visible = GDKnyttSettings.DetailedMap;
-        GetNode<Label>("GeneralContainer/Misc/LabelEmpty").CustomMinimumSize = new Vector2(0, OS.GetName() == "HTML5" ? 17 : 52);
-        if (OS.GetName() == "Unix" || OS.GetName() == "HTML5")
+        GetNode<Label>("GeneralContainer/Misc/LabelEmpty").CustomMinimumSize = new Vector2(0, GDKnyttSettings.Web ? 17 : 52);
+        if (GDKnyttSettings.Handheld || GDKnyttSettings.Web)
         {
             GetNode<OptionButton>("GeneralContainer/Misc/ShaderContainer/Shader")
                 .RemoveItem((int)GDKnyttSettings.ShaderType.HQ4X);
@@ -290,7 +290,7 @@ public partial class SettingsScreen : BasicScreen
 
     public override void _PhysicsProcess(double delta)
     {
-        if (OS.GetName() == "Unix" && GetNode<Control>("BackButton").GetViewport().GuiGetFocusOwner() is Slider slider)
+        if (GDKnyttSettings.Handheld && GetNode<Control>("BackButton").GetViewport().GuiGetFocusOwner() is Slider slider)
         {
             if (Input.IsActionPressed("ui_left")) { slider.Value -= slider.Step; }
             if (Input.IsActionPressed("ui_right")) { slider.Value += slider.Step; }

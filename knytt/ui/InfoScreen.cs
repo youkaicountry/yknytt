@@ -233,7 +233,7 @@ public partial class InfoScreen : BasicScreen
         GDKnyttAssetManager.ensureDirExists(cachedJSONDir);
         using (var jf = FileAccess.Open(cachedJSON, FileAccess.ModeFlags.Write)) { jf?.StoreBuffer(body); }
 
-        if (OS.GetName() != "Unix" && headers != null)
+        if (!GDKnyttSettings.Handheld && headers != null)
         {
             GetNode<StarRate>("%Rate").Visible = true;
             GetNode<Control>("%NoRate").Visible = false;
@@ -505,7 +505,7 @@ public partial class InfoScreen : BasicScreen
     private async void _on_OptimizeButton_pressed()
     {
         ClickPlayer.Play();
-        if (OS.GetName() != "HTML5" && OS.GetName() != "Unix")
+        if (!GDKnyttSettings.Web && !GDKnyttSettings.Handheld)
         {
             GetNode<Timer>("HintTimer").Start();
             _ = Task.Run(optimize);

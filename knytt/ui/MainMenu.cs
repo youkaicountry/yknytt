@@ -23,7 +23,7 @@ public partial class MainMenu : BasicScreen
         RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "Linux") { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
-        if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
+        if (GDKnyttSettings.Web) { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
         (string file, int _) = getLastPlayed();
         (string last_file, int _) = getLastPlayed();
         GetNode<Button>("ButtonRow/TutorialButton").Text =
@@ -33,7 +33,7 @@ public partial class MainMenu : BasicScreen
 
     public override void initFocus()
     {
-        GetNode<Control>(OS.GetName() != "Unix" ? "ButtonRow" : "ButtonRow/PlayButton").GrabFocus();
+        GetNode<Control>(!GDKnyttSettings.Handheld ? "ButtonRow" : "ButtonRow/PlayButton").GrabFocus();
         GetNode<Button>("ButtonRow/DownloadButton").Disabled = 
             GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline &&
             !FileAccess.FileExists(LevelSelection.getLevelsFileDir().PathJoin("levels.json"));
@@ -76,13 +76,13 @@ public partial class MainMenu : BasicScreen
 
         if (file != null && (FileAccess.FileExists(file) || DirAccess.DirExistsAbsolute(file)))
         {
-            if (OS.GetName() == "HTML5") { loadLevel(file, slot); }
+            if (GDKnyttSettings.Web) { loadLevel(file, slot); }
             else { task = Task.Run(() => loadLevel(file, slot)); }
         }
         else
         {
-            if (OS.GetName() == "HTML5") { loadLevel(WEB_TUTORIAL_PATH, 0); }
-            else if (OS.GetName() == "Unix") { task = Task.Run(() => loadLevel(HANDHELD_TUTORIAL_PATH, 0)); }
+            if (GDKnyttSettings.Web) { loadLevel(WEB_TUTORIAL_PATH, 0); }
+            else if (GDKnyttSettings.Handheld) { task = Task.Run(() => loadLevel(HANDHELD_TUTORIAL_PATH, 0)); }
             else if (TouchSettings.EnablePanel) { task = Task.Run(() => loadLevel(TOUCH_TUTORIAL_PATH, 0)); }
             else { task = Task.Run(() => loadLevel(TUTORIAL_PATH, 0)); }
         }

@@ -50,7 +50,7 @@ public partial class InputScreen : Control
         collecting = io;
         cnum = num;
         io.setCollecting(num);
-        GetNode<Control>(OS.GetName() != "Unix" ? "KeyPrompt" : "KeyPromptNoMouse").Visible = true;
+        GetNode<Control>(!GDKnyttSettings.Handheld ? "KeyPrompt" : "KeyPromptNoMouse").Visible = true;
         GetNode<Button>("../BackButton").Visible = false;
         GetNode<Control>("StickContainter").Visible = false;
     }
@@ -62,7 +62,7 @@ public partial class InputScreen : Control
         GDKnyttKeys.saveSettings();
         collecting.refreshButtons();
         collecting = null;
-        GetNode<Control>(OS.GetName() != "Unix" ? "KeyPrompt" : "KeyPromptNoMouse").Visible = false;
+        GetNode<Control>(!GDKnyttSettings.Handheld ? "KeyPrompt" : "KeyPromptNoMouse").Visible = false;
         GetNode<Button>("../BackButton").Visible = true;
         GetNode<Control>("StickContainter").Visible = true;
     }

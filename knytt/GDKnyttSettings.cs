@@ -25,6 +25,13 @@ public partial class GDKnyttSettings : Node
     // Device with touchscreen and virtual keyboard
     public static bool Mobile => OS.GetName() == "Android" || OS.GetName() == "iOS";
 
+    // Browser build. Godot 3 reported "HTML5" here, Godot 4 reports "Web".
+    public static bool Web => OS.GetName() == "Web";
+
+    // ARM64 handheld console - see GDKnyttDataStore.Handheld for why this is not a
+    // platform-name check.
+    public static bool Handheld => GDKnyttDataStore.Handheld;
+
     public static bool Fullscreen
     {
         get { return ini["Graphics"]["Fullscreen"].Equals("1"); }
@@ -384,7 +391,7 @@ public partial class GDKnyttSettings : Node
         modified |= ensureSetting("Graphics", "Interpolation", "0");
         modified |= ensureSetting("Graphics", "Down Button Hint", "1");
         modified |= ensureSetting("Graphics", "Viewport Hint", // dangerous option because it's only applied on first start and is easy to skip
-            (Mobile || OS.GetName() == "Unix") && DisplayServer.WindowGetSize().Aspect() < 2 ?  "1" : "0");
+            (Mobile || Handheld) && DisplayServer.WindowGetSize().Aspect() < 2 ?  "1" : "0");
         modified |= ensureSetting("TouchPanel", "UmbrellaCheat", "0");
 
         modified |= ensureSetting("Audio", "Master Volume", "100");
@@ -499,7 +506,7 @@ public partial class GDKnyttSettings : Node
         if (ini["Misc"].ContainsKey("Version") && ini["Misc"]["Version"].CompareTo("0.6.8") == -1)
         {
             ini["Server"]?.RemoveKey("URL");
-            if (OS.GetName() == "HTML5") { ini["Graphics"]?.RemoveKey("Detailed Map"); }
+            if (Web) { ini["Graphics"]?.RemoveKey("Detailed Map"); }
             
             if (FileAccess.FileExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("input.ini")))
             {
