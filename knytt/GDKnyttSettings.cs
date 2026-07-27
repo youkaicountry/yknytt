@@ -60,15 +60,40 @@ public partial class GDKnyttSettings : Node
             setupViewport(for_ui: true, check_shrink: true);
             tree.Root.GetNodeOrNull<GDKnyttGame>("GKnyttGame")?.setupCamera();
 
-            // TODO: Godot 4 font system changed - DynamicFont replaced with FontFile.
-            // Smooth-scaling font swapping is still unimplemented on this branch. Upstream
-            // (Godot 3) switched both res://knytt/ui/UIDynamicFont.tres and
-            // res://knytt/ui/stats/StatLabelFont.tres together:
-            //   font_data = segan/Segan-Light.ttf (smooth) or silver/Silver-Light.ttf (sharp)
-            //   size = 12 / 17, extra_spacing_top = 1 / 0, extra_spacing_bottom = 0 / -6,
-            //   use_filter = smooth
-            // Godot 4 equivalent needs Theme.DefaultFont/DefaultFontSize plus
-            // FontFile.SetSpacing(TextServer.SpacingType.Top/Bottom, ...).
+            swapScalingFonts(value);
+        }
+    }
+
+
+    // Upstream (Godot 3) switched the shared UI font between a smooth face and a
+    // pixel-crisp one whenever Smooth Scaling changed, mutating the two DynamicFont
+    // resources every UI scene referenced:
+    //   font_data = segan/Segan-Light.ttf (smooth) | silver/Silver-Light.ttf (sharp)
+    //   size = 12 | 17, extra_spacing_top = 1 | 0, extra_spacing_bottom = 0 | -6
+    //
+    // This swaps the face and spacing on the two resources that survived the port. It is
+    // NOT yet the full feature:
+    //   * The Godot 4 conversion repointed 65 font references across 16 scenes at
+    //     Segan-Light.ttf directly, so most labels do not go through UIDynamicFont.tres
+    //     and will not change face.
+    //   * Those same scenes bake in 63 theme_override_font_sizes/font_size values, so the
+    //     12 <-> 17 size change cannot be driven from the font resource at all - the sizes
+    //     have to be centralised (theme default_font_size) first.
+    // Finishing it is a scene refactor plus a visual pass over every screen at both
+    // settings, so it is deliberately left here rather than done blind.
+    private static void swapScalingFonts(bool smooth)
+    {
+        var face = ResourceLoader.Load<FontFile>(smooth ?
+            "res://knytt/fonts/segan/Segan-Light.ttf" : "res://knytt/fonts/silver/Silver-Light.ttf");
+        if (face == null) { return; }
+
+        foreach (string path in new[] { "res://knytt/ui/UIDynamicFont.tres",
+                                        "res://knytt/ui/stats/StatLabelFont.tres" })
+        {
+            if (ResourceLoader.Load(path) is not FontVariation font) { continue; }
+            font.BaseFont = face;
+            font.SetSpacing(TextServer.SpacingType.Top, smooth ? 1 : 0);
+            font.SetSpacing(TextServer.SpacingType.Bottom, smooth ? 0 : -6);
         }
     }
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="FontFile" path="res://knytt/ui/stats/StatLabelFont.tres" id="1"]
+[ext_resource type="FontVariation" path="res://knytt/ui/stats/StatLabelFont.tres" id="1"]
 
 [node name="Label" type="Label"]
 anchor_right = 1.0
