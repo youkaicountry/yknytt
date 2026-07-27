@@ -109,10 +109,37 @@ public partial class ConsoleCommands : Node
         Info("Save loaded from clipboard. Use 'reboot' to apply.");
     }
 
+    [Cmd("save backup", "Zip all save files to Documents")]
+    public void CmdSaveBackup()
+    {
+        bool web = GDKnyttSettings.Web;
+        var dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
+        var dest_zip = dest_path.PathJoin("yknytt_saves.zip");
+
+        if (!DirAccess.DirExistsAbsolute(dest_path)) { Error($"Directory {dest_path} does not exist."); return; }
+        if (System.IO.File.Exists(dest_zip) && web) { System.IO.File.Delete(dest_zip); }
+        if (FileAccess.FileExists(dest_zip)) { Error($"{dest_zip} already exists."); return; }
+
+        try
+        {
+            ZipFile.CreateFromDirectory(GDKnyttSettings.Saves, dest_zip);
+        }
+        catch (Exception)
+        {
+            Error($"Cannot create zip. Please check that you have access to {dest_path}." +
+                  (OS.GetName() == "Android" ?
+                   " Grant permissions in Settings -> Apps -> YKnytt -> Permissions -> Storage." : ""));
+            return;
+        }
+
+        if (web) { JavaScriptBridge.DownloadBuffer(GDKnyttAssetManager.loadFile(dest_zip), "yknytt_saves.zip"); }
+        Info($"{dest_zip} was successfully created.");
+    }
+
     [Cmd("save data", "Export working directory (with levels in web, without them otherwise)")]
     public void CmdSaveData()
     {
-        bool web = OS.GetName() == "Web";
+        bool web = GDKnyttSettings.Web;
         var dest_path = OS.GetSystemDir(OS.SystemDir.Documents);
         var dest_zip = dest_path.PathJoin("yknytt_data.zip");
 
@@ -431,6 +458,46 @@ public partial class ConsoleCommands : Node
         Game.GDWorld.KWorld.refreshWorld(tilesets_only: true);
         GDKnyttDataStore.startGame(false);
     }
+
+    [Cmd("world", "Load a .knytt.bin by file name (bundled worlds, then the Worlds directory)")]
+    public void CmdWorld(string world) => loadWorldByName(world, intro: false);
+
+    [Cmd("world intro", "Load a .knytt.bin and play its intro cutscene")]
+    public void CmdWorldIntro(string world) => loadWorldByName(world, intro: true);
+
+    private void loadWorldByName(string world, bool intro)
+    {
+        string path = null;
+        string internal_path = $"res://knytt/worlds/{world}";
+        if (FileAccess.FileExists(internal_path)) { path = internal_path; }
+        else
+        {
+            string external_path = GDKnyttDataStore.BaseDataDirectory.PathJoin($"Worlds/{world}");
+            if (FileAccess.FileExists(external_path)) { path = external_path; }
+        }
+        if (path == null) { Error($"Cannot find world: \"{world}\""); return; }
+
+        try
+        {
+            var binloader = new KnyttBinWorldLoader(GDKnyttAssetManager.loadFile(path));
+            var kworld = new GDKnyttWorldImpl();
+            kworld.setDirectory(path, binloader.RootDirectory);
+            kworld.loadWorldConfig(GDKnyttAssetManager.loadTextFileRaw(binloader.GetFile("World.ini")));
+            kworld.CurrentSave = new KnyttSave(kworld,
+                GDKnyttAssetManager.loadTextFile(binloader.GetFile("DefaultSavegame.ini")), 1);
+            kworld.setBinMode(binloader);
+            GDKnyttDataStore.KWorld = kworld;
+            Info($"World loaded: {path}");
+            GDKnyttDataStore.startGame(intro);
+        }
+        catch (Exception e) { Error($"Cannot load {path}: {e.Message}"); }
+    }
+
+    // LimboConsole's built-in "quit" exits the GAME, but the pre-LimboConsole console
+    // used quit/exit to close the console. "hide" restores that, and limbo_console.cfg
+    // re-points the "exit" alias here so it no longer closes YKnytt by surprise.
+    [Cmd("hide", "Hide this console")]
+    public void CmdHide() => GetNode<Console>("/root/Console").toggleConsole();
 
     [Cmd("youtube", "Search YouTube for this world")]
     public void CmdYoutube()
