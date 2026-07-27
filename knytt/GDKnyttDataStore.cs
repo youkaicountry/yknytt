@@ -19,7 +19,11 @@ public partial class GDKnyttDataStore : Node
         BaseDataDirectory.PathJoin($"worlds.{GDKnyttSettings.WorldsDirectory.Hash():X8}.ini");
 
     public static bool GptokeybMode { get; private set; }
-    
+
+    // Maintenance mode: rebuild the shipped default TileSets and exit. See
+    // GDKnyttAssetManager.compileTileset().
+    public static bool CompileTilesetsMode { get; private set; }
+
     static GDKnyttDataStore()
     {
         // Initialize base data directory, checking for command line arguments
@@ -28,8 +32,13 @@ public partial class GDKnyttDataStore : Node
         string base_dir_candidate = OS.GetSystemDir(OS.SystemDir.Documents).PathJoin("yknytt_data");
         if (DirAccess.DirExistsAbsolute(base_dir_candidate)) { BaseDataDirectory = base_dir_candidate; }
         
-        // Check for --data command line parameter
-        var args = OS.GetCmdlineArgs();
+        // Check for --data command line parameter.
+        // Godot 4 keeps anything after a bare "--" in GetCmdlineUserArgs(), so scan both.
+        var engine_args = OS.GetCmdlineArgs();
+        var user_args = OS.GetCmdlineUserArgs();
+        var args = new string[engine_args.Length + user_args.Length];
+        engine_args.CopyTo(args, 0);
+        user_args.CopyTo(args, engine_args.Length);
         for (int i = 0; i < args.Length; i++)
         {
             if (args[i] == "--data" && i + 1 < args.Length)
@@ -48,6 +57,11 @@ public partial class GDKnyttDataStore : Node
             if (args[i] == "--gptokeyb")
             {
                 GptokeybMode = true;
+            }
+
+            if (args[i] == "--compile-tilesets")
+            {
+                CompileTilesetsMode = true;
             }
         }
     }
@@ -84,6 +98,13 @@ public partial class GDKnyttDataStore : Node
     public override void _Ready()
     {
         Tree = GetTree();
+
+        if (CompileTilesetsMode)
+        {
+            // Runs before the main scene, so nothing else has to load first.
+            int count = GDKnyttAssetManager.compileTileset();
+            Tree.Quit(count > 0 ? 0 : 1);
+        }
     }
 
     public static void startGame(bool new_game)

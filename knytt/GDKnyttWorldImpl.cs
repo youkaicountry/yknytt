@@ -53,9 +53,13 @@ public partial class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture2D(string filepath)
     {
-        // Skip pre-compiled Godot 3 TileSet .res files - they are incompatible with Godot 4.
-        // makeTileset() will create proper Godot 4 TileSets from the PNG textures instead.
-        return GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
+        // Prefer a pre-compiled TileSet: its collision polygons are already traced, so
+        // buildTileSet() takes the "case TileSet" branch and skips the expensive pass.
+        // Falls back to the source PNG for anything that has no compiled counterpart
+        // (gradients, object art, and tilesets a world overrides itself).
+        // Regenerate with: godot --headless --path . -- --compile-tilesets
+        return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
+            GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
     }
 
     protected sealed override byte[] getSystemWorldData(string filepath)

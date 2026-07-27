@@ -468,17 +468,44 @@ public partial class GDKnyttAssetManager
         GDKnyttDataStore.ProgressHint = "Compiling finished.";
     }
 
-    // Call this function at start to compile default tilesets
-    public static void compileTileset()
+    public const string COMPILED_TILESETS_DIR = "res://knytt/data/Compiled/Tilesets";
+
+    /// <summary>
+    /// Rebuilds the shipped default TileSets into COMPILED_TILESETS_DIR so that
+    /// GDKnyttWorldImpl.getSystemTexture2D can hand a ready-made TileSet straight to
+    /// buildTileSet, instead of tracing collision polygons on every screen transition.
+    ///
+    /// Run it from a source checkout (res:// is only writable there):
+    ///     godot --headless --path . -- --compile-tilesets
+    ///
+    /// The output depends on Juni.SMOOTHING_PX / SMOOTHING_WIDTH, so re-run this
+    /// whenever those change, otherwise the shipped TileSets keep the old collisions.
+    /// </summary>
+    public static int compileTileset()
     {
-        ensureDirExists(GDKnyttDataStore.BaseDataDirectory.PathJoin("tilesets"));
+        ensureDirExists(COMPILED_TILESETS_DIR);
+        int written = 0;
         for (int i = 0; i < 256; i++)
         {
-            KnyttLogger.Info($"Compiling tileset #{i}");
-            var texture = loadInternalTexture2D($"res://knytt/data/Tilesets/Tileset{i}.png");
-            var tileset = makeTileset(texture);
-            // Godot 4: ResourceSaver.Save signature is (resource, path, flags)
-            GD.PrintErr(ResourceSaver.Save(tileset, GDKnyttDataStore.BaseDataDirectory.PathJoin($"tilesets/Tileset{i}.png.res"), ResourceSaver.SaverFlags.Compress));
+            string source = $"res://knytt/data/Tilesets/Tileset{i}.png";
+            if (!ResourceLoader.Exists(source)) { continue; }
+
+            var texture = loadInternalTexture2D(source);
+            if (texture == null) { KnyttLogger.Error($"Tileset #{i}: cannot load {source}"); continue; }
+
+            // Same preprocessing buildTileSet() applies, so the compiled result matches
+            // what the runtime would have produced from the PNG.
+            var tileset = makeTileset(texture.HasAlpha() ? texture : preprocessTilesetTexture2D(texture));
+            if (tileset == null) { KnyttLogger.Error($"Tileset #{i}: makeTileset returned null"); continue; }
+
+            string dest = $"{COMPILED_TILESETS_DIR}/Tileset{i}.png.res";
+            var err = ResourceSaver.Save(tileset, dest, ResourceSaver.SaverFlags.Compress);
+            if (err != Error.Ok) { KnyttLogger.Error($"Tileset #{i}: save failed ({err})"); continue; }
+
+            written++;
+            if (i % 32 == 0) { KnyttLogger.Info($"Compiled tileset #{i}"); }
         }
+        KnyttLogger.Info($"Compiled {written} default tilesets into {COMPILED_TILESETS_DIR}");
+        return written;
     }
 }
