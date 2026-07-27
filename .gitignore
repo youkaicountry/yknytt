@@ -11,6 +11,7 @@ export_presets.cfg
 android/
 
 bin/
+*.csproj.old*
 worlds/
 problem_worlds/
 backup_worlds

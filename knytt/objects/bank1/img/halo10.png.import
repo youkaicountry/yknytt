@@ -2,6 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
+uid="uid://c6hunektp4rbt"
 path="res://.godot/imported/halo10.png-fe9835655dbadca9cd04ae66df13e157.ctex"
 metadata={
 "vram_texture": false
@@ -16,6 +17,7 @@ dest_files=["res://.godot/imported/halo10.png-fe9835655dbadca9cd04ae66df13e157.c
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
