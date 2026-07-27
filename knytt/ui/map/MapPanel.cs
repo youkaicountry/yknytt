@@ -26,6 +26,16 @@ public partial class MapPanel : Control
                                         new Color(1, 0, 0);
     }
 
+
+    private const int MARK_FONT_SIZE = 18;
+    private const int MARK_OUTLINE_PX = 1;
+
+    private void drawMark(Vector2 pos, string ch, Color color)
+    {
+        DrawCharOutline(mark_font, pos, ch, MARK_FONT_SIZE, MARK_OUTLINE_PX, Colors.White);
+        DrawChar(mark_font, pos, ch, MARK_FONT_SIZE, color);
+    }
+
     private static string markChar(char c)
     {
         return ("rybu".IndexOf(c) != -1 ? 'k' : "RYBU".IndexOf(c) != -1 ? 'd' : c).ToString().Capitalize();
@@ -169,9 +179,11 @@ public partial class MapPanel : Control
             {
                 Vector2 p = new Vector2((coord.X - world.MinBounds.X) * XSIZE + 4, (coord.Y - world.MinBounds.Y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
-                DrawChar(mark_font, p, markChar(m[0]), 18, markColor(m[0]));
-                if (m.Length == 2) { DrawChar(mark_font, p + new Vector2(11, 0), markChar(m[1]), 18, markColor(m[1])); }
-                else if (m.Length > 2) { DrawChar(mark_font, p + new Vector2(11, 0), "+", 18, markColor('+')); }
+                // MarkFont.tres carried outline_size = 1 with Godot 3's default white
+                // outline_color; Godot 4 has no font-level outline, so draw it explicitly.
+                drawMark(p, markChar(m[0]), markColor(m[0]));
+                if (m.Length == 2) { drawMark(p + new Vector2(11, 0), markChar(m[1]), markColor(m[1])); }
+                else if (m.Length > 2) { drawMark(p + new Vector2(11, 0), "+", markColor('+')); }
             }
         }
 
