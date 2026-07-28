@@ -1,12 +1,4 @@
-; Shared UI font. On Godot 3 this was the DynamicFont that every UI scene referenced, and
-; GDKnyttSettings.SmoothScaling swapped its font_data/size/spacing to switch between the
-; smooth (Segan) and pixel-crisp (Silver) look.
-;
-; The Godot 4 conversion pointed the scenes at Segan-Light.ttf directly and left this
-; resource empty, which is why that setting currently does nothing. It is restored here as
-; a FontVariation (the Godot 4 type that carries spacing) so the swap has something to
-; mutate again - see the TODO in GDKnyttSettings.SmoothScaling for what still has to
-; happen in the scenes.
+; Shared UI font, swapped by Smooth Scaling (see GDKnyttSettings).
 [gd_resource type="FontVariation" load_steps=2 format=3]
 
 [ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="1"]

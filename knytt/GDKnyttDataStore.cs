@@ -21,10 +21,8 @@ public partial class GDKnyttDataStore : Node
 
     public static bool GptokeybMode { get; private set; }
 
-    // ARM64 handheld console. Godot 3 detected these through the FRT platform, whose
-    // OS.get_name() was "Unix"; FRT has no Godot 4 port, so it has to be declared:
-    // --gptokeyb (what the PortMaster launcher already passes), an explicit --handheld,
-    // or a "handheld" feature tag on a custom export preset.
+    // Handheld build. Godot 3 detected it as FRT ("Unix"), which Godot 4 has no port of,
+    // so it's declared: --gptokeyb, --handheld, or a "handheld" feature tag.
     private static bool handheld_flag;
     public static bool Handheld => handheld_flag || GptokeybMode || OS.HasFeature("handheld");
 
@@ -114,9 +112,7 @@ public partial class GDKnyttDataStore : Node
 
         if (CompileTilesetsMode)
         {
-            // Runs before the main scene, so nothing else has to load first. The Console
-            // autoload registers the log targets and readies *after* this one, and we quit
-            // before it ever does, so wire up output here or the run is silent.
+            // Console autoload readies after this one, so add the log target here.
             KnyttLogger.AddTarget(new GodotLoggerTarget());
             int count = GDKnyttAssetManager.compileTileset();
             Tree.Quit(count > 0 ? 0 : 1);

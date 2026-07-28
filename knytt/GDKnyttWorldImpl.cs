@@ -53,11 +53,7 @@ public partial class GDKnyttWorldImpl : KnyttWorld
 
     protected override object getSystemTexture2D(string filepath)
     {
-        // Prefer a pre-compiled TileSet: its collision polygons are already traced, so
-        // buildTileSet() takes the "case TileSet" branch and skips the expensive pass.
-        // Falls back to the source PNG for anything that has no compiled counterpart
-        // (gradients, object art, and tilesets a world overrides itself).
-        // Regenerate with: godot --headless --path . -- --compile-tilesets
+        // Pre-compiled tileset if there is one (polygons already traced), else the PNG.
         return (object)GDKnyttAssetManager.loadInternalTileset($"res://knytt/data/Compiled/{filepath}.res") ??
             GDKnyttAssetManager.loadInternalTexture2D("res://knytt/data/" + filepath);
     }

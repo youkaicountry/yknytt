@@ -65,22 +65,9 @@ public partial class GDKnyttSettings : Node
     }
 
 
-    // Upstream (Godot 3) switched the shared UI font between a smooth face and a
-    // pixel-crisp one whenever Smooth Scaling changed, mutating the two DynamicFont
-    // resources every UI scene referenced:
-    //   font_data = segan/Segan-Light.ttf (smooth) | silver/Silver-Light.ttf (sharp)
-    //   size = 12 | 17, extra_spacing_top = 1 | 0, extra_spacing_bottom = 0 | -6
-    //
-    // This swaps the face and spacing on the two resources that survived the port. It is
-    // NOT yet the full feature:
-    //   * The Godot 4 conversion repointed 65 font references across 16 scenes at
-    //     Segan-Light.ttf directly, so most labels do not go through UIDynamicFont.tres
-    //     and will not change face.
-    //   * Those same scenes bake in 63 theme_override_font_sizes/font_size values, so the
-    //     12 <-> 17 size change cannot be driven from the font resource at all - the sizes
-    //     have to be centralised (theme default_font_size) first.
-    // Finishing it is a scene refactor plus a visual pass over every screen at both
-    // settings, so it is deliberately left here rather than done blind.
+    // Segan (smooth) / Silver (sharp), like the old DynamicFont swap.
+    // Incomplete: most labels reference Segan-Light.ttf directly and have their own
+    // font_size, so face+spacing change here but size doesn't.
     private static void swapScalingFonts(bool smooth)
     {
         var face = ResourceLoader.Load<FontFile>(smooth ?

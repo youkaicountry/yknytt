@@ -13,8 +13,7 @@ using static YKnyttLib.JuniValues;
 ///   [Cmd("greet", "Say hello")]
 ///   public void CmdGreet(string name) => Info($"Hello, {name}!");
 ///
-/// That's it. Registration is automatic via reflection.
-/// LimboConsole parses arguments from the method signature.
+/// Registration is automatic via reflection; arguments come from the method signature.
 /// Use spaces in the name for subcommands: "save copy", "mon flags".
 /// </summary>
 public partial class ConsoleCommands : Node
@@ -493,9 +492,8 @@ public partial class ConsoleCommands : Node
         catch (Exception e) { Error($"Cannot load {path}: {e.Message}"); }
     }
 
-    // LimboConsole's built-in "quit" exits the GAME, but the pre-LimboConsole console
-    // used quit/exit to close the console. "hide" restores that, and limbo_console.cfg
-    // re-points the "exit" alias here so it no longer closes YKnytt by surprise.
+    // LimboConsole's "quit" exits the game; the old console used quit/exit to close it.
+    // limbo_console.cfg points the "exit" alias here.
     [Cmd("hide", "Hide this console")]
     public void CmdHide() => GetNode<Console>("/root/Console").toggleConsole();
 

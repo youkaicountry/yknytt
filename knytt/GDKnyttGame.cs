@@ -468,10 +468,8 @@ public partial class GDKnyttGame : Node2D
             ResourceLoader.Load<Shader>("res://knytt/ui/screen_shaders/HQ4X.gdshader") : null;
     }
 
-    // Builds a bitmap font from a level's character sheet: 7 rows of 32 cells, first cell
-    // is space (32). Godot 3 did this with BitmapFont.AddChar; Godot 4 has no BitmapFont,
-    // so the glyphs go straight into a FontFile cache. Godot uses the codepoint as the
-    // glyph index for this kind of font, so no cmap is needed.
+    // Bitmap font from a level's character sheet: 7 rows of 32 cells, starting at space.
+    // Godot 4 has no BitmapFont, so glyphs go straight into a FontFile cache.
     private Font loadFont(string key, int width, int height)
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }

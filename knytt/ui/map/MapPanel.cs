@@ -179,8 +179,7 @@ public partial class MapPanel : Control
             {
                 Vector2 p = new Vector2((coord.X - world.MinBounds.X) * XSIZE + 4, (coord.Y - world.MinBounds.Y) * YSIZE + 12);
                 string m = juni.Powers.Marked[coord];
-                // MarkFont.tres carried outline_size = 1 with Godot 3's default white
-                // outline_color; Godot 4 has no font-level outline, so draw it explicitly.
+                // Godot 4 has no font-level outline, so draw it explicitly.
                 drawMark(p, markChar(m[0]), markColor(m[0]));
                 if (m.Length == 2) { drawMark(p + new Vector2(11, 0), markChar(m[1]), markColor(m[1])); }
                 else if (m.Length > 2) { drawMark(p + new Vector2(11, 0), "+", markColor('+')); }

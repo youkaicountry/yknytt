@@ -1,10 +1,4 @@
-; Stat panel font. Converted from Godot 3's DynamicFont (size 12, outline 1,
-; extra_spacing_top 6, extra_spacing_bottom 2).
-;
-; This was previously written as a FontFile carrying size/outline_size/spacing_* keys,
-; none of which exist on a Godot 4 FontFile, so the spacing was silently dropped.
-; FontVariation is the Godot 4 type that actually carries spacing. Size and outline are
-; per-label in Godot 4 and live on StatLabel.tscn.
+; Stat panel font. Size and outline are per-label in Godot 4 (StatLabel.tscn).
 [gd_resource type="FontVariation" load_steps=2 format=3]
 
 [ext_resource type="FontFile" path="res://knytt/fonts/segan/Segan-Light.ttf" id="1"]

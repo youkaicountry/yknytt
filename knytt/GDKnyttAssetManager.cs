@@ -470,17 +470,9 @@ public partial class GDKnyttAssetManager
 
     public const string COMPILED_TILESETS_DIR = "res://knytt/data/Compiled/Tilesets";
 
-    /// <summary>
-    /// Rebuilds the shipped default TileSets into COMPILED_TILESETS_DIR so that
-    /// GDKnyttWorldImpl.getSystemTexture2D can hand a ready-made TileSet straight to
-    /// buildTileSet, instead of tracing collision polygons on every screen transition.
-    ///
-    /// Run it from a source checkout (res:// is only writable there):
-    ///     godot --headless --path . -- --compile-tilesets
-    ///
-    /// The output depends on Juni.SMOOTHING_PX / SMOOTHING_WIDTH, so re-run this
-    /// whenever those change, otherwise the shipped TileSets keep the old collisions.
-    /// </summary>
+    // Recompiles default tilesets. Run from a source checkout:
+    //   godot --headless --path . -- --compile-tilesets
+    // Re-run after changing SMOOTHING_PX / SMOOTHING_WIDTH.
     public static int compileTileset()
     {
         ensureDirExists(COMPILED_TILESETS_DIR);
