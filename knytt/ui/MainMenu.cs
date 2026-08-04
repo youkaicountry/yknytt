@@ -24,9 +24,6 @@ public class MainMenu : BasicScreen
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "Unix") { OS.WindowSize = OS.GetScreenSize(); OS.WindowBorderless = OS.WindowMaximized = true; }
         if (OS.GetName() == "HTML5") { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
-        (string file, int _) = getLastPlayed();
-        GetNode<Button>("ButtonRow/TutorialButton").Text =
-             file != null && (new File().FileExists(file) || new Directory().DirExists(file)) ? "Continue" : "Tutorial";
         GDKnyttDataStore.setTitle(null);
     }
 
@@ -36,6 +33,9 @@ public class MainMenu : BasicScreen
         GetNode<Button>("ButtonRow/DownloadButton").Disabled = 
             GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline &&
             !new File().FileExists(LevelSelection.getLevelsFileDir().PlusFile("levels.json"));
+        (string file, int _) = getLastPlayed();
+        GetNode<Button>("ButtonRow/TutorialButton").Text =
+             file != null && (new File().FileExists(file) || new Directory().DirExists(file)) ? "Continue" : "Tutorial";
     }
 
     public override void _Notification(int what)

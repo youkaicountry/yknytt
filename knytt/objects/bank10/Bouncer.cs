@@ -22,6 +22,8 @@ public class Bouncer : GDKnyttBaseObject
     {
         base._PhysicsProcess(delta);
         speed += gravity * 50 * delta;
+        // TODO: speed should be multiplied by delta (and gravity by delta^2).
+        // Make a screen recording and get true initial speeds for all bouncers.
         Translate(new Vector2(0, speed));
     }
 

@@ -57,7 +57,8 @@ public class GDKnyttWorld : Node2D
     public static KnyttPoint getAreaCoords(Vector2 global_pos)
     {
         return new KnyttPoint((int)(global_pos.x / (GDKnyttAssetManager.TILE_WIDTH * KnyttArea.AREA_WIDTH)),
-                              (int)(global_pos.y / (GDKnyttAssetManager.TILE_HEIGHT * KnyttArea.AREA_HEIGHT)));
+                              (int)(global_pos.y / (GDKnyttAssetManager.TILE_HEIGHT * KnyttArea.AREA_HEIGHT))) +
+               new KnyttPoint(global_pos.x >= 0 ? 0 : -1, global_pos.y >= 0 ? 0 : -1);
     }
 
     public GDKnyttArea instantiateArea(KnyttPoint point)

@@ -5,6 +5,7 @@
 [node name="ViewportContainer" type="ViewportContainer"]
 margin_right = 1200.0
 margin_bottom = 480.0
+mouse_filter = 2
 script = ExtResource( 1 )
 
 [node name="Viewport" type="Viewport" parent="."]
@@ -24,3 +25,4 @@ margin_right = 1200.0
 margin_bottom = 480.0
 rect_scale = Vector2( 1, -1 )
 rect_pivot_offset = Vector2( 600, 240 )
+mouse_filter = 2
