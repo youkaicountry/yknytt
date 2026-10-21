@@ -50,7 +50,7 @@ public partial class Raindrop : Node2D
         if (distance >= max_distance) { retire(); }
     }
 
-    public void _on_Area2D_entered(object body_or_area)
+    public void _on_Area2D_entered(Node2D body_or_area)
     {
         if (sprite.Frame == 0 && (GDKnyttDataStore.random.NextDouble() < .4)) { splash(); }
         else { retire(); }

@@ -7,7 +7,7 @@ public partial class LeafParticle : SceneCPUParticleInstance
         GetNode<AnimatedSprite2D>("AnimatedSprite2D").Animation = Params;
     }
 
-    public void _on_Area2D_entered(object body_or_area)
+    public void _on_Area2D_entered(Node2D body_or_area)
     {
         if (Params == "default" || Params == "3" || Params == "1")
         {
