@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://knytt/ui/map/MapPanel.cs" id="1"]
 [ext_resource type="StyleBox" path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" id="2"]
@@ -65,10 +65,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id="6"]
+bg_color = Color(0.145098, 0.145098, 0.164706, 1)
+
 [node name="MapBackgroundPanel" type="Panel"]
 process_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("6")
 
 [node name="MapPanel" type="Control" parent="."]
 script = ExtResource("1")
