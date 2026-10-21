@@ -460,34 +460,80 @@ offset_right = 580.0
 offset_bottom = 13.0
 size_flags_horizontal = 3
 
-[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-offset_right = 98.0
-offset_bottom = 13.0
-text = "Uses some parts of"
-
 [node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-offset_left = 102.0
-offset_right = 159.0
+offset_right = 57.0
 offset_bottom = 13.0
 focus_mode = 2
 text = "KnyttSharp"
 uri = "https://github.com/andrewmd5/KnyttSharp"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-offset_left = 163.0
-offset_right = 240.0
+offset_left = 61.0
+offset_right = 141.0
 offset_bottom = 13.0
-text = "by andrewmd5"
+text = "by andrewmd5,"
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+offset_left = 145.0
+offset_right = 189.0
+offset_bottom = 13.0
+focus_mode = 2
+text = "IniParser"
+uri = "https://github.com/rickyah/ini-parser"
+
+[node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+offset_left = 193.0
+offset_right = 243.0
+offset_bottom = 13.0
+text = "by rickyah"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer"]
 offset_top = 114.0
 offset_right = 580.0
-offset_bottom = 114.0
+offset_bottom = 127.0
+text = "Fonts: Segan Light (felinefury82), Silver (Poppy Works), Magnificent (Diego Vallejo)"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+offset_top = 133.0
+offset_right = 580.0
+offset_bottom = 146.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+offset_right = 72.0
+offset_bottom = 13.0
+text = "More levels in"
+
+[node name="LinkButton" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+offset_left = 76.0
+offset_right = 159.0
+offset_bottom = 13.0
+focus_mode = 2
+text = "KS Level Archive"
+uri = "https://knyttlevels.com/"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+offset_left = 163.0
+offset_right = 183.0
+offset_bottom = 13.0
+text = "and"
+
+[node name="LinkButton2" type="LinkButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
+offset_left = 187.0
+offset_right = 274.0
+offset_bottom = 13.0
+focus_mode = 2
+text = "KS Level Reviews"
+uri = "https://docs.google.com/spreadsheets/d/1wDVe_MHMEzeeAi4ynUCduDx-CxEyWIC4q3TOyz4JYIo/edit?pli=1&gid=0#gid=0"
+
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+offset_top = 152.0
+offset_right = 580.0
+offset_bottom = 152.0
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 120.0
+offset_top = 158.0
 offset_right = 580.0
-offset_bottom = 133.0
+offset_bottom = 171.0
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
 modulate = Color( 0.25098, 0.25098, 1, 1 )
@@ -505,10 +551,10 @@ focus_mode = 2
 text = "Beta Testers"
 
 [node name="TestersPanel" type="Control" parent="ScrollContainer/VBoxContainer"]
-offset_top = 139.0
+offset_top = 177.0
 offset_right = 580.0
-offset_bottom = 184.0
-custom_minimum_size = Vector2( 580, 45 )
+offset_bottom = 259.0
+custom_minimum_size = Vector2( 580, 82 )
 clip_contents = true
 mouse_filter = 1
 
@@ -519,7 +565,7 @@ anims/expand = SubResource("10")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TestersPanel"]
 offset_right = 580.0
-offset_bottom = 45.0
+offset_bottom = 82.0
 clip_contents = true
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
@@ -528,7 +574,9 @@ offset_bottom = 45.0
 size_flags_horizontal = 3
 text = "Wibi (ncrecc)
 madrabbit90
-blipdrifter"
+blipdrifter
+RaulMarq
+NotYerAvgPorter"
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 offset_left = 146.0
@@ -538,7 +586,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Lit Knob
 ms2048
-Pasharet"
+Pasharet
+Ganimoth
+Chase the Chao"
 
 [node name="Label3" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 offset_left = 292.0
@@ -548,7 +598,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "djsolidsnake86
 fabzenfab
-Aradiant"
+Aradiant
+Fraxinus88"
 
 [node name="Label4" type="Label" parent="ScrollContainer/VBoxContainer/TestersPanel/HBoxContainer"]
 offset_left = 438.0
@@ -558,7 +609,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "LumicatRB
 Someone65
-diegopau"
+diegopau
+octopusfriend"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 offset_top = 190.0
