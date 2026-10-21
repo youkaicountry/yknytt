@@ -71,7 +71,7 @@ public partial class Juni : CharacterBody2D
     PUSH_OUT_TRIES = 5;                         // How many attempts to push out
 
     [Signal] public delegate void JumpedEventHandler(Juni juni, bool real);
-    [Signal] public delegate void PowerChangedEventHandler();
+    [Signal] public delegate void PowerChangedEventHandler(int power, bool value);
     [Signal] public delegate void HologramStoppedEventHandler(Juni juni);
     [Signal] public delegate void DownEventEventHandler(Juni juni);
     [Signal] public delegate void DiedEventHandler(Juni juni);

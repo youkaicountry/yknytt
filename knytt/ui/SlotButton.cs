@@ -6,7 +6,7 @@ public partial class SlotButton : GDKnyttButton
     public int slot = 1;
 
     [Signal]
-    public delegate void StartGameEventHandler();
+    public delegate void StartGameEventHandler(bool new_save, string filename, int slot);
 
     public bool ConfirmActive
     {

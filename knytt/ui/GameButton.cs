@@ -11,7 +11,7 @@ public partial class GameButton : GDKnyttButton
     private float varProgressLength;
 
     [Signal]
-    public delegate void GamePressedEventHandler();
+    public delegate void GamePressedEventHandler(GameButton button);
 
     public void initialize(WorldEntry info)
     {
