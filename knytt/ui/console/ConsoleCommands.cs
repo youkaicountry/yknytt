@@ -542,12 +542,16 @@ public partial class ConsoleCommands : Node
         Info("Settings copied to clipboard.");
     }
 
-    [Cmd("settings set", "Set a setting (section name value)")]
+    [Cmd("settings set", "Set a setting (section name value, '_' for spaces, value 'delete' removes it)")]
     public void CmdSettingsSet(string section, string name, string value)
     {
-        GDKnyttSettings.ini[section][name] = value;
+        if (!GDKnyttSettings.ini.Sections.ContainsSection(section)) { Error("Wrong section name!"); return; }
+        if (section != "Physics") { name = name.Replace('_', ' '); }
+        if (value == "delete") { GDKnyttSettings.ini[section]?.RemoveKey(name); }
+        else { GDKnyttSettings.ini[section][name] = value; }
+        GDKnyttSettings.applyAllSettings();
         GDKnyttSettings.saveSettings();
-        Info($"[{section}] {name} = {value}");
+        Info(value != "delete" ? $"[{section}] {name} = {value}" : $"[{section}] {name} has been deleted.");
     }
 
     #endregion
