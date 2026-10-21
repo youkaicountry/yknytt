@@ -44,6 +44,9 @@ region = Rect2( 168, 0, 24, 24 )
 animations = [ {
 "frames": [{
 "duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
 "texture": SubResource("2")
 }, {
 "duration": 1.0,
@@ -66,6 +69,9 @@ animations = [ {
 }, {
 "duration": 1.0,
 "texture": SubResource("9")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"default",
