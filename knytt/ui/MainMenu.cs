@@ -22,7 +22,7 @@ public partial class MainMenu : BasicScreen
         initFocus();
         RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
         GDKnyttSettings.setupViewport(for_ui: true);
-        if (OS.GetName() == "Linux") { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
+        if (GDKnyttSettings.Handheld) { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
         if (GDKnyttSettings.Web) { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
         GDKnyttDataStore.setTitle(null);
     }
