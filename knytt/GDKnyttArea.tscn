@@ -39,6 +39,7 @@ custom_minimum_size = Vector2( 600, 240 )
 clip_contents = true
 
 [node name="Background" type="Sprite2D" parent="Control"]
+texture_repeat = 2
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 24, 240 )
