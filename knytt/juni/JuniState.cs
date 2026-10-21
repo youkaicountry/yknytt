@@ -155,6 +155,8 @@ public partial class ClimbState : JuniState
             juni.velocity.X = juni.FacingRight ? -Juni.CLIMB_JUMP_X_SPEED : Juni.CLIMB_JUMP_X_SPEED;
             juni.executeJump(check_stow: false);
         }
+
+        if (!juni.CanClimb && !juni.CanJump) { juni.velocity.Y = 0; } // don't preserve climb speed if nojump
     }
 
     public override void onExit()

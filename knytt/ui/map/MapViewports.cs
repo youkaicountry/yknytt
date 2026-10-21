@@ -41,7 +41,9 @@ public partial class MapViewports : Node2D
     }
 
     private KnyttPoint getKey(KnyttPoint area_coord) => 
-        area_coord / new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE) * new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE);
+        area_coord / new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE) * new KnyttPoint(MapPanel.SCALE, MapPanel.SCALE)
+        + new KnyttPoint((area_coord.X < 0) && (area_coord.X % MapPanel.SCALE != 0) ? -MapPanel.SCALE : 0,
+                         (area_coord.Y < 0) && (area_coord.Y % MapPanel.SCALE != 0) ? -MapPanel.SCALE : 0);
 
     private string getFilename(KnyttPoint key) => $"{cache_dir}/map_x{key.X}y{key.Y}.png";
 
@@ -100,19 +102,22 @@ public partial class MapViewports : Node2D
 
     private void saveAllInternal()
     {
-        foreach (var key in viewports.Keys.ToArray())
+        lock (viewports) // few saves in a row cause changes of viewports.Keys that may lead to exceptions
         {
-            if (viewports[key].dump())
+            foreach (var key in viewports.Keys.ToArray())
             {
-                viewports[key].reset();
-                map_images[key] = viewports[key].refresh();
-                if (!latest_images.Contains(key)) { latest_images.Enqueue(key); }
-                if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
-            }
-            else if (!key.Equals(last_area_key))
-            {
-                viewports[key].QueueFree();
-                viewports.Remove(key);
+                if (viewports[key].dump())
+                {
+                    viewports[key].reset();
+                    map_images[key] = viewports[key].refresh();
+                    if (!latest_images.Contains(key)) { latest_images.Enqueue(key); }
+                    if (latest_images.Count > IMAGES_LIMIT) { map_images.Remove(latest_images.Dequeue()); }
+                }
+                else if (!key.Equals(last_area_key))
+                {
+                    viewports[key].QueueFree();
+                    viewports.Remove(key);
+                }
             }
         }
     }

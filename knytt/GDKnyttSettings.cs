@@ -542,9 +542,9 @@ public partial class GDKnyttSettings : Node
                 }
             }
         }
-        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.2") == -1)
+        if (!ini["Misc"].ContainsKey("Version") || ini["Misc"]["Version"].CompareTo("0.7.3") == -1)
         {
-            ini["Misc"]["Version"] = "0.7.2";
+            ini["Misc"]["Version"] = "0.7.3";
             return true;
         }
         return false;

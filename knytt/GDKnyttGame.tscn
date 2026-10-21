@@ -305,6 +305,7 @@ visible = false
 
 [node name="MapViewports" type="Node2D" parent="."]
 unique_name_in_owner = true
+z_index = -2
 script = ExtResource("19")
 
 [node name="FadeCanvasLayer" type="CanvasLayer" parent="."]

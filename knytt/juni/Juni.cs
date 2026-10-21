@@ -519,7 +519,7 @@ public partial class Juni : CharacterBody2D
                     }
                 }
             }
-            if (climbed_with_pull_over)
+            if (climbed_with_pull_over && juniInput.UpHeld)
             {
                 velocity.X = FacingRight ? Mathf.Max(velocity.X, PULL_OVER_FORCE_X) : Mathf.Min(velocity.X, -PULL_OVER_FORCE_X);
             }

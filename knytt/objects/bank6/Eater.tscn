@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Texture2D" path="res://knytt/objects/bank6/img/6-5.png" id="1"]
 [ext_resource type="PackedScene" path="res://knytt/objects/common/BaseEater.tscn" id="2"]
@@ -58,7 +58,14 @@ animations = [ {
 "speed": 20.0
 } ]
 
+[sub_resource type="RectangleShape2D" id="15"]
+size = Vector2(30, 1)
+
 [node name="Node2D" instance=ExtResource("2")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("7")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(24, 23.5)
+shape = SubResource("15")

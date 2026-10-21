@@ -4,17 +4,17 @@
 
 An open source implementation of Knytt Stories in C# using Godot Engine
 
-[Download YKnytt v0.7.2 for Android](https://github.com/youkaicountry/yknytt/releases/download/0.7.2/YKnytt_v0.7.2.apk)
+[Download YKnytt v0.7.3 for Android](https://github.com/youkaicountry/yknytt/releases/download/0.7.3/YKnytt_v0.7.3.apk)
 
-[Download YKnytt v0.7.2 for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.7.2/YKnytt_v0.7.2_win.zip)
+[Download YKnytt v0.7.3 for Windows](https://github.com/youkaicountry/yknytt/releases/download/0.7.3/YKnytt_v0.7.3_win.zip)
 
-[Download YKnytt v0.7.2 for macOS](https://github.com/youkaicountry/yknytt/releases/download/0.7.2/YKnytt_v0.7.2_macos.zip)
+[Download YKnytt v0.7.3 for macOS](https://github.com/youkaicountry/yknytt/releases/download/0.7.3/YKnytt_v0.7.3_macos.zip)
 
-[Download YKnytt v0.7.2 for Linux x64 / X11](https://github.com/youkaicountry/yknytt/releases/download/0.7.2/YKnytt_v0.7.2_linux.zip)
+[Download YKnytt v0.7.3 for Linux x64 / X11](https://github.com/youkaicountry/yknytt/releases/download/0.7.3/YKnytt_v0.7.3_linux.zip)
 
-[Download YKnytt v0.7.2 for Linux ARM64 handhelds](https://github.com/youkaicountry/yknytt/releases/download/0.7.2/YKnytt_v0.7.2_linux_arm64_handhelds.zip) | [Available in PortMaster](https://portmaster.games/detail.html?name=yknytt)
+[Download YKnytt v0.7.3 for Linux ARM64 handhelds](https://github.com/youkaicountry/yknytt/releases/download/0.7.3/YKnytt_v0.7.3_linux_arm64_handhelds.zip) | [Available in PortMaster](https://portmaster.games/detail.html?name=yknytt)
 
-[Web version: play YKnytt v0.7.2 on itch.io](https://youkaicountry.itch.io/yknytt)
+[Web version: play YKnytt v0.7.3 on itch.io](https://youkaicountry.itch.io/yknytt)
 
 ### Screenshots
 

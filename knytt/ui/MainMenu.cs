@@ -24,10 +24,6 @@ public partial class MainMenu : BasicScreen
         GDKnyttSettings.setupViewport(for_ui: true);
         if (OS.GetName() == "Linux") { DisplayServer.WindowSetSize(DisplayServer.ScreenGetSize()); DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true); DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized); }
         if (GDKnyttSettings.Web) { GetNode<Button>("ButtonRow/QuitButton").Visible = false; }
-        (string file, int _) = getLastPlayed();
-        (string last_file, int _) = getLastPlayed();
-        GetNode<Button>("ButtonRow/TutorialButton").Text =
-            last_file != null && (FileAccess.FileExists(last_file) || DirAccess.DirExistsAbsolute(last_file)) ? "Continue" : "Tutorial";
         GDKnyttDataStore.setTitle(null);
     }
 
@@ -37,6 +33,9 @@ public partial class MainMenu : BasicScreen
         GetNode<Button>("ButtonRow/DownloadButton").Disabled = 
             GDKnyttSettings.Connection == GDKnyttSettings.ConnectionType.Offline &&
             !FileAccess.FileExists(LevelSelection.getLevelsFileDir().PathJoin("levels.json"));
+        (string file, int _) = getLastPlayed();
+        GetNode<Button>("ButtonRow/TutorialButton").Text =
+            file != null && (FileAccess.FileExists(file) || DirAccess.DirExistsAbsolute(file)) ? "Continue" : "Tutorial";
     }
 
 
