@@ -242,6 +242,10 @@
     <Compile Include="knytt\GDKnyttWorld.cs" />
     <Compile Include="knytt\audio\GDKnyttMusicChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
+    <Compile Include="knytt\editor\EditorAssets.cs" />
+    <Compile Include="knytt\editor\LevelEditor.cs" />
+    <Compile Include="knytt\editor\MiniMap.cs" />
+    <Compile Include="knytt\editor\ScreenView.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
     <Compile Include="knytt\juni\JuniInput.cs" />

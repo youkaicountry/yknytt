@@ -50,6 +50,19 @@ margin_right = -5.0
 margin_bottom = -6.0
 text = "Back"
 
+[node name="EditButton" parent="InfoRect" instance=ExtResource( 2 )]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -170.0
+margin_top = -40.0
+margin_right = -90.0
+margin_bottom = -6.0
+text = "Edit"
+hint = "Open this level in the level editor"
+
 [node name="Slot1Button" parent="InfoRect" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -271,6 +284,8 @@ timeout = 7.0
 wait_time = 0.2
 
 [connection signal="pressed" from="InfoRect/BackButton" to="." method="goBack"]
+[connection signal="ShowHint" from="InfoRect/EditButton" to="." method="_on_ShowHint"]
+[connection signal="pressed" from="InfoRect/EditButton" to="." method="_on_EditButton_pressed"]
 [connection signal="ShowHint" from="InfoRect/Slot1Button" to="." method="_on_ShowHint"]
 [connection signal="StartGame" from="InfoRect/Slot1Button" to="." method="_on_SlotButton_StartGame"]
 [connection signal="ShowHint" from="InfoRect/Slot2Button" to="." method="_on_ShowHint"]
