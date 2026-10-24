@@ -29,7 +29,7 @@ public class LevelEditor : Control
     private MiniMap mini_map;
     private ConfirmationDialog goto_dialog;
 
-    public static bool Available => OS.GetName() != "HTML5" && OS.GetName() != "Unix" && !TouchSettings.EnablePanel;
+    public static bool Available => OS.GetName() != "Unix";
 
     public static void open(SceneTree tree, GDKnyttWorldImpl world)
     {
@@ -112,11 +112,11 @@ public class LevelEditor : Control
         GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(show_b ? tileset_b : tileset_a);
     }
 
-    private bool Windowed => !OS.WindowFullscreen && !OS.WindowMaximized;
+    private bool Resizable => OS.HasFeature("pc") && !OS.WindowFullscreen && !OS.WindowMaximized;
 
     private void fitWindow()
     {
-        if (!Windowed) { return; }
+        if (!Resizable) { return; }
         var screen = OS.GetScreenSize() * 0.9f;
         OS.WindowSize = SCREEN_SIZE * Mathf.Max(1, Mathf.Floor(Mathf.Min(screen.x / SCREEN_SIZE.x, screen.y / SCREEN_SIZE.y)));
         OS.CenterWindow();
@@ -124,12 +124,18 @@ public class LevelEditor : Control
 
     private void quit()
     {
-        if (Windowed)
+        if (Resizable)
         {
             OS.WindowSize = game_window_size;
             OS.CenterWindow();
         }
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == MainLoop.NotificationWmQuitRequest) { GetTree().Quit(); }
+        if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
     }
 
     public override void _UnhandledInput(InputEvent @event)
