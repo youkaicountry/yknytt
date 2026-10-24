@@ -71,7 +71,7 @@ public class LevelSelection : BasicScreen
         http_levels_node = GetNode<HTTPRequest>("RestHTTPRequest");
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
-        GetNode<Button>("%NewLevelButton").Visible = localLoad && LevelEditor.Available;
+        GetNode<Control>("%NewLevelSpace").Visible = GetNode<Button>("%NewLevelButton").Visible = localLoad && LevelEditor.Available;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
         GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible = 
             GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
