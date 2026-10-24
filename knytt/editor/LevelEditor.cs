@@ -29,6 +29,14 @@ public class LevelEditor : Control
     private MiniMap mini_map;
     private ConfirmationDialog goto_dialog;
 
+    public static bool Available => OS.GetName() != "HTML5" && OS.GetName() != "Unix" && !TouchSettings.EnablePanel;
+
+    public static void open(SceneTree tree, GDKnyttWorldImpl world)
+    {
+        GDKnyttDataStore.KWorld = world;
+        tree.ChangeScene("res://knytt/editor/LevelEditor.tscn");
+    }
+
     public override void _Ready()
     {
         GetTree().SetScreenStretch(

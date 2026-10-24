@@ -92,8 +92,7 @@ public class InfoScreen : BasicScreen
                 i => new File().FileExists($"{GDKnyttSettings.Saves}/{KWorld.WorldDirectoryName} {i}.ini"));
         }
 
-        GetNode<Button>("%EditButton").Visible =
-            !in_game && OS.GetName() != "HTML5" && OS.GetName() != "Unix" && !TouchSettings.EnablePanel;
+        GetNode<Button>("%EditButton").Visible = !in_game && LevelEditor.Available;
 
         Texture info = (KWorld.worldFileExists("Info+.png") ? KWorld.getWorldTexture("Info+.png") :
                         KWorld.worldFileExists("Info.png") ? KWorld.getWorldTexture("Info.png") : null) as Texture;
@@ -571,8 +570,7 @@ public class InfoScreen : BasicScreen
     private void _on_EditButton_pressed()
     {
         ClickPlayer.Play();
-        GDKnyttDataStore.KWorld = KWorld;
-        GetTree().ChangeScene("res://knytt/editor/LevelEditor.tscn");
+        LevelEditor.open(GetTree(), KWorld);
     }
 
     private void _on_ShowHint(string hint)

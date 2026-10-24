@@ -65,8 +65,10 @@ script = ExtResource( 6 )
 
 [node name="FilterContainer" type="HBoxContainer" parent="MainContainer"]
 margin_top = 194.0
-margin_right = 590.0
+margin_right = 507.0
 margin_bottom = 230.0
+rect_min_size = Vector2( 507, 0 )
+size_flags_horizontal = 0
 
 [node name="Category" type="VBoxContainer" parent="MainContainer/FilterContainer"]
 margin_right = 100.0
@@ -200,8 +202,9 @@ selected = 0
 
 [node name="Search" type="VBoxContainer" parent="MainContainer/FilterContainer"]
 margin_left = 366.0
-margin_right = 486.0
+margin_right = 507.0
 margin_bottom = 36.0
+size_flags_horizontal = 3
 custom_constants/separation = 6
 
 [node name="SearchLabel" type="Label" parent="MainContainer/FilterContainer/Search"]
@@ -216,7 +219,7 @@ align = 1
 margin_top = 19.0
 margin_right = 120.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 120, 15 )
+rect_min_size = Vector2( 70, 15 )
 focus_neighbour_top = NodePath("../../../../ToBottomLevelRight")
 focus_neighbour_right = NodePath("../../../../BackButton")
 focus_neighbour_bottom = NodePath("../../../../ToTopLevelRight")
@@ -227,6 +230,21 @@ custom_fonts/font = ExtResource( 3 )
 custom_styles/read_only = SubResource( 3 )
 custom_styles/normal = SubResource( 1 )
 caret_blink = true
+
+[node name="NewLevelButton" parent="MainContainer/FilterContainer" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 441.0
+margin_top = 6.0
+margin_right = 507.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 66, 30 )
+focus_neighbour_left = NodePath("../Search/SearchEdit")
+focus_neighbour_right = NodePath("../../../BackButton")
+size_flags_vertical = 8
+text = "New Level"
 
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
 anchor_left = 1.0
@@ -302,6 +320,7 @@ focus_mode = 2
 [connection signal="focus_exited" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_focus_exited"]
 [connection signal="text_changed" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
 [connection signal="text_entered" from="MainContainer/FilterContainer/Search/SearchEdit" to="." method="_on_SearchEdit_text_entered"]
+[connection signal="pressed" from="MainContainer/FilterContainer/NewLevelButton" to="." method="_on_NewLevelButton_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="goBack"]
 [connection signal="request_completed" from="RestHTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="FileHTTPRequest" to="." method="_on_FileHTTPRequest_request_completed"]

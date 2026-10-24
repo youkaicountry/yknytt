@@ -16,6 +16,7 @@ public class LevelSelection : BasicScreen
     private WorldManager Manager { get; } = new WorldManager();
 
     private PackedScene info_scene;
+    private PackedScene new_level_scene;
 
     string filter_category;
     string filter_difficulty;
@@ -60,6 +61,7 @@ public class LevelSelection : BasicScreen
     {
         base._Ready();
         this.info_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/InfoScreen.tscn");
+        this.new_level_scene = ResourceLoader.Load<PackedScene>("res://knytt/editor/NewLevelScreen.tscn");
         this.download_link_scene = ResourceLoader.Load<PackedScene>("res://knytt/ui/DownloadScreenLink.tscn");
 
         game_container = GetNode<GameContainer>("MainContainer/ScrollContainer/GameContainer");
@@ -69,6 +71,7 @@ public class LevelSelection : BasicScreen
         http_levels_node = GetNode<HTTPRequest>("RestHTTPRequest");
 
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/SortDropdown").Visible = localLoad;
+        GetNode<Button>("%NewLevelButton").Visible = localLoad && LevelEditor.Available;
         GetNode<OptionButton>("MainContainer/FilterContainer/Sort/RemoteSortDropdown").Visible = !localLoad;
         GetNode<Control>("MainContainer/FilterContainer/Search/SearchEdit").Visible = 
             GetNode<Control>("MainContainer/FilterContainer/Search").Visible = OS.GetName() != "Unix";
@@ -499,9 +502,7 @@ public class LevelSelection : BasicScreen
             if (filename.IndexOf('?') != -1) { filename = filename.Substring(0, filename.IndexOf('?')); }
             if (!filename.EndsWith(".knytt.bin")) { filename += ".knytt.bin"; }
             filename = Uri.UnescapeDataString(filename).Replace("+", " ");
-            string download_dir = GDKnyttSettings.WorldsDirectory != "" && GDKnyttSettings.WorldsDirForDownload ? 
-                GDKnyttSettings.WorldsDirectory : GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds");
-            http_node.DownloadFile = download_dir.PlusFile($"{filename}.part");
+            http_node.DownloadFile = InstallDirectory.PlusFile($"{filename}.part");
 
             var error = http_node.Request(button.worldEntry.Link);
             if (error != Error.Ok) { download_button.markFailed(); return; }
@@ -523,6 +524,14 @@ public class LevelSelection : BasicScreen
             button.refreshLoaded(before: false);
             loadScreen(info_screen);
         }
+    }
+
+    public static string InstallDirectory => GDKnyttSettings.WorldsDirectory != "" && GDKnyttSettings.WorldsDirForDownload ?
+        GDKnyttSettings.WorldsDirectory : GDKnyttDataStore.BaseDataDirectory.PlusFile("Worlds");
+
+    private void _on_NewLevelButton_pressed()
+    {
+        loadScreen(new_level_scene.Instance() as NewLevelScreen);
     }
 
     private void _on_DownloadMonitor_timeout()

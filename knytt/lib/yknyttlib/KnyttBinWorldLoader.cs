@@ -17,11 +17,12 @@ namespace YKnyttLib
     public class KnyttBinWorldLoader
     {
         private readonly Dictionary<string, byte[]> _files;
+        private readonly Dictionary<string, string> _paths;
 
         /// <summary>
         /// The name of the level found inside the .knytt.bin 
         /// </summary>
-        public string RootDirectory { get; private set; }
+        public string RootDirectory { get; set; }
 
         public KnyttBinWorldLoader(byte[] data) : this(new MemoryStream(data)) { }
 
@@ -33,6 +34,7 @@ namespace YKnyttLib
         {
             RootDirectory = string.Empty;
             _files = new Dictionary<string, byte[]>();
+            _paths = new Dictionary<string, string>();
             open(stream);
         }
 
@@ -44,6 +46,39 @@ namespace YKnyttLib
         public byte[] GetFile(string fileName)
         {
             return !_files.ContainsKey(fileName.ToLower()) ? null : _files[fileName.ToLower()];
+        }
+
+        /// <summary>
+        /// Add or replace a file in memory. Call Pack() to get the new .knytt.bin.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="data"></param>
+        public void SetFile(string fileName, byte[] data)
+        {
+            _paths[fileName.ToLower()] = fileName;
+            _files[fileName.ToLower()] = data;
+        }
+
+        /// <summary>
+        /// Pack all files back into .knytt.bin data.
+        /// </summary>
+        /// <returns></returns>
+        public byte[] Pack()
+        {
+            var encoding = Encoding.GetEncoding(1252);
+            using (var stream = new MemoryStream())
+            using (var binaryWriter = new BinaryWriter(stream))
+            {
+                binaryWriter.Write(encoding.GetBytes($"NF{RootDirectory}\0"));
+                binaryWriter.Write((uint)_files.Count);
+                foreach (var file in _files)
+                {
+                    binaryWriter.Write(encoding.GetBytes($"NF{_paths[file.Key].Replace('/', '\\')}\0"));
+                    binaryWriter.Write((uint)file.Value.Length);
+                    binaryWriter.Write(file.Value);
+                }
+                return stream.ToArray();
+            }
         }
 
         /// <summary>
@@ -117,7 +152,7 @@ namespace YKnyttLib
                     var fileSize = sizeData[0] + sizeData[1] * 256 + sizeData[2] * 65536 + sizeData[3] * 16777216;
 
                     //read and store the file.
-                    _files[filePath.ToLower()] = binaryReader.ReadBytes(fileSize);
+                    SetFile(filePath, binaryReader.ReadBytes(fileSize));
                 }
             }
         }
