@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace YKnyttLib
 {
@@ -52,6 +53,22 @@ namespace YKnyttLib
                     return Convert.ToBase64String(result);
                 }
             }
+        }
+
+        // Sets key=value in one section of INI text, keeping everything else as it was
+        public static string setIniValue(string ini, string section, string key, string value)
+        {
+            var header = Regex.Match(ini, $@"^\[{Regex.Escape(section)}\][^\n]*\n?", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            if (!header.Success) { return $"[{section}]\r\n{key}={value}\r\n{ini}"; }
+
+            int start = header.Index + header.Length;
+            var next = Regex.Match(ini.Substring(start), @"^\[", RegexOptions.Multiline);
+            int end = next.Success ? start + next.Index : ini.Length;
+            string body = ini.Substring(start, end - start);
+
+            var line = Regex.Match(body, $@"^{Regex.Escape(key)}[ \t]*=[^\r\n]*", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            body = line.Success ? body.Remove(line.Index, line.Length).Insert(line.Index, $"{key}={value}") : $"{key}={value}\r\n{body}";
+            return ini.Substring(0, start) + body + ini.Substring(end);
         }
 
         public static string DecompressString(string input)

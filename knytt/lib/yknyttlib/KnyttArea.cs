@@ -12,6 +12,7 @@ namespace YKnyttLib
         public const int AREA_HEIGHT = 10;
         public const int AREA_TILE_LAYERS = 4;
         public const int AREA_SPRITE_LAYERS = 4;
+        public const int AREA_DATA_SIZE = 3006;
 
         public KnyttWorld World { get; }
 
@@ -194,6 +195,27 @@ namespace YKnyttLib
             //Console.WriteLine(string.Format("Pos: ({0}, {1}), T: ({2}, {3})", this.Position.x, this.Position.y, this.TilesetB, this.TilesetA));
         }
 
+        public void writeToStream(Stream map)
+        {
+            var header = Encoding.ASCII.GetBytes($"x{Position.x}y{Position.y}\0");
+            map.Write(header, 0, header.Length);
+            map.Write(new byte[] { AREA_DATA_SIZE & 0xFF, AREA_DATA_SIZE >> 8, 0, 0 }, 0, 4);
+
+            foreach (var layer in TileLayers) { map.Write(layer.tiles, 0, layer.tiles.Length); }
+            foreach (var layer in ObjectLayers)
+            {
+                map.Write(layer.hi, 0, layer.hi.Length);
+                map.Write(layer.lo, 0, layer.lo.Length);
+            }
+
+            map.WriteByte((byte)TilesetB);
+            map.WriteByte((byte)TilesetA);
+            map.WriteByte((byte)AtmosphereA);
+            map.WriteByte((byte)AtmosphereB);
+            map.WriteByte((byte)Song);
+            map.WriteByte((byte)Background);
+        }
+
         private void parseSize(Stream map)
         {
             this.Position = new KnyttPoint(parseNumber(map), parseNumber(map));
@@ -225,7 +247,13 @@ namespace YKnyttLib
         private static byte[] parseByteArray(Stream map, int size)
         {
             byte[] data = new byte[size];
-            map.Read(data, 0, size);
+            int totalRead = 0;
+            while (totalRead < size)
+            {
+                int bytesRead = map.Read(data, totalRead, size - totalRead);
+                if (bytesRead == 0) { break; }
+                totalRead += bytesRead;
+            }
             return data;
         }
 

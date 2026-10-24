@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using YKnyttLib;
@@ -8,12 +9,14 @@ public class LevelEditor : Control
     private static readonly Vector2 SCREEN_SIZE = new Vector2(700, 610);
     private static readonly KnyttPoint DEFAULT_SCREEN = new KnyttPoint(1000, 1000);
 
-    private enum FileMenu { Quit }
+    private enum FileMenu { Save, SaveAs, Quit }
     private enum GoToMenu { Start, Default, Coordinates }
+
+    private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
 
     private Vector2 game_window_size;
 
-    private KnyttWorld world;
+    private GDKnyttWorldImpl world;
     private EditorAssets assets;
     private KnyttPoint start_area;
 
@@ -28,11 +31,14 @@ public class LevelEditor : Control
     private ScreenView screen_view;
     private MiniMap mini_map;
     private ConfirmationDialog goto_dialog;
+    private ConfirmationDialog overwrite_dialog;
+    private ConfirmationDialog save_as_dialog;
 
     public static bool Available => OS.GetName() != "Unix";
 
-    public static void open(SceneTree tree, GDKnyttWorldImpl world)
+    public static void open(SceneTree tree, GDKnyttWorldImpl world, bool created = false)
     {
+        if (created) { overwrite_allowed.Add(world.WorldDirectory); }
         GDKnyttDataStore.KWorld = world;
         tree.ChangeScene("res://knytt/editor/LevelEditor.tscn");
     }
@@ -48,8 +54,15 @@ public class LevelEditor : Control
         screen_view = GetNode<ScreenView>("%ScreenView");
         mini_map = GetNode<MiniMap>("%MiniMap");
         goto_dialog = GetNode<ConfirmationDialog>("%GoToDialog");
+        overwrite_dialog = GetNode<ConfirmationDialog>("%OverwriteDialog");
+        overwrite_dialog.GetOk().Text = "Overwrite";
+        save_as_dialog = GetNode<ConfirmationDialog>("%SaveAsDialog");
+        save_as_dialog.GetOk().Text = "Save";
 
         var file_menu = GetNode<MenuButton>("%FileMenu").GetPopup();
+        file_menu.AddItem("Save", (int)FileMenu.Save, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.S);
+        file_menu.AddItem("Save as", (int)FileMenu.SaveAs, (uint)KeyModifierMask.MaskCtrl | (uint)KeyModifierMask.MaskShift | (uint)KeyList.S);
+        file_menu.AddSeparator();
         file_menu.AddItem("Quit", (int)FileMenu.Quit);
         file_menu.Connect("id_pressed", this, nameof(_on_FileMenu_id_pressed));
 
@@ -57,16 +70,16 @@ public class LevelEditor : Control
         goto_menu.AddItem("Start position", (int)GoToMenu.Start);
         goto_menu.AddItem($"x{DEFAULT_SCREEN.x}y{DEFAULT_SCREEN.y}", (int)GoToMenu.Default);
         goto_menu.AddSeparator();
-        goto_menu.AddItem("Coordinates", (int)GoToMenu.Coordinates);
+        goto_menu.AddItem("Coordinates", (int)GoToMenu.Coordinates, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.G);
         goto_menu.Connect("id_pressed", this, nameof(_on_GoToMenu_id_pressed));
 
         loadWorld(GDKnyttDataStore.KWorld);
     }
 
-    private void loadWorld(KnyttWorld world)
+    private void loadWorld(GDKnyttWorldImpl world)
     {
         this.world = world;
-        world.loadWorldMap(new MemoryStream(world.getWorldData("Map.bin")));
+        if (world.Map == null) { world.loadWorldMap(new MemoryStream(world.getWorldData("Map.bin"))); }
         assets = new EditorAssets(world);
 
         var save_data = world.getWorldData("DefaultSavegame.ini");
@@ -102,8 +115,13 @@ public class LevelEditor : Control
         GetNode<Label>("%BackgroundLabel").Text = $"Background {background}";
         GetNode<Button>("%TilesetAButton").Text = $"A Tileset {tileset_a}";
         GetNode<Button>("%TilesetBButton").Text = $"B Tileset {tileset_b}";
-        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}";
+        showStatus();
         showTileset();
+    }
+
+    private void showStatus(string message = "")
+    {
+        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}   {message}";
     }
 
     private void showTileset()
@@ -120,6 +138,46 @@ public class LevelEditor : Control
         var screen = OS.GetScreenSize() * 0.9f;
         OS.WindowSize = SCREEN_SIZE * Mathf.Max(1, Mathf.Floor(Mathf.Min(screen.x / SCREEN_SIZE.x, screen.y / SCREEN_SIZE.y)));
         OS.CenterWindow();
+    }
+
+    private void save()
+    {
+        if (world.WorldDirectory.StartsWith("res://")) { showSaveAsDialog(); return; }
+        if (!overwrite_allowed.Contains(world.WorldDirectory))
+        {
+            overwrite_dialog.DialogText = $"This will overwrite\n{world.WorldDirectory.GetFile()}\n\nThis can't be undone. Use Save as to keep the original.";
+            overwrite_dialog.PopupCentered();
+            return;
+        }
+        showSaveResult(world.save());
+    }
+
+    private void showSaveAsDialog()
+    {
+        GetNode<LineEdit>("%SaveAsName").Text = world.Info.Name;
+        GetNode<LineEdit>("%SaveAsAuthor").Text = world.Info.Author;
+        GetNode<Label>("%SaveAsError").Text = "";
+        save_as_dialog.PopupCentered();
+        GetNode<LineEdit>("%SaveAsName").GrabFocus();
+    }
+
+    private void saveAs()
+    {
+        string name = GetNode<LineEdit>("%SaveAsName").Text.Trim();
+        string author = GetNode<LineEdit>("%SaveAsAuthor").Text.Trim();
+        string error = WorldName.check(name, author);
+        if (error != null) { GetNode<Label>("%SaveAsError").Text = error; return; }
+
+        save_as_dialog.Hide();
+        var result = world.saveAs(WorldName.path(name, author), name, author);
+        if (result == Error.Ok) { overwrite_allowed.Add(world.WorldDirectory); }
+        GDKnyttDataStore.setTitle(world.WorldDirectoryName);
+        showSaveResult(result);
+    }
+
+    private void showSaveResult(Error result)
+    {
+        showStatus(result == Error.Ok ? $"Saved {world.WorldDirectory.GetFile()}" : $"Can't save ({result})");
     }
 
     private void quit()
@@ -140,17 +198,12 @@ public class LevelEditor : Control
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (goto_dialog.Visible) { return; }
+        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible) { return; }
 
         if (@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
         {
             GetTree().SetInputAsHandled();
             quit();
-        }
-        else if (@event is InputEventKey key && key.Pressed && key.Control && key.Scancode == (uint)KeyList.G)
-        {
-            GetTree().SetInputAsHandled();
-            showGoToDialog();
         }
         else if (direction(@event) is KnyttPoint step)
         {
@@ -176,7 +229,12 @@ public class LevelEditor : Control
 
     private void _on_FileMenu_id_pressed(int id)
     {
-        if (id == (int)FileMenu.Quit) { quit(); }
+        switch ((FileMenu)id)
+        {
+            case FileMenu.Save: save(); break;
+            case FileMenu.SaveAs: showSaveAsDialog(); break;
+            case FileMenu.Quit: quit(); break;
+        }
     }
 
     private void _on_GoToMenu_id_pressed(int id)
@@ -199,6 +257,22 @@ public class LevelEditor : Control
     {
         goto_dialog.Hide();
         _on_GoToDialog_confirmed();
+    }
+
+    private void _on_OverwriteDialog_confirmed()
+    {
+        overwrite_allowed.Add(world.WorldDirectory);
+        save();
+    }
+
+    private void _on_SaveAsDialog_confirmed()
+    {
+        saveAs();
+    }
+
+    private void _on_SaveAsEdit_text_entered(string text)
+    {
+        saveAs();
     }
 
     private void _on_MiniMap_ScreenSelected(int x, int y)

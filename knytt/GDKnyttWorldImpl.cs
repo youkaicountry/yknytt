@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Godot;
 using YKnyttLib;
 
@@ -218,6 +219,59 @@ public class GDKnyttWorldImpl : KnyttWorld
             removeDirectory(WorldDirectory);
         }
         removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName));
+    }
+
+    public Error save()
+    {
+        byte[] map = saveWorldMap();
+        removeDirectory(GDKnyttDataStore.BaseDataDirectory.PlusFile("Cache").PlusFile(WorldDirectoryName), prefix: "map_");
+        if (!BinMode) { return writeFile(WorldDirectory.PlusFile("map.bin"), map); }
+        BinLoader.SetFile("Map.bin", map);
+        return writeFile(WorldDirectory, BinLoader.Pack());
+    }
+
+    public Error saveAs(string path, string name, string author)
+    {
+        if (!BinMode) { setBinMode(packDirectory(WorldDirectory)); }
+        BinLoader.RootDirectory = $"{author} - {name}";
+        setDirectory(path, BinLoader.RootDirectory);
+        setWorldValue("Name", name);
+        setWorldValue("Author", author);
+        return save();
+    }
+
+    public void setWorldValue(string key, string value)
+    {
+        string ini = KnyttUtil.setIniValue(GDKnyttAssetManager.loadTextFile(getWorldData("World.ini")), "World", key, value);
+        BinLoader.SetFile("World.ini", Encoding.GetEncoding(1252).GetBytes(ini));
+        loadWorldConfig(GDKnyttAssetManager.loadTextFileRaw(BinLoader.GetFile("World.ini")));
+    }
+
+    private static KnyttBinWorldLoader packDirectory(string dir, KnyttBinWorldLoader bin = null, string subdir = "")
+    {
+        bin = bin ?? new KnyttBinWorldLoader() { RootDirectory = dir.GetFile() };
+        var d = new Directory();
+        d.Open(dir.PlusFile(subdir));
+        d.ListDirBegin(skipNavigational: true);
+        for (string name = d.GetNext(); name != ""; name = d.GetNext())
+        {
+            string path = subdir == "" ? name : $"{subdir}/{name}";
+            if (d.CurrentIsDir()) { packDirectory(dir, bin, path); }
+            else { bin.SetFile(path, GDKnyttAssetManager.loadFile(dir.PlusFile(path))); }
+        }
+        d.ListDirEnd();
+        return bin;
+    }
+
+    private static Error writeFile(string path, byte[] data)
+    {
+        GDKnyttAssetManager.ensureDirExists(path.GetBaseDir());
+        var f = new File();
+        var error = f.Open($"{path}.part", File.ModeFlags.Write);
+        if (error != Error.Ok) { return error; }
+        f.StoreBuffer(data);
+        f.Close();
+        return new Directory().Rename($"{path}.part", path);
     }
 
     public void refreshWorld(bool tilesets_only)

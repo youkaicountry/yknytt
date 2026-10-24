@@ -220,9 +220,67 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 
+[node name="OverwriteDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 300, 120 )
+window_title = "Overwrite level?"
+dialog_autowrap = true
+
+[node name="SaveAsDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+margin_right = 260.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 260, 150 )
+window_title = "Save as a new level"
+dialog_hide_on_ok = false
+
+[node name="Form" type="VBoxContainer" parent="SaveAsDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+
+[node name="NameLabel" type="Label" parent="SaveAsDialog/Form"]
+margin_right = 244.0
+margin_bottom = 14.0
+text = "Level name"
+
+[node name="SaveAsName" type="LineEdit" parent="SaveAsDialog/Form"]
+unique_name_in_owner = true
+margin_top = 18.0
+margin_right = 244.0
+margin_bottom = 42.0
+
+[node name="AuthorLabel" type="Label" parent="SaveAsDialog/Form"]
+margin_top = 46.0
+margin_right = 244.0
+margin_bottom = 60.0
+text = "Level author"
+
+[node name="SaveAsAuthor" type="LineEdit" parent="SaveAsDialog/Form"]
+unique_name_in_owner = true
+margin_top = 64.0
+margin_right = 244.0
+margin_bottom = 88.0
+
+[node name="SaveAsError" type="Label" parent="SaveAsDialog/Form"]
+unique_name_in_owner = true
+margin_top = 92.0
+margin_right = 244.0
+margin_bottom = 106.0
+custom_colors/font_color = Color( 1, 0.4, 0.4, 1 )
+
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="ScreenSelected" from="MiniMap" to="." method="_on_MiniMap_ScreenSelected"]
 [connection signal="toggled" from="Panel/Tabs/TilesetAButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="toggled" from="Panel/Tabs/TilesetBButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="confirmed" from="GoToDialog" to="." method="_on_GoToDialog_confirmed"]
 [connection signal="text_entered" from="GoToDialog/GoToEdit" to="." method="_on_GoToEdit_text_entered"]
+[connection signal="confirmed" from="OverwriteDialog" to="." method="_on_OverwriteDialog_confirmed"]
+[connection signal="confirmed" from="SaveAsDialog" to="." method="_on_SaveAsDialog_confirmed"]
+[connection signal="text_entered" from="SaveAsDialog/Form/SaveAsName" to="." method="_on_SaveAsEdit_text_entered"]
+[connection signal="text_entered" from="SaveAsDialog/Form/SaveAsAuthor" to="." method="_on_SaveAsEdit_text_entered"]

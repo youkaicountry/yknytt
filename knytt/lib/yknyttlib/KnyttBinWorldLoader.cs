@@ -30,12 +30,19 @@ namespace YKnyttLib
         /// 
         /// </summary>
         /// <param name="knyttBinPath"></param>
-        public KnyttBinWorldLoader(Stream stream)
+        public KnyttBinWorldLoader(Stream stream) : this()
+        {
+            open(stream);
+        }
+
+        /// <summary>
+        /// An empty .knytt.bin to fill with SetFile().
+        /// </summary>
+        public KnyttBinWorldLoader()
         {
             RootDirectory = string.Empty;
             _files = new Dictionary<string, byte[]>();
             _paths = new Dictionary<string, string>();
-            open(stream);
         }
 
         /// <summary>
@@ -55,7 +62,7 @@ namespace YKnyttLib
         /// <param name="data"></param>
         public void SetFile(string fileName, byte[] data)
         {
-            _paths[fileName.ToLower()] = fileName;
+            if (!_paths.ContainsKey(fileName.ToLower())) { _paths[fileName.ToLower()] = fileName; }
             _files[fileName.ToLower()] = data;
         }
 

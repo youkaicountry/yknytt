@@ -247,6 +247,7 @@
     <Compile Include="knytt\editor\MiniMap.cs" />
     <Compile Include="knytt\editor\NewLevelScreen.cs" />
     <Compile Include="knytt\editor\ScreenView.cs" />
+    <Compile Include="knytt\editor\WorldName.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
     <Compile Include="knytt\juni\JuniInput.cs" />

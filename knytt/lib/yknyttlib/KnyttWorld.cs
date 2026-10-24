@@ -82,17 +82,7 @@ namespace YKnyttLib
         public void loadWorldMap(Stream map)
         {
             GZipStream gz = new GZipStream(map, CompressionMode.Decompress);
-
-            // Beginning of a map might be empty
-            int start_byte = gz.ReadByte();
-            if (start_byte == 0)
-            {
-                uint offset = (uint)gz.ReadByte() + ((uint)gz.ReadByte() << 8) + ((uint)gz.ReadByte() << 16) + ((uint)gz.ReadByte() << 24);
-                KnyttArea.skipBytes(gz, offset);
-                start_byte = gz.ReadByte();
-            }
-
-            while (start_byte != 'x' && start_byte != -1) { start_byte = gz.ReadByte(); }
+            int start_byte = readMapHeader(gz, null);
 
             this.Map = new Dictionary<KnyttPoint, KnyttArea>();
 
@@ -112,6 +102,60 @@ namespace YKnyttLib
 
             // Set the map
             this.Size = new KnyttPoint((MaxBounds.x - MinBounds.x) + 1, (MaxBounds.y - MinBounds.y) + 1);
+        }
+
+        // Reads what comes before the first area, copying it if asked. Returns the first byte of the first area.
+        private static int readMapHeader(Stream map, Stream copy)
+        {
+            // Beginning of a map might be empty
+            int start_byte = map.ReadByte();
+            if (start_byte == 0)
+            {
+                var size = new byte[4];
+                for (int i = 0; i < 4; i++) { size[i] = (byte)map.ReadByte(); }
+                uint offset = size[0] + ((uint)size[1] << 8) + ((uint)size[2] << 16) + ((uint)size[3] << 24);
+                if (copy == null) { KnyttArea.skipBytes(map, offset); }
+                else
+                {
+                    copy.WriteByte(0);
+                    copy.Write(size, 0, 4);
+                    copyBytes(map, copy, offset);
+                }
+                start_byte = map.ReadByte();
+            }
+
+            while (start_byte != 'x' && start_byte != -1)
+            {
+                copy?.WriteByte((byte)start_byte);
+                start_byte = map.ReadByte();
+            }
+            return start_byte;
+        }
+
+        private static void copyBytes(Stream from, Stream to, uint count)
+        {
+            var buffer = new byte[65536];
+            while (count > 0)
+            {
+                int read = from.Read(buffer, 0, (int)System.Math.Min(count, (uint)buffer.Length));
+                if (read == 0) { return; }
+                to.Write(buffer, 0, read);
+                count -= (uint)read;
+            }
+        }
+
+        public byte[] saveWorldMap()
+        {
+            var old_map = getWorldData("Map.bin");
+            using (var stream = new MemoryStream())
+            {
+                using (var gz = new GZipStream(stream, CompressionLevel.Optimal, leaveOpen: true))
+                {
+                    if (old_map != null) { readMapHeader(new GZipStream(new MemoryStream(old_map), CompressionMode.Decompress), gz); }
+                    foreach (var area in Map.Values) { area.writeToStream(gz); }
+                }
+                return stream.ToArray();
+            }
         }
 
         public byte[] getWorldData(string filepath)
