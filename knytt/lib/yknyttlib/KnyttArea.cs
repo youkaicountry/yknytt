@@ -20,15 +20,15 @@ namespace YKnyttLib
         public KnyttPoint? Spoofing { private get; set; } = null;
         public KnyttPoint MapPosition => Spoofing ?? Position;
 
-        public int TilesetA { get; protected set; }
-        public int TilesetB { get; protected set; }
+        public int TilesetA { get; set; }
+        public int TilesetB { get; set; }
 
-        public int Song { get; protected set; }
+        public int Song { get; set; }
 
-        public int AtmosphereA { get; protected set; }
-        public int AtmosphereB { get; protected set; }
+        public int AtmosphereA { get; set; }
+        public int AtmosphereB { get; set; }
 
-        public int Background { get; protected set; }
+        public int Background { get; set; }
 
         public KeyDataCollection ExtraData { get; set; }
 
@@ -113,6 +113,17 @@ namespace YKnyttLib
             this.Position = position;
             this.fetchAreaExtraData();
             this.fetchFlagWarpData();
+        }
+
+        // A new screen with nothing on it yet
+        public static KnyttArea blank(KnyttWorld world, KnyttPoint position)
+        {
+            var area = new KnyttArea(position, world) { Empty = false };
+            area.TileLayers = Enumerable.Range(0, AREA_TILE_LAYERS)
+                .Select(_ => new TileLayer(new byte[AREA_WIDTH * AREA_HEIGHT])).ToArray();
+            area.ObjectLayers = Enumerable.Range(0, AREA_SPRITE_LAYERS)
+                .Select(_ => new ObjectLayer(new byte[AREA_WIDTH * AREA_HEIGHT], new byte[AREA_WIDTH * AREA_HEIGHT])).ToArray();
+            return area;
         }
 
         private void fetchAreaExtraData()

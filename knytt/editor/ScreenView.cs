@@ -3,6 +3,11 @@ using YKnyttLib;
 
 public class ScreenView : Control
 {
+    [Signal] public delegate void StrokeStarted();
+    [Signal] public delegate void CellPainted(int x, int y);
+    [Signal] public delegate void StrokeEnded();
+    [Signal] public delegate void CellPicked(int x, int y);
+
     [Export] public Texture JuniTexture { get; set; }
 
     public static readonly Vector2 Offset = new Vector2(25, 24);
@@ -18,6 +23,7 @@ public class ScreenView : Control
     private KnyttPoint start_area;
     private KnyttPoint start_position;
     private TextureRect cursor;
+    private Vector2? last_cell;
 
     public override void _Ready()
     {
@@ -136,13 +142,54 @@ public class ScreenView : Control
         DrawRect(new Rect2(rect.End.x - 1, rect.Position.y, 1, rect.Size.y), color);
     }
 
+    private static Vector2? cellAt(Vector2 position)
+    {
+        var cell = ((position - Offset) / TILE).Floor();
+        bool inside = cell.x >= 0 && cell.y >= 0 && cell.x < KnyttArea.AREA_WIDTH && cell.y < KnyttArea.AREA_HEIGHT;
+        return inside ? cell : (Vector2?)null;
+    }
+
     public override void _GuiInput(InputEvent @event)
     {
-        if (!(@event is InputEventMouseMotion motion)) { return; }
+        if (@event is InputEventMouseButton button)
+        {
+            var cell = cellAt(button.Position);
+            if (button.ButtonIndex == (int)ButtonList.Left && button.Pressed && cell != null)
+            {
+                EmitSignal(nameof(StrokeStarted));
+                paint(cell.Value);
+            }
+            else if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed && last_cell != null)
+            {
+                last_cell = null;
+                EmitSignal(nameof(StrokeEnded));
+            }
+            else if (button.ButtonIndex == (int)ButtonList.Right && button.Pressed && cell != null)
+            {
+                EmitSignal(nameof(CellPicked), (int)cell.Value.x, (int)cell.Value.y);
+            }
+        }
+        else if (@event is InputEventMouseMotion motion)
+        {
+            var cell = cellAt(motion.Position);
+            cursor.Visible = cell != null;
+            if (cell == null) { return; }
+            cursor.RectPosition = Offset + cell.Value * TILE;
+            if (last_cell != null && cell != last_cell) { paint(cell.Value); }
+        }
+    }
 
-        var cell = ((motion.Position - Offset) / TILE).Floor();
-        cursor.Visible = cell.x >= 0 && cell.y >= 0 && cell.x < KnyttArea.AREA_WIDTH && cell.y < KnyttArea.AREA_HEIGHT;
-        cursor.RectPosition = Offset + cell * TILE;
+    private void paint(Vector2 cell)
+    {
+        var from = last_cell ?? cell;
+        int steps = (int)Mathf.Max(Mathf.Abs(cell.x - from.x), Mathf.Abs(cell.y - from.y));
+        for (int i = 1; i <= steps; i++)
+        {
+            var step = from.LinearInterpolate(cell, (float)i / steps).Round();
+            EmitSignal(nameof(CellPainted), (int)step.x, (int)step.y);
+        }
+        if (steps == 0) { EmitSignal(nameof(CellPainted), (int)cell.x, (int)cell.y); }
+        last_cell = cell;
     }
 
     private void _on_ScreenView_mouse_exited()

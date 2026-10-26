@@ -243,6 +243,7 @@
     <Compile Include="knytt\audio\GDKnyttMusicChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\editor\EditorAssets.cs" />
+    <Compile Include="knytt\editor\EditorHistory.cs" />
     <Compile Include="knytt\editor\LevelEditor.cs" />
     <Compile Include="knytt\editor\MiniMap.cs" />
     <Compile Include="knytt\editor\NewLevelScreen.cs" />

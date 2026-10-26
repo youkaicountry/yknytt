@@ -536,7 +536,7 @@ public class GDKnyttSettings : Node
             saveSettings();
         }
 
-        if (Input.IsActionJustPressed("zoom") && ! Fullscreen)
+        if (Input.IsActionJustPressed("zoom") && ! Fullscreen && !(tree.CurrentScene is LevelEditor))
         {
             Vector2 max_size = OS.GetScreenSize(), cur_size = OS.WindowSize,
                 min_size = new Vector2((int)ProjectSettings.GetSetting("display/window/size/width"), 

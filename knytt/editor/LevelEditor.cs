@@ -10,14 +10,18 @@ public class LevelEditor : Control
     private static readonly KnyttPoint DEFAULT_SCREEN = new KnyttPoint(1000, 1000);
 
     private enum FileMenu { Save, SaveAs, Quit }
+    private enum EditMenu { Undo, Redo }
     private enum GoToMenu { Start, Default, Coordinates }
 
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
+    private static readonly Color SAVED_COLOR = Color.Color8(87, 135, 231);
+    private static readonly Color CHANGED_COLOR = Color.Color8(247, 195, 79);
 
     private Vector2 game_window_size;
 
     private GDKnyttWorldImpl world;
     private EditorAssets assets;
+    private EditorHistory history = new EditorHistory();
     private KnyttPoint start_area;
 
     private KnyttPoint coords;
@@ -28,11 +32,17 @@ public class LevelEditor : Control
     private int ambiance_a;
     private int ambiance_b;
 
+    private int layer;
+    private int selected_tile;
+    private bool quit_game;
+    private bool picking;
+
     private ScreenView screen_view;
     private MiniMap mini_map;
     private ConfirmationDialog goto_dialog;
     private ConfirmationDialog overwrite_dialog;
     private ConfirmationDialog save_as_dialog;
+    private ConfirmationDialog unsaved_dialog;
 
     public static bool Available => OS.GetName() != "Unix";
 
@@ -58,6 +68,8 @@ public class LevelEditor : Control
         overwrite_dialog.GetOk().Text = "Overwrite";
         save_as_dialog = GetNode<ConfirmationDialog>("%SaveAsDialog");
         save_as_dialog.GetOk().Text = "Save";
+        unsaved_dialog = GetNode<ConfirmationDialog>("%UnsavedDialog");
+        unsaved_dialog.GetOk().Text = "Leave";
 
         var file_menu = GetNode<MenuButton>("%FileMenu").GetPopup();
         file_menu.AddItem("Save", (int)FileMenu.Save, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.S);
@@ -65,6 +77,11 @@ public class LevelEditor : Control
         file_menu.AddSeparator();
         file_menu.AddItem("Quit", (int)FileMenu.Quit);
         file_menu.Connect("id_pressed", this, nameof(_on_FileMenu_id_pressed));
+
+        var edit_menu = GetNode<MenuButton>("%EditMenu").GetPopup();
+        edit_menu.AddItem("Undo", (int)EditMenu.Undo, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.Z);
+        edit_menu.AddItem("Redo", (int)EditMenu.Redo, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.Y);
+        edit_menu.Connect("id_pressed", this, nameof(_on_EditMenu_id_pressed));
 
         var goto_menu = GetNode<MenuButton>("%GoToMenu").GetPopup();
         goto_menu.AddItem("Start position", (int)GoToMenu.Start);
@@ -117,6 +134,65 @@ public class LevelEditor : Control
         GetNode<Button>("%TilesetBButton").Text = $"B Tileset {tileset_b}";
         showStatus();
         showTileset();
+        showChanged();
+    }
+
+    private void showChanged()
+    {
+        GetNode<ColorRect>("%ChangeLineTop").Color = GetNode<ColorRect>("%ChangeLineBottom").Color =
+            history.Modified ? CHANGED_COLOR : SAVED_COLOR;
+    }
+
+    private int SelectedTileValue => selected_tile == 0 ? 0 : selected_tile + (GetNode<Button>("%TilesetBButton").Pressed ? 128 : 0);
+
+    private void selectTile(int index)
+    {
+        selected_tile = index;
+        GetNode<Control>("%TileCursor").RectPosition = new Vector2(
+            index % GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_WIDTH,
+            index / GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_HEIGHT);
+    }
+
+    private void selectLayer(int layer)
+    {
+        this.layer = layer;
+        GetNode<Button>($"%Layer{layer}Button").Pressed = true;
+    }
+
+    private void paint(int x, int y)
+    {
+        var area = world.getArea(coords);
+        if (area == null || area.Empty)
+        {
+            area = KnyttArea.blank(world, coords);
+            area.Background = background;
+            area.TilesetB = tileset_a;
+            area.TilesetA = tileset_b;
+            area.Song = music;
+            area.AtmosphereA = ambiance_a;
+            area.AtmosphereB = ambiance_b;
+            history.addArea(world, area);
+            mini_map.showScreen(world, coords);
+        }
+        history.setTile(area, layer, y * KnyttArea.AREA_WIDTH + x, (byte)SelectedTileValue);
+        screen_view.Update();
+    }
+
+    private void pick(int x, int y)
+    {
+        var area = world.getArea(coords);
+        if (area == null || area.Empty) { return; }
+        int tile = area.TileLayers[layer].getTile(x, y);
+        if (tile % 128 == 0) { return; }
+        GetNode<Button>(tile < 128 ? "%TilesetAButton" : "%TilesetBButton").Pressed = true;
+        selectTile(tile % 128);
+    }
+
+    private void refresh()
+    {
+        screen_view.Update();
+        mini_map.showScreen(world, coords);
+        showChanged();
     }
 
     private void showStatus(string message = "")
@@ -170,18 +246,27 @@ public class LevelEditor : Control
 
         save_as_dialog.Hide();
         var result = world.saveAs(WorldName.path(name, author), name, author);
-        if (result == Error.Ok) { overwrite_allowed.Add(world.WorldDirectory); }
+        if (result == Error.Ok) { overwrite_allowed.Add(world.WorldDirectory); history.markSaved(); }
         GDKnyttDataStore.setTitle(world.WorldDirectoryName);
         showSaveResult(result);
     }
 
     private void showSaveResult(Error result)
     {
+        if (result == Error.Ok) { history.markSaved(); }
+        showChanged();
         showStatus(result == Error.Ok ? $"Saved {world.WorldDirectory.GetFile()}" : $"Can't save ({result})");
     }
 
-    private void quit()
+    private void quit(bool game = false)
     {
+        if (history.Modified)
+        {
+            quit_game = game;
+            unsaved_dialog.PopupCentered();
+            return;
+        }
+        if (game) { GetTree().Quit(); return; }
         if (Resizable)
         {
             OS.WindowSize = game_window_size;
@@ -192,18 +277,23 @@ public class LevelEditor : Control
 
     public override void _Notification(int what)
     {
-        if (what == MainLoop.NotificationWmQuitRequest) { GetTree().Quit(); }
+        if (what == MainLoop.NotificationWmQuitRequest) { quit(game: true); }
         if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible) { return; }
+        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible) { return; }
 
         if (@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
         {
             GetTree().SetInputAsHandled();
             quit();
+        }
+        else if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode >= (uint)KeyList.Key0 && key.Scancode <= (uint)KeyList.Key3)
+        {
+            GetTree().SetInputAsHandled();
+            selectLayer((int)(key.Scancode - (uint)KeyList.Key0));
         }
         else if (direction(@event) is KnyttPoint step)
         {
@@ -235,6 +325,12 @@ public class LevelEditor : Control
             case FileMenu.SaveAs: showSaveAsDialog(); break;
             case FileMenu.Quit: quit(); break;
         }
+    }
+
+    private void _on_EditMenu_id_pressed(int id)
+    {
+        bool changed = (EditMenu)id == EditMenu.Undo ? history.undo() : history.redo();
+        if (changed) { refresh(); }
     }
 
     private void _on_GoToMenu_id_pressed(int id)
@@ -273,6 +369,54 @@ public class LevelEditor : Control
     private void _on_SaveAsEdit_text_entered(string text)
     {
         saveAs();
+    }
+
+    private void _on_UnsavedDialog_confirmed()
+    {
+        history = new EditorHistory();
+        quit(quit_game);
+    }
+
+    private void _on_ScreenView_StrokeStarted()
+    {
+        picking = GetNode<Button>("%PickButton").Pressed;
+        if (!picking) { history.begin(); }
+    }
+
+    private void _on_ScreenView_CellPainted(int x, int y)
+    {
+        if (picking) { pick(x, y); }
+        else { paint(x, y); }
+    }
+
+    private void _on_ScreenView_StrokeEnded()
+    {
+        if (picking)
+        {
+            picking = false;
+            GetNode<Button>("%PickButton").Pressed = false;
+            return;
+        }
+        history.end();
+        showChanged();
+    }
+
+    private void _on_ScreenView_CellPicked(int x, int y)
+    {
+        pick(x, y);
+    }
+
+    private void _on_Tileset_gui_input(InputEvent @event)
+    {
+        if (!(@event is InputEventMouseButton button) || !button.Pressed || button.ButtonIndex != (int)ButtonList.Left) { return; }
+        var cell = (button.Position / new Vector2(GDKnyttAssetManager.TILE_WIDTH, GDKnyttAssetManager.TILE_HEIGHT)).Floor();
+        if (cell.y >= GDKnyttAssetManager.TILESET_HEIGHT) { return; }
+        selectTile((int)cell.y * GDKnyttAssetManager.TILESET_WIDTH + (int)cell.x);
+    }
+
+    private void _on_LayerButton_pressed(int layer)
+    {
+        this.layer = layer;
     }
 
     private void _on_MiniMap_ScreenSelected(int x, int y)

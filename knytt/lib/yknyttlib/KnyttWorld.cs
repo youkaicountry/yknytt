@@ -158,6 +158,30 @@ namespace YKnyttLib
             }
         }
 
+        public void addArea(KnyttArea area)
+        {
+            Map[area.Position] = area;
+            updateBounds();
+        }
+
+        public void removeArea(KnyttPoint position)
+        {
+            Map.Remove(position);
+            updateBounds();
+        }
+
+        private void updateBounds()
+        {
+            MinBounds = new KnyttPoint(int.MaxValue, int.MaxValue);
+            MaxBounds = new KnyttPoint(int.MinValue, int.MinValue);
+            foreach (var position in Map.Keys)
+            {
+                MinBounds = MinBounds.min(position);
+                MaxBounds = MaxBounds.max(position);
+            }
+            Size = new KnyttPoint((MaxBounds.x - MinBounds.x) + 1, (MaxBounds.y - MinBounds.y) + 1);
+        }
+
         public byte[] getWorldData(string filepath)
         {
             byte[] data;

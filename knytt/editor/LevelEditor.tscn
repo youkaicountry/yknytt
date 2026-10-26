@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://knytt/editor/img/checker.png" type="Texture" id=7]
 
 [sub_resource type="ButtonGroup" id=1]
+
+[sub_resource type="ButtonGroup" id=2]
 
 [node name="LevelEditor" type="Control"]
 anchor_right = 1.0
@@ -40,10 +42,21 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "File"
 
-[node name="GoToMenu" type="MenuButton" parent="MenuBar/Menus"]
+[node name="EditMenu" type="MenuButton" parent="MenuBar/Menus"]
 unique_name_in_owner = true
 margin_left = 35.0
-margin_right = 75.0
+margin_right = 70.0
+margin_bottom = 20.0
+focus_mode = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Edit"
+
+[node name="GoToMenu" type="MenuButton" parent="MenuBar/Menus"]
+unique_name_in_owner = true
+margin_left = 74.0
+margin_right = 114.0
 margin_bottom = 20.0
 focus_mode = 0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -66,6 +79,96 @@ margin_right = 24.0
 margin_bottom = 24.0
 mouse_filter = 2
 texture = ExtResource( 6 )
+
+[node name="ChangeBar" type="Control" parent="."]
+margin_left = 195.0
+margin_top = 323.0
+margin_right = 355.0
+margin_bottom = 331.0
+mouse_filter = 2
+
+[node name="Top" type="ColorRect" parent="ChangeBar"]
+margin_right = 160.0
+margin_bottom = 3.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ChangeLineTop" type="ColorRect" parent="ChangeBar/Top"]
+unique_name_in_owner = true
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 159.0
+margin_bottom = 2.0
+mouse_filter = 2
+color = Color( 0.341176, 0.529412, 0.905882, 1 )
+
+[node name="Bottom" type="ColorRect" parent="ChangeBar"]
+margin_top = 5.0
+margin_right = 160.0
+margin_bottom = 8.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ChangeLineBottom" type="ColorRect" parent="ChangeBar/Bottom"]
+unique_name_in_owner = true
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 159.0
+margin_bottom = 2.0
+mouse_filter = 2
+color = Color( 0.341176, 0.529412, 0.905882, 1 )
+
+[node name="Layers" type="HBoxContainer" parent="."]
+margin_left = 365.0
+margin_top = 317.0
+margin_right = 485.0
+margin_bottom = 337.0
+custom_constants/separation = 8
+
+[node name="Layer0Button" type="Button" parent="Layers"]
+unique_name_in_owner = true
+margin_left = 0.0
+margin_right = 24.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 24, 20 )
+focus_mode = 0
+toggle_mode = true
+pressed = true
+group = SubResource( 2 )
+text = "0"
+
+[node name="Layer1Button" type="Button" parent="Layers"]
+unique_name_in_owner = true
+margin_left = 32.0
+margin_right = 56.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 24, 20 )
+focus_mode = 0
+toggle_mode = true
+group = SubResource( 2 )
+text = "1"
+
+[node name="Layer2Button" type="Button" parent="Layers"]
+unique_name_in_owner = true
+margin_left = 64.0
+margin_right = 88.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 24, 20 )
+focus_mode = 0
+toggle_mode = true
+group = SubResource( 2 )
+text = "2"
+
+[node name="Layer3Button" type="Button" parent="Layers"]
+unique_name_in_owner = true
+margin_left = 96.0
+margin_right = 120.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 24, 20 )
+focus_mode = 0
+toggle_mode = true
+group = SubResource( 2 )
+text = "3"
 
 [node name="Values" type="GridContainer" parent="."]
 margin_left = 43.0
@@ -171,6 +274,16 @@ toggle_mode = true
 group = SubResource( 1 )
 text = "B Tileset 0"
 
+[node name="PickButton" type="Button" parent="Panel/Tabs"]
+unique_name_in_owner = true
+margin_left = 292.0
+margin_right = 336.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 44, 0 )
+focus_mode = 0
+toggle_mode = true
+text = "Pick"
+
 [node name="Checker" type="TextureRect" parent="Panel"]
 margin_left = 1.0
 margin_top = 23.0
@@ -187,8 +300,14 @@ margin_top = 23.0
 margin_right = 385.0
 margin_bottom = 225.0
 rect_clip_content = true
-mouse_filter = 2
 stretch_mode = 3
+
+[node name="TileCursor" type="TextureRect" parent="Panel/Tileset"]
+unique_name_in_owner = true
+margin_right = 24.0
+margin_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource( 6 )
 
 [node name="Status" type="ColorRect" parent="Panel"]
 margin_left = 1.0
@@ -274,8 +393,26 @@ margin_right = 244.0
 margin_bottom = 106.0
 custom_colors/font_color = Color( 1, 0.4, 0.4, 1 )
 
+[node name="UnsavedDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+margin_right = 280.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 280, 100 )
+window_title = "Unsaved changes"
+dialog_text = "Leave the editor without saving?"
+
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
+[connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
+[connection signal="CellPicked" from="ScreenView" to="." method="_on_ScreenView_CellPicked"]
+[connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
+[connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
+[connection signal="pressed" from="Layers/Layer0Button" to="." method="_on_LayerButton_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="Layers/Layer1Button" to="." method="_on_LayerButton_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="Layers/Layer2Button" to="." method="_on_LayerButton_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="Layers/Layer3Button" to="." method="_on_LayerButton_pressed" binds= [ 3 ]]
 [connection signal="ScreenSelected" from="MiniMap" to="." method="_on_MiniMap_ScreenSelected"]
+[connection signal="gui_input" from="Panel/Tileset" to="." method="_on_Tileset_gui_input"]
+[connection signal="confirmed" from="UnsavedDialog" to="." method="_on_UnsavedDialog_confirmed"]
 [connection signal="toggled" from="Panel/Tabs/TilesetAButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="toggled" from="Panel/Tabs/TilesetBButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="confirmed" from="GoToDialog" to="." method="_on_GoToDialog_confirmed"]
