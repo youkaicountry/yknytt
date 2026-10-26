@@ -11,6 +11,7 @@ public class LevelEditor : Control
 
     private enum FileMenu { Save, SaveAs, Quit }
     private enum EditMenu { Undo, Redo }
+    private enum OptionsMenu { FadeLayers }
     private enum GoToMenu { Start, Default, Coordinates }
 
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
@@ -35,7 +36,6 @@ public class LevelEditor : Control
     private int layer;
     private int selected_tile;
     private bool quit_game;
-    private bool picking;
 
     private ScreenView screen_view;
     private MiniMap mini_map;
@@ -83,6 +83,11 @@ public class LevelEditor : Control
         edit_menu.AddItem("Redo", (int)EditMenu.Redo, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.Y);
         edit_menu.Connect("id_pressed", this, nameof(_on_EditMenu_id_pressed));
 
+        var options_menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
+        options_menu.AddCheckItem("Fade other layers (hold Tab to see all)", (int)OptionsMenu.FadeLayers);
+        options_menu.SetItemChecked(options_menu.GetItemIndex((int)OptionsMenu.FadeLayers), screen_view.FadeOthers);
+        options_menu.Connect("id_pressed", this, nameof(_on_OptionsMenu_id_pressed));
+
         var goto_menu = GetNode<MenuButton>("%GoToMenu").GetPopup();
         goto_menu.AddItem("Start position", (int)GoToMenu.Start);
         goto_menu.AddItem($"x{DEFAULT_SCREEN.x}y{DEFAULT_SCREEN.y}", (int)GoToMenu.Default);
@@ -104,6 +109,7 @@ public class LevelEditor : Control
         start_area = save_data != null ? save.getArea() : DEFAULT_SCREEN;
 
         screen_view.init(world, assets, start_area, save.getAreaPosition());
+        selectLayer(0);
         GDKnyttDataStore.setTitle(world.WorldDirectoryName);
         goTo(start_area);
     }
@@ -151,12 +157,26 @@ public class LevelEditor : Control
         GetNode<Control>("%TileCursor").RectPosition = new Vector2(
             index % GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_WIDTH,
             index / GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_HEIGHT);
+        showTileset();
     }
+
+    private LayerButton layerButton(int layer) => GetNode<LayerButton>($"%Layer{layer}");
 
     private void selectLayer(int layer)
     {
+        if (layer >= KnyttArea.AREA_TILE_LAYERS) { return; }
         this.layer = layer;
-        GetNode<Button>($"%Layer{layer}Button").Pressed = true;
+        screen_view.CurrentLayer = layer;
+        for (int i = 0; i < ScreenView.LAYERS; i++) { layerButton(i).Selected = i == layer; }
+        showStatus();
+        screen_view.Update();
+    }
+
+    private void showLayer(int layer, bool shown)
+    {
+        screen_view.LayerShown[layer] = shown;
+        layerButton(layer).Shown = shown;
+        screen_view.Update();
     }
 
     private void paint(int x, int y)
@@ -174,6 +194,7 @@ public class LevelEditor : Control
             history.addArea(world, area);
             mini_map.showScreen(world, coords);
         }
+        if (!screen_view.LayerShown[layer]) { showLayer(layer, true); }
         history.setTile(area, layer, y * KnyttArea.AREA_WIDTH + x, (byte)SelectedTileValue);
         screen_view.Update();
     }
@@ -197,13 +218,14 @@ public class LevelEditor : Control
 
     private void showStatus(string message = "")
     {
-        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}   {message}";
+        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}   Layer {layer}   {message}";
     }
 
     private void showTileset()
     {
         bool show_b = GetNode<Button>("%TilesetBButton").Pressed;
         GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(show_b ? tileset_b : tileset_a);
+        screen_view.setBrush(assets.getTileset(show_b ? tileset_b : tileset_a), selected_tile);
     }
 
     private bool Resizable => OS.HasFeature("pc") && !OS.WindowFullscreen && !OS.WindowMaximized;
@@ -285,6 +307,14 @@ public class LevelEditor : Control
     {
         if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible) { return; }
 
+        if (@event is InputEventKey tab && tab.Scancode == (uint)KeyList.Tab && !tab.Echo)
+        {
+            GetTree().SetInputAsHandled();
+            screen_view.Peeking = tab.Pressed;
+            screen_view.Update();
+            return;
+        }
+
         if (@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
         {
             GetTree().SetInputAsHandled();
@@ -333,6 +363,15 @@ public class LevelEditor : Control
         if (changed) { refresh(); }
     }
 
+    private void _on_OptionsMenu_id_pressed(int id)
+    {
+        var menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
+        int index = menu.GetItemIndex(id);
+        menu.SetItemChecked(index, !menu.IsItemChecked(index));
+        if ((OptionsMenu)id == OptionsMenu.FadeLayers) { screen_view.FadeOthers = menu.IsItemChecked(index); }
+        screen_view.Update();
+    }
+
     private void _on_GoToMenu_id_pressed(int id)
     {
         switch ((GoToMenu)id)
@@ -379,24 +418,16 @@ public class LevelEditor : Control
 
     private void _on_ScreenView_StrokeStarted()
     {
-        picking = GetNode<Button>("%PickButton").Pressed;
-        if (!picking) { history.begin(); }
+        history.begin();
     }
 
     private void _on_ScreenView_CellPainted(int x, int y)
     {
-        if (picking) { pick(x, y); }
-        else { paint(x, y); }
+        paint(x, y);
     }
 
     private void _on_ScreenView_StrokeEnded()
     {
-        if (picking)
-        {
-            picking = false;
-            GetNode<Button>("%PickButton").Pressed = false;
-            return;
-        }
         history.end();
         showChanged();
     }
@@ -414,9 +445,14 @@ public class LevelEditor : Control
         selectTile((int)cell.y * GDKnyttAssetManager.TILESET_WIDTH + (int)cell.x);
     }
 
-    private void _on_LayerButton_pressed(int layer)
+    private void _on_Layer_Chosen(int layer)
     {
-        this.layer = layer;
+        selectLayer(layer);
+    }
+
+    private void _on_Layer_VisibilityToggled(int layer)
+    {
+        showLayer(layer, !screen_view.LayerShown[layer]);
     }
 
     private void _on_MiniMap_ScreenSelected(int x, int y)

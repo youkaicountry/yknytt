@@ -12,9 +12,19 @@ public class ScreenView : Control
 
     public static readonly Vector2 Offset = new Vector2(25, 24);
 
+    public const int LAYERS = KnyttArea.AREA_TILE_LAYERS + KnyttArea.AREA_SPRITE_LAYERS;
+
     private static readonly Vector2 TILE = new Vector2(GDKnyttAssetManager.TILE_WIDTH, GDKnyttAssetManager.TILE_HEIGHT);
-    private static readonly Color EDGE_COLOR = Color.Color8(102, 102, 102);
+    private static readonly Color NEIGHBOUR_SHADE = new Color(0, 0, 0, 0.45f);
     private static readonly Color START_COLOR = new Color(1, 1, 0);
+    private const float FADED_LAYER = 0.35f;
+    private const int TOUCH = -1;
+    private const ulong LONG_PRESS_MS = 500;
+
+    public int CurrentLayer { get; set; }
+    public bool FadeOthers { get; set; } = true;
+    public bool Peeking { get; set; }
+    public bool[] LayerShown { get; } = new bool[] { true, true, true, true, true, true, true, true };
 
     private KnyttWorld world;
     private EditorAssets assets;
@@ -23,11 +33,15 @@ public class ScreenView : Control
     private KnyttPoint start_area;
     private KnyttPoint start_position;
     private TextureRect cursor;
+    private TextureRect brush;
     private Vector2? last_cell;
+    private Vector2? touch_cell;
+    private ulong touch_time;
 
     public override void _Ready()
     {
         cursor = GetNode<TextureRect>("Cursor");
+        brush = GetNode<TextureRect>("Cursor/Brush");
     }
 
     public void init(KnyttWorld world, EditorAssets assets, KnyttPoint start_area, KnyttPoint start_position)
@@ -45,6 +59,20 @@ public class ScreenView : Control
         Update();
     }
 
+    public void setBrush(Texture tileset, int tile)
+    {
+        var atlas = (AtlasTexture)brush.Texture;
+        atlas.Atlas = tileset;
+        atlas.Region = new Rect2(new Vector2(tile % GDKnyttAssetManager.TILESET_WIDTH, tile / GDKnyttAssetManager.TILESET_WIDTH) * TILE, TILE);
+        brush.Visible = tileset != null && tile != 0;
+    }
+
+    private float layerAlpha(int layer, bool neighbour)
+    {
+        if (!LayerShown[layer]) { return 0; }
+        return neighbour || !FadeOthers || Peeking || layer == CurrentLayer ? 1 : FADED_LAYER;
+    }
+
     public override void _Draw()
     {
         if (world == null) { return; }
@@ -54,15 +82,19 @@ public class ScreenView : Control
             for (int x = -1; x <= 1; x++)
             {
                 if (x == 0 && y == 0) { continue; }
-                drawArea(world.getArea(coords + new KnyttPoint(x, y)), Offset + new Vector2(x, y) * GDKnyttArea.Size);
+                drawArea(world.getArea(coords + new KnyttPoint(x, y)), Offset + new Vector2(x, y) * GDKnyttArea.Size, neighbour: true);
             }
         }
 
         var area = world.getArea(coords);
         if (area == null || area.Empty) { drawGradient(background, Offset); }
-        else { drawArea(area, Offset); }
+        else { drawArea(area, Offset, neighbour: false); }
 
-        drawFrame(new Rect2(Offset - Vector2.One, GDKnyttArea.Size + 2 * Vector2.One), EDGE_COLOR);
+        var end = Offset + GDKnyttArea.Size;
+        DrawRect(new Rect2(0, 0, RectSize.x, Offset.y), NEIGHBOUR_SHADE);
+        DrawRect(new Rect2(0, end.y, RectSize.x, RectSize.y - end.y), NEIGHBOUR_SHADE);
+        DrawRect(new Rect2(0, Offset.y, Offset.x, GDKnyttArea.Height), NEIGHBOUR_SHADE);
+        DrawRect(new Rect2(end.x, Offset.y, RectSize.x - end.x, GDKnyttArea.Height), NEIGHBOUR_SHADE);
 
         if (coords.Equals(start_area))
         {
@@ -72,12 +104,12 @@ public class ScreenView : Control
         }
     }
 
-    private void drawArea(KnyttArea area, Vector2 origin)
+    private void drawArea(KnyttArea area, Vector2 origin, bool neighbour)
     {
         if (area == null || area.Empty) { return; }
         drawGradient(area.Background, origin);
-        drawTiles(area, origin);
-        drawObjects(area, origin);
+        drawTiles(area, origin, neighbour);
+        drawObjects(area, origin, neighbour);
     }
 
     private void drawGradient(int num, Vector2 origin)
@@ -93,42 +125,48 @@ public class ScreenView : Control
         }
     }
 
-    private void drawTiles(KnyttArea area, Vector2 origin)
+    private void drawTiles(KnyttArea area, Vector2 origin, bool neighbour)
     {
         // KnyttArea.TilesetB holds tiles 0-127, which the editor calls tileset A
         var tileset_a = assets.getTileset(area.TilesetB);
         var tileset_b = assets.getTileset(area.TilesetA);
 
-        foreach (var layer in area.TileLayers)
+        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
         {
+            var color = new Color(1, 1, 1, layerAlpha(layer, neighbour));
+            if (color.a == 0) { continue; }
+
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
                 {
-                    int tile = layer.getTile(x, y);
+                    int tile = area.TileLayers[layer].getTile(x, y);
                     var texture = tile < 128 ? tileset_a : tileset_b;
                     if (tile % 128 == 0 || texture == null) { continue; }
 
                     var source = new Vector2(tile % 128 % GDKnyttAssetManager.TILESET_WIDTH, tile % 128 / GDKnyttAssetManager.TILESET_WIDTH);
-                    DrawTextureRectRegion(texture, new Rect2(origin + new Vector2(x, y) * TILE, TILE), new Rect2(source * TILE, TILE));
+                    DrawTextureRectRegion(texture, new Rect2(origin + new Vector2(x, y) * TILE, TILE), new Rect2(source * TILE, TILE), color);
                 }
             }
         }
     }
 
-    private void drawObjects(KnyttArea area, Vector2 origin)
+    private void drawObjects(KnyttArea area, Vector2 origin, bool neighbour)
     {
-        foreach (var layer in area.ObjectLayers)
+        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
         {
+            var color = new Color(1, 1, 1, layerAlpha(KnyttArea.AREA_TILE_LAYERS + layer, neighbour));
+            if (color.a == 0) { continue; }
+
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
                 for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
                 {
-                    var id = layer.getObjectID(x, y);
+                    var id = area.ObjectLayers[layer].getObjectID(x, y);
                     if (id.y == 0) { continue; }
 
                     var texture = assets.getObject(id);
-                    if (texture != null) { DrawTexture(texture, origin + new Vector2(x, y) * TILE); }
+                    if (texture != null) { DrawTexture(texture, origin + new Vector2(x, y) * TILE, color); }
                 }
             }
         }
@@ -149,6 +187,7 @@ public class ScreenView : Control
         return inside ? cell : (Vector2?)null;
     }
 
+    // Touch has no right button: a tap paints, a drag paints a stroke, a long press picks
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton button)
@@ -156,17 +195,32 @@ public class ScreenView : Control
             var cell = cellAt(button.Position);
             if (button.ButtonIndex == (int)ButtonList.Left && button.Pressed && cell != null)
             {
-                EmitSignal(nameof(StrokeStarted));
-                paint(cell.Value);
+                if (button.Device == TOUCH)
+                {
+                    touch_cell = cell;
+                    touch_time = OS.GetTicksMsec();
+                    return;
+                }
+                startStroke(cell.Value);
             }
-            else if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed && last_cell != null)
+            else if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed)
             {
-                last_cell = null;
-                EmitSignal(nameof(StrokeEnded));
+                if (touch_cell != null)
+                {
+                    var start = touch_cell.Value;
+                    touch_cell = null;
+                    if (OS.GetTicksMsec() - touch_time >= LONG_PRESS_MS) { pick(start); return; }
+                    startStroke(start);
+                }
+                if (last_cell != null)
+                {
+                    last_cell = null;
+                    EmitSignal(nameof(StrokeEnded));
+                }
             }
             else if (button.ButtonIndex == (int)ButtonList.Right && button.Pressed && cell != null)
             {
-                EmitSignal(nameof(CellPicked), (int)cell.Value.x, (int)cell.Value.y);
+                pick(cell.Value);
             }
         }
         else if (@event is InputEventMouseMotion motion)
@@ -175,8 +229,25 @@ public class ScreenView : Control
             cursor.Visible = cell != null;
             if (cell == null) { return; }
             cursor.RectPosition = Offset + cell.Value * TILE;
+
+            if (touch_cell != null && cell != touch_cell)
+            {
+                startStroke(touch_cell.Value);
+                touch_cell = null;
+            }
             if (last_cell != null && cell != last_cell) { paint(cell.Value); }
         }
+    }
+
+    private void startStroke(Vector2 cell)
+    {
+        EmitSignal(nameof(StrokeStarted));
+        paint(cell);
+    }
+
+    private void pick(Vector2 cell)
+    {
+        EmitSignal(nameof(CellPicked), (int)cell.x, (int)cell.y);
     }
 
     private void paint(Vector2 cell)

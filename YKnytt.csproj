@@ -244,6 +244,8 @@
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
     <Compile Include="knytt\editor\EditorAssets.cs" />
     <Compile Include="knytt\editor\EditorHistory.cs" />
+    <Compile Include="knytt\editor\EditorMenuButton.cs" />
+    <Compile Include="knytt\editor\LayerButton.cs" />
     <Compile Include="knytt\editor\LevelEditor.cs" />
     <Compile Include="knytt\editor\MiniMap.cs" />
     <Compile Include="knytt\editor\NewLevelScreen.cs" />
