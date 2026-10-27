@@ -155,6 +155,9 @@ mouse_filter = 2
 
 [node name="Layer0" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 0: back tiles, no collision
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 355.0
 margin_right = 399.0
 margin_bottom = 30.0
@@ -164,6 +167,9 @@ Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
 
 [node name="Layer1" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 1: tiles, no collision
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 387.0
 margin_right = 431.0
 margin_bottom = 30.0
@@ -173,6 +179,9 @@ Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
 
 [node name="Layer2" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 2: tiles, no collision. Over Juni if Overlay is on
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 419.0
 margin_right = 463.0
 margin_bottom = 30.0
@@ -182,6 +191,9 @@ Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
 
 [node name="Layer3" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 3: solid tiles. Juni collides here
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 451.0
 margin_right = 495.0
 margin_bottom = 30.0
@@ -191,6 +203,9 @@ Tint = Color( 0.54902, 0.784314, 0.54902, 1 )
 
 [node name="Layer4" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 4: objects, behind Juni
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 543.0
 margin_right = 587.0
 margin_bottom = 30.0
@@ -200,6 +215,9 @@ Tint = Color( 0.921569, 0.431373, 0.862745, 1 )
 
 [node name="Layer5" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 5: objects, behind Juni
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 575.0
 margin_right = 619.0
 margin_bottom = 30.0
@@ -209,6 +227,9 @@ Tint = Color( 0.921569, 0.431373, 0.862745, 1 )
 
 [node name="Layer6" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 6: objects, in front of Juni
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 607.0
 margin_right = 651.0
 margin_bottom = 30.0
@@ -218,6 +239,9 @@ Tint = Color( 0.941176, 0.470588, 0.431373, 1 )
 
 [node name="Layer7" type="Control" parent="Layers"]
 unique_name_in_owner = true
+hint_tooltip = "Layer 7: objects, in front of Juni
+Click: select. Again: see all
+Right-click: hide/show"
 margin_left = 639.0
 margin_right = 683.0
 margin_bottom = 30.0
@@ -329,25 +353,29 @@ toggle_mode = true
 group = SubResource( 1 )
 text = "B Tileset 0"
 
-[node name="Checker" type="TextureRect" parent="Panel"]
-margin_left = 1.0
-margin_top = 23.0
-margin_right = 385.0
-margin_bottom = 215.0
-mouse_filter = 2
-texture = ExtResource( 7 )
-stretch_mode = 2
-
-[node name="Tileset" type="TextureRect" parent="Panel"]
+[node name="Palette" type="Control" parent="Panel"]
 unique_name_in_owner = true
 margin_left = 1.0
 margin_top = 23.0
 margin_right = 385.0
 margin_bottom = 225.0
+mouse_filter = 2
+
+[node name="Checker" type="TextureRect" parent="Panel/Palette"]
+margin_right = 384.0
+margin_bottom = 192.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+stretch_mode = 2
+
+[node name="Tileset" type="TextureRect" parent="Panel/Palette"]
+unique_name_in_owner = true
+margin_right = 384.0
+margin_bottom = 202.0
 rect_clip_content = true
 stretch_mode = 3
 
-[node name="TileCursor" type="TextureRect" parent="Panel/Tileset"]
+[node name="TileCursor" type="TextureRect" parent="Panel/Palette/Tileset"]
 unique_name_in_owner = true
 margin_right = 24.0
 margin_bottom = 24.0
@@ -468,7 +496,7 @@ dialog_text = "Leave the editor without saving?"
 [connection signal="Chosen" from="Layers/Layer7" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer7" to="." method="_on_Layer_VisibilityToggled"]
 [connection signal="ScreenSelected" from="MiniMap" to="." method="_on_MiniMap_ScreenSelected"]
-[connection signal="gui_input" from="Panel/Tileset" to="." method="_on_Tileset_gui_input"]
+[connection signal="gui_input" from="Panel/Palette/Tileset" to="." method="_on_Tileset_gui_input"]
 [connection signal="confirmed" from="UnsavedDialog" to="." method="_on_UnsavedDialog_confirmed"]
 [connection signal="toggled" from="Panel/Tabs/TilesetAButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="toggled" from="Panel/Tabs/TilesetBButton" to="." method="_on_TilesetButton_toggled"]

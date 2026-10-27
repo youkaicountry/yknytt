@@ -17,6 +17,7 @@ public class LevelEditor : Control
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
     private static readonly Color SAVED_COLOR = Color.Color8(87, 135, 231);
     private static readonly Color CHANGED_COLOR = Color.Color8(247, 195, 79);
+    private static readonly Color INACTIVE_COLOR = new Color(1, 1, 1, 0.3f);
 
     private Vector2 game_window_size;
 
@@ -33,7 +34,7 @@ public class LevelEditor : Control
     private int ambiance_a;
     private int ambiance_b;
 
-    private int layer;
+    private int layer = -1;
     private int selected_tile;
     private bool quit_game;
 
@@ -162,12 +163,21 @@ public class LevelEditor : Control
 
     private LayerButton layerButton(int layer) => GetNode<LayerButton>($"%Layer{layer}");
 
+    private bool TileLayer => layer >= 0 && layer < KnyttArea.AREA_TILE_LAYERS;
+
+    // Choosing the current layer again shows all layers and turns painting off
     private void selectLayer(int layer)
     {
-        if (layer >= KnyttArea.AREA_TILE_LAYERS) { return; }
-        this.layer = layer;
-        screen_view.CurrentLayer = layer;
-        for (int i = 0; i < ScreenView.LAYERS; i++) { layerButton(i).Selected = i == layer; }
+        this.layer = layer == this.layer ? -1 : layer;
+        screen_view.CurrentLayer = this.layer;
+        screen_view.Painting = TileLayer;
+        for (int i = 0; i < ScreenView.LAYERS; i++) { layerButton(i).Selected = i == this.layer; }
+
+        GetNode<Control>("%Palette").Modulate = TileLayer ? Colors.White : INACTIVE_COLOR;
+        GetNode<Control>("%Tileset").MouseFilter = TileLayer ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
+        GetNode<Button>("%TilesetAButton").Disabled = GetNode<Button>("%TilesetBButton").Disabled = !TileLayer;
+
+        showTileset();
         showStatus();
         screen_view.Update();
     }
@@ -181,6 +191,7 @@ public class LevelEditor : Control
 
     private void paint(int x, int y)
     {
+        if (!TileLayer) { return; }
         var area = world.getArea(coords);
         if (area == null || area.Empty)
         {
@@ -201,6 +212,7 @@ public class LevelEditor : Control
 
     private void pick(int x, int y)
     {
+        if (!TileLayer) { return; }
         var area = world.getArea(coords);
         if (area == null || area.Empty) { return; }
         int tile = area.TileLayers[layer].getTile(x, y);
@@ -218,14 +230,15 @@ public class LevelEditor : Control
 
     private void showStatus(string message = "")
     {
-        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}   Layer {layer}   {message}";
+        string layer_text = layer < 0 ? "All layers" : $"Layer {layer}";
+        GetNode<Label>("%StatusLabel").Text = $"Map: x{coords.x}y{coords.y}   {layer_text}   {message}";
     }
 
     private void showTileset()
     {
         bool show_b = GetNode<Button>("%TilesetBButton").Pressed;
         GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(show_b ? tileset_b : tileset_a);
-        screen_view.setBrush(assets.getTileset(show_b ? tileset_b : tileset_a), selected_tile);
+        screen_view.setBrush(TileLayer ? assets.getTileset(show_b ? tileset_b : tileset_a) : null, selected_tile);
     }
 
     private bool Resizable => OS.HasFeature("pc") && !OS.WindowFullscreen && !OS.WindowMaximized;
@@ -320,7 +333,7 @@ public class LevelEditor : Control
             GetTree().SetInputAsHandled();
             quit();
         }
-        else if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode >= (uint)KeyList.Key0 && key.Scancode <= (uint)KeyList.Key3)
+        else if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode >= (uint)KeyList.Key0 && key.Scancode <= (uint)KeyList.Key7)
         {
             GetTree().SetInputAsHandled();
             selectLayer((int)(key.Scancode - (uint)KeyList.Key0));

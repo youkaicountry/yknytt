@@ -23,6 +23,7 @@ public class ScreenView : Control
 
     public int CurrentLayer { get; set; }
     public bool FadeOthers { get; set; } = true;
+    public bool Painting { get; set; } = true;
     public bool Peeking { get; set; }
     public bool[] LayerShown { get; } = new bool[] { true, true, true, true, true, true, true, true };
 
@@ -70,7 +71,7 @@ public class ScreenView : Control
     private float layerAlpha(int layer, bool neighbour)
     {
         if (!LayerShown[layer]) { return 0; }
-        return neighbour || !FadeOthers || Peeking || layer == CurrentLayer ? 1 : FADED_LAYER;
+        return neighbour || !FadeOthers || Peeking || CurrentLayer < 0 || layer == CurrentLayer ? 1 : FADED_LAYER;
     }
 
     public override void _Draw()
@@ -226,7 +227,7 @@ public class ScreenView : Control
         else if (@event is InputEventMouseMotion motion)
         {
             var cell = cellAt(motion.Position);
-            cursor.Visible = cell != null;
+            cursor.Visible = cell != null && Painting;
             if (cell == null) { return; }
             cursor.RectPosition = Offset + cell.Value * TILE;
 
