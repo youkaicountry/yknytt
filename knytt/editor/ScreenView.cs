@@ -7,6 +7,7 @@ public class ScreenView : Control
     [Signal] public delegate void CellPainted(int x, int y);
     [Signal] public delegate void StrokeEnded();
     [Signal] public delegate void CellPicked(int x, int y);
+    [Signal] public delegate void CellHovered(int x, int y);
 
     [Export] public Texture JuniTexture { get; set; }
 
@@ -36,6 +37,7 @@ public class ScreenView : Control
     private TextureRect cursor;
     private TextureRect brush;
     private Vector2? last_cell;
+    private Vector2? hovered_cell;
     private Vector2? touch_cell;
     private ulong touch_time;
 
@@ -60,12 +62,14 @@ public class ScreenView : Control
         Update();
     }
 
-    public void setBrush(Texture tileset, int tile)
+    public void setBrush(Texture texture, Rect2 region)
     {
         var atlas = (AtlasTexture)brush.Texture;
-        atlas.Atlas = tileset;
-        atlas.Region = new Rect2(new Vector2(tile % GDKnyttAssetManager.TILESET_WIDTH, tile / GDKnyttAssetManager.TILESET_WIDTH) * TILE, TILE);
-        brush.Visible = tileset != null && tile != 0;
+        atlas.Atlas = texture;
+        atlas.Region = region;
+        brush.Visible = texture != null;
+        brush.MinimumSizeChanged();
+        brush.Update();
     }
 
     private float layerAlpha(int layer, bool neighbour)
@@ -228,6 +232,7 @@ public class ScreenView : Control
         {
             var cell = cellAt(motion.Position);
             cursor.Visible = cell != null && Painting;
+            hover(cell);
             if (cell == null) { return; }
             cursor.RectPosition = Offset + cell.Value * TILE;
 
@@ -264,8 +269,16 @@ public class ScreenView : Control
         last_cell = cell;
     }
 
+    private void hover(Vector2? cell)
+    {
+        if (cell == hovered_cell) { return; }
+        hovered_cell = cell;
+        EmitSignal(nameof(CellHovered), (int)(cell?.x ?? -1), (int)(cell?.y ?? -1));
+    }
+
     private void _on_ScreenView_mouse_exited()
     {
         cursor.Visible = false;
+        hover(null);
     }
 }

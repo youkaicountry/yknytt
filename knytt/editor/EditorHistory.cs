@@ -21,6 +21,24 @@ public class EditorHistory
         public void redo() { area.TileLayers[layer].tiles[index] = after; }
     }
 
+    private class ObjectChange : IChange
+    {
+        public KnyttArea area;
+        public int layer;
+        public int index;
+        public KnyttPoint before;
+        public KnyttPoint after;
+
+        public void undo() { set(before); }
+        public void redo() { set(after); }
+
+        private void set(KnyttPoint id)
+        {
+            area.ObjectLayers[layer].lo[index] = (byte)id.x;
+            area.ObjectLayers[layer].hi[index] = (byte)id.y;
+        }
+    }
+
     private class AreaAdded : IChange
     {
         public KnyttWorld world;
@@ -59,6 +77,13 @@ public class EditorHistory
         byte before = area.TileLayers[layer].tiles[index];
         if (before == tile) { return; }
         record(new TileChange() { area = area, layer = layer, index = index, before = before, after = tile });
+    }
+
+    public void setObject(KnyttArea area, int layer, int index, KnyttPoint id)
+    {
+        var before = new KnyttPoint(area.ObjectLayers[layer].lo[index], area.ObjectLayers[layer].hi[index]);
+        if (before.Equals(id)) { return; }
+        record(new ObjectChange() { area = area, layer = layer, index = index, before = before, after = id });
     }
 
     public void addArea(KnyttWorld world, KnyttArea area)

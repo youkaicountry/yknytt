@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -9,10 +9,28 @@
 [ext_resource path="res://knytt/editor/img/checker.png" type="Texture" id=7]
 [ext_resource path="res://knytt/editor/LayerButton.cs" type="Script" id=8]
 [ext_resource path="res://knytt/editor/EditorMenuButton.cs" type="Script" id=9]
+[ext_resource path="res://knytt/editor/ObjectPalette.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ButtonGroup" id=1]
 
 [sub_resource type="AtlasTexture" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.784314, 0.658824, 0.658824, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
 
 [node name="LevelEditor" type="Control"]
 anchor_right = 1.0
@@ -313,7 +331,7 @@ script = ExtResource( 3 )
 [node name="Panel" type="ColorRect" parent="."]
 margin_left = 194.0
 margin_top = 355.0
-margin_right = 700.0
+margin_right = 579.0
 margin_bottom = 610.0
 color = Color( 0.298039, 0.298039, 0.298039, 1 )
 
@@ -396,6 +414,81 @@ margin_left = 3.0
 margin_top = 2.0
 text = "Map:"
 
+[node name="Objects" type="ColorRect" parent="."]
+unique_name_in_owner = true
+margin_left = 581.0
+margin_top = 354.0
+margin_right = 697.0
+margin_bottom = 607.0
+color = Color( 0.298039, 0.298039, 0.298039, 1 )
+
+[node name="BankBox" type="TextureRect" parent="Objects"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 106.0
+margin_bottom = 106.0
+
+[node name="BankValue" type="Label" parent="Objects"]
+unique_name_in_owner = true
+margin_left = 4.0
+margin_top = 112.0
+margin_right = 50.0
+margin_bottom = 128.0
+mouse_filter = 0
+text = "Bank 0"
+
+[node name="ObjectValue" type="Label" parent="Objects"]
+unique_name_in_owner = true
+margin_left = 50.0
+margin_top = 112.0
+margin_right = 113.0
+margin_bottom = 128.0
+mouse_filter = 0
+text = "Object 0"
+align = 2
+
+[node name="Line" type="ColorRect" parent="Objects"]
+margin_top = 132.0
+margin_right = 116.0
+margin_bottom = 136.0
+mouse_filter = 2
+color = Color( 0.4, 0.4, 0.4, 1 )
+
+[node name="ObjectPreview" type="TextureRect" parent="Objects"]
+unique_name_in_owner = true
+margin_top = 137.0
+margin_right = 116.0
+margin_bottom = 253.0
+stretch_mode = 4
+
+[node name="PlusFrame" type="Panel" parent="Objects"]
+unique_name_in_owner = true
+visible = false
+margin_left = 2.0
+margin_top = 143.0
+margin_right = 114.0
+margin_bottom = 251.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 3 )
+
+[node name="PlusLabel" type="Label" parent="Objects/PlusFrame"]
+margin_left = 6.0
+margin_top = -8.0
+margin_right = 30.0
+margin_bottom = 8.0
+hint_tooltip = "Needs KS+"
+mouse_filter = 0
+custom_colors/font_color = Color( 0.784314, 0.658824, 0.658824, 1 )
+custom_styles/normal = SubResource( 4 )
+text = "KS+"
+
+[node name="ObjectPalette" parent="." instance=ExtResource( 10 )]
+unique_name_in_owner = true
+margin_top = 100.0
+margin_right = 579.0
+margin_bottom = 607.0
+
 [node name="GoToDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
 margin_right = 240.0
@@ -477,6 +570,7 @@ dialog_text = "Leave the editor without saving?"
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
 [connection signal="CellPicked" from="ScreenView" to="." method="_on_ScreenView_CellPicked"]
+[connection signal="CellHovered" from="ScreenView" to="." method="_on_ScreenView_CellHovered"]
 [connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
 [connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
 [connection signal="Chosen" from="Layers/Layer0" to="." method="_on_Layer_Chosen"]
@@ -506,3 +600,8 @@ dialog_text = "Leave the editor without saving?"
 [connection signal="confirmed" from="SaveAsDialog" to="." method="_on_SaveAsDialog_confirmed"]
 [connection signal="text_entered" from="SaveAsDialog/Form/SaveAsName" to="." method="_on_SaveAsEdit_text_entered"]
 [connection signal="text_entered" from="SaveAsDialog/Form/SaveAsAuthor" to="." method="_on_SaveAsEdit_text_entered"]
+[connection signal="gui_input" from="Objects/BankBox" to="." method="_on_BankBox_gui_input"]
+[connection signal="gui_input" from="Objects/BankValue" to="." method="_on_Bank_gui_input"]
+[connection signal="gui_input" from="Objects/ObjectValue" to="." method="_on_Object_gui_input"]
+[connection signal="gui_input" from="Objects/ObjectPreview" to="." method="_on_ObjectPreview_gui_input"]
+[connection signal="ObjectChosen" from="ObjectPalette" to="." method="_on_ObjectPalette_ObjectChosen"]

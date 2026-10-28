@@ -1,0 +1,123 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/editor/ObjectPalette.cs" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.6, 0.6, 0.6, 1 )
+
+[node name="ObjectPalette" type="PopupPanel"]
+margin_right = 579.0
+margin_bottom = 487.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="Layout" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 575.0
+margin_bottom = 483.0
+
+[node name="Top" type="HBoxContainer" parent="Layout"]
+margin_right = 571.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 38 )
+
+[node name="Search" type="LineEdit" parent="Layout/Top"]
+unique_name_in_owner = true
+margin_right = 150.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 150, 0 )
+hint_tooltip = "Name, what it does, or bank:object
+Enter takes the first one. Down goes to the list"
+clear_button_enabled = true
+placeholder_text = "Search"
+
+[node name="Recent" type="ItemList" parent="Layout/Top"]
+unique_name_in_owner = true
+margin_left = 154.0
+margin_right = 571.0
+margin_bottom = 38.0
+hint_tooltip = "Recently used"
+size_flags_horizontal = 3
+max_columns = 0
+same_column_width = true
+fixed_icon_size = Vector2( 24, 24 )
+
+[node name="Main" type="HBoxContainer" parent="Layout"]
+margin_top = 42.0
+margin_right = 571.0
+margin_bottom = 419.0
+size_flags_vertical = 3
+
+[node name="Banks" type="ItemList" parent="Layout/Main"]
+unique_name_in_owner = true
+margin_right = 150.0
+margin_bottom = 383.0
+rect_min_size = Vector2( 150, 0 )
+
+[node name="Objects" type="ItemList" parent="Layout/Main"]
+unique_name_in_owner = true
+margin_left = 154.0
+margin_right = 571.0
+margin_bottom = 383.0
+size_flags_horizontal = 3
+max_columns = 0
+same_column_width = true
+fixed_column_width = 32
+icon_mode = 0
+fixed_icon_size = Vector2( 24, 24 )
+
+[node name="Info" type="HBoxContainer" parent="Layout"]
+margin_top = 423.0
+margin_right = 571.0
+margin_bottom = 479.0
+rect_min_size = Vector2( 0, 56 )
+
+[node name="InfoIcon" type="TextureRect" parent="Layout/Info"]
+unique_name_in_owner = true
+margin_right = 48.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 48, 48 )
+expand = true
+stretch_mode = 6
+
+[node name="InfoLines" type="VBoxContainer" parent="Layout/Info"]
+margin_left = 52.0
+margin_right = 571.0
+margin_bottom = 56.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="InfoName" type="Label" parent="Layout/Info/InfoLines"]
+unique_name_in_owner = true
+margin_right = 511.0
+margin_bottom = 14.0
+text = "0:1 Save point"
+
+[node name="InfoText" type="Label" parent="Layout/Info/InfoLines"]
+unique_name_in_owner = true
+margin_top = 14.0
+margin_right = 511.0
+margin_bottom = 28.0
+custom_colors/font_color = Color( 0.8, 0.8, 0.8, 1 )
+autowrap = true
+
+[connection signal="gui_input" from="Layout/Top/Search" to="." method="_on_Search_gui_input"]
+[connection signal="text_changed" from="Layout/Top/Search" to="." method="_on_Search_text_changed"]
+[connection signal="text_entered" from="Layout/Top/Search" to="." method="_on_Search_text_entered"]
+[connection signal="gui_input" from="Layout/Top/Recent" to="." method="_on_Recent_gui_input"]
+[connection signal="mouse_exited" from="Layout/Top/Recent" to="." method="_on_List_mouse_exited"]
+[connection signal="item_selected" from="Layout/Main/Banks" to="." method="_on_Banks_item_selected"]
+[connection signal="gui_input" from="Layout/Main/Objects" to="." method="_on_Objects_gui_input"]
+[connection signal="item_activated" from="Layout/Main/Objects" to="." method="_on_Objects_item_activated"]
+[connection signal="item_selected" from="Layout/Main/Objects" to="." method="_on_Objects_item_selected"]
+[connection signal="mouse_exited" from="Layout/Main/Objects" to="." method="_on_List_mouse_exited"]

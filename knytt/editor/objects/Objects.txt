@@ -1,0 +1,910 @@
+0 System
+0:1 Save point
+0:2 Win
+	Win tile. Triggers cutscene and exits to main menu.
+	Plays 'Ending' cutscene by default. Cutscene can be changed in script.
+0:3 Run power
+0:4 Climb power
+0:5 Double jump power
+0:6 High jump power
+	Vertical jump height increases from 1 tile to 2 tiles.
+0:7 Eye power
+	Ghost objects become visible.
+0:8 Detector power
+	Some dangers cause Juni to glow red.
+	Use with objects 0:26, 0:27, and 0:28 for more glowing.
+0:9 Umbrella power
+	Allows slow fall.
+	Use with object 15:5 for upwards floating.
+0:10 Hologram power
+	Creates an image that most enemies will target.
+0:11 No climb
+	Prevents climbing.
+0:12 Eye-only music
+	Prevents music from playing unless player has Eye power.
+0:13 Sticky
+	Prevents horizontal movement. Place inside floor for best results.
+0:14 Shift A
+	Has many uses. Set it up in the script.
+0:15 Shift B
+	Has many uses. Set it up in the script.
+0:16 Shift C
+	Has many uses. Set it up in the script.
+0:17 Sign A
+	Shows a message bubble. Set message in script.
+	Use with objects 0:29, 0:30, 0:31.
+0:18 Sign B
+	Shows a message bubble. Set message in script.
+	Use with objects 0:29, 0:30, 0:31.
+0:19 Sign C
+	Shows a message bubble. Set message in script.
+	Use with objects 0:29, 0:30, 0:31.
+0:20 Warp
+	Allows scrolling to non-adjacent screens. Warps set in script will not work without this object. Not needed for Flag Warps.
+0:21 Red key
+	Keys unlock key doors.
+	Use with objects 15:27, 15:28, 15:29, and 15:30.
+0:22 Yellow key
+	Keys unlock key doors.
+	Use with objects 15:27, 15:28, 15:29, and 15:30.
+0:23 Blue key
+	Keys unlock key doors.
+	Use with objects 15:27, 15:28, 15:29, and 15:30.
+0:24 Purple key
+	Keys unlock key doors.
+	Use with objects 15:27, 15:28, 15:29, and 15:30.
+0:25 No jump
+	Prevents jumping.
+0:26 Danger glow
+	Causes Juni to glow red if Juni has Detector power.
+	Indicates danger. Use with object 0:8.
+0:27 Secret glow
+	Causes Juni to dimly glow green if Juni has Detector power.
+	Indicates secrets. Use with object 0:8.
+0:28 Strong secret glow
+	Causes Juni to brightly glow green if Juni has Detector power.
+	Strongly indicates secrets. Use with object 0:8.
+0:29 Sign area A
+	Extends area that triggers a Sign object.
+	Use with objects 0:17, 0:18, and 0:19.
+0:30 Sign area B
+	Extends area that triggers a Sign object.
+	Use with objects 0:17, 0:18, and 0:19.
+0:31 Sign area C
+	Extends area that triggers a Sign object.
+	Use with objects 0:17, 0:18, and 0:19.
+0:32 Trigger A
+	Spawns an object to the screen.
+	Set it up in the script.
+0:33 Trigger B
+	Spawns an object to the screen.
+	Set it up in the script.
+0:34 Trigger C
+	Spawns an object to the screen.
+	Set it up in the script.
+0:35 Map power
+	Shows un-visited screens on map.
+0:36 Title
+	Momentarily shows titles and subtitles on screen.
+	Set text in script.
+0:37 Ambiance A source
+	Ambiance volume rises as player approaches.
+0:38 Ambiance B source
+	Ambiance volume rises as player approaches.
+0:39 Mute ambiance A
+	Mutes an Ambiance track.
+0:40 Mute ambiance B
+	Mutes an Ambiance track.
+0:41 No climb (exact)
+	A better version of the No-Climb object.
+	Use when wall tiles are not 24 by 24 pixels.
+0:42 Spawn point A
+	Forces Trigger spawn to appear at the location of this object.
+	Allows creation of multiple objects. Use with objects 0:32, 0:33, 0:34.
+0:43 Spawn point B
+	Forces Trigger spawn to appear at the location of this object.
+	Allows creation of multiple objects. Use with objects 0:32, 0:33, 0:34.
+0:44 Spawn point C
+	Forces Trigger spawn to appear at the location of this object.
+	Allows creation of multiple objects. Use with objects 0:32, 0:33, 0:34.
+0:45 Delete area A
+	All objects touching this object are removed when Trigger acts.
+	Use with objects 0:32, 0:33, 0:34.
+0:46 Delete area B
+	All objects touching this object are removed when Trigger acts.
+	Use with objects 0:32, 0:33, 0:34.
+0:47 Delete area C
+	All objects touching this object are removed when Trigger acts.
+	Use with objects 0:32, 0:33, 0:34.
+0:48 Allow hologram
+	Allows player to deploy a hologram when they have the hologram power.
+	Use in conjunction with World instruction HoloLimit=True.
+0:49 Halt
+	This is a combination of Sticky, No-Jump, and better No-Climb objects.
+	It simplifies some common level design methods.
+0:247 Block controls
+	Blocks user from controlling playable character for entire screen.
+0:248 Press hologram
+	Mimics a keyboard key press when Juni overlaps it.
+0:249 Press walk
+	Mimics a keyboard key press when Juni overlaps it.
+0:250 Press jump
+	Mimics a keyboard key press when Juni overlaps it.
+0:251 Press umbrella
+	Mimics a keyboard key press when Juni overlaps it.
+0:252 Press up
+	Mimics a keyboard key press when Juni overlaps it.
+0:253 Press down
+	Mimics a keyboard key press when Juni overlaps it.
+0:254 Press left
+	Mimics a keyboard key press when Juni overlaps it.
+0:255 Press right
+	Mimics a keyboard key press when Juni overlaps it.
+
+1 Liquids
+1:1-2 Waves
+	Water waves, kills on touch.
+1:3-4 Waterfall
+	Waterfall, safe to touch.
+1:5 Waves
+	Water waves, kills on touch.
+1:6 Ripples
+	Water ripples, safe to touch.
+1:7-9 Water colour
+	Color tiles to match water waves, solid, safe to touch.
+1:10 Waves
+	Water waves, kills on touch.
+1:11 Water colour
+	Color tiles to match water waves, solid, safe to touch.
+1:12 Waves
+	Water waves, kills on touch.
+1:13 Ripples
+	Water ripples, safe to touch.
+1:14 Waves
+	Water waves, kills on touch.
+1:15 Waterfall
+	Waterfall, safe to touch.
+1:16 Ripples
+	Water ripples, safe to touch.
+1:17 Water colour
+	Color tiles to match water waves, solid, safe to touch.
+1:18 Bubbles
+	Bubble effect.
+1:19 Waves
+	Water waves, kills on touch.
+1:20 Waterfall
+	Waterfall, safe to touch.
+1:21 Water colour
+	Color tiles to match water waves, solid, safe to touch.
+1:22 Waves
+	Water waves, kills on touch.
+1:23 Waterfall
+	Waterfall, safe to touch.
+1:24 Water colour
+	Color tiles to match water waves, solid, safe to touch.
+1:25 Swim screen
+	Place one per screen to enable under-water physics.
+1:26 Swim zone
+	Enables under-water physics when touching player character.
+1:27 Swim zone (half)
+	Enables under-water physics when touching player character.
+
+2 Flyers
+2:1 Flything
+	Randomly moves about the air, harmless.
+2:2 Bad flything
+	Randomly moves about the air, safe to touch.
+	Periodically one of them shoots 6 deadly projectiles.
+2:3-4 Fly
+	Small fly that flies up when approached, then flutters near the ground.
+2:5 Bad flything
+	Randomly moves about the air, safe to touch.
+	Periodically one of them shoots 4 deadly projectiles.
+2:6 Homing flything
+	Randomly moves about the air, safe to touch.
+	Periodically all of them shoot 4 deadly seeking projectiles.
+2:7 Flything
+	Randomly moves about the air, harmless.
+2:8 Cave firefly
+	Randomly flies about the air fading in and out, harmless.
+2:9 Yellow bee
+	Flies back and forth, safe to touch.
+	Randomly shoots deadly projectiles.
+2:10 Red bee
+	Flies back and forth, safe to touch.
+	Randomly shoots deadly projectiles.
+2:11 Homing circle
+	Slowly seeks player, kills on touch.
+	Moves through walls, but travels more slowly.
+2:12 Homing square
+	Slowly seeks player, kills on touch.
+	Moves through walls, but travels more slowly.
+2:13 Red firefly
+	Randomly flies about the air fading in and out, harmless.
+2:14 Tentacle flything
+	Randomly moves about the air, safe to touch. Periodically all of them shoot 2 deadly particle streams. Total number of particles is fixed.
+2:15 Propeller dude
+	Randomly moves about the air, kills on touch.
+2:16-17 Propeller child
+	Randomly moves about the air, harmless.
+2:18 Yellow elemental
+	Fixed position, kills if approached without hologram.
+2:19 Red elemental
+	Fixed position, kills if approached without hologram.
+2:20-21 Fly spike
+	Periodically flies from one wall to another, kills on touch.
+2:22 Quad flything
+	Randomly moves about the air, safe to touch. Periodically all of them shoot 4 deadly particle streams. Total number of particles is fixed.
+2:23 Green firefly
+	Randomly flies about the air fading in and out, harmless.
+2:24 Falling propeller dude
+	Moves about the air near the top, kills on touch.
+	Quickly seeks player when below it.
+2:25 Hummingbird
+	Periodically flies up vertically, harmless.
+	Faces player.
+2:26-27 Birdie
+	Periodically flies on a path, harmless.
+2:28 Birdie
+	Hops along the ground, harmless.
+2:29 Snow bird
+	Periodically flies on a path, harmless.
+2:30 Circle bird
+	Fixed position, multiple random animations, harmless.
+2:31 Background bird
+	Flies across the screen at varying heights, speeds, and direction.
+	Background decoration, harmless.
+2:32 Fast homing square
+	Quickly seeks player through walls, kills on touch.
+
+3 Knytt & Fluff
+3:1 Muff
+	Walks back and forth, harmless.
+3:2 Roller muff
+	Walks back and forth, kills on touch.
+	Periodically one of them quickly rolls towards player.
+3:3 Muff
+	Walks back and forth, harmless.
+3:4 Spiker muff
+	Walks back and forth, safe to touch.
+	Stops and extends spikes as player approaches, kills on touch.
+3:5 Yellow dog
+	Walks towards player when player is at same height, harmless.
+3:6 Spiker muff
+	Walks back and forth, safe to touch.
+	Stops and extends spikes as player approaches, kills on touch.
+3:7 Muff
+	Walks back and forth, harmless.
+3:8 Roller muff
+	Walks back and forth, kills on touch.
+	Periodically one of them quickly rolls towards player.
+3:9-11 Muff
+	Walks back and forth, harmless.
+3:12-13 Eskimo
+	Stationary facing right, random animations, harmless.
+3:14 Watching muff
+	Faces player, harmless.
+3:15-20 Muff
+	Walks back and forth, harmless.
+3:21 Beard guy
+	Stationary facing left, random animations, harmless.
+3:22 Spiker muff
+	Walks back and forth, safe to touch.
+	Stops and extends spikes as player approaches, kills on touch.
+3:23 Muff
+	Walks back and forth, harmless.
+3:24 Muff
+	Walks back and forth, stands and sits, safe to touch.
+3:25 Rat thing
+	Walks towards player when player is at same height, harmless.
+3:26 Watching muff
+	Faces player, harmless.
+3:27 Forest dude
+	Stationary facing left, random animations, harmless.
+3:28 Muff
+	Walks back and forth, harmless.
+3:29 Sky girl
+	Stationary, random animations, harmless.
+3:30 Muff
+	Flies back and forth, harmless.
+3:31 Muff
+	Walks back and forth, harmless.
+3:32 Fly girl
+	Stationary, random animations, harmless.
+3:33 Spiker muff
+	Walks back and forth, safe to touch.
+	Stops and extends spikes as player approaches, kills on touch.
+3:34-36 Muff
+	Walks back and forth, harmless.
+3:37 Baby
+	Stationary, random animations, harmless.
+3:38 Watching muff
+	Faces player, harmless.
+3:39 Cave dude
+	Stationary facing right, random animations, harmless.
+3:40 Muff
+	Walks back and forth, harmless.
+3:41 Watching muff
+	Faces player, harmless.
+3:42 Big cat
+	Stationary facing left, random animations, harmless.
+3:43 Small cat
+	Stationary facing left, random animations, harmless.
+3:44 Muff
+	Walks back and forth, harmless.
+
+4 Meanies
+4:1 Circle crawler
+	Walks towards player, kills on touch.
+4:2 Side crawler
+	Walks towards player, kills on touch.
+4:3 Six-leg
+	Walks towards player when player is at same level or just above.
+	Kills on touch.
+4:4 Six-leg child
+	Walks towards player when player is at same level or just above.
+	Kills on touch.
+4:5 Six-leg baby
+	Walks towards player when player is at same level or just above.
+	Kills on touch.
+4:6 Floor drop crawler
+	Walks towards player, safe to touch.
+	Periodically one of them shoots 3 fire balls if horizontally close to player.
+4:7 Ceiling drop crawler
+	Walks towards player, safe to touch.
+	Periodically all of them shoot 3 fire balls if horizontally close to player.
+4:8 Slow side crawler
+	Walks towards player, kills on touch.
+4:9 Big spider
+	Runs back and forth when player is at same level, kills on touch.
+	Initially faces player.
+4:10 Left stranger
+	Randomly moves up and down, safe to touch.
+	Periodically one of them stops and shoots 3 deadly projectiles.
+4:11 Right stranger
+	Randomly moves up and down, safe to touch.
+	Periodically one of them stops and shoots 3 deadly projectiles.
+4:12 Strange runner
+	Walks towards player, safe to touch.
+	Periodically all of them lob an aimed deadly projectile.
+4:13 Side crawler
+	Walks towards player, kills on touch.
+4:14 Three-legged spider
+	Runs left or right alternately at random intervals, kills on touch.
+	Runs right the first time.
+4:15 Strange runner
+	Walks towards player, kills on touch.
+	Periodically all of them lob an aimed deadly projectile.
+4:16 Homing runner
+	Walks towards player, safe to touch.
+	Periodically all of them shoot a seeking deadly projectile.
+4:17 Hedgehog
+	Randomly walks back and forth, kills on touch.
+	Inconsistent speed.
+4:18 Toast monster
+	Stationary, safe to touch, extends spikes as player approaches, kills on touch.
+	Knows lots of facts.
+4:19 Three-shot
+	Randomly walks towards player, safe to touch.
+	All of them stop and periodically shoot 3 projectiles if close to player.
+4:20 Five-shot
+	Randomly walks away from player, safe to touch.
+	All of them stop and periodically shoot 5 projectiles if close to player.
+4:21 Right super stranger
+	Randomly moves up and down, safe to touch.
+	Periodically one of them stops and shoots 3 deadly projectiles.
+4:22 Left super stranger
+	Randomly moves up and down, safe to touch.
+	Periodically one of them stops and shoots 3 deadly projectiles.
+
+5 Shadow People
+5:1 Shadow witch
+	Stationary, faces player.
+	Safe to touch unless player has faced it for a time.
+5:2 Shadow boy
+	Randomly moves back and forth, harmless.
+5:3 Shadow girl
+	Randomly moves back and forth, harmless.
+
+6 Traps
+6:1 Trap ceiling
+	Slowly moves to the ceiling, then quickly moves to the floor. Kills on touch.
+6:2 Labyrinth spike
+	Slowly moves up, down, left, or right, kills on touch.
+	Randomly picks direction initially and at collision.
+6:3 Random labyrinth spike
+	Slowly or quickly moves up, down, left, or right, kills on touch.
+	Randomly picks direction and speed initially and at collision.
+6:4 Fast labyrinth spike
+	Quickly moves up, down, left, or right, kills on touch.
+	Randomly picks direction initially and at collision.
+6:5 Eater
+	Stationary. Eats player on touch.
+6:6 Trap fire
+	Stationary. Safe to touch.
+	Periodically all of them shoot a deadly projectile at player.
+6:7 Down stuff shooter
+	Stationary, safe to touch.
+	Periodically shoots a super projectile when player is vertically aligned.
+6:8 Self dropper
+	Stationary until player is vertically aligned, then it falls.
+	Kills on touch when falling, otherwise safe to touch.
+6:9 Up stuff shooter
+	Stationary, safe to touch.
+	Periodically shoots a super projectile when player is horizontally near.
+6:10 Up spikes
+	Stationary, hides until player is near. Kills on touch.
+6:11 Down spikes
+	Stationary, hides until player is near. Kills on touch.
+6:12 Left spikes
+	Stationary, hides until player is near. Kills on touch.
+6:13 Right spikes
+	Stationary, hides until player is near. Kills on touch.
+6:14 Up permanent spikes
+	Stationary spikes that kill on touch.
+6:15 Down permanent spikes
+	Stationary spikes that kill on touch.
+6:16 Left permanent spikes
+	Stationary spikes that kill on touch.
+6:17 Right permanent spikes
+	Stationary spikes that kill on touch.
+
+7 Nature FX
+7:1 Black leaves
+	Periodically one of them generates a falling leaf, harmless.
+7:2 Black leaf
+	A falling leaf, harmless.
+7:3 Snowfall
+	Periodically one of them generates a snow flake, harmless.
+7:4 Snowflake
+	A falling snow flake, harmless.
+7:5 Sun ray
+	A ray of flickering light, harmless.
+7:6 Purple leaves
+	Periodically one of them generates a falling leaf, harmless.
+7:7 Purple leaf
+	A falling leaf, harmless.
+7:8 Rain
+	Constantly one of them generates a rain drop, harmless.
+7:9 Raindrop
+	A falling rain drop, harmless.
+7:10 Green leaves
+	Periodically one of them generates a falling leaf, harmless.
+7:11 Green leaf
+	A falling leaf, harmless.
+7:12 White leaves
+	Periodically one of them generates a falling leaf, harmless.
+7:13 White leaf
+	A falling leaf, harmless.
+7:14 Dust
+	Constantly one of them generates a blowing speck of dust, harmless.
+	Dust blows in the 10 o'clock direction.
+7:15 Dust speck
+	A blowing speck of dust, harmless.
+	Blows in the 10 o'clock direction.
+7:16 Cloud puffs
+	Generates cloud puffs as the player moves through it, harmless.
+7:17 Muffle
+	Muffles sounds of player character when touching her.
+
+8 Decoration
+8:1 Horizontal connection
+	Decorative object, harmless.
+8:2 Vertical connection
+	Decorative object, harmless.
+8:3 Lamp (left)
+	Decorative object, harmless.
+8:4 Lamp (middle)
+	Decorative object, harmless.
+8:5 Lamp (right)
+	Decorative object, harmless.
+8:6-7 Decoration
+	Decorative object, harmless.
+8:8 Tiny fire
+	Decorative object, harmless.
+8:9 Decoration
+	Decorative object, harmless.
+8:10 Star
+	Decorative object, harmless.
+8:11 Machine part
+	Decorative object, harmless.
+8:12 Decoration
+	Decorative object, harmless.
+8:13-14 Machine part
+	Decorative object, harmless.
+8:15 Explosion
+	Instantly explodes into many deadly projectiles.
+8:16 Falling stuff
+8:17 White explosion
+	Instantly explodes into many deadly projectiles.
+
+9 Flowers
+9:1 Red trap flower
+	Stationary, safe to touch.
+	Constantly one of them shoots a deadly projectile if player is near.
+9:2 Timed flower
+	Stationary, safe to touch. Periodically all of them shoot a stream of deadly projectiles. Total number of projectiles is fixed.
+9:3 Homing flower
+	Stationary, safe to touch.
+	Periodically all of them shoot a deadly seeking projectile.
+9:4 Aggressive trap flower
+	Stationary, safe to touch.
+	Constantly one of them shoots a deadly projectile if player is near.
+9:5 Small timed flower
+	Stationary, safe to touch. Periodically all of them shoot a stream of deadly projectiles. Total number of projectiles is fixed.
+
+10 Bouncers
+10:1 Bouncer
+	Bounces in a regular pattern, kills on touch.
+10:2 Bouncer
+	Constantly bounces to random heights, kills on touch.
+10:3 Cauldron
+	Bounces in a regular pattern, kills on touch.
+	Shoots 2 deadly projectiles in a regular pattern.
+10:4 Smart bouncer
+	Jumps when the player jumps nearby, kills on touch.
+	Jump height increases if player has double jump power.
+10:5 Bouncer enemy
+	Jumps when the player jumps nearby, kills on touch.
+10:6 Smart walking bouncer
+	Jumps when the player jumps nearby, kills on touch.
+	Randomly walks back and forth when not jumping
+10:7 Random walking bouncer
+	Randomly jumps and walks back and forth, kills on touch.
+10:8 Green bouncer
+	Bounces in a regular pattern, kills on touch.
+10:9 Big fluff
+	Bounces constantly, harmless.
+10:10 Happy fluff
+	Bounces constantly, harmless.
+10:11 Old fluff
+	Stationary, random animations, harmless.
+10:12 Regular fluff
+	Bounces periodically, harmless.
+10:13 Teenage fluff
+	Bounces periodically, harmless.
+
+11 Disks
+11:1 Red disk
+	Randomly walks back and forth, harmless.
+11:2 Shock disk
+	Randomly runs back and forth, safe to touch.
+	Periodically one of them shoots an arc of deadly projectiles.
+11:3 Purple disk
+	Randomly walks back and forth, harmless.
+11:4 Purple spiked disk
+	Randomly walks back and forth, kills on touch.
+11:5 Red spiked disk
+	Randomly walks back and forth, kills on touch.
+11:6 Shock disk
+	Randomly runs back and forth, safe to touch.
+	Periodically one of them shoots a spread of deadly projectiles.
+11:7 Disk
+	Randomly walks back and forth, harmless.
+11:8 Green disk
+	Randomly walks back and forth, harmless.
+11:9 Shock disk
+	Randomly runs back and forth, safe to touch.
+	Periodically one of them shoots an arc of deadly arcing projectiles.
+11:10 Yellow disk
+	Randomly runs back and forth, harmless.
+11:11 Yellow disk
+	Not an actual object for original levels.
+	For KS+ levels, randomly runs back and forth, harmless.
+
+12 Ghosts
+12:1 Boy ghost
+	Randomly floats back and forth, harmless.
+	Only created if player has eye power.
+12:2 Girl ghost
+	Randomly floats back and forth, harmless.
+	Only created if player has eye power.
+12:3 Ghost muffs
+	Randomly walks back and forth, harmless.
+	Only created if player has eye power.
+12:4 Ghost
+	Stationary, faces player, harmless.
+	Only created if player has eye power.
+12:5 Ghost block
+	Stationary, solid, harmless.
+	Only created if player has eye power.
+12:6 Roof blob
+	Moves back and forth, turns on collision, kills on touch. Constantly one of them drops a deadly drip. Rate of drips undulates. Player must have eye.
+12:7 Ghost
+	Stationary, faces player, harmless.
+	Only created if player has eye power.
+12:8 Ghost miner
+	Stationary, animates randomly, harmless.
+	Only created if player has eye power.
+12:9 Ground blob
+	Moves back and forth, turns on collision, kills on touch.
+	Only created if player has eye power.
+12:10 Ghost eater
+	Stationary, eats player on touch.
+	Only created if player has eye power.
+12:11 Classic ghost
+	Randomly floats back and forth, harmless.
+	Only created if player has eye power.
+12:12 Roof dropper
+	Stationary, safe to touch. Periodically drops a deadly drip.
+	Only created if player has eye power.
+12:13 Ghost crawler
+	Moves towards player when player is at same height or just above, kills on touch. Stops at walls. Only created if player has eye power.
+12:14 Attack block
+	Rises from the ground when player nears horizontal position, kills on touch.
+	Only created if player has eye power.
+12:15 Flying bomb
+	Flies back and forth across screen, kills on touch. Lunges when near player's horizontal position. Only created if player has eye power.
+12:16 Birdie
+	Periodically flies on a set path, harmless.
+	Only created if player has eye power.
+12:17 Ghost wall
+	Makes solid walls passable when player has eye power, harmless.
+12:18-21 Ghost wall marker
+	Harmless. Only created when player has eye power.
+
+13 Robots
+13:1 Robot cannon
+	Stationary, facing left, safe to touch.
+	Periodically all of them shoot a growing stream of deadly particles.
+13:2 Homing cannon
+	Stationary, facing left, safe to touch.
+	Periodically all of them shoot an aimed stream of deadly particles.
+13:3 Laser robot
+	Quickly moves left, safe to touch.
+	Then, slowly moves right, kills on touch.
+13:4 Up cannon
+	Stationary, safe to touch.
+	Periodically one of them lobs a super projectile.
+13:5 Dropper robot
+	Periodically all of them move towards player and shower deadly particles.
+	Safe to touch. Total number of particles is fixed.
+13:6 Roller generator
+	Stationary, faces right, safe to touch, solid.
+	Periodically one of them rolls a deadly water ball to the right.
+13:7 Laser
+	Stationary, intermittent, kills on touch when on.
+	Starts in off state.
+13:8 Laser
+	Stationary, intermittent, kills on touch when on.
+	Starts in on state.
+13:9 Laser
+	Stationary, always on, kills on touch.
+13:10 Laser
+	Stationary, intermittent, kills on touch when on.
+	Starts in off state.
+13:11 Laser
+	Stationary, intermittent, kills on touch when on.
+	Starts in on state.
+13:12 Laser
+	Stationary, always on, kills on touch.
+13:13 Fly bot
+	Moves on a set path, kills on touch.
+13:14 Dark homing cannon
+	Stationary, facing left, safe to touch.
+	Regularly all of them shoot an aimed burst of deadly particles.
+
+14 Earth Beings
+14:1 Red jelly
+	Kills on touch.
+	Periodically all of them move left or right at a random speed.
+14:2 Green worm
+	Moves back and forth, harmless.
+14:3 Snail
+	Moves back and forth, harmless.
+14:4 Orange worm
+	Moves back and forth, harmless.
+14:5 Bouncing rock
+	Moves back and forth, harmless.
+14:6 Simple worm
+	Moves back and forth, harmless.
+14:7 Large bouncing rock
+	Moves back and forth, harmless.
+14:8 Harmless insect
+	Moves back and forth, harmless.
+14:9 Dangerous insect
+	Kills on touch.
+	Periodically all of them run towards player.
+14:10 Stationary rock
+	Stationary, harmless.
+14:11 Insect without shell
+	Moves back and forth, harmless.
+14:12 Smile ball
+	Moves horizontally towards player, but stops at a distance.
+	Harmless.
+14:13 Big run thing
+	Backs away from player when faced, runs at player's back.
+	Kills on touch.
+14:14 Small run thing
+	Backs away from player when faced, runs at player's back.
+	Kills on touch.
+14:15 Snail
+	Moves back and forth, harmless.
+14:16 Floor spiker
+	Stationary, kills on touch.
+	Extends needles when approached.
+14:17 Goomba
+	Moves back and forth, kills on touch.
+14:18 Ceiling spiker
+	Stationary, kills on touch.
+	Extends needles when approached.
+14:19 Hidden spiker
+	Stationary, appears when approached, kills on touch.
+14:20 Spikeless spiker
+	Stationary, appears when approached, harmless.
+14:21 Super shot ceiling
+	Stationary, safe to touch.
+	Periodically all of them shoot a spread of lingering particles.
+14:22 Super shot floor
+	Stationary, safe to touch.
+	Periodically all of them shoot a spread of lingering particles.
+14:23 Super shot left
+	Stationary, safe to touch.
+	Periodically all of them shoot a spread of lingering particles.
+14:24 Super shot right
+	Stationary, safe to touch.
+	Periodically all of them shoot a spread of lingering particles.
+
+15 Objects & Areas
+15:1-4 Block
+	A solid block. Harmless.
+15:5 Updraft
+	Causes player to float upward when umbrella is open.
+15:6 Appearing block
+	A solid block that slowly appears when approached. Harmless.
+15:7 Vanishing block
+	A non-solid block that slowly disappears when approached. Harmless.
+15:8-11 False block
+	A non-solid block that disappears just before touched. Harmless.
+15:12 Lock block
+	Solid until unlocked with buttons, then it disappears.
+	Use with 15:13 to 15:22 and 15:26.
+15:13-21 Combination button
+	Objects 15:13 to 15:21 work together as combination locks.
+	Objects 15:12, 23, and 24 disappear when combination is entered.
+15:22 Unlock button
+	When touched objects 15:12, 23, and 24 disappear.
+15:23 Lock block (wide)
+	Solid until unlocked with buttons, then it disappears.
+	Use with 15:13 to 15:22 and 15:26.
+15:24 Lock block (tall)
+	Solid until unlocked with buttons, then it disappears.
+	Use with 15:13 to 15:22 and 15:26.
+15:25 Fade block
+	Fades in and out, harmless.
+15:26 Hold button
+	When touched for a length of time, objects 15:12, 23, and 24 disappear.
+15:27 Red key door
+	Solid, will disappear just before touched if player has key of same color.
+15:28 Yellow key door
+	Solid, will disappear just before touched if player has key of same color.
+15:29 Blue key door
+	Solid, will disappear just before touched if player has key of same color.
+15:30 Purple key door
+	Solid, will disappear just before touched if player has key of same color.
+15:31 Creature door (1)
+	Solid.
+	Disappears just before touched if player has collected 1 golden creature.
+15:32 Creature door (5)
+	Solid.
+	Disappears just before touched if player has collected 5 golden creatures.
+15:33 Creature door (10)
+	Solid.
+	Disappears just before touched if player has collected 10 golden creatures.
+15:34 Creature door (20)
+	Solid.
+	Disappears just before touched if player has collected 20 golden creatures.
+15:35 Creature door (40)
+	Solid.
+	Disappears just before touched if player has collected 40 golden creatures.
+15:36 Creature door (50)
+	Solid.
+	Disappears just before touched if player has collected 50 golden creatures.
+15:37 Crumbling block
+	Solid.
+	Disappears shortly after player touches any side of it.
+15:38 Crumbling floor
+	Solid.
+	Disappears shortly after player touches top of it.
+
+16 Invisible
+16:1 Spring
+	Bounces the player upward if the player was moving downward.
+16:2 Death zone (top)
+	Kills on touch.
+16:3 Death zone (bottom)
+	Kills on touch.
+16:4 Death zone (right)
+	Kills on touch.
+16:5 Death zone (left)
+	Kills on touch.
+16:6 Death zone
+	Kills on touch.
+16:7 Death zone (middle, wide)
+	Kills on touch.
+16:8 Death zone (middle, tall)
+	Kills on touch.
+16:9 Death zone (right half)
+	Kills on touch.
+16:10 Death zone (top half)
+	Kills on touch.
+16:11 Death zone (left half)
+	Kills on touch.
+16:12 Death zone (bottom half)
+	Kills on touch.
+16:13 Player wall
+	Solid to player only.
+16:14 Invisible block
+	Solid to everything.
+16:15 Invisible slope (left)
+	Solid to everything.
+16:16 Invisible slope (right)
+	Solid to everything.
+16:17 Crawler wall
+	Solid to crawling and climbing creatures.
+	Does not block player.
+16:18 Flyer wall
+	Solid to most flying creatures. Most fish alter course on touch.
+	Does not block player.
+16:19-20 Wall
+16:21-24 Slope
+16:25-28 Wall
+16:29 One-way platform
+	Platform player can pass up through but not down.
+16:30 Drop-through platform
+	Platform player can pass up through.
+	Player can drop through by pressing down + jump.
+
+17 Creepy
+17:1 Dark randomizer
+	Randomly moves back and forth, safe to touch. Periodically one of them shoots a spread of deadly particles. Total number of particles is fixed.
+17:2 Small spider
+	Randomly moves back and forth, kills on touch.
+	Extends needles just before touched. Immune to hologram.
+17:3 Water eye
+	Stationary, safe to touch.
+	Periodically one of them rises and shoots a spread of deadly particles.
+17:4 Mad spider
+	Stationary, safe to touch. Constantly shoots deadly particles at upward trajectories when approached.
+17:5 Ceiling mad spider
+	Stationary, safe to touch. Regularly shoots deadly particles at downward trajectories when approached.
+17:6 Flything
+	Randomly moves about the air, harmless.
+17:7 Ninja
+	Runs towards player then all of them throw a deadly blade.
+	Safe to touch.
+17:8 Right ninja
+	Climbs up or down, safe to touch.
+	Periodically one of them throws a deadly blade.
+17:9 Left ninja
+	Climbs up or down, safe to touch.
+	Periodically one of them throws a deadly blade.
+17:10 Floor spiker
+	Stationary, kills on touch.
+	Extends needles when approached.
+17:11 Left spiker
+	Stationary, kills on touch.
+	Extends needles when approached.
+17:12 Right spiker
+	Stationary, kills on touch.
+	Extends needles when approached.
+
+18 Water Creatures
+18:1-5 Fish
+	Moves on a set path, harmless.
+18:6 Water monster
+	Stationary, safe to touch.
+	Periodically one of them rises and shoots 2 seeking projectiles.
+
+19 Collectables
+19:1-50 Golden creature
+	Acts like a normal creature, but can be touched.
+	Does not reappear after being collected. Use with objects 15:31 to 15:36.
+19:51-150 Coin
+	Does not reappear after being collected, harmless.
+19:151-199 Artifact
+	Does not reappear after being collected, harmless.
+
+254 Custom Objects B
+
+255 Custom Objects

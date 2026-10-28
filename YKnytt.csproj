@@ -249,6 +249,8 @@
     <Compile Include="knytt\editor\LevelEditor.cs" />
     <Compile Include="knytt\editor\MiniMap.cs" />
     <Compile Include="knytt\editor\NewLevelScreen.cs" />
+    <Compile Include="knytt\editor\ObjectCatalog.cs" />
+    <Compile Include="knytt\editor\ObjectPalette.cs" />
     <Compile Include="knytt\editor\ScreenView.cs" />
     <Compile Include="knytt\editor\WorldName.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
