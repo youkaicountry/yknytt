@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://knytt/editor/LayerButton.cs" type="Script" id=8]
 [ext_resource path="res://knytt/editor/EditorMenuButton.cs" type="Script" id=9]
 [ext_resource path="res://knytt/editor/ObjectPalette.tscn" type="PackedScene" id=10]
+[ext_resource path="res://knytt/editor/TestDialog.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -103,6 +104,19 @@ text = "Go to"
 switch_on_hover = true
 script = ExtResource( 9 )
 
+[node name="TestMenu" type="MenuButton" parent="MenuBar/Menus"]
+unique_name_in_owner = true
+margin_left = 118.0
+margin_right = 150.0
+margin_bottom = 20.0
+focus_mode = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Test"
+switch_on_hover = true
+script = ExtResource( 9 )
+
 [node name="ScreenView" type="Control" parent="."]
 unique_name_in_owner = true
 margin_top = 20.0
@@ -164,6 +178,29 @@ margin_right = 159.0
 margin_bottom = 2.0
 mouse_filter = 2
 color = Color( 0.341176, 0.529412, 0.905882, 1 )
+
+[node name="TestLevelButton" type="Button" parent="."]
+unique_name_in_owner = true
+margin_left = 4.0
+margin_top = 316.0
+margin_right = 94.0
+margin_bottom = 338.0
+focus_mode = 0
+hint_tooltip = "Play from the start (F5)
+Right-click: test profiles
+Test > From here (F6): play from where you click"
+text = "Test level"
+
+[node name="SetStartButton" type="Button" parent="."]
+unique_name_in_owner = true
+margin_left = 98.0
+margin_top = 316.0
+margin_right = 188.0
+margin_bottom = 338.0
+focus_mode = 0
+hint_tooltip = "Then click where Juni starts the level"
+toggle_mode = true
+text = "Set start"
 
 [node name="Layers" type="Control" parent="."]
 margin_top = 312.0
@@ -567,10 +604,14 @@ rect_min_size = Vector2( 280, 100 )
 window_title = "Unsaved changes"
 dialog_text = "Leave the editor without saving?"
 
+[node name="TestDialog" parent="." instance=ExtResource( 11 )]
+unique_name_in_owner = true
+
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
 [connection signal="CellPicked" from="ScreenView" to="." method="_on_ScreenView_CellPicked"]
 [connection signal="CellHovered" from="ScreenView" to="." method="_on_ScreenView_CellHovered"]
+[connection signal="CellPlaced" from="ScreenView" to="." method="_on_ScreenView_CellPlaced"]
 [connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
 [connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
 [connection signal="Chosen" from="Layers/Layer0" to="." method="_on_Layer_Chosen"]
@@ -605,3 +646,8 @@ dialog_text = "Leave the editor without saving?"
 [connection signal="gui_input" from="Objects/ObjectValue" to="." method="_on_Object_gui_input"]
 [connection signal="gui_input" from="Objects/ObjectPreview" to="." method="_on_ObjectPreview_gui_input"]
 [connection signal="ObjectChosen" from="ObjectPalette" to="." method="_on_ObjectPalette_ObjectChosen"]
+[connection signal="pressed" from="TestLevelButton" to="." method="_on_TestLevelButton_pressed"]
+[connection signal="gui_input" from="TestLevelButton" to="." method="_on_TestLevelButton_gui_input"]
+[connection signal="pressed" from="SetStartButton" to="." method="_on_SetStartButton_pressed"]
+[connection signal="confirmed" from="TestDialog" to="." method="_on_TestDialog_confirmed"]
+[connection signal="StartPickRequested" from="TestDialog" to="." method="_on_TestDialog_StartPickRequested"]

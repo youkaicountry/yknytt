@@ -39,6 +39,17 @@ public class EditorHistory
         }
     }
 
+    private class FileChange : IChange
+    {
+        public GDKnyttWorldImpl world;
+        public string name;
+        public string before;
+        public string after;
+
+        public void undo() { world.setWorldFile(name, before); }
+        public void redo() { world.setWorldFile(name, after); }
+    }
+
     private class AreaAdded : IChange
     {
         public KnyttWorld world;
@@ -84,6 +95,14 @@ public class EditorHistory
         var before = new KnyttPoint(area.ObjectLayers[layer].lo[index], area.ObjectLayers[layer].hi[index]);
         if (before.Equals(id)) { return; }
         record(new ObjectChange() { area = area, layer = layer, index = index, before = before, after = id });
+    }
+
+    public void setFile(GDKnyttWorldImpl world, string name, string text)
+    {
+        var data = world.getWorldData(name);
+        string before = data == null ? null : GDKnyttAssetManager.loadTextFile(data);
+        if (before == text) { return; }
+        record(new FileChange() { world = world, name = name, before = before, after = text });
     }
 
     public void addArea(KnyttWorld world, KnyttArea area)

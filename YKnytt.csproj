@@ -242,6 +242,7 @@
     <Compile Include="knytt\GDKnyttWorld.cs" />
     <Compile Include="knytt\audio\GDKnyttMusicChannel.cs" />
     <Compile Include="knytt\GDKnyttWorldImpl.cs" />
+    <Compile Include="knytt\editor\CollectGrid.cs" />
     <Compile Include="knytt\editor\EditorAssets.cs" />
     <Compile Include="knytt\editor\EditorHistory.cs" />
     <Compile Include="knytt\editor\EditorMenuButton.cs" />
@@ -252,6 +253,8 @@
     <Compile Include="knytt\editor\ObjectCatalog.cs" />
     <Compile Include="knytt\editor\ObjectPalette.cs" />
     <Compile Include="knytt\editor\ScreenView.cs" />
+    <Compile Include="knytt\editor\TestDialog.cs" />
+    <Compile Include="knytt\editor\TestProfile.cs" />
     <Compile Include="knytt\editor\WorldName.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />

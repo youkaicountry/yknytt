@@ -140,6 +140,7 @@ public class GDKnyttGame : Node2D
 
     public void saveGame(KnyttSave save, bool save_map = true)
     {
+        if (LevelEditor.Testing) { return; }
         GDKnyttAssetManager.ensureDirExists(GDKnyttSettings.Saves);
         var f = new File();
         var fname = GDKnyttSettings.Saves.PlusFile(save.SaveFileName);
@@ -329,7 +330,18 @@ public class GDKnyttGame : Node2D
         await fade(fast: false, color: null);
 
         GetTree().Paused = false;
-        GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
+        if (LevelEditor.Testing) { saveGame(Juni, write: false); } // the editor can start a profile from it
+        GDKnyttDataStore.changeScene(GDKnyttDataStore.MAIN_MENU);
+    }
+
+    // F5 ends a test, like it starts one in the editor
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (LevelEditor.Testing && @event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode == (uint)KeyList.F5)
+        {
+            GetTree().SetInputAsHandled();
+            quit();
+        }
     }
 
     // Handles transition effects

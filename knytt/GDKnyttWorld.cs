@@ -43,6 +43,9 @@ public class GDKnyttWorld : Node2D
             KWorld.loadWorldConfig(txt);
         }
 
+        // The level editor hands over the map it's editing, unsaved changes and all
+        if (KWorld.Map != null) { return; }
+
         var map_data = KWorld.getWorldData("Map.bin");
         System.IO.MemoryStream map_stream = new System.IO.MemoryStream(map_data);
 

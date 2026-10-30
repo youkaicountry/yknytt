@@ -8,6 +8,7 @@ public class ScreenView : Control
     [Signal] public delegate void StrokeEnded();
     [Signal] public delegate void CellPicked(int x, int y);
     [Signal] public delegate void CellHovered(int x, int y);
+    [Signal] public delegate void CellPlaced(int x, int y);
 
     [Export] public Texture JuniTexture { get; set; }
 
@@ -26,6 +27,7 @@ public class ScreenView : Control
     public bool FadeOthers { get; set; } = true;
     public bool Painting { get; set; } = true;
     public bool Peeking { get; set; }
+    public bool Placing { get; set; }
     public bool[] LayerShown { get; } = new bool[] { true, true, true, true, true, true, true, true };
 
     private KnyttWorld world;
@@ -47,12 +49,23 @@ public class ScreenView : Control
         brush = GetNode<TextureRect>("Cursor/Brush");
     }
 
-    public void init(KnyttWorld world, EditorAssets assets, KnyttPoint start_area, KnyttPoint start_position)
+    public void init(KnyttWorld world, EditorAssets assets)
     {
         this.world = world;
         this.assets = assets;
-        this.start_area = start_area;
-        this.start_position = start_position;
+    }
+
+    public void setStart(KnyttPoint area, KnyttPoint position)
+    {
+        start_area = area;
+        start_position = position;
+        Update();
+    }
+
+    // Juni as the brush, for placing where a test or the level starts
+    public void showJuni()
+    {
+        setBrush(JuniTexture, new Rect2(Vector2.Zero, TILE));
     }
 
     public void showScreen(KnyttPoint coords, int background)
@@ -200,6 +213,11 @@ public class ScreenView : Control
             var cell = cellAt(button.Position);
             if (button.ButtonIndex == (int)ButtonList.Left && button.Pressed && cell != null)
             {
+                if (Placing)
+                {
+                    EmitSignal(nameof(CellPlaced), (int)cell.Value.x, (int)cell.Value.y);
+                    return;
+                }
                 if (button.Device == TOUCH)
                 {
                     touch_cell = cell;
@@ -231,7 +249,7 @@ public class ScreenView : Control
         else if (@event is InputEventMouseMotion motion)
         {
             var cell = cellAt(motion.Position);
-            cursor.Visible = cell != null && Painting;
+            cursor.Visible = cell != null && (Painting || Placing);
             hover(cell);
             if (cell == null) { return; }
             cursor.RectPosition = Offset + cell.Value * TILE;

@@ -13,8 +13,11 @@ public class LevelEditor : Control
     private enum EditMenu { Undo, Redo }
     private enum OptionsMenu { FadeLayers }
     private enum GoToMenu { Start, Default, Coordinates }
+    private enum TestMenu { FromStart, FromHere, Profiles, Profile = 100 }
+    private enum Placing { None, Start, Test, Profile }
 
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
+    private static LevelEditor tested;
     private static readonly Color SAVED_COLOR = Color.Color8(87, 135, 231);
     private static readonly Color CHANGED_COLOR = Color.Color8(247, 195, 79);
     private static readonly Color INACTIVE_COLOR = new Color(1, 1, 1, 0.3f);
@@ -47,16 +50,22 @@ public class LevelEditor : Control
     private bool quit_game;
     private KnyttPoint? hovered;
     private string status_message = "";
+    private Placing placing;
+    private List<string> test_profiles = new List<string>();
 
     private ScreenView screen_view;
     private MiniMap mini_map;
     private ObjectPalette palette;
+    private TestDialog test_dialog;
     private ConfirmationDialog goto_dialog;
     private ConfirmationDialog overwrite_dialog;
     private ConfirmationDialog save_as_dialog;
     private ConfirmationDialog unsaved_dialog;
 
     public static bool Available => OS.GetName() != "Unix";
+
+    // While a test plays, the editor waits off the tree with its world and history
+    public static bool Testing => tested != null;
 
     public static void open(SceneTree tree, GDKnyttWorldImpl world, bool created = false)
     {
@@ -67,15 +76,12 @@ public class LevelEditor : Control
 
     public override void _Ready()
     {
-        GetTree().SetScreenStretch(
-            GDKnyttSettings.SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-            SceneTree.StretchAspect.Keep, SCREEN_SIZE);
-        game_window_size = OS.WindowSize;
-        fitWindow();
+        setupScreen();
 
         screen_view = GetNode<ScreenView>("%ScreenView");
         mini_map = GetNode<MiniMap>("%MiniMap");
         palette = GetNode<ObjectPalette>("%ObjectPalette");
+        test_dialog = GetNode<TestDialog>("%TestDialog");
         goto_dialog = GetNode<ConfirmationDialog>("%GoToDialog");
         overwrite_dialog = GetNode<ConfirmationDialog>("%OverwriteDialog");
         overwrite_dialog.GetOk().Text = "Overwrite";
@@ -108,7 +114,12 @@ public class LevelEditor : Control
         goto_menu.AddItem("Coordinates", (int)GoToMenu.Coordinates, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.G);
         goto_menu.Connect("id_pressed", this, nameof(_on_GoToMenu_id_pressed));
 
+        var test_menu = GetNode<MenuButton>("%TestMenu").GetPopup();
+        test_menu.Connect("about_to_show", this, nameof(fillTestMenu));
+        test_menu.Connect("id_pressed", this, nameof(_on_TestMenu_id_pressed));
+
         loadWorld(GDKnyttDataStore.KWorld);
+        fillTestMenu();
     }
 
     private void loadWorld(GDKnyttWorldImpl world)
@@ -118,12 +129,10 @@ public class LevelEditor : Control
         assets = new EditorAssets(world);
         catalog = new ObjectCatalog(world);
         palette.init(assets, catalog);
+        test_dialog.init(world);
 
-        var save_data = world.getWorldData("DefaultSavegame.ini");
-        var save = new KnyttSave(world, save_data != null ? GDKnyttAssetManager.loadTextFile(save_data) : "", 1);
-        start_area = save_data != null ? save.getArea() : DEFAULT_SCREEN;
-
-        screen_view.init(world, assets, start_area, save.getAreaPosition());
+        screen_view.init(world, assets);
+        showStart();
         selectObject(0, 0);
         selectLayer(0);
         GDKnyttDataStore.setTitle(world.WorldDirectoryName);
@@ -238,7 +247,8 @@ public class LevelEditor : Control
 
     private void showBrush()
     {
-        if (TileLayer && selected_tile != 0)
+        if (placing != Placing.None) { screen_view.showJuni(); }
+        else if (TileLayer && selected_tile != 0)
         {
             var position = new Vector2(selected_tile % GDKnyttAssetManager.TILESET_WIDTH, selected_tile / GDKnyttAssetManager.TILESET_WIDTH);
             screen_view.setBrush(GetNode<TextureRect>("%Tileset").Texture, new Rect2(position * TILE, TILE));
@@ -248,6 +258,98 @@ public class LevelEditor : Control
             screen_view.setBrush(icon, new Rect2(Vector2.Zero, icon.GetSize()));
         }
         else { screen_view.setBrush(null, new Rect2()); }
+    }
+
+    private void showStart()
+    {
+        var start = TestProfile.levelDefault(world);
+        start_area = start.HasStart ? start.Save.getArea() : DEFAULT_SCREEN;
+        screen_view.setStart(start_area, start.Save.getAreaPosition());
+    }
+
+    // Only the positions change, the rest of DefaultSavegame.ini stays as it was
+    private void setStart(KnyttPoint area, KnyttPoint position)
+    {
+        var data = world.getWorldData("DefaultSavegame.ini");
+        string ini = data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
+        ini = KnyttUtil.setIniValue(ini, "Positions", "X Map", $"{area.x}");
+        ini = KnyttUtil.setIniValue(ini, "Positions", "Y Map", $"{area.y}");
+        ini = KnyttUtil.setIniValue(ini, "Positions", "X Pos", $"{position.x}");
+        ini = KnyttUtil.setIniValue(ini, "Positions", "Y Pos", $"{position.y}");
+        history.setFile(world, "DefaultSavegame.ini", ini);
+        history.end();
+        showStart();
+        showChanged();
+    }
+
+    // The next click on the screen says where Juni starts
+    private void place(Placing what)
+    {
+        placing = what;
+        screen_view.Placing = what != Placing.None;
+        GetNode<Button>("%SetStartButton").Pressed = what == Placing.Start;
+        showBrush();
+        showStatus(what == Placing.None ? "" : "Click where Juni starts. Right-click or Esc: cancel");
+    }
+
+    private void cancelPlacing()
+    {
+        bool reopen = placing == Placing.Profile;
+        place(Placing.None);
+        if (reopen) { test_dialog.open(); }
+    }
+
+    private void test(KnyttPoint? area = null, KnyttPoint? position = null)
+    {
+        var save = TestProfile.startSave(world, test_dialog.Profile);
+        if (area != null)
+        {
+            save.setArea(area.Value);
+            save.setAreaPosition(position.Value);
+        }
+        world.CurrentSave = save;
+        GDKnyttDataStore.KWorld = world;
+
+        GetTree().SetInputAsHandled();
+        restoreWindow();
+        tested = this;
+        GetTree().Root.RemoveChild(this);
+        GDKnyttDataStore.startGame(new_game: false);
+    }
+
+    // Back from a test: the game goes and the editor takes its place again
+    public static void endTest()
+    {
+        var editor = tested;
+        tested = null;
+        var tree = GDKnyttDataStore.Tree;
+        tree.Paused = false;
+        tree.CurrentScene?.QueueFree();
+        tree.Root.AddChild(editor);
+        tree.CurrentScene = editor;
+
+        editor.setupScreen();
+        editor.test_dialog.LastTest = editor.world.CurrentSave;
+        GDKnyttDataStore.setTitle(editor.world.WorldDirectoryName);
+    }
+
+    private void fillTestMenu()
+    {
+        test_profiles = test_dialog.Names;
+        var menu = GetNode<MenuButton>("%TestMenu").GetPopup();
+        menu.Clear();
+        menu.AddItem("From start", (int)TestMenu.FromStart, (uint)KeyList.F5);
+        menu.AddItem("From here", (int)TestMenu.FromHere, (uint)KeyList.F6);
+        menu.AddSeparator();
+        menu.AddRadioCheckItem("Level default", (int)TestMenu.Profile);
+        menu.SetItemChecked(menu.GetItemCount() - 1, test_dialog.Profile == null);
+        for (int i = 0; i < test_profiles.Count; i++)
+        {
+            menu.AddRadioCheckItem(test_profiles[i], (int)TestMenu.Profile + 1 + i);
+            menu.SetItemChecked(menu.GetItemCount() - 1, test_profiles[i] == test_dialog.Profile?.Name);
+        }
+        menu.AddSeparator();
+        menu.AddItem("Profiles", (int)TestMenu.Profiles, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.T);
     }
 
     private void showLayer(int layer, bool shown)
@@ -300,6 +402,7 @@ public class LevelEditor : Control
 
     private void refresh()
     {
+        showStart();
         screen_view.Update();
         mini_map.showScreen(world, coords);
         showChanged();
@@ -340,6 +443,22 @@ public class LevelEditor : Control
     }
 
     private bool Resizable => OS.HasFeature("pc") && !OS.WindowFullscreen && !OS.WindowMaximized;
+
+    private void setupScreen()
+    {
+        GetTree().SetScreenStretch(
+            GDKnyttSettings.SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
+            SceneTree.StretchAspect.Keep, SCREEN_SIZE);
+        game_window_size = OS.WindowSize;
+        fitWindow();
+    }
+
+    private void restoreWindow()
+    {
+        if (!Resizable) { return; }
+        OS.WindowSize = game_window_size;
+        OS.CenterWindow();
+    }
 
     private void fitWindow()
     {
@@ -400,11 +519,7 @@ public class LevelEditor : Control
             return;
         }
         if (game) { GetTree().Quit(); return; }
-        if (Resizable)
-        {
-            OS.WindowSize = game_window_size;
-            OS.CenterWindow();
-        }
+        restoreWindow();
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
 
@@ -429,7 +544,7 @@ public class LevelEditor : Control
         if (@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
         {
             GetTree().SetInputAsHandled();
-            quit();
+            if (placing != Placing.None) { cancelPlacing(); } else { quit(); }
         }
         else if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode >= (uint)KeyList.Key0 && key.Scancode <= (uint)KeyList.Key7)
         {
@@ -518,6 +633,55 @@ public class LevelEditor : Control
         _on_GoToDialog_confirmed();
     }
 
+    private void _on_TestMenu_id_pressed(int id)
+    {
+        switch ((TestMenu)id)
+        {
+            case TestMenu.FromStart: test(); break;
+            case TestMenu.FromHere: testFromHere(); break;
+            case TestMenu.Profiles: test_dialog.open(); break;
+            default:
+                int index = id - (int)TestMenu.Profile - 1;
+                test_dialog.choose(index < 0 ? null : test_profiles[index]);
+                fillTestMenu();
+                break;
+        }
+    }
+
+    // From the cell under the cursor, or from the next click
+    private void testFromHere()
+    {
+        if (hovered is KnyttPoint cell) { test(coords, cell); }
+        else { place(Placing.Test); }
+    }
+
+    private void _on_TestLevelButton_pressed()
+    {
+        test();
+    }
+
+    private void _on_TestLevelButton_gui_input(InputEvent @event)
+    {
+        if (!(@event is InputEventMouseButton button) || !button.Pressed || button.ButtonIndex != (int)ButtonList.Right) { return; }
+        GetTree().SetInputAsHandled();
+        test_dialog.open();
+    }
+
+    private void _on_SetStartButton_pressed()
+    {
+        place(placing == Placing.Start ? Placing.None : Placing.Start);
+    }
+
+    private void _on_TestDialog_confirmed()
+    {
+        test();
+    }
+
+    private void _on_TestDialog_StartPickRequested()
+    {
+        place(Placing.Profile);
+    }
+
     private void _on_OverwriteDialog_confirmed()
     {
         overwrite_allowed.Add(world.WorldDirectory);
@@ -559,7 +723,20 @@ public class LevelEditor : Control
 
     private void _on_ScreenView_CellPicked(int x, int y)
     {
-        pick(x, y);
+        if (placing != Placing.None) { cancelPlacing(); } else { pick(x, y); }
+    }
+
+    private void _on_ScreenView_CellPlaced(int x, int y)
+    {
+        var what = placing;
+        var spot = new KnyttPoint(x, y);
+        place(Placing.None);
+        switch (what)
+        {
+            case Placing.Start: setStart(coords, spot); break;
+            case Placing.Test: test(coords, spot); break;
+            case Placing.Profile: test_dialog.setStart(coords, spot); test_dialog.open(); break;
+        }
     }
 
     private void _on_ScreenView_CellHovered(int x, int y)

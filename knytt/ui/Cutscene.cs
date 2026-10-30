@@ -121,7 +121,7 @@ public class Cutscene : Control
         await ToSignal(fade, "FadeDone");
         if (GDKnyttDataStore.CutsceneAfter != null)
         {
-            GDKnyttDataStore.Tree.ChangeScene(GDKnyttDataStore.CutsceneAfter);
+            GDKnyttDataStore.changeScene(GDKnyttDataStore.CutsceneAfter);
             releaseAll();
         }
         else

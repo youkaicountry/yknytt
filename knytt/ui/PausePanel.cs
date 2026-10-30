@@ -17,6 +17,13 @@ public class PausePanel : Control
         bounceWait();
         RectScale = Vector2.One * 0.4f / (GDKnyttSettings.Aspect * TouchSettings.ViewportNow);
         GetParent<BasicScreen>().initFocus();
+
+        // A test goes back to the editor and has no saves to pick
+        if (LevelEditor.Testing)
+        {
+            GetNode<Button>("ButtonContainer/QuitButton").Text = "Editor";
+            GetNode<Button>("ButtonContainer/InfoButton").Disabled = true;
+        }
     }
 
     public async void bounceWait()

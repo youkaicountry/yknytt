@@ -1,0 +1,29 @@
+Level editor notes
+
+Testing:
+- TEST LEVEL (F5) plays from the level's start, SET START moves the start (undoable, saved in DefaultSavegame.ini)
+- Test > From here (F6) plays from the hovered cell, or from the next click
+- F5 or the pause menu's Back to editor returns. The editor waits off the tree with its undo history, like a cutscene's game does
+- The game plays the map the editor holds in memory, unsaved changes included
+- While testing nothing is written: no save files, no map cache, no stats sent
+
+Test profiles:
+- A profile is a start state: a savegame that only holds what it sets, laid over DefaultSavegame.ini at start
+- Stored on this machine, never in the level: <data>/Editor/<level folder>/Tests/<name>.ini
+- Optional start position (Pick in the dialog), otherwise the level start or the From here cell
+- The form edits powers, flags, collectables (bank 19: creatures, coins, artifacts) and coins spent
+- Everything else in the file shows as raw INI under More: Character, Attach, Tint, Cutscenes, Endings...
+- From last test copies the state Juni had when the last test ended
+
+Scripts later (Lua):
+- Anything a script saves into the savegame is settable from a profile already, through More (implicit)
+- Explicit: a script declares the values it keeps (name, type, default, range, label), the dialog shows a
+  row for each and More stops listing them. TestProfile.inForm is where those keys get claimed
+- Custom items and powers: keep them in the savegame too, so profiles, saves and From last test get them free
+- Same idea could give scripted objects editor fields (per object instance values in the screen's INI section)
+
+Open:
+- Level default is read only in the dialog; editing it belongs to level settings (DefaultSavegame.ini)
+- Save as gives the level a new folder name, profiles stay under the old one
+- Folder (unpacked) levels: save writes map.bin only, so SET START and other INI changes are lost there
+- Detailed map caches from real play may show stale screens during a test

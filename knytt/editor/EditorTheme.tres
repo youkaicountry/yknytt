@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=2]
+[gd_resource type="Theme" load_steps=4 format=2]
 
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
 
@@ -14,9 +14,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 
+[sub_resource type="StyleBoxEmpty" id=2]
+
 [resource]
 default_font = ExtResource( 1 )
 Button/styles/hover_pressed = SubResource( 1 )
 Button/styles/pressed = SubResource( 1 )
+CheckBox/styles/hover_pressed = SubResource( 2 )
+CheckBox/styles/pressed = SubResource( 2 )
 ItemList/styles/selected = SubResource( 1 )
 ItemList/styles/selected_focus = SubResource( 1 )

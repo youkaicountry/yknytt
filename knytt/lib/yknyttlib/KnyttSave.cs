@@ -14,6 +14,7 @@ namespace YKnyttLib
         public KnyttWorld World { get; }
 
         private IniData data;
+        public IniData Data => data;
         public int Slot { get; }
 
         public JuniValues SourcePowers { get; set; }

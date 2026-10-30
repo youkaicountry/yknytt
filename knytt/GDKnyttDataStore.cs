@@ -51,6 +51,8 @@ public class GDKnyttDataStore : Node
         }
     }
 
+    public const string MAIN_MENU = "res://knytt/ui/MainMenu.tscn";
+
     public static string CutsceneName { get; private set; }
     public static string CutsceneAfter { get; private set; }
     public static Node CutsceneReturn { get; private set; }
@@ -102,7 +104,14 @@ public class GDKnyttDataStore : Node
         CurrentSpeed = 1;
         CutsceneFadeIn = false;
         Statistics = statistics;
-        startCutscene(ending, "res://knytt/ui/MainMenu.tscn");
+        startCutscene(ending, MAIN_MENU);
+    }
+
+    // A test goes back to the editor instead of the main menu
+    public static void changeScene(string path)
+    {
+        if (path == MAIN_MENU && LevelEditor.Testing) { LevelEditor.endTest(); }
+        else { Tree.ChangeScene(path); }
     }
 
     private static void startCutscene(string cutscene, string after)
@@ -111,7 +120,7 @@ public class GDKnyttDataStore : Node
         CutsceneAfter = after;
         CutsceneReturn = null;
         CutsceneSound = null;
-        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { Tree.ChangeScene(after); return; }
+        if (!KWorld.worldFileExists(Cutscene.makeScenePath(1))) { changeScene(after); return; }
         GDKnyttSettings.setupViewport(for_ui: true);
         Tree.ChangeScene("res://knytt/ui/Cutscene.tscn");
     }
