@@ -243,7 +243,6 @@ public class GDKnyttWorldImpl : KnyttWorld
     public void setWorldValue(string key, string value)
     {
         setWorldFile("World.ini", KnyttUtil.setIniValue(GDKnyttAssetManager.loadTextFile(getWorldData("World.ini")), "World", key, value));
-        loadWorldConfig(GDKnyttAssetManager.loadTextFileRaw(getWorldData("World.ini")));
     }
 
     // Kept in memory until saved. Folder levels have nothing to keep it in, so it goes to disk now
@@ -252,6 +251,15 @@ public class GDKnyttWorldImpl : KnyttWorld
         var data = Encoding.GetEncoding(1252).GetBytes(text ?? "");
         if (BinMode) { BinLoader.SetFile(name, data); }
         else { writeFile(WorldDirectory.PlusFile(name), data); }
+        if (name == "World.ini") { reloadWorldConfig(); }
+    }
+
+    // The screens read their sections again
+    private void reloadWorldConfig()
+    {
+        loadWorldConfig(GDKnyttAssetManager.loadTextFileRaw(getWorldData("World.ini")));
+        if (Map == null) { return; }
+        foreach (var area in Map.Values) { area.fetchAreaExtraData(); }
     }
 
     private static KnyttBinWorldLoader packDirectory(string dir, KnyttBinWorldLoader bin = null, string subdir = "")

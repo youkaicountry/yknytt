@@ -39,7 +39,7 @@ namespace YKnyttLib
 
         public KnyttWarp Warp { get; set; }
         
-        public FlagWarp[] FlagWarps { get; protected set; } = new FlagWarp[4];
+        public FlagWarp[] FlagWarps { get; protected set; }
 
         public enum FlagWarpID { A, B, C, All }
 
@@ -98,21 +98,17 @@ namespace YKnyttLib
         // Reads the next area in the map stream
         public KnyttArea(Stream map, KnyttWorld world)
         {
-            Warp = new KnyttWarp(this);
             this.World = world;
             this.loadFromStream(map);
             this.fetchAreaExtraData();
-            this.fetchFlagWarpData();
         }
 
         public KnyttArea(KnyttPoint position, KnyttWorld world)
         {
-            Warp = new KnyttWarp(this);
             this.World = world;
             this.Empty = true;
             this.Position = position;
             this.fetchAreaExtraData();
-            this.fetchFlagWarpData();
         }
 
         // A new screen with nothing on it yet
@@ -126,11 +122,14 @@ namespace YKnyttLib
             return area;
         }
 
-        private void fetchAreaExtraData()
+        // Again whenever World.ini changes
+        public void fetchAreaExtraData()
         {
             string index = string.Format("x{0}y{1}", Position.x, Position.y);
-            if (!this.World.INIData.Sections.ContainsSection(index)) { return; }
-            this.ExtraData = World.INIData[index];
+            this.Warp = new KnyttWarp(this);
+            this.ExtraData = World.INIData.Sections.ContainsSection(index) ? World.INIData[index] : null;
+            this.FlagWarps = new FlagWarp[4];
+            this.fetchFlagWarpData();
         }
 
         public string getExtraData(string key)

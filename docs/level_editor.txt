@@ -1,8 +1,57 @@
 Level editor notes
 
+Screen values (KS+ layout):
+- Music, A Ambiance, B Ambiance rows and the Background / Tileset tabs are counters: click +1, right-click -1,
+  wheel, Shift for 10, 0-255 wrapping. The A and B buttons only choose which tileset the palette shows
+- Changes to a screen are undoable. On an empty screen they only set what painting there will make
+- The play buttons preview a channel, Play all plays the three. They follow the screen you're on
+
+Script panel (Script > at the right of the menu bar):
+- Widens the editor to 1010 like KS+. World.ini as text, at the current screen's section
+- The text is the working copy, live both ways: typing in it updates the forms, typing in a form updates it
+  (and selects that line). Clicking a form field selects its line too
+- The level takes the text when it loses focus (click anywhere else, Esc, Enter in a field), and before save,
+  test and undo. Each of those is one undo step. The world reparses World.ini and every screen rereads its section
+- Right-click in the text adds to Godot's own menu: Go to xNyM when the line is in another screen's section,
+  Edit Sign(A) in its form when a form has a field for that key (IniForm.find matches the field's Key pattern,
+  so new forms get it for free)
+- Forms below edit single keys. IniForm fills its fields (IniLineEdit, IniOptionButton, IniCheckBox) from INI
+  sections: the screen's, the form's Section, or a field's own Section. Sections and keys hold the form's letters:
+  Sign{1}({0}) is Sign2(B) while B and page 2 are chosen, Custom Object {1}{0} is Custom Object B5. Letters come
+  from IniLetterButtons (a fixed set) or IniLetterEdits (typed: an object number, a cutscene name)
+- A checkbox writes its On value or removes the key; On is False for keys that default to True (Visible,
+  Effect, Quantize, Trig AbsoluteTarget, Trig AsOne, Map). An option's Values say what its items stand for
+- The forms are made by a script (scratchpad forms/gen_forms.py) that writes them into both scenes, so they match.
+  Tabs use slim styles in the scene so all eight fit
+- Tabs (KS+'s, every key the game reads):
+  Sign: A-C, pages 1-5, shift and trigger pages, title, subtitle
+  Warp: the four warps, flag warps A B C All
+  Shift, Trig: A-C, every key
+  Misc: tint, tint clear, tint ink, attach, overlay; shown on the map, shown as, map colour
+  Cut: this screen's win scene; any cutscene's music and fade colour; song loops
+  World: name, author, description, size, no map, difficulties, categories, character, Juni's clothes and skin,
+    sign/title/subtitle fonts, power and coin images, artifact images
+  CO: custom objects in bank 255 and 254: image, frame size, offset, the stock object it acts like, animation
+    frames, loop, repeat, speed, colour, harmless
+- Options > Follow the script cursor: moving the text cursor (click or keys) goes to that screen and shows the
+  line's form with its letters. Off: only right-click does that
+- Not in the forms: [Custom Character] (only a list KS+ caches), SinglePass and AltDie (YKnytt doesn't read them).
+  Fonts: KS+'s notes say Sign/Title/Subtitle=, but GDKnyttGame.loadFont reads font/title/subtitle. The form uses
+  KS+'s keys; which is right needs checking against a real level
+- KS+ helpers not done: the sign preview box, warp targets shown as screens, dropdowns of the level's cutscene
+  and character images, the object buttons under the forms, the map colour by the tabs, the palette colour square
+- Scripts later could reuse IniForm for values they declare per screen
+
 Testing:
 - TEST LEVEL (F5) plays from the level's start, SET START moves the start (undoable, saved in DefaultSavegame.ini)
 - Test > From here (F6) plays from the hovered cell, or from the next click
+- Right-click a cell (touch: long press): Pick, Test from here (with the chosen profile), Set start here.
+  KS+ picks on right-click straight away; ours asks first so testing and the start are one click away
+- On an object with World.ini data the menu also has Edit sign A / title / warp / shift A / trigger A / win scene /
+  custom object 5: opens the Script panel at that form and its letters, ready to type. Sign areas open their sign;
+  trigger spawn points and delete areas open their trigger
+- Esc lets go of a script field (keeping the text), stops placing, then stops painting (same as clicking the
+  current layer diamond). Esc never leaves; Backspace and F2 do
 - F5 or the pause menu's Back to editor returns. The editor waits off the tree with its undo history, like a cutscene's game does
 - The game plays the map the editor holds in memory, unsaved changes included
 - While testing nothing is written: no save files, no map cache, no stats sent
@@ -25,5 +74,5 @@ Scripts later (Lua):
 Open:
 - Level default is read only in the dialog; editing it belongs to level settings (DefaultSavegame.ini)
 - Save as gives the level a new folder name, profiles stay under the old one
-- Folder (unpacked) levels: save writes map.bin only, so SET START and other INI changes are lost there
+- Folder (unpacked) levels have no copy in memory, so SET START and World.ini edits go to disk at once
 - Detailed map caches from real play may show stale screens during a test

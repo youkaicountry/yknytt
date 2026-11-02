@@ -55,19 +55,26 @@ namespace YKnyttLib
             }
         }
 
-        // Sets key=value in one section of INI text, keeping everything else as it was
+        // Sets key=value in one section of INI text, keeping everything else as it was. Null removes the key
         public static string setIniValue(string ini, string section, string key, string value)
         {
             var header = Regex.Match(ini, $@"^\[{Regex.Escape(section)}\][^\n]*\n?", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            if (!header.Success) { return $"[{section}]\r\n{key}={value}\r\n{ini}"; }
+            if (!header.Success)
+            {
+                if (value == null) { return ini; }
+                string gap = ini == "" || ini.EndsWith("\n") ? "" : "\r\n";
+                return $"{ini}{gap}[{section}]\r\n{key}={value}\r\n";
+            }
 
             int start = header.Index + header.Length;
             var next = Regex.Match(ini.Substring(start), @"^\[", RegexOptions.Multiline);
             int end = next.Success ? start + next.Index : ini.Length;
             string body = ini.Substring(start, end - start);
 
-            var line = Regex.Match(body, $@"^{Regex.Escape(key)}[ \t]*=[^\r\n]*", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            body = line.Success ? body.Remove(line.Index, line.Length).Insert(line.Index, $"{key}={value}") : $"{key}={value}\r\n{body}";
+            var line = Regex.Match(body, $@"^{Regex.Escape(key)}[ \t]*=[^\r\n]*(\r?\n)?", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            string ending = line.Success ? line.Groups[1].Value : "\r\n";
+            string new_line = value == null ? "" : $"{key}={value}{ending}";
+            body = line.Success ? body.Remove(line.Index, line.Length).Insert(line.Index, new_line) : new_line + body;
             return ini.Substring(0, start) + body + ini.Substring(end);
         }
 

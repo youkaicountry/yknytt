@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -11,8 +11,27 @@
 [ext_resource path="res://knytt/editor/EditorMenuButton.cs" type="Script" id=9]
 [ext_resource path="res://knytt/editor/ObjectPalette.tscn" type="PackedScene" id=10]
 [ext_resource path="res://knytt/editor/TestDialog.tscn" type="PackedScene" id=11]
+[ext_resource path="res://knytt/editor/img/play.png" type="Texture" id=12]
+[ext_resource path="res://knytt/editor/IniForm.cs" type="Script" id=13]
+[ext_resource path="res://knytt/editor/IniLineEdit.cs" type="Script" id=14]
+[ext_resource path="res://knytt/editor/IniOptionButton.cs" type="Script" id=15]
+[ext_resource path="res://knytt/editor/IniCheckBox.cs" type="Script" id=16]
+[ext_resource path="res://knytt/editor/IniLetterButton.cs" type="Script" id=17]
+[ext_resource path="res://knytt/editor/IniLetterEdit.cs" type="Script" id=18]
 
 [sub_resource type="ButtonGroup" id=1]
+
+[sub_resource type="ButtonGroup" id=20]
+
+[sub_resource type="ButtonGroup" id=21]
+
+[sub_resource type="ButtonGroup" id=22]
+
+[sub_resource type="ButtonGroup" id=23]
+
+[sub_resource type="ButtonGroup" id=24]
+
+[sub_resource type="ButtonGroup" id=25]
 
 [sub_resource type="AtlasTexture" id=2]
 
@@ -32,6 +51,20 @@ corner_radius_bottom_left = 6
 content_margin_left = 2.0
 content_margin_right = 2.0
 bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.255, 0.243, 0.286, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.176, 0.169, 0.2, 1 )
 
 [node name="LevelEditor" type="Control"]
 anchor_right = 1.0
@@ -304,59 +337,142 @@ script = ExtResource( 8 )
 Layer = 7
 Tint = Color( 0.941176, 0.470588, 0.431373, 1 )
 
-[node name="Values" type="GridContainer" parent="."]
-margin_left = 43.0
-margin_top = 362.0
-margin_right = 150.0
-margin_bottom = 425.0
-custom_constants/vseparation = 6
-columns = 2
+[node name="Sounds" type="Control" parent="."]
+margin_right = 194.0
+margin_bottom = 440.0
+mouse_filter = 2
 
-[node name="MusicLabel" type="Label" parent="Values"]
-margin_right = 85.0
-margin_bottom = 15.0
+[node name="PlayMusic" type="Button" parent="Sounds"]
+unique_name_in_owner = true
+margin_left = 42.0
+margin_top = 355.0
+margin_right = 58.0
+margin_bottom = 373.0
+focus_mode = 0
+hint_tooltip = "Listen. Again: stop"
+toggle_mode = true
+icon = ExtResource( 12 )
+icon_align = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="Sounds"]
+margin_left = 62.0
+margin_top = 355.0
+margin_right = 150.0
+margin_bottom = 373.0
+hint_tooltip = "Music on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="MusicLabel" type="Label" parent="Sounds/MusicRow"]
+margin_top = 1.0
+margin_right = 70.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
 text = "Music"
 
-[node name="MusicValue" type="Label" parent="Values"]
+[node name="MusicValue" type="Label" parent="Sounds/MusicRow"]
 unique_name_in_owner = true
-margin_left = 89.0
-margin_right = 107.0
-margin_bottom = 15.0
+margin_left = 74.0
+margin_top = 1.0
+margin_right = 88.0
+margin_bottom = 16.0
 text = "0"
 align = 2
 
-[node name="AmbianceALabel" type="Label" parent="Values"]
-margin_top = 21.0
-margin_right = 85.0
-margin_bottom = 36.0
+[node name="PlayAmbianceA" type="Button" parent="Sounds"]
+unique_name_in_owner = true
+margin_left = 42.0
+margin_top = 376.0
+margin_right = 58.0
+margin_bottom = 394.0
+focus_mode = 0
+hint_tooltip = "Listen. Again: stop"
+toggle_mode = true
+icon = ExtResource( 12 )
+icon_align = 1
+
+[node name="AmbianceARow" type="HBoxContainer" parent="Sounds"]
+margin_left = 62.0
+margin_top = 376.0
+margin_right = 150.0
+margin_bottom = 394.0
+hint_tooltip = "Ambiance A on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="AmbianceALabel" type="Label" parent="Sounds/AmbianceARow"]
+margin_top = 1.0
+margin_right = 70.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
 text = "A Ambiance"
 
-[node name="AmbianceAValue" type="Label" parent="Values"]
+[node name="AmbianceAValue" type="Label" parent="Sounds/AmbianceARow"]
 unique_name_in_owner = true
-margin_left = 89.0
-margin_top = 21.0
-margin_right = 107.0
-margin_bottom = 36.0
+margin_left = 74.0
+margin_top = 1.0
+margin_right = 88.0
+margin_bottom = 16.0
 text = "0"
 align = 2
 
-[node name="AmbianceBLabel" type="Label" parent="Values"]
-margin_top = 42.0
-margin_right = 85.0
-margin_bottom = 57.0
+[node name="PlayAmbianceB" type="Button" parent="Sounds"]
+unique_name_in_owner = true
+margin_left = 42.0
+margin_top = 397.0
+margin_right = 58.0
+margin_bottom = 415.0
+focus_mode = 0
+hint_tooltip = "Listen. Again: stop"
+toggle_mode = true
+icon = ExtResource( 12 )
+icon_align = 1
+
+[node name="AmbianceBRow" type="HBoxContainer" parent="Sounds"]
+margin_left = 62.0
+margin_top = 397.0
+margin_right = 150.0
+margin_bottom = 415.0
+hint_tooltip = "Ambiance B on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="AmbianceBLabel" type="Label" parent="Sounds/AmbianceBRow"]
+margin_top = 1.0
+margin_right = 70.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
 text = "B Ambiance"
 
-[node name="AmbianceBValue" type="Label" parent="Values"]
+[node name="AmbianceBValue" type="Label" parent="Sounds/AmbianceBRow"]
 unique_name_in_owner = true
-margin_left = 89.0
-margin_top = 42.0
-margin_right = 107.0
-margin_bottom = 57.0
+margin_left = 74.0
+margin_top = 1.0
+margin_right = 88.0
+margin_bottom = 16.0
 text = "0"
 align = 2
+
+[node name="PlayAll" type="Button" parent="Sounds"]
+margin_left = 42.0
+margin_top = 418.0
+margin_right = 150.0
+margin_bottom = 436.0
+focus_mode = 0
+hint_tooltip = "All three. Again: stop"
+text = "Play all"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+bus = "Music"
+
+[node name="AmbianceAPlayer" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+bus = "Ambiance1"
+
+[node name="AmbianceBPlayer" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+bus = "Ambiance2"
 
 [node name="MiniMap" type="Control" parent="."]
 unique_name_in_owner = true
@@ -372,41 +488,105 @@ margin_right = 579.0
 margin_bottom = 610.0
 color = Color( 0.298039, 0.298039, 0.298039, 1 )
 
-[node name="Tabs" type="HBoxContainer" parent="Panel"]
-margin_left = 6.0
+[node name="Tabs" type="Control" parent="Panel"]
 margin_right = 384.0
 margin_bottom = 22.0
+mouse_filter = 2
 
-[node name="BackgroundLabel" type="Label" parent="Panel/Tabs"]
-unique_name_in_owner = true
+[node name="BackgroundTab" type="HBoxContainer" parent="Panel/Tabs"]
+margin_left = 26.0
+margin_right = 124.0
+margin_bottom = 22.0
+hint_tooltip = "Background gradient on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="BackgroundLabel" type="Label" parent="Panel/Tabs/BackgroundTab"]
 margin_top = 3.0
-margin_right = 100.0
+margin_right = 60.0
 margin_bottom = 18.0
-rect_min_size = Vector2( 100, 0 )
-text = "Background 0"
+size_flags_horizontal = 3
+text = "Background"
+
+[node name="BackgroundValue" type="Label" parent="Panel/Tabs/BackgroundTab"]
+unique_name_in_owner = true
+margin_left = 64.0
+margin_top = 3.0
+margin_right = 78.0
+margin_bottom = 18.0
+text = "0"
+align = 2
 
 [node name="TilesetAButton" type="Button" parent="Panel/Tabs"]
 unique_name_in_owner = true
-margin_left = 104.0
-margin_right = 194.0
+margin_left = 128.0
+margin_right = 147.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 90, 0 )
 focus_mode = 0
+hint_tooltip = "Show tileset A"
 toggle_mode = true
 pressed = true
 group = SubResource( 1 )
-text = "A Tileset 0"
+text = "A"
+
+[node name="TilesetATab" type="HBoxContainer" parent="Panel/Tabs"]
+margin_left = 151.0
+margin_right = 219.0
+margin_bottom = 22.0
+hint_tooltip = "Tileset A on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="TilesetALabel" type="Label" parent="Panel/Tabs/TilesetATab"]
+margin_top = 3.0
+margin_right = 60.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Tileset"
+
+[node name="TilesetAValue" type="Label" parent="Panel/Tabs/TilesetATab"]
+unique_name_in_owner = true
+margin_left = 64.0
+margin_top = 3.0
+margin_right = 78.0
+margin_bottom = 18.0
+text = "0"
+align = 2
 
 [node name="TilesetBButton" type="Button" parent="Panel/Tabs"]
 unique_name_in_owner = true
-margin_left = 198.0
-margin_right = 288.0
+margin_left = 224.0
+margin_right = 243.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 90, 0 )
 focus_mode = 0
+hint_tooltip = "Show tileset B"
 toggle_mode = true
 group = SubResource( 1 )
-text = "B Tileset 0"
+text = "B"
+
+[node name="TilesetBTab" type="HBoxContainer" parent="Panel/Tabs"]
+margin_left = 247.0
+margin_right = 311.0
+margin_bottom = 22.0
+hint_tooltip = "Tileset B on this screen
+Click: next. Right-click: back. Wheel works too
+Shift: 10 at a time"
+
+[node name="TilesetBLabel" type="Label" parent="Panel/Tabs/TilesetBTab"]
+margin_top = 3.0
+margin_right = 60.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Tileset"
+
+[node name="TilesetBValue" type="Label" parent="Panel/Tabs/TilesetBTab"]
+unique_name_in_owner = true
+margin_left = 64.0
+margin_top = 3.0
+margin_right = 78.0
+margin_bottom = 18.0
+text = "0"
+align = 2
 
 [node name="Palette" type="Control" parent="Panel"]
 unique_name_in_owner = true
@@ -520,6 +700,1417 @@ custom_colors/font_color = Color( 0.784314, 0.658824, 0.658824, 1 )
 custom_styles/normal = SubResource( 4 )
 text = "KS+"
 
+[node name="ScriptButton" type="Button" parent="MenuBar"]
+unique_name_in_owner = true
+margin_left = 632.0
+margin_right = 698.0
+margin_bottom = 20.0
+focus_mode = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+hint_tooltip = "World.ini, and forms for this screen"
+toggle_mode = true
+text = "Script >"
+flat = true
+
+[node name="Script" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_left = 700.0
+margin_top = 20.0
+margin_right = 1010.0
+margin_bottom = 610.0
+
+[node name="IniEdit" type="TextEdit" parent="Script"]
+unique_name_in_owner = true
+margin_right = 310.0
+margin_bottom = 262.0
+syntax_highlighting = true
+show_line_numbers = true
+smooth_scrolling = true
+
+[node name="Forms" type="TabContainer" parent="Script"]
+unique_name_in_owner = true
+margin_top = 266.0
+margin_right = 310.0
+margin_bottom = 590.0
+custom_styles/tab_fg = SubResource( 9 )
+custom_styles/tab_bg = SubResource( 10 )
+tab_align = 0
+
+[node name="Sign" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "A", "" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Sign"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Top" type="HBoxContainer" parent="Script/Forms/Sign/Rows"]
+custom_constants/separation = 12
+
+[node name="SignLetters" type="HBoxContainer" parent="Script/Forms/Sign/Rows/Top"]
+
+[node name="Label" type="Label" parent="Script/Forms/Sign/Rows/Top/SignLetters"]
+text = "Sign"
+
+[node name="LetterA" type="Button" parent="Script/Forms/Sign/Rows/Top/SignLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Sign A, object 0:17"
+toggle_mode = true
+pressed = true
+group = SubResource( 20 )
+text = "A"
+script = ExtResource( 17 )
+Letter = "A"
+Slot = 0
+
+[node name="LetterB" type="Button" parent="Script/Forms/Sign/Rows/Top/SignLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Sign B, object 0:18"
+toggle_mode = true
+group = SubResource( 20 )
+text = "B"
+script = ExtResource( 17 )
+Letter = "B"
+Slot = 0
+
+[node name="LetterC" type="Button" parent="Script/Forms/Sign/Rows/Top/SignLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Sign C, object 0:19"
+toggle_mode = true
+group = SubResource( 20 )
+text = "C"
+script = ExtResource( 17 )
+Letter = "C"
+Slot = 0
+
+[node name="PageLetters" type="HBoxContainer" parent="Script/Forms/Sign/Rows/Top"]
+
+[node name="Label" type="Label" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+text = "Page"
+
+[node name="Letter1" type="Button" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+rect_min_size = Vector2( 22, 0 )
+hint_tooltip = "Page 1"
+toggle_mode = true
+pressed = true
+group = SubResource( 21 )
+text = "1"
+script = ExtResource( 17 )
+Letter = ""
+Slot = 1
+
+[node name="Letter2" type="Button" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+rect_min_size = Vector2( 22, 0 )
+hint_tooltip = "Page 2: Sign2(A)... in World.ini"
+toggle_mode = true
+group = SubResource( 21 )
+text = "2"
+script = ExtResource( 17 )
+Letter = "2"
+Slot = 1
+
+[node name="Letter3" type="Button" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+rect_min_size = Vector2( 22, 0 )
+hint_tooltip = "Page 3: Sign2(A)... in World.ini"
+toggle_mode = true
+group = SubResource( 21 )
+text = "3"
+script = ExtResource( 17 )
+Letter = "3"
+Slot = 1
+
+[node name="Letter4" type="Button" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+rect_min_size = Vector2( 22, 0 )
+hint_tooltip = "Page 4: Sign2(A)... in World.ini"
+toggle_mode = true
+group = SubResource( 21 )
+text = "4"
+script = ExtResource( 17 )
+Letter = "4"
+Slot = 1
+
+[node name="Letter5" type="Button" parent="Script/Forms/Sign/Rows/Top/PageLetters"]
+rect_min_size = Vector2( 22, 0 )
+hint_tooltip = "Page 5: Sign2(A)... in World.ini"
+toggle_mode = true
+group = SubResource( 21 )
+text = "5"
+script = ExtResource( 17 )
+Letter = "5"
+Slot = 1
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/Sign/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="TextLabel" type="Label" parent="Script/Forms/Sign/Rows/Fields"]
+rect_min_size = Vector2( 76, 0 )
+text = "Text"
+
+[node name="Text" type="LineEdit" parent="Script/Forms/Sign/Rows/Fields"]
+hint_tooltip = "What this page says. A page after an empty one isn't shown"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Sign{1}({0})"
+
+[node name="ShiftLabel" type="Label" parent="Script/Forms/Sign/Rows/Fields"]
+text = "Shift page"
+
+[node name="Shift" type="LineEdit" parent="Script/Forms/Sign/Rows/Fields"]
+hint_tooltip = "Reading this page fires the shift with the same letter"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "SignShift({0})"
+
+[node name="TrigLabel" type="Label" parent="Script/Forms/Sign/Rows/Fields"]
+text = "Trigger page"
+
+[node name="Trig" type="LineEdit" parent="Script/Forms/Sign/Rows/Fields"]
+hint_tooltip = "Reading this page fires the trigger with the same letter"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "SignTrig({0})"
+
+[node name="Line" type="HSeparator" parent="Script/Forms/Sign/Rows"]
+
+[node name="Titles" type="GridContainer" parent="Script/Forms/Sign/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="TitleLabel" type="Label" parent="Script/Forms/Sign/Rows/Titles"]
+rect_min_size = Vector2( 76, 0 )
+text = "Title"
+
+[node name="Title" type="LineEdit" parent="Script/Forms/Sign/Rows/Titles"]
+hint_tooltip = "Shown by the title object, 0:36"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Title"
+
+[node name="SubtitleLabel" type="Label" parent="Script/Forms/Sign/Rows/Titles"]
+text = "Subtitle"
+
+[node name="Subtitle" type="LineEdit" parent="Script/Forms/Sign/Rows/Titles"]
+hint_tooltip = "Shown under the title"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Subtitle"
+
+[node name="Warp" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "A" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Warp"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Warps" type="GridContainer" parent="Script/Forms/Warp/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 3
+
+[node name="Empty" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+rect_min_size = Vector2( 76, 0 )
+text = ""
+
+[node name="XLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "X"
+
+[node name="YLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "Y"
+
+[node name="UpLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "Leave up"
+
+[node name="UpX" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving up lands this many screens across. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpX(U)"
+
+[node name="UpY" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving up lands this many screens down. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpY(U)"
+
+[node name="DownLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "Leave down"
+
+[node name="DownX" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving down lands this many screens across. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpX(D)"
+
+[node name="DownY" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving down lands this many screens down. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpY(D)"
+
+[node name="LeftLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "Leave left"
+
+[node name="LeftX" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving left lands this many screens across. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpX(L)"
+
+[node name="LeftY" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving left lands this many screens down. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpY(L)"
+
+[node name="RightLabel" type="Label" parent="Script/Forms/Warp/Rows/Warps"]
+text = "Leave right"
+
+[node name="RightX" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving right lands this many screens across. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpX(R)"
+
+[node name="RightY" type="LineEdit" parent="Script/Forms/Warp/Rows/Warps"]
+hint_tooltip = "Leaving right lands this many screens down. Empty: no warp"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "WarpY(R)"
+
+[node name="Line" type="HSeparator" parent="Script/Forms/Warp/Rows"]
+
+[node name="FlagwarpLetters" type="HBoxContainer" parent="Script/Forms/Warp/Rows"]
+
+[node name="Label" type="Label" parent="Script/Forms/Warp/Rows/FlagwarpLetters"]
+text = "Flag warp"
+
+[node name="LetterA" type="Button" parent="Script/Forms/Warp/Rows/FlagwarpLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Flag warp A"
+toggle_mode = true
+pressed = true
+group = SubResource( 22 )
+text = "A"
+script = ExtResource( 17 )
+Letter = "A"
+Slot = 0
+
+[node name="LetterB" type="Button" parent="Script/Forms/Warp/Rows/FlagwarpLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Flag warp B"
+toggle_mode = true
+group = SubResource( 22 )
+text = "B"
+script = ExtResource( 17 )
+Letter = "B"
+Slot = 0
+
+[node name="LetterC" type="Button" parent="Script/Forms/Warp/Rows/FlagwarpLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Flag warp C"
+toggle_mode = true
+group = SubResource( 22 )
+text = "C"
+script = ExtResource( 17 )
+Letter = "C"
+Slot = 0
+
+[node name="LetterAll" type="Button" parent="Script/Forms/Warp/Rows/FlagwarpLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Flag warp All"
+toggle_mode = true
+group = SubResource( 22 )
+text = "All"
+script = ExtResource( 17 )
+Letter = "All"
+Slot = 0
+
+[node name="FlagFields" type="GridContainer" parent="Script/Forms/Warp/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="FlagLabel" type="Label" parent="Script/Forms/Warp/Rows/FlagFields"]
+rect_min_size = Vector2( 76, 0 )
+text = "When"
+
+[node name="Flag" type="LineEdit" parent="Script/Forms/Warp/Rows/FlagFields"]
+hint_tooltip = "True, Flag3, Power12, Coin2...
+All: when every flag warp that's set is on"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Flag({0})"
+
+[node name="FlagXLabel" type="Label" parent="Script/Forms/Warp/Rows/FlagFields"]
+text = "X"
+
+[node name="FlagX" type="LineEdit" parent="Script/Forms/Warp/Rows/FlagFields"]
+hint_tooltip = "Screens across, or Artifact1 for that artifact's count"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "FlagWarpX({0})"
+
+[node name="FlagYLabel" type="Label" parent="Script/Forms/Warp/Rows/FlagFields"]
+text = "Y"
+
+[node name="FlagY" type="LineEdit" parent="Script/Forms/Warp/Rows/FlagFields"]
+hint_tooltip = "Screens down, or Artifact1 for that artifact's count"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "FlagWarpY({0})"
+
+[node name="Shift" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "A" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Shift"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="ShiftLetters" type="HBoxContainer" parent="Script/Forms/Shift/Rows"]
+
+[node name="Label" type="Label" parent="Script/Forms/Shift/Rows/ShiftLetters"]
+text = "Shift"
+
+[node name="LetterA" type="Button" parent="Script/Forms/Shift/Rows/ShiftLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Shift A, object 0:14"
+toggle_mode = true
+pressed = true
+group = SubResource( 23 )
+text = "A"
+script = ExtResource( 17 )
+Letter = "A"
+Slot = 0
+
+[node name="LetterB" type="Button" parent="Script/Forms/Shift/Rows/ShiftLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Shift B, object 0:15"
+toggle_mode = true
+group = SubResource( 23 )
+text = "B"
+script = ExtResource( 17 )
+Letter = "B"
+Slot = 0
+
+[node name="LetterC" type="Button" parent="Script/Forms/Shift/Rows/ShiftLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Shift C, object 0:16"
+toggle_mode = true
+group = SubResource( 23 )
+text = "C"
+script = ExtResource( 17 )
+Letter = "C"
+Slot = 0
+
+[node name="Columns" type="HBoxContainer" parent="Script/Forms/Shift/Rows"]
+custom_constants/separation = 8
+
+[node name="Checks" type="VBoxContainer" parent="Script/Forms/Shift/Rows/Columns"]
+custom_constants/separation = 0
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/Shift/Rows/Columns"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="Absolute" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Map is the screen's own x and y, not counted from here"
+text = "Absolute target"
+script = ExtResource( 16 )
+Key = "ShiftAbsoluteTarget({0})"
+On = "True"
+
+[node name="Invisible" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "No shift sprite"
+text = "Invisible"
+script = ExtResource( 16 )
+Key = "ShiftVisible({0})"
+On = "False"
+
+[node name="Touch" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Fires on touch, no down press"
+text = "On touch"
+script = ExtResource( 16 )
+Key = "ShiftTouch({0})"
+On = "True"
+
+[node name="Quantize" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Juni keeps her exact spot instead of snapping to the tile"
+text = "No quantize"
+script = ExtResource( 16 )
+Key = "ShiftQuantize({0})"
+On = "False"
+
+[node name="Save" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Saves the game after shifting"
+text = "Autosave"
+script = ExtResource( 16 )
+Key = "ShiftSave({0})"
+On = "True"
+
+[node name="StopMusic" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Music stops when it fires"
+text = "Stop music"
+script = ExtResource( 16 )
+Key = "ShiftStopMusic({0})"
+On = "True"
+
+[node name="Effect" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "No flash when it fires"
+text = "Hide effect"
+script = ExtResource( 16 )
+Key = "ShiftEffect({0})"
+On = "False"
+
+[node name="DenyHologram" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "A hologram can't fire it"
+text = "Deny hologram"
+script = ExtResource( 16 )
+Key = "ShiftDenyHologram({0})"
+On = "True"
+
+[node name="Hide" type="CheckBox" parent="Script/Forms/Shift/Rows/Columns/Checks"]
+hint_tooltip = "Hides Juni, holds her still and fires the trigger with the same letter"
+text = "Hide + trigger"
+script = ExtResource( 16 )
+Key = "ShiftHide({0})"
+On = "True"
+
+[node name="MapLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+rect_min_size = Vector2( 58, 0 )
+text = "Map"
+
+[node name="Map" type="HBoxContainer" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="XMap" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Map"]
+hint_tooltip = "Screens across from here. Absolute target: the screen's x"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftXMap({0})"
+
+[node name="YMap" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Map"]
+hint_tooltip = "Screens down from here. Absolute target: the screen's y"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftYMap({0})"
+
+[node name="SpotLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Spot"
+
+[node name="Spot" type="HBoxContainer" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="XPos" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Spot"]
+hint_tooltip = "Tile Juni lands on, 0-24"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftXPos({0})"
+
+[node name="YPos" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Spot"]
+hint_tooltip = "Tile Juni lands on, 0-9"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftYPos({0})"
+
+[node name="TypeLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Shape"
+
+[node name="Type" type="OptionButton" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Its shape"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Spot", null, false, 1, null, "Floor", null, false, 2, null, "Circle", null, false, 3, null, "Square", null, false, 4, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "ShiftType({0})"
+Values = PoolStringArray( "", "0", "1", "2", "3" )
+
+[node name="SoundLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Sound"
+
+[node name="Sound" type="OptionButton" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Played when it fires. Empty: teleport"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "None", null, false, 1, null, "Teleport", null, false, 2, null, "Door", null, false, 3, null, "Electronic", null, false, 4, null, "Switch", null, false, 5, null, "Powerup", null, false, 6, null, "Bounce", null, false, 7, null, "Save", null, false, 8, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "ShiftSound({0})"
+
+[node name="CutsceneLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Cutscene"
+
+[node name="Cutscene" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Plays this cutscene, a folder in the level"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftCutscene({0})"
+
+[node name="FlagsLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Flags"
+
+[node name="Flags" type="HBoxContainer" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="FlagOn" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Flags"]
+hint_tooltip = "Turns a flag on: 3, Power12..."
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftFlagOn({0})"
+
+[node name="FlagOff" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields/Flags"]
+hint_tooltip = "Turns a flag off"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftFlagOff({0})"
+
+[node name="CharacterLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Character"
+
+[node name="Character" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Swaps Juni for this custom character. Juni: back to her"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftCharacter({0})"
+
+[node name="TimeLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Delay"
+
+[node name="Time" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Waits this many milliseconds first"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftTime({0})"
+
+[node name="CoinLabel" type="Label" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+text = "Coins"
+
+[node name="Coin" type="LineEdit" parent="Script/Forms/Shift/Rows/Columns/Fields"]
+hint_tooltip = "Costs this many coins. Too few: it doesn't fire"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "ShiftCoin({0})"
+
+[node name="Trig" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "A" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Trig"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="TriggerLetters" type="HBoxContainer" parent="Script/Forms/Trig/Rows"]
+
+[node name="Label" type="Label" parent="Script/Forms/Trig/Rows/TriggerLetters"]
+text = "Trigger"
+
+[node name="LetterA" type="Button" parent="Script/Forms/Trig/Rows/TriggerLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Trigger A, object 0:32"
+toggle_mode = true
+pressed = true
+group = SubResource( 24 )
+text = "A"
+script = ExtResource( 17 )
+Letter = "A"
+Slot = 0
+
+[node name="LetterB" type="Button" parent="Script/Forms/Trig/Rows/TriggerLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Trigger B, object 0:33"
+toggle_mode = true
+group = SubResource( 24 )
+text = "B"
+script = ExtResource( 17 )
+Letter = "B"
+Slot = 0
+
+[node name="LetterC" type="Button" parent="Script/Forms/Trig/Rows/TriggerLetters"]
+rect_min_size = Vector2( 28, 0 )
+hint_tooltip = "Trigger C, object 0:34"
+toggle_mode = true
+group = SubResource( 24 )
+text = "C"
+script = ExtResource( 17 )
+Letter = "C"
+Slot = 0
+
+[node name="Columns" type="HBoxContainer" parent="Script/Forms/Trig/Rows"]
+custom_constants/separation = 8
+
+[node name="Checks" type="VBoxContainer" parent="Script/Forms/Trig/Rows/Columns"]
+custom_constants/separation = 0
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/Trig/Rows/Columns"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="Relative" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "Spawn counts from the trigger, not the screen corner"
+text = "Relative target"
+script = ExtResource( 16 )
+Key = "TrigAbsoluteTarget({0})"
+On = "False"
+
+[node name="Invisible" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "No trigger sprite"
+text = "Invisible"
+script = ExtResource( 16 )
+Key = "TrigVisible({0})"
+On = "False"
+
+[node name="Touch" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "Fires on touch, no down press"
+text = "On touch"
+script = ExtResource( 16 )
+Key = "TrigTouch({0})"
+On = "True"
+
+[node name="AsOne" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "Copies on the screen fire one by one instead of together"
+text = "Act individually"
+script = ExtResource( 16 )
+Key = "TrigAsOne({0})"
+On = "False"
+
+[node name="Repeat" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "Can fire again"
+text = "Repeatable"
+script = ExtResource( 16 )
+Key = "TrigRepeat({0})"
+On = "True"
+
+[node name="Effect" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "No flash when it fires"
+text = "Hide effect"
+script = ExtResource( 16 )
+Key = "TrigEffect({0})"
+On = "False"
+
+[node name="DenyHologram" type="CheckBox" parent="Script/Forms/Trig/Rows/Columns/Checks"]
+hint_tooltip = "A hologram can't fire it"
+text = "Deny hologram"
+script = ExtResource( 16 )
+Key = "TrigDenyHologram({0})"
+On = "True"
+
+[node name="ObjectLabel" type="Label" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+rect_min_size = Vector2( 58, 0 )
+text = "Object"
+
+[node name="Object" type="HBoxContainer" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="Bank" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/Object"]
+hint_tooltip = "Bank of the object it spawns"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigBank({0})"
+
+[node name="Object" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/Object"]
+hint_tooltip = "Object it spawns"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigObject({0})"
+
+[node name="SpawnLabel" type="Label" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+text = "Spawn"
+
+[node name="Spawn" type="HBoxContainer" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="SpawnX" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/Spawn"]
+hint_tooltip = "Tile it spawns on, 0-24. Spawn points 0:42-44 override it"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigSpawnX({0})"
+
+[node name="SpawnY" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/Spawn"]
+hint_tooltip = "Tile it spawns on, 0-9"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigSpawnY({0})"
+
+[node name="EffectLabel" type="Label" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+text = "Effect"
+
+[node name="EffectOffset" type="HBoxContainer" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+size_flags_horizontal = 3
+
+[node name="EffectX" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/EffectOffset"]
+hint_tooltip = "Moves the spawn flash across, in pixels"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigEffectX({0})"
+
+[node name="EffectY" type="LineEdit" parent="Script/Forms/Trig/Rows/Columns/Fields/EffectOffset"]
+hint_tooltip = "Moves the spawn flash down, in pixels"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TrigEffectY({0})"
+
+[node name="TypeLabel" type="Label" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+text = "Shape"
+
+[node name="Type" type="OptionButton" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+hint_tooltip = "Its shape"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Spot", null, false, 1, null, "Floor", null, false, 2, null, "Circle", null, false, 3, null, "Square", null, false, 4, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "TrigType({0})"
+Values = PoolStringArray( "", "0", "1", "2", "3" )
+
+[node name="SoundLabel" type="Label" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+text = "Sound"
+
+[node name="Sound" type="OptionButton" parent="Script/Forms/Trig/Rows/Columns/Fields"]
+hint_tooltip = "Played when it fires. Empty: teleport"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "None", null, false, 1, null, "Teleport", null, false, 2, null, "Door", null, false, 3, null, "Electronic", null, false, 4, null, "Switch", null, false, 5, null, "Powerup", null, false, 6, null, "Bounce", null, false, 7, null, "Save", null, false, 8, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "TrigSound({0})"
+
+[node name="Misc" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "A" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Misc"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/Misc/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="TintLabel" type="Label" parent="Script/Forms/Misc/Rows/Fields"]
+rect_min_size = Vector2( 76, 0 )
+text = "Tint"
+
+[node name="Tint" type="LineEdit" parent="Script/Forms/Misc/Rows/Fields"]
+hint_tooltip = "Colour over the screen from here on: red + green×256 + blue×65536, each 0-255. 65536 is black. 0 turns it off"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Tint"
+
+[node name="TintTransLabel" type="Label" parent="Script/Forms/Misc/Rows/Fields"]
+text = "Tint clear"
+
+[node name="TintTrans" type="LineEdit" parent="Script/Forms/Misc/Rows/Fields"]
+hint_tooltip = "0 opaque to 127 clear. 46 by default"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "TintTrans"
+
+[node name="TintInkLabel" type="Label" parent="Script/Forms/Misc/Rows/Fields"]
+text = "Tint ink"
+
+[node name="TintInk" type="OptionButton" parent="Script/Forms/Misc/Rows/Fields"]
+hint_tooltip = "How the tint mixes. Empty: see-through"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Trans", null, false, 1, null, "Add", null, false, 2, null, "Sub", null, false, 3, null, "AND", null, false, 4, null, "OR", null, false, 5, null, "XOR", null, false, 6, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "TintInk"
+
+[node name="AttachLabel" type="Label" parent="Script/Forms/Misc/Rows/Fields"]
+text = "Attach"
+
+[node name="Attach" type="LineEdit" parent="Script/Forms/Misc/Rows/Fields"]
+hint_tooltip = "Picture that follows Juni from here on. True: the torch. False: off.
+Or an image in Custom Objects"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Attach"
+
+[node name="OverlayLabel" type="Label" parent="Script/Forms/Misc/Rows/Fields"]
+text = "Overlay"
+
+[node name="Overlay" type="CheckBox" parent="Script/Forms/Misc/Rows/Fields"]
+hint_tooltip = "Layer 2 tiles draw between layers 6 and 7, and layer 7 objects stop colliding"
+text = "Layer 2 over objects"
+script = ExtResource( 16 )
+Key = "Overlay"
+On = "True"
+
+[node name="Line" type="HSeparator" parent="Script/Forms/Misc/Rows"]
+
+[node name="Map" type="GridContainer" parent="Script/Forms/Misc/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="MapLabel" type="Label" parent="Script/Forms/Misc/Rows/Map"]
+rect_min_size = Vector2( 76, 0 )
+text = "On the map"
+
+[node name="MapVisible" type="OptionButton" parent="Script/Forms/Misc/Rows/Map"]
+hint_tooltip = "Forces this screen on or off the map"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Shown", null, false, 1, null, "Hidden", null, false, 2, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "MapVisible"
+Values = PoolStringArray( "", "True", "False" )
+
+[node name="MapAsLabel" type="Label" parent="Script/Forms/Misc/Rows/Map"]
+text = "Shown as"
+
+[node name="MapAs" type="HBoxContainer" parent="Script/Forms/Misc/Rows/Map"]
+size_flags_horizontal = 3
+
+[node name="MapX" type="LineEdit" parent="Script/Forms/Misc/Rows/Map/MapAs"]
+hint_tooltip = "On the map this screen is that screen: its x"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "MapX"
+
+[node name="MapY" type="LineEdit" parent="Script/Forms/Misc/Rows/Map/MapAs"]
+hint_tooltip = "Its y"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "MapY"
+
+[node name="MapColorLabel" type="Label" parent="Script/Forms/Misc/Rows/Map"]
+text = "Map colour"
+
+[node name="MapColor" type="LineEdit" parent="Script/Forms/Misc/Rows/Map"]
+hint_tooltip = "red + green×4 + blue×16, each 0-3. 64 hides it"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "MapColor"
+
+[node name="Cut" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = ""
+Letters = PoolStringArray( "Ending", "1" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/Cut"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Win" type="GridContainer" parent="Script/Forms/Cut/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="WinLabel" type="Label" parent="Script/Forms/Cut/Rows/Win"]
+rect_min_size = Vector2( 76, 0 )
+text = "Win scene"
+
+[node name="Ending" type="LineEdit" parent="Script/Forms/Cut/Rows/Win"]
+hint_tooltip = "Cutscene the win object 0:2 plays on this screen. Empty: Ending"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Ending"
+
+[node name="Line" type="HSeparator" parent="Script/Forms/Cut/Rows"]
+
+[node name="Cutscene" type="GridContainer" parent="Script/Forms/Cut/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="NameLabel" type="Label" parent="Script/Forms/Cut/Rows/Cutscene"]
+rect_min_size = Vector2( 76, 0 )
+text = "Cutscene"
+
+[node name="Name" type="LineEdit" parent="Script/Forms/Cut/Rows/Cutscene"]
+rect_min_size = Vector2( 60, 0 )
+hint_tooltip = "Any cutscene: Intro, Ending, or a folder in the level"
+text = "Ending"
+script = ExtResource( 18 )
+Slot = 0
+
+[node name="MusicLabel" type="Label" parent="Script/Forms/Cut/Rows/Cutscene"]
+text = "Music"
+
+[node name="Music" type="LineEdit" parent="Script/Forms/Cut/Rows/Cutscene"]
+hint_tooltip = "Song it plays"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Section = "Cutscene Music"
+Key = "{0}"
+
+[node name="ColorLabel" type="Label" parent="Script/Forms/Cut/Rows/Cutscene"]
+text = "Fade colour"
+
+[node name="Color" type="LineEdit" parent="Script/Forms/Cut/Rows/Cutscene"]
+hint_tooltip = "Fade in and out: red + green×256 + blue×65536, each 0-255. 65536 is black. 0: no fade. White by default"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Section = "Cutscene Color"
+Key = "{0}"
+
+[node name="Line" type="HSeparator" parent="Script/Forms/Cut/Rows"]
+
+[node name="Loop" type="GridContainer" parent="Script/Forms/Cut/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="SongLabel" type="Label" parent="Script/Forms/Cut/Rows/Loop"]
+rect_min_size = Vector2( 76, 0 )
+text = "Song"
+
+[node name="Song" type="HBoxContainer" parent="Script/Forms/Cut/Rows/Loop"]
+size_flags_horizontal = 3
+
+[node name="Number" type="LineEdit" parent="Script/Forms/Cut/Rows/Loop/Song"]
+rect_min_size = Vector2( 50, 0 )
+hint_tooltip = "Song number, 0-255"
+text = "1"
+script = ExtResource( 18 )
+Slot = 1
+
+[node name="Loops" type="CheckBox" parent="Script/Forms/Cut/Rows/Loop/Song"]
+hint_tooltip = "This song loops in the game"
+text = "Loops"
+script = ExtResource( 16 )
+Section = "Loop Music"
+Key = "{1}"
+On = "True"
+
+[node name="World" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = "World"
+Letters = PoolStringArray( "1" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/World"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/World/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="NameLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+rect_min_size = Vector2( 76, 0 )
+text = "Name"
+
+[node name="Name" type="LineEdit" parent="Script/Forms/World/Rows/Fields"]
+hint_tooltip = "Changing it here doesn't rename the file. Save as does"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Name"
+
+[node name="AuthorLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Author"
+
+[node name="Author" type="LineEdit" parent="Script/Forms/World/Rows/Fields"]
+hint_tooltip = "Changing it here doesn't rename the file. Save as does"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Author"
+
+[node name="DescriptionLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Description"
+
+[node name="Description" type="LineEdit" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Description"
+
+[node name="SizeLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Size"
+
+[node name="SizeRow" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="Size" type="OptionButton" parent="Script/Forms/World/Rows/Fields/SizeRow"]
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Size"
+
+[node name="NoMap" type="CheckBox" parent="Script/Forms/World/Rows/Fields/SizeRow"]
+hint_tooltip = "Turns the map off, and the map power with it"
+text = "No map"
+script = ExtResource( 16 )
+Key = "Map"
+On = "False"
+
+[node name="DifficultyLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Difficulty"
+
+[node name="Difficulty" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="A" type="OptionButton" parent="Script/Forms/World/Rows/Fields/Difficulty"]
+hint_tooltip = "Difficulty A"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Difficulty A"
+
+[node name="B" type="OptionButton" parent="Script/Forms/World/Rows/Fields/Difficulty"]
+hint_tooltip = "Difficulty B"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Difficulty B"
+
+[node name="C" type="OptionButton" parent="Script/Forms/World/Rows/Fields/Difficulty"]
+hint_tooltip = "Difficulty C"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Easy", null, false, 1, null, "Normal", null, false, 2, null, "Hard", null, false, 3, null, "Very Hard", null, false, 4, null, "Lunatic", null, false, 5, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Difficulty C"
+
+[node name="CategoryLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Category"
+
+[node name="Category" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="A" type="OptionButton" parent="Script/Forms/World/Rows/Fields/Category"]
+hint_tooltip = "Category A"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Category A"
+
+[node name="B" type="OptionButton" parent="Script/Forms/World/Rows/Fields/Category"]
+hint_tooltip = "Category B"
+size_flags_horizontal = 3
+items = [ "", null, false, 0, null, "Tutorial", null, false, 1, null, "Challenge", null, false, 2, null, "Puzzle", null, false, 3, null, "Maze", null, false, 4, null, "Environmental", null, false, 5, null, "Playground", null, false, 6, null, "Misc", null, false, 7, null ]
+selected = 0
+script = ExtResource( 15 )
+Key = "Category B"
+
+[node name="CharacterLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Character"
+
+[node name="Character" type="LineEdit" parent="Script/Forms/World/Rows/Fields"]
+hint_tooltip = "Juni, or an image in Custom Objects without .png"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Character"
+
+[node name="ColoursLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Juni"
+
+[node name="Colours" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="Clothes" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Colours"]
+hint_tooltip = "Clothes: red + green×256 + blue×65536, each 0-255. 65536 is black"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Clothes"
+
+[node name="Skin" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Colours"]
+hint_tooltip = "Skin: red + green×256 + blue×65536, each 0-255. 65536 is black"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Skin"
+
+[node name="FontsLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Fonts"
+
+[node name="Fonts" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="SignFont" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Fonts"]
+hint_tooltip = "Sign font, an image in Custom Objects: 224×91, 7×13 letters"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Sign"
+
+[node name="TitleFont" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Fonts"]
+hint_tooltip = "Title font: 416×168, 13×24 letters"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Title"
+
+[node name="SubtitleFont" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Fonts"]
+hint_tooltip = "Subtitle font: 224×91, 7×13 letters"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Subtitle"
+
+[node name="ImagesLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Images"
+
+[node name="Images" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="Powers" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Images"]
+hint_tooltip = "Power icons, an image in Custom Objects"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Powers"
+
+[node name="Coin" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Images"]
+hint_tooltip = "Coin, an image in Custom Objects"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Coin"
+
+[node name="ArtifactLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Artifact"
+
+[node name="ArtifactRow" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+custom_constants/separation = 6
+
+[node name="Number" type="LineEdit" parent="Script/Forms/World/Rows/Fields/ArtifactRow"]
+rect_min_size = Vector2( 26, 0 )
+hint_tooltip = "Artifact 1-7"
+text = "1"
+script = ExtResource( 18 )
+Slot = 0
+
+[node name="Artifact" type="LineEdit" parent="Script/Forms/World/Rows/Fields/ArtifactRow"]
+hint_tooltip = "Its image in Custom Objects"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Artifact{0}"
+
+[node name="CO" type="Control" parent="Script/Forms"]
+script = ExtResource( 13 )
+Section = "Custom Object {1}{0}"
+Letters = PoolStringArray( "1", "" )
+
+[node name="Rows" type="VBoxContainer" parent="Script/Forms/CO"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_constants/separation = 6
+
+[node name="Top" type="HBoxContainer" parent="Script/Forms/CO/Rows"]
+custom_constants/separation = 6
+
+[node name="Label" type="Label" parent="Script/Forms/CO/Rows/Top"]
+text = "Object"
+
+[node name="Number" type="LineEdit" parent="Script/Forms/CO/Rows/Top"]
+rect_min_size = Vector2( 44, 0 )
+hint_tooltip = "Its number in the bank, 1-255"
+text = "1"
+script = ExtResource( 18 )
+Slot = 0
+
+[node name="BankLetters" type="HBoxContainer" parent="Script/Forms/CO/Rows/Top"]
+
+[node name="LetterBank255" type="Button" parent="Script/Forms/CO/Rows/Top/BankLetters"]
+rect_min_size = Vector2( 60, 0 )
+hint_tooltip = "[Custom Object 5] is object 255:5"
+toggle_mode = true
+pressed = true
+group = SubResource( 25 )
+text = "Bank 255"
+script = ExtResource( 17 )
+Letter = ""
+Slot = 1
+
+[node name="LetterBank254" type="Button" parent="Script/Forms/CO/Rows/Top/BankLetters"]
+rect_min_size = Vector2( 60, 0 )
+hint_tooltip = "[Custom Object B5] is object 254:5"
+toggle_mode = true
+group = SubResource( 25 )
+text = "Bank 254"
+script = ExtResource( 17 )
+Letter = "B"
+Slot = 1
+
+[node name="Fields" type="GridContainer" parent="Script/Forms/CO/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 3
+
+[node name="SizeLabel" type="Label" parent="Script/Forms/CO/Rows/Fields"]
+rect_min_size = Vector2( 76, 0 )
+text = "Frame"
+
+[node name="Width" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Frame width, 24 by default"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Tile Width"
+
+[node name="Height" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Frame height, 24 by default"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Tile Height"
+
+[node name="OffsetLabel" type="Label" parent="Script/Forms/CO/Rows/Fields"]
+text = "Offset"
+
+[node name="OffsetX" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Moves it across, in pixels"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Offset X"
+
+[node name="OffsetY" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Moves it down, in pixels"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Offset Y"
+
+[node name="ActsLabel" type="Label" parent="Script/Forms/CO/Rows/Fields"]
+text = "Acts like"
+
+[node name="Bank" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Bank of the stock object it acts like"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Bank"
+
+[node name="Object" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "That object"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Object"
+
+[node name="FramesLabel" type="Label" parent="Script/Forms/CO/Rows/Fields"]
+text = "Frames"
+
+[node name="From" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "First frame of its animation"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Init AnimFrom"
+
+[node name="To" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Last frame"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Init AnimTo"
+
+[node name="LoopLabel" type="Label" parent="Script/Forms/CO/Rows/Fields"]
+text = "Loop"
+
+[node name="Loopback" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Frame it loops back to"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Init AnimLoopback"
+
+[node name="Repeat" type="LineEdit" parent="Script/Forms/CO/Rows/Fields"]
+hint_tooltip = "Times it plays"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Init AnimRepeat"
+
+[node name="More" type="GridContainer" parent="Script/Forms/CO/Rows"]
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 6
+columns = 2
+
+[node name="ImageLabel" type="Label" parent="Script/Forms/CO/Rows/More"]
+rect_min_size = Vector2( 76, 0 )
+text = "Image"
+
+[node name="Image" type="LineEdit" parent="Script/Forms/CO/Rows/More"]
+hint_tooltip = "Sprite sheet in Custom Objects, frames left to right, top to bottom"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Image"
+
+[node name="SpeedLabel" type="Label" parent="Script/Forms/CO/Rows/More"]
+text = "Speed"
+
+[node name="Speed" type="LineEdit" parent="Script/Forms/CO/Rows/More"]
+hint_tooltip = "Animation speed"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Init AnimSpeed"
+
+[node name="ColorLabel" type="Label" parent="Script/Forms/CO/Rows/More"]
+text = "Colour"
+
+[node name="Color" type="LineEdit" parent="Script/Forms/CO/Rows/More"]
+hint_tooltip = "Tints a stock object: red + green×256 + blue×65536, each 0-255. 65536 is black"
+size_flags_horizontal = 3
+script = ExtResource( 14 )
+Key = "Color"
+
+[node name="HurtsLabel" type="Label" parent="Script/Forms/CO/Rows/More"]
+text = "Harmless"
+
+[node name="Hurts" type="CheckBox" parent="Script/Forms/CO/Rows/More"]
+hint_tooltip = "Safe to touch. Doesn't work with everything"
+text = "Doesn't hurt"
+script = ExtResource( 16 )
+Key = "Hurts"
+On = "False"
+
 [node name="ObjectPalette" parent="." instance=ExtResource( 10 )]
 unique_name_in_owner = true
 margin_top = 100.0
@@ -607,9 +2198,16 @@ dialog_text = "Leave the editor without saving?"
 [node name="TestDialog" parent="." instance=ExtResource( 11 )]
 unique_name_in_owner = true
 
+[node name="CellMenu" type="PopupMenu" parent="."]
+unique_name_in_owner = true
+margin_right = 20.0
+margin_bottom = 20.0
+items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here", null, 0, false, false, 1, 0, null, "", false, "Set start here", null, 0, false, false, 2, 0, null, "", false ]
+
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
-[connection signal="CellPicked" from="ScreenView" to="." method="_on_ScreenView_CellPicked"]
+[connection signal="CellMenu" from="ScreenView" to="." method="_on_ScreenView_CellMenu"]
+[connection signal="id_pressed" from="CellMenu" to="." method="_on_CellMenu_id_pressed"]
 [connection signal="CellHovered" from="ScreenView" to="." method="_on_ScreenView_CellHovered"]
 [connection signal="CellPlaced" from="ScreenView" to="." method="_on_ScreenView_CellPlaced"]
 [connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
@@ -633,6 +2231,16 @@ unique_name_in_owner = true
 [connection signal="ScreenSelected" from="MiniMap" to="." method="_on_MiniMap_ScreenSelected"]
 [connection signal="gui_input" from="Panel/Palette/Tileset" to="." method="_on_Tileset_gui_input"]
 [connection signal="confirmed" from="UnsavedDialog" to="." method="_on_UnsavedDialog_confirmed"]
+[connection signal="gui_input" from="Panel/Tabs/BackgroundTab" to="." method="_on_Value_gui_input" binds= [ 0 ]]
+[connection signal="gui_input" from="Panel/Tabs/TilesetATab" to="." method="_on_Value_gui_input" binds= [ 1 ]]
+[connection signal="gui_input" from="Panel/Tabs/TilesetBTab" to="." method="_on_Value_gui_input" binds= [ 2 ]]
+[connection signal="gui_input" from="Sounds/MusicRow" to="." method="_on_Value_gui_input" binds= [ 3 ]]
+[connection signal="gui_input" from="Sounds/AmbianceARow" to="." method="_on_Value_gui_input" binds= [ 4 ]]
+[connection signal="gui_input" from="Sounds/AmbianceBRow" to="." method="_on_Value_gui_input" binds= [ 5 ]]
+[connection signal="toggled" from="Sounds/PlayMusic" to="." method="_on_Play_toggled"]
+[connection signal="toggled" from="Sounds/PlayAmbianceA" to="." method="_on_Play_toggled"]
+[connection signal="toggled" from="Sounds/PlayAmbianceB" to="." method="_on_Play_toggled"]
+[connection signal="pressed" from="Sounds/PlayAll" to="." method="_on_PlayAll_pressed"]
 [connection signal="toggled" from="Panel/Tabs/TilesetAButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="toggled" from="Panel/Tabs/TilesetBButton" to="." method="_on_TilesetButton_toggled"]
 [connection signal="confirmed" from="GoToDialog" to="." method="_on_GoToDialog_confirmed"]
@@ -646,8 +2254,36 @@ unique_name_in_owner = true
 [connection signal="gui_input" from="Objects/ObjectValue" to="." method="_on_Object_gui_input"]
 [connection signal="gui_input" from="Objects/ObjectPreview" to="." method="_on_ObjectPreview_gui_input"]
 [connection signal="ObjectChosen" from="ObjectPalette" to="." method="_on_ObjectPalette_ObjectChosen"]
+[connection signal="toggled" from="MenuBar/ScriptButton" to="." method="_on_ScriptButton_toggled"]
+[connection signal="text_changed" from="Script/IniEdit" to="." method="_on_IniEdit_text_changed"]
+[connection signal="cursor_changed" from="Script/IniEdit" to="." method="_on_IniEdit_cursor_changed"]
+[connection signal="focus_exited" from="Script/IniEdit" to="." method="_on_IniEdit_focus_exited"]
 [connection signal="pressed" from="TestLevelButton" to="." method="_on_TestLevelButton_pressed"]
 [connection signal="gui_input" from="TestLevelButton" to="." method="_on_TestLevelButton_gui_input"]
 [connection signal="pressed" from="SetStartButton" to="." method="_on_SetStartButton_pressed"]
 [connection signal="confirmed" from="TestDialog" to="." method="_on_TestDialog_confirmed"]
 [connection signal="StartPickRequested" from="TestDialog" to="." method="_on_TestDialog_StartPickRequested"]
+[connection signal="Edited" from="Script/Forms/Sign" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Sign" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Sign" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/Warp" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Warp" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Warp" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/Shift" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Shift" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Shift" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/Trig" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Trig" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Trig" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/Misc" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Misc" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Misc" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/Cut" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/Cut" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/Cut" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/World" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/World" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/World" to="." method="_on_Form_Focused"]
+[connection signal="Edited" from="Script/Forms/CO" to="." method="_on_Form_Edited"]
+[connection signal="Done" from="Script/Forms/CO" to="." method="_on_Form_Done"]
+[connection signal="Focused" from="Script/Forms/CO" to="." method="_on_Form_Focused"]

@@ -71,6 +71,12 @@ public class EditorAssets
         return new AtlasTexture() { Atlas = image, Region = new Rect2(Vector2.Zero, size) };
     }
 
+    // Custom objects come from World.ini, which may have changed
+    public void forgetObjects()
+    {
+        objects.Clear();
+    }
+
     public Texture getBank(int bank)
     {
         if (!banks.ContainsKey(bank)) { banks[bank] = GDKnyttAssetManager.loadInternalTexture($"res://knytt/editor/objects/Bank{bank}/Bank.png"); }
@@ -101,6 +107,10 @@ public class EditorAssets
         }
         return swatches[bank];
     }
+
+    // For previews, so they loop
+    public AudioStream getMusic(int num) => num == 0 ? null : world.getWorldSound($"Music/Song{num}.ogg", loop: true) as AudioStream;
+    public AudioStream getAmbiance(int num) => num == 0 ? null : world.getWorldSound($"Ambiance/Ambi{num}.ogg", loop: true) as AudioStream;
 
     private Texture loadTexture(string path)
     {

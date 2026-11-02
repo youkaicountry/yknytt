@@ -39,6 +39,17 @@ public class EditorHistory
         }
     }
 
+    private class ValueChange : IChange
+    {
+        public KnyttArea area;
+        public ScreenValue value;
+        public int before;
+        public int after;
+
+        public void undo() { ScreenValues.set(area, value, before); }
+        public void redo() { ScreenValues.set(area, value, after); }
+    }
+
     private class FileChange : IChange
     {
         public GDKnyttWorldImpl world;
@@ -95,6 +106,13 @@ public class EditorHistory
         var before = new KnyttPoint(area.ObjectLayers[layer].lo[index], area.ObjectLayers[layer].hi[index]);
         if (before.Equals(id)) { return; }
         record(new ObjectChange() { area = area, layer = layer, index = index, before = before, after = id });
+    }
+
+    public void setValue(KnyttArea area, ScreenValue value, int number)
+    {
+        int before = ScreenValues.get(area, value);
+        if (before == number) { return; }
+        record(new ValueChange() { area = area, value = value, before = before, after = number });
     }
 
     public void setFile(GDKnyttWorldImpl world, string name, string text)

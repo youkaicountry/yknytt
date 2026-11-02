@@ -6,7 +6,7 @@ public class ScreenView : Control
     [Signal] public delegate void StrokeStarted();
     [Signal] public delegate void CellPainted(int x, int y);
     [Signal] public delegate void StrokeEnded();
-    [Signal] public delegate void CellPicked(int x, int y);
+    [Signal] public delegate void CellMenu(int x, int y);
     [Signal] public delegate void CellHovered(int x, int y);
     [Signal] public delegate void CellPlaced(int x, int y);
 
@@ -205,7 +205,7 @@ public class ScreenView : Control
         return inside ? cell : (Vector2?)null;
     }
 
-    // Touch has no right button: a tap paints, a drag paints a stroke, a long press picks
+    // Touch has no right button: a tap paints, a drag paints a stroke, a long press opens the menu
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton button)
@@ -232,7 +232,7 @@ public class ScreenView : Control
                 {
                     var start = touch_cell.Value;
                     touch_cell = null;
-                    if (OS.GetTicksMsec() - touch_time >= LONG_PRESS_MS) { pick(start); return; }
+                    if (OS.GetTicksMsec() - touch_time >= LONG_PRESS_MS) { menu(start); return; }
                     startStroke(start);
                 }
                 if (last_cell != null)
@@ -243,7 +243,7 @@ public class ScreenView : Control
             }
             else if (button.ButtonIndex == (int)ButtonList.Right && button.Pressed && cell != null)
             {
-                pick(cell.Value);
+                menu(cell.Value);
             }
         }
         else if (@event is InputEventMouseMotion motion)
@@ -269,9 +269,9 @@ public class ScreenView : Control
         paint(cell);
     }
 
-    private void pick(Vector2 cell)
+    private void menu(Vector2 cell)
     {
-        EmitSignal(nameof(CellPicked), (int)cell.x, (int)cell.y);
+        EmitSignal(nameof(CellMenu), (int)cell.x, (int)cell.y);
     }
 
     private void paint(Vector2 cell)

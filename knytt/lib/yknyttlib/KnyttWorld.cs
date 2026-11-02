@@ -57,14 +57,20 @@ namespace YKnyttLib
 
         public void loadWorldConfig(string world_ini)
         {
+            this.INIData = parseWorldIni(world_ini);
+            this.Info = new KnyttWorldInfo(INIData["World"]);
+        }
+
+        // Forgiving, like Knytt Stories: later keys win, bad lines are skipped
+        public static IniData parseWorldIni(string world_ini)
+        {
             var parser = new IniDataParser();
             parser.Configuration.AllowDuplicateKeys = true;
             parser.Configuration.OverrideDuplicateKeys = true;
             parser.Configuration.CaseInsensitive = true;
             parser.Configuration.AllowDuplicateSections = true;
             parser.Configuration.SkipInvalidLines = true;
-            this.INIData = parser.Parse(world_ini);
-            this.Info = new KnyttWorldInfo(INIData["World"]);
+            return parser.Parse(world_ini);
         }
 
         public void setBinMode(KnyttBinWorldLoader loader)

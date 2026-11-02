@@ -1,20 +1,24 @@
 using Godot;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using YKnyttLib;
 
 public class LevelEditor : Control
 {
     private static readonly Vector2 SCREEN_SIZE = new Vector2(700, 610);
+    private static readonly Vector2 SCRIPT_SIZE = new Vector2(1010, 610);
     private static readonly KnyttPoint DEFAULT_SCREEN = new KnyttPoint(1000, 1000);
+    private static readonly ScreenValue[] SOUNDS = { ScreenValue.Music, ScreenValue.AmbianceA, ScreenValue.AmbianceB };
 
     private enum FileMenu { Save, SaveAs, Quit }
     private enum EditMenu { Undo, Redo }
-    private enum OptionsMenu { FadeLayers }
+    private enum OptionsMenu { FadeLayers, FollowScript }
     private enum GoToMenu { Start, Default, Coordinates }
     private enum TestMenu { FromStart, FromHere, Profiles, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
+    private enum CellMenu { Pick, Test, Start }
 
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
     private static LevelEditor tested;
@@ -35,28 +39,83 @@ public class LevelEditor : Control
     private KnyttPoint start_area;
 
     private KnyttPoint coords;
-    private int background;
-    private int tileset_a;
-    private int tileset_b;
-    private int music;
-    private int ambiance_a;
-    private int ambiance_b;
+    private readonly int[] values = new int[ScreenValues.ALL.Length];
+    private readonly int?[] playing = new int?[SOUNDS.Length];
 
     private int layer = -1;
     private int selected_tile;
     private int selected_bank;
     private int selected_object;
     private ulong press_time;
+    private KnyttPoint menu_cell;
+    private readonly List<ObjectKey> menu_keys = new List<ObjectKey>();
+
+    // Objects with World.ini data: what the cell menu says, and the key its form opens at. No section: the screen's
+    private class ObjectKey
+    {
+        public string label, key, section;
+        public ObjectKey(string label, string key, string section = null)
+        {
+            this.label = label; this.key = key; this.section = section;
+        }
+    }
+
+    private static readonly Dictionary<KnyttPoint, ObjectKey> OBJECT_KEYS = objectKeys();
+
+    private static Dictionary<KnyttPoint, ObjectKey> objectKeys()
+    {
+        var keys = new Dictionary<KnyttPoint, ObjectKey>()
+        {
+            [new KnyttPoint(0, 2)] = new ObjectKey("Edit win scene", "Ending"),
+            [new KnyttPoint(0, 20)] = new ObjectKey("Edit warp", "WarpX(U)"),
+            [new KnyttPoint(0, 36)] = new ObjectKey("Edit title", "Title"),
+        };
+        foreach (char letter in "ABC")
+        {
+            int i = letter - 'A';
+            var sign = new ObjectKey($"Edit sign {letter}", $"Sign({letter})");
+            var shift = new ObjectKey($"Edit shift {letter}", $"ShiftXMap({letter})");
+            var trigger = new ObjectKey($"Edit trigger {letter}", $"TrigBank({letter})");
+            // Signs and sign areas, shifts, then triggers with their spawn points and delete areas
+            foreach (int first in new[] { 17, 29 }) { keys[new KnyttPoint(0, first + i)] = sign; }
+            keys[new KnyttPoint(0, 14 + i)] = shift;
+            foreach (int first in new[] { 32, 42, 45 }) { keys[new KnyttPoint(0, first + i)] = trigger; }
+        }
+        return keys;
+    }
+
+    // Custom objects are [Custom Object 5] for 255:5 and [Custom Object B5] for 254:5
+    private static ObjectKey objectKey(KnyttPoint id)
+    {
+        if (!ObjectCatalog.isCustom(id.x) || id.y == 0) { return OBJECT_KEYS.TryGetValue(id, out var key) ? key : null; }
+        string name = $"{(id.x == 254 ? "B" : "")}{id.y}";
+        return new ObjectKey($"Edit custom object {name}", "Image", $"Custom Object {name}");
+    }
     private bool quit_game;
     private KnyttPoint? hovered;
     private string status_message = "";
     private Placing placing;
     private List<string> test_profiles = new List<string>();
+    private string script_text;
+    private string script_newline;
 
     private ScreenView screen_view;
     private MiniMap mini_map;
     private ObjectPalette palette;
     private TestDialog test_dialog;
+    private Control script;
+    private TextEdit ini_edit;
+
+    // What a right-click in the text found: its section, the screen that is, and a form field for its key
+    private const int INI_GOTO = 1000, INI_FORM = 1001;
+    private int ini_menu_items = -1;
+    private string ini_section;
+    private KnyttPoint? ini_screen;
+    private IniForm ini_form;
+    private Control ini_field;
+    private string[] ini_letters;
+    private bool follow_script, following;
+    private string ini_key;
     private ConfirmationDialog goto_dialog;
     private ConfirmationDialog overwrite_dialog;
     private ConfirmationDialog save_as_dialog;
@@ -76,6 +135,12 @@ public class LevelEditor : Control
 
     public override void _Ready()
     {
+        script = GetNode<Control>("%Script");
+        ini_edit = GetNode<TextEdit>("%IniEdit");
+        ini_edit.AddColorRegion("[", "]", Color.Color8(222, 140, 210));
+        ini_edit.AddColorRegion(";", "", new Color(0.6f, 0.6f, 0.6f), lineOnly: true);
+        ini_edit.GetMenu().Connect("about_to_show", this, nameof(fillIniMenu));
+        ini_edit.GetMenu().Connect("id_pressed", this, nameof(_on_IniMenu_id_pressed));
         setupScreen();
 
         screen_view = GetNode<ScreenView>("%ScreenView");
@@ -104,6 +169,7 @@ public class LevelEditor : Control
 
         var options_menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
         options_menu.AddCheckItem("Fade other layers (hold Tab to see all)", (int)OptionsMenu.FadeLayers);
+        options_menu.AddCheckItem("Follow the script cursor (screen and form)", (int)OptionsMenu.FollowScript);
         options_menu.SetItemChecked(options_menu.GetItemIndex((int)OptionsMenu.FadeLayers), screen_view.FadeOthers);
         options_menu.Connect("id_pressed", this, nameof(_on_OptionsMenu_id_pressed));
 
@@ -141,37 +207,150 @@ public class LevelEditor : Control
 
     private void goTo(KnyttPoint coords)
     {
+        applyScript();
         this.coords = coords;
 
+        // An empty screen keeps the last values, for when it gets painted
         var area = world.getArea(coords);
         if (area != null && !area.Empty)
         {
-            background = area.Background;
-            tileset_a = area.TilesetB;
-            tileset_b = area.TilesetA;
-            music = area.Song;
-            ambiance_a = area.AtmosphereA;
-            ambiance_b = area.AtmosphereB;
+            foreach (var value in ScreenValues.ALL) { values[(int)value] = ScreenValues.get(area, value); }
         }
 
-        screen_view.showScreen(coords, background);
+        screen_view.showScreen(coords, value(ScreenValue.Background));
         mini_map.showScreen(world, coords);
-
-        GetNode<Label>("%MusicValue").Text = $"{music}";
-        GetNode<Label>("%AmbianceAValue").Text = $"{ambiance_a}";
-        GetNode<Label>("%AmbianceBValue").Text = $"{ambiance_b}";
-        GetNode<Label>("%BackgroundLabel").Text = $"Background {background}";
-        GetNode<Button>("%TilesetAButton").Text = $"A Tileset {tileset_a}";
-        GetNode<Button>("%TilesetBButton").Text = $"B Tileset {tileset_b}";
+        foreach (var value in ScreenValues.ALL) { GetNode<Label>($"%{value}Value").Text = $"{this.value(value)}"; }
         showStatus();
         showTileset();
+        showPreviews();
+        showScript();
         showChanged();
+    }
+
+    private int value(ScreenValue which) => values[(int)which];
+
+    private void changeValue(ScreenValue which, int step)
+    {
+        values[(int)which] = (value(which) + step) & 0xFF;
+        var area = world.getArea(coords);
+        bool empty = area == null || area.Empty;
+        if (!empty)
+        {
+            history.setValue(area, which, value(which));
+            history.end();
+        }
+        goTo(coords);
+        if (empty) { showStatus("No screen here yet. Painting makes one with these"); }
+    }
+
+    // Each channel whose button is down plays what this screen has
+    private void showPreviews()
+    {
+        for (int i = 0; i < SOUNDS.Length; i++)
+        {
+            int? number = GetNode<Button>($"%Play{SOUNDS[i]}").Pressed ? value(SOUNDS[i]) : (int?)null;
+            if (number == playing[i]) { continue; }
+            playing[i] = number;
+            var player = GetNode<AudioStreamPlayer>($"%{SOUNDS[i]}Player");
+            player.Stream = number == null ? null : SOUNDS[i] == ScreenValue.Music ? assets.getMusic(number.Value) : assets.getAmbiance(number.Value);
+            if (player.Stream == null) { player.Stop(); } else { player.Play(); }
+        }
+    }
+
+    private void stopPreviews()
+    {
+        foreach (var sound in SOUNDS) { GetNode<Button>($"%Play{sound}").SetPressedNoSignal(false); }
+        showPreviews();
     }
 
     private void showChanged()
     {
+        bool typed = script.Visible && ini_edit.Text != script_text;
         GetNode<ColorRect>("%ChangeLineTop").Color = GetNode<ColorRect>("%ChangeLineBottom").Color =
-            history.Modified ? CHANGED_COLOR : SAVED_COLOR;
+            history.Modified || typed ? CHANGED_COLOR : SAVED_COLOR;
+    }
+
+    // World.ini, at this screen's section
+    private void showScript()
+    {
+        if (!script.Visible) { return; }
+        string text = worldFile("World.ini");
+        script_newline = text.Contains("\r\n") ? "\r\n" : "\n";
+        script_text = text.Replace("\r\n", "\n");
+        if (ini_edit.Text != script_text) { ini_edit.Text = script_text; }
+        showForms();
+
+        int line = iniLine(script_text, ScreenSection);
+        if (line < 0 || following) { return; }
+        ini_edit.CursorSetLine(line, adjustViewport: false);
+        ini_edit.SetDeferred("scroll_vertical", line); // the new text isn't laid out yet
+    }
+
+    private string ScreenSection => $"x{coords.x}y{coords.y}";
+
+    // The forms show the text as it is, typed or not
+    private void showForms()
+    {
+        var ini = KnyttWorld.parseWorldIni(ini_edit.Text);
+        foreach (IniForm form in GetNode("%Forms").GetChildren()) { form.show(ini, ScreenSection); }
+    }
+
+    // New text, with the view kept where it was
+    private void setScriptText(string text)
+    {
+        var scroll = ini_edit.ScrollVertical;
+        ini_edit.Text = text;
+        ini_edit.ScrollVertical = scroll;
+        showChanged();
+    }
+
+    // Selects a key's line, or its section's when the key isn't there
+    private void showKey(string section, string key)
+    {
+        int line = iniLine(ini_edit.Text, section, key);
+        if (line < 0) { return; }
+        ini_edit.CursorSetLine(line);
+        ini_edit.Select(line, 0, line, ini_edit.GetLine(line).Length);
+    }
+
+    // The line of a key in a section, or of the section when the key isn't there. -1: no section
+    private static int iniLine(string text, string section, string key = null)
+    {
+        var lines = text.Split('\n');
+        int found = -1;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i].Trim();
+            if (line.StartsWith("["))
+            {
+                if (found >= 0) { break; }
+                if (line.ToLower() == $"[{section.ToLower()}]") { found = i; }
+            }
+            else if (found >= 0 && key != null && line.Split('=')[0].Trim().ToLower() == key.ToLower()) { return i; }
+        }
+        return found;
+    }
+
+    // What was typed goes into the level when the text loses focus, or before anything that needs it
+    private void applyScript()
+    {
+        if (!script.Visible || ini_edit.Text == script_text) { return; }
+        script_text = ini_edit.Text;
+        setWorldIni(script_text.Replace("\n", script_newline));
+    }
+
+    private void setWorldIni(string text)
+    {
+        history.setFile(world, "World.ini", text);
+        history.end();
+        assets.forgetObjects();
+        showChanged();
+    }
+
+    private string worldFile(string name)
+    {
+        var data = world.getWorldData(name);
+        return data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
     }
 
     private int SelectedTileValue => selected_tile == 0 ? 0 : selected_tile + (GetNode<Button>("%TilesetBButton").Pressed ? 128 : 0);
@@ -270,8 +449,7 @@ public class LevelEditor : Control
     // Only the positions change, the rest of DefaultSavegame.ini stays as it was
     private void setStart(KnyttPoint area, KnyttPoint position)
     {
-        var data = world.getWorldData("DefaultSavegame.ini");
-        string ini = data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
+        string ini = worldFile("DefaultSavegame.ini");
         ini = KnyttUtil.setIniValue(ini, "Positions", "X Map", $"{area.x}");
         ini = KnyttUtil.setIniValue(ini, "Positions", "Y Map", $"{area.y}");
         ini = KnyttUtil.setIniValue(ini, "Positions", "X Pos", $"{position.x}");
@@ -301,6 +479,7 @@ public class LevelEditor : Control
 
     private void test(KnyttPoint? area = null, KnyttPoint? position = null)
     {
+        applyScript();
         var save = TestProfile.startSave(world, test_dialog.Profile);
         if (area != null)
         {
@@ -311,6 +490,7 @@ public class LevelEditor : Control
         GDKnyttDataStore.KWorld = world;
 
         GetTree().SetInputAsHandled();
+        stopPreviews();
         restoreWindow();
         tested = this;
         GetTree().Root.RemoveChild(this);
@@ -366,12 +546,7 @@ public class LevelEditor : Control
         if (area == null || area.Empty)
         {
             area = KnyttArea.blank(world, coords);
-            area.Background = background;
-            area.TilesetB = tileset_a;
-            area.TilesetA = tileset_b;
-            area.Song = music;
-            area.AtmosphereA = ambiance_a;
-            area.AtmosphereB = ambiance_b;
+            foreach (var value in ScreenValues.ALL) { ScreenValues.set(area, value, this.value(value)); }
             history.addArea(world, area);
             mini_map.showScreen(world, coords);
         }
@@ -402,10 +577,9 @@ public class LevelEditor : Control
 
     private void refresh()
     {
+        assets.forgetObjects();
         showStart();
-        screen_view.Update();
-        mini_map.showScreen(world, coords);
-        showChanged();
+        goTo(coords);
     }
 
     private void showStatus(string message = "")
@@ -438,18 +612,25 @@ public class LevelEditor : Control
     private void showTileset()
     {
         bool show_b = GetNode<Button>("%TilesetBButton").Pressed;
-        GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(show_b ? tileset_b : tileset_a);
+        GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(value(show_b ? ScreenValue.TilesetB : ScreenValue.TilesetA));
         showBrush();
     }
 
     private bool Resizable => OS.HasFeature("pc") && !OS.WindowFullscreen && !OS.WindowMaximized;
 
+    private Vector2 ScreenSize => script.Visible ? SCRIPT_SIZE : SCREEN_SIZE;
+
     private void setupScreen()
+    {
+        game_window_size = OS.WindowSize;
+        stretch();
+    }
+
+    private void stretch()
     {
         GetTree().SetScreenStretch(
             GDKnyttSettings.SmoothScaling ? SceneTree.StretchMode.Mode2d : SceneTree.StretchMode.Viewport,
-            SceneTree.StretchAspect.Keep, SCREEN_SIZE);
-        game_window_size = OS.WindowSize;
+            SceneTree.StretchAspect.Keep, ScreenSize);
         fitWindow();
     }
 
@@ -464,12 +645,13 @@ public class LevelEditor : Control
     {
         if (!Resizable) { return; }
         var screen = OS.GetScreenSize() * 0.9f;
-        OS.WindowSize = SCREEN_SIZE * Mathf.Max(1, Mathf.Floor(Mathf.Min(screen.x / SCREEN_SIZE.x, screen.y / SCREEN_SIZE.y)));
+        OS.WindowSize = ScreenSize * Mathf.Max(1, Mathf.Floor(Mathf.Min(screen.x / ScreenSize.x, screen.y / ScreenSize.y)));
         OS.CenterWindow();
     }
 
     private void save()
     {
+        applyScript();
         if (world.WorldDirectory.StartsWith("res://")) { showSaveAsDialog(); return; }
         if (!overwrite_allowed.Contains(world.WorldDirectory))
         {
@@ -501,6 +683,7 @@ public class LevelEditor : Control
         if (result == Error.Ok) { overwrite_allowed.Add(world.WorldDirectory); history.markSaved(); }
         GDKnyttDataStore.setTitle(world.WorldDirectoryName);
         showSaveResult(result);
+        showScript();
     }
 
     private void showSaveResult(Error result)
@@ -512,6 +695,7 @@ public class LevelEditor : Control
 
     private void quit(bool game = false)
     {
+        applyScript();
         if (history.Modified)
         {
             quit_game = game;
@@ -519,6 +703,7 @@ public class LevelEditor : Control
             return;
         }
         if (game) { GetTree().Quit(); return; }
+        stopPreviews();
         restoreWindow();
         GetTree().ChangeScene("res://knytt/ui/MainMenu.tscn");
     }
@@ -527,6 +712,17 @@ public class LevelEditor : Control
     {
         if (what == MainLoop.NotificationWmQuitRequest) { quit(game: true); }
         if (what == MainLoop.NotificationWmGoBackRequest) { quit(); }
+    }
+
+    // Clicking anywhere else lets go of a script field, which keeps what was typed
+    public override void _Input(InputEvent @event)
+    {
+        var focus = GetFocusOwner();
+        if (@event is InputEventMouseButton button && button.Pressed && focus != null && script.IsAParentOf(focus) &&
+            !focus.GetGlobalRect().HasPoint(button.Position))
+        {
+            focus.ReleaseFocus();
+        }
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -541,10 +737,20 @@ public class LevelEditor : Control
             return;
         }
 
-        if (@event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
+        // Esc lets go of a script field, stops placing, then stops painting. Back and F2 leave
+        bool cancel = @event.IsActionPressed("ui_cancel");
+        if (cancel || @event.IsActionPressed("ui_back") || @event.IsActionPressed("main_menu"))
         {
             GetTree().SetInputAsHandled();
-            if (placing != Placing.None) { cancelPlacing(); } else { quit(); }
+            var focus = GetFocusOwner();
+            if (focus != null && script.IsAParentOf(focus)) { focus.ReleaseFocus(); }
+            else if (placing != Placing.None) { cancelPlacing(); }
+            else if (!cancel) { quit(); }
+            else if (layer >= 0)
+            {
+                selectLayer(layer);
+                showStatus("Painting off. A layer key or diamond paints again");
+            }
         }
         else if (@event is InputEventKey key && key.Pressed && !key.Echo && key.Scancode >= (uint)KeyList.Key0 && key.Scancode <= (uint)KeyList.Key7)
         {
@@ -598,6 +804,7 @@ public class LevelEditor : Control
 
     private void _on_EditMenu_id_pressed(int id)
     {
+        applyScript();
         bool changed = (EditMenu)id == EditMenu.Undo ? history.undo() : history.redo();
         if (changed) { refresh(); }
     }
@@ -608,6 +815,7 @@ public class LevelEditor : Control
         int index = menu.GetItemIndex(id);
         menu.SetItemChecked(index, !menu.IsItemChecked(index));
         if ((OptionsMenu)id == OptionsMenu.FadeLayers) { screen_view.FadeOthers = menu.IsItemChecked(index); }
+        if ((OptionsMenu)id == OptionsMenu.FollowScript) { follow_script = menu.IsItemChecked(index); }
         screen_view.Update();
     }
 
@@ -721,9 +929,127 @@ public class LevelEditor : Control
         showChanged();
     }
 
-    private void _on_ScreenView_CellPicked(int x, int y)
+    // Right-click, or a long press on touch
+    private void _on_ScreenView_CellMenu(int x, int y)
     {
-        if (placing != Placing.None) { cancelPlacing(); } else { pick(x, y); }
+        if (placing != Placing.None) { cancelPlacing(); return; }
+        menu_cell = new KnyttPoint(x, y);
+        var area = world.getArea(coords);
+        var menu = GetNode<PopupMenu>("%CellMenu");
+        menu.SetItemDisabled((int)CellMenu.Pick, layer < 0 || area == null || area.Empty);
+        menu.SetItemText((int)CellMenu.Test, test_dialog.Profile == null ? "Test from here" : $"Test from here: {test_dialog.Profile.Name}");
+        showObjectKeys(menu, area, menu_cell);
+        var size = menu.GetCombinedMinimumSize();
+        var view = GetViewportRect().Size;
+        var at = GetGlobalMousePosition();
+        menu.RectSize = Vector2.Zero;
+        menu.RectPosition = new Vector2(Mathf.Min(at.x, view.x - size.x), Mathf.Min(at.y, view.y - size.y));
+        menu.Popup_();
+    }
+
+    private void _on_CellMenu_id_pressed(int id)
+    {
+        switch ((CellMenu)id)
+        {
+            case CellMenu.Pick: pick(menu_cell.x, menu_cell.y); break;
+            case CellMenu.Test: test(coords, menu_cell); break;
+            case CellMenu.Start: setStart(coords, menu_cell); break;
+            default: editKey(menu_keys[id - CELL_MENU_KEYS].section ?? ScreenSection, menu_keys[id - CELL_MENU_KEYS].key); break;
+        }
+    }
+
+    private const int CELL_MENU_KEYS = 10;
+
+    // One item for each object on the cell with World.ini data, under the fixed ones
+    private void showObjectKeys(PopupMenu menu, KnyttArea area, KnyttPoint cell)
+    {
+        while (menu.GetItemCount() > (int)CellMenu.Start + 1) { menu.RemoveItem(menu.GetItemCount() - 1); }
+        menu_keys.Clear();
+        if (area == null || area.Empty) { return; }
+        foreach (var objects in area.ObjectLayers)
+        {
+            var key = objectKey(objects.getObjectID(cell.x, cell.y));
+            if (key == null || menu_keys.Any(shown => shown.label == key.label)) { continue; }
+            if (menu_keys.Count == 0) { menu.AddSeparator(); }
+            menu.AddItem(key.label, CELL_MENU_KEYS + menu_keys.Count);
+            menu_keys.Add(key);
+        }
+    }
+
+    // The form field for a key, the form and the letters it needs
+    private Control findField(string section, string key, out IniForm form, out string[] letters)
+    {
+        letters = null;
+        foreach (IniForm each in GetNode("%Forms").GetChildren())
+        {
+            form = each;
+            var field = each.find(section, key, out letters);
+            if (field != null) { return field; }
+        }
+        form = null;
+        return null;
+    }
+
+    private void editKey(string section, string key)
+    {
+        var field = findField(section, key, out var form, out var letters);
+        if (field != null) { showField(form, letters, field); }
+    }
+
+    // Opens the script panel at a form, with the letter chosen and the field ready to type in
+    private void showField(IniForm form, string[] letters, Control field)
+    {
+        GetNode<Button>("%ScriptButton").Pressed = true;
+        GetNode<TabContainer>("%Forms").CurrentTab = form.GetIndex();
+        if (letters != null) { form.choose(letters); }
+        if (field is LineEdit edit)
+        {
+            edit.GrabFocus();
+            edit.CaretPosition = edit.Text.Length;
+        }
+    }
+
+    // What's on a line of the text: its section, the screen that is, and the form field for its key.
+    // On a section's own line, a form for the section when it isn't a screen
+    private void readIniLine(int line)
+    {
+        var lines = ini_edit.Text.Split('\n');
+        ini_section = null;
+        ini_screen = null;
+        ini_field = null;
+        for (int i = line; i >= 0 && ini_section == null; i--)
+        {
+            var header = Regex.Match(lines[i], @"^\s*\[([^\]]+)\]");
+            if (header.Success) { ini_section = header.Groups[1].Value; }
+        }
+        if (ini_section == null) { return; }
+
+        var screen = Regex.Match(ini_section, @"^x(-?\d+)y(-?\d+)$", RegexOptions.IgnoreCase);
+        if (screen.Success) { ini_screen = new KnyttPoint(int.Parse(screen.Groups[1].Value), int.Parse(screen.Groups[2].Value)); }
+        ini_key = lines[line].Contains("=") ? lines[line].Split('=')[0].Trim() : null;
+        if (ini_key == null && ini_screen != null) { return; }
+        ini_field = findField(ini_section, ini_key, out ini_form, out ini_letters);
+    }
+
+    // Right-click in the text: go to the screen whose section it's in, or edit the line in its form
+    private void fillIniMenu()
+    {
+        var menu = ini_edit.GetMenu();
+        if (ini_menu_items < 0) { ini_menu_items = menu.GetItemCount(); }
+        while (menu.GetItemCount() > ini_menu_items) { menu.RemoveItem(menu.GetItemCount() - 1); }
+
+        readIniLine(ini_edit.CursorGetLine());
+        bool away = ini_screen != null && !ini_screen.Value.Equals(coords);
+        if (away || ini_field != null) { menu.AddSeparator(); }
+        if (away) { menu.AddItem($"Go to {ini_section}", INI_GOTO); }
+        if (ini_field != null) { menu.AddItem($"Edit {ini_key ?? $"[{ini_section}]"} in its form", INI_FORM); }
+    }
+
+    private void _on_IniMenu_id_pressed(int id)
+    {
+        if (id != INI_GOTO && id != INI_FORM) { return; }
+        if (ini_screen != null && !ini_screen.Value.Equals(coords)) { goTo(ini_screen.Value); }
+        if (id == INI_FORM) { showField(ini_form, ini_letters, ini_field); }
     }
 
     private void _on_ScreenView_CellPlaced(int x, int y)
@@ -771,6 +1097,79 @@ public class LevelEditor : Control
 
         GetTree().SetInputAsHandled();
         return button.Shift ? step * BIG_STEP : step;
+    }
+
+    private void _on_ScriptButton_toggled(bool pressed)
+    {
+        applyScript();
+        script.Visible = pressed;
+        GetNode<Button>("%ScriptButton").Text = pressed ? "Script <" : "Script >";
+        stretch();
+        showScript();
+    }
+
+    private void _on_IniEdit_text_changed()
+    {
+        showChanged();
+        showForms();
+    }
+
+    // Follow: the screen and the form go where the text cursor is
+    private void _on_IniEdit_cursor_changed()
+    {
+        if (!follow_script || !ini_edit.HasFocus()) { return; }
+        readIniLine(ini_edit.CursorGetLine());
+        if (ini_screen != null && !ini_screen.Value.Equals(coords))
+        {
+            following = true;
+            goTo(ini_screen.Value);
+            following = false;
+        }
+        if (ini_field == null) { return; }
+        GetNode<TabContainer>("%Forms").CurrentTab = ini_form.GetIndex();
+        ini_form.choose(ini_letters);
+    }
+
+    private void _on_IniEdit_focus_exited()
+    {
+        applyScript();
+    }
+
+    // Form edits go into the text as they're typed, and into the level when the field is done
+    private void _on_Form_Edited(string section, string key, string value)
+    {
+        setScriptText(KnyttUtil.setIniValue(ini_edit.Text, section, key, value == "" ? null : value));
+        showKey(section, key);
+    }
+
+    private void _on_Form_Done()
+    {
+        applyScript();
+    }
+
+    private void _on_Form_Focused(string section, string key)
+    {
+        showKey(section, key);
+    }
+
+    private void _on_Value_gui_input(InputEvent @event, int which)
+    {
+        int step = stepOf(@event);
+        if (step != 0) { changeValue((ScreenValue)which, step); }
+    }
+
+    private void _on_Play_toggled(bool pressed)
+    {
+        showPreviews();
+    }
+
+    // All on, or all off when they all play
+    private void _on_PlayAll_pressed()
+    {
+        bool all = true;
+        foreach (var sound in SOUNDS) { all &= GetNode<Button>($"%Play{sound}").Pressed; }
+        foreach (var sound in SOUNDS) { GetNode<Button>($"%Play{sound}").SetPressedNoSignal(!all); }
+        showPreviews();
     }
 
     private void _on_Bank_gui_input(InputEvent @event)

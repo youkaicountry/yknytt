@@ -253,6 +253,13 @@
     <Compile Include="knytt\editor\ObjectCatalog.cs" />
     <Compile Include="knytt\editor\ObjectPalette.cs" />
     <Compile Include="knytt\editor\ScreenView.cs" />
+    <Compile Include="knytt\editor\ScreenValue.cs" />
+    <Compile Include="knytt\editor\IniCheckBox.cs" />
+    <Compile Include="knytt\editor\IniForm.cs" />
+    <Compile Include="knytt\editor\IniLetterButton.cs" />
+    <Compile Include="knytt\editor\IniLetterEdit.cs" />
+    <Compile Include="knytt\editor\IniLineEdit.cs" />
+    <Compile Include="knytt\editor\IniOptionButton.cs" />
     <Compile Include="knytt\editor\TestDialog.cs" />
     <Compile Include="knytt\editor\TestProfile.cs" />
     <Compile Include="knytt\editor\WorldName.cs" />
