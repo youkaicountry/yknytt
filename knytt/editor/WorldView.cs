@@ -554,13 +554,19 @@ public class WorldView : Control
         if (!drawn.Add(((int)from.x / 2, (int)from.y / 2, (int)to.x / 2, (int)to.y / 2, link.color.ToRgba32() ^ (int)(alpha * 255) ^ (int)width))) { return; }
         var color = new Color(link.color, alpha);
         var shadow = new Color(SHADOW, SHADOW.a * alpha);
-        drawLine(from, to, shadow, width + 2, link.dashed);
-        drawLine(from, to, color, width, link.dashed);
-        dot(from, 3, color);
 
-        var back = (from - to).Normalized() * (8 + width);
-        var side = new Vector2(-back.y, back.x) * 0.5f;
-        triangle(to, to + back + side, to + back - side, color, color, color);
+        // The shaft stops where the head starts: past it, it showed beside the tip and through the head
+        float length = (to - from).Length();
+        var way = (to - from) / length;
+        var side = new Vector2(-way.y, way.x);
+        float head = Mathf.Min(8 + width, length / 2);
+        var neck = to - way * head;
+        drawLine(from, neck, shadow, width + 2, link.dashed);
+        // The head's shadow is 1px wider all round, like the shaft's: its sides are at 26.6 degrees
+        triangle(to + way * 2.24f, neck + side * (head / 2 + 1.12f), neck - side * (head / 2 + 1.12f), shadow, shadow, shadow);
+        drawLine(from, neck, color, width, link.dashed);
+        dot(from, 3, color);
+        triangle(to, neck + side * head / 2, neck - side * head / 2, color, color, color);
     }
 
     private void triangle(Vector2 a, Vector2 b, Vector2 c, Color color_a, Color color_b, Color color_c)
