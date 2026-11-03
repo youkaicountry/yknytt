@@ -13,10 +13,10 @@ public class LevelEditor : Control
     private static readonly ScreenValue[] SOUNDS = { ScreenValue.Music, ScreenValue.AmbianceA, ScreenValue.AmbianceB };
 
     private enum FileMenu { Save, SaveAs, Quit }
-    private enum EditMenu { Undo, Redo }
+    private enum EditMenu { Undo, Redo, LevelStart }
     private enum OptionsMenu { FadeLayers, FollowScript }
     private enum GoToMenu { Start, Default, Coordinates, WorldMap }
-    private enum TestMenu { FromStart, FromHere, Profiles, Profile = 100 }
+    private enum TestMenu { FromStart, FromHere, Profiles, UseAsStart, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
     private enum CellMenu { Pick, Test, Start }
 
@@ -166,6 +166,8 @@ public class LevelEditor : Control
         var edit_menu = GetNode<MenuButton>("%EditMenu").GetPopup();
         edit_menu.AddItem("Undo", (int)EditMenu.Undo, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.Z);
         edit_menu.AddItem("Redo", (int)EditMenu.Redo, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.Y);
+        edit_menu.AddSeparator();
+        edit_menu.AddItem("Level start", (int)EditMenu.LevelStart);
         edit_menu.Connect("id_pressed", this, nameof(_on_EditMenu_id_pressed));
 
         var options_menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
@@ -478,7 +480,7 @@ public class LevelEditor : Control
     {
         bool reopen = placing == Placing.Profile;
         place(Placing.None);
-        if (reopen) { test_dialog.open(); }
+        if (reopen) { test_dialog.reopen(); }
     }
 
     private void test(KnyttPoint? area = null, KnyttPoint? position = null)
@@ -534,6 +536,8 @@ public class LevelEditor : Control
         }
         menu.AddSeparator();
         menu.AddItem("Profiles", (int)TestMenu.Profiles, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.T);
+        menu.AddItem(test_dialog.Profile == null ? "Use as level start" : $"Use {test_dialog.Profile.Name} as level start", (int)TestMenu.UseAsStart);
+        menu.SetItemDisabled(menu.GetItemCount() - 1, test_dialog.Profile == null);
     }
 
     private void showLayer(int layer, bool shown)
@@ -584,6 +588,7 @@ public class LevelEditor : Control
         assets.forgetObjects();
         showStart();
         goTo(coords);
+        test_dialog.refresh();
     }
 
     private void showStatus(string message = "")
@@ -808,6 +813,7 @@ public class LevelEditor : Control
 
     private void _on_EditMenu_id_pressed(int id)
     {
+        if ((EditMenu)id == EditMenu.LevelStart) { test_dialog.open(level: true); return; }
         applyScript();
         bool changed = (EditMenu)id == EditMenu.Undo ? history.undo() : history.redo();
         if (changed) { refresh(); }
@@ -853,6 +859,10 @@ public class LevelEditor : Control
             case TestMenu.FromStart: test(); break;
             case TestMenu.FromHere: testFromHere(); break;
             case TestMenu.Profiles: test_dialog.open(); break;
+            case TestMenu.UseAsStart:
+                test_dialog.useAsLevelStart(test_dialog.Profile);
+                showStatus($"Level start: {test_dialog.Profile.Name}");
+                break;
             default:
                 int index = id - (int)TestMenu.Profile - 1;
                 test_dialog.choose(index < 0 ? null : test_profiles[index]);
@@ -887,7 +897,23 @@ public class LevelEditor : Control
 
     private void _on_TestDialog_confirmed()
     {
+        test_dialog.chooseShown();
         test();
+    }
+
+    private void _on_TestDialog_LevelChanged(string text, bool done)
+    {
+        history.setFile(world, "DefaultSavegame.ini", text);
+        if (done) { history.end(); }
+        showStart();
+        showChanged();
+    }
+
+    private void _on_SetStartButton_gui_input(InputEvent @event)
+    {
+        if (!(@event is InputEventMouseButton button) || !button.Pressed || button.ButtonIndex != (int)ButtonList.Right) { return; }
+        GetTree().SetInputAsHandled();
+        test_dialog.open(level: true);
     }
 
     private void _on_TestDialog_StartPickRequested()
@@ -1067,7 +1093,11 @@ public class LevelEditor : Control
         {
             case Placing.Start: setStart(coords, spot); break;
             case Placing.Test: test(coords, spot); break;
-            case Placing.Profile: test_dialog.setStart(coords, spot); test_dialog.open(); break;
+            case Placing.Profile:
+                if (test_dialog.LevelShown) { setStart(coords, spot); }
+                else { test_dialog.setStart(coords, spot); }
+                test_dialog.reopen();
+                break;
         }
     }
 

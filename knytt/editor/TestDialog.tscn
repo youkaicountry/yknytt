@@ -22,7 +22,8 @@ margin_bottom = -36.0
 
 [node name="ProfileLabel" type="Label" parent="Form/ProfileRow"]
 rect_min_size = Vector2( 64, 0 )
-hint_tooltip = "What Juni starts a test with. Kept on this computer, not in the level"
+hint_tooltip = "What Juni starts with. Level default is the level's own start, saved in it.
+Profiles are for tests, kept on this computer"
 mouse_filter = 0
 text = "Profile"
 
@@ -57,6 +58,12 @@ unique_name_in_owner = true
 focus_mode = 0
 hint_tooltip = "Take the powers, flags and items Juni had when the last test ended"
 text = "From last test"
+
+[node name="UseButton" type="Button" parent="Form/NameRow"]
+unique_name_in_owner = true
+hint_tooltip = "Put this profile into the level's own start: powers, flags, items, More, and its start if it has one"
+focus_mode = 0
+text = "Use as level start"
 
 [node name="StartRow" type="HBoxContainer" parent="Form"]
 
@@ -295,6 +302,7 @@ size_flags_vertical = 3
 [connection signal="focus_exited" from="Form/NameRow/NameEdit" to="." method="_on_NameEdit_focus_exited"]
 [connection signal="text_entered" from="Form/NameRow/NameEdit" to="." method="_on_NameEdit_text_entered"]
 [connection signal="pressed" from="Form/NameRow/LastTestButton" to="." method="_on_LastTestButton_pressed"]
+[connection signal="pressed" from="Form/NameRow/UseButton" to="." method="_on_UseButton_pressed"]
 [connection signal="pressed" from="Form/StartRow/PickButton" to="." method="_on_PickButton_pressed"]
 [connection signal="pressed" from="Form/StartRow/ClearButton" to="." method="_on_ClearButton_pressed"]
 [connection signal="toggled" from="Form/PowersRow/Powers/Power0" to="." method="_on_Power_toggled" binds= [ 0 ]]
@@ -324,4 +332,6 @@ size_flags_vertical = 3
 [connection signal="Changed" from="Form/CoinsRow/Coins" to="." method="_on_Collectables_changed"]
 [connection signal="Changed" from="Form/ArtifactsRow/Artifacts" to="." method="_on_Collectables_changed"]
 [connection signal="value_changed" from="Form/CoinsRow/CoinsSpent" to="." method="_on_CoinsSpent_value_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_TestDialog_visibility_changed"]
 [connection signal="text_changed" from="Form/ArtifactsRow/MoreBox/MoreEdit" to="." method="_on_MoreEdit_text_changed"]
+[connection signal="focus_exited" from="Form/ArtifactsRow/MoreBox/MoreEdit" to="." method="_on_MoreEdit_focus_exited"]

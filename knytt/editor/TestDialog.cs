@@ -2,10 +2,11 @@ using Godot;
 using System.Collections.Generic;
 using YKnyttLib;
 
-// Test profiles: the state Juni starts a test with
+// What Juni starts with: the level's own start (DefaultSavegame.ini), or a test profile laid over it
 public class TestDialog : ConfirmationDialog
 {
     [Signal] public delegate void StartPickRequested();
+    [Signal] public delegate void LevelChanged(string text, bool done);
 
     private static readonly Dictionary<string, string> chosen = new Dictionary<string, string>();
     private static readonly Color ERROR_COLOR = new Color(1, 0.4f, 0.4f);
@@ -14,6 +15,10 @@ public class TestDialog : ConfirmationDialog
 
     public TestProfile Profile { get; private set; }
     public KnyttSave LastTest { get; set; }
+
+    // What the form edits: Profile, or the level's start
+    private TestProfile shown;
+    public bool LevelShown => shown?.IsLevel ?? true;
 
     private GDKnyttWorldImpl world;
     private List<string> names;
@@ -56,68 +61,81 @@ public class TestDialog : ConfirmationDialog
         chosen[world.WorldDirectoryName] = Profile?.Name;
     }
 
-    public void open()
+    // The chosen profile, or the level's start
+    public void open(bool level = false)
+    {
+        shown = level ? null : Profile;
+        reopen();
+    }
+
+    // Shows the same one again, as it is now
+    public void reopen()
     {
         findPlaced();
         showProfile();
         PopupCentered();
     }
 
+    public void refresh()
+    {
+        if (Visible) { showProfile(); }
+    }
+
+    // Testing tests what's shown
+    public void chooseShown()
+    {
+        choose(LevelShown ? null : shown.Name);
+    }
+
+    public void useAsLevelStart(TestProfile profile)
+    {
+        EmitSignal(nameof(LevelChanged), TestProfile.levelTextWith(world, profile), true);
+    }
+
     public void setStart(KnyttPoint area, KnyttPoint position)
     {
-        Profile.setStart(area, position);
-        Profile.save();
+        shown.setStart(area, position);
+        shown.save();
     }
 
     private void showProfile()
     {
         filling = true;
-        var shown = Profile ?? TestProfile.levelDefault(world);
-        bool editable = Profile != null;
+        if (LevelShown) { shown = TestProfile.levelDefault(world); }
+        bool profile = !shown.IsLevel;
+        WindowTitle = profile ? "Test profiles" : "Level start";
 
         names = Names;
         var list = GetNode<OptionButton>("%Profiles");
         list.Clear();
         list.AddItem("Level default");
         foreach (string name in names) { list.AddItem(name); }
-        list.Select(names.IndexOf(Profile?.Name) + 1);
+        list.Select(profile ? names.IndexOf(shown.Name) + 1 : 0);
 
-        name_edit.Text = Profile?.Name ?? "";
-        name_edit.Editable = editable;
-        GetNode<Button>("%DeleteButton").Disabled = !editable;
-        GetNode<Button>("%LastTestButton").Disabled = !editable || LastTest == null;
-        GetNode<Button>("%PickButton").Disabled = !editable;
-        GetNode<Button>("%ClearButton").Disabled = !editable || !Profile.HasStart;
+        name_edit.Text = profile ? shown.Name : "";
+        name_edit.Editable = profile;
+        GetNode<Button>("%DeleteButton").Disabled = !profile;
+        GetNode<Button>("%LastTestButton").Disabled = !profile || LastTest == null;
+        GetNode<Button>("%UseButton").Disabled = !profile;
+        GetNode<Button>("%ClearButton").Disabled = !profile || !shown.HasStart;
 
         var area = shown.Save.getArea();
         var position = shown.Save.getAreaPosition();
         GetNode<Label>("%StartLabel").Text = shown.HasStart ? $"x{area.x}y{area.y}  {position.x}, {position.y}" : "Level start";
 
-        for (int i = 0; i < POWERS; i++)
-        {
-            var power = GetNode<CheckBox>($"%Power{i}");
-            power.Pressed = shown.Save.getPower(i);
-            power.Disabled = !editable;
-        }
-        for (int i = 0; i < FLAGS; i++)
-        {
-            var flag = GetNode<CheckBox>($"%Flag{i}");
-            flag.Pressed = shown.Save.getFlag(i);
-            flag.Disabled = !editable;
-        }
+        for (int i = 0; i < POWERS; i++) { GetNode<CheckBox>($"%Power{i}").Pressed = shown.Save.getPower(i); }
+        for (int i = 0; i < FLAGS; i++) { GetNode<CheckBox>($"%Flag{i}").Pressed = shown.Save.getFlag(i); }
 
         shown.Save.getCollectables(out collected, out int spent);
         foreach (var grid in grids)
         {
             grid.Collected = collected;
-            grid.MouseFilter = editable ? Control.MouseFilterEnum.Stop : Control.MouseFilterEnum.Ignore;
             grid.Update();
         }
         coins_spent.Value = spent;
-        coins_spent.Editable = editable;
 
-        more_edit.Text = shown.More;
-        more_edit.Readonly = !editable;
+        // Keep the caret when the text is the same (an undo while typing)
+        if (more_edit.Text != shown.More) { more_edit.Text = shown.More; }
         GetNode<Label>("%MoreLabel").RemoveColorOverride("font_color");
         filling = false;
     }
@@ -151,22 +169,25 @@ public class TestDialog : ConfirmationDialog
         return placed.TryGetValue(id, out var area) ? $"{name}\n19:{id}, at x{area.x}y{area.y}" : $"{name}\n19:{id}, not in the level";
     }
 
-    private void saveProfile()
+    // The level's start goes to the editor, which keeps it undoable. Typing is one step until done
+    private void saveProfile(bool done = true)
     {
-        if (filling || Profile == null) { return; }
-        Profile.save();
+        if (filling) { return; }
+        if (shown.IsLevel) { EmitSignal(nameof(LevelChanged), shown.LevelText, done); }
+        else { shown.save(); }
     }
 
     private void _on_Profiles_item_selected(int index)
     {
         choose(index == 0 ? null : names[index - 1]);
+        shown = Profile;
         showProfile();
     }
 
     private void _on_NewButton_pressed()
     {
-        var from = Profile ?? TestProfile.levelDefault(world);
-        choose(TestProfile.create(world, Profile?.Name ?? "Test", from.Save).Name);
+        choose(TestProfile.create(world, shown.IsLevel ? "Test" : shown.Name, shown.Save).Name);
+        shown = Profile;
         showProfile();
         name_edit.GrabFocus();
         name_edit.SelectAll();
@@ -174,8 +195,9 @@ public class TestDialog : ConfirmationDialog
 
     private void _on_DeleteButton_pressed()
     {
-        Profile.delete();
+        shown.delete();
         choose(null);
+        shown = null;
         showProfile();
     }
 
@@ -186,16 +208,25 @@ public class TestDialog : ConfirmationDialog
 
     private void _on_NameEdit_focus_exited()
     {
-        if (Profile == null) { return; }
-        Profile.rename(name_edit.Text);
-        choose(Profile.Name);
+        if (shown.IsLevel) { return; }
+        shown.rename(name_edit.Text);
+        choose(shown.Name);
+        shown = Profile;
+        showProfile();
+    }
+
+    // Shows the level's start after, so the change is in view
+    private void _on_UseButton_pressed()
+    {
+        useAsLevelStart(shown);
+        shown = null;
         showProfile();
     }
 
     private void _on_LastTestButton_pressed()
     {
-        Profile.takeState(LastTest);
-        Profile.save();
+        shown.takeState(LastTest);
+        shown.save();
         showProfile();
     }
 
@@ -207,29 +238,29 @@ public class TestDialog : ConfirmationDialog
 
     private void _on_ClearButton_pressed()
     {
-        Profile.clearStart();
-        Profile.save();
+        shown.clearStart();
+        shown.save();
         showProfile();
     }
 
     private void _on_Power_toggled(bool pressed, int power)
     {
         if (filling) { return; }
-        Profile.Save.setPower(power, pressed);
+        shown.Save.setPower(power, pressed);
         saveProfile();
     }
 
     private void _on_Flag_toggled(bool pressed, int flag)
     {
         if (filling) { return; }
-        Profile.Save.setFlag(flag, pressed);
+        shown.Save.setFlag(flag, pressed);
         saveProfile();
     }
 
     private void _on_Collectables_changed()
     {
         if (filling) { return; }
-        Profile.setCollectables(collected, (int)coins_spent.Value);
+        shown.setCollectables(collected, (int)coins_spent.Value);
         saveProfile();
     }
 
@@ -241,10 +272,20 @@ public class TestDialog : ConfirmationDialog
     private void _on_MoreEdit_text_changed()
     {
         if (filling) { return; }
-        bool valid = Profile.setMore(more_edit.Text);
+        bool valid = shown.setMore(more_edit.Text);
         var label = GetNode<Label>("%MoreLabel");
         if (!valid) { label.AddColorOverride("font_color", ERROR_COLOR); return; }
         label.RemoveColorOverride("font_color");
+        saveProfile(done: false);
+    }
+
+    private void _on_MoreEdit_focus_exited()
+    {
         saveProfile();
+    }
+
+    private void _on_TestDialog_visibility_changed()
+    {
+        if (!Visible && (shown?.IsLevel ?? false)) { saveProfile(); }
     }
 }

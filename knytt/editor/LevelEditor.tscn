@@ -249,7 +249,8 @@ margin_top = 318.0
 margin_right = 192.0
 margin_bottom = 336.0
 focus_mode = 0
-hint_tooltip = "Then click where Juni starts the level"
+hint_tooltip = "Then click where Juni starts the level
+Right-click: what she starts with"
 toggle_mode = true
 texture_pressed = ExtResource( 26 )
 
@@ -2285,8 +2286,10 @@ items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here"
 [connection signal="pressed" from="TestLevelButton" to="." method="_on_TestLevelButton_pressed"]
 [connection signal="gui_input" from="TestLevelButton" to="." method="_on_TestLevelButton_gui_input"]
 [connection signal="pressed" from="SetStartButton" to="." method="_on_SetStartButton_pressed"]
+[connection signal="gui_input" from="SetStartButton" to="." method="_on_SetStartButton_gui_input"]
 [connection signal="confirmed" from="TestDialog" to="." method="_on_TestDialog_confirmed"]
 [connection signal="StartPickRequested" from="TestDialog" to="." method="_on_TestDialog_StartPickRequested"]
+[connection signal="LevelChanged" from="TestDialog" to="." method="_on_TestDialog_LevelChanged"]
 [connection signal="Edited" from="Script/Forms/Sign" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Sign" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Sign" to="." method="_on_Form_Focused"]

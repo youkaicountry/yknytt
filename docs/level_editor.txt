@@ -121,6 +121,16 @@ Testing:
 - The game plays the map the editor holds in memory, unsaved changes included
 - While testing nothing is written: no save files, no map cache, no stats sent
 
+Level start (Edit > Level start, right-click SET START):
+- DefaultSavegame.ini in the same form as test profiles: start, powers, flags, collectables, coins spent, More.
+  Only the keys that change are rewritten (KnyttUtil.setIniValue), so the rest of the file stays byte for byte.
+  [World] is left alone (it's the save's folder name)
+- Each change is one undo step, typing in More is one step until it loses focus or the dialog closes
+- Undo doesn't reach the menu while the dialog is open (it's modal); after an undo it shows the file as it is
+- Pick moves the level start like SET START. Test plays what the dialog shows
+- Use as level start (in the dialog, or Test > Use X as level start for the chosen profile): the profile laid over
+  the level's start, like a test starts, written as one undo step. Picking a profile in the list never writes the level
+
 Test profiles:
 - A profile is a start state: a savegame that only holds what it sets, laid over DefaultSavegame.ini at start
 - Stored on this machine, never in the level: <data>/Editor/<level folder>/Tests/<name>.ini
@@ -137,7 +147,6 @@ Scripts later (Lua):
 - Same idea could give scripted objects editor fields (per object instance values in the screen's INI section)
 
 Open:
-- Level default is read only in the dialog; editing it belongs to level settings (DefaultSavegame.ini)
 - Save as gives the level a new folder name, profiles stay under the old one
 - Folder (unpacked) levels have no copy in memory, so SET START and World.ini edits go to disk at once
 - Detailed map caches from real play may show stale screens during a test

@@ -11,6 +11,7 @@ public class TestProfile
 {
     public string Name { get; private set; }
     public KnyttSave Save { get; }
+    public bool IsLevel { get; private set; }
 
     private static readonly string[] STATISTICS =
         { "Total Deaths", "Total Time", "Hardest Place", "Hardest Place Deaths", "Visited Areas", "Gzipped Visited Areas" };
@@ -50,11 +51,50 @@ public class TestProfile
         return data == null ? null : new TestProfile(world, name, GDKnyttAssetManager.loadTextFile(data));
     }
 
-    // The level's own start, read only
-    public static TestProfile levelDefault(KnyttWorld world)
+    // The level's own start, from DefaultSavegame.ini
+    public static TestProfile levelDefault(KnyttWorld world) =>
+        new TestProfile(world, "Level default", levelFile(world)) { IsLevel = true };
+
+    private static string levelFile(KnyttWorld world)
     {
         var data = world.getWorldData("DefaultSavegame.ini");
-        return new TestProfile(world, "Level default", data == null ? "" : GDKnyttAssetManager.loadTextFile(data));
+        return data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
+    }
+
+    // The level starting the way a profile tests: the profile laid over the level's start
+    public static string levelTextWith(KnyttWorld world, TestProfile profile)
+    {
+        var level = levelDefault(world);
+        level.Save.Data.Merge(profile.Save.Data);
+        return level.LevelText;
+    }
+
+    // DefaultSavegame.ini with only the keys that changed rewritten, so the rest stays as it was.
+    // [World] is the save's own folder name, not the level's
+    public string LevelText
+    {
+        get
+        {
+            string ini = levelFile(world);
+            var before = new IniDataParser().Parse(ini);
+            foreach (var section in Save.Data.Sections.Where(section => section.SectionName != "World"))
+            {
+                foreach (var key in section.Keys)
+                {
+                    if (before.Sections.GetSectionData(section.SectionName)?.Keys[key.KeyName] == key.Value) { continue; }
+                    ini = KnyttUtil.setIniValue(ini, section.SectionName, key.KeyName, key.Value);
+                }
+            }
+            foreach (var section in before.Sections.Where(section => section.SectionName != "World"))
+            {
+                foreach (var key in section.Keys)
+                {
+                    if (Save.Data.Sections.GetSectionData(section.SectionName)?.Keys.ContainsKey(key.KeyName) ?? false) { continue; }
+                    ini = KnyttUtil.setIniValue(ini, section.SectionName, key.KeyName, null);
+                }
+            }
+            return ini;
+        }
     }
 
     // What a test starts with: the level's start with the profile laid over it
