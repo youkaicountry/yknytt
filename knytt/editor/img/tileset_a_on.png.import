@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/play.png-0f7748eef4d02a22f140d8d2d54289eb.stex"
+path="res://.import/tileset_a_on.png-7fdbfd4e0c5f9bd20ed2ff50bdcc3879.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://knytt/editor/img/play.png"
-dest_files=[ "res://.import/play.png-0f7748eef4d02a22f140d8d2d54289eb.stex" ]
+source_file="res://knytt/editor/img/tileset_a_on.png"
+dest_files=[ "res://.import/tileset_a_on.png-7fdbfd4e0c5f9bd20ed2ff50bdcc3879.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

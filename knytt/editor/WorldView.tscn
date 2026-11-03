@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://knytt/editor/WorldView.cs" type="Script" id=1]
+[ext_resource path="res://knytt/juni/juni.png" type="Texture" id=2]
+
+[node name="WorldView" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+script = ExtResource( 1 )
+JuniTexture = ExtResource( 2 )
+
+[node name="Overlay" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Bar" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_bottom = 24.0
+color = Color( 0.1, 0.1, 0.12, 0.9 )
+
+[node name="Row" type="HBoxContainer" parent="Bar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_right = -6.0
+custom_constants/separation = 8
+
+[node name="ColourLabel" type="Label" parent="Bar/Row"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "Colour"
+
+[node name="ColourBy" type="OptionButton" parent="Bar/Row"]
+unique_name_in_owner = true
+margin_left = 45.0
+margin_right = 145.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 100, 0 )
+focus_mode = 0
+hint_tooltip = "Colour screens by what they use. Ambiance and tilesets: A on top, B below"
+text = "Nothing"
+items = [ "Nothing", null, false, 0, null, "Music", null, false, 1, null, "Ambiance", null, false, 2, null, "Tilesets", null, false, 3, null, "Map colour", null, false, 4, null ]
+selected = 0
+
+[node name="Warps" type="CheckBox" parent="Bar/Row"]
+unique_name_in_owner = true
+focus_mode = 0
+hint_tooltip = "Warps, shifts and flag warps: where they send Juni. Red: nothing there
+A click in the key turns one kind on or off"
+pressed = true
+text = "Warps & shifts"
+
+[node name="Pickups" type="CheckBox" parent="Bar/Row"]
+unique_name_in_owner = true
+focus_mode = 0
+hint_tooltip = "Powers, keys, creatures, coins, artifacts
+A click in the key turns one kind on or off"
+pressed = true
+text = "Pickups"
+
+[node name="Saves" type="CheckBox" parent="Bar/Row"]
+unique_name_in_owner = true
+focus_mode = 0
+hint_tooltip = "Save points
+A click in the key turns one kind on or off"
+text = "Saves"
+
+[node name="Signs" type="CheckBox" parent="Bar/Row"]
+unique_name_in_owner = true
+focus_mode = 0
+hint_tooltip = "Signs, triggers, wins, custom objects
+A click in the key turns one kind on or off"
+pressed = true
+text = "Signs & triggers"
+
+[node name="Space" type="Control" parent="Bar/Row"]
+margin_left = 460.0
+margin_right = 584.0
+margin_bottom = 24.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="Fit" type="Button" parent="Bar/Row"]
+margin_left = 592.0
+margin_right = 621.0
+margin_bottom = 24.0
+focus_mode = 0
+hint_tooltip = "The whole level (Home)"
+text = "Fit"
+
+[node name="Close" type="Button" parent="Bar/Row"]
+margin_left = 629.0
+margin_right = 676.0
+margin_bottom = 24.0
+focus_mode = 0
+hint_tooltip = "Back to the screen (Esc, M)"
+text = "Close"
+
+[node name="InfoBar" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -20.0
+mouse_filter = 2
+color = Color( 0.1, 0.1, 0.12, 0.9 )
+
+[node name="Info" type="Label" parent="InfoBar"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_right = -6.0
+valign = 1
+clip_text = true
+
+[connection signal="mouse_exited" from="." to="." method="_on_WorldView_mouse_exited"]
+[connection signal="draw" from="Overlay" to="." method="_on_Overlay_draw"]
+[connection signal="item_selected" from="Bar/Row/ColourBy" to="." method="_on_ColourBy_item_selected"]
+[connection signal="toggled" from="Bar/Row/Warps" to="." method="_on_Group_toggled" binds= [ "Warps" ]]
+[connection signal="toggled" from="Bar/Row/Pickups" to="." method="_on_Group_toggled" binds= [ "Pickups" ]]
+[connection signal="toggled" from="Bar/Row/Saves" to="." method="_on_Group_toggled" binds= [ "Saves" ]]
+[connection signal="toggled" from="Bar/Row/Signs" to="." method="_on_Group_toggled" binds= [ "Signs" ]]
+[connection signal="pressed" from="Bar/Row/Fit" to="." method="_on_Fit_pressed"]
+[connection signal="pressed" from="Bar/Row/Close" to="." method="_on_Close_pressed"]

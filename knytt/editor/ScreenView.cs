@@ -31,7 +31,7 @@ public class ScreenView : Control
     public bool[] LayerShown { get; } = new bool[] { true, true, true, true, true, true, true, true };
 
     private KnyttWorld world;
-    private EditorAssets assets;
+    private AreaPainter painter;
     private KnyttPoint coords;
     private int background;
     private KnyttPoint start_area;
@@ -52,7 +52,7 @@ public class ScreenView : Control
     public void init(KnyttWorld world, EditorAssets assets)
     {
         this.world = world;
-        this.assets = assets;
+        painter = new AreaPainter(assets);
     }
 
     public void setStart(KnyttPoint area, KnyttPoint position)
@@ -100,93 +100,23 @@ public class ScreenView : Control
             for (int x = -1; x <= 1; x++)
             {
                 if (x == 0 && y == 0) { continue; }
-                drawArea(world.getArea(coords + new KnyttPoint(x, y)), Offset + new Vector2(x, y) * GDKnyttArea.Size, neighbour: true);
+                // Neighbours are shaded, where there are none the editor shows through like KS+
+                var side = world.getArea(coords + new KnyttPoint(x, y));
+                var origin = Offset + new Vector2(x, y) * GDKnyttArea.Size;
+                painter.drawArea(this, side, origin, layer => layerAlpha(layer, neighbour: true));
+                if (side != null && !side.Empty) { DrawRect(new Rect2(origin, GDKnyttArea.Size), NEIGHBOUR_SHADE); }
             }
         }
 
         var area = world.getArea(coords);
-        if (area == null || area.Empty) { drawGradient(background, Offset); }
-        else { drawArea(area, Offset, neighbour: false); }
-
-        var end = Offset + GDKnyttArea.Size;
-        DrawRect(new Rect2(0, 0, RectSize.x, Offset.y), NEIGHBOUR_SHADE);
-        DrawRect(new Rect2(0, end.y, RectSize.x, RectSize.y - end.y), NEIGHBOUR_SHADE);
-        DrawRect(new Rect2(0, Offset.y, Offset.x, GDKnyttArea.Height), NEIGHBOUR_SHADE);
-        DrawRect(new Rect2(end.x, Offset.y, RectSize.x - end.x, GDKnyttArea.Height), NEIGHBOUR_SHADE);
+        if (area == null || area.Empty) { painter.drawGradient(this, background, Offset); }
+        else { painter.drawArea(this, area, Offset, layer => layerAlpha(layer, neighbour: false)); }
 
         if (coords.Equals(start_area))
         {
             var position = Offset + new Vector2(start_position.x, start_position.y) * TILE;
             DrawTextureRectRegion(JuniTexture, new Rect2(position, TILE), new Rect2(Vector2.Zero, TILE));
             drawFrame(new Rect2(position, TILE), START_COLOR);
-        }
-    }
-
-    private void drawArea(KnyttArea area, Vector2 origin, bool neighbour)
-    {
-        if (area == null || area.Empty) { return; }
-        drawGradient(area.Background, origin);
-        drawTiles(area, origin, neighbour);
-        drawObjects(area, origin, neighbour);
-    }
-
-    private void drawGradient(int num, Vector2 origin)
-    {
-        var texture = assets.getGradient(num);
-        if (texture == null) { return; }
-
-        int width = texture.GetWidth();
-        for (int x = 0; x < GDKnyttArea.Width; x += width)
-        {
-            var size = new Vector2(Mathf.Min(width, GDKnyttArea.Width - x), GDKnyttArea.Height);
-            DrawTextureRectRegion(texture, new Rect2(origin + new Vector2(x, 0), size), new Rect2(Vector2.Zero, size));
-        }
-    }
-
-    private void drawTiles(KnyttArea area, Vector2 origin, bool neighbour)
-    {
-        // KnyttArea.TilesetB holds tiles 0-127, which the editor calls tileset A
-        var tileset_a = assets.getTileset(area.TilesetB);
-        var tileset_b = assets.getTileset(area.TilesetA);
-
-        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
-        {
-            var color = new Color(1, 1, 1, layerAlpha(layer, neighbour));
-            if (color.a == 0) { continue; }
-
-            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
-            {
-                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
-                {
-                    int tile = area.TileLayers[layer].getTile(x, y);
-                    var texture = tile < 128 ? tileset_a : tileset_b;
-                    if (tile % 128 == 0 || texture == null) { continue; }
-
-                    var source = new Vector2(tile % 128 % GDKnyttAssetManager.TILESET_WIDTH, tile % 128 / GDKnyttAssetManager.TILESET_WIDTH);
-                    DrawTextureRectRegion(texture, new Rect2(origin + new Vector2(x, y) * TILE, TILE), new Rect2(source * TILE, TILE), color);
-                }
-            }
-        }
-    }
-
-    private void drawObjects(KnyttArea area, Vector2 origin, bool neighbour)
-    {
-        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
-        {
-            var color = new Color(1, 1, 1, layerAlpha(KnyttArea.AREA_TILE_LAYERS + layer, neighbour));
-            if (color.a == 0) { continue; }
-
-            for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
-            {
-                for (int x = 0; x < KnyttArea.AREA_WIDTH; x++)
-                {
-                    var id = area.ObjectLayers[layer].getObjectID(x, y);
-                    if (id.y == 0) { continue; }
-
-                    var texture = assets.getObject(id);
-                    if (texture != null) { DrawTexture(texture, origin + new Vector2(x, y) * TILE, color); }
-                }
-            }
         }
     }
 

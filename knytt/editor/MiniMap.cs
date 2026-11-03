@@ -14,7 +14,8 @@ public class MiniMap : Control
     private static readonly Color EMPTY_COLOR = Color.Color8(58, 102, 135);
     private static readonly Color SCREEN_COLOR = Color.Color8(171, 199, 243);
     private static readonly Color SCREEN_EDGE_COLOR = Color.Color8(127, 167, 239);
-    private static readonly Color CURRENT_EDGE_COLOR = Color.Color8(219, 219, 219);
+    private static readonly Color CURRENT_EDGE_COLOR = Color.Color8(253, 253, 252);
+    private static readonly Color CURRENT_RING_COLOR = Color.Color8(219, 219, 219);
 
     private KnyttWorld world;
     private KnyttPoint coords;
@@ -37,18 +38,18 @@ public class MiniMap : Control
         {
             for (int column = 0; column < COLUMNS; column++)
             {
-                var rect = new Rect2(column * CELL + 1, row * CELL + 1, CELL - 1, CELL - 1);
+                // Every cell has its own edge, like KS+
+                var rect = new Rect2(column * CELL, row * CELL, CELL, CELL);
                 var screen = screenAt(column, row);
-                if (world.Map.ContainsKey(screen))
+                bool exists = world.Map.ContainsKey(screen);
+                DrawRect(rect, exists ? SCREEN_EDGE_COLOR : GRID_COLOR);
+                DrawRect(rect.Grow(-1), exists ? SCREEN_COLOR : EMPTY_COLOR);
+                if (screen.Equals(coords))
                 {
-                    DrawRect(rect, SCREEN_EDGE_COLOR);
-                    DrawRect(rect.Grow(-1), SCREEN_COLOR);
+                    DrawRect(rect, CURRENT_EDGE_COLOR);
+                    DrawRect(rect.Grow(-1), CURRENT_RING_COLOR);
+                    DrawRect(rect.Grow(-2), exists ? SCREEN_COLOR : EMPTY_COLOR);
                 }
-                else
-                {
-                    DrawRect(rect, EMPTY_COLOR);
-                }
-                if (screen.Equals(coords)) { DrawRect(rect, CURRENT_EDGE_COLOR, filled: false); }
             }
         }
     }

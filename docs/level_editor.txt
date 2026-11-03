@@ -1,5 +1,70 @@
 Level editor notes
 
+Look (KS+ skin):
+- img/chrome.png is KS+'s editor with the live parts wiped (screen view, diamonds, change bar, palette, minimap,
+  numbers), drawn 22px below our menu bar so it lines up with KS+. img/objects.png is the right panel, so greying
+  the object picker greys it too. Our controls sit on top, flat or as TextureButtons with KS+'s pressed looks
+- img/digits.fnt is KS+'s counter font (white, coloured by the label), 2px apart and drawn over the labels like KS+
+- Diamonds (diamond.png, diamond_face.png) are KS+'s outline and face: faces hide the lines behind them, a chosen
+  layer fills with its colour and gets a yellow number, a hidden one fades
+- Yellow means on, like KS+'s chosen tab letter: SET START while placing, play buttons while playing
+- Made from KS+ screenshots under Wine by a script (scratchpad skin/build_skin.py); the counters, palette and
+  minimap match KS+ to the pixel
+- Not done: the map colour number by the tabs, KS+'s X diamond,
+  the smiley and the small button left of the screen (unknown), rounded screen corners, KS+'s smaller status font
+
+World map (EXPAND MAP, Go to > World map, M):
+- The whole level over the editor. Drag to pan (any button, or a finger), wheel to zoom at the pointer, two fingers
+  pinch to zoom and pan together. WASD or the arrows glide while held (Shift: faster), +/- zoom, Home or Fit for the
+  whole level. Fingers are followed in _Input: one comes as the mouse anyway, and on Godot 3 the GUI never hears a
+  second finger lift. Android's own pinch gesture is skipped while two fingers are down so it doesn't zoom twice. Click a screen to go there, right-click (long touch) for the
+  cell menu of that spot. Esc, M or Close go back
+- Up close screens are drawn tile by tile (AreaPainter, the screen view's own drawing). Further out each is a quarter
+  size picture made on the CPU a few per frame, nearest the middle first, the map colour until then. Pictures of
+  screens edited since are made again when the map opens (a stamp of the screen's bytes)
+- Colour by music, ambiance (A top, B below), tilesets (same) or the in-game map colour (MapPanel.areaColor and
+  areaVisible, shared with the game; hidden screens crossed out). The legend lists what the screens in view use
+- Warps & shifts: arrows where Juni goes. Warps from the edge she leaves by to the far edge of where she lands,
+  shifts from the shift to its target spot, flag warps dashed from the screen they're on. Red: nothing there.
+  Flag warps that count artifacts aren't drawn
+- Checkboxes: Warps & shifts, Pickups (powers, keys, creatures, coins, artifacts), Saves (off at first, they're
+  everywhere), Signs & triggers (signs, triggers, wins, custom objects). The key lists every kind the level has; a
+  click on a line turns that kind on or off (off: hollow swatch, grey words), and a checkbox is on while any of its
+  kinds is. Marks are rings round the object up close, dots further out. The start is Juni in a yellow frame
+- CheckBox styles in EditorTheme all share one empty style with the default margins: only overriding the pressed
+  ones made the words jump 4px whenever a box was ticked (the forms' checkboxes too)
+- Hovering a screen tells its values, what's on it and where its warps and shifts go
+- Hovering a mark or an arrow: a tooltip right by the pointer (drawn, no delay) and its line in the key lights up
+- Clicking a mark or an arrow goes to its screen and opens its form when it has one (objectKey, like the cell menu's
+  Edit items): signs, triggers, shifts, warps, custom objects; a flag warp opens its keys in the Warp form.
+  Right-clicking one gives the cell menu for its own cell. What's under the pointer is worked out at the click, so taps
+  work without hovering
+- Hovering a key line: what it means pulses, everything else gets a grey wash or fades. Matches out of view show as
+  arrows on the map's edge pointing at them, close ones sharing one arrow with a count, kept off the key
+- Speed on huge levels (measured on Azure Serenity Expansion: 13615 screens, 21208 warps and shifts, 45932 marks):
+  - Godot 3 draws its own antialiased lines and circles one call each. Arrows, their dots, mark dots and rings, and
+    edge arrows go into one triangle mesh per layer instead, with soft edges made of triangles, so they look the same
+  - Zoomed out, thousands of the same dot or line land on the same pixels: one per 2px spot and colour is drawn,
+    one screen per pixel under a pixel
+  - Arrows are indexed by 8x8 screen squares and marks by screen, so a view, a redraw or the pointer only look at
+    their own. Lines across much of the level are always looked at
+  - The map is drawn when it changes. Pulses, edge arrows, the hovered screen, the key and the tooltip are on the
+    Overlay node above it. With more than 1500 things lit their glow is made once per view and only its brightness
+    pulses; fewer pulse in size as before
+  - Map colours, hidden screens, which kinds a level has and what a lit key line matches are read once. Objects'
+    kinds come from a 256x256 table
+  - Screens narrower than 6px are their picture's average colour (plain rects are batched, pictures aren't); under a
+    pixel no picture is made at all. The map shows new pictures at most every 8 of its own draw times
+  - Frames are four filled strips: Godot's outline is lines inset by half their width, which collapse on a screen
+    a few pixels big and log "triangulation failed"
+  - Azure: whole level map draw 206 -> 5-13 ms, idle 28 -> 11 ms a frame, a lit key line 37-70 -> 12-16 ms,
+    zoomed in about 3 ms, opening 1.7 -> 0.9 s
+  - Still costs: each screen picture is its own texture (an atlas would batch them), about 36KB each
+- Custom object sheets too big to be a texture (Azure has 600x36000 and 600x61440 ones): the editor decodes the file
+  once and keeps only the first frame for its preview (EditorAssets.firstFrame), then the game's repack, then the
+  plain load. The game itself still logs "Image height ... cannot be greater than 16384" for sheets too big to repack
+- Later maybe: problems overlay (solid tiles that don't meet across edges, warps into nothing already show red)
+
 Screen values (KS+ layout):
 - Music, A Ambiance, B Ambiance rows and the Background / Tileset tabs are counters: click +1, right-click -1,
   wheel, Shift for 10, 0-255 wrapping. The A and B buttons only choose which tileset the palette shows

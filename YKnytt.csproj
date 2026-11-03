@@ -253,6 +253,8 @@
     <Compile Include="knytt\editor\ObjectCatalog.cs" />
     <Compile Include="knytt\editor\ObjectPalette.cs" />
     <Compile Include="knytt\editor\ScreenView.cs" />
+    <Compile Include="knytt\editor\AreaPainter.cs" />
+    <Compile Include="knytt\editor\WorldView.cs" />
     <Compile Include="knytt\editor\ScreenValue.cs" />
     <Compile Include="knytt\editor\IniCheckBox.cs" />
     <Compile Include="knytt\editor\IniForm.cs" />

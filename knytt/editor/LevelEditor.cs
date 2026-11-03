@@ -15,7 +15,7 @@ public class LevelEditor : Control
     private enum FileMenu { Save, SaveAs, Quit }
     private enum EditMenu { Undo, Redo }
     private enum OptionsMenu { FadeLayers, FollowScript }
-    private enum GoToMenu { Start, Default, Coordinates }
+    private enum GoToMenu { Start, Default, Coordinates, WorldMap }
     private enum TestMenu { FromStart, FromHere, Profiles, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
     private enum CellMenu { Pick, Test, Start }
@@ -37,6 +37,7 @@ public class LevelEditor : Control
     private ObjectCatalog catalog;
     private EditorHistory history = new EditorHistory();
     private KnyttPoint start_area;
+    private KnyttPoint start_position;
 
     private KnyttPoint coords;
     private readonly int[] values = new int[ScreenValues.ALL.Length];
@@ -178,6 +179,7 @@ public class LevelEditor : Control
         goto_menu.AddItem($"x{DEFAULT_SCREEN.x}y{DEFAULT_SCREEN.y}", (int)GoToMenu.Default);
         goto_menu.AddSeparator();
         goto_menu.AddItem("Coordinates", (int)GoToMenu.Coordinates, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.G);
+        goto_menu.AddItem("World map", (int)GoToMenu.WorldMap, (uint)KeyList.M);
         goto_menu.Connect("id_pressed", this, nameof(_on_GoToMenu_id_pressed));
 
         var test_menu = GetNode<MenuButton>("%TestMenu").GetPopup();
@@ -198,6 +200,7 @@ public class LevelEditor : Control
         test_dialog.init(world);
 
         screen_view.init(world, assets);
+        GetNode<WorldView>("%WorldView").init(world, assets, catalog);
         showStart();
         selectObject(0, 0);
         selectLayer(0);
@@ -248,7 +251,7 @@ public class LevelEditor : Control
     {
         for (int i = 0; i < SOUNDS.Length; i++)
         {
-            int? number = GetNode<Button>($"%Play{SOUNDS[i]}").Pressed ? value(SOUNDS[i]) : (int?)null;
+            int? number = GetNode<BaseButton>($"%Play{SOUNDS[i]}").Pressed ? value(SOUNDS[i]) : (int?)null;
             if (number == playing[i]) { continue; }
             playing[i] = number;
             var player = GetNode<AudioStreamPlayer>($"%{SOUNDS[i]}Player");
@@ -259,7 +262,7 @@ public class LevelEditor : Control
 
     private void stopPreviews()
     {
-        foreach (var sound in SOUNDS) { GetNode<Button>($"%Play{sound}").SetPressedNoSignal(false); }
+        foreach (var sound in SOUNDS) { GetNode<BaseButton>($"%Play{sound}").SetPressedNoSignal(false); }
         showPreviews();
     }
 
@@ -353,7 +356,7 @@ public class LevelEditor : Control
         return data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
     }
 
-    private int SelectedTileValue => selected_tile == 0 ? 0 : selected_tile + (GetNode<Button>("%TilesetBButton").Pressed ? 128 : 0);
+    private int SelectedTileValue => selected_tile == 0 ? 0 : selected_tile + (GetNode<BaseButton>("%TilesetBButton").Pressed ? 128 : 0);
 
     private void selectTile(int index)
     {
@@ -379,7 +382,7 @@ public class LevelEditor : Control
 
         GetNode<Control>("%Palette").Modulate = TileLayer ? Colors.White : INACTIVE_COLOR;
         GetNode<Control>("%Tileset").MouseFilter = TileLayer ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
-        GetNode<Button>("%TilesetAButton").Disabled = GetNode<Button>("%TilesetBButton").Disabled = !TileLayer;
+        GetNode<BaseButton>("%TilesetAButton").Disabled = GetNode<BaseButton>("%TilesetBButton").Disabled = !TileLayer;
         GetNode<Control>("%Objects").Modulate = ObjectLayer ? Colors.White : INACTIVE_COLOR;
         foreach (string picker in new[] { "%BankBox", "%BankValue", "%ObjectValue", "%ObjectPreview" })
         {
@@ -406,10 +409,10 @@ public class LevelEditor : Control
         box.Texture = assets.getBank(selected_bank);
         box.HintTooltip = $"{bank_name}\nClick: all objects. Wheel: next, back";
         var bank_value = GetNode<Label>("%BankValue");
-        bank_value.Text = $"Bank {selected_bank}";
+        bank_value.Text = selected_bank.ToString();
         bank_value.HintTooltip = $"{bank_name}\nClick: next. Right-click: back. Wheel works too\nShift: 10 at a time. Keys: Z, X";
         var object_value = GetNode<Label>("%ObjectValue");
-        object_value.Text = $"Object {selected_object}";
+        object_value.Text = selected_object.ToString();
         object_value.HintTooltip = $"{catalog.title(id)}\nClick: next. Right-click: back. Wheel works too\nShift: 10 at a time. Keys: C, V";
         var preview = GetNode<TextureRect>("%ObjectPreview");
         preview.Texture = selected_object == 0 ? null : assets.getObject(id);
@@ -443,7 +446,8 @@ public class LevelEditor : Control
     {
         var start = TestProfile.levelDefault(world);
         start_area = start.HasStart ? start.Save.getArea() : DEFAULT_SCREEN;
-        screen_view.setStart(start_area, start.Save.getAreaPosition());
+        start_position = start.Save.getAreaPosition();
+        screen_view.setStart(start_area, start_position);
     }
 
     // Only the positions change, the rest of DefaultSavegame.ini stays as it was
@@ -465,7 +469,7 @@ public class LevelEditor : Control
     {
         placing = what;
         screen_view.Placing = what != Placing.None;
-        GetNode<Button>("%SetStartButton").Pressed = what == Placing.Start;
+        GetNode<BaseButton>("%SetStartButton").Pressed = what == Placing.Start;
         showBrush();
         showStatus(what == Placing.None ? "" : "Click where Juni starts. Right-click or Esc: cancel");
     }
@@ -571,7 +575,7 @@ public class LevelEditor : Control
 
         int tile = area.TileLayers[layer].getTile(x, y);
         if (tile % 128 == 0) { return; }
-        GetNode<Button>(tile < 128 ? "%TilesetAButton" : "%TilesetBButton").Pressed = true;
+        GetNode<BaseButton>(tile < 128 ? "%TilesetAButton" : "%TilesetBButton").Pressed = true;
         selectTile(tile % 128);
     }
 
@@ -611,7 +615,7 @@ public class LevelEditor : Control
 
     private void showTileset()
     {
-        bool show_b = GetNode<Button>("%TilesetBButton").Pressed;
+        bool show_b = GetNode<BaseButton>("%TilesetBButton").Pressed;
         GetNode<TextureRect>("%Tileset").Texture = assets.getTileset(value(show_b ? ScreenValue.TilesetB : ScreenValue.TilesetA));
         showBrush();
     }
@@ -826,6 +830,7 @@ public class LevelEditor : Control
             case GoToMenu.Start: goTo(start_area); break;
             case GoToMenu.Default: goTo(DEFAULT_SCREEN); break;
             case GoToMenu.Coordinates: showGoToDialog(); break;
+            case GoToMenu.WorldMap: openWorldView(); break;
         }
     }
 
@@ -949,6 +954,7 @@ public class LevelEditor : Control
 
     private void _on_CellMenu_id_pressed(int id)
     {
+        GetNode<WorldView>("%WorldView").close();
         switch ((CellMenu)id)
         {
             case CellMenu.Pick: pick(menu_cell.x, menu_cell.y); break;
@@ -1167,8 +1173,8 @@ public class LevelEditor : Control
     private void _on_PlayAll_pressed()
     {
         bool all = true;
-        foreach (var sound in SOUNDS) { all &= GetNode<Button>($"%Play{sound}").Pressed; }
-        foreach (var sound in SOUNDS) { GetNode<Button>($"%Play{sound}").SetPressedNoSignal(!all); }
+        foreach (var sound in SOUNDS) { all &= GetNode<BaseButton>($"%Play{sound}").Pressed; }
+        foreach (var sound in SOUNDS) { GetNode<BaseButton>($"%Play{sound}").SetPressedNoSignal(!all); }
         showPreviews();
     }
 
@@ -1216,6 +1222,37 @@ public class LevelEditor : Control
     private void _on_Layer_VisibilityToggled(int layer)
     {
         showLayer(layer, !screen_view.LayerShown[layer]);
+    }
+
+    private void openWorldView()
+    {
+        GetNode<WorldView>("%WorldView").open(coords, start_area, start_position);
+    }
+
+    private void _on_ExpandMapButton_pressed()
+    {
+        openWorldView();
+    }
+
+    private void _on_WorldView_ScreenChosen(int x, int y)
+    {
+        GetNode<WorldView>("%WorldView").close();
+        goTo(new KnyttPoint(x, y));
+    }
+
+    // A mark or line on the map: its screen, and its form when it has one
+    private void _on_WorldView_ThingChosen(int x, int y, int bank, int obj, string key)
+    {
+        _on_WorldView_ScreenChosen(x, y);
+        var found = bank >= 0 ? objectKey(new KnyttPoint(bank, obj)) : key != "" ? new ObjectKey("", key) : null;
+        if (found != null) { editKey(found.section ?? ScreenSection, found.key); }
+    }
+
+    // The cell menu works on the screen it was opened over
+    private void _on_WorldView_ScreenMenu(int x, int y, int cell_x, int cell_y)
+    {
+        goTo(new KnyttPoint(x, y));
+        _on_ScreenView_CellMenu(cell_x, cell_y);
     }
 
     private void _on_MiniMap_ScreenSelected(int x, int y)

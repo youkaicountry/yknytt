@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -11,7 +11,18 @@
 [ext_resource path="res://knytt/editor/EditorMenuButton.cs" type="Script" id=9]
 [ext_resource path="res://knytt/editor/ObjectPalette.tscn" type="PackedScene" id=10]
 [ext_resource path="res://knytt/editor/TestDialog.tscn" type="PackedScene" id=11]
-[ext_resource path="res://knytt/editor/img/play.png" type="Texture" id=12]
+[ext_resource path="res://knytt/editor/img/play_on.png" type="Texture" id=12]
+[ext_resource path="res://knytt/editor/img/chrome.png" type="Texture" id=19]
+[ext_resource path="res://knytt/editor/img/objects.png" type="Texture" id=20]
+[ext_resource path="res://knytt/editor/img/digits.fnt" type="BitmapFont" id=21]
+[ext_resource path="res://knytt/editor/img/tileset_a.png" type="Texture" id=22]
+[ext_resource path="res://knytt/editor/img/tileset_a_on.png" type="Texture" id=23]
+[ext_resource path="res://knytt/editor/img/tileset_b.png" type="Texture" id=24]
+[ext_resource path="res://knytt/editor/img/tileset_b_on.png" type="Texture" id=25]
+[ext_resource path="res://knytt/editor/img/set_start_on.png" type="Texture" id=26]
+[ext_resource path="res://knytt/editor/img/diamond.png" type="Texture" id=27]
+[ext_resource path="res://knytt/editor/img/diamond_face.png" type="Texture" id=28]
+[ext_resource path="res://knytt/editor/WorldView.tscn" type="PackedScene" id=29]
 [ext_resource path="res://knytt/editor/IniForm.cs" type="Script" id=13]
 [ext_resource path="res://knytt/editor/IniLineEdit.cs" type="Script" id=14]
 [ext_resource path="res://knytt/editor/IniOptionButton.cs" type="Script" id=15]
@@ -76,6 +87,13 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.4, 0.4, 0.4, 1 )
+
+[node name="Chrome" type="TextureRect" parent="."]
+margin_top = 22.0
+margin_right = 698.0
+margin_bottom = 609.0
+mouse_filter = 2
+texture = ExtResource( 19 )
 
 [node name="MenuBar" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -175,9 +193,9 @@ mouse_filter = 2
 texture = SubResource( 2 )
 
 [node name="ChangeBar" type="Control" parent="."]
-margin_left = 195.0
+margin_left = 194.0
 margin_top = 323.0
-margin_right = 355.0
+margin_right = 354.0
 margin_bottom = 331.0
 mouse_filter = 2
 
@@ -214,31 +232,31 @@ color = Color( 0.341176, 0.529412, 0.905882, 1 )
 
 [node name="TestLevelButton" type="Button" parent="."]
 unique_name_in_owner = true
-margin_left = 4.0
-margin_top = 316.0
-margin_right = 94.0
-margin_bottom = 338.0
+margin_left = 2.0
+margin_top = 318.0
+margin_right = 96.0
+margin_bottom = 336.0
 focus_mode = 0
 hint_tooltip = "Play from the start (F5)
 Right-click: test profiles
 Test > From here (F6): play from where you click"
-text = "Test level"
+flat = true
 
-[node name="SetStartButton" type="Button" parent="."]
+[node name="SetStartButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
 margin_left = 98.0
-margin_top = 316.0
-margin_right = 188.0
-margin_bottom = 338.0
+margin_top = 318.0
+margin_right = 192.0
+margin_bottom = 336.0
 focus_mode = 0
 hint_tooltip = "Then click where Juni starts the level"
 toggle_mode = true
-text = "Set start"
+texture_pressed = ExtResource( 26 )
 
 [node name="Layers" type="Control" parent="."]
-margin_top = 312.0
+margin_top = 315.0
 margin_right = 700.0
-margin_bottom = 342.0
+margin_bottom = 348.0
 mouse_filter = 2
 
 [node name="Layer0" type="Control" parent="Layers"]
@@ -246,221 +264,232 @@ unique_name_in_owner = true
 hint_tooltip = "Layer 0: back tiles, no collision
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 355.0
-margin_right = 399.0
-margin_bottom = 30.0
+margin_left = 356.0
+margin_right = 412.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 0
-Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
+Tint = Color( 0.498039, 0.654902, 0.937255, 1 )
+TextColor = Color( 0.341176, 0.529412, 0.905882, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer1" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 1: tiles, no collision
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 387.0
-margin_right = 431.0
-margin_bottom = 30.0
+margin_left = 388.0
+margin_right = 444.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 1
-Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
+Tint = Color( 0.498039, 0.654902, 0.937255, 1 )
+TextColor = Color( 0.341176, 0.529412, 0.905882, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer2" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 2: tiles, no collision. Over Juni if Overlay is on
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 419.0
-margin_right = 463.0
-margin_bottom = 30.0
+margin_left = 420.0
+margin_right = 476.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 2
-Tint = Color( 0.490196, 0.627451, 0.921569, 1 )
+Tint = Color( 0.498039, 0.654902, 0.937255, 1 )
+TextColor = Color( 0.341176, 0.529412, 0.905882, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer3" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 3: solid tiles. Juni collides here
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 451.0
-margin_right = 495.0
-margin_bottom = 30.0
+margin_left = 452.0
+margin_right = 508.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 3
-Tint = Color( 0.54902, 0.784314, 0.54902, 1 )
+Tint = Color( 0.65098, 0.941176, 0.678431, 1 )
+TextColor = Color( 0.45098, 0.796078, 0.482353, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer4" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 4: objects, behind Juni
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 543.0
-margin_right = 587.0
-margin_bottom = 30.0
+margin_left = 544.0
+margin_right = 600.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 4
-Tint = Color( 0.921569, 0.431373, 0.862745, 1 )
+Tint = Color( 0.929412, 0.505882, 0.843137, 1 )
+TextColor = Color( 0.905882, 0.341176, 0.792157, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer5" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 5: objects, behind Juni
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 575.0
-margin_right = 619.0
-margin_bottom = 30.0
+margin_left = 576.0
+margin_right = 632.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 5
-Tint = Color( 0.921569, 0.431373, 0.862745, 1 )
+Tint = Color( 0.929412, 0.505882, 0.843137, 1 )
+TextColor = Color( 0.905882, 0.341176, 0.792157, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer6" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 6: objects, in front of Juni
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 607.0
-margin_right = 651.0
-margin_bottom = 30.0
+margin_left = 608.0
+margin_right = 664.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 6
-Tint = Color( 0.941176, 0.470588, 0.431373, 1 )
+Tint = Color( 0.929412, 0.564706, 0.505882, 1 )
+TextColor = Color( 0.905882, 0.419608, 0.341176, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Layer7" type="Control" parent="Layers"]
 unique_name_in_owner = true
 hint_tooltip = "Layer 7: objects, in front of Juni
 Click: select. Again: see all
 Right-click: hide/show"
-margin_left = 639.0
-margin_right = 683.0
-margin_bottom = 30.0
+margin_left = 640.0
+margin_right = 696.0
+margin_bottom = 33.0
 script = ExtResource( 8 )
 Layer = 7
-Tint = Color( 0.941176, 0.470588, 0.431373, 1 )
+Tint = Color( 0.929412, 0.564706, 0.505882, 1 )
+TextColor = Color( 0.905882, 0.419608, 0.341176, 1 )
+Line = ExtResource( 27 )
+Face = ExtResource( 28 )
+Font = ExtResource( 21 )
 
 [node name="Sounds" type="Control" parent="."]
 margin_right = 194.0
 margin_bottom = 440.0
 mouse_filter = 2
 
-[node name="PlayMusic" type="Button" parent="Sounds"]
+[node name="PlayMusic" type="TextureButton" parent="Sounds"]
 unique_name_in_owner = true
-margin_left = 42.0
+margin_left = 41.0
 margin_top = 355.0
-margin_right = 58.0
-margin_bottom = 373.0
+margin_right = 61.0
+margin_bottom = 375.0
 focus_mode = 0
 hint_tooltip = "Listen. Again: stop"
 toggle_mode = true
-icon = ExtResource( 12 )
-icon_align = 1
+texture_pressed = ExtResource( 12 )
 
-[node name="MusicRow" type="HBoxContainer" parent="Sounds"]
+[node name="MusicRow" type="Control" parent="Sounds"]
 margin_left = 62.0
 margin_top = 355.0
 margin_right = 150.0
-margin_bottom = 373.0
+margin_bottom = 375.0
 hint_tooltip = "Music on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="MusicLabel" type="Label" parent="Sounds/MusicRow"]
-margin_top = 1.0
-margin_right = 70.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "Music"
-
 [node name="MusicValue" type="Label" parent="Sounds/MusicRow"]
 unique_name_in_owner = true
-margin_left = 74.0
-margin_top = 1.0
-margin_right = 88.0
-margin_bottom = 16.0
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
-[node name="PlayAmbianceA" type="Button" parent="Sounds"]
+[node name="PlayAmbianceA" type="TextureButton" parent="Sounds"]
 unique_name_in_owner = true
-margin_left = 42.0
+margin_left = 41.0
 margin_top = 376.0
-margin_right = 58.0
-margin_bottom = 394.0
+margin_right = 61.0
+margin_bottom = 396.0
 focus_mode = 0
 hint_tooltip = "Listen. Again: stop"
 toggle_mode = true
-icon = ExtResource( 12 )
-icon_align = 1
+texture_pressed = ExtResource( 12 )
 
-[node name="AmbianceARow" type="HBoxContainer" parent="Sounds"]
+[node name="AmbianceARow" type="Control" parent="Sounds"]
 margin_left = 62.0
 margin_top = 376.0
 margin_right = 150.0
-margin_bottom = 394.0
+margin_bottom = 396.0
 hint_tooltip = "Ambiance A on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="AmbianceALabel" type="Label" parent="Sounds/AmbianceARow"]
-margin_top = 1.0
-margin_right = 70.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "A Ambiance"
-
 [node name="AmbianceAValue" type="Label" parent="Sounds/AmbianceARow"]
 unique_name_in_owner = true
-margin_left = 74.0
-margin_top = 1.0
-margin_right = 88.0
-margin_bottom = 16.0
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
-[node name="PlayAmbianceB" type="Button" parent="Sounds"]
+[node name="PlayAmbianceB" type="TextureButton" parent="Sounds"]
 unique_name_in_owner = true
-margin_left = 42.0
+margin_left = 41.0
 margin_top = 397.0
-margin_right = 58.0
-margin_bottom = 415.0
+margin_right = 61.0
+margin_bottom = 417.0
 focus_mode = 0
 hint_tooltip = "Listen. Again: stop"
 toggle_mode = true
-icon = ExtResource( 12 )
-icon_align = 1
+texture_pressed = ExtResource( 12 )
 
-[node name="AmbianceBRow" type="HBoxContainer" parent="Sounds"]
+[node name="AmbianceBRow" type="Control" parent="Sounds"]
 margin_left = 62.0
 margin_top = 397.0
 margin_right = 150.0
-margin_bottom = 415.0
+margin_bottom = 417.0
 hint_tooltip = "Ambiance B on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="AmbianceBLabel" type="Label" parent="Sounds/AmbianceBRow"]
-margin_top = 1.0
-margin_right = 70.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "B Ambiance"
-
 [node name="AmbianceBValue" type="Label" parent="Sounds/AmbianceBRow"]
 unique_name_in_owner = true
-margin_left = 74.0
-margin_top = 1.0
-margin_right = 88.0
-margin_bottom = 16.0
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
 [node name="PlayAll" type="Button" parent="Sounds"]
-margin_left = 42.0
+margin_left = 41.0
 margin_top = 418.0
-margin_right = 150.0
-margin_bottom = 436.0
+margin_right = 151.0
+margin_bottom = 438.0
 focus_mode = 0
 hint_tooltip = "All three. Again: stop"
-text = "Play all"
+flat = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
 unique_name_in_owner = true
@@ -474,26 +503,35 @@ bus = "Ambiance1"
 unique_name_in_owner = true
 bus = "Ambiance2"
 
+[node name="ExpandMapButton" type="Button" parent="."]
+margin_left = 42.0
+margin_top = 459.0
+margin_right = 151.0
+margin_bottom = 477.0
+focus_mode = 0
+hint_tooltip = "The whole level: pan, zoom, overlays (M)"
+flat = true
+
 [node name="MiniMap" type="Control" parent="."]
 unique_name_in_owner = true
 margin_top = 477.0
-margin_right = 193.0
-margin_bottom = 610.0
+margin_right = 192.0
+margin_bottom = 609.0
 script = ExtResource( 3 )
 
-[node name="Panel" type="ColorRect" parent="."]
+[node name="Panel" type="Control" parent="."]
 margin_left = 194.0
 margin_top = 355.0
 margin_right = 579.0
 margin_bottom = 610.0
-color = Color( 0.298039, 0.298039, 0.298039, 1 )
+mouse_filter = 2
 
 [node name="Tabs" type="Control" parent="Panel"]
 margin_right = 384.0
 margin_bottom = 22.0
 mouse_filter = 2
 
-[node name="BackgroundTab" type="HBoxContainer" parent="Panel/Tabs"]
+[node name="BackgroundTab" type="Control" parent="Panel/Tabs"]
 margin_left = 26.0
 margin_right = 124.0
 margin_bottom = 22.0
@@ -501,35 +539,31 @@ hint_tooltip = "Background gradient on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="BackgroundLabel" type="Label" parent="Panel/Tabs/BackgroundTab"]
-margin_top = 3.0
-margin_right = 60.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Background"
-
 [node name="BackgroundValue" type="Label" parent="Panel/Tabs/BackgroundTab"]
 unique_name_in_owner = true
-margin_left = 64.0
-margin_top = 3.0
-margin_right = 78.0
-margin_bottom = 18.0
+margin_top = 5.0
+margin_right = 95.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
-[node name="TilesetAButton" type="Button" parent="Panel/Tabs"]
+[node name="TilesetAButton" type="TextureButton" parent="Panel/Tabs"]
 unique_name_in_owner = true
-margin_left = 128.0
-margin_right = 147.0
-margin_bottom = 22.0
+margin_left = 125.0
+margin_top = -1.0
+margin_right = 157.0
+margin_bottom = 23.0
 focus_mode = 0
 hint_tooltip = "Show tileset A"
 toggle_mode = true
 pressed = true
 group = SubResource( 1 )
-text = "A"
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 23 )
 
-[node name="TilesetATab" type="HBoxContainer" parent="Panel/Tabs"]
+[node name="TilesetATab" type="Control" parent="Panel/Tabs"]
 margin_left = 151.0
 margin_right = 219.0
 margin_bottom = 22.0
@@ -537,62 +571,51 @@ hint_tooltip = "Tileset A on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="TilesetALabel" type="Label" parent="Panel/Tabs/TilesetATab"]
-margin_top = 3.0
-margin_right = 60.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Tileset"
-
 [node name="TilesetAValue" type="Label" parent="Panel/Tabs/TilesetATab"]
 unique_name_in_owner = true
-margin_left = 64.0
-margin_top = 3.0
-margin_right = 78.0
-margin_bottom = 18.0
+margin_top = 5.0
+margin_right = 66.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
-[node name="TilesetBButton" type="Button" parent="Panel/Tabs"]
+[node name="TilesetBButton" type="TextureButton" parent="Panel/Tabs"]
 unique_name_in_owner = true
-margin_left = 224.0
-margin_right = 243.0
-margin_bottom = 22.0
+margin_left = 221.0
+margin_top = -1.0
+margin_right = 253.0
+margin_bottom = 23.0
 focus_mode = 0
 hint_tooltip = "Show tileset B"
 toggle_mode = true
 group = SubResource( 1 )
-text = "B"
+texture_normal = ExtResource( 24 )
+texture_pressed = ExtResource( 25 )
 
-[node name="TilesetBTab" type="HBoxContainer" parent="Panel/Tabs"]
+[node name="TilesetBTab" type="Control" parent="Panel/Tabs"]
 margin_left = 247.0
-margin_right = 311.0
+margin_right = 313.0
 margin_bottom = 22.0
 hint_tooltip = "Tileset B on this screen
 Click: next. Right-click: back. Wheel works too
 Shift: 10 at a time"
 
-[node name="TilesetBLabel" type="Label" parent="Panel/Tabs/TilesetBTab"]
-margin_top = 3.0
-margin_right = 60.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Tileset"
-
 [node name="TilesetBValue" type="Label" parent="Panel/Tabs/TilesetBTab"]
 unique_name_in_owner = true
-margin_left = 64.0
-margin_top = 3.0
-margin_right = 78.0
-margin_bottom = 18.0
+margin_top = 5.0
+margin_right = 66.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
 text = "0"
 align = 2
 
 [node name="Palette" type="Control" parent="Panel"]
 unique_name_in_owner = true
-margin_left = 1.0
 margin_top = 23.0
-margin_right = 385.0
+margin_right = 384.0
 margin_bottom = 225.0
 mouse_filter = 2
 
@@ -618,10 +641,9 @@ mouse_filter = 2
 texture = ExtResource( 6 )
 
 [node name="Status" type="ColorRect" parent="Panel"]
-margin_left = 1.0
-margin_top = 226.0
-margin_right = 385.0
-margin_bottom = 255.0
+margin_top = 228.0
+margin_right = 384.0
+margin_bottom = 254.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="StatusLabel" type="Label" parent="Panel/Status"]
@@ -631,13 +653,13 @@ margin_left = 3.0
 margin_top = 2.0
 text = "Map:"
 
-[node name="Objects" type="ColorRect" parent="."]
+[node name="Objects" type="TextureRect" parent="."]
 unique_name_in_owner = true
-margin_left = 581.0
+margin_left = 580.0
 margin_top = 354.0
-margin_right = 697.0
+margin_right = 696.0
 margin_bottom = 607.0
-color = Color( 0.298039, 0.298039, 0.298039, 1 )
+texture = ExtResource( 20 )
 
 [node name="BankBox" type="TextureRect" parent="Objects"]
 unique_name_in_owner = true
@@ -648,29 +670,27 @@ margin_bottom = 106.0
 
 [node name="BankValue" type="Label" parent="Objects"]
 unique_name_in_owner = true
-margin_left = 4.0
-margin_top = 112.0
-margin_right = 50.0
-margin_bottom = 128.0
+margin_left = 1.0
+margin_top = 119.0
+margin_right = 52.0
+margin_bottom = 131.0
 mouse_filter = 0
-text = "Bank 0"
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
+text = "0"
+align = 2
 
 [node name="ObjectValue" type="Label" parent="Objects"]
 unique_name_in_owner = true
-margin_left = 50.0
-margin_top = 112.0
+margin_left = 58.0
+margin_top = 122.0
 margin_right = 113.0
-margin_bottom = 128.0
+margin_bottom = 134.0
 mouse_filter = 0
-text = "Object 0"
+custom_fonts/font = ExtResource( 21 )
+custom_colors/font_color = Color( 0.341176, 0.529412, 0.905882, 1 )
+text = "0"
 align = 2
-
-[node name="Line" type="ColorRect" parent="Objects"]
-margin_top = 132.0
-margin_right = 116.0
-margin_bottom = 136.0
-mouse_filter = 2
-color = Color( 0.4, 0.4, 0.4, 1 )
 
 [node name="ObjectPreview" type="TextureRect" parent="Objects"]
 unique_name_in_owner = true
@@ -2111,6 +2131,10 @@ script = ExtResource( 16 )
 Key = "Hurts"
 On = "False"
 
+[node name="WorldView" parent="." instance=ExtResource( 29 )]
+unique_name_in_owner = true
+visible = false
+
 [node name="ObjectPalette" parent="." instance=ExtResource( 10 )]
 unique_name_in_owner = true
 margin_top = 100.0
@@ -2287,3 +2311,7 @@ items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here"
 [connection signal="Edited" from="Script/Forms/CO" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/CO" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/CO" to="." method="_on_Form_Focused"]
+[connection signal="pressed" from="ExpandMapButton" to="." method="_on_ExpandMapButton_pressed"]
+[connection signal="ScreenChosen" from="WorldView" to="." method="_on_WorldView_ScreenChosen"]
+[connection signal="ScreenMenu" from="WorldView" to="." method="_on_WorldView_ScreenMenu"]
+[connection signal="ThingChosen" from="WorldView" to="." method="_on_WorldView_ThingChosen"]

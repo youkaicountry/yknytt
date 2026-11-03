@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using YKnyttLib;
 
@@ -56,7 +57,12 @@ public class EditorAssets
         var section = ObjectCatalog.customSection(world, id);
         if (section == null) { return null; }
 
-        var image = section["Image"] == null ? null : world.getWorldTexture($"Custom Objects/{section["Image"]}") as Texture;
+        // Sheets too big for the graphics card: their first frame, or repacked like the game does
+        string path = $"Custom Objects/{section["Image"]}";
+        int frame_width = KnyttUtil.parseIniInt(section["Tile Width"]) ?? 24;
+        int frame_height = KnyttUtil.parseIniInt(section["Tile Height"]) ?? 24;
+        var image = section["Image"] == null ? null : firstFrame(path, frame_width, frame_height) ??
+            (world as GDKnyttWorldImpl)?.loadOverflownTexture(path, frame_width, frame_height) ?? world.getWorldTexture(path) as Texture;
         if (image == null || image.GetWidth() == 0)
         {
             int? bank = KnyttUtil.parseIniInt(section["Bank"]);
@@ -66,9 +72,31 @@ public class EditorAssets
 
         if (!image.HasAlpha()) { image = GDKnyttAssetManager.preprocessTilesetTexture(image); }
         var size = new Vector2(
-            Mathf.Min(KnyttUtil.parseIniInt(section["Tile Width"]) ?? 24, image.GetWidth()),
-            Mathf.Min(KnyttUtil.parseIniInt(section["Tile Height"]) ?? 24, image.GetHeight()));
+            Mathf.Min(frame_width, image.GetWidth()),
+            Mathf.Min(frame_height, image.GetHeight()));
         return new AtlasTexture() { Atlas = image, Region = new Rect2(Vector2.Zero, size) };
+    }
+
+    private const long BIGGEST_SHEET_PX = 40_000_000;
+
+    // Only the first frame of a sheet too big to be a texture, cut out of the decoded file. The preview needs no more
+    private Texture firstFrame(string path, int width, int height)
+    {
+        int limit = OS.GetName() == "Unix" ? 8192 : 16384;
+        var data = world.getWorldData(path);
+        if (data == null || !MiniPng.TryReadSize(data, out int sheet_width, out int sheet_height)) { return null; }
+        if (sheet_width <= limit && sheet_height <= limit) { return null; }
+        if ((long)sheet_width * sheet_height > BIGGEST_SHEET_PX || !MiniPng.TryDecode(data, out sheet_width, out sheet_height, out byte[] rgba)) { return null; }
+
+        width = Math.Min(width, sheet_width);
+        height = Math.Min(height, sheet_height);
+        var frame = new byte[width * height * 4];
+        for (int y = 0; y < height; y++) { Array.Copy(rgba, y * sheet_width * 4, frame, y * width * 4, width * 4); }
+        var image = new Image();
+        image.CreateFromData(width, height, false, Image.Format.Rgba8, frame);
+        var texture = new ImageTexture();
+        texture.CreateFromImage(image, 0);
+        return texture;
     }
 
     // Custom objects come from World.ini, which may have changed

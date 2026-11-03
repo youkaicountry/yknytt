@@ -104,7 +104,7 @@ public class MapPanel : Control
         {
             if (area == null) { continue; }
             var coord = area.Position;
-            colors[coord] = makeBright(GRADIENTS[area.Background]);
+            colors[coord] = areaColor(area);
             if (area.ExtraData == null) { continue; }
 
             int? map_x = KnyttUtil.parseIniInt(area.ExtraData["MapX"]);
@@ -114,22 +114,24 @@ public class MapPanel : Control
                 area.Spoofing = new KnyttPoint(map_x ?? coord.x, map_y ?? coord.y);
             }
 
-            if (area.ExtraData["MapVisible"]?.ToLower() == "true") { visible[coord] = true; }
-            if (area.ExtraData["MapVisible"]?.ToLower() == "false") { visible[coord] = false; }
-
-            int? color = KnyttUtil.parseIniInt(area.ExtraData["MapColor"]);
-            if (color != null)
-            {
-                if (color == 64)
-                {
-                    visible[coord] = false;
-                }
-                else
-                {
-                    colors[coord] = new Color((color.Value % 4) / 3f, ((color.Value / 4) % 4) / 3f, ((color.Value / 16) % 4) / 3f);
-                }
-            }
+            var shown = areaVisible(area);
+            if (shown != null) { visible[coord] = shown.Value; }
         }
+    }
+
+    // A screen's colour on the map, and whether World.ini shows or hides it (null: as usual). The editor uses these too
+    public static Color areaColor(KnyttArea area)
+    {
+        int? color = KnyttUtil.parseIniInt(area.getExtraData("MapColor"));
+        if (color == null || color == 64) { return makeBright(GRADIENTS[area.Background]); }
+        return new Color((color.Value % 4) / 3f, ((color.Value / 4) % 4) / 3f, ((color.Value / 16) % 4) / 3f);
+    }
+
+    public static bool? areaVisible(KnyttArea area)
+    {
+        if (KnyttUtil.parseIniInt(area.getExtraData("MapColor")) == 64) { return false; }
+        string visible = area.getExtraData("MapVisible")?.ToLower();
+        return visible == "true" ? true : visible == "false" ? false : (bool?)null;
     }
 
     public override void _Draw()
@@ -180,9 +182,9 @@ public class MapPanel : Control
         DrawRect(new Rect2(cur_pos.x * XSIZE, cur_pos.y * YSIZE, XSIZE, YSIZE), CURRENT_BORDER, filled: false, width: 2);
     }
 
-    private Color makeBright(Color c) => new Color(0.5f + signedSqrt(c.r - 0.5f), 0.5f + signedSqrt(c.g - 0.5f), 0.5f + signedSqrt(c.b - 0.5f));
+    private static Color makeBright(Color c) => new Color(0.5f + signedSqrt(c.r - 0.5f), 0.5f + signedSqrt(c.g - 0.5f), 0.5f + signedSqrt(c.b - 0.5f));
 
-    private float signedSqrt(float f) => f > 0 ? Mathf.Sqrt(f) : -Mathf.Sqrt(-f);
+    private static float signedSqrt(float f) => f > 0 ? Mathf.Sqrt(f) : -Mathf.Sqrt(-f);
 
     public void ShowMap(bool show)
     {
