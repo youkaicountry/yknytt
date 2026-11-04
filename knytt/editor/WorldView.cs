@@ -21,6 +21,8 @@ public class WorldView : Control
     private const float MAX_ZOOM = 2;
     private const float ZOOM_STEP = 1.25f;
     private const float DETAIL_ZOOM = 0.5f;     // from here screens are drawn tile by tile
+    private const float SNAP_SCREEN = 60;       // screens drawn smaller than this link centre to centre
+    private const float FAN_TILE = 8;           // tiles drawn this big or bigger show every shift of a screen, not one for all
     private const int THUMB_DIVISOR = 4;        // further out they're quarter size pictures
     private const int THUMB_BUDGET_MS = 6;
     private const float SPECK = 6;              // screens narrower than this are their picture's average colour
@@ -99,9 +101,11 @@ public class WorldView : Control
     private class Link
     {
         public string kind;
-        public KnyttPoint source;
+        public KnyttPoint source, target;
         public KnyttPoint? id;      // the object it starts from, or the World.ini key it's made of
         public KnyttPoint cell;
+        public List<KnyttPoint> cells;  // every shift it stands for, when there are more than one
+        public bool fan;                // they all land on one spot (absolute), else each as far from the first as it is
         public string key = "";
         public Vector2 from, to;
         public Color color;
@@ -159,6 +163,7 @@ public class WorldView : Control
     private readonly Dictionary<(int, int), List<Link>> link_cells = new Dictionary<(int, int), List<Link>>();
     private readonly List<Link> long_links = new List<Link>();
     private readonly Dictionary<KnyttPoint, List<Link>> links_by_screen = new Dictionary<KnyttPoint, List<Link>>();
+    private readonly Dictionary<KnyttPoint, List<Link>> links_to_screen = new Dictionary<KnyttPoint, List<Link>>();
     private int link_pass;
     private List<Vector2> lit_points = new List<Vector2>();
     private List<KnyttArea> lit_screens = new List<KnyttArea>();
@@ -168,6 +173,8 @@ public class WorldView : Control
 
     // With thousands lit, their glow is made once for the view and only its brightness pulses
     private const int MANY_LIT = 1500;
+    private const int BUSY_LINKS = 300;         // more lines than this in view are drawn faint, the hovered screen's in full
+    private const float BUSY_FADE = 0.3f;
     private readonly ArrayMesh lit_mesh = new ArrayMesh();
     private (string, Vector2, float, int) lit_mesh_for, arrows_for;
     private Dictionary<(int, int), (Vector2 at, Vector2 way, int count)> arrows = new Dictionary<(int, int), (Vector2, Vector2, int)>();
@@ -368,7 +375,10 @@ public class WorldView : Control
         link_view = view.Grow(20 / zoom);
         drawn.Clear();
         foreach (var mark in marksIn(in_view)) { if (Shown(mark) && view.HasPoint(mark.at)) { drawMark(mark, 1, fade(lit?.marks?.Invoke(mark) == true)); } }
-        foreach (var link in linksIn(link_view)) { if (Shown(link)) { drawLink(link, 2, fade(lit?.links?.Invoke(link) == true)); } }
+        var shown_links = linksIn(link_view).Where(Shown).ToList();
+        // Only from afar: close up they're few enough screens to read, and grey there just looked wrong
+        float busy = TILE.x * zoom < FAN_TILE && shown_links.Count > BUSY_LINKS ? BUSY_FADE : 1;
+        foreach (var link in shown_links) { drawLink(link, 2, busy * fade(lit?.links?.Invoke(link) == true)); }
         drawTriangles(map_mesh);
         drawFrame(new Rect2(toView(origin(current)), SIZE * zoom), CURRENT, 2);
         map_draw_ms = OS.GetTicksMsec() - started;
@@ -395,6 +405,8 @@ public class WorldView : Control
         else if (lit != null) { drawLit(pulse); }
         else if (hovered != null) { drawFrame(new Rect2(toView(origin(hovered.Value)), SIZE * zoom), HOVER, 1); }
         if (hovered_mark != null) { drawMark(hovered_mark, 1.3f + 0.4f * pulse, 1); }
+        if (lit == null && hovered != null && hovered_link == null && hovered_mark == null) { drawScreenLinks(hovered.Value); }
+        if (hovered_link?.cells != null) { drawCells(hovered_link); }
         if (hovered_link != null) { drawLink(hovered_link, 3 + 2 * pulse, 1); }
         drawTriangles(overlay_mesh);
 
@@ -403,6 +415,25 @@ public class WorldView : Control
         drawLegendBox(key_rows, x, lit);
         if (lit != null) { drawEdgeArrows(); }
         drawTooltip();
+    }
+
+    // Where the hovered screen sends Juni and where she comes from
+    private void drawScreenLinks(KnyttPoint screen)
+    {
+        var from_here = links_by_screen.TryGetValue(screen, out var a) ? a : new List<Link>();
+        var to_here = links_to_screen.TryGetValue(screen, out var b) ? b : new List<Link>();
+        foreach (var link in from_here.Concat(to_here)) { if (Shown(link)) { drawLink(link, 2, 1); } }
+    }
+
+    // Where the shifts of a hovered arrow are
+    private void drawCells(Link link)
+    {
+        var fill = new Color(link.color, 0.3f);
+        foreach (var cell in link.cells)
+        {
+            var at = toView(origin(link.source) + new Vector2(cell.x, cell.y) * TILE);
+            ink.DrawRect(new Rect2(at, TILE * zoom), fill);
+        }
     }
 
     // What the lit key line matches, in view, as big as the pulse makes it
@@ -548,9 +579,22 @@ public class WorldView : Control
     private void drawLink(Link link, float width, float alpha)
     {
         if (!link_view.Intersects(link.bounds)) { return; }
-        var from = toView(link.from);
-        var to = toView(link.to);
+        if (fanned(link))
+        {
+            // Thinner: each is one of many
+            foreach (var (from, to) in fanOf(link)) { drawArrow(link, toView(from), toView(to), width, alpha, 0.5f); }
+            return;
+        }
+        var (start, end) = ends(link);
+        drawArrow(link, start, end, width, alpha);
+    }
+
+    private void drawArrow(Link link, Vector2 from, Vector2 to, float width, float alpha, float scale = 1)
+    {
         if ((to - from).Length() < 2) { return; }
+        // Smaller from afar, or a level full of them is all heads
+        scale *= Mathf.Clamp(SIZE.x * zoom / 200, 0.5f, 1);
+        width *= scale;
         if (!drawn.Add(((int)from.x / 2, (int)from.y / 2, (int)to.x / 2, (int)to.y / 2, link.color.ToRgba32() ^ (int)(alpha * 255) ^ (int)width))) { return; }
         var color = new Color(link.color, alpha);
         var shadow = new Color(SHADOW, SHADOW.a * alpha);
@@ -559,14 +603,22 @@ public class WorldView : Control
         float length = (to - from).Length();
         var way = (to - from) / length;
         var side = new Vector2(-way.y, way.x);
-        float head = Mathf.Min(8 + width, length / 2);
+        float head = Mathf.Min((8 + width) * scale, length / 2);
         var neck = to - way * head;
-        drawLine(from, neck, shadow, width + 2, link.dashed);
-        // The head's shadow is 1px wider all round, like the shaft's: its sides are at 26.6 degrees
-        triangle(to + way * 2.24f, neck + side * (head / 2 + 1.12f), neck - side * (head / 2 + 1.12f), shadow, shadow, shadow);
+        drawLine(from, neck, shadow, width + 2 * scale, link.dashed);
+        // The head's shadow is as much wider all round as the shaft's: its sides are at 26.6 degrees
+        triangle(to + way * 2.24f * scale, neck + side * (head / 2 + 1.12f * scale), neck - side * (head / 2 + 1.12f * scale), shadow, shadow, shadow);
         drawLine(from, neck, color, width, link.dashed);
-        dot(from, 3, color);
+        dot(from, 3 * scale, color);
         triangle(to, neck + side * head / 2, neck - side * head / 2, color, color, color);
+    }
+
+    // Where a link is drawn, in view pixels. Far out where it starts and lands on a screen can't be told apart, and
+    // screen to screen they're one line (both heads when it goes both ways), not a carpet of them
+    private (Vector2 from, Vector2 to) ends(Link link)
+    {
+        if (SIZE.x * zoom >= SNAP_SCREEN) { return (toView(link.from), toView(link.to)); }
+        return (toView(origin(link.source) + SIZE / 2), toView(origin(link.target) + SIZE / 2));
     }
 
     private void triangle(Vector2 a, Vector2 b, Vector2 c, Color color_a, Color color_b, Color color_c)
@@ -830,9 +882,11 @@ public class WorldView : Control
         links.Clear();
         marks.Clear();
         marks_by_screen.Clear();
+        var shifts = new List<KnyttPoint>[3];
         foreach (var area in areas)
         {
             KnyttPoint? warp = null;
+            for (int id = 0; id < 3; id++) { shifts[id]?.Clear(); }
             foreach (var layer in area.ObjectLayers)
             {
                 for (int i = 0; i < layer.hi.Length; i++)
@@ -841,7 +895,7 @@ public class WorldView : Control
                     if (obj == 0) { continue; }
                     var cell = new KnyttPoint(i % KnyttArea.AREA_WIDTH, i / KnyttArea.AREA_WIDTH);
                     if (bank == 0 && obj == 20) { warp = cell; }
-                    if (bank == 0 && obj >= 14 && obj <= 16) { addShift(area, cell, (SwitchID)(obj - 14)); }
+                    if (bank == 0 && obj >= 14 && obj <= 16) { (shifts[obj - 14] = shifts[obj - 14] ?? new List<KnyttPoint>()).Add(cell); }
                     var kind = KIND_OF[bank, obj];
                     if (kind == null) { continue; }
                     var at = origin(area.Position) + new Vector2(cell.x, cell.y) * TILE + TILE / 2;
@@ -852,6 +906,7 @@ public class WorldView : Control
                 }
             }
             if (warp != null) { addWarps(area, warp.Value); }
+            for (int id = 0; id < 3; id++) { if (shifts[id]?.Count > 0) { addShift(area, shifts[id], (SwitchID)id); } }
             addFlagWarps(area);
         }
     }
@@ -863,10 +918,13 @@ public class WorldView : Control
         link_cells.Clear();
         long_links.Clear();
         links_by_screen.Clear();
+        links_to_screen.Clear();
         foreach (var link in links)
         {
             if (!links_by_screen.TryGetValue(link.source, out var from_here)) { links_by_screen[link.source] = from_here = new List<Link>(); }
             from_here.Add(link);
+            if (!links_to_screen.TryGetValue(link.target, out var to_here)) { links_to_screen[link.target] = to_here = new List<Link>(); }
+            to_here.Add(link);
             var (x0, y0) = linkCell(link.bounds.Position);
             var (x1, y1) = linkCell(link.bounds.End);
             if ((x1 - x0 + 1) * (y1 - y0 + 1) > LONG_LINK_CELLS) { long_links.Add(link); continue; }
@@ -936,16 +994,37 @@ public class WorldView : Control
         }
     }
 
-    private void addShift(KnyttArea area, KnyttPoint cell, SwitchID id)
+    // All of a screen's shifts of one letter share their settings, so they're one arrow from the one nearest their middle
+    // (levels fill whole screens with them: The Manor has 56629)
+    private void addShift(KnyttArea area, List<KnyttPoint> cells, SwitchID id)
     {
         if (area.ExtraData == null) { return; }
+        var middle = cells.Aggregate(Vector2.Zero, (sum, c) => sum + new Vector2(c.x, c.y)) / cells.Count;
+        var cell = cells.OrderBy(c => (new Vector2(c.x, c.y) - middle).LengthSquared()).First();
         var shift = new KnyttShift(area, cell, id);
         var target = shift.AbsoluteArea;
         var at = new Vector2(shift.AbsolutePosition.x, shift.AbsolutePosition.y) * TILE + TILE / 2;
+        string many = cells.Count > 1 ? $" ({cells.Count} of them)" : "";
         var link = addLink("Shift", area.Position, origin(area.Position) + new Vector2(cell.x, cell.y) * TILE + TILE / 2, origin(target) + at,
-            target, SHIFT, false, $"shift {id} to x{target.x}y{target.y}");
+            target, SHIFT, false, $"shift {id}{many} to x{target.x}y{target.y}");
         link.id = new KnyttPoint(0, 14 + (int)id);
         link.cell = cell;
+        if (cells.Count == 1) { return; }
+        link.cells = new List<KnyttPoint>(cells);
+        link.fan = shift.AbsoluteTarget;
+        foreach (var (from, to) in fanOf(link)) { link.bounds = link.bounds.Expand(from).Expand(to); }
+    }
+
+    private bool fanned(Link link) => link.cells != null && TILE.x * zoom >= FAN_TILE;
+
+    // Each of a link's shifts, start and landing in level pixels
+    private IEnumerable<(Vector2 from, Vector2 to)> fanOf(Link link)
+    {
+        foreach (var cell in link.cells)
+        {
+            var step = new Vector2(cell.x - link.cell.x, cell.y - link.cell.y) * TILE;
+            yield return (link.from + step, link.fan ? link.to : link.to + step);
+        }
     }
 
     // Flag warps send Juni on as she comes in, when she has the flag
@@ -966,7 +1045,8 @@ public class WorldView : Control
     private Link addLink(string kind, KnyttPoint source, Vector2 from, Vector2 to, KnyttPoint target, Color color, bool dashed, string text)
     {
         bool lands = world.getArea(target) is KnyttArea area && !area.Empty;
-        var link = new Link { bounds = new Rect2(from, Vector2.Zero).Expand(to).Grow(1), kind = kind, source = source, from = from, to = to, color = lands ? color : BROKEN, dashed = dashed, text = lands ? text : text + " (nothing there)" };
+        var bounds = new Rect2(from, Vector2.Zero).Expand(to).Expand(origin(source) + SIZE / 2).Expand(origin(target) + SIZE / 2).Grow(1);
+        var link = new Link { bounds = bounds, kind = kind, source = source, target = target, from = from, to = to, color = lands ? color : BROKEN, dashed = dashed, text = lands ? text : text + " (nothing there)" };
         links.Add(link);
         return link;
     }
@@ -1219,7 +1299,9 @@ public class WorldView : Control
         foreach (var link in linksIn(new Rect2(at, Vector2.Zero).Grow(reach)))
         {
             if (!Shown(link) || !link.bounds.Grow(reach).HasPoint(at)) { continue; }
-            float d = distance(position, toView(link.from), toView(link.to));
+            float d = fanned(link)
+                ? fanOf(link).Min(pair => distance(position, toView(pair.from), toView(pair.to)))
+                : distance(position, ends(link).from, ends(link).to);
             if (d <= best_distance) { best = link; best_distance = d; }
         }
         return best;

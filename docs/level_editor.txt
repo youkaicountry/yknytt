@@ -27,6 +27,13 @@ World map (EXPAND MAP, Go to > World map, M):
 - Warps & shifts: arrows where Juni goes. Warps from the edge she leaves by to the far edge of where she lands,
   shifts from the shift to its target spot, flag warps dashed from the screen they're on. Red: nothing there.
   Flag warps that count artifacts aren't drawn
+- A screen's shifts of one letter share their settings, so they're one arrow, from the one nearest their middle; hovering
+  it shades every cell they cover. The Manor (TigerNDV) fills screens with them: 56629 shifts, 1440 arrows
+  Close up (tiles 8px or more) the arrow fans out into one thin arrow per shift: all to one spot when the target is
+  absolute, side by side when it's relative
+- Screens drawn under 60px link centre to centre (one line per pair, both heads when it goes both ways), and arrows
+  shrink to half from afar. Over 300 lines in view they're faint (only before they fan out), and hovering a screen draws
+  its own, out and in, in full
 - Checkboxes: Warps & shifts, Pickups (powers, keys, creatures, coins, artifacts), Saves (off at first, they're
   everywhere), Signs & triggers (signs, triggers, wins, custom objects). The key lists every kind the level has; a
   click on a line turns that kind on or off (off: hollow swatch, grey words), and a checkbox is on while any of its
