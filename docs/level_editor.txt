@@ -8,8 +8,7 @@ Look (KS+ skin):
 - Diamonds (diamond.png, diamond_face.png) are KS+'s outline and face: faces hide the lines behind them, a chosen
   layer fills with its colour and gets a yellow number, a hidden one fades
 - Yellow means on, like KS+'s chosen tab letter: SET START while placing, play buttons while playing
-- Made from KS+ screenshots under Wine by a script (scratchpad skin/build_skin.py); the counters, palette and
-  minimap match KS+ to the pixel
+- Made from KS+ screenshots: the counters, palette and minimap match KS+ to the pixel
 - Not done: the map colour number by the tabs, KS+'s X diamond,
   the smiley and the small button left of the screen (unknown), rounded screen corners, KS+'s smaller status font
 
@@ -93,7 +92,7 @@ Script panel (Script > at the right of the menu bar):
   from IniLetterButtons (a fixed set) or IniLetterEdits (typed: an object number, a cutscene name)
 - A checkbox writes its On value or removes the key; On is False for keys that default to True (Visible,
   Effect, Quantize, Trig AbsoluteTarget, Trig AsOne, Map). An option's Values say what its items stand for
-- The forms are made by a script (scratchpad forms/gen_forms.py) that writes them into both scenes, so they match.
+- The forms are the same in both scenes: change one, change the other to match.
   Tabs use slim styles in the scene so all eight fit
 - Tabs (KS+'s, every key the game reads):
   Sign: A-C, pages 1-5, shift and trigger pages, title, subtitle
@@ -152,6 +151,40 @@ Scripts later (Lua):
   row for each and More stops listing them. TestProfile.inForm is where those keys get claimed
 - Custom items and powers: keep them in the savegame too, so profiles, saves and From last test get them free
 - Same idea could give scripted objects editor fields (per object instance values in the screen's INI section)
+
+KS+ parity (checked 2026-11-05 against Level Editor Plus 1.3.9: its F1 help text, read from Level Editor 138.mfa in
+KS+Source.zip, plus clicking it under Wine):
+- Unknown widgets solved: the smiley turns the neighbour screen previews on and off ("eyes"), the small grey button
+  left of the screen cycles the canvas border colour (right-click back), the X diamond turns guides on and off
+  (a light row and column through the hovered cell; Tab too)
+- Missing, canvas:
+  - Shift + click fills, Shift + right-click replaces (that tile, all over the screen's layer)
+  - Hold Ctrl and drag to select an area of the screen as the brush
+  - Guides (X diamond, Tab). Our Tab is "see all layers" while held: one of them has to move
+  - Neighbour previews on/off (smiley), canvas border colour (grey button), colour behind the tileset (the square
+    left of the tabs)
+  - Layer 2 drawn between 6 and 7 when the screen has Overlay=True
+- Missing, tileset: drag selects an area, right-click moves the selection, WASD moves it, F drops back to one tile
+- Missing, keys: Q / E make tileset A / B active, F3 opens the script panel, F1 explains what's under the mouse
+  (ours: tooltips). Layer diamonds: Shift + click shows only that layer, Shift + right-click shows all
+- Missing, numbers: the map colour of the gradient beside the tabs (KS+'s "16")
+- Missing, script panel:
+  - World font key: KS+ writes and reads Font= for the sign font (and Title=, Subtitle=). Its notes say Sign=, which
+    is wrong. Our World form writes Sign=: fix it to Font=
+  - World: AmbiFade(A), AmbiFade(B) (=Slow, fade an ambiance slowly) and HoloLimit=True checkboxes. YKnytt's game
+    reads neither yet
+  - Sign preview ("how a sign appears in game"), and the level banner as the level list shows it (World tab)
+  - Buttons that pick the form's object in the map editor (sign, shift, trigger, warp, CO)
+  - Drop lists: characters, cutscenes, flags and powers (Flag On/Off), CO and World images from Custom Objects
+  - Colour dialogs: tint, Juni's clothes and skin, cutscene fade; the 64 colour map colour picker
+  - Flag warp "Artifact1" button; Misc: the custom character list
+- Missing, saving: warnings for a background of the wrong height, music or ambiance files not found, a level folder
+  that doesn't match World.ini, missing Category / Difficulty / Size
+- Missing, format: switching a level between KS+ and original KS, which hides KS+ objects for original levels
+- Smaller differences: KS+ music and ambiance preview while held (right-click toggles), ours toggle on click. KS+ tests
+  by clicking TEST LEVEL then a cell, ours F5 from the start and F6 from a cell. Test powers are icons in KS+, a
+  dialog here
+- Not needed: Compress (we save the .knytt.bin itself), Level Merger and KS Manager launchers, KS+'s load screen
 
 Open:
 - Save as gives the level a new folder name, profiles stay under the old one
