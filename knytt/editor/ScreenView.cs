@@ -9,6 +9,8 @@ public class ScreenView : Control
     [Signal] public delegate void CellMenu(int x, int y);
     [Signal] public delegate void CellHovered(int x, int y);
     [Signal] public delegate void CellPlaced(int x, int y);
+    [Signal] public delegate void CellFilled(int x, int y);
+    [Signal] public delegate void CellReplaced(int x, int y);
 
     [Export] public Texture JuniTexture { get; set; }
 
@@ -135,7 +137,8 @@ public class ScreenView : Control
         return inside ? cell : (Vector2?)null;
     }
 
-    // Touch has no right button: a tap paints, a drag paints a stroke, a long press opens the menu
+    // Touch has no right button: a tap paints, a drag paints a stroke, a long press opens the menu.
+    // Shift + click fills, Shift + right-click replaces, like KS+
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton button)
@@ -146,6 +149,11 @@ public class ScreenView : Control
                 if (Placing)
                 {
                     EmitSignal(nameof(CellPlaced), (int)cell.Value.x, (int)cell.Value.y);
+                    return;
+                }
+                if (button.Shift && Painting)
+                {
+                    EmitSignal(nameof(CellFilled), (int)cell.Value.x, (int)cell.Value.y);
                     return;
                 }
                 if (button.Device == TOUCH)
@@ -170,6 +178,10 @@ public class ScreenView : Control
                     last_cell = null;
                     EmitSignal(nameof(StrokeEnded));
                 }
+            }
+            else if (button.ButtonIndex == (int)ButtonList.Right && button.Pressed && cell != null && button.Shift && Painting && !Placing)
+            {
+                EmitSignal(nameof(CellReplaced), (int)cell.Value.x, (int)cell.Value.y);
             }
             else if (button.ButtonIndex == (int)ButtonList.Right && button.Pressed && cell != null)
             {

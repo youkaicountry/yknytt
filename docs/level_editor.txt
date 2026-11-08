@@ -114,6 +114,9 @@ Script panel (Script > at the right of the menu bar):
 - Scripts later could reuse IniForm for values they declare per screen
 
 Painting (KS+'s keys):
+- Shift + click fills: the cells joined to it, side by side or up and down, that hold the same tile or object.
+  Shift + right-click replaces that tile or object all over the screen's layer. Each is one undo step. The cells
+  come from KnyttFill (yknyttlib), the rest is LevelEditor.fill
 - Q / E show tileset A / B, F3 opens and closes the Script panel
 - Layer diamonds: Shift + click shows only that layer, Shift + right-click shows them all
 
@@ -163,7 +166,6 @@ KS+Source.zip, plus clicking it under Wine):
   (a light row and column through the hovered cell; Tab too)
 - Missing, canvas:
   - Hold Ctrl and drag to select an area of the screen as the brush
-  - Shift + click fills, Shift + right-click replaces (that tile, all over the screen's layer)
   - Guides (X diamond, Tab). Our Tab is "see all layers" while held: one of them has to move
   - Neighbour previews on/off (smiley), canvas border colour (grey button), colour behind the tileset (the square
     left of the tabs)

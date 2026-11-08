@@ -2267,6 +2267,8 @@ items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here"
 [connection signal="id_pressed" from="CellMenu" to="." method="_on_CellMenu_id_pressed"]
 [connection signal="CellHovered" from="ScreenView" to="." method="_on_ScreenView_CellHovered"]
 [connection signal="CellPlaced" from="ScreenView" to="." method="_on_ScreenView_CellPlaced"]
+[connection signal="CellFilled" from="ScreenView" to="." method="_on_ScreenView_CellFilled"]
+[connection signal="CellReplaced" from="ScreenView" to="." method="_on_ScreenView_CellReplaced"]
 [connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
 [connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
 [connection signal="Chosen" from="Layers/Layer0" to="." method="_on_Layer_Chosen"]

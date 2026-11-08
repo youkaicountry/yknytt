@@ -547,9 +547,9 @@ public class LevelEditor : Control
         screen_view.Update();
     }
 
-    private void paint(int x, int y)
+    // The screen to paint on, made when there's none, with the current layer shown
+    private KnyttArea paintedArea()
     {
-        if (layer < 0) { return; }
         var area = world.getArea(coords);
         if (area == null || area.Empty)
         {
@@ -559,11 +559,53 @@ public class LevelEditor : Control
             mini_map.showScreen(world, coords);
         }
         if (!screen_view.LayerShown[layer]) { showLayer(layer, true); }
+        return area;
+    }
 
-        int index = y * KnyttArea.AREA_WIDTH + x;
+    private void paint(int x, int y)
+    {
+        if (layer < 0) { return; }
+        paintCell(paintedArea(), y * KnyttArea.AREA_WIDTH + x);
+        screen_view.Update();
+    }
+
+    private void paintCell(KnyttArea area, int index)
+    {
         if (TileLayer) { history.setTile(area, layer, index, (byte)SelectedTileValue); }
         else { history.setObject(area, layer - KnyttArea.AREA_TILE_LAYERS, index, SelectedObject); }
+    }
+
+    // The current layer's cells as numbers: a tile, or an object's bank and number
+    private int[] layerCells(KnyttArea area)
+    {
+        var cells = new int[KnyttArea.AREA_WIDTH * KnyttArea.AREA_HEIGHT];
+        for (int i = 0; i < cells.Length; i++)
+        {
+            if (TileLayer) { cells[i] = area.TileLayers[layer].tiles[i]; }
+            else
+            {
+                var objects = area.ObjectLayers[layer - KnyttArea.AREA_TILE_LAYERS];
+                cells[i] = objects.lo[i] << 8 | objects.hi[i];
+            }
+        }
+        return cells;
+    }
+
+    // Shift + click fills what's joined to the cell, Shift + right-click replaces it all over the layer. One undo step each
+    private void fill(int x, int y, bool replace)
+    {
+        if (layer < 0) { return; }
+        var area = paintedArea();
+        var cells = layerCells(area);
+        int start = y * KnyttArea.AREA_WIDTH + x;
+        var changed = replace ? KnyttFill.matching(cells, cells[start]) : KnyttFill.flood(cells, KnyttArea.AREA_WIDTH, start);
+
+        history.begin();
+        if (ObjectLayer && selected_object != 0) { palette.addRecent(SelectedObject); }
+        foreach (int index in changed) { paintCell(area, index); }
+        history.end();
         screen_view.Update();
+        showChanged();
     }
 
     private void pick(int x, int y)
@@ -970,6 +1012,16 @@ public class LevelEditor : Control
     private void _on_ScreenView_CellPainted(int x, int y)
     {
         paint(x, y);
+    }
+
+    private void _on_ScreenView_CellFilled(int x, int y)
+    {
+        fill(x, y, false);
+    }
+
+    private void _on_ScreenView_CellReplaced(int x, int y)
+    {
+        fill(x, y, true);
     }
 
     private void _on_ScreenView_StrokeEnded()
