@@ -4,6 +4,8 @@ public class LayerButton : Control
 {
     [Signal] public delegate void Chosen(int layer);
     [Signal] public delegate void VisibilityToggled(int layer);
+    [Signal] public delegate void Solo(int layer);
+    [Signal] public delegate void AllShown();
 
     [Export] public int Layer { get; set; }
     [Export] public Color Tint { get; set; } = new Color(1, 1, 1);
@@ -57,6 +59,8 @@ public class LayerButton : Control
             else if (OS.GetTicksMsec() - touch_time >= LONG_PRESS_MS) { EmitSignal(nameof(VisibilityToggled), Layer); }
             else { EmitSignal(nameof(Chosen), Layer); }
         }
+        else if (button.Pressed && button.Shift && button.ButtonIndex == (int)ButtonList.Left) { EmitSignal(nameof(Solo), Layer); }
+        else if (button.Pressed && button.Shift && button.ButtonIndex == (int)ButtonList.Right) { EmitSignal(nameof(AllShown)); }
         else if (button.Pressed && button.ButtonIndex == (int)ButtonList.Left) { EmitSignal(nameof(Chosen), Layer); }
         else if (button.Pressed && button.ButtonIndex == (int)ButtonList.Right) { EmitSignal(nameof(VisibilityToggled), Layer); }
         else { return; }

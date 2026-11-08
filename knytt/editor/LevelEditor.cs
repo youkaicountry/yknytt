@@ -766,6 +766,10 @@ public class LevelEditor : Control
             GetTree().SetInputAsHandled();
             selectLayer((int)(key.Scancode - (uint)KeyList.Key0));
         }
+        else if (@event is InputEventKey ks_key && ks_key.Pressed && !ks_key.Echo && !ks_key.Control && ksKey(ks_key))
+        {
+            GetTree().SetInputAsHandled();
+        }
         else if (direction(@event) is KnyttPoint step)
         {
             GetTree().SetInputAsHandled();
@@ -777,6 +781,20 @@ public class LevelEditor : Control
             int size = letter.Shift ? BIG_STEP : 1;
             selectObject(selected_bank + change.x * size, selected_object + change.y * size);
         }
+    }
+
+    // KS+ keys: Q and E show tileset A and B, F3 opens the script panel
+    private bool ksKey(InputEventKey key)
+    {
+        if (key.Scancode == (uint)KeyList.F3)
+        {
+            var button = GetNode<Button>("%ScriptButton");
+            button.Pressed = !button.Pressed;
+        }
+        else if (key.Scancode == (uint)KeyList.Q) { GetNode<BaseButton>("%TilesetAButton").Pressed = true; }
+        else if (key.Scancode == (uint)KeyList.E) { GetNode<BaseButton>("%TilesetBButton").Pressed = true; }
+        else { return false; }
+        return true;
     }
 
     // KS+ keys: Z and X step the bank, C and V the object
@@ -1252,6 +1270,16 @@ public class LevelEditor : Control
     private void _on_Layer_VisibilityToggled(int layer)
     {
         showLayer(layer, !screen_view.LayerShown[layer]);
+    }
+
+    private void _on_Layer_Solo(int layer)
+    {
+        for (int i = 0; i < ScreenView.LAYERS; i++) { showLayer(i, i == layer); }
+    }
+
+    private void _on_Layer_AllShown()
+    {
+        for (int i = 0; i < ScreenView.LAYERS; i++) { showLayer(i, true); }
     }
 
     private void openWorldView()

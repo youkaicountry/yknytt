@@ -264,7 +264,8 @@ mouse_filter = 2
 unique_name_in_owner = true
 hint_tooltip = "Layer 0: back tiles, no collision
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 356.0
 margin_right = 412.0
 margin_bottom = 33.0
@@ -280,7 +281,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 1: tiles, no collision
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 388.0
 margin_right = 444.0
 margin_bottom = 33.0
@@ -296,7 +298,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 2: tiles, no collision. Over Juni if Overlay is on
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 420.0
 margin_right = 476.0
 margin_bottom = 33.0
@@ -312,7 +315,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 3: solid tiles. Juni collides here
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 452.0
 margin_right = 508.0
 margin_bottom = 33.0
@@ -328,7 +332,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 4: objects, behind Juni
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 544.0
 margin_right = 600.0
 margin_bottom = 33.0
@@ -344,7 +349,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 5: objects, behind Juni
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 576.0
 margin_right = 632.0
 margin_bottom = 33.0
@@ -360,7 +366,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 6: objects, in front of Juni
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 608.0
 margin_right = 664.0
 margin_bottom = 33.0
@@ -376,7 +383,8 @@ Font = ExtResource( 21 )
 unique_name_in_owner = true
 hint_tooltip = "Layer 7: objects, in front of Juni
 Click: select. Again: see all
-Right-click: hide/show"
+Right-click: hide/show
+Shift+click: only this one. Shift+right-click: all"
 margin_left = 640.0
 margin_right = 696.0
 margin_bottom = 33.0
@@ -557,7 +565,7 @@ margin_top = -1.0
 margin_right = 157.0
 margin_bottom = 23.0
 focus_mode = 0
-hint_tooltip = "Show tileset A"
+hint_tooltip = "Show tileset A (Q)"
 toggle_mode = true
 pressed = true
 group = SubResource( 1 )
@@ -589,7 +597,7 @@ margin_top = -1.0
 margin_right = 253.0
 margin_bottom = 23.0
 focus_mode = 0
-hint_tooltip = "Show tileset B"
+hint_tooltip = "Show tileset B (E)"
 toggle_mode = true
 group = SubResource( 1 )
 texture_normal = ExtResource( 24 )
@@ -730,7 +738,7 @@ focus_mode = 0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-hint_tooltip = "World.ini, and forms for this screen"
+hint_tooltip = "World.ini, and forms for this screen (F3)"
 toggle_mode = true
 text = "Script >"
 flat = true
@@ -1870,26 +1878,23 @@ Key = "Category B"
 [node name="CharacterLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
 text = "Character"
 
-[node name="Character" type="LineEdit" parent="Script/Forms/World/Rows/Fields"]
+[node name="CharacterRow" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="Character" type="LineEdit" parent="Script/Forms/World/Rows/Fields/CharacterRow"]
 hint_tooltip = "Juni, or an image in Custom Objects without .png"
 size_flags_horizontal = 3
 script = ExtResource( 14 )
 Key = "Character"
 
-[node name="ColoursLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
-text = "Juni"
-
-[node name="Colours" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
-size_flags_horizontal = 3
-
-[node name="Clothes" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Colours"]
-hint_tooltip = "Clothes: red + green×256 + blue×65536, each 0-255. 65536 is black"
+[node name="Clothes" type="LineEdit" parent="Script/Forms/World/Rows/Fields/CharacterRow"]
+hint_tooltip = "Juni's clothes: red + green×256 + blue×65536, each 0-255. 65536 is black"
 size_flags_horizontal = 3
 script = ExtResource( 14 )
 Key = "Clothes"
 
-[node name="Skin" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Colours"]
-hint_tooltip = "Skin: red + green×256 + blue×65536, each 0-255. 65536 is black"
+[node name="Skin" type="LineEdit" parent="Script/Forms/World/Rows/Fields/CharacterRow"]
+hint_tooltip = "Juni's skin: red + green×256 + blue×65536, each 0-255. 65536 is black"
 size_flags_horizontal = 3
 script = ExtResource( 14 )
 Key = "Skin"
@@ -1904,7 +1909,7 @@ size_flags_horizontal = 3
 hint_tooltip = "Sign font, an image in Custom Objects: 224×91, 7×13 letters"
 size_flags_horizontal = 3
 script = ExtResource( 14 )
-Key = "Sign"
+Key = "Font"
 
 [node name="TitleFont" type="LineEdit" parent="Script/Forms/World/Rows/Fields/Fonts"]
 hint_tooltip = "Title font: 416×168, 13×24 letters"
@@ -1955,6 +1960,33 @@ hint_tooltip = "Its image in Custom Objects"
 size_flags_horizontal = 3
 script = ExtResource( 14 )
 Key = "Artifact{0}"
+
+[node name="OptionsLabel" type="Label" parent="Script/Forms/World/Rows/Fields"]
+text = "Options"
+
+[node name="Options" type="HBoxContainer" parent="Script/Forms/World/Rows/Fields"]
+size_flags_horizontal = 3
+
+[node name="SlowFadeA" type="CheckBox" parent="Script/Forms/World/Rows/Fields/Options"]
+hint_tooltip = "Ambiance A fades slowly between screens (KS+)"
+text = "Slow A"
+script = ExtResource( 16 )
+Key = "AmbiFade(A)"
+On = "Slow"
+
+[node name="SlowFadeB" type="CheckBox" parent="Script/Forms/World/Rows/Fields/Options"]
+hint_tooltip = "Ambiance B fades slowly between screens (KS+)"
+text = "Slow B"
+script = ExtResource( 16 )
+Key = "AmbiFade(B)"
+On = "Slow"
+
+[node name="HoloLimit" type="CheckBox" parent="Script/Forms/World/Rows/Fields/Options"]
+hint_tooltip = "Holograms only work from object 0:48 (KS+)"
+text = "Holo limit"
+script = ExtResource( 16 )
+Key = "HoloLimit"
+On = "True"
 
 [node name="CO" type="Control" parent="Script/Forms"]
 script = ExtResource( 13 )
@@ -2239,20 +2271,36 @@ items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here"
 [connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
 [connection signal="Chosen" from="Layers/Layer0" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer0" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer0" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer0" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer1" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer1" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer1" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer1" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer2" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer2" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer2" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer2" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer3" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer3" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer3" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer3" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer4" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer4" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer4" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer4" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer5" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer5" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer5" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer5" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer6" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer6" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer6" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer6" to="." method="_on_Layer_AllShown"]
 [connection signal="Chosen" from="Layers/Layer7" to="." method="_on_Layer_Chosen"]
 [connection signal="VisibilityToggled" from="Layers/Layer7" to="." method="_on_Layer_VisibilityToggled"]
+[connection signal="Solo" from="Layers/Layer7" to="." method="_on_Layer_Solo"]
+[connection signal="AllShown" from="Layers/Layer7" to="." method="_on_Layer_AllShown"]
 [connection signal="ScreenSelected" from="MiniMap" to="." method="_on_MiniMap_ScreenSelected"]
 [connection signal="gui_input" from="Panel/Palette/Tileset" to="." method="_on_Tileset_gui_input"]
 [connection signal="confirmed" from="UnsavedDialog" to="." method="_on_UnsavedDialog_confirmed"]

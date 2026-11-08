@@ -101,17 +101,21 @@ Script panel (Script > at the right of the menu bar):
   Misc: tint, tint clear, tint ink, attach, overlay; shown on the map, shown as, map colour
   Cut: this screen's win scene; any cutscene's music and fade colour; song loops
   World: name, author, description, size, no map, difficulties, categories, character, Juni's clothes and skin,
-    sign/title/subtitle fonts, power and coin images, artifact images
+    sign/title/subtitle fonts, power and coin images, artifact images; KS+'s AmbiFade(A/B)=Slow and HoloLimit=True
+    (YKnytt's game reads neither yet)
   CO: custom objects in bank 255 and 254: image, frame size, offset, the stock object it acts like, animation
     frames, loop, repeat, speed, colour, harmless
 - Options > Follow the script cursor: moving the text cursor (click or keys) goes to that screen and shows the
   line's form with its letters. Off: only right-click does that
 - Not in the forms: [Custom Character] (only a list KS+ caches), SinglePass and AltDie (YKnytt doesn't read them).
-  Fonts: KS+'s notes say Sign/Title/Subtitle=, but GDKnyttGame.loadFont reads font/title/subtitle. The form uses
-  KS+'s keys; which is right needs checking against a real level
+  Fonts: KS+'s notes say Sign/Title/Subtitle=, but KS+ itself and GDKnyttGame.loadFont use Font/Title/Subtitle=
 - KS+ helpers not done: the sign preview box, warp targets shown as screens, dropdowns of the level's cutscene
   and character images, the object buttons under the forms, the map colour by the tabs, the palette colour square
 - Scripts later could reuse IniForm for values they declare per screen
+
+Painting (KS+'s keys):
+- Q / E show tileset A / B, F3 opens and closes the Script panel
+- Layer diamonds: Shift + click shows only that layer, Shift + right-click shows them all
 
 Testing:
 - TEST LEVEL (F5) plays from the level's start, SET START moves the start (undoable, saved in DefaultSavegame.ini)
@@ -158,21 +162,16 @@ KS+Source.zip, plus clicking it under Wine):
   left of the screen cycles the canvas border colour (right-click back), the X diamond turns guides on and off
   (a light row and column through the hovered cell; Tab too)
 - Missing, canvas:
-  - Shift + click fills, Shift + right-click replaces (that tile, all over the screen's layer)
   - Hold Ctrl and drag to select an area of the screen as the brush
+  - Shift + click fills, Shift + right-click replaces (that tile, all over the screen's layer)
   - Guides (X diamond, Tab). Our Tab is "see all layers" while held: one of them has to move
   - Neighbour previews on/off (smiley), canvas border colour (grey button), colour behind the tileset (the square
     left of the tabs)
   - Layer 2 drawn between 6 and 7 when the screen has Overlay=True
 - Missing, tileset: drag selects an area, right-click moves the selection, WASD moves it, F drops back to one tile
-- Missing, keys: Q / E make tileset A / B active, F3 opens the script panel, F1 explains what's under the mouse
-  (ours: tooltips). Layer diamonds: Shift + click shows only that layer, Shift + right-click shows all
+- Missing, keys: F1 explains what's under the mouse (ours: tooltips)
 - Missing, numbers: the map colour of the gradient beside the tabs (KS+'s "16")
 - Missing, script panel:
-  - World font key: KS+ writes and reads Font= for the sign font (and Title=, Subtitle=). Its notes say Sign=, which
-    is wrong. Our World form writes Sign=: fix it to Font=
-  - World: AmbiFade(A), AmbiFade(B) (=Slow, fade an ambiance slowly) and HoloLimit=True checkboxes. YKnytt's game
-    reads neither yet
   - Sign preview ("how a sign appears in game"), and the level banner as the level list shows it (World tab)
   - Buttons that pick the form's object in the map editor (sign, shift, trigger, warp, CO)
   - Drop lists: characters, cutscenes, flags and powers (Flag On/Off), CO and World images from Custom Objects
