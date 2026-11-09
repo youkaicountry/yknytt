@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -29,6 +29,12 @@
 [ext_resource path="res://knytt/editor/IniCheckBox.cs" type="Script" id=16]
 [ext_resource path="res://knytt/editor/IniLetterButton.cs" type="Script" id=17]
 [ext_resource path="res://knytt/editor/IniLetterEdit.cs" type="Script" id=18]
+[ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="DynamicFontData" id=30]
+
+[sub_resource type="DynamicFont" id=40]
+size = 10
+use_filter = true
+font_data = ExtResource( 30 )
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -177,12 +183,16 @@ rect_clip_content = true
 script = ExtResource( 2 )
 JuniTexture = ExtResource( 5 )
 
-[node name="Cursor" type="TextureRect" parent="ScreenView"]
+[node name="Cursor" type="NinePatchRect" parent="ScreenView"]
 visible = false
 margin_right = 24.0
 margin_bottom = 24.0
 mouse_filter = 2
 texture = ExtResource( 6 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 
 [node name="Brush" type="TextureRect" parent="ScreenView/Cursor"]
 modulate = Color( 1, 1, 1, 0.6 )
@@ -642,12 +652,16 @@ margin_bottom = 202.0
 rect_clip_content = true
 stretch_mode = 3
 
-[node name="TileCursor" type="TextureRect" parent="Panel/Palette/Tileset"]
+[node name="TileCursor" type="NinePatchRect" parent="Panel/Palette/Tileset"]
 unique_name_in_owner = true
 margin_right = 24.0
 margin_bottom = 24.0
 mouse_filter = 2
 texture = ExtResource( 6 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 
 [node name="Status" type="ColorRect" parent="Panel"]
 margin_top = 228.0
@@ -659,8 +673,17 @@ color = Color( 0, 0, 0, 1 )
 unique_name_in_owner = true
 anchor_right = 1.0
 margin_left = 3.0
-margin_top = 2.0
 text = "Map:"
+clip_text = true
+
+[node name="HintLabel" type="Label" parent="Panel/Status"]
+unique_name_in_owner = true
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = 13.0
+custom_fonts/font = SubResource( 40 )
+custom_colors/font_color = Color( 0.78, 0.78, 0.78, 1 )
+clip_text = true
 
 [node name="Objects" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -2259,7 +2282,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 margin_right = 20.0
 margin_bottom = 20.0
-items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here", null, 0, false, false, 1, 0, null, "", false, "Set start here", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Fill (Shift+click)", null, 0, false, false, 1, 0, null, "", false, "Replace (Shift+right-click)", null, 0, false, false, 2, 0, null, "", false, "Test from here", null, 0, false, false, 3, 0, null, "", false, "Set start here", null, 0, false, false, 4, 0, null, "", false ]
 
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
@@ -2269,6 +2292,7 @@ items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Test from here"
 [connection signal="CellPlaced" from="ScreenView" to="." method="_on_ScreenView_CellPlaced"]
 [connection signal="CellFilled" from="ScreenView" to="." method="_on_ScreenView_CellFilled"]
 [connection signal="CellReplaced" from="ScreenView" to="." method="_on_ScreenView_CellReplaced"]
+[connection signal="AreaCopied" from="ScreenView" to="." method="_on_ScreenView_AreaCopied"]
 [connection signal="StrokeEnded" from="ScreenView" to="." method="_on_ScreenView_StrokeEnded"]
 [connection signal="StrokeStarted" from="ScreenView" to="." method="_on_ScreenView_StrokeStarted"]
 [connection signal="Chosen" from="Layers/Layer0" to="." method="_on_Layer_Chosen"]

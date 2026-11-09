@@ -18,7 +18,7 @@ public class LevelEditor : Control
     private enum GoToMenu { Start, Default, Coordinates, WorldMap }
     private enum TestMenu { FromStart, FromHere, Profiles, UseAsStart, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
-    private enum CellMenu { Pick, Test, Start }
+    private enum CellMenu { Pick, Fill, Replace, Test, Start }
 
     private static readonly HashSet<string> overwrite_allowed = new HashSet<string>();
     private static LevelEditor tested;
@@ -45,6 +45,11 @@ public class LevelEditor : Control
 
     private int layer = -1;
     private int selected_tile;
+    private KnyttPoint tile_block = new KnyttPoint(1, 1);
+    private KnyttPoint? tile_drag;
+    private KnyttStamp copied;
+    private bool copied_objects;
+    private KnyttPoint? stroke_origin;
     private int selected_bank;
     private int selected_object;
     private ulong press_time;
@@ -358,16 +363,28 @@ public class LevelEditor : Control
         return data == null ? "" : GDKnyttAssetManager.loadTextFile(data);
     }
 
-    private int SelectedTileValue => selected_tile == 0 ? 0 : selected_tile + (GetNode<BaseButton>("%TilesetBButton").Pressed ? 128 : 0);
+    private void selectTile(int index) => selectTiles(index, new KnyttPoint(1, 1));
 
-    private void selectTile(int index)
+    // A block of tiles, its corner kept so the whole of it stays on the tileset
+    private void selectTiles(int index, KnyttPoint block)
     {
-        selected_tile = index;
-        GetNode<Control>("%TileCursor").RectPosition = new Vector2(
-            index % GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_WIDTH,
-            index / GDKnyttAssetManager.TILESET_WIDTH * GDKnyttAssetManager.TILE_HEIGHT);
+        int x = Mathf.Clamp(index % GDKnyttAssetManager.TILESET_WIDTH, 0, GDKnyttAssetManager.TILESET_WIDTH - block.x);
+        int y = Mathf.Clamp(index / GDKnyttAssetManager.TILESET_WIDTH, 0, GDKnyttAssetManager.TILESET_HEIGHT - block.y);
+        selected_tile = y * GDKnyttAssetManager.TILESET_WIDTH + x;
+        tile_block = block;
+        copied = null;
+        var cursor = GetNode<Control>("%TileCursor");
+        cursor.RectPosition = new Vector2(x, y) * TILE;
+        cursor.RectSize = new Vector2(block.x, block.y) * TILE;
         showTileset();
     }
+
+    private bool TileBlock => !(tile_block.x == 1 && tile_block.y == 1);
+
+    // Whatever painting puts down: an area copied off a screen, the tileset's selection or the chosen object
+    private KnyttStamp Stamp => copied ?? (TileLayer ?
+        KnyttStamp.tiles(selected_tile, tile_block.x, tile_block.y, GDKnyttAssetManager.TILESET_WIDTH, GetNode<BaseButton>("%TilesetBButton").Pressed ? 128 : 0) :
+        new KnyttStamp(1, 1, new[] { SelectedObject.x << 8 | SelectedObject.y }));
 
     private LayerButton layerButton(int layer) => GetNode<LayerButton>($"%Layer{layer}");
 
@@ -378,6 +395,7 @@ public class LevelEditor : Control
     private void selectLayer(int layer)
     {
         this.layer = layer == this.layer ? -1 : layer;
+        if (copied != null && this.layer >= 0 && ObjectLayer != copied_objects) { copied = null; }
         screen_view.CurrentLayer = this.layer;
         screen_view.Painting = this.layer >= 0;
         for (int i = 0; i < ScreenView.LAYERS; i++) { layerButton(i).Selected = i == this.layer; }
@@ -403,6 +421,7 @@ public class LevelEditor : Control
     {
         selected_bank = bank & 0xFF;
         selected_object = obj & 0xFF;
+        copied = null;
         var id = new KnyttPoint(selected_bank, selected_object);
         string bank_name = $"Bank {selected_bank}: {catalog.bankName(selected_bank)}";
         string details = catalog.details(id);
@@ -431,7 +450,11 @@ public class LevelEditor : Control
 
     private void showBrush()
     {
-        if (placing != Placing.None) { screen_view.showJuni(); }
+        bool many = placing == Placing.None && layer >= 0 && !Stamp.Single;
+        screen_view.setStamp(many ? Stamp : null, ObjectLayer, assets.getTileset(value(ScreenValue.TilesetA)), assets.getTileset(value(ScreenValue.TilesetB)));
+        showHint();
+        if (many) { screen_view.setBrush(null, new Rect2()); }
+        else if (placing != Placing.None) { screen_view.showJuni(); }
         else if (TileLayer && selected_tile != 0)
         {
             var position = new Vector2(selected_tile % GDKnyttAssetManager.TILESET_WIDTH, selected_tile / GDKnyttAssetManager.TILESET_WIDTH);
@@ -565,14 +588,27 @@ public class LevelEditor : Control
     private void paint(int x, int y)
     {
         if (layer < 0) { return; }
-        paintCell(paintedArea(), y * KnyttArea.AREA_WIDTH + x);
+        var area = paintedArea();
+        var stamp = Stamp;
+        var cell = new KnyttPoint(x, y);
+        if (stroke_origin == null) { stroke_origin = cell; }
+        var at = stamp.snap(stroke_origin.Value, cell);
+        for (int row = 0; row < stamp.Height; row++)
+        {
+            for (int column = 0; column < stamp.Width; column++)
+            {
+                int cell_x = at.x + column, cell_y = at.y + row;
+                if (cell_x < 0 || cell_y < 0 || cell_x >= KnyttArea.AREA_WIDTH || cell_y >= KnyttArea.AREA_HEIGHT) { continue; }
+                paintCell(area, cell_y * KnyttArea.AREA_WIDTH + cell_x, stamp.at(column, row));
+            }
+        }
         screen_view.Update();
     }
 
-    private void paintCell(KnyttArea area, int index)
+    private void paintCell(KnyttArea area, int index, int value)
     {
-        if (TileLayer) { history.setTile(area, layer, index, (byte)SelectedTileValue); }
-        else { history.setObject(area, layer - KnyttArea.AREA_TILE_LAYERS, index, SelectedObject); }
+        if (TileLayer) { history.setTile(area, layer, index, (byte)value); }
+        else { history.setObject(area, layer - KnyttArea.AREA_TILE_LAYERS, index, new KnyttPoint(value >> 8, value & 255)); }
     }
 
     // The current layer's cells as numbers: a tile, or an object's bank and number
@@ -599,10 +635,11 @@ public class LevelEditor : Control
         var cells = layerCells(area);
         int start = y * KnyttArea.AREA_WIDTH + x;
         var changed = replace ? KnyttFill.matching(cells, cells[start]) : KnyttFill.flood(cells, KnyttArea.AREA_WIDTH, start);
+        var stamp = Stamp;
 
         history.begin();
-        if (ObjectLayer && selected_object != 0) { palette.addRecent(SelectedObject); }
-        foreach (int index in changed) { paintCell(area, index); }
+        if (ObjectLayer && selected_object != 0 && copied == null) { palette.addRecent(SelectedObject); }
+        foreach (int index in changed) { paintCell(area, index, stamp.at(index % KnyttArea.AREA_WIDTH - x, index / KnyttArea.AREA_WIDTH - y)); }
         history.end();
         screen_view.Update();
         showChanged();
@@ -658,6 +695,53 @@ public class LevelEditor : Control
             }
         }
         GetNode<Label>("%StatusLabel").Text = text + status_message;
+    }
+
+    private bool mouseOver(params string[] nodes)
+    {
+        var at = GetGlobalMousePosition();
+        return nodes.Any(node => GetNode<Control>(node).GetGlobalRect().HasPoint(at));
+    }
+
+    private void showHint()
+    {
+        string text = hint();
+        var label = GetNode<Label>("%HintLabel");
+        if (label.Text != text) { label.Text = text; }
+    }
+
+    private static string keys(params string[] items) => string.Join("     ", items);
+
+    // The keys that do something where the mouse is. A held key shows what it changes
+    private string hint()
+    {
+        if (palette.Visible || GetNode<Control>("%WorldView").Visible) { return ""; }
+        bool shift = Input.IsKeyPressed((int)KeyList.Shift);
+        bool ctrl = Input.IsKeyPressed((int)KeyList.Control);
+
+        if (mouseOver("%ScreenView"))
+        {
+            if (placing != Placing.None) { return keys("Click place", "Right-click cancel"); }
+            if (layer < 0) { return keys("0-7 paint on a layer", "Right-click menu"); }
+            if (ctrl) { return "Drag copy an area as the brush"; }
+            if (shift) { return keys("Click fill", "Right-click replace"); }
+            return keys("Shift+click fill", "Shift+right-click replace", "Ctrl+drag copy", Stamp.Single ? "" : "F one tile");
+        }
+        if (TileLayer && mouseOver("%Tileset"))
+        {
+            return TileBlock ? keys("Right-click move", "WASD nudge", "F one tile", "Q E tileset") : keys("Drag select an area", "Q E tileset");
+        }
+        if (ObjectLayer && mouseOver("%Objects")) { return keys("Z X bank", "C V object", "Shift 10 at a time"); }
+        if (mouseOver("%Layer0", "%Layer1", "%Layer2", "%Layer3", "%Layer4", "%Layer5", "%Layer6", "%Layer7"))
+        {
+            return shift ? keys("Click only this layer", "Right-click all layers") : keys("Right-click hide", "Shift+click only this", "Shift+right-click all", "0-7 keys");
+        }
+        if (mouseOver("Panel/Tabs/BackgroundTab", "Panel/Tabs/TilesetATab", "Panel/Tabs/TilesetBTab", "Sounds/MusicRow", "Sounds/AmbianceARow", "Sounds/AmbianceBRow"))
+        {
+            return shift ? keys("Click +10", "Right-click -10") : keys("Click +1", "Right-click -1", "Wheel", "Shift 10 at a time");
+        }
+        if (mouseOver("MiniMap")) { return keys("Click go there", "Arrows next screen", "M world map"); }
+        return "";
     }
 
     private void showTileset()
@@ -768,6 +852,8 @@ public class LevelEditor : Control
     // Clicking anywhere else lets go of a script field, which keeps what was typed
     public override void _Input(InputEvent @event)
     {
+        if (@event is InputEventMouseMotion || @event is InputEventKey) { showHint(); }
+
         var focus = GetFocusOwner();
         if (@event is InputEventMouseButton button && button.Pressed && focus != null && script.IsAParentOf(focus) &&
             !focus.GetGlobalRect().HasPoint(button.Position))
@@ -812,6 +898,12 @@ public class LevelEditor : Control
         {
             GetTree().SetInputAsHandled();
         }
+        else if (TileLayer && TileBlock && copied == null && @event is InputEventKey nudge && nudge.Pressed && !nudge.Control && tileKeys(nudge) is KnyttPoint move)
+        {
+            GetTree().SetInputAsHandled();
+            var at = new KnyttPoint(selected_tile % GDKnyttAssetManager.TILESET_WIDTH, selected_tile / GDKnyttAssetManager.TILESET_WIDTH) + move;
+            selectTiles(Mathf.Clamp(at.y, 0, GDKnyttAssetManager.TILESET_HEIGHT - 1) * GDKnyttAssetManager.TILESET_WIDTH + Mathf.Clamp(at.x, 0, GDKnyttAssetManager.TILESET_WIDTH - 1), tile_block);
+        }
         else if (direction(@event) is KnyttPoint step)
         {
             GetTree().SetInputAsHandled();
@@ -825,7 +917,7 @@ public class LevelEditor : Control
         }
     }
 
-    // KS+ keys: Q and E show tileset A and B, F3 opens the script panel
+    // KS+ keys: Q and E show tileset A and B, F3 opens the script panel, F goes back to one tile
     private bool ksKey(InputEventKey key)
     {
         if (key.Scancode == (uint)KeyList.F3)
@@ -833,11 +925,23 @@ public class LevelEditor : Control
             var button = GetNode<Button>("%ScriptButton");
             button.Pressed = !button.Pressed;
         }
+        else if (key.Scancode == (uint)KeyList.F && (copied != null || TileBlock))
+        {
+            copied = null;
+            selectTile(selected_tile);
+        }
         else if (key.Scancode == (uint)KeyList.Q) { GetNode<BaseButton>("%TilesetAButton").Pressed = true; }
         else if (key.Scancode == (uint)KeyList.E) { GetNode<BaseButton>("%TilesetBButton").Pressed = true; }
         else { return false; }
         return true;
     }
+
+    // KS+ keys: WASD move the tileset's selection
+    private static KnyttPoint? tileKeys(InputEventKey key) =>
+        key.Scancode == (uint)KeyList.A ? new KnyttPoint(-1, 0) :
+        key.Scancode == (uint)KeyList.D ? new KnyttPoint(1, 0) :
+        key.Scancode == (uint)KeyList.W ? new KnyttPoint(0, -1) :
+        key.Scancode == (uint)KeyList.S ? new KnyttPoint(0, 1) : (KnyttPoint?)null;
 
     // KS+ keys: Z and X step the bank, C and V the object
     private static KnyttPoint? objectKeys(InputEventKey key) =>
@@ -1006,7 +1110,19 @@ public class LevelEditor : Control
     private void _on_ScreenView_StrokeStarted()
     {
         history.begin();
-        if (ObjectLayer && selected_object != 0) { palette.addRecent(SelectedObject); }
+        stroke_origin = null;
+        if (ObjectLayer && selected_object != 0 && copied == null) { palette.addRecent(SelectedObject); }
+    }
+
+    // One cell is the same as picking it
+    private void _on_ScreenView_AreaCopied(int x, int y, int width, int height)
+    {
+        if (width == 1 && height == 1) { pick(x, y); return; }
+        var area = world.getArea(coords);
+        var cells = area == null || area.Empty ? new int[KnyttArea.AREA_WIDTH * KnyttArea.AREA_HEIGHT] : layerCells(area);
+        copied = KnyttStamp.cut(cells, KnyttArea.AREA_WIDTH, x, y, width, height);
+        copied_objects = ObjectLayer;
+        showBrush();
     }
 
     private void _on_ScreenView_CellPainted(int x, int y)
@@ -1038,6 +1154,8 @@ public class LevelEditor : Control
         var area = world.getArea(coords);
         var menu = GetNode<PopupMenu>("%CellMenu");
         menu.SetItemDisabled((int)CellMenu.Pick, layer < 0 || area == null || area.Empty);
+        menu.SetItemDisabled((int)CellMenu.Fill, layer < 0);
+        menu.SetItemDisabled((int)CellMenu.Replace, layer < 0);
         menu.SetItemText((int)CellMenu.Test, test_dialog.Profile == null ? "Test from here" : $"Test from here: {test_dialog.Profile.Name}");
         showObjectKeys(menu, area, menu_cell);
         var size = menu.GetCombinedMinimumSize();
@@ -1054,6 +1172,8 @@ public class LevelEditor : Control
         switch ((CellMenu)id)
         {
             case CellMenu.Pick: pick(menu_cell.x, menu_cell.y); break;
+            case CellMenu.Fill: fill(menu_cell.x, menu_cell.y, false); break;
+            case CellMenu.Replace: fill(menu_cell.x, menu_cell.y, true); break;
             case CellMenu.Test: test(coords, menu_cell); break;
             case CellMenu.Start: setStart(coords, menu_cell); break;
             default: editKey(menu_keys[id - CELL_MENU_KEYS].section ?? ScreenSection, menu_keys[id - CELL_MENU_KEYS].key); break;
@@ -1177,12 +1297,36 @@ public class LevelEditor : Control
         updateStatus();
     }
 
+    // Click selects a tile, drag an area, right-click moves the area
     private void _on_Tileset_gui_input(InputEvent @event)
     {
-        if (!(@event is InputEventMouseButton button) || !button.Pressed || button.ButtonIndex != (int)ButtonList.Left) { return; }
-        var cell = (button.Position / new Vector2(GDKnyttAssetManager.TILE_WIDTH, GDKnyttAssetManager.TILE_HEIGHT)).Floor();
-        if (cell.y >= GDKnyttAssetManager.TILESET_HEIGHT) { return; }
-        selectTile((int)cell.y * GDKnyttAssetManager.TILESET_WIDTH + (int)cell.x);
+        if (@event is InputEventMouseMotion motion && tile_drag != null) { dragTiles(tileAt(motion.Position)); }
+        if (!(@event is InputEventMouseButton button)) { return; }
+        var cell = tileAt(button.Position);
+
+        if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed) { tile_drag = null; }
+        if (!button.Pressed || button.Position.y >= GDKnyttAssetManager.TILESET_HEIGHT * TILE.y) { return; }
+        if (button.ButtonIndex == (int)ButtonList.Left)
+        {
+            tile_drag = cell;
+            dragTiles(cell);
+        }
+        else if (button.ButtonIndex == (int)ButtonList.Right && TileBlock)
+        {
+            selectTiles(cell.y * GDKnyttAssetManager.TILESET_WIDTH + cell.x, tile_block);
+        }
+    }
+
+    private KnyttPoint tileAt(Vector2 position) => new KnyttPoint(
+        Mathf.Clamp((int)(position.x / TILE.x), 0, GDKnyttAssetManager.TILESET_WIDTH - 1),
+        Mathf.Clamp((int)(position.y / TILE.y), 0, GDKnyttAssetManager.TILESET_HEIGHT - 1));
+
+    private void dragTiles(KnyttPoint cell)
+    {
+        var start = tile_drag.Value;
+        var corner = start.min(cell);
+        var far = start.max(cell);
+        selectTiles(corner.y * GDKnyttAssetManager.TILESET_WIDTH + corner.x, far - corner + new KnyttPoint(1, 1));
     }
 
     // Click or wheel up steps forward; right-click, wheel down or a long press steps back. Shift steps by 10

@@ -11,6 +11,7 @@ public class ScreenView : Control
     [Signal] public delegate void CellPlaced(int x, int y);
     [Signal] public delegate void CellFilled(int x, int y);
     [Signal] public delegate void CellReplaced(int x, int y);
+    [Signal] public delegate void AreaCopied(int x, int y, int width, int height);
 
     [Export] public Texture JuniTexture { get; set; }
 
@@ -21,6 +22,7 @@ public class ScreenView : Control
     private static readonly Vector2 TILE = new Vector2(GDKnyttAssetManager.TILE_WIDTH, GDKnyttAssetManager.TILE_HEIGHT);
     private static readonly Color NEIGHBOUR_SHADE = new Color(0, 0, 0, 0.45f);
     private static readonly Color START_COLOR = new Color(1, 1, 0);
+    private static readonly Color STAMP_COLOR = new Color(1, 1, 1, 0.6f);
     private const float FADED_LAYER = 0.35f;
     private const int TOUCH = -1;
     private const ulong LONG_PRESS_MS = 500;
@@ -38,16 +40,22 @@ public class ScreenView : Control
     private int background;
     private KnyttPoint start_area;
     private KnyttPoint start_position;
-    private TextureRect cursor;
+    private NinePatchRect cursor;
     private TextureRect brush;
     private Vector2? last_cell;
     private Vector2? hovered_cell;
     private Vector2? touch_cell;
+    private Vector2? copy_start;
+    private Vector2 copy_end;
+    private KnyttStamp stamp;
+    private bool stamp_objects;
+    private Texture stamp_tileset_a;
+    private Texture stamp_tileset_b;
     private ulong touch_time;
 
     public override void _Ready()
     {
-        cursor = GetNode<TextureRect>("Cursor");
+        cursor = GetNode<NinePatchRect>("Cursor");
         brush = GetNode<TextureRect>("Cursor/Brush");
     }
 
@@ -87,6 +95,17 @@ public class ScreenView : Control
         brush.Update();
     }
 
+    // A brush of many cells, or null for the one drawn by setBrush
+    public void setStamp(KnyttStamp stamp, bool objects, Texture tileset_a, Texture tileset_b)
+    {
+        this.stamp = stamp;
+        stamp_objects = objects;
+        stamp_tileset_a = tileset_a;
+        stamp_tileset_b = tileset_b;
+        if (hovered_cell != null) { placeCursor(hovered_cell.Value); }
+        Update();
+    }
+
     private float layerAlpha(int layer, bool neighbour)
     {
         if (!LayerShown[layer]) { return 0; }
@@ -120,6 +139,38 @@ public class ScreenView : Control
             DrawTextureRectRegion(JuniTexture, new Rect2(position, TILE), new Rect2(Vector2.Zero, TILE));
             drawFrame(new Rect2(position, TILE), START_COLOR);
         }
+
+        if (stamp != null && hovered_cell != null && copy_start == null && Painting && !Placing)
+        {
+            var cell = hovered_cell.Value;
+            painter.drawStamp(this, stamp, stamp_objects, stamp_tileset_a, stamp_tileset_b, new KnyttPoint((int)cell.x, (int)cell.y), Offset + cell * TILE, STAMP_COLOR);
+        }
+    }
+
+    // The frame shows the brush's size, or the area being copied
+    private void placeCursor(Vector2 cell)
+    {
+        var size = stamp == null || Placing ? Vector2.One : new Vector2(stamp.Width, stamp.Height);
+        var room = new Vector2(KnyttArea.AREA_WIDTH, KnyttArea.AREA_HEIGHT) - cell;
+        cursor.RectPosition = Offset + cell * TILE;
+        cursor.RectSize = new Vector2(Mathf.Min(size.x, room.x), Mathf.Min(size.y, room.y)) * TILE;
+    }
+
+    private Rect2 CopyArea
+    {
+        get
+        {
+            var from = new Vector2(Mathf.Min(copy_start.Value.x, copy_end.x), Mathf.Min(copy_start.Value.y, copy_end.y));
+            var to = new Vector2(Mathf.Max(copy_start.Value.x, copy_end.x), Mathf.Max(copy_start.Value.y, copy_end.y));
+            return new Rect2(from, to - from + Vector2.One);
+        }
+    }
+
+    private void showCopyArea()
+    {
+        cursor.RectPosition = Offset + CopyArea.Position * TILE;
+        cursor.RectSize = CopyArea.Size * TILE;
+        Update();
     }
 
     private void drawFrame(Rect2 rect, Color color)
@@ -138,7 +189,7 @@ public class ScreenView : Control
     }
 
     // Touch has no right button: a tap paints, a drag paints a stroke, a long press opens the menu.
-    // Shift + click fills, Shift + right-click replaces, like KS+
+    // Shift + click fills, Shift + right-click replaces, Ctrl + drag copies an area, like KS+
     public override void _GuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton button)
@@ -149,6 +200,13 @@ public class ScreenView : Control
                 if (Placing)
                 {
                     EmitSignal(nameof(CellPlaced), (int)cell.Value.x, (int)cell.Value.y);
+                    return;
+                }
+                if (button.Control && Painting)
+                {
+                    copy_start = cell;
+                    copy_end = cell.Value;
+                    showCopyArea();
                     return;
                 }
                 if (button.Shift && Painting)
@@ -163,6 +221,14 @@ public class ScreenView : Control
                     return;
                 }
                 startStroke(cell.Value);
+            }
+            else if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed && copy_start != null)
+            {
+                var area = CopyArea;
+                copy_start = null;
+                EmitSignal(nameof(AreaCopied), (int)area.Position.x, (int)area.Position.y, (int)area.Size.x, (int)area.Size.y);
+                placeCursor(copy_end);
+                Update();
             }
             else if (button.ButtonIndex == (int)ButtonList.Left && !button.Pressed)
             {
@@ -191,10 +257,20 @@ public class ScreenView : Control
         else if (@event is InputEventMouseMotion motion)
         {
             var cell = cellAt(motion.Position);
+            if (copy_start != null)
+            {
+                hover(cell);
+                if (cell != null && cell != copy_end)
+                {
+                    copy_end = cell.Value;
+                    showCopyArea();
+                }
+                return;
+            }
             cursor.Visible = cell != null && (Painting || Placing);
             hover(cell);
             if (cell == null) { return; }
-            cursor.RectPosition = Offset + cell.Value * TILE;
+            placeCursor(cell.Value);
 
             if (touch_cell != null && cell != touch_cell)
             {
@@ -233,6 +309,7 @@ public class ScreenView : Control
     {
         if (cell == hovered_cell) { return; }
         hovered_cell = cell;
+        if (stamp != null) { Update(); }
         EmitSignal(nameof(CellHovered), (int)(cell?.x ?? -1), (int)(cell?.y ?? -1));
     }
 

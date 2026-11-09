@@ -84,6 +84,27 @@ public class AreaPainter
         }
     }
 
+    // A brush of many cells, cut off where the screen ends. Objects are bank * 256 + number
+    public void drawStamp(CanvasItem canvas, KnyttStamp stamp, bool objects, Texture tileset_a, Texture tileset_b, KnyttPoint cell, Vector2 origin, Color color)
+    {
+        for (int y = 0; y < stamp.Height && cell.y + y < KnyttArea.AREA_HEIGHT; y++)
+        {
+            for (int x = 0; x < stamp.Width && cell.x + x < KnyttArea.AREA_WIDTH; x++)
+            {
+                int value = stamp.at(x, y);
+                var position = origin + new Vector2(x, y) * TILE;
+                if (objects)
+                {
+                    var icon = value % 256 == 0 ? null : assets.getObject(new KnyttPoint(value >> 8, value & 255));
+                    if (icon != null) { canvas.DrawTexture(icon, position, color); }
+                    continue;
+                }
+                var texture = value < 128 ? tileset_a : tileset_b;
+                if (value % 128 != 0 && texture != null) { canvas.DrawTextureRectRegion(texture, new Rect2(position, TILE), new Rect2(tileSource(value), TILE), color); }
+            }
+        }
+    }
+
     private static Vector2 tileSource(int tile) =>
         new Vector2(tile % 128 % GDKnyttAssetManager.TILESET_WIDTH, tile % 128 / GDKnyttAssetManager.TILESET_WIDTH) * TILE;
 

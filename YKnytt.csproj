@@ -317,6 +317,7 @@
     <Compile Include="knytt\lib\yknyttlib\KnyttWorldInfo.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttShift.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttFill.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttStamp.cs" />
     <Compile Include="knytt\lib\yknyttlib\Paging\KnyttPagingPolicy.cs" />
     <Compile Include="knytt\lib\yknyttlib\Paging\KnyttRectPaging.cs" />
     <Compile Include="knytt\lib\yknyttlib\Parser\ICommand.cs" />
