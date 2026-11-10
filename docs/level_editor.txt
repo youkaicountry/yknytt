@@ -9,8 +9,9 @@ Look (KS+ skin):
   layer fills with its colour and gets a yellow number, a hidden one fades
 - Yellow means on, like KS+'s chosen tab letter: SET START while placing, play buttons while playing
 - Made from KS+ screenshots: the counters, palette and minimap match KS+ to the pixel
-- Not done: the map colour number by the tabs, KS+'s X diamond,
-  the smiley and the small button left of the screen (unknown), rounded screen corners, KS+'s smaller status font
+- KS+'s smiley (neighbours_on/off.png), X (guides.png, guides_on.png) and two speech bubbles (bubble.png,
+  tileset_bubble.png: white, tinted by self_modulate) were cut from KS+ shots; the teal bubble is gone from chrome.png
+- Not done: rounded screen corners, KS+'s smaller status font
 
 World map (EXPAND MAP, Go to > World map, M):
 - The whole level over the editor. Drag to pan (any button, or a finger), wheel to zoom at the pointer, two fingers
@@ -113,6 +114,16 @@ Script panel (Script > at the right of the menu bar):
   and character images, the object buttons under the forms, the map colour by the tabs, the palette colour square
 - Scripts later could reuse IniForm for values they declare per screen
 
+Canvas (KS+'s buttons, remembered in settings.ini [Editor]):
+- The smiley shows or hides the neighbour screens, the X (or Tab, or Options > Guides) shows guides: a darker row
+  and column through the cell under the mouse with faint light edges, KS+'s exactly (black and white at 35/255)
+- The bubble left of the screen cycles the colour of the line round it, the one left of the tabs the checks behind
+  the tileset: KS+'s eight colours each, click next, right-click back. The buttons use KS+'s own swatch colours
+- Holding Space shows every layer at full strength (it was Tab, which KS+ uses for guides; ` opens the console)
+- Screens with Overlay=True draw tile layer 2 between object layers 6 and 7, as the game does (AreaPainter.overlay,
+  the world map's pictures too)
+- The swatch right of the tabs is the screen's colour on YKnytt's map
+
 Painting (KS+'s keys):
 - Shift + click fills: the cells joined to it, side by side or up and down, that hold the same tile or object.
   Shift + right-click replaces that tile or object all over the screen's layer. Each is one undo step. The cells
@@ -125,6 +136,8 @@ Painting (KS+'s keys):
   A stroke lays the brush side by side from where it began (KnyttStamp.snap), a fill or replace repeats it
 - The line under the status shows the keys that do something where the mouse is, and changes while Shift or Ctrl is
   held (LevelEditor.hint). Fill and Replace are in the right-click menu too, which is how touch reaches them
+- Help > Keys (F1) lists every key, written in LevelEditor.tscn (KeysDialog). Where the line has nothing else to
+  say it reads "F1 all keys", so no key is only in this file
 
 Testing:
 - TEST LEVEL (F5) plays from the level's start, SET START moves the start (undoable, saved in DefaultSavegame.ini)
@@ -170,13 +183,10 @@ KS+Source.zip, plus clicking it under Wine):
 - Unknown widgets solved: the smiley turns the neighbour screen previews on and off ("eyes"), the small grey button
   left of the screen cycles the canvas border colour (right-click back), the X diamond turns guides on and off
   (a light row and column through the hovered cell; Tab too)
-- Missing, canvas:
-  - Guides (X diamond, Tab). Our Tab is "see all layers" while held: one of them has to move
-  - Neighbour previews on/off (smiley), canvas border colour (grey button), colour behind the tileset (the square
-    left of the tabs)
-  - Layer 2 drawn between 6 and 7 when the screen has Overlay=True
 - Missing, keys: F1 explains what's under the mouse (ours: tooltips)
-- Missing, numbers: the map colour of the gradient beside the tabs (KS+'s "16")
+- KS+'s number right of the tabs is "the color seen on the in-game map for the current gradient", out of 64. Its
+  numbers don't come from YKnytt's gradient colours (Desert, 9, is 18: pink by MapColor's sums, not brown), so ours
+  is a swatch of the colour YKnytt's map shows (MapPanel.areaColor), not a number
 - Missing, script panel:
   - Sign preview ("how a sign appears in game"), and the level banner as the level list shows it (World tab)
   - Buttons that pick the form's object in the map editor (sign, shift, trigger, warp, CO)

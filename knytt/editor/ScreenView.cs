@@ -23,6 +23,9 @@ public class ScreenView : Control
     private static readonly Color NEIGHBOUR_SHADE = new Color(0, 0, 0, 0.45f);
     private static readonly Color START_COLOR = new Color(1, 1, 0);
     private static readonly Color STAMP_COLOR = new Color(1, 1, 1, 0.6f);
+    // KS+'s guides: a darker row and column through the cell under the mouse, with light edges
+    private static readonly Color GUIDE_SHADE = new Color(0, 0, 0, 35 / 255f);
+    private static readonly Color GUIDE_EDGE = new Color(1, 1, 1, 35 / 255f);
     private const float FADED_LAYER = 0.35f;
     private const int TOUCH = -1;
     private const ulong LONG_PRESS_MS = 500;
@@ -31,6 +34,9 @@ public class ScreenView : Control
     public bool FadeOthers { get; set; } = true;
     public bool Painting { get; set; } = true;
     public bool Peeking { get; set; }
+    public bool Neighbours { get; set; } = true;
+    public bool Guides { get; set; }
+    public Color BorderColor { get; set; } = Color.Color8(102, 102, 102);
     public bool Placing { get; set; }
     public bool[] LayerShown { get; } = new bool[] { true, true, true, true, true, true, true, true };
 
@@ -116,7 +122,7 @@ public class ScreenView : Control
     {
         if (world == null) { return; }
 
-        for (int y = -1; y <= 1; y++)
+        for (int y = -1; y <= 1 && Neighbours; y++)
         {
             for (int x = -1; x <= 1; x++)
             {
@@ -140,11 +146,26 @@ public class ScreenView : Control
             drawFrame(new Rect2(position, TILE), START_COLOR);
         }
 
+        drawFrame(new Rect2(Offset - Vector2.One, GDKnyttArea.Size + 2 * Vector2.One), BorderColor);
+        if (Guides && hovered_cell != null) { drawGuides(hovered_cell.Value); }
+
         if (stamp != null && hovered_cell != null && copy_start == null && Painting && !Placing)
         {
             var cell = hovered_cell.Value;
             painter.drawStamp(this, stamp, stamp_objects, stamp_tileset_a, stamp_tileset_b, new KnyttPoint((int)cell.x, (int)cell.y), Offset + cell * TILE, STAMP_COLOR);
         }
+    }
+
+    private void drawGuides(Vector2 cell)
+    {
+        var row = new Rect2(Offset.x, Offset.y + cell.y * TILE.y, GDKnyttArea.Width, TILE.y);
+        var column = new Rect2(Offset.x + cell.x * TILE.x, Offset.y, TILE.x, GDKnyttArea.Height);
+        DrawRect(row.GrowIndividual(0, -1, 0, -1), GUIDE_SHADE);
+        DrawRect(column.GrowIndividual(-1, 0, -1, 0), GUIDE_SHADE);
+        DrawRect(new Rect2(row.Position, new Vector2(row.Size.x, 1)), GUIDE_EDGE);
+        DrawRect(new Rect2(row.Position.x, row.End.y - 1, row.Size.x, 1), GUIDE_EDGE);
+        DrawRect(new Rect2(column.Position, new Vector2(1, column.Size.y)), GUIDE_EDGE);
+        DrawRect(new Rect2(column.End.x - 1, column.Position.y, 1, column.Size.y), GUIDE_EDGE);
     }
 
     // The frame shows the brush's size, or the area being copied
@@ -309,7 +330,7 @@ public class ScreenView : Control
     {
         if (cell == hovered_cell) { return; }
         hovered_cell = cell;
-        if (stamp != null) { Update(); }
+        if (stamp != null || Guides) { Update(); }
         EmitSignal(nameof(CellHovered), (int)(cell?.x ?? -1), (int)(cell?.y ?? -1));
     }
 

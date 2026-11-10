@@ -14,7 +14,7 @@ public class LevelEditor : Control
 
     private enum FileMenu { Save, SaveAs, Quit }
     private enum EditMenu { Undo, Redo, LevelStart }
-    private enum OptionsMenu { FadeLayers, FollowScript }
+    private enum OptionsMenu { FadeLayers, FollowScript, Guides, Neighbours }
     private enum GoToMenu { Start, Default, Coordinates, WorldMap }
     private enum TestMenu { FromStart, FromHere, Profiles, UseAsStart, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
@@ -25,6 +25,22 @@ public class LevelEditor : Control
     private static readonly Color SAVED_COLOR = Color.Color8(87, 135, 231);
     private static readonly Color CHANGED_COLOR = Color.Color8(247, 195, 79);
     private static readonly Color INACTIVE_COLOR = new Color(1, 1, 1, 0.3f);
+
+    // KS+'s colours for the line round the screen and the checks behind the tileset, the default last.
+    // The buttons show a colour of their own for some
+    private static readonly Color[] BORDER_COLORS = {
+        Color.Color8(56, 88, 23), Color.Color8(91, 44, 83), Color.Color8(255, 255, 255), Color.Color8(0, 0, 0),
+        Color.Color8(127, 177, 185), Color.Color8(181, 205, 138), Color.Color8(210, 163, 202), Color.Color8(102, 102, 102) };
+    private static readonly Color[] BUTTON_COLORS = {
+        Color.Color8(56, 88, 23), Color.Color8(91, 44, 83), Color.Color8(255, 255, 254), Color.Color8(1, 1, 1),
+        Color.Color8(100, 190, 213), Color.Color8(181, 205, 138), Color.Color8(210, 163, 202), Color.Color8(76, 76, 76) };
+    private static readonly Color[,] CHECKS = {
+        { Color.Color8(56, 88, 23), Color.Color8(55, 82, 26) }, { Color.Color8(91, 44, 83), Color.Color8(85, 44, 78) },
+        { Color.Color8(255, 255, 255), Color.Color8(226, 226, 226) }, { Color.Color8(0, 0, 0), Color.Color8(7, 7, 7) },
+        { Color.Color8(127, 177, 185), Color.Color8(116, 159, 166) }, { Color.Color8(181, 205, 138), Color.Color8(162, 183, 125) },
+        { Color.Color8(210, 163, 202), Color.Color8(187, 147, 180) }, { Color.Color8(23, 74, 89), Color.Color8(26, 70, 83) } };
+    private static readonly Color TILESET_BUTTON_DEFAULT = Color.Color8(23, 74, 89);
+    private const int CHECK_SIZE = 6;
     private static readonly Vector2 TILE = new Vector2(GDKnyttAssetManager.TILE_WIDTH, GDKnyttAssetManager.TILE_HEIGHT);
     private const int TOUCH = -1;
     private const ulong LONG_PRESS_MS = 500;
@@ -126,6 +142,7 @@ public class LevelEditor : Control
     private ConfirmationDialog overwrite_dialog;
     private ConfirmationDialog save_as_dialog;
     private ConfirmationDialog unsaved_dialog;
+    private AcceptDialog keys_dialog;
 
     public static bool Available => OS.GetName() != "Unix";
 
@@ -160,6 +177,7 @@ public class LevelEditor : Control
         save_as_dialog.GetOk().Text = "Save";
         unsaved_dialog = GetNode<ConfirmationDialog>("%UnsavedDialog");
         unsaved_dialog.GetOk().Text = "Leave";
+        keys_dialog = GetNode<AcceptDialog>("%KeysDialog");
 
         var file_menu = GetNode<MenuButton>("%FileMenu").GetPopup();
         file_menu.AddItem("Save", (int)FileMenu.Save, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.S);
@@ -176,9 +194,16 @@ public class LevelEditor : Control
         edit_menu.Connect("id_pressed", this, nameof(_on_EditMenu_id_pressed));
 
         var options_menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
-        options_menu.AddCheckItem("Fade other layers (hold Tab to see all)", (int)OptionsMenu.FadeLayers);
+        options_menu.AddCheckItem("Fade other layers (hold Space to see all)", (int)OptionsMenu.FadeLayers);
         options_menu.AddCheckItem("Follow the script cursor (screen and form)", (int)OptionsMenu.FollowScript);
         options_menu.SetItemChecked(options_menu.GetItemIndex((int)OptionsMenu.FadeLayers), screen_view.FadeOthers);
+        options_menu.AddSeparator();
+        options_menu.AddCheckItem("Guides", (int)OptionsMenu.Guides, (uint)KeyList.Tab);
+        options_menu.AddCheckItem("Neighbour screens", (int)OptionsMenu.Neighbours);
+        showGuides(GDKnyttSettings.EditorGuides);
+        showNeighbours(GDKnyttSettings.EditorNeighbours);
+        showBorderColor(GDKnyttSettings.EditorBorderColor);
+        showTilesetColor(GDKnyttSettings.EditorTilesetColor);
         options_menu.Connect("id_pressed", this, nameof(_on_OptionsMenu_id_pressed));
 
         var goto_menu = GetNode<MenuButton>("%GoToMenu").GetPopup();
@@ -192,6 +217,10 @@ public class LevelEditor : Control
         var test_menu = GetNode<MenuButton>("%TestMenu").GetPopup();
         test_menu.Connect("about_to_show", this, nameof(fillTestMenu));
         test_menu.Connect("id_pressed", this, nameof(_on_TestMenu_id_pressed));
+
+        var help_menu = GetNode<MenuButton>("%HelpMenu").GetPopup();
+        help_menu.AddItem("Keys", 0, (uint)KeyList.F1);
+        help_menu.Connect("id_pressed", this, nameof(_on_HelpMenu_id_pressed));
 
         loadWorld(GDKnyttDataStore.KWorld);
         fillTestMenu();
@@ -230,6 +259,7 @@ public class LevelEditor : Control
         screen_view.showScreen(coords, value(ScreenValue.Background));
         mini_map.showScreen(world, coords);
         foreach (var value in ScreenValues.ALL) { GetNode<Label>($"%{value}Value").Text = $"{this.value(value)}"; }
+        showMapColor();
         showStatus();
         showTileset();
         showPreviews();
@@ -355,6 +385,8 @@ public class LevelEditor : Control
         history.end();
         assets.forgetObjects();
         showChanged();
+        showMapColor();
+        screen_view.Update();
     }
 
     private string worldFile(string name)
@@ -710,7 +742,7 @@ public class LevelEditor : Control
         if (label.Text != text) { label.Text = text; }
     }
 
-    private static string keys(params string[] items) => string.Join("     ", items);
+    private static string keys(params string[] items) => string.Join("     ", items.Where(item => item != ""));
 
     // The keys that do something where the mouse is. A held key shows what it changes
     private string hint()
@@ -723,9 +755,10 @@ public class LevelEditor : Control
         {
             if (placing != Placing.None) { return keys("Click place", "Right-click cancel"); }
             if (layer < 0) { return keys("0-7 paint on a layer", "Right-click menu"); }
+            if (screen_view.Peeking) { return "All layers while Space is held"; }
             if (ctrl) { return "Drag copy an area as the brush"; }
             if (shift) { return keys("Click fill", "Right-click replace"); }
-            return keys("Shift+click fill", "Shift+right-click replace", "Ctrl+drag copy", Stamp.Single ? "" : "F one tile");
+            return keys("Shift+click fill", "Shift+right-click replace", "Ctrl+drag copy", Stamp.Single ? "" : "F one tile", PeekHint);
         }
         if (TileLayer && mouseOver("%Tileset"))
         {
@@ -734,15 +767,17 @@ public class LevelEditor : Control
         if (ObjectLayer && mouseOver("%Objects")) { return keys("Z X bank", "C V object", "Shift 10 at a time"); }
         if (mouseOver("%Layer0", "%Layer1", "%Layer2", "%Layer3", "%Layer4", "%Layer5", "%Layer6", "%Layer7"))
         {
-            return shift ? keys("Click only this layer", "Right-click all layers") : keys("Right-click hide", "Shift+click only this", "Shift+right-click all", "0-7 keys");
+            return shift ? keys("Click only this layer", "Right-click all layers") : keys("Right-click hide", "Shift+click only this", "Shift+right-click all", "0-7 keys", PeekHint);
         }
         if (mouseOver("Panel/Tabs/BackgroundTab", "Panel/Tabs/TilesetATab", "Panel/Tabs/TilesetBTab", "Sounds/MusicRow", "Sounds/AmbianceARow", "Sounds/AmbianceBRow"))
         {
             return shift ? keys("Click +10", "Right-click -10") : keys("Click +1", "Right-click -1", "Wheel", "Shift 10 at a time");
         }
         if (mouseOver("MiniMap")) { return keys("Click go there", "Arrows next screen", "M world map"); }
-        return "";
+        return "F1 all keys";
     }
+
+    private string PeekHint => screen_view.FadeOthers && layer >= 0 ? "Space all layers" : "";
 
     private void showTileset()
     {
@@ -855,6 +890,21 @@ public class LevelEditor : Control
         if (@event is InputEventMouseMotion || @event is InputEventKey) { showHint(); }
 
         var focus = GetFocusOwner();
+
+        // Space held shows every layer at full strength. Caught here so a focused button isn't pressed; text fields keep it
+        if (@event is InputEventKey peek && peek.Scancode == (uint)KeyList.Space && !(focus is LineEdit || focus is TextEdit) &&
+            !(goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || palette.Visible))
+        {
+            GetTree().SetInputAsHandled();
+            if (!peek.Echo && screen_view.Peeking != peek.Pressed)
+            {
+                screen_view.Peeking = peek.Pressed;
+                screen_view.Update();
+                showHint();
+            }
+            return;
+        }
+
         if (@event is InputEventMouseButton button && button.Pressed && focus != null && script.IsAParentOf(focus) &&
             !focus.GetGlobalRect().HasPoint(button.Position))
         {
@@ -864,15 +914,7 @@ public class LevelEditor : Control
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || palette.Visible) { return; }
-
-        if (@event is InputEventKey tab && tab.Scancode == (uint)KeyList.Tab && !tab.Echo)
-        {
-            GetTree().SetInputAsHandled();
-            screen_view.Peeking = tab.Pressed;
-            screen_view.Update();
-            return;
-        }
+        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || palette.Visible) { return; }
 
         // Esc lets go of a script field, stops placing, then stops painting. Back and F2 leave
         bool cancel = @event.IsActionPressed("ui_cancel");
@@ -965,6 +1007,8 @@ public class LevelEditor : Control
         edit.SelectAll();
     }
 
+    private void _on_HelpMenu_id_pressed(int id) => keys_dialog.PopupCentered();
+
     private void _on_FileMenu_id_pressed(int id)
     {
         switch ((FileMenu)id)
@@ -990,6 +1034,8 @@ public class LevelEditor : Control
         menu.SetItemChecked(index, !menu.IsItemChecked(index));
         if ((OptionsMenu)id == OptionsMenu.FadeLayers) { screen_view.FadeOthers = menu.IsItemChecked(index); }
         if ((OptionsMenu)id == OptionsMenu.FollowScript) { follow_script = menu.IsItemChecked(index); }
+        if ((OptionsMenu)id == OptionsMenu.Guides) { showGuides(menu.IsItemChecked(index), save: true); }
+        if ((OptionsMenu)id == OptionsMenu.Neighbours) { showNeighbours(menu.IsItemChecked(index), save: true); }
         screen_view.Update();
     }
 
@@ -1513,6 +1559,88 @@ public class LevelEditor : Control
     {
         goTo(new KnyttPoint(x, y));
     }
+
+    // The colour this screen has on YKnytt's map: MapColor, or its gradient's
+    private void showMapColor()
+    {
+        var area = world.getArea(coords);
+        var swatch = GetNode<ColorRect>("%MapColor");
+        swatch.Color = area != null && !area.Empty ? MapPanel.areaColor(area) : MapPanel.backgroundColor(value(ScreenValue.Background));
+        swatch.Visible = area == null || area.Empty || MapPanel.areaVisible(area) != false;
+    }
+
+    private void showGuides(bool on, bool save = false)
+    {
+        screen_view.Guides = on;
+        GetNode<BaseButton>("%GuidesButton").SetPressedNoSignal(on);
+        var menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
+        menu.SetItemChecked(menu.GetItemIndex((int)OptionsMenu.Guides), on);
+        screen_view.Update();
+        if (save) { GDKnyttSettings.EditorGuides = on; GDKnyttSettings.saveSettings(); }
+    }
+
+    private void showNeighbours(bool on, bool save = false)
+    {
+        screen_view.Neighbours = on;
+        GetNode<BaseButton>("%NeighboursButton").SetPressedNoSignal(on);
+        var menu = GetNode<MenuButton>("%OptionsMenu").GetPopup();
+        menu.SetItemChecked(menu.GetItemIndex((int)OptionsMenu.Neighbours), on);
+        screen_view.Update();
+        if (save) { GDKnyttSettings.EditorNeighbours = on; GDKnyttSettings.saveSettings(); }
+    }
+
+    private void showBorderColor(int color, bool save = false)
+    {
+        color = KnyttPoint.positiveMod(color, BORDER_COLORS.Length);
+        screen_view.BorderColor = BORDER_COLORS[color];
+        GetNode<CanvasItem>("%BorderButton").SelfModulate = BUTTON_COLORS[color];
+        screen_view.Update();
+        if (save) { GDKnyttSettings.EditorBorderColor = color; GDKnyttSettings.saveSettings(); }
+    }
+
+    // The checks are made here: two tones of each colour, 6 pixels square
+    private void showTilesetColor(int color, bool save = false)
+    {
+        color = KnyttPoint.positiveMod(color, CHECKS.GetLength(0));
+        var image = new Image();
+        image.Create(CHECK_SIZE * 2, CHECK_SIZE * 2, false, Image.Format.Rgb8);
+        image.Lock();
+        for (int y = 0; y < CHECK_SIZE * 2; y++)
+        {
+            for (int x = 0; x < CHECK_SIZE * 2; x++) { image.SetPixel(x, y, CHECKS[color, (x / CHECK_SIZE + y / CHECK_SIZE) % 2]); }
+        }
+        image.Unlock();
+        var checks = new ImageTexture();
+        checks.CreateFromImage(image, (uint)Texture.FlagsEnum.Repeat);
+        GetNode<TextureRect>("%Checker").Texture = checks;
+        GetNode<CanvasItem>("%TilesetColorButton").SelfModulate = color == CHECKS.GetLength(0) - 1 ? TILESET_BUTTON_DEFAULT : BUTTON_COLORS[color];
+        if (save) { GDKnyttSettings.EditorTilesetColor = color; GDKnyttSettings.saveSettings(); }
+    }
+
+    private void _on_GuidesButton_toggled(bool pressed)
+    {
+        showGuides(pressed, save: true);
+    }
+
+    private void _on_NeighboursButton_toggled(bool pressed)
+    {
+        showNeighbours(pressed, save: true);
+    }
+
+    // Click: next colour, right-click: back
+    private void _on_BorderButton_gui_input(InputEvent @event)
+    {
+        if (colorStep(@event) is int step) { showBorderColor(GDKnyttSettings.EditorBorderColor + step, save: true); }
+    }
+
+    private void _on_TilesetColorButton_gui_input(InputEvent @event)
+    {
+        if (colorStep(@event) is int step) { showTilesetColor(GDKnyttSettings.EditorTilesetColor + step, save: true); }
+    }
+
+    private static int? colorStep(InputEvent @event) =>
+        !(@event is InputEventMouseButton button) || !button.Pressed ? (int?)null :
+        button.ButtonIndex == (int)ButtonList.Left ? 1 : button.ButtonIndex == (int)ButtonList.Right ? -1 : (int?)null;
 
     private void _on_TilesetButton_toggled(bool pressed)
     {

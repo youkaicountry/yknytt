@@ -123,9 +123,12 @@ public class MapPanel : Control
     public static Color areaColor(KnyttArea area)
     {
         int? color = KnyttUtil.parseIniInt(area.getExtraData("MapColor"));
-        if (color == null || color == 64) { return makeBright(GRADIENTS[area.Background]); }
+        if (color == null || color == 64) { return backgroundColor(area.Background); }
         return new Color((color.Value % 4) / 3f, ((color.Value / 4) % 4) / 3f, ((color.Value / 16) % 4) / 3f);
     }
+
+    // A gradient's colour on the map, when MapColor doesn't set one
+    public static Color backgroundColor(int background) => makeBright(GRADIENTS[background]);
 
     public static bool? areaVisible(KnyttArea area)
     {

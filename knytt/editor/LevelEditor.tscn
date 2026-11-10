@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -30,6 +30,12 @@
 [ext_resource path="res://knytt/editor/IniLetterButton.cs" type="Script" id=17]
 [ext_resource path="res://knytt/editor/IniLetterEdit.cs" type="Script" id=18]
 [ext_resource path="res://knytt/fonts/segan/Segan-Light.ttf" type="DynamicFontData" id=30]
+[ext_resource path="res://knytt/editor/img/neighbours_off.png" type="Texture" id=31]
+[ext_resource path="res://knytt/editor/img/neighbours_on.png" type="Texture" id=32]
+[ext_resource path="res://knytt/editor/img/guides.png" type="Texture" id=33]
+[ext_resource path="res://knytt/editor/img/guides_on.png" type="Texture" id=34]
+[ext_resource path="res://knytt/editor/img/bubble.png" type="Texture" id=35]
+[ext_resource path="res://knytt/editor/img/tileset_bubble.png" type="Texture" id=36]
 
 [sub_resource type="DynamicFont" id=40]
 size = 10
@@ -174,6 +180,19 @@ text = "Test"
 switch_on_hover = true
 script = ExtResource( 9 )
 
+[node name="HelpMenu" type="MenuButton" parent="MenuBar/Menus"]
+unique_name_in_owner = true
+margin_left = 154.0
+margin_right = 188.0
+margin_bottom = 20.0
+focus_mode = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Help"
+switch_on_hover = true
+script = ExtResource( 9 )
+
 [node name="ScreenView" type="Control" parent="."]
 unique_name_in_owner = true
 margin_top = 20.0
@@ -201,6 +220,32 @@ margin_right = 24.0
 margin_bottom = 24.0
 mouse_filter = 2
 texture = SubResource( 2 )
+
+[node name="NeighboursButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+margin_left = 6.0
+margin_top = 23.0
+margin_right = 24.0
+margin_bottom = 40.0
+focus_mode = 0
+hint_tooltip = "Neighbour screens: show or hide"
+toggle_mode = true
+pressed = true
+texture_normal = ExtResource( 31 )
+texture_pressed = ExtResource( 32 )
+
+[node name="BorderButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+self_modulate = Color( 0.298039, 0.298039, 0.298039, 1 )
+margin_left = 3.0
+margin_top = 284.0
+margin_right = 25.0
+margin_bottom = 306.0
+focus_mode = 0
+hint_tooltip = "Colour of the line round the screen
+Click: next. Right-click: back"
+button_mask = 3
+texture_normal = ExtResource( 35 )
 
 [node name="ChangeBar" type="Control" parent="."]
 margin_left = 194.0
@@ -406,6 +451,18 @@ Line = ExtResource( 27 )
 Face = ExtResource( 28 )
 Font = ExtResource( 21 )
 
+[node name="GuidesButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+margin_left = 508.0
+margin_top = 319.0
+margin_right = 546.0
+margin_bottom = 342.0
+focus_mode = 0
+hint_tooltip = "Guides: a row and column through the cell under the mouse (Tab)"
+toggle_mode = true
+texture_normal = ExtResource( 33 )
+texture_pressed = ExtResource( 34 )
+
 [node name="Sounds" type="Control" parent="."]
 margin_right = 194.0
 margin_bottom = 440.0
@@ -550,6 +607,27 @@ margin_right = 384.0
 margin_bottom = 22.0
 mouse_filter = 2
 
+[node name="TilesetColorButton" type="TextureButton" parent="Panel/Tabs"]
+unique_name_in_owner = true
+self_modulate = Color( 0.0901961, 0.290196, 0.34902, 1 )
+margin_left = 1.0
+margin_top = -2.0
+margin_right = 22.0
+margin_bottom = 21.0
+focus_mode = 0
+hint_tooltip = "Colour behind the tileset
+Click: next. Right-click: back"
+button_mask = 3
+texture_normal = ExtResource( 36 )
+
+[node name="MapColor" type="ColorRect" parent="Panel/Tabs"]
+unique_name_in_owner = true
+margin_left = 365.0
+margin_top = 5.0
+margin_right = 379.0
+margin_bottom = 17.0
+hint_tooltip = "This screen's colour on YKnytt's map: its gradient's, or MapColor in Misc"
+
 [node name="BackgroundTab" type="Control" parent="Panel/Tabs"]
 margin_left = 26.0
 margin_right = 124.0
@@ -639,6 +717,7 @@ margin_bottom = 225.0
 mouse_filter = 2
 
 [node name="Checker" type="TextureRect" parent="Panel/Palette"]
+unique_name_in_owner = true
 margin_right = 384.0
 margin_bottom = 192.0
 mouse_filter = 2
@@ -1626,7 +1705,7 @@ Key = "Attach"
 text = "Overlay"
 
 [node name="Overlay" type="CheckBox" parent="Script/Forms/Misc/Rows/Fields"]
-hint_tooltip = "Layer 2 tiles draw between layers 6 and 7, and layer 7 objects stop colliding"
+hint_tooltip = "Layer 2 tiles draw between layers 6 and 7, and layer 7 objects stop colliding. The editor draws it that way too"
 text = "Layer 2 over objects"
 script = ExtResource( 16 )
 Key = "Overlay"
@@ -2275,6 +2354,40 @@ rect_min_size = Vector2( 280, 100 )
 window_title = "Unsaved changes"
 dialog_text = "Leave the editor without saving?"
 
+[node name="KeysDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+margin_right = 660.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 660, 490 )
+window_title = "Keys"
+
+[node name="Columns" type="HBoxContainer" parent="KeysDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+custom_constants/separation = 16
+
+[node name="Left" type="RichTextLabel" parent="KeysDialog/Columns"]
+margin_right = 318.0
+margin_bottom = 476.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[table=2][cell][color=#ffffff]Canvas[/color][/cell][cell][/cell][cell][color=#c8b4ff]Click, drag[/color]   [/cell][cell]paint[/cell][cell][color=#c8b4ff]Right-click[/color]   [/cell][cell]menu[/cell][cell][color=#c8b4ff]Shift+click[/color]   [/cell][cell]fill[/cell][cell][color=#c8b4ff]Shift+right-click[/color]   [/cell][cell]replace[/cell][cell][color=#c8b4ff]Ctrl+drag[/color]   [/cell][cell]copy an area as the brush[/cell][cell][color=#c8b4ff]F[/color]   [/cell][cell]back to one tile[/cell][cell][color=#c8b4ff]Space (hold)[/color]   [/cell][cell]see all layers[/cell][cell][color=#c8b4ff]Tab[/color]   [/cell][cell]guides[/cell][cell][color=#c8b4ff]Esc[/color]   [/cell][cell]stop placing, then stop painting[/cell][cell] [/cell][cell][/cell][cell][color=#ffffff]Layers[/color][/cell][cell][/cell][cell][color=#c8b4ff]0-7[/color]   [/cell][cell]paint on a layer, again for all[/cell][cell][color=#c8b4ff]Right-click[/color]   [/cell][cell]hide[/cell][cell][color=#c8b4ff]Shift+click[/color]   [/cell][cell]only this one[/cell][cell][color=#c8b4ff]Shift+right-click[/color]   [/cell][cell]show all[/cell][cell] [/cell][cell][/cell][cell][color=#ffffff]Tileset[/color][/cell][cell][/cell][cell][color=#c8b4ff]Drag[/color]   [/cell][cell]select an area[/cell][cell][color=#c8b4ff]Right-click[/color]   [/cell][cell]move the selection[/cell][cell][color=#c8b4ff]W A S D[/color]   [/cell][cell]nudge the selection[/cell][cell][color=#c8b4ff]Q E[/color]   [/cell][cell]tileset A, B[/cell][/table]"
+text = ""
+scroll_active = false
+
+[node name="Right" type="RichTextLabel" parent="KeysDialog/Columns"]
+margin_right = 318.0
+margin_bottom = 476.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[table=2][cell][color=#ffffff]Objects[/color][/cell][cell][/cell][cell][color=#c8b4ff]Z X[/color]   [/cell][cell]bank[/cell][cell][color=#c8b4ff]C V[/color]   [/cell][cell]object[/cell][cell][color=#c8b4ff]Shift[/color]   [/cell][cell]10 at a time[/cell][cell] [/cell][cell][/cell][cell][color=#ffffff]Screen[/color][/cell][cell][/cell][cell][color=#c8b4ff]Arrows[/color]   [/cell][cell]next screen[/cell][cell][color=#c8b4ff]Click, right-click[/color]   [/cell][cell]+1, -1 on tabs and sounds[/cell][cell][color=#c8b4ff]Wheel[/color]   [/cell][cell]the same[/cell][cell][color=#c8b4ff]Shift[/color]   [/cell][cell]10 at a time[/cell][cell][color=#c8b4ff]Ctrl+G[/color]   [/cell][cell]go to coordinates[/cell][cell][color=#c8b4ff]M[/color]   [/cell][cell]world map[/cell][cell][color=#c8b4ff]F3[/color]   [/cell][cell]script panel[/cell][cell][color=#c8b4ff]F5 F6[/color]   [/cell][cell]test from start, from here[/cell][cell][color=#c8b4ff]Ctrl+T[/color]   [/cell][cell]test profiles[/cell][cell][color=#c8b4ff]Ctrl+S[/color]   [/cell][cell]save, with Shift save as[/cell][cell][color=#c8b4ff]Ctrl+Z Ctrl+Y[/color]   [/cell][cell]undo, redo[/cell][cell][color=#c8b4ff]F2[/color]   [/cell][cell]leave the editor[/cell][cell][color=#c8b4ff]` (backquote)[/color]   [/cell][cell]console[/cell][cell] [/cell][cell][/cell][cell][color=#ffffff]World map[/color][/cell][cell][/cell][cell][color=#c8b4ff]W A S D, arrows[/color]   [/cell][cell]scroll, Shift faster[/cell][cell][color=#c8b4ff]Wheel, + -[/color]   [/cell][cell]zoom[/cell][cell][color=#c8b4ff]Home[/color]   [/cell][cell]fit[/cell][cell][color=#c8b4ff]Right-click[/color]   [/cell][cell]screen menu[/cell][cell][color=#c8b4ff]M, Esc[/color]   [/cell][cell]close[/cell][/table]"
+text = ""
+scroll_active = false
+
 [node name="TestDialog" parent="." instance=ExtResource( 11 )]
 unique_name_in_owner = true
 
@@ -2284,6 +2397,10 @@ margin_right = 20.0
 margin_bottom = 20.0
 items = [ "Pick", null, 0, false, false, 0, 0, null, "", false, "Fill (Shift+click)", null, 0, false, false, 1, 0, null, "", false, "Replace (Shift+right-click)", null, 0, false, false, 2, 0, null, "", false, "Test from here", null, 0, false, false, 3, 0, null, "", false, "Set start here", null, 0, false, false, 4, 0, null, "", false ]
 
+[connection signal="toggled" from="NeighboursButton" to="." method="_on_NeighboursButton_toggled"]
+[connection signal="gui_input" from="BorderButton" to="." method="_on_BorderButton_gui_input"]
+[connection signal="toggled" from="GuidesButton" to="." method="_on_GuidesButton_toggled"]
+[connection signal="gui_input" from="Panel/Tabs/TilesetColorButton" to="." method="_on_TilesetColorButton_gui_input"]
 [connection signal="mouse_exited" from="ScreenView" to="ScreenView" method="_on_ScreenView_mouse_exited"]
 [connection signal="CellPainted" from="ScreenView" to="." method="_on_ScreenView_CellPainted"]
 [connection signal="CellMenu" from="ScreenView" to="." method="_on_ScreenView_CellMenu"]

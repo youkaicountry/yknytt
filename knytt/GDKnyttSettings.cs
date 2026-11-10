@@ -121,6 +121,31 @@ public class GDKnyttSettings : Node
         }
     }
 
+    // Level editor: guides, neighbour screens, and which colour the screen's border and the tileset's back have
+    public static bool EditorGuides
+    {
+        get { return ini["Editor"]["Guides"] == "1"; }
+        set { ini["Editor"]["Guides"] = value ? "1" : "0"; }
+    }
+
+    public static bool EditorNeighbours
+    {
+        get { return ini["Editor"]["Neighbours"] != "0"; }
+        set { ini["Editor"]["Neighbours"] = value ? "1" : "0"; }
+    }
+
+    public static int EditorBorderColor
+    {
+        get { return int.TryParse(ini["Editor"]["Border Color"], out int color) ? color : 7; }
+        set { ini["Editor"]["Border Color"] = $"{value}"; }
+    }
+
+    public static int EditorTilesetColor
+    {
+        get { return int.TryParse(ini["Editor"]["Tileset Color"], out int color) ? color : 7; }
+        set { ini["Editor"]["Tileset Color"] = $"{value}"; }
+    }
+
     public static bool DetailedMap
     {
         get { return ini["Graphics"]["Detailed Map"].Equals("1"); }
@@ -394,6 +419,11 @@ public class GDKnyttSettings : Node
 
         modified |= ensureSetting("Misc", "Stick Sensitivity", (0.7f).ToString());
         modified |= ensureSetting("Misc", "Left Stick Movement", "1");
+
+        modified |= ensureSetting("Editor", "Guides", "0");
+        modified |= ensureSetting("Editor", "Neighbours", "1");
+        modified |= ensureSetting("Editor", "Border Color", "7");
+        modified |= ensureSetting("Editor", "Tileset Color", "7");
 
         modified |= TouchSettings.ensureSettings();
 

@@ -17,12 +17,25 @@ public class AreaPainter
         this.assets = assets;
     }
 
+    private static readonly int[] ALL = { 0, 1, 2, 3 };
+    private static readonly int[] NOT_TWO = { 0, 1, 3 };
+    private static readonly int[] TWO = { 2 };
+    private static readonly int[] NOT_THREE = { 0, 1, 2 };
+    private static readonly int[] THREE = { 3 };
+
+    // With Overlay=True the game draws tile layer 2 between object layers 6 and 7
+    public static bool overlay(KnyttArea area) => area.getExtraData("Overlay")?.ToLower() == "true";
+
     public void drawArea(CanvasItem canvas, KnyttArea area, Vector2 origin, Func<int, float> alpha)
     {
         if (area == null || area.Empty) { return; }
         drawGradient(canvas, area.Background, origin);
-        drawTiles(canvas, area, origin, alpha);
-        drawObjects(canvas, area, origin, alpha);
+        bool over = overlay(area);
+        drawTiles(canvas, area, origin, alpha, over ? NOT_TWO : ALL);
+        drawObjects(canvas, area, origin, alpha, over ? NOT_THREE : ALL);
+        if (!over) { return; }
+        drawTiles(canvas, area, origin, alpha, TWO);
+        drawObjects(canvas, area, origin, alpha, THREE);
     }
 
     public void drawGradient(CanvasItem canvas, int num, Vector2 origin)
@@ -38,13 +51,13 @@ public class AreaPainter
         }
     }
 
-    private void drawTiles(CanvasItem canvas, KnyttArea area, Vector2 origin, Func<int, float> alpha)
+    private void drawTiles(CanvasItem canvas, KnyttArea area, Vector2 origin, Func<int, float> alpha, int[] layers)
     {
         // KnyttArea.TilesetB holds tiles 0-127, which the editor calls tileset A
         var tileset_a = assets.getTileset(area.TilesetB);
         var tileset_b = assets.getTileset(area.TilesetA);
 
-        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
+        foreach (int layer in layers)
         {
             var color = new Color(1, 1, 1, alpha(layer));
             if (color.a == 0) { continue; }
@@ -63,9 +76,9 @@ public class AreaPainter
         }
     }
 
-    private void drawObjects(CanvasItem canvas, KnyttArea area, Vector2 origin, Func<int, float> alpha)
+    private void drawObjects(CanvasItem canvas, KnyttArea area, Vector2 origin, Func<int, float> alpha, int[] layers)
     {
-        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
+        foreach (int layer in layers)
         {
             var color = new Color(1, 1, 1, alpha(KnyttArea.AREA_TILE_LAYERS + layer));
             if (color.a == 0) { continue; }
@@ -125,7 +138,20 @@ public class AreaPainter
 
         var tileset_a = imageOf(assets.getTileset(area.TilesetB));
         var tileset_b = imageOf(assets.getTileset(area.TilesetA));
-        for (int layer = 0; layer < KnyttArea.AREA_TILE_LAYERS; layer++)
+        bool over = overlay(area);
+        blendTiles(image, area, tileset_a, tileset_b, over ? NOT_TWO : ALL);
+        blendObjects(image, area, over ? NOT_THREE : ALL);
+        if (over)
+        {
+            blendTiles(image, area, tileset_a, tileset_b, TWO);
+            blendObjects(image, area, THREE);
+        }
+        return image;
+    }
+
+    private static void blendTiles(Image image, KnyttArea area, Image tileset_a, Image tileset_b, int[] layers)
+    {
+        foreach (int layer in layers)
         {
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
@@ -138,8 +164,11 @@ public class AreaPainter
                 }
             }
         }
+    }
 
-        for (int layer = 0; layer < KnyttArea.AREA_SPRITE_LAYERS; layer++)
+    private void blendObjects(Image image, KnyttArea area, int[] layers)
+    {
+        foreach (int layer in layers)
         {
             for (int y = 0; y < KnyttArea.AREA_HEIGHT; y++)
             {
@@ -151,7 +180,6 @@ public class AreaPainter
                 }
             }
         }
-        return image;
     }
 
     private Image imageOf(Texture texture)
