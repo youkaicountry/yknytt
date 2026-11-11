@@ -12,6 +12,10 @@ Look (KS+ skin):
 - KS+'s smiley (neighbours_on/off.png), X (guides.png, guides_on.png) and two speech bubbles (bubble.png,
   tileset_bubble.png: white, tinted by self_modulate) were cut from KS+ shots; the teal bubble is gone from chrome.png
 - Not done: rounded screen corners, KS+'s smaller status font
+- Everything that isn't KS+'s chrome wears the game's white look (EditorTheme.tres): its button, popup, checkbox and
+  scrollbar pieces, Segan, black words, thin grey frames, lavender for hover and selection. Menus, lists, fields,
+  the script panel, dialogs, tooltips, the palette and the world map's bars, key and hover box. spin_updown.png and
+  dialog_close(_hover).png are the dark arrows and X the default theme only has in light grey
 
 World map (EXPAND MAP, Go to > World map, M):
 - The whole level over the editor. Drag to pan (any button, or a finger), wheel to zoom at the pointer, two fingers

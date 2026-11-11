@@ -164,7 +164,7 @@ text = "Purple key"
 unique_name_in_owner = true
 focus_mode = 0
 hint_tooltip = "Needs KS+"
-custom_colors/font_color = Color( 0.95, 0.6, 0.6, 1 )
+custom_colors/font_color = Color( 0.8, 0, 0, 1 )
 text = "Map"
 
 [node name="FlagsRow" type="HBoxContainer" parent="Form"]

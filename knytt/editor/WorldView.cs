@@ -40,15 +40,17 @@ public class WorldView : Control
     private static readonly Color START = Color.Color8(247, 195, 79);
     private static readonly Color SHADOW = new Color(0, 0, 0, 0.6f);
     private static readonly Color HIDDEN = new Color(0.1f, 0.1f, 0.12f, 0.75f);
-    private static readonly Color PANEL = new Color(0.1f, 0.1f, 0.12f, 0.85f);
+    private static readonly Color PANEL = new Color(1, 1, 1, 0.95f);
+    private static readonly Color PANEL_EDGE = new Color(0.6f, 0.6f, 0.6f);
+    private static readonly Color INK = Colors.Black;
     private static readonly Color WARP = Color.Color8(90, 220, 255);
     private static readonly Color SHIFT = Color.Color8(247, 195, 79);
     private static readonly Color FLAG_WARP = Color.Color8(200, 140, 255);
     private static readonly Color BROKEN = Color.Color8(255, 80, 80);
     private static readonly Color WASH = new Color(0.35f, 0.35f, 0.38f, 0.75f);
-    private static readonly Color ROW_LIT = new Color(1, 1, 1, 0.15f);
+    private static readonly Color ROW_LIT = new Color(0.737f, 0.737f, 0.96f);
     private const float FADED = 0.2f;
-    private static readonly Color OFF_TEXT = new Color(0.55f, 0.55f, 0.6f);
+    private static readonly Color OFF_TEXT = new Color(0, 0, 0, 0.4f);
 
     // What the marks show, by object
     private class Kind
@@ -720,11 +722,12 @@ public class WorldView : Control
         ink.DrawRect(new Rect2(rect.End.x - width, rect.Position.y + width, width, rect.Size.y - width * 2), color);
     }
 
-    private void drawText(string text, Vector2 at, Color color, bool centered = false)
+    // On the map words get a shadow; on the white panels they don't
+    private void drawText(string text, Vector2 at, Color color, bool centered = false, bool shadow = true)
     {
         var font = GetFont("font");
         if (centered) { at -= new Vector2(font.GetStringSize(text).x / 2, -font.GetAscent() / 2 + 2); }
-        ink.DrawString(font, at + Vector2.One, text, SHADOW);
+        if (shadow) { ink.DrawString(font, at + Vector2.One, text, SHADOW); }
         ink.DrawString(font, at, text, color);
     }
 
@@ -805,8 +808,8 @@ public class WorldView : Control
         var at = mouse_at + new Vector2(16, 16);
         at = new Vector2(Mathf.Min(at.x, RectSize.x - size.x - 4), Mathf.Min(at.y, MapRect.End.y - size.y - 4));
         ink.DrawRect(new Rect2(at, size), PANEL);
-        ink.DrawRect(new Rect2(at, size), new Color(1, 1, 1, 0.3f), false);
-        for (int i = 0; i < lines.Count; i++) { drawText(lines[i], at + new Vector2(6, 15 + i * ROW), i == 0 ? Colors.White : new Color(0.8f, 0.8f, 0.85f)); }
+        drawFrame(new Rect2(at, size), PANEL_EDGE, 1);
+        for (int i = 0; i < lines.Count; i++) { drawText(lines[i], at + new Vector2(6, 15 + i * ROW), i == 0 ? INK : OFF_TEXT, shadow: false); }
     }
 
     // The key: what the colours mean for the screens in view, and what the lines and marks are
@@ -857,6 +860,7 @@ public class WorldView : Control
         float width = rows.Max(row => font.GetStringSize(row.text).x) + 30;
         var box = new Rect2(x, MapRect.End.y - 6 - rows.Count * ROW - 6, width, rows.Count * ROW + 6);
         ink.DrawRect(box, PANEL);
+        drawFrame(box, PANEL_EDGE, 1);
         for (int i = 0; i < rows.Count; i++)
         {
             var row = rows[i];
@@ -870,8 +874,12 @@ public class WorldView : Control
             var swatch = new Rect2(at + new Vector2(1, 1), 10, 10);
             if (row.line && off) { ink.DrawRect(swatch, row.color, false); }
             else if (row.line) { ink.DrawLine(at + new Vector2(0, 6), at + new Vector2(12, 6), row.color, 2); }
-            else if (row.color.a > 0) { ink.DrawRect(swatch, row.color, !off); }
-            drawText(row.text, at + new Vector2(18, 11), under ? START : off ? OFF_TEXT : Colors.White);
+            else if (row.color.a > 0)
+            {
+                ink.DrawRect(swatch, row.color, !off);
+                if (!off) { ink.DrawRect(swatch, OFF_TEXT, false); }
+            }
+            drawText(row.text, at + new Vector2(18, 11), off && !under ? OFF_TEXT : INK, shadow: false);
         }
         return box.End.x + 6;
     }

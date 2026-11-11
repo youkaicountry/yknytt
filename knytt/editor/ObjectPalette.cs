@@ -10,7 +10,8 @@ public class ObjectPalette : PopupPanel
     private const int TOUCH = -1;
     private const int RECENT_COUNT = 16;
     private static readonly Color MISSING_COLOR = new Color(1, 1, 1, 0.25f);
-    private static readonly Color PLUS_COLOR = new Color(0.95f, 0.6f, 0.6f);
+    private static readonly Color MISSING_TEXT = new Color(0, 0, 0, 0.35f);
+    private static readonly Color PLUS_COLOR = new Color(0.75f, 0.15f, 0.15f);
 
     private static readonly List<KnyttPoint> recent = new List<KnyttPoint>();
 
@@ -100,7 +101,7 @@ public class ObjectPalette : PopupPanel
             if (!catalog.exists(id) && id.y != 0)
             {
                 objects.SetItemIconModulate(i, MISSING_COLOR);
-                objects.SetItemCustomFgColor(i, MISSING_COLOR);
+                objects.SetItemCustomFgColor(i, MISSING_TEXT);
             }
             if (id.Equals(selected)) { objects.Select(i); }
         }

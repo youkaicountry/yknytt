@@ -9,7 +9,7 @@ public class TestDialog : ConfirmationDialog
     [Signal] public delegate void LevelChanged(string text, bool done);
 
     private static readonly Dictionary<string, string> chosen = new Dictionary<string, string>();
-    private static readonly Color ERROR_COLOR = new Color(1, 0.4f, 0.4f);
+    private static readonly Color ERROR_COLOR = new Color(0.8f, 0, 0);
     private const int POWERS = 13;
     private const int FLAGS = 10;
 

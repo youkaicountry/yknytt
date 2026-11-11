@@ -14,9 +14,9 @@ public class CollectGrid : Control
 
     private const int CELL = 10;
     private const int STEP = CELL + 1;
-    private static readonly Color EMPTY_COLOR = new Color(0.32f, 0.32f, 0.32f);
+    private static readonly Color EMPTY_COLOR = new Color(0.86f, 0.86f, 0.86f);
     private static readonly Color COLLECTED_COLOR = Color.Color8(247, 195, 79);
-    private static readonly Color PLACED_COLOR = new Color(0.75f, 0.75f, 0.75f);
+    private static readonly Color PLACED_COLOR = new Color(0.35f, 0.35f, 0.35f);
 
     public bool[] Collected { get; set; }
     public Dictionary<int, KnyttPoint> Placed { get; set; }

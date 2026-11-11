@@ -160,8 +160,8 @@ public class LevelEditor : Control
     {
         script = GetNode<Control>("%Script");
         ini_edit = GetNode<TextEdit>("%IniEdit");
-        ini_edit.AddColorRegion("[", "]", Color.Color8(222, 140, 210));
-        ini_edit.AddColorRegion(";", "", new Color(0.6f, 0.6f, 0.6f), lineOnly: true);
+        ini_edit.AddColorRegion("[", "]", Color.Color8(170, 50, 150));
+        ini_edit.AddColorRegion(";", "", new Color(0.5f, 0.5f, 0.5f), lineOnly: true);
         ini_edit.GetMenu().Connect("about_to_show", this, nameof(fillIniMenu));
         ini_edit.GetMenu().Connect("id_pressed", this, nameof(_on_IniMenu_id_pressed));
         setupScreen();
