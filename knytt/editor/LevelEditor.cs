@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -122,6 +123,9 @@ public class LevelEditor : Control
     private string script_newline;
 
     private ScreenView screen_view;
+    // Juni as juni.png has her, and the look she was last shown in: character, clothes, skin
+    private Texture juni_texture;
+    private string juni_look;
     private MiniMap mini_map;
     private ObjectPalette palette;
     private TestDialog test_dialog;
@@ -167,6 +171,7 @@ public class LevelEditor : Control
         setupScreen();
 
         screen_view = GetNode<ScreenView>("%ScreenView");
+        juni_texture = screen_view.JuniTexture;
         mini_map = GetNode<MiniMap>("%MiniMap");
         palette = GetNode<ObjectPalette>("%ObjectPalette");
         test_dialog = GetNode<TestDialog>("%TestDialog");
@@ -237,6 +242,8 @@ public class LevelEditor : Control
 
         screen_view.init(world, assets);
         GetNode<WorldView>("%WorldView").init(world, assets, catalog);
+        juni_look = null;
+        showJuni();
         showStart();
         selectObject(0, 0);
         selectLayer(0);
@@ -386,7 +393,45 @@ public class LevelEditor : Control
         assets.forgetObjects();
         showChanged();
         showMapColor();
+        showJuni();
         screen_view.Update();
+    }
+
+    // Juni the way the level dresses her, at the start and as the brush. A custom character isn't recoloured, as in the game
+    private void showJuni()
+    {
+        var ini = KnyttWorld.parseWorldIni(script.Visible ? ini_edit.Text : worldFile("World.ini"));
+        var info = new KnyttWorldInfo(ini["World"] ?? new IniParser.Model.KeyDataCollection());
+        string character = KnyttJuniLook.character(info);
+        string look = $"{character}/{info.Clothes}/{info.Skin}";
+        if (look == juni_look) { return; }
+        juni_look = look;
+
+        var texture = character == null ? null : world.getWorldTexture($"Custom Objects/{character}.png") as Texture;
+        if (texture == null) { texture = character == null && (info.Clothes != -1 || info.Skin != -1) ? dressJuni(info.Clothes, info.Skin) : juni_texture; }
+        screen_view.JuniTexture = texture;
+        var world_view = GetNode<WorldView>("%WorldView");
+        world_view.JuniTexture = texture;
+        screen_view.Update();
+        world_view.Update();
+    }
+
+    // Her first frame, in the level's clothes and skin
+    private Texture dressJuni(int clothes, int skin)
+    {
+        var image = juni_texture.GetData().GetRect(new Rect2(Vector2.Zero, TILE));
+        image.Lock();
+        for (int y = 0; y < image.GetHeight(); y++)
+        {
+            for (int x = 0; x < image.GetWidth(); x++)
+            {
+                image.SetPixel(x, y, new Color((int)KnyttJuniLook.recolor((uint)image.GetPixel(x, y).ToRgba32(), clothes, skin)));
+            }
+        }
+        image.Unlock();
+        var texture = new ImageTexture();
+        texture.CreateFromImage(image, 0);
+        return texture;
     }
 
     private string worldFile(string name)
@@ -699,6 +744,7 @@ public class LevelEditor : Control
         assets.forgetObjects();
         showStart();
         goTo(coords);
+        showJuni();
         test_dialog.refresh();
     }
 
@@ -1436,6 +1482,7 @@ public class LevelEditor : Control
     {
         setScriptText(KnyttUtil.setIniValue(ini_edit.Text, section, key, value == "" ? null : value));
         showKey(section, key);
+        if (section == "World") { showJuni(); }
     }
 
     private void _on_Form_Done()
@@ -1446,6 +1493,104 @@ public class LevelEditor : Control
     private void _on_Form_Focused(string section, string key)
     {
         showKey(section, key);
+    }
+
+    // What a field's list offers, from the level's files and the text as typed
+    public List<KnyttChoice> choices(string list)
+    {
+        switch (list)
+        {
+            case "character": return KnyttChoices.characterChoices(KnyttWorld.parseWorldIni(ini_edit.Text), worldPaths());
+            case "cutscene": return KnyttChoices.cutscenes(worldPaths()).Select(c => new KnyttChoice(c, c)).ToList();
+            case "flag": return KnyttChoices.flags();
+            case "warpflag": return KnyttChoices.warpFlags();
+            case "artifact": return KnyttChoices.artifacts();
+            case "attach":
+                return new[] { new KnyttChoice("Torch  True", "True"), new KnyttChoice("Off  False", "False") }
+                    .Concat(KnyttChoices.images(worldPaths()).Select(i => new KnyttChoice(i, i))).ToList();
+            default: return KnyttChoices.images(worldPaths()).Select(i => new KnyttChoice(i, i)).ToList();
+        }
+    }
+
+    // A character KS+ doesn't know yet is declared in [Custom Character], in the same step as the field
+    public void listChosen(string list, string value)
+    {
+        if (list == "character") { setScriptText(KnyttChoices.declareCharacter(ini_edit.Text, value)); }
+    }
+
+    // Every file in the level: Custom Objects/Tree.png
+    private List<string> worldPaths()
+    {
+        if (world.BinMode) { return world.BinLoader.GetPaths(); }
+        var paths = new List<string>();
+        listFolder(world.WorldDirectory, "", 2, paths);
+        return paths;
+    }
+
+    private static void listFolder(string root, string folder, int depth, List<string> paths)
+    {
+        var dir = new Godot.Directory();
+        if (dir.Open(folder == "" ? root : $"{root}/{folder}") != Error.Ok) { return; }
+        dir.ListDirBegin(skipNavigational: true);
+        for (string name = dir.GetNext(); name != ""; name = dir.GetNext())
+        {
+            string path = folder == "" ? name : $"{folder}/{name}";
+            if (!dir.CurrentIsDir()) { paths.Add(path); }
+            else if (depth > 1) { listFolder(root, path, depth - 1, paths); }
+        }
+        dir.ListDirEnd();
+    }
+
+    private Action<int> map_color_chosen;
+
+    // The 64 map colours under a swatch
+    public void pickMapColor(Control under, int current, Action<int> chosen)
+    {
+        map_color_chosen = chosen;
+        var grid = GetNode<MapColorGrid>("%MapColorGrid");
+        grid.Current = current;
+        grid.Update();
+        var popup = GetNode<PopupPanel>("%MapColorPopup");
+        var at = under.RectGlobalPosition + new Vector2(0, under.RectSize.y + 2);
+        var size = popup.GetCombinedMinimumSize();
+        var view = GetViewportRect().Size;
+        popup.RectSize = Vector2.Zero;
+        popup.RectPosition = new Vector2(Mathf.Min(at.x, view.x - size.x), Mathf.Min(at.y, view.y - size.y));
+        popup.Popup_();
+    }
+
+    private void _on_MapColorGrid_Chosen(int color)
+    {
+        GetNode<PopupPanel>("%MapColorPopup").Hide();
+        map_color_chosen?.Invoke(color);
+    }
+
+    // The swatch by the tabs: click picks this screen's MapColor, right-click clears it
+    private void _on_MapColor_gui_input(InputEvent @event)
+    {
+        if (!(@event is InputEventMouseButton click && click.Pressed)) { return; }
+        var swatch = GetNode<Control>("%MapColor");
+        if (click.ButtonIndex == (int)ButtonList.Left)
+        {
+            int current = KnyttUtil.parseIniInt(world.getArea(coords)?.getExtraData("MapColor")) ?? -1;
+            pickMapColor(swatch, current < 64 ? current : -1, color => setScreenKey("MapColor", color.ToString()));
+        }
+        else if (click.ButtonIndex == (int)ButtonList.Right) { setScreenKey("MapColor", null); }
+        swatch.AcceptEvent();
+    }
+
+    // One World.ini key of this screen, through the text when the script panel is open. Null removes it
+    private void setScreenKey(string key, string value)
+    {
+        if (script.Visible)
+        {
+            _on_Form_Edited(ScreenSection, key, value ?? "");
+            applyScript();
+            return;
+        }
+        string text = worldFile("World.ini");
+        string newline = text.Contains("\r\n") ? "\r\n" : "\n";
+        setWorldIni(KnyttUtil.setIniValue(text.Replace("\r\n", "\n"), ScreenSection, key, value).Replace("\r\n", "\n").Replace("\n", newline));
     }
 
     private void _on_Value_gui_input(InputEvent @event, int which)

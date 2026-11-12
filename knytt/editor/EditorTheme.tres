@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=32 format=2]
+[gd_resource type="Theme" load_steps=36 format=2]
 
 [ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://knytt/ui/styles/GDKnyttButtonNormalStyle.tres" type="StyleBox" id=2]
@@ -17,6 +17,10 @@
 [ext_resource path="res://knytt/editor/img/spin_updown.png" type="Texture" id=15]
 [ext_resource path="res://knytt/editor/img/dialog_close.png" type="Texture" id=16]
 [ext_resource path="res://knytt/editor/img/dialog_close_hover.png" type="Texture" id=17]
+[ext_resource path="res://knytt/ui/img/slider_pip.png" type="Texture" id=18]
+[ext_resource path="res://knytt/ui/img/slider_pip_hover.png" type="Texture" id=19]
+[ext_resource path="res://knytt/ui/styles/SliderBar.tres" type="StyleBox" id=20]
+[ext_resource path="res://knytt/editor/img/swatch_checker.png" type="Texture" id=21]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 4.0
@@ -188,6 +192,28 @@ CheckBox/styles/hover = SubResource( 1 )
 CheckBox/styles/hover_pressed = SubResource( 1 )
 CheckBox/styles/normal = SubResource( 1 )
 CheckBox/styles/pressed = SubResource( 1 )
+CheckButton/colors/font_color = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_disabled = Color( 0, 0, 0, 0.35 )
+CheckButton/colors/font_color_focus = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_hover = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+CheckButton/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+CheckButton/icons/off = ExtResource( 11 )
+CheckButton/icons/off_disabled = ExtResource( 13 )
+CheckButton/icons/on = ExtResource( 10 )
+CheckButton/icons/on_disabled = ExtResource( 12 )
+CheckButton/styles/disabled = SubResource( 1 )
+CheckButton/styles/focus = SubResource( 6 )
+CheckButton/styles/hover = SubResource( 1 )
+CheckButton/styles/hover_pressed = SubResource( 1 )
+CheckButton/styles/normal = SubResource( 1 )
+CheckButton/styles/pressed = SubResource( 1 )
+HSlider/icons/grabber = ExtResource( 18 )
+HSlider/icons/grabber_highlight = ExtResource( 19 )
+HSlider/styles/grabber_area = SubResource( 6 )
+HSlider/styles/grabber_area_highlight = SubResource( 6 )
+HSlider/styles/slider = ExtResource( 20 )
+ColorPickerButton/icons/bg = ExtResource( 21 )
 HScrollBar/styles/grabber = ExtResource( 7 )
 HScrollBar/styles/grabber_highlight = ExtResource( 8 )
 HScrollBar/styles/grabber_pressed = ExtResource( 9 )

@@ -118,6 +118,14 @@ namespace YKnyttLib
         }
 
         /// <summary>
+        /// Every file's path as the .knytt.bin spells it: Custom Objects/Tree.png
+        /// </summary>
+        public List<string> GetPaths()
+        {
+            return _paths.Values.ToList();
+        }
+
+        /// <summary>
         /// Proceed with opening and parsing a .knytt.bin file.
         /// </summary>
         /// <returns></returns>

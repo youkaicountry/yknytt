@@ -97,8 +97,10 @@ Script panel (Script > at the right of the menu bar):
   from IniLetterButtons (a fixed set) or IniLetterEdits (typed: an object number, a cutscene name)
 - A checkbox writes its On value or removes the key; On is False for keys that default to True (Visible,
   Effect, Quantize, Trig AbsoluteTarget, Trig AsOne, Map). An option's Values say what its items stand for
-- The forms are the same in both scenes: change one, change the other to match.
-  Tabs use slim styles in the scene so all eight fit
+- The forms are written by .claude/tools/gen_forms.py into both scenes: change them there and run it again.
+  Each form scrolls, in lavender-headed sections. Fields that share a row are named above; an empty field shows
+  in grey what the game does without the key (Juni's, game's, no warp, 46...). Tabs use slim styles in the scene
+  so all eight fit
 - Tabs (KS+'s, every key the game reads):
   Sign: A-C, pages 1-5, shift and trigger pages, title, subtitle
   Warp: the four warps, flag warps A B C All
@@ -112,10 +114,18 @@ Script panel (Script > at the right of the menu bar):
     frames, loop, repeat, speed, colour, harmless
 - Options > Follow the script cursor: moving the text cursor (click or keys) goes to that screen and shows the
   line's form with its letters. Off: only right-click does that
-- Not in the forms: [Custom Character] (only a list KS+ caches), SinglePass and AltDie (YKnytt doesn't read them).
+- Lists (IniListButton, the arrow in a field's right end, drawn by the field's right_icon): values from the level's own files (KnyttChoices, from the
+  .knytt.bin's file list or the folder): characters, cutscenes (folders with a Scene1.png), flags and powers,
+  Artifact1-7 for flag warp distances, images in Custom Objects. Typing still works. Picking a character KS+
+  doesn't know yet declares it in [Custom Character] (KS+ caches that list; YKnytt doesn't need it)
+- Colour swatches (IniColorButton, in the field's right end; swatch_space.png keeps the text clear of it) on tint, cutscene fade, Juni's clothes and skin and CO colour: Godot's
+  colour picker, written as red + green×256 + blue×65536 (black is 65536 where 0 means off). Right-click clears
+- Map colour: the swatch by the tabs and the one in Misc open the 64 colours (MapColorGrid). Right-click clears
+- Juni at the start and as the brush wears the level's Clothes and Skin (KnyttJuniLook, Juni.shader's rule), or is
+  its custom Character, live as the World tab is typed
+- Not in the forms: SinglePass and AltDie (YKnytt doesn't read them).
   Fonts: KS+'s notes say Sign/Title/Subtitle=, but KS+ itself and GDKnyttGame.loadFont use Font/Title/Subtitle=
-- KS+ helpers not done: the sign preview box, warp targets shown as screens, dropdowns of the level's cutscene
-  and character images, the object buttons under the forms, the map colour by the tabs, the palette colour square
+- KS+ helpers not done: the sign preview box, warp targets shown as screens, the object buttons under the forms
 - Scripts later could reuse IniForm for values they declare per screen
 
 Canvas (KS+'s buttons, remembered in settings.ini [Editor]):
@@ -194,9 +204,6 @@ KS+Source.zip, plus clicking it under Wine):
 - Missing, script panel:
   - Sign preview ("how a sign appears in game"), and the level banner as the level list shows it (World tab)
   - Buttons that pick the form's object in the map editor (sign, shift, trigger, warp, CO)
-  - Drop lists: characters, cutscenes, flags and powers (Flag On/Off), CO and World images from Custom Objects
-  - Colour dialogs: tint, Juni's clothes and skin, cutscene fade; the 64 colour map colour picker
-  - Flag warp "Artifact1" button; Misc: the custom character list
 - Missing, saving: warnings for a background of the wrong height, music or ambiance files not found, a level folder
   that doesn't match World.ini, missing Category / Difficulty / Size
 - Missing, format: switching a level between KS+ and original KS, which hides KS+ objects for original levels

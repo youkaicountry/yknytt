@@ -262,6 +262,10 @@
     <Compile Include="knytt\editor\IniLetterEdit.cs" />
     <Compile Include="knytt\editor\IniLineEdit.cs" />
     <Compile Include="knytt\editor\IniOptionButton.cs" />
+    <Compile Include="knytt\editor\IniListButton.cs" />
+    <Compile Include="knytt\editor\IniColorButton.cs" />
+    <Compile Include="knytt\editor\IniMapColorButton.cs" />
+    <Compile Include="knytt\editor\MapColorGrid.cs" />
     <Compile Include="knytt\editor\TestDialog.cs" />
     <Compile Include="knytt\editor\TestProfile.cs" />
     <Compile Include="knytt\editor\WorldName.cs" />
@@ -316,6 +320,8 @@
     <Compile Include="knytt\lib\yknyttlib\KnyttWorld.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttWorldInfo.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttShift.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttChoices.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttJuniLook.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttFill.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttStamp.cs" />
     <Compile Include="knytt\lib\yknyttlib\Paging\KnyttPagingPolicy.cs" />
