@@ -463,8 +463,14 @@ public class GDKnyttGame : Node2D
     private BitmapFont loadFont(string key, int width, int height)
     {
         if (!GDWorld.KWorld.INIData["World"].ContainsKey(key)) { return null; }
-        string font_path = "Custom Objects/" + GDWorld.KWorld.INIData["World"][key];
-        var t = GDWorld.KWorld.getWorldTexture(font_path) as Texture;
+        return loadFont(GDWorld.KWorld, GDWorld.KWorld.INIData["World"][key], width, height);
+    }
+
+    // A level's font: an image in Custom Objects with 7 rows of 32 letters from the space on. The level editor uses it too
+    public static BitmapFont loadFont(KnyttWorld world, string file, int width, int height)
+    {
+        string font_path = "Custom Objects/" + file;
+        var t = world.getWorldTexture(font_path) as Texture;
         if (t == null) { return null; }
         var font = new BitmapFont();
         font.Height = height;

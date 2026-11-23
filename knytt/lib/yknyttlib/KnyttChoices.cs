@@ -96,6 +96,23 @@ namespace YKnyttLib
         public static List<KnyttChoice> artifacts() =>
             Enumerable.Range(1, 7).Select(i => new KnyttChoice($"Artifact {i}'s count", $"Artifact{i}")).ToList();
 
+        // The object a script form edits, with the form's letters: Sign A is 0:17, Shift A 0:14, Trig A 0:32,
+        // CO 5 is 255:5 and CO B5 254:5. Null for the other forms, or a letter or number that isn't one
+        public static KnyttPoint? formObject(string form, string[] letters)
+        {
+            int abc = letters.Length > 0 ? "ABC".IndexOf(letters[0]) : -1;
+            switch (form)
+            {
+                case "Sign": return abc < 0 || letters[0].Length != 1 ? (KnyttPoint?)null : new KnyttPoint(0, 17 + abc);
+                case "Shift": return abc < 0 || letters[0].Length != 1 ? (KnyttPoint?)null : new KnyttPoint(0, 14 + abc);
+                case "Trig": return abc < 0 || letters[0].Length != 1 ? (KnyttPoint?)null : new KnyttPoint(0, 32 + abc);
+                case "CO":
+                    if (letters.Length < 2 || !int.TryParse(letters[0], out int number) || number < 1 || number > 255) { return null; }
+                    return new KnyttPoint(letters[1] == "B" ? 254 : 255, number);
+                default: return null;
+            }
+        }
+
         private static string withoutPng(string name) => name.EndsWith(".png", NO_CASE) ? name.Substring(0, name.Length - 4) : name;
     }
 }

@@ -322,6 +322,7 @@
     <Compile Include="knytt\lib\yknyttlib\KnyttShift.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttChoices.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttJuniLook.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttSign.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttFill.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttStamp.cs" />
     <Compile Include="knytt\lib\yknyttlib\Paging\KnyttPagingPolicy.cs" />

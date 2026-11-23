@@ -20,6 +20,8 @@ public class IniForm : Control
     [Signal] public delegate void Edited(string section, string key, string value);
     [Signal] public delegate void Done();
     [Signal] public delegate void Focused(string section, string key);
+    // The fields show new values or letters
+    [Signal] public delegate void Shown();
 
     // Empty for the screen being edited. A field's own Section wins
     [Export] public string Section { get; set; } = "";
@@ -67,6 +69,7 @@ public class IniForm : Control
         this.ini = ini;
         this.screen = screen;
         foreach (var field in fields) { field.Value = ini.Sections.GetSectionData(sectionOf(field))?.Keys?[keyOf(field)] ?? ""; }
+        EmitSignal(nameof(Shown));
     }
 
     private string sectionOf(IIniField field)

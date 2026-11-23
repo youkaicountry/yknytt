@@ -22,12 +22,12 @@ public class Sign : GDKnyttBaseObject
         char letter = "ABC"[ObjectID.y - 17];
 
         string text = GDArea.Area.getExtraData($"Sign({letter})");
-        texts.Add(preprocess(text));
+        texts.Add(KnyttSign.wrap(text));
         for (int i = 2; ; i++)
         {
             text = GDArea.Area.getExtraData($"Sign{i}({letter})");
             if (text == null) { break; }
-            texts.Add(preprocess(text));
+            texts.Add(KnyttSign.wrap(text));
         }
         if (texts[0] == null && texts.Count == 1) { texts[0] = "[SILENCE]"; }
 
@@ -41,31 +41,6 @@ public class Sign : GDKnyttBaseObject
             label.AddFontOverride("font", GDArea.GDWorld.Game.SignFont);
             label.RemoveColorOverride("font_color");
         }
-    }
-
-    private string preprocess(string msg)
-    {
-        if (msg == null) { return null; }
-        if (msg.StartsWith("\"") && msg.EndsWith("\"")) { msg = msg.Substring(1, msg.Length - 2); }
-        msg = msg.Replace("\\n", "\n");
-        msg = msg.Replace('\x7f', '\n');
-        for (int i = 0; i < msg.Length; )
-        {
-            int line_break = msg.Find('\n', i);
-            string line = msg.Substring(i,
-                            line_break != -1 && line_break + 1 - i <= 23 ? line_break + 1 - i:  // line ends with \n (23 symbols max)
-                            msg.Length <= i + 22 ? msg.Length - i :                             // msg ends (line length <= 22)
-                            msg[i + 22] == ' ' || msg[i + 22] == '\\' ? 23 :                    // line can be 23 symbols if ends with space or \
-                            22);                                                                // 22 is normal line length
-            int last_space = line.FindLast(" ");
-            if (!line.EndsWith("\n") && last_space == line.FindLast("  ") + 1)  // break on double spaces
-            {
-                msg = msg.Remove(i + last_space, 1).Insert(i + last_space, "\n");
-                line = line.Substring(0, last_space + 1);
-            }
-            i += line.Length;
-        }
-        return msg;
     }
 
     protected void adjustSign(bool initial)

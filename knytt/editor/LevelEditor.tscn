@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -42,6 +42,8 @@
 [ext_resource path="res://knytt/editor/MapColorGrid.cs" type="Script" id=40]
 [ext_resource path="res://knytt/ui/img/down_arrow.png" type="Texture" id=41]
 [ext_resource path="res://knytt/editor/img/swatch_space.png" type="Texture" id=42]
+[ext_resource path="res://knytt/ui/GameButton.tscn" type="PackedScene" id=43]
+[ext_resource path="res://knytt/ui/UIDynamicFont.tres" type="DynamicFont" id=44]
 
 [sub_resource type="DynamicFont" id=40]
 size = 10
@@ -80,6 +82,84 @@ corner_radius_bottom_left = 6
 content_margin_left = 2.0
 content_margin_right = 2.0
 bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
+
+[sub_resource type="StyleBoxFlat" id=41]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.878431, 0.878431, 0.878431, 0.878431 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0509804, 0.054902, 0.145098, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 10
+expand_margin_left = 9.0
+expand_margin_right = 9.0
+expand_margin_top = 4.0
+expand_margin_bottom = 6.0
+anti_aliasing_size = 0.4
+
+[sub_resource type="StyleBoxFlat" id=45]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.36, 0.36, 0.7, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.36, 0.36, 0.7, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=46]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.46, 0.46, 0.82, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.46, 0.46, 0.82, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=47]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.88, 0.88, 0.97, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.36, 0.36, 0.7, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=48]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.8, 0.8, 0.94, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.36, 0.36, 0.7, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="LevelEditor" type="Control"]
 anchor_right = 1.0
@@ -212,6 +292,27 @@ margin_right = 24.0
 margin_bottom = 24.0
 mouse_filter = 2
 texture = SubResource( 2 )
+
+[node name="SignPreview" type="Label" parent="ScreenView"]
+unique_name_in_owner = true
+visible = false
+margin_right = 157.0
+margin_bottom = 35.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 44 )
+custom_styles/normal = SubResource( 41 )
+autowrap = true
+
+[node name="Arrow" type="TextureRect" parent="ScreenView/SignPreview"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = -9.0
+margin_right = 4.0
+margin_bottom = 1.0
+texture = ExtResource( 41 )
 
 [node name="NeighboursButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
@@ -827,17 +928,22 @@ text = "KS+"
 
 [node name="ScriptButton" type="Button" parent="MenuBar"]
 unique_name_in_owner = true
-margin_left = 632.0
-margin_right = 698.0
-margin_bottom = 20.0
+margin_left = 622.0
+margin_top = 1.0
+margin_right = 696.0
+margin_bottom = 19.0
 focus_mode = 0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.36, 0.36, 0.7, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.36, 0.36, 0.7, 1 )
+custom_styles/hover = SubResource( 46 )
+custom_styles/pressed = SubResource( 47 )
+custom_styles/hover_pressed = SubResource( 48 )
+custom_styles/normal = SubResource( 45 )
 hint_tooltip = "World.ini, and forms for this screen (F3)"
 toggle_mode = true
 text = "Script >"
-flat = true
 
 [node name="Script" type="Control" parent="."]
 unique_name_in_owner = true
@@ -884,7 +990,7 @@ size_flags_horizontal = 3
 custom_constants/separation = 4
 
 [node name="Top" type="HBoxContainer" parent="Script/Forms/Sign/Scroll/Pad/Rows"]
-custom_constants/separation = 12
+custom_constants/separation = 8
 
 [node name="SignLetters" type="HBoxContainer" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top"]
 
@@ -892,7 +998,7 @@ custom_constants/separation = 12
 text = "Sign"
 
 [node name="LetterA" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/SignLetters"]
-rect_min_size = Vector2( 28, 0 )
+rect_min_size = Vector2( 24, 0 )
 hint_tooltip = "Sign A, object 0:17"
 toggle_mode = true
 pressed = true
@@ -903,7 +1009,7 @@ Letter = "A"
 Slot = 0
 
 [node name="LetterB" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/SignLetters"]
-rect_min_size = Vector2( 28, 0 )
+rect_min_size = Vector2( 24, 0 )
 hint_tooltip = "Sign B, object 0:18"
 toggle_mode = true
 group = SubResource( 20 )
@@ -913,7 +1019,7 @@ Letter = "B"
 Slot = 0
 
 [node name="LetterC" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/SignLetters"]
-rect_min_size = Vector2( 28, 0 )
+rect_min_size = Vector2( 24, 0 )
 hint_tooltip = "Sign C, object 0:19"
 toggle_mode = true
 group = SubResource( 20 )
@@ -922,13 +1028,18 @@ script = ExtResource( 17 )
 Letter = "C"
 Slot = 0
 
+[node name="SignPick" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/SignLetters"]
+unique_name_in_owner = true
+rect_min_size = Vector2( 28, 22 )
+expand_icon = true
+
 [node name="PageLetters" type="HBoxContainer" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top"]
 
 [node name="Label" type="Label" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
 text = "Page"
 
 [node name="Letter1" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Page 1"
 toggle_mode = true
 pressed = true
@@ -939,7 +1050,7 @@ Letter = ""
 Slot = 1
 
 [node name="Letter2" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Page 2: Sign2(A)... in World.ini"
 toggle_mode = true
 group = SubResource( 21 )
@@ -949,7 +1060,7 @@ Letter = "2"
 Slot = 1
 
 [node name="Letter3" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Page 3: Sign2(A)... in World.ini"
 toggle_mode = true
 group = SubResource( 21 )
@@ -959,7 +1070,7 @@ Letter = "3"
 Slot = 1
 
 [node name="Letter4" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Page 4: Sign2(A)... in World.ini"
 toggle_mode = true
 group = SubResource( 21 )
@@ -969,7 +1080,7 @@ Letter = "4"
 Slot = 1
 
 [node name="Letter5" type="Button" parent="Script/Forms/Sign/Scroll/Pad/Rows/Top/PageLetters"]
-rect_min_size = Vector2( 22, 0 )
+rect_min_size = Vector2( 18, 0 )
 hint_tooltip = "Page 5: Sign2(A)... in World.ini"
 toggle_mode = true
 group = SubResource( 21 )
@@ -1358,6 +1469,11 @@ script = ExtResource( 17 )
 Letter = "C"
 Slot = 0
 
+[node name="ShiftPick" type="Button" parent="Script/Forms/Shift/Scroll/Pad/Rows/ShiftLetters"]
+unique_name_in_owner = true
+rect_min_size = Vector2( 28, 22 )
+expand_icon = true
+
 [node name="WhereHeading" type="HBoxContainer" parent="Script/Forms/Shift/Scroll/Pad/Rows"]
 custom_constants/separation = 6
 
@@ -1725,6 +1841,11 @@ text = "C"
 script = ExtResource( 17 )
 Letter = "C"
 Slot = 0
+
+[node name="TrigPick" type="Button" parent="Script/Forms/Trig/Scroll/Pad/Rows/TriggerLetters"]
+unique_name_in_owner = true
+rect_min_size = Vector2( 28, 22 )
+expand_icon = true
 
 [node name="SpawnsHeading" type="HBoxContainer" parent="Script/Forms/Trig/Scroll/Pad/Rows"]
 custom_constants/separation = 6
@@ -2345,6 +2466,13 @@ custom_constants/margin_right = 6
 size_flags_horizontal = 3
 custom_constants/separation = 4
 
+[node name="Banner" parent="Script/Forms/World/Scroll/Pad/Rows" instance=ExtResource( 43 )]
+unique_name_in_owner = true
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 3
+focus_mode = 0
+hint_tooltip = "The level as the level list shows it. Hover: its size, difficulty and category\nClick: test it from the start (F5)"
+
 [node name="LevelHeading" type="HBoxContainer" parent="Script/Forms/World/Scroll/Pad/Rows"]
 custom_constants/separation = 6
 
@@ -2866,6 +2994,11 @@ script = ExtResource( 17 )
 Letter = "B"
 Slot = 1
 
+[node name="COPick" type="Button" parent="Script/Forms/CO/Scroll/Pad/Rows/Top"]
+unique_name_in_owner = true
+rect_min_size = Vector2( 28, 22 )
+expand_icon = true
+
 [node name="ImageHeading" type="HBoxContainer" parent="Script/Forms/CO/Scroll/Pad/Rows"]
 custom_constants/separation = 6
 
@@ -3327,30 +3460,46 @@ script = ExtResource( 40 )
 [connection signal="Edited" from="Script/Forms/Sign" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Sign" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Sign" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Sign" to="." method="_on_Form_Shown"]
+[connection signal="pressed" from="Script/Forms/Sign/Scroll/Pad/Rows/Top/SignLetters/SignPick" to="." method="_on_Form_Pick" binds= [ "Sign" ]]
 [connection signal="Edited" from="Script/Forms/Warp" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Warp" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Warp" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Warp" to="." method="_on_Form_Shown"]
 [connection signal="Edited" from="Script/Forms/Shift" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Shift" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Shift" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Shift" to="." method="_on_Form_Shown"]
+[connection signal="pressed" from="Script/Forms/Shift/Scroll/Pad/Rows/ShiftLetters/ShiftPick" to="." method="_on_Form_Pick" binds= [ "Shift" ]]
 [connection signal="Edited" from="Script/Forms/Trig" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Trig" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Trig" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Trig" to="." method="_on_Form_Shown"]
+[connection signal="pressed" from="Script/Forms/Trig/Scroll/Pad/Rows/TriggerLetters/TrigPick" to="." method="_on_Form_Pick" binds= [ "Trig" ]]
 [connection signal="Edited" from="Script/Forms/Misc" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Misc" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Misc" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Misc" to="." method="_on_Form_Shown"]
 [connection signal="Edited" from="Script/Forms/Cut" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/Cut" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/Cut" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/Cut" to="." method="_on_Form_Shown"]
 [connection signal="Edited" from="Script/Forms/World" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/World" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/World" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/World" to="." method="_on_Form_Shown"]
+[connection signal="GamePressed" from="Script/Forms/World/Scroll/Pad/Rows/Banner" to="." method="_on_Banner_GamePressed"]
 [connection signal="Edited" from="Script/Forms/CO" to="." method="_on_Form_Edited"]
 [connection signal="Done" from="Script/Forms/CO" to="." method="_on_Form_Done"]
 [connection signal="Focused" from="Script/Forms/CO" to="." method="_on_Form_Focused"]
+[connection signal="Shown" from="Script/Forms/CO" to="." method="_on_Form_Shown"]
+[connection signal="pressed" from="Script/Forms/CO/Scroll/Pad/Rows/Top/COPick" to="." method="_on_Form_Pick" binds= [ "CO" ]]
 [connection signal="pressed" from="ExpandMapButton" to="." method="_on_ExpandMapButton_pressed"]
 [connection signal="ScreenChosen" from="WorldView" to="." method="_on_WorldView_ScreenChosen"]
 [connection signal="ScreenMenu" from="WorldView" to="." method="_on_WorldView_ScreenMenu"]
 [connection signal="ThingChosen" from="WorldView" to="." method="_on_WorldView_ThingChosen"]
 [connection signal="gui_input" from="Panel/Tabs/MapColor" to="." method="_on_MapColor_gui_input"]
 [connection signal="Chosen" from="MapColorPopup/MapColorGrid" to="." method="_on_MapColorGrid_Chosen"]
+[connection signal="tab_changed" from="Script/Forms" to="." method="_on_Forms_tab_changed"]
+[connection signal="mouse_entered" from="ScreenView" to="." method="_on_ScreenView_hover" binds= [ true ]]
+[connection signal="mouse_exited" from="ScreenView" to="." method="_on_ScreenView_hover" binds= [ false ]]

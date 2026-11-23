@@ -729,8 +729,8 @@ public class Juni : KinematicBody2D
                 Sprite.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/juni.png");
                 Umbrella.Texture = GDKnyttAssetManager.loadInternalTexture("res://knytt/juni/umbrella_item.png");
                 Umbrella.Custom = false;
-                JuniClothesSkip = Game.GDWorld.KWorld.Info.Clothes != -1;
-                JuniSkinSkip = Game.GDWorld.KWorld.Info.Skin != -1;
+                JuniClothesSkip = Game.GDWorld.KWorld.Info.Clothes == -1;
+                JuniSkinSkip = Game.GDWorld.KWorld.Info.Skin == -1;
                 Powers.Character = character = "juni";
             }
         }

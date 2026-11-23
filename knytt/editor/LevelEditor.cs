@@ -126,6 +126,12 @@ public class LevelEditor : Control
     // Juni as juni.png has her, and the look she was last shown in: character, clothes, skin
     private Texture juni_texture;
     private string juni_look;
+    // For the forms' helpers: the level's icon and sign font, and whether the mouse is on the screen (the sign preview hides)
+    private Texture level_icon;
+    private string sign_font_file;
+    private BitmapFont sign_font;
+    private Font sign_label_font;
+    private bool over_screen;
     private MiniMap mini_map;
     private ObjectPalette palette;
     private TestDialog test_dialog;
@@ -172,6 +178,7 @@ public class LevelEditor : Control
 
         screen_view = GetNode<ScreenView>("%ScreenView");
         juni_texture = screen_view.JuniTexture;
+        sign_label_font = GetNode<Label>("%SignPreview").GetFont("font");
         mini_map = GetNode<MiniMap>("%MiniMap");
         palette = GetNode<ObjectPalette>("%ObjectPalette");
         test_dialog = GetNode<TestDialog>("%TestDialog");
@@ -244,6 +251,8 @@ public class LevelEditor : Control
         GetNode<WorldView>("%WorldView").init(world, assets, catalog);
         juni_look = null;
         showJuni();
+        level_icon = null;
+        sign_font_file = null;
         showStart();
         selectObject(0, 0);
         selectLayer(0);
@@ -338,7 +347,7 @@ public class LevelEditor : Control
     // The forms show the text as it is, typed or not
     private void showForms()
     {
-        var ini = KnyttWorld.parseWorldIni(ini_edit.Text);
+        var ini = scriptIni();
         foreach (IniForm form in GetNode("%Forms").GetChildren()) { form.show(ini, ScreenSection); }
     }
 
@@ -400,7 +409,7 @@ public class LevelEditor : Control
     // Juni the way the level dresses her, at the start and as the brush. A custom character isn't recoloured, as in the game
     private void showJuni()
     {
-        var ini = KnyttWorld.parseWorldIni(script.Visible ? ini_edit.Text : worldFile("World.ini"));
+        var ini = script.Visible ? scriptIni() : KnyttWorld.parseWorldIni(worldFile("World.ini"));
         var info = new KnyttWorldInfo(ini["World"] ?? new IniParser.Model.KeyDataCollection());
         string character = KnyttJuniLook.character(info);
         string look = $"{character}/{info.Clothes}/{info.Skin}";
@@ -1448,6 +1457,7 @@ public class LevelEditor : Control
         GetNode<Button>("%ScriptButton").Text = pressed ? "Script <" : "Script >";
         stretch();
         showScript();
+        showSignPreview();
     }
 
     private void _on_IniEdit_text_changed()
@@ -1483,11 +1493,144 @@ public class LevelEditor : Control
         setScriptText(KnyttUtil.setIniValue(ini_edit.Text, section, key, value == "" ? null : value));
         showKey(section, key);
         if (section == "World") { showJuni(); }
+        showFormHelpers();
     }
 
     private void _on_Form_Done()
     {
         applyScript();
+    }
+
+    // A form's fields show new values or letters
+    private void _on_Form_Shown()
+    {
+        showFormHelpers();
+    }
+
+    private void _on_Forms_tab_changed(int tab)
+    {
+        showSignPreview();
+    }
+
+    private void _on_ScreenView_hover(bool over)
+    {
+        over_screen = over;
+        showSignPreview();
+    }
+
+    // The script text parsed, once for each change: World.ini can be megabytes
+    private string parsed_text;
+    private IniParser.Model.IniData parsed_ini;
+    private IniParser.Model.IniData scriptIni()
+    {
+        if (parsed_text != ini_edit.Text)
+        {
+            parsed_text = ini_edit.Text;
+            parsed_ini = KnyttWorld.parseWorldIni(parsed_text);
+        }
+        return parsed_ini;
+    }
+
+    // What sits by the forms: the sign as the game shows it, the level as its list shows it, the pick buttons.
+    // Every form says when it's shown, so this waits for the end of the frame and runs once
+    private bool helpers_pending;
+    private void showFormHelpers()
+    {
+        if (helpers_pending) { return; }
+        helpers_pending = true;
+        CallDeferred(nameof(showFormHelpersNow));
+    }
+
+    private void showFormHelpersNow()
+    {
+        helpers_pending = false;
+        if (world == null || !script.Visible) { return; }
+        showSignPreview();
+        showBanner();
+        showPickButtons();
+    }
+
+    // The Sign form's page over the screen, where that sign is (mid-screen when it isn't there), the way the game shows
+    // it. Only while the Sign form is open and the mouse is off the screen, so it never covers what's being painted
+    private void showSignPreview()
+    {
+        var preview = GetNode<Label>("%SignPreview");
+        var form = GetNode<IniForm>("%Forms/Sign");
+        preview.Visible = false;
+        if (world == null || !script.Visible || over_screen || GetNode<TabContainer>("%Forms").GetCurrentTabControl() != form) { return; }
+
+        var ini = scriptIni();
+        var screen = ini[ScreenSection];
+        string letter = form.Letters[0], page = form.Letters[1];
+        int number = page == "" ? 1 : int.TryParse(page, out int n) ? n : 1;
+        string sign(int at) => screen?[$"Sign{(at == 1 ? "" : at.ToString())}({letter})"];
+        string text = KnyttSign.wrap(sign(number));
+        if (text == null && number == 1 && sign(2) == null) { text = "[SILENCE]"; }
+        if (text == null) { return; }
+
+        string font_file = ini["World"]?["Font"];
+        if (font_file != sign_font_file)
+        {
+            sign_font_file = font_file;
+            sign_font = font_file == null ? null : GDKnyttGame.loadFont(world, font_file, 7, 13);
+        }
+        // A level's font is an image: drawn white it keeps its own colours
+        if (sign_font != null) { preview.AddFontOverride("font", sign_font); preview.AddColorOverride("font_color", Colors.White); }
+        else { preview.AddFontOverride("font", sign_label_font); preview.AddColorOverride("font_color", Colors.Black); }
+
+        preview.Text = text;
+        preview.GetNode<Control>("Arrow").Visible = sign(number + 1) != null;
+        preview.RectSize = new Vector2(preview.RectSize.x, 0);
+
+        var spot = new Vector2(12, 4) * TILE;
+        int obj = 17 + "ABC".IndexOf(letter);
+        var area = world.getArea(coords);
+        if (area != null && !area.Empty && obj >= 17)
+        {
+            var found = Enumerable.Range(0, KnyttArea.AREA_SPRITE_LAYERS)
+                .SelectMany(l => Enumerable.Range(0, KnyttArea.AREA_WIDTH * KnyttArea.AREA_HEIGHT).Select(i => (l, i)))
+                .Where(c => area.ObjectLayers[c.l].getObjectID(c.i % KnyttArea.AREA_WIDTH, c.i / KnyttArea.AREA_WIDTH).Equals(new KnyttPoint(0, obj)))
+                .Select(c => (int?)c.i).FirstOrDefault();
+            if (found != null) { spot = new Vector2(found.Value % KnyttArea.AREA_WIDTH, found.Value / KnyttArea.AREA_WIDTH) * TILE; }
+        }
+        var (x, y) = KnyttSign.place(spot.x, spot.y, preview.RectSize.y);
+        preview.RectPosition = ScreenView.Offset + spot + new Vector2(x, y);
+        preview.Visible = true;
+    }
+
+    // The World form's banner: the level's button in the level list, as the fields have it now
+    private void showBanner()
+    {
+        var info = new KnyttWorldInfo(scriptIni()["World"] ?? new IniParser.Model.KeyDataCollection());
+        if (level_icon == null) { level_icon = GDKnyttAssetManager.loadTexture(world.getWorldData("Icon.png")); }
+        GetNode<GameButton>("%Banner").initialize(new WorldEntry(info) { IconTexture = level_icon });
+    }
+
+    private void _on_Banner_GamePressed(Node banner)
+    {
+        test();
+    }
+
+    // Each pick button shows the object its form edits
+    private void showPickButtons()
+    {
+        foreach (var name in new[] { "Sign", "Shift", "Trig", "CO" })
+        {
+            var button = GetNode<Button>($"%{name}Pick");
+            var id = KnyttChoices.formObject(name, GetNode<IniForm>($"%Forms/{name}").Letters);
+            button.Disabled = id == null;
+            button.Icon = id == null ? null : assets.getObject(id.Value);
+            button.HintTooltip = id == null ? "Not an object: custom objects are 1-255" : $"Paint with it: {catalog.title(id.Value)}";
+        }
+    }
+
+    // Paints with the form's object, on an object layer
+    private void _on_Form_Pick(string name)
+    {
+        var id = KnyttChoices.formObject(name, GetNode<IniForm>($"%Forms/{name}").Letters);
+        if (id == null) { return; }
+        selectObject(id.Value.x, id.Value.y);
+        if (!ObjectLayer) { selectLayer(KnyttArea.AREA_TILE_LAYERS); }
     }
 
     private void _on_Form_Focused(string section, string key)
@@ -1500,7 +1643,7 @@ public class LevelEditor : Control
     {
         switch (list)
         {
-            case "character": return KnyttChoices.characterChoices(KnyttWorld.parseWorldIni(ini_edit.Text), worldPaths());
+            case "character": return KnyttChoices.characterChoices(scriptIni(), worldPaths());
             case "cutscene": return KnyttChoices.cutscenes(worldPaths()).Select(c => new KnyttChoice(c, c)).ToList();
             case "flag": return KnyttChoices.flags();
             case "warpflag": return KnyttChoices.warpFlags();
