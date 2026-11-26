@@ -185,6 +185,18 @@ Level start (Edit > Level start, right-click SET START):
 - Use as level start (in the dialog, or Test > Use X as level start for the chosen profile): the profile laid over
   the level's start, like a test starts, written as one undo step. Picking a profile in the list never writes the level
 
+Checking (covers what KS+ checks; KnyttCheck in yknyttlib, WorldFiles in the editor):
+- Each screen: music and ambiance A/B that neither the level nor the game has, backgrounds and tilesets not found,
+  a level background that isn't 240 tall, a level tileset that isn't 384 wide and at least 192 tall (the game's own
+  images are always right; YKnytt's stock tilesets are 384x202). Shown under the screen, amber; click for the list
+- The level: its file isn't "Author - Name" (bundled res:// levels are skipped), no category, difficulty or size
+- Test > Check the level lists everything; a save does too when there's something. Click a line: a screen problem
+  goes to the next screen with it after this one (the list says when this one has it too), a level one opens
+  its World field. KS+'s "fully transparent tiles" check
+  is not done
+- Says "problems", never "KS+ would warn": YKnytt is the editor now
+- WorldFiles keeps its answers; it's renewed on load and after each save
+
 Test profiles:
 - A profile is a start state: a savegame that only holds what it sets, laid over DefaultSavegame.ini at start
 - Stored on this machine, never in the level: <data>/Editor/<level folder>/Tests/<name>.ini
@@ -211,8 +223,8 @@ KS+Source.zip, plus clicking it under Wine):
   is a swatch of the colour YKnytt's map shows (MapPanel.areaColor), not a number
 - Script panel: sign preview, level banner and pick buttons done (2026-11-20). KS+ has a warp pick button too;
   ours has none (warps aren't objects)
-- Missing, saving: warnings for a background of the wrong height, music or ambiance files not found, a level folder
-  that doesn't match World.ini, missing Category / Difficulty / Size
+- Saving warnings done (2026-11-23), see Checking. KS+ shows a screen's problems when it loads and the folder and
+  tag checks on save; ours does both, and lists the whole level in one place
 - Missing, format: switching a level between KS+ and original KS, which hides KS+ objects for original levels
 - Smaller differences: KS+ music and ambiance preview while held (right-click toggles), ours toggle on click. KS+ tests
   by clicking TEST LEVEL then a cell, ours F5 from the start and F6 from a cell. Test powers are icons in KS+, a

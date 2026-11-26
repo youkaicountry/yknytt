@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://knytt/editor/LevelEditor.cs" type="Script" id=1]
 [ext_resource path="res://knytt/editor/ScreenView.cs" type="Script" id=2]
@@ -160,6 +160,17 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=49]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color( 0.14, 0.1, 0.06, 0.88 )
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="LevelEditor" type="Control"]
 anchor_right = 1.0
@@ -339,6 +350,23 @@ hint_tooltip = "Colour of the line round the screen
 Click: next. Right-click: back"
 button_mask = 3
 texture_normal = ExtResource( 35 )
+
+[node name="ScreenProblems" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_left = 30.0
+margin_top = 287.0
+margin_right = 40.0
+margin_bottom = 305.0
+focus_mode = 0
+custom_colors/font_color = Color( 1, 0.8, 0.35, 1 )
+custom_colors/font_color_hover = Color( 1, 0.92, 0.65, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.92, 0.65, 1 )
+custom_styles/hover = SubResource( 49 )
+custom_styles/pressed = SubResource( 49 )
+custom_styles/normal = SubResource( 49 )
+hint_tooltip = "Problems on this screen
+Click: the whole level's"
 
 [node name="ChangeBar" type="Control" parent="."]
 margin_left = 194.0
@@ -3351,6 +3379,35 @@ bbcode_text = "[table=2][cell][u]Objects[/u][/cell][cell][/cell][cell][color=#55
 text = ""
 scroll_active = false
 
+[node name="CheckDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+margin_right = 460.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 460, 300 )
+window_title = "Check"
+
+[node name="Rows" type="VBoxContainer" parent="CheckDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+custom_constants/separation = 6
+
+[node name="CheckSummary" type="Label" parent="CheckDialog/Rows"]
+unique_name_in_owner = true
+margin_right = 444.0
+margin_bottom = 14.0
+autowrap = true
+
+[node name="CheckList" type="ItemList" parent="CheckDialog/Rows"]
+unique_name_in_owner = true
+margin_top = 20.0
+margin_right = 444.0
+margin_bottom = 256.0
+size_flags_vertical = 3
+
 [node name="TestDialog" parent="." instance=ExtResource( 11 )]
 unique_name_in_owner = true
 
@@ -3373,6 +3430,8 @@ margin_right = 150.0
 margin_bottom = 150.0
 script = ExtResource( 40 )
 
+[connection signal="pressed" from="ScreenProblems" to="." method="_on_ScreenProblems_pressed"]
+[connection signal="item_selected" from="CheckDialog/Rows/CheckList" to="." method="_on_CheckList_item_selected"]
 [connection signal="toggled" from="NeighboursButton" to="." method="_on_NeighboursButton_toggled"]
 [connection signal="gui_input" from="BorderButton" to="." method="_on_BorderButton_gui_input"]
 [connection signal="toggled" from="GuidesButton" to="." method="_on_GuidesButton_toggled"]

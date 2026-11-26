@@ -17,7 +17,7 @@ public class LevelEditor : Control
     private enum EditMenu { Undo, Redo, LevelStart }
     private enum OptionsMenu { FadeLayers, FollowScript, Guides, Neighbours }
     private enum GoToMenu { Start, Default, Coordinates, WorldMap }
-    private enum TestMenu { FromStart, FromHere, Profiles, UseAsStart, Profile = 100 }
+    private enum TestMenu { FromStart, FromHere, Profiles, UseAsStart, Check, Profile = 100 }
     private enum Placing { None, Start, Test, Profile }
     private enum CellMenu { Pick, Fill, Replace, Test, Start }
 
@@ -153,6 +153,10 @@ public class LevelEditor : Control
     private ConfirmationDialog save_as_dialog;
     private ConfirmationDialog unsaved_dialog;
     private AcceptDialog keys_dialog;
+    // The level's problems: where its files are, and the last check
+    private AcceptDialog check_dialog;
+    private WorldFiles files;
+    private List<KnyttProblem> problems = new List<KnyttProblem>();
 
     public static bool Available => OS.GetName() != "Unix";
 
@@ -190,6 +194,7 @@ public class LevelEditor : Control
         unsaved_dialog = GetNode<ConfirmationDialog>("%UnsavedDialog");
         unsaved_dialog.GetOk().Text = "Leave";
         keys_dialog = GetNode<AcceptDialog>("%KeysDialog");
+        check_dialog = GetNode<AcceptDialog>("%CheckDialog");
 
         var file_menu = GetNode<MenuButton>("%FileMenu").GetPopup();
         file_menu.AddItem("Save", (int)FileMenu.Save, (uint)KeyModifierMask.MaskCtrl | (uint)KeyList.S);
@@ -243,6 +248,7 @@ public class LevelEditor : Control
         this.world = world;
         if (world.Map == null) { world.loadWorldMap(new MemoryStream(world.getWorldData("Map.bin"))); }
         assets = new EditorAssets(world);
+        files = new WorldFiles(world);
         catalog = new ObjectCatalog(world);
         palette.init(assets, catalog);
         test_dialog.init(world);
@@ -635,6 +641,7 @@ public class LevelEditor : Control
         menu.Clear();
         menu.AddItem("From start", (int)TestMenu.FromStart, (uint)KeyList.F5);
         menu.AddItem("From here", (int)TestMenu.FromHere, (uint)KeyList.F6);
+        menu.AddItem("Check the level", (int)TestMenu.Check);
         menu.AddSeparator();
         menu.AddRadioCheckItem("Level default", (int)TestMenu.Profile);
         menu.SetItemChecked(menu.GetItemCount() - 1, test_dialog.Profile == null);
@@ -782,6 +789,69 @@ public class LevelEditor : Control
             }
         }
         GetNode<Label>("%StatusLabel").Text = text + status_message;
+        showScreenProblems();
+    }
+
+    // This screen's problems, under it
+    private void showScreenProblems()
+    {
+        var button = GetNode<Button>("%ScreenProblems");
+        var area = world.getArea(coords);
+        var found = area == null || area.Empty ? new List<string>() : KnyttCheck.screen(KnyttCheck.Screen.of(area), files);
+        button.Visible = found.Count > 0;
+        if (found.Count == 0) { return; }
+        string text = found.Count == 1 ? found[0] : $"{found[0]}, and {found.Count - 1} more";
+        if (button.Text == text) { return; }
+        button.Text = text;
+        button.RectSize = Vector2.Zero;
+    }
+
+    private void _on_ScreenProblems_pressed()
+    {
+        check();
+        showCheck("");
+    }
+
+    // Every problem in the level. The file name counts once the level has its own file
+    private void check()
+    {
+        string file = world.WorldDirectory.StartsWith("res://") ? null : world.WorldDirectory.GetFile();
+        if (file != null && file.EndsWith(".knytt.bin")) { file = file.Substring(0, file.Length - ".knytt.bin".Length); }
+        problems = KnyttCheck.all(world.Info, file, world.Map.Values.Where(a => !a.Empty).Select(KnyttCheck.Screen.of), files);
+    }
+
+    // The last check as a list; each line goes where it is, a screen problem to its next screen after this one
+    private void showCheck(string heading)
+    {
+        if (problems.Count == 0) { showStatus("No problems found"); return; }
+        var list = GetNode<ItemList>("%CheckList");
+        list.Clear();
+        foreach (var problem in problems)
+        {
+            int count = problem.Screens.Count;
+            bool here = problem.Screens.Contains(coords);
+            string where = count == 1 ? (here ? "this screen" : "1 screen") : $"{count} screens" + (here ? ", this one too" : "");
+            list.AddItem(count == 0 ? problem.Text : $"{problem.Text}   ({where})");
+            string screens = string.Join(", ", problem.Screens.Take(8).Select(at => $"x{at.x}y{at.y}")) + (count > 8 ? $" and {count - 8} more" : "");
+            list.SetItemTooltip(list.GetItemCount() - 1, count == 0 ? "Click: its field in the World tab" : $"{screens}\nClick: the next screen with it");
+        }
+        GetNode<Label>("%CheckSummary").Text = heading + "These need a look. Click one to go there";
+        check_dialog.PopupCentered();
+    }
+
+    private void _on_CheckList_item_selected(int index)
+    {
+        GetNode<ItemList>("%CheckList").Unselect(index);
+        check_dialog.Hide();
+        var problem = problems[index];
+        if (problem.Screens.Count == 0)
+        {
+            if (problem.Key != null) { editKey("World", problem.Key); }
+            return;
+        }
+        var next = KnyttCheck.nextScreen(problem.Screens, coords);
+        if (next == null) { showStatus("Only on this screen"); return; }
+        goTo(next.Value);
     }
 
     private bool mouseOver(params string[] nodes)
@@ -911,11 +981,16 @@ public class LevelEditor : Control
         showScript();
     }
 
+    // A save that worked checks the level too, and lists its problems
     private void showSaveResult(Error result)
     {
         if (result == Error.Ok) { history.markSaved(); }
         showChanged();
         showStatus(result == Error.Ok ? $"Saved {world.WorldDirectory.GetFile()}" : $"Can't save ({result})");
+        if (result != Error.Ok) { return; }
+        files = new WorldFiles(world);
+        check();
+        if (problems.Count > 0) { showCheck($"Saved {world.WorldDirectory.GetFile()}. "); }
     }
 
     private void quit(bool game = false)
@@ -948,7 +1023,7 @@ public class LevelEditor : Control
 
         // Space held shows every layer at full strength. Caught here so a focused button isn't pressed; text fields keep it
         if (@event is InputEventKey peek && peek.Scancode == (uint)KeyList.Space && !(focus is LineEdit || focus is TextEdit) &&
-            !(goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || palette.Visible))
+            !(goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || check_dialog.Visible || palette.Visible))
         {
             GetTree().SetInputAsHandled();
             if (!peek.Echo && screen_view.Peeking != peek.Pressed)
@@ -969,7 +1044,7 @@ public class LevelEditor : Control
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || palette.Visible) { return; }
+        if (goto_dialog.Visible || overwrite_dialog.Visible || save_as_dialog.Visible || unsaved_dialog.Visible || keys_dialog.Visible || check_dialog.Visible || palette.Visible) { return; }
 
         // Esc lets go of a script field, stops placing, then stops painting. Back and F2 leave
         bool cancel = @event.IsActionPressed("ui_cancel");
@@ -1124,6 +1199,7 @@ public class LevelEditor : Control
             case TestMenu.FromStart: test(); break;
             case TestMenu.FromHere: testFromHere(); break;
             case TestMenu.Profiles: test_dialog.open(); break;
+            case TestMenu.Check: check(); showCheck(""); break;
             case TestMenu.UseAsStart:
                 test_dialog.useAsLevelStart(test_dialog.Profile);
                 showStatus($"Level start: {test_dialog.Profile.Name}");

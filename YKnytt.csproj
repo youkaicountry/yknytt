@@ -269,6 +269,7 @@
     <Compile Include="knytt\editor\TestDialog.cs" />
     <Compile Include="knytt\editor\TestProfile.cs" />
     <Compile Include="knytt\editor\WorldName.cs" />
+    <Compile Include="knytt\editor\WorldFiles.cs" />
     <Compile Include="knytt\juni\Juni.cs" />
     <Compile Include="knytt\juni\JuniState.cs" />
     <Compile Include="knytt\juni\JuniInput.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="knytt\lib\yknyttlib\KnyttChoices.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttJuniLook.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttSign.cs" />
+    <Compile Include="knytt\lib\yknyttlib\KnyttCheck.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttFill.cs" />
     <Compile Include="knytt\lib\yknyttlib\KnyttStamp.cs" />
     <Compile Include="knytt\lib\yknyttlib\Paging\KnyttPagingPolicy.cs" />
